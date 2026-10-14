@@ -1,6 +1,7 @@
 const express = require('express');
 const { initDb, queryAll, queryOne, runInsert } = require('./db');
 const { runGeoAudit } = require('./geo-engine');
+const { renderBrandLogoSvg } = require('./templates');
 const {
   renderHomePage,
   renderLandingPage,
@@ -18,12 +19,61 @@ const app = express();
 app.use(express.json({ limit: '1mb' }));
 app.use(express.urlencoded({ extended: true }));
 
-// Security headers (Pre-Launch Checklist Checkpoint #4)
+// In-memory rate limiter for public API routes (Pre-Launch Checklist Checkpoint #18)
+const rateLimitStore = new Map();
+function rateLimitMiddleware(req, res, next) {
+  const ip = req.ip || '127.0.0.1';
+  const now = Date.now();
+  const windowMs = 60 * 1000;
+  const maxReqs = 120;
+  const record = rateLimitStore.get(ip) || { count: 0, resetAt: now + windowMs };
+  if (now > record.resetAt) {
+    record.count = 0;
+    record.resetAt = now + windowMs;
+  }
+  record.count += 1;
+  rateLimitStore.set(ip, record);
+  res.setHeader('X-RateLimit-Limit', String(maxReqs));
+  res.setHeader('X-RateLimit-Remaining', String(Math.max(0, maxReqs - record.count)));
+  if (record.count > maxReqs) {
+    return res.status(429).json({ ok: false, error: 'Too many requests. Please try again in a minute.' });
+  }
+  next();
+}
+
+// Security headers & HTTPS enforcement (Pre-Launch Checklist Checkpoint #4)
 app.use((req, res, next) => {
+  if (req.headers['x-forwarded-proto'] === 'http') {
+    return res.redirect(301, `https://${req.headers.host}${req.originalUrl}`);
+  }
+  res.setHeader('Strict-Transport-Security', 'max-age=31536000; includeSubDomains; preload');
   res.setHeader('X-Content-Type-Options', 'nosniff');
   res.setHeader('X-Frame-Options', 'SAMEORIGIN');
   res.setHeader('Referrer-Policy', 'strict-origin-when-cross-origin');
   next();
+});
+
+// Bespoke Brand Logo Favicon & Web App Manifest (Pre-Launch Checklist Checkpoint #8)
+app.get('/favicon.svg', (req, res) => {
+  res.status(200).type('image/svg+xml; charset=utf-8').send(renderBrandLogoSvg(64));
+});
+
+app.get('/favicon.ico', (req, res) => {
+  res.redirect(302, '/favicon.svg');
+});
+
+app.get('/manifest.webmanifest', (req, res) => {
+  res.status(200).type('application/manifest+json; charset=utf-8').send(JSON.stringify({
+    name: 'CitationForge — AI Search Visibility Studio',
+    short_name: 'CitationForge',
+    start_url: '/',
+    display: 'standalone',
+    background_color: '#FAF9F5',
+    theme_color: '#4F46E5',
+    icons: [
+      { src: '/favicon.svg', sizes: 'any', type: 'image/svg+xml' }
+    ]
+  }, null, 2));
 });
 
 // 1. Home Page (`GET /`)
@@ -135,9 +185,9 @@ app.get('/api/og', (req, res) => {
   const slug = String(req.query.slug || 'home').trim();
   const pageRow = queryOne('SELECT title, category, csov_score FROM seo_pages WHERE slug = ?', [slug]);
   const svg = renderOgImageSvg({
-    title: pageRow ? pageRow.title : 'CitationForge AI Search Visibility Radar',
+    title: pageRow ? pageRow.title : 'CitationForge AI Search Visibility Studio',
     subtitle: pageRow ? `Category: ${pageRow.category}` : 'Citation Share-of-Voice Scorer & Auto-llms.txt / JSON-LD Compiler',
-    badge: pageRow ? `GEO BENCHMARK · ${pageRow.category.toUpperCase()}` : 'CITATIONFORGE GEO RADAR v2.4',
+    badge: pageRow ? `GEO BENCHMARK · ${pageRow.category.toUpperCase()}` : 'CITATIONFORGE GEO STUDIO v2.5',
     scoreText: pageRow ? `${pageRow.csov_score}% cSoV` : '41.0% cSoV'
   });
   res.status(200).type('image/svg+xml; charset=utf-8').send(svg);
@@ -146,6 +196,10 @@ app.get('/api/og', (req, res) => {
 // 10. Interactive GEO Audit Endpoint (`POST /api/audit` & `GET /api/audit`)
 async function handleAuditRequest(req, res) {
   try {
+    // Honeypot check (Pre-Launch Checkpoint #18)
+    if (req.body?.website_hp) {
+      return res.status(400).json({ ok: false, error: 'Bot submission rejected.' });
+    }
     const rawDomain = req.body?.domain || req.query?.domain || 'linear.app';
     const category = req.body?.category || req.query?.category || undefined;
     const audit = await runGeoAudit(rawDomain, { category });
@@ -178,8 +232,8 @@ async function handleAuditRequest(req, res) {
   }
 }
 
-app.post('/api/audit', handleAuditRequest);
-app.get('/api/audit', handleAuditRequest);
+app.post('/api/audit', rateLimitMiddleware, handleAuditRequest);
+app.get('/api/audit', rateLimitMiddleware, handleAuditRequest);
 
 // 11. Meta Pixel + Conversions API (CAPI) Telemetry Endpoint (`POST /api/meta-capi` & `GET /api/meta-capi`)
 function handleMetaCapi(req, res) {
@@ -230,8 +284,8 @@ function handleMetaCapi(req, res) {
   });
 }
 
-app.post('/api/meta-capi', handleMetaCapi);
-app.get('/api/meta-capi', handleMetaCapi);
+app.post('/api/meta-capi', rateLimitMiddleware, handleMetaCapi);
+app.get('/api/meta-capi', rateLimitMiddleware, handleMetaCapi);
 
 // 12. Stripe Checkout Integration with Instant Local Sandbox Fulfillment (`POST /api/checkout` & `GET /api/checkout`)
 function handleCheckout(req, res) {
@@ -243,7 +297,7 @@ function handleCheckout(req, res) {
     : 'CitationForge Complete 50-Prompt One-Time GEO Audit Pack ($49)';
   const amountCents = isPro ? 9900 : 4900;
   const targetDomain = String(payload.target_domain || 'linear.app');
-  const customerEmail = String(payload.customer_email || `founder@${targetDomain}`);
+  const customerEmail = String(payload.customer_email || `vp-marketing@${targetDomain}`);
   const sessionId = `cs_live_cf_${Date.now()}_${Math.random().toString(36).slice(2, 7)}`;
 
   runInsert(
@@ -279,8 +333,8 @@ function handleCheckout(req, res) {
   });
 }
 
-app.post('/api/checkout', handleCheckout);
-app.get('/api/checkout', handleCheckout);
+app.post('/api/checkout', rateLimitMiddleware, handleCheckout);
+app.get('/api/checkout', rateLimitMiddleware, handleCheckout);
 
 // 13. Health & Telemetry Summary Endpoint (`GET /api/health`)
 app.get('/api/health', (req, res) => {
@@ -302,7 +356,7 @@ app.get('/api/health', (req, res) => {
   });
 });
 
-// 14. Custom 404 Handler
+// 14. Custom 404 Handler (Pre-Launch Checklist Checkpoint #15)
 app.use((req, res) => {
   res.status(404).type('html').send(render404Page(req.originalUrl));
 });

@@ -13,6 +13,7 @@ async function runVerification() {
     consoleErrors: [],
     pageErrors: [],
     httpChecks: {},
+    preLaunch20PointChecks: {},
     interactiveChecks: {},
     screenshots: []
   };
@@ -31,6 +32,8 @@ async function runVerification() {
     '/llms-full.txt',
     '/privacy',
     '/terms',
+    '/favicon.svg',
+    '/manifest.webmanifest',
     '/api/og?slug=stripe-vs-adyen-ai-citation-audit',
     '/api/health'
   ];
@@ -41,6 +44,8 @@ async function runVerification() {
     results.httpChecks[ep] = {
       status: res.status,
       contentType: res.headers.get('content-type'),
+      hsts: res.headers.get('strict-transport-security'),
+      rateLimit: res.headers.get('x-ratelimit-limit'),
       bytes: text.length
     };
     if (res.status !== 200) {
@@ -48,7 +53,19 @@ async function runVerification() {
     }
   }
 
-  // Verify POST /api/audit, POST /api/meta-capi, POST /api/checkout
+  // Verify custom 404 page
+  const res404 = await fetch(`${BASE_URL}/missing-route-verify-404`);
+  const text404 = await res404.text();
+  results.httpChecks['/missing-route-verify-404'] = {
+    status: res404.status,
+    hasBrandLogoLink: text404.includes('id="nav-brand-logo-link"') && text404.includes('href="/"'),
+    hasDirectoryCta: text404.includes('href="/directory"')
+  };
+  if (res404.status !== 404) {
+    throw new Error(`Expected HTTP 404 for /missing-route-verify-404, got ${res404.status}`);
+  }
+
+  // Verify POST /api/audit, POST /api/meta-capi, POST /api/checkout, and Honeypot
   const auditRes = await fetch(`${BASE_URL}/api/audit`, {
     method: 'POST',
     headers: { 'Content-Type': 'application/json' },
@@ -58,10 +75,20 @@ async function runVerification() {
   results.httpChecks['POST /api/audit'] = {
     status: auditRes.status,
     ok: auditJson.ok,
+    rateLimitHeader: auditRes.headers.get('x-ratelimit-limit'),
     domain: auditJson.audit?.domain,
     csovPct: auditJson.audit?.scores?.csovPct,
     executionMs: auditJson.audit?.executionMs
   };
+
+  // Verify Honeypot protection
+  const hpRes = await fetch(`${BASE_URL}/api/audit`, {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify({ domain: 'spam-bot.io', website_hp: 'http://spambot.io' })
+  });
+  const hpJson = await hpRes.json();
+  results.preLaunch20PointChecks.honeypotBlocked = hpRes.status === 400 && hpJson.ok === false;
 
   const capiRes = await fetch(`${BASE_URL}/api/meta-capi`, {
     method: 'POST',
@@ -116,7 +143,22 @@ async function runVerification() {
 
     // A. Navigate to `/` on Desktop
     await page.goto(`${BASE_URL}/`, { waitUntil: 'networkidle' });
-    await page.evaluate(() => { if (typeof setCookieConsent === 'function') setCookieConsent('accepted'); });
+
+    // Verify hyperlinked SVG logo exists and points to `/`
+    const logoCheck = await page.evaluate(() => {
+      const link = document.getElementById('nav-brand-logo-link');
+      const svg = document.getElementById('citation-forge-logo-svg');
+      return {
+        exists: Boolean(link && svg),
+        href: link ? link.getAttribute('href') : null,
+        hasFloatingFixedOverlays: Array.from(document.querySelectorAll('*')).some(el => {
+          const style = window.getComputedStyle(el);
+          return style.position === 'fixed' && style.display !== 'none' && el.tagName !== 'HEADER';
+        })
+      };
+    });
+    results.preLaunch20PointChecks.desktopLogoAndZeroFloatingOverlays = logoCheck;
+
     const initialTitle = await page.locator('#score-brand-title').textContent();
 
     // Test interactive preset click (`supabase.com`)
@@ -151,22 +193,29 @@ async function runVerification() {
 
     // B. Navigate to `/lp` on Desktop
     await page.goto(`${BASE_URL}/lp?utm_source=meta&utm_medium=paid_social&utm_campaign=verify`, { waitUntil: 'networkidle' });
-    await page.evaluate(() => { if (typeof setCookieConsent === 'function') setCookieConsent('accepted'); window.scrollTo(0, 0); });
+    await page.evaluate(() => window.scrollTo(0, 0));
     const lpShot = path.join(SCREENSHOT_DIR, 'desktop-lp.png');
     await page.screenshot({ path: lpShot, fullPage: false });
     results.screenshots.push(lpShot);
 
     // C. Navigate to `/directory` on Desktop
     await page.goto(`${BASE_URL}/directory`, { waitUntil: 'networkidle' });
+    await page.evaluate(() => window.scrollTo(0, 0));
     const dirShot = path.join(SCREENSHOT_DIR, 'desktop-directory.png');
     await page.screenshot({ path: dirShot, fullPage: false });
     results.screenshots.push(dirShot);
 
     // D. Navigate to `/seo/stripe-vs-adyen-ai-citation-audit` on Desktop
     await page.goto(`${BASE_URL}/seo/stripe-vs-adyen-ai-citation-audit`, { waitUntil: 'networkidle' });
+    await page.evaluate(() => window.scrollTo(0, 0));
     const seoShot = path.join(SCREENSHOT_DIR, 'desktop-seo-detail.png');
     await page.screenshot({ path: seoShot, fullPage: false });
     results.screenshots.push(seoShot);
+
+    // Test clicking the brand logo from `/seo/stripe-vs-adyen-ai-citation-audit` returns to `/`
+    await page.click('#nav-brand-logo-link');
+    await page.waitForURL(`${BASE_URL}/`);
+    results.preLaunch20PointChecks.logoClickNavigatesHome = page.url() === `${BASE_URL}/`;
 
     await desktopCtx.close();
 
@@ -181,11 +230,22 @@ async function runVerification() {
     });
 
     await mPage.goto(`${BASE_URL}/`, { waitUntil: 'networkidle' });
-    await mPage.evaluate(() => { if (typeof setCookieConsent === 'function') setCookieConsent('accepted'); window.scrollTo(0, 0); });
-    const mobileOverflow = await mPage.evaluate(() => {
-      return document.documentElement.scrollWidth > document.documentElement.clientWidth;
+    await mPage.evaluate(() => window.scrollTo(0, 0));
+    const mobileAudit = await mPage.evaluate(() => {
+      const hasOverflow = document.documentElement.scrollWidth > document.documentElement.clientWidth;
+      const fixedEls = Array.from(document.querySelectorAll('*')).filter(el => {
+        const style = window.getComputedStyle(el);
+        return style.position === 'fixed' && style.display !== 'none';
+      });
+      const inputEl = document.getElementById('domain-input');
+      const inputRect = inputEl ? inputEl.getBoundingClientRect() : null;
+      return {
+        mobileHorizontalOverflow: hasOverflow,
+        fixedOverlayCountOnMobile: fixedEls.length,
+        inputVisibleInViewport: Boolean(inputRect && inputRect.top > 0 && inputRect.bottom < window.innerHeight)
+      };
     });
-    results.interactiveChecks.mobileHorizontalOverflow = mobileOverflow;
+    Object.assign(results.interactiveChecks, mobileAudit);
 
     const homeMobileShot = path.join(SCREENSHOT_DIR, 'mobile-home.png');
     await mPage.screenshot({ path: homeMobileShot, fullPage: false });
