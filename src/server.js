@@ -13,7 +13,8 @@ const {
 } = require('./page-views');
 
 const PORT = Number(process.env.PORT || 4101);
-const HOST = '127.0.0.1';
+const HOST = process.env.HOST || '127.0.0.1';
+const PUBLIC_URL = (process.env.PUBLIC_URL || process.env.BASE_URL || `http://${HOST}:${PORT}`).replace(/\/$/, '');
 
 const app = express();
 app.use(express.json({ limit: '1mb' }));
@@ -160,14 +161,14 @@ app.get('/robots.txt', (req, res) => {
     'User-agent: *',
     'Allow: /',
     '',
-    `Sitemap: http://${HOST}:${PORT}/sitemap.xml`
+    `Sitemap: ${PUBLIC_URL}/sitemap.xml`
   ].join('\n');
   res.status(200).type('text/plain; charset=utf-8').send(robots);
 });
 
 // 8. Valid XML Sitemap (`GET /sitemap.xml`) listing `/`, `/lp`, `/directory`, and all 60+ `/seo/:slug` URLs
 app.get('/sitemap.xml', (req, res) => {
-  const baseUrl = `http://${HOST}:${PORT}`;
+  const baseUrl = PUBLIC_URL;
   const staticPaths = ['/', '/lp', '/directory', '/privacy', '/terms', '/llms.txt', '/llms-full.txt'];
   const seoSlugs = queryAll('SELECT slug, updated_at FROM seo_pages ORDER BY id ASC');
 
