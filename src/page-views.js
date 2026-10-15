@@ -78,12 +78,12 @@ function renderGraderAndCompilerSection(audit) {
                   <span class="window-dot" style="background:#10B981;"></span>
                 </span>
                 <div>
-                  <h2 style="font-size:1rem;font-weight:700;color:#F8FAFC;">Auto-Compiled GEO Artifact Dock</h2>
-                  <p style="font-size:0.76rem;color:#94A3B8;">Production-ready manifests for Next.js, FastAPI, Webflow &amp; Cloudflare</p>
+                  <h2 style="font-size:1rem;font-weight:700;color:var(--text-primary);">Auto-Compiled GEO Artifact Dock</h2>
+                  <p style="font-size:0.76rem;color:var(--text-secondary);">Production-ready manifests for Next.js, FastAPI, Webflow &amp; Cloudflare</p>
                 </div>
               </div>
               <div style="display:flex;gap:8px;">
-                <button type="button" id="copy-code-btn" class="btn mono" style="background:#1E293B;color:#F8FAFC;border-color:#334155;padding:7px 12px;font-size:0.76rem;" onclick="copyCompiledCode()">Copy Code</button>
+                <button type="button" id="copy-code-btn" class="btn btn-secondary mono" style="padding:7px 12px;font-size:0.76rem;" onclick="copyCompiledCode()">Copy Code</button>
                 <button type="button" class="btn btn-primary mono" style="padding:7px 12px;font-size:0.76rem;" onclick="downloadCompiledFile()">Download File</button>
               </div>
             </div>

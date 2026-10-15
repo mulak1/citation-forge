@@ -453,19 +453,19 @@ function renderHead({ title, description, canonicalPath, ogSlug, jsonLdString })
       letter-spacing: -0.02em;
       color: var(--text-primary);
     }
-    /* Dark Obsidian Artifact Dock (#0B0F19) for llms.txt & JSON-LD */
+    /* Warm Editorial Studio Artifact Dock for llms.txt & JSON-LD */
     .artifact-dock {
-      background: var(--bg-dock);
-      color: #F8FAFC;
-      border: 1px solid #1E293B;
+      background: var(--bg-surface);
+      color: var(--text-primary);
+      border: 1px solid var(--border-hairline);
       border-radius: var(--radius-card);
       overflow: hidden;
-      box-shadow: 0 20px 45px -15px rgba(15, 23, 42, 0.22);
+      box-shadow: var(--shadow-card);
     }
     .dock-header {
       padding: 14px 18px;
-      background: var(--bg-dock-header);
-      border-bottom: 1px solid #1E293B;
+      background: var(--bg-subtle);
+      border-bottom: 1px solid var(--border-hairline);
       display: flex;
       justify-content: space-between;
       align-items: center;
@@ -485,16 +485,16 @@ function renderHead({ title, description, canonicalPath, ogSlug, jsonLdString })
     .tab-bar {
       display: flex;
       gap: 6px;
-      border-bottom: 1px solid #1E293B;
+      border-bottom: 1px solid var(--border-hairline);
       padding: 8px 14px 0;
-      background: #080B12;
+      background: var(--bg-canvas);
       overflow-x: auto;
     }
     .tab-btn {
       background: transparent;
       border: none;
       border-bottom: 2px solid transparent;
-      color: #94A3B8;
+      color: var(--text-secondary);
       padding: 8px 12px;
       font-size: 0.79rem;
       font-weight: 600;
@@ -502,17 +502,17 @@ function renderHead({ title, description, canonicalPath, ogSlug, jsonLdString })
       white-space: nowrap;
       transition: color 140ms ease-out, border-color 140ms ease-out;
     }
-    .tab-btn:hover { color: #F8FAFC; }
+    .tab-btn:hover { color: var(--text-primary); }
     .tab-btn.active {
-      color: #34D399;
-      border-bottom-color: #10B981;
+      color: var(--accent-indigo);
+      border-bottom-color: var(--accent-indigo);
     }
     .code-viewport {
-      background: var(--bg-dock);
+      background: var(--bg-subtle);
       padding: 18px;
       font-size: 0.78rem;
       line-height: 1.6;
-      color: #E2E8F0;
+      color: var(--text-primary);
       overflow-x: auto;
       max-height: 330px;
       overflow-y: auto;
