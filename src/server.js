@@ -289,7 +289,7 @@ app.post('/api/meta-capi', rateLimitMiddleware, handleMetaCapi);
 app.get('/api/meta-capi', rateLimitMiddleware, handleMetaCapi);
 
 // 12. Stripe Checkout Integration with Instant Local Sandbox Fulfillment (`POST /api/checkout` & `GET /api/checkout`)
-function handleCheckout(req, res) {
+async function handleCheckout(req, res) {
   const payload = req.method === 'POST' ? (req.body || {}) : (req.query || {});
   const planId = String(payload.plan_id || 'audit_49');
   const isPro = planId === 'pro_99';
@@ -299,13 +299,50 @@ function handleCheckout(req, res) {
   const amountCents = isPro ? 9900 : 4900;
   const targetDomain = String(payload.target_domain || 'linear.app');
   const customerEmail = String(payload.customer_email || `vp-marketing@${targetDomain}`);
-  const sessionId = `cs_live_cf_${Date.now()}_${Math.random().toString(36).slice(2, 7)}`;
+  let sessionId = `cs_live_cf_${Date.now()}_${Math.random().toString(36).slice(2, 7)}`;
+  let checkoutUrl = `${PUBLIC_URL}/?checkout=success&session_id=${sessionId}`;
+  let checkoutMode = 'sandbox_instant_fulfillment';
+
+  if (process.env.STRIPE_SECRET_KEY && process.env.STRIPE_SECRET_KEY.startsWith('sk_')) {
+    try {
+      const priceId = isPro ? process.env.STRIPE_PRICE_PRO_99 : process.env.STRIPE_PRICE_AUDIT_49;
+      const params = new URLSearchParams({
+        mode: isPro ? 'subscription' : 'payment',
+        customer_email: customerEmail,
+        success_url: `${PUBLIC_URL}/?checkout=success&session_id={CHECKOUT_SESSION_ID}`,
+        cancel_url: `${PUBLIC_URL}/?checkout=cancelled`,
+        'line_items[0][quantity]': '1'
+      });
+      if (priceId) {
+        params.set('line_items[0][price]', priceId);
+      } else {
+        params.set('line_items[0][price_data][currency]', 'usd');
+        params.set('line_items[0][price_data][unit_amount]', String(amountCents));
+        params.set('line_items[0][price_data][product_data][name]', planName);
+        if (isPro) params.set('line_items[0][price_data][recurring][interval]', 'month');
+      }
+      const sRes = await fetch('https://api.stripe.com/v1/checkout/sessions', {
+        method: 'POST',
+        headers: {
+          Authorization: `Bearer ${process.env.STRIPE_SECRET_KEY}`,
+          'Content-Type': 'application/x-www-form-urlencoded'
+        },
+        body: params.toString()
+      });
+      const sData = await sRes.json();
+      if (sRes.ok && sData.url) {
+        sessionId = sData.id;
+        checkoutUrl = sData.url;
+        checkoutMode = 'stripe_live';
+      }
+    } catch (_) {}
+  }
 
   runInsert(
     `INSERT INTO checkout_orders (
       session_id, plan_id, plan_name, amount_cents, currency,
       target_domain, customer_email, status, utm_source, utm_campaign
-    ) VALUES (?, ?, ?, ?, 'USD', ?, ?, 'fulfilled_sandbox', ?, ?)`,
+    ) VALUES (?, ?, ?, ?, 'USD', ?, ?, ?, ?, ?)`,
     [
       sessionId,
       planId,
@@ -313,6 +350,7 @@ function handleCheckout(req, res) {
       amountCents,
       targetDomain,
       customerEmail,
+      checkoutMode === 'stripe_live' ? 'stripe_session_created' : 'fulfilled_sandbox',
       String(payload.utm_source || ''),
       String(payload.utm_campaign || '')
     ]
@@ -320,7 +358,9 @@ function handleCheckout(req, res) {
 
   res.status(200).json({
     ok: true,
-    checkout_mode: process.env.STRIPE_SECRET_KEY ? 'stripe_live' : 'sandbox_instant_fulfillment',
+    checkout_mode: checkoutMode,
+    checkout_url: checkoutUrl,
+    checkoutUrl,
     order: {
       session_id: sessionId,
       plan_id: planId,
@@ -329,7 +369,8 @@ function handleCheckout(req, res) {
       currency: 'USD',
       target_domain: targetDomain,
       customer_email: customerEmail,
-      status: 'fulfilled_sandbox'
+      checkout_url: checkoutUrl,
+      status: checkoutMode === 'stripe_live' ? 'stripe_session_created' : 'fulfilled_sandbox'
     }
   });
 }
