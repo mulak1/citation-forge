@@ -12,6 +12,8 @@ const {
   renderOgImageSvg
 } = require('./page-views');
 
+const { attachExactBaselinePack } = require('./exact-baseline-api');
+
 const PORT = Number(process.env.PORT || 4101);
 const HOST = process.env.HOST || '0.0.0.0';
 const PUBLIC_URL = (process.env.PUBLIC_URL || process.env.BASE_URL || `http://127.0.0.1:${PORT}`).replace(/\/$/, '');
@@ -19,6 +21,7 @@ const PUBLIC_URL = (process.env.PUBLIC_URL || process.env.BASE_URL || `http://12
 const app = express();
 app.use(express.json({ limit: '1mb' }));
 app.use(express.urlencoded({ extended: true }));
+attachExactBaselinePack(app, { verticalId: 'citation_forge' });
 
 // In-memory rate limiter for public API routes (Pre-Launch Checklist Checkpoint #18)
 const rateLimitStore = new Map();
