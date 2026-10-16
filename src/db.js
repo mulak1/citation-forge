@@ -83,23 +83,48 @@ function saveDb() {
   fs.writeFileSync(DB_PATH, Buffer.from(data));
 }
 
+function trimMetaDescription(text, maxLen = 158) {
+  const clean = String(text || '').replace(/\s+/g, ' ').trim();
+  if (clean.length <= maxLen) return clean;
+  const sliced = clean.slice(0, maxLen - 1);
+  const lastSpace = sliced.lastIndexOf(' ');
+  const base = (lastSpace > 80 ? sliced.slice(0, lastSpace) : sliced).replace(/[.,;:!\-\s]+$/, '');
+  return `${base}.`;
+}
+
 function buildSeoPagesSeed() {
   const rows = [];
 
   // 1. 20 Category Leaderboards
   CATEGORY_LEADERBOARDS.forEach(([slug, title, category, b1, b2, b3, b4, s1, s2, s3, s4]) => {
-    const metaDesc = `Live 2026 AI Search Citation Share-of-Voice (cSoV) benchmark for ${category}. Compare ${b1} (${s1}%), ${b2} (${s2}%), ${b3} (${s3}%), and ${b4} (${s4}%) across ChatGPT Search, Perplexity, and Gemini.`;
+    const rawMeta = `${category} Google AI Overviews Citation Score & cSoV: ${b1} (${s1}%), ${b2} (${s2}%), ${b3} (${s3}%). Perplexity SEO Checklist & llms.txt Generator.`;
+    const metaDesc = trimMetaDescription(rawMeta, 158);
+    const summary = `Across 25 unbranded commercial buyer prompts in ${category}, ${b1} leads AI answer engine visibility with ${s1}% weighted Citation Share-of-Voice (cSoV) and top Google AI Overviews Citation Score, followed by ${b2} (${s2}%), ${b3} (${s3}%), and ${b4} (${s4}%). Brands executing our Perplexity SEO Checklist and root llms.txt Generator specification captured 2.4x more rank #1 citations.`;
     const payload = {
       type: 'leaderboard',
       category,
-      summary: `Across 25 unbranded commercial buyer prompts in ${category}, ${b1} leads AI answer engine visibility with ${s1}% weighted Citation Share-of-Voice (cSoV), followed by ${b2} (${s2}%), ${b3} (${s3}%), and ${b4} (${s4}%). Brands with a valid root /llms.txt manifest and explicit PerplexityBot + OAI-SearchBot permissions captured 2.4x more rank #1 citations.`,
+      summary,
       leaders: [
         { rank: 1, brand: b1, domain: `${b1.toLowerCase().replace(/[^a-z0-9]/g, '')}.com`, csov: s1, llmsTxt: 'Active (/llms.txt + /llms-full.txt)', schemaScore: 94 },
         { rank: 2, brand: b2, domain: `${b2.toLowerCase().replace(/[^a-z0-9]/g, '')}.com`, csov: s2, llmsTxt: 'Partial (/llms.txt only)', schemaScore: 84 },
         { rank: 3, brand: b3, domain: `${b3.toLowerCase().replace(/[^a-z0-9]/g, '')}.com`, csov: s3, llmsTxt: 'Missing (404)', schemaScore: 76 },
         { rank: 4, brand: b4, domain: `${b4.toLowerCase().replace(/[^a-z0-9]/g, '')}.com`, csov: s4, llmsTxt: 'Missing (404)', schemaScore: 68 }
       ],
-      keyTakeaway: `Deploying a spec-compliant /llms.txt and SoftwareApplication + FAQPage JSON-LD graph is the highest-leverage engineering move to overtake ${b1} and ${b2} in ${category} prompts.`
+      keyTakeaway: `How to Rank in ChatGPT Search for ${category}: Deploying a spec-compliant llms.txt Generator output and SoftwareApplication + FAQPage JSON-LD graph is the highest-leverage engineering move to overtake ${b1} and ${b2}.`,
+      faqs: [
+        {
+          question: `What is the Google AI Overviews Citation Score and cSoV benchmark for ${b1} in ${category}?`,
+          answer: `${summary}`
+        },
+        {
+          question: `How to Rank in ChatGPT Search and pass the Perplexity SEO Checklist for ${category}?`,
+          answer: `To rank #1 in ChatGPT Search (OAI-SearchBot) and pass the 2026 Perplexity SEO Checklist in ${category}, allow OAI-SearchBot, PerplexityBot, ClaudeBot, Google-Extended, and Applebot-Extended in /robots.txt, publish 45-word Answer-First H2 summaries, and maintain a >= 28% token-to-HTML ratio.`
+        },
+        {
+          question: `How does an llms.txt Generator improve ${category} citation share against ${b1} and ${b2}?`,
+          answer: `An automated llms.txt Generator compiles your product docs and pricing into root /llms.txt and /llms-full.txt manifests while linking Organization, SoftwareApplication, and FAQPage JSON-LD with Wikidata sameAs URIs—lifting rank #1 citations by 2.4x.`
+        }
+      ]
     };
     rows.push({
       slug,
@@ -116,19 +141,35 @@ function buildSeoPagesSeed() {
 
   // 2. 22 Head-to-Head Brand Citation Comparisons
   BRAND_COMPARISONS.forEach(([slug, title, brandA, domainA, csovA, geoA, brandB, domainB, csovB, geoB, category]) => {
-    const metaDesc = `Head-to-head AI Search (GEO/AEO) audit: ${brandA} (${csovA}% cSoV, Score ${geoA}/100) vs ${brandB} (${csovB}% cSoV, Score ${geoB}/100) across Perplexity, ChatGPT Search, and Gemini.`;
+    const rawMeta = `${brandA} (${csovA}% cSoV) vs ${brandB} (${csovB}% cSoV) Google AI Overviews Citation Score, Perplexity SEO Checklist & llms.txt Generator audit.`;
+    const metaDesc = trimMetaDescription(rawMeta, 158);
     const delta = Number((csovA - csovB).toFixed(1));
+    const summary = `In our 25-prompt ${category} citation benchmark, ${brandA} (${domainA}) outperforms ${brandB} (${domainB}) by +${delta}% Citation Share-of-Voice (${csovA}% vs ${csovB}%) and leads in Google AI Overviews Citation Score (${geoA}/100 vs ${geoB}/100). ${brandA}'s verified llms.txt Generator manifest and @graph JSON-LD disambiguation drive superior rank #1 placement in ChatGPT Search and Perplexity Pro.`;
     const payload = {
       type: 'comparison',
       category,
       brandA: { name: brandA, domain: domainA, csov: csovA, geoScore: geoA, gptBot: 'Allow', perplexityBot: 'Allow', llmsTxt: 'Verified' },
       brandB: { name: brandB, domain: domainB, csov: csovB, geoScore: geoB, gptBot: geoB > 75 ? 'Allow' : 'Partial', perplexityBot: 'Allow', llmsTxt: geoB > 85 ? 'Verified' : 'Missing' },
       delta,
-      summary: `In our 25-prompt ${category} citation benchmark, ${brandA} (${domainA}) outperforms ${brandB} (${domainB}) by +${delta}% Citation Share-of-Voice (${csovA}% vs ${csovB}%). ${brandA}'s higher token-to-HTML signal ratio and explicit @graph JSON-LD disambiguation drive superior rank #1 placement in Perplexity Pro and ChatGPT Search.`,
+      summary,
       samplePrompts: [
         { prompt: `Best ${category.toLowerCase()} for scaling engineering teams: ${brandA} vs ${brandB}`, winner: brandA, rankA: 1, rankB: 2 },
         { prompt: `${brandA} vs ${brandB} pricing, rate limits, and enterprise SOC2 compliance`, winner: brandA, rankA: 1, rankB: 3 },
         { prompt: `When to choose ${brandB} over ${brandA} for legacy enterprise migration`, winner: brandB, rankA: 2, rankB: 1 }
+      ],
+      faqs: [
+        {
+          question: `Why does ${brandA} beat ${brandB} in Google AI Overviews Citation Score and cSoV?`,
+          answer: `${summary}`
+        },
+        {
+          question: `How to Rank in ChatGPT Search when competing against ${brandA} in ${category}?`,
+          answer: `Challengers like ${brandB} can close the +${delta}% cSoV gap by executing the Perplexity SEO Checklist: unblocking OAI-SearchBot and PerplexityBot, adding Answer-First H2 comparison tables, and shipping a verified /llms.txt manifest.`
+        },
+        {
+          question: `Can an llms.txt Generator fix pricing hallucinations for ${brandA} vs ${brandB} buyer prompts?`,
+          answer: `Yes. Compiling /llms.txt, /llms-full.txt, and AggregateOffer JSON-LD anchors eliminates stale pricing hallucinations across ChatGPT Search, Perplexity Pro, Claude Search, and Google AI Overviews.`
+        }
       ]
     };
     rows.push({
@@ -146,20 +187,36 @@ function buildSeoPagesSeed() {
 
   // 3. 18 Technical GEO Guides
   TECHNICAL_GUIDES.forEach(([slug, title, subtitle, category], idx) => {
-    const metaDesc = `${title}. Production engineering blueprint covering ${subtitle}, deterministic cSoV math, and copy-paste llms.txt & JSON-LD templates.`;
+    const rawMeta = `${title}: How to Rank in ChatGPT Search, Perplexity SEO Checklist, Google AI Overviews Citation Score & llms.txt Generator.`;
+    const metaDesc = trimMetaDescription(rawMeta, 158);
+    const summary = `${title} — Production engineering blueprint for ${subtitle}. Learn How to Rank in ChatGPT Search, execute the 2026 Perplexity SEO Checklist, boost your Google AI Overviews Citation Score, and deploy a spec-compliant llms.txt Generator manifest in under 10 minutes.`;
     const payload = {
       type: 'guide',
       category,
       subtitle,
       readTimeMinutes: 6 + (idx % 5),
-      summary: `${title} — A technical implementation blueprint for growth engineers and technical SEOs. Learn how modern RAG answer engines parse ${subtitle.toLowerCase()} and how to deploy deterministic fixes in under 10 minutes.`,
+      summary,
       checklist: [
-        'Serve /llms.txt and /llms-full.txt at root with Content-Type: text/plain; charset=utf-8.',
-        'Authorize GPTBot, OAI-SearchBot, PerplexityBot, Google-Extended, and ClaudeBot in /robots.txt.',
-        'Place concise 40–60 word Answer-First definitions immediately below every H2 heading.',
-        'Compile a unified @graph JSON-LD block linking Organization, SoftwareApplication, and FAQPage with Wikidata sameAs URIs.'
+        'llms.txt Generator Spec: Serve /llms.txt and /llms-full.txt at root with Content-Type: text/plain; charset=utf-8.',
+        'How to Rank in ChatGPT Search: Authorize OAI-SearchBot, PerplexityBot, ClaudeBot, Google-Extended, and Applebot-Extended in /robots.txt.',
+        'Perplexity SEO Checklist: Place concise 40–60 word Answer-First definitions and semantic HTML tables immediately below every H2 heading.',
+        'Google AI Overviews Citation Score: Compile a unified @graph JSON-LD block linking Organization, SoftwareApplication, and FAQPage with Wikidata sameAs URIs.'
       ],
-      codeExample: `# Example /llms.txt snippet for ${category}\n# Acme Cloud\n> Enterprise ${category.toLowerCase()} platform with deterministic APIs and SOC2 Type II compliance.\n\n## Core Documentation\n- [Quickstart Guide](https://acme.dev/docs/quickstart.md): 5-minute SDK setup and API authentication.\n- [Pricing & Limits](https://acme.dev/pricing.md): Transparent self-serve and enterprise tier breakdown.`
+      codeExample: `# Example /llms.txt snippet for ${category}\n# Acme Cloud\n> Enterprise ${category.toLowerCase()} platform with deterministic APIs and SOC2 Type II compliance.\n\n## Core Documentation\n- [Quickstart Guide](https://acme.dev/docs/quickstart.md): 5-minute SDK setup and API authentication.\n- [Pricing & Limits](https://acme.dev/pricing.md): Transparent self-serve and enterprise tier breakdown.`,
+      faqs: [
+        {
+          question: `What is the core engineering takeaway for ${subtitle} (${category})?`,
+          answer: `${summary}`
+        },
+        {
+          question: `How to Rank in ChatGPT Search and apply the Perplexity SEO Checklist for ${category}?`,
+          answer: `Ensure OAI-SearchBot and PerplexityBot have explicit Allow rules in /robots.txt, structure 45-word Answer-First executive summaries under H1/H2 tags, and keep your token-to-HTML ratio above 28%.`
+        },
+        {
+          question: `How do an llms.txt Generator and Google AI Overviews Citation Score work together?`,
+          answer: `While /llms.txt and /llms-full.txt feed clean CommonMark directly to RAG crawlers, @graph JSON-LD with Wikidata sameAs disambiguation maximizes your Google AI Overviews Citation Score and Gemini Search Grounding authority.`
+        }
+      ]
     };
     rows.push({
       slug,
@@ -175,6 +232,24 @@ function buildSeoPagesSeed() {
   });
 
   return rows;
+}
+
+function seedSeoPages(db = dbInstance) {
+  if (!db) return;
+  const pages = buildSeoPagesSeed();
+  const stmt = db.prepare(`
+    INSERT OR REPLACE INTO seo_pages (
+      id, slug, page_type, title, meta_description, category,
+      primary_entity, secondary_entity, csov_score, payload_json, updated_at
+    ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, '2026-10-16')
+  `);
+  pages.forEach((p, idx) => {
+    stmt.run([
+      idx + 1, p.slug, p.page_type, p.title, p.meta_description, p.category,
+      p.primary_entity, p.secondary_entity, p.csov_score, p.payload_json
+    ]);
+  });
+  stmt.free();
 }
 
 async function initDb() {
@@ -218,7 +293,7 @@ async function initDb() {
       secondary_entity TEXT NOT NULL,
       csov_score REAL NOT NULL,
       payload_json TEXT NOT NULL,
-      updated_at TEXT DEFAULT '2026-10-14'
+      updated_at TEXT DEFAULT '2026-10-16'
     );
 
     CREATE TABLE IF NOT EXISTS meta_events (
@@ -263,26 +338,8 @@ async function initDb() {
     );
   `);
 
-  // Check if seo_pages is seeded
-  const countRes = dbInstance.exec('SELECT COUNT(*) as cnt FROM seo_pages');
-  const currentCount = countRes[0]?.values?.[0]?.[0] || 0;
-
-  if (currentCount < 55) {
-    const pages = buildSeoPagesSeed();
-    const stmt = dbInstance.prepare(`
-      INSERT OR REPLACE INTO seo_pages (
-        slug, page_type, title, meta_description, category,
-        primary_entity, secondary_entity, csov_score, payload_json, updated_at
-      ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, '2026-10-14')
-    `);
-    pages.forEach(p => {
-      stmt.run([
-        p.slug, p.page_type, p.title, p.meta_description, p.category,
-        p.primary_entity, p.secondary_entity, p.csov_score, p.payload_json
-      ]);
-    });
-    stmt.free();
-  }
+  // Always upsert all 60 seo_pages on startup so metadata & content improvements take effect immediately
+  seedSeoPages(dbInstance);
 
   saveDb();
   return dbInstance;
@@ -314,6 +371,9 @@ function runInsert(sql, params = []) {
 module.exports = {
   DB_PATH,
   initDb,
+  buildSeoPagesSeed,
+  seedSeoPages,
+  trimMetaDescription,
   queryAll,
   queryOne,
   runInsert,

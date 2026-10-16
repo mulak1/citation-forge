@@ -16,7 +16,7 @@ const { attachExactBaselinePack } = require('./exact-baseline-api');
 
 const PORT = Number(process.env.PORT || 4101);
 const HOST = process.env.HOST || '0.0.0.0';
-const PUBLIC_URL = (process.env.PUBLIC_URL || process.env.BASE_URL || `http://127.0.0.1:${PORT}`).replace(/\/$/, '');
+const PUBLIC_URL = (process.env.PUBLIC_URL || process.env.BASE_URL || 'https://www.citationforge.io').replace(/\/$/, '');
 
 const app = express();
 app.use(express.json({ limit: '1mb' }));
@@ -117,8 +117,8 @@ app.get('/seo/:slug', (req, res) => {
     return res.status(404).type('html').send(render404Page(req.originalUrl));
   }
   const relatedPages = queryAll(
-    'SELECT slug, title, category, csov_score FROM seo_pages WHERE slug != ? AND (page_type = ? OR category = ?) LIMIT 6',
-    [slug, pageRow.page_type, pageRow.category]
+    'SELECT slug, title, category, csov_score FROM seo_pages WHERE slug != ? ORDER BY (CASE WHEN category = ? THEN 0 WHEN page_type = ? THEN 1 ELSE 2 END), ((id * 7 + ?) % 60) ASC LIMIT 8',
+    [slug, pageRow.category, pageRow.page_type, Number(pageRow.id || 1)]
   );
   res.status(200).type('html').send(renderSeoDetailPage(pageRow, relatedPages));
 });
@@ -134,13 +134,25 @@ app.get('/terms', (req, res) => {
 
 // 6. CitationForge's own /llms.txt and /llms-full.txt manifests
 app.get('/llms.txt', async (req, res) => {
-  const selfAudit = await runGeoAudit('citationforge.dev', { category: 'AI Search (GEO/AEO) Visibility & llms.txt Compiler' });
-  res.status(200).type('text/plain; charset=utf-8').send(selfAudit.artifacts.llmsTxt);
+  const selfAudit = await runGeoAudit('www.citationforge.io', { category: 'AI Search (GEO/AEO) Visibility & llms.txt Compiler' });
+  const seoPages = queryAll('SELECT slug, title, meta_description FROM seo_pages ORDER BY id ASC');
+  const seoIndex = [
+    '',
+    '## All 60 Indexed AI Search & GEO Benchmarks (/seo/:slug)',
+    ...seoPages.map(p => `- [${p.title}](https://www.citationforge.io/seo/${p.slug}): ${p.meta_description}`)
+  ].join('\n');
+  res.status(200).type('text/plain; charset=utf-8').send(selfAudit.artifacts.llmsTxt + '\n' + seoIndex);
 });
 
 app.get('/llms-full.txt', async (req, res) => {
-  const selfAudit = await runGeoAudit('citationforge.dev', { category: 'AI Search (GEO/AEO) Visibility & llms.txt Compiler' });
-  res.status(200).type('text/plain; charset=utf-8').send(selfAudit.artifacts.llmsFullTxt);
+  const selfAudit = await runGeoAudit('www.citationforge.io', { category: 'AI Search (GEO/AEO) Visibility & llms.txt Compiler' });
+  const seoPages = queryAll('SELECT slug, title, meta_description FROM seo_pages ORDER BY id ASC');
+  const seoIndex = [
+    '',
+    '## All 60 Indexed AI Search & GEO Benchmarks (/seo/:slug)',
+    ...seoPages.map(p => `- [${p.title}](https://www.citationforge.io/seo/${p.slug}): ${p.meta_description}`)
+  ].join('\n');
+  res.status(200).type('text/plain; charset=utf-8').send(selfAudit.artifacts.llmsFullTxt + '\n' + seoIndex);
 });
 
 // 7. AI-Friendly /robots.txt

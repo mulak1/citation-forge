@@ -66,7 +66,7 @@ function renderBrandLogoSvg(size = 30) {
 }
 
 function renderHead({ title, description, canonicalPath, ogSlug, jsonLdString }) {
-  const baseUrl = 'http://127.0.0.1:4101';
+  const baseUrl = (process.env.PUBLIC_URL || process.env.BASE_URL || 'https://www.citationforge.io').replace(/\/$/, '');
   const canonicalUrl = `${baseUrl}${canonicalPath || '/'}`;
   const ogImageUrl = `${baseUrl}/api/og?slug=${encodeURIComponent(ogSlug || 'home')}`;
 
