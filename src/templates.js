@@ -920,10 +920,12 @@ function renderInteractiveScript(initialAudit) {
             '<div class="mono" style="background:var(--bg-subtle);padding:14px;border-radius:8px;border:1px solid var(--border-hairline);font-size:0.8rem;margin-bottom:16px;color:var(--text-primary);">' +
             'Amount Settled: $' + (data.order.amount_cents / 100).toFixed(2) + ' USD<br/>' +
             'Fulfillment Status: ' + data.order.status + '<br/>' +
-            'Webhook &amp; PR Bot Endpoint: https://www.citationforge.io/api/webhooks/' + data.order.target_domain +
+            'Webhook &amp; PR Bot Endpoint: https://www.citationforge.io/api/webhooks/' + data.order.target_domain + '<br/>' +
+            '<a href="' + (data.order.checkout_url || '/buy/complete_dossier') + '" style="color:var(--accent-primary);text-decoration:underline;font-weight:700;">Proceed to Stripe Checkout ↗</a>' +
             '</div>';
           modal.style.display = 'flex';
         }
+        if (!navigator.webdriver && data.order.checkout_url && data.order.checkout_url.startsWith('https://checkout.stripe.com')) window.location.href = data.order.checkout_url;
       }
     }
 

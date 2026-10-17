@@ -320,36 +320,20 @@ async function handleCheckout(req, res) {
 
   if (process.env.STRIPE_SECRET_KEY && process.env.STRIPE_SECRET_KEY.startsWith('sk_')) {
     try {
-      const priceId = isPro ? process.env.STRIPE_PRICE_PRO_99 : process.env.STRIPE_PRICE_AUDIT_49;
-      const params = new URLSearchParams({
-        mode: isPro ? 'subscription' : 'payment',
-        customer_email: customerEmail,
-        success_url: `${PUBLIC_URL}/?checkout=success&session_id={CHECKOUT_SESSION_ID}`,
-        cancel_url: `${PUBLIC_URL}/?checkout=cancelled`,
-        'line_items[0][quantity]': '1'
-      });
-      if (priceId) {
-        params.set('line_items[0][price]', priceId);
-      } else {
-        params.set('line_items[0][price_data][currency]', 'usd');
-        params.set('line_items[0][price_data][unit_amount]', String(amountCents));
-        params.set('line_items[0][price_data][product_data][name]', planName);
-        if (isPro) params.set('line_items[0][price_data][recurring][interval]', 'month');
+      const buildParams = (useInline) => {
+        const p = new URLSearchParams({ mode: isPro ? 'subscription' : 'payment', customer_email: customerEmail, success_url: `${PUBLIC_URL}/?checkout=success&session_id={CHECKOUT_SESSION_ID}`, cancel_url: `${PUBLIC_URL}/?checkout=cancelled`, 'line_items[0][quantity]': '1' });
+        const priceId = !useInline ? (isPro ? process.env.STRIPE_PRICE_PRO_99 : process.env.STRIPE_PRICE_AUDIT_49) : '';
+        if (priceId) p.set('line_items[0][price]', priceId);
+        else { p.set('line_items[0][price_data][currency]', 'usd'); p.set('line_items[0][price_data][unit_amount]', String(amountCents)); p.set('line_items[0][price_data][product_data][name]', planName); if (isPro) p.set('line_items[0][price_data][recurring][interval]', 'month'); }
+        return p.toString();
+      };
+      let sRes = await fetch('https://api.stripe.com/v1/checkout/sessions', { method: 'POST', headers: { Authorization: `Bearer ${process.env.STRIPE_SECRET_KEY}`, 'Content-Type': 'application/x-www-form-urlencoded' }, body: buildParams(false) });
+      let sData = await sRes.json();
+      if (!sRes.ok || !sData.url) {
+        sRes = await fetch('https://api.stripe.com/v1/checkout/sessions', { method: 'POST', headers: { Authorization: `Bearer ${process.env.STRIPE_SECRET_KEY}`, 'Content-Type': 'application/x-www-form-urlencoded' }, body: buildParams(true) });
+        sData = await sRes.json();
       }
-      const sRes = await fetch('https://api.stripe.com/v1/checkout/sessions', {
-        method: 'POST',
-        headers: {
-          Authorization: `Bearer ${process.env.STRIPE_SECRET_KEY}`,
-          'Content-Type': 'application/x-www-form-urlencoded'
-        },
-        body: params.toString()
-      });
-      const sData = await sRes.json();
-      if (sRes.ok && sData.url) {
-        sessionId = sData.id;
-        checkoutUrl = sData.url;
-        checkoutMode = 'stripe_live';
-      }
+      if (sRes.ok && sData.url) { sessionId = sData.id; checkoutUrl = sData.url; checkoutMode = 'stripe_live'; }
     } catch (_) {}
   }
 
