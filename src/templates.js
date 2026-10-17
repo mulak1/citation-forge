@@ -920,7 +920,7 @@ function renderInteractiveScript(initialAudit) {
             '<div class="mono" style="background:var(--bg-subtle);padding:14px;border-radius:8px;border:1px solid var(--border-hairline);font-size:0.8rem;margin-bottom:16px;color:var(--text-primary);">' +
             'Amount Settled: $' + (data.order.amount_cents / 100).toFixed(2) + ' USD<br/>' +
             'Fulfillment Status: ' + data.order.status + '<br/>' +
-            'Webhook &amp; PR Bot Endpoint: https://api.citationforge.dev/v2/webhooks/' + data.order.target_domain +
+            'Webhook &amp; PR Bot Endpoint: https://www.citationforge.io/api/webhooks/' + data.order.target_domain +
             '</div>';
           modal.style.display = 'flex';
         }
