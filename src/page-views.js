@@ -82,8 +82,8 @@ function renderGraderAndCompilerSection(audit) {
                   <span class="window-dot" style="background:#10B981;"></span>
                 </span>
                 <div>
-                  <h2 style="font-size:1rem;font-weight:700;color:var(--text-primary);">Auto-Compiled GEO (Generative Engine Optimization) Dock</h2>
-                  <p style="font-size:0.76rem;color:var(--text-secondary);">Production-ready manifests for Next.js, FastAPI, Webflow &amp; Cloudflare</p>
+                  <h2 style="font-size:1rem;font-weight:700;color:var(--text-primary);">Ready-to-Use AI Search Files (/llms.txt &amp; Schema)</h2>
+                  <p style="font-size:0.76rem;color:var(--text-secondary);">Copy or download for Next.js, WordPress, Webflow, Shopify &amp; Cloudflare</p>
                 </div>
               </div>
               <div style="display:flex;gap:8px;">
@@ -107,15 +107,15 @@ function renderGraderAndCompilerSection(audit) {
     <div class="container">
       <div style="margin-bottom:24px;">
         <h2 class="serif-display" style="font-size:1.95rem;margin-bottom:6px;">
-          25-Prompt Buyer-Intent Citation Radar — <span class="serif-italic">Position-Weighted AI Search Visibility</span>
+          25 Buyer Questions Tested — <span class="serif-italic">Where Does Your Brand Rank in AI Answers?</span>
         </h2>
         <p style="color:var(--text-secondary);font-size:0.95rem;max-width:78ch;">
-          Every commercial buyer prompt is scored across Perplexity Pro, ChatGPT Search, and Google Gemini AI Overviews. Because top-ranked AI recommendations capture the majority of buyer clicks, we apply logarithmic position weighting (<span class="mono">w_r = 1 / log2(r + 1)</span>): Rank #1 citations receive full weight (<span class="mono">1.000</span>), Rank #2 receives <span class="mono">0.631</span>, and Rank #3 receives <span class="mono">0.500</span>.
+          We test 25 real buyer questions across Perplexity, ChatGPT Search, and Google Gemini AI Overviews. Because #1 recommendations win the most clicks, top mentions score higher than lower-ranked mentions. <span style="opacity:0.85;">(Technical note: weighted by rank position <span class="mono">w_r = 1 / log2(r + 1)</span>).</span>
         </p>
       </div>
       <div class="panel" style="overflow-x:auto;">
         <table class="data-table">
-          <thead><tr><th>ID</th><th>High-Intent Buyer Prompt</th><th>Perplexity Pro</th><th>ChatGPT Search</th><th>Gemini Overviews</th><th>Prompt cSoV</th></tr></thead>
+          <thead><tr><th>ID</th><th>Buyer Question</th><th>Perplexity</th><th>ChatGPT Search</th><th>Google Gemini</th><th>AI Visibility Score</th></tr></thead>
           <tbody id="prompt-matrix-tbody">${promptMatrixRows}</tbody>
         </table>
       </div>
@@ -129,15 +129,15 @@ function renderPricingSection() {
     <div class="container">
       <div style="margin-bottom:28px;">
         <h2 class="serif-display" style="font-size:2.1rem;margin-bottom:8px;">
-          Continuous 50-Prompt Radar &amp; Automated <span class="serif-italic">GitHub PR Sync</span>
+          Full 50-Question AI Search Audit &amp; Automated <span class="serif-italic">Site Updates</span>
         </h2>
         <p style="color:var(--text-secondary);font-size:0.98rem;max-width:64ch;">
-          Built for VPs of Marketing, SEO Directors, and Growth Engineering teams. Ship a verified <span class="mono">/llms.txt</span> and <span class="mono">schema-dts</span> JSON-LD graph today, backed by our 30-day Citation Lift Guarantee.
+          Built for Marketing Leaders, SEO Teams, and Founders. Add verified <span class="mono">/llms.txt</span> and Schema files to your site today, backed by our 30-day Visibility Guarantee.
         </p>
       </div>
       <div style="max-width:440px;margin-bottom:24px;">
         <label for="checkout-email" style="display:block;font-size:0.82rem;font-weight:700;color:var(--text-primary);margin-bottom:6px;">
-          Work Email for Audit Delivery &amp; GitHub PR Bot Provisioning
+          Work Email for Report &amp; File Delivery
         </label>
         <input id="checkout-email" type="email" class="grader-input" style="width:100%;" placeholder="vp-marketing@company.com" value="vp-marketing@linear.app" required />
         <div id="checkout-email-error" style="display:none;color:var(--accent-rose);font-size:0.8rem;margin-top:6px;" role="alert"></div>
@@ -146,44 +146,44 @@ function renderPricingSection() {
         <div class="panel" style="padding:30px;display:flex;flex-direction:column;justify-content:space-between;height:100%;">
           <div>
             <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:12px;">
-              <span style="font-weight:700;font-size:1.12rem;">One-Time Complete GEO Audit Pack</span>
+              <span style="font-weight:700;font-size:1.12rem;">One-Time Complete AI Search Pack</span>
               <span class="badge badge-cyan mono">ONE-TIME PACK</span>
             </div>
             <div class="mono" style="font-size:2.35rem;font-weight:800;margin-bottom:8px;color:var(--text-primary);">$49 <span style="font-size:0.86rem;font-weight:500;color:var(--text-secondary);">USD flat</span></div>
             <p style="color:var(--text-secondary);font-size:0.9rem;margin-bottom:20px;">
-              Complete 50-prompt category benchmark, full site crawl (up to 250 URLs), and production-ready <span class="mono">/llms.txt</span> + <span class="mono">/llms-full.txt</span> + JSON-LD bundle.
+              Complete 50-question competitor benchmark, full site scan (up to 250 pages), and ready-to-publish <span class="mono">/llms.txt</span> + <span class="mono">/llms-full.txt</span> + Schema bundle.
             </p>
             <ul style="list-style:none;display:grid;gap:10px;font-size:0.88rem;color:var(--text-primary);margin-bottom:26px;">
-              <li>&#10003; 50 Buyer-Intent Prompts across 4 AI Answer Engines</li>
-              <li>&#10003; Compiled <span class="mono">/llms.txt</span> &amp; <span class="mono">/llms-full.txt</span> up to 250 pages</li>
-              <li>&#10003; Validated <span class="mono">schema-dts</span> Organization + Product + FAQPage JSON-LD</li>
-              <li>&#10003; 30-Day Money-Back Citation Lift Guarantee</li>
+              <li>&#10003; 50 Buyer Questions Tested Across 4 AI Search Engines</li>
+              <li>&#10003; Ready-to-Use <span class="mono">/llms.txt</span> &amp; <span class="mono">/llms-full.txt</span> (up to 250 pages)</li>
+              <li>&#10003; Verified Organization, Product &amp; FAQ Schema Markup</li>
+              <li>&#10003; 30-Day Money-Back Visibility Guarantee</li>
             </ul>
           </div>
           <button type="button" class="btn btn-secondary" style="width:100%;padding:12px 20px;" onclick="startCheckout('audit_49')">
-            Buy $49 One-Time GEO Audit
+            Buy $49 One-Time Audit Pack
           </button>
         </div>
         <div class="bezel-shell" style="display:flex;flex-direction:column;height:100%;">
           <div class="panel-elevated" style="padding:28px;height:100%;border-color:var(--accent-indigo);display:flex;flex-direction:column;justify-content:space-between;">
             <div>
               <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:12px;">
-                <span style="font-weight:800;font-size:1.12rem;">Pro Continuous Radar &amp; Auto-PR Bot</span>
+                <span style="font-weight:800;font-size:1.12rem;">Pro Weekly Tracking &amp; Auto-Sync</span>
                 <span class="badge badge-emerald mono">MOST POPULAR</span>
               </div>
               <div class="mono" style="font-size:2.35rem;font-weight:800;margin-bottom:8px;color:var(--accent-indigo);">$99 <span style="font-size:0.86rem;font-weight:500;color:var(--text-secondary);">/ month</span></div>
               <p style="color:var(--text-secondary);font-size:0.9rem;margin-bottom:20px;">
-                Automated weekly citation tracking across ChatGPT, Perplexity &amp; Gemini plus a GitHub App that opens PRs whenever your docs or pricing change.
+                Automated weekly AI ranking checks across ChatGPT, Perplexity &amp; Gemini plus automatic <span class="mono">/llms.txt</span> updates whenever your site changes.
               </p>
               <ul style="list-style:none;display:grid;gap:10px;font-size:0.88rem;color:var(--text-primary);margin-bottom:26px;">
-                <li>&#10003; Everything in One-Time Audit + Weekly 50-Prompt Tracking</li>
-                <li>&#10003; Automated GitHub PR Bot syncing <span class="mono">/llms.txt</span> on every deploy</li>
-                <li>&#10003; Competitor Citation Hijack Alerts in Slack &amp; Linear</li>
-                <li>&#10003; Google Search Console + AI Referral Attribution Dashboard</li>
+                <li>&#10003; Everything in One-Time Pack + Weekly 50-Question Tracking</li>
+                <li>&#10003; Automatic GitHub PR Bot keeping <span class="mono">/llms.txt</span> up to date</li>
+                <li>&#10003; Competitor Ranking Alerts in Slack &amp; Email</li>
+                <li>&#10003; AI Search Traffic &amp; Referral Tracking Dashboard</li>
               </ul>
             </div>
             <button type="button" class="btn btn-primary" style="width:100%;padding:12px 20px;" onclick="startCheckout('pro_99')">
-              <span>Start $99/mo Pro Radar + Auto-PR Bot</span>
+              <span>Start $99/mo Pro Tracking</span>
               <span class="btn-arrow-pill" aria-hidden="true">&#8599;</span>
             </button>
           </div>
@@ -209,12 +209,12 @@ function renderHeroGraderBox(audit, isLp = false) {
   ).join('');
 
   const headlineHtml = isLp
-    ? `Your Competitors Are Being Recommended by <span class="serif-italic">ChatGPT &amp; Perplexity</span> Instead of You — Run a 10-Second Citation X-Ray`
-    : `Measure Your <span class="serif-italic">AI Search Share-of-Voice</span> &amp; Auto-Compile /llms.txt in 10 Seconds`;
+    ? `Your Competitors Are Being Recommended by <span class="serif-italic">ChatGPT &amp; Perplexity</span> Instead of You — Check Your Site in 10 Seconds`
+    : `See How Often <span class="serif-italic">ChatGPT &amp; Perplexity</span> Recommend Your Brand — And Generate Your /llms.txt in 10 Seconds`;
 
   const subheadline = isLp
-    ? 'Built for VPs of Marketing, Heads of SEO, and Technical Founders. See which competitor captures your buyers across 25 commercial prompts and generate a deploy-ready /llms.txt + JSON-LD patch.'
-    : 'Generative Engine Optimization (GEO) audits how often ChatGPT Search, Perplexity, and Gemini recommend your brand across 25 buyer prompts—and auto-compiles /llms.txt + schema-dts JSON-LD.';
+    ? 'Built for Marketing Leaders, SEO Teams, and Founders. See which competitor wins your buyers across 25 AI search questions and download ready-to-use /llms.txt + Schema files.'
+    : 'Check how often ChatGPT Search, Perplexity, and Google AI Overviews recommend your website across 25 buyer questions—and generate ready-to-use /llms.txt and Schema files.';
 
   return `
   <section id="grader" class="hero-section">
@@ -223,7 +223,7 @@ function renderHeroGraderBox(audit, isLp = false) {
         <!-- Left Column: Editorial Value Prop + Instant Interactive Grader Input -->
         <div style="display:flex;flex-direction:column;justify-content:space-between;height:100%;">
           <div>
-            <span class="badge badge-cyan mono">GENERATIVE ENGINE OPTIMIZATION (GEO) &amp; AI SEARCH STUDIO</span>
+            <span class="badge badge-cyan mono">AI SEARCH VISIBILITY &amp; WEBSITE CITATION CHECKER</span>
             <h1 class="hero-h1">${headlineHtml}</h1>
             <p class="hero-sub">${escapeHtml(subheadline)}</p>
 

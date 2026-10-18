@@ -9,8 +9,8 @@
     "cnnReadout": "98.4% DOM Entity Salience • 0.14 HTML Bloat Ratio",
     "issue": "Optimal @graph + Speakable Schema",
     "cnnModel": "PP-OCRv4 + DOM Visual Block Saliency CNN (ONNX INT8 • 14ms)",
-    "cnnSensorLabel": "Above-the-Fold Entity Salience & OCR Readability Tensor",
-    "scannedAt": "2026-10-18T22:03:21.995Z"
+    "cnnSensorLabel": "Page Structure & AI Readability Check",
+    "scannedAt": "2026-10-18T23:20:33.087Z"
   },
   {
     "target": "supabase.com",
@@ -22,8 +22,8 @@
     "cnnReadout": "96.1% Code-Block OCR Clarity • 12ms RAG Parse",
     "issue": "Full ClaudeBot & PerplexityBot Allow",
     "cnnModel": "PP-OCRv4 + DOM Visual Block Saliency CNN (ONNX INT8 • 14ms)",
-    "cnnSensorLabel": "Above-the-Fold Entity Salience & OCR Readability Tensor",
-    "scannedAt": "2026-10-18T22:03:21.999Z"
+    "cnnSensorLabel": "Page Structure & AI Readability Check",
+    "scannedAt": "2026-10-18T23:20:33.091Z"
   },
   {
     "target": "linear.app",
@@ -35,8 +35,8 @@
     "cnnReadout": "94.2% Visual Hierarchy Contrast • Clean H1-H3",
     "issue": "Minor FAQPage Schema Expansion Available",
     "cnnModel": "PP-OCRv4 + DOM Visual Block Saliency CNN (ONNX INT8 • 14ms)",
-    "cnnSensorLabel": "Above-the-Fold Entity Salience & OCR Readability Tensor",
-    "scannedAt": "2026-10-18T22:03:22.005Z"
+    "cnnSensorLabel": "Page Structure & AI Readability Check",
+    "scannedAt": "2026-10-18T23:20:33.095Z"
   },
   {
     "target": "vercel.com",
@@ -48,8 +48,8 @@
     "cnnReadout": "93.8% Above-the-Fold Entity Density",
     "issue": "Optimal AI Crawler Headers",
     "cnnModel": "PP-OCRv4 + DOM Visual Block Saliency CNN (ONNX INT8 • 14ms)",
-    "cnnSensorLabel": "Above-the-Fold Entity Salience & OCR Readability Tensor",
-    "scannedAt": "2026-10-18T22:03:22.009Z"
+    "cnnSensorLabel": "Page Structure & AI Readability Check",
+    "scannedAt": "2026-10-18T23:20:33.099Z"
   },
   {
     "target": "cloudflare.com",
@@ -61,8 +61,8 @@
     "cnnReadout": "91.5% Technical Table Extraction Score",
     "issue": "High RAG Authority",
     "cnnModel": "PP-OCRv4 + DOM Visual Block Saliency CNN (ONNX INT8 • 14ms)",
-    "cnnSensorLabel": "Above-the-Fold Entity Salience & OCR Readability Tensor",
-    "scannedAt": "2026-10-18T22:03:22.012Z"
+    "cnnSensorLabel": "Page Structure & AI Readability Check",
+    "scannedAt": "2026-10-18T23:20:33.103Z"
   },
   {
     "target": "notion.so",
@@ -74,8 +74,8 @@
     "cnnReadout": "76.4% Client-Hydration Delay on Deep Docs",
     "issue": "Missing /llms-full.txt Root Manifest",
     "cnnModel": "PP-OCRv4 + DOM Visual Block Saliency CNN (ONNX INT8 • 14ms)",
-    "cnnSensorLabel": "Above-the-Fold Entity Salience & OCR Readability Tensor",
-    "scannedAt": "2026-10-18T22:03:22.016Z"
+    "cnnSensorLabel": "Page Structure & AI Readability Check",
+    "scannedAt": "2026-10-18T23:20:33.107Z"
   },
   {
     "target": "adyen.com",
@@ -87,8 +87,8 @@
     "cnnReadout": "58.2% Heavy DOM Wrapper Bloat (4.8x Token Tax)",
     "issue": "Losing 16.4% AI Citation Share to Stripe",
     "cnnModel": "PP-OCRv4 + DOM Visual Block Saliency CNN (ONNX INT8 • 14ms)",
-    "cnnSensorLabel": "Above-the-Fold Entity Salience & OCR Readability Tensor",
-    "scannedAt": "2026-10-18T22:03:22.020Z"
+    "cnnSensorLabel": "Page Structure & AI Readability Check",
+    "scannedAt": "2026-10-18T23:20:33.111Z"
   },
   {
     "target": "atlassian.com",
@@ -100,8 +100,8 @@
     "cnnReadout": "54.0% Delayed SSR Entity Salience",
     "issue": "Missing SpeakableSpecification & llms.txt",
     "cnnModel": "PP-OCRv4 + DOM Visual Block Saliency CNN (ONNX INT8 • 14ms)",
-    "cnnSensorLabel": "Above-the-Fold Entity Salience & OCR Readability Tensor",
-    "scannedAt": "2026-10-18T22:03:22.025Z"
+    "cnnSensorLabel": "Page Structure & AI Readability Check",
+    "scannedAt": "2026-10-18T23:20:33.115Z"
   },
   {
     "target": "oracle.com",
@@ -113,8 +113,8 @@
     "cnnReadout": "41.2% Legacy Nested Table Bloat",
     "issue": "Critical GEO Deficit — Deploy Auto-llms.txt Patch",
     "cnnModel": "PP-OCRv4 + DOM Visual Block Saliency CNN (ONNX INT8 • 14ms)",
-    "cnnSensorLabel": "Above-the-Fold Entity Salience & OCR Readability Tensor",
-    "scannedAt": "2026-10-18T22:03:22.030Z"
+    "cnnSensorLabel": "Page Structure & AI Readability Check",
+    "scannedAt": "2026-10-18T23:20:33.120Z"
   },
   {
     "target": "legacy-erp.io",
@@ -126,7 +126,7 @@
     "cnnReadout": "36.8% Unstructured Hero Canvas",
     "issue": "Invisible to ChatGPT Search & Perplexity",
     "cnnModel": "PP-OCRv4 + DOM Visual Block Saliency CNN (ONNX INT8 • 14ms)",
-    "cnnSensorLabel": "Above-the-Fold Entity Salience & OCR Readability Tensor",
-    "scannedAt": "2026-10-18T22:03:22.035Z"
+    "cnnSensorLabel": "Page Structure & AI Readability Check",
+    "scannedAt": "2026-10-18T23:20:33.124Z"
   }
 ]
