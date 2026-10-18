@@ -1,12 +1,22 @@
 # CitationForge — AI Search & GEO Visibility
 
-[![CitationForge linear.app](https://www.citationforge.io/badge/linear.app.svg)](https://www.citationforge.io/?q=linear.app&utm_source=github_readme) [![CitationForge stripe.com](https://www.citationforge.io/badge/stripe.com.svg)](https://www.citationforge.io/?q=stripe.com&utm_source=github_readme) [![CitationForge supabase.com](https://www.citationforge.io/badge/supabase.com.svg)](https://www.citationforge.io/?q=supabase.com&utm_source=github_readme)
+[![CitationForge linear.app](https://www.citationforge.io/badge/linear.app.svg)](https://www.citationforge.io/scan/linear.app?utm_source=github_readme) [![CitationForge stripe.com](https://www.citationforge.io/badge/stripe.com.svg)](https://www.citationforge.io/scan/stripe.com?utm_source=github_readme) [![CitationForge supabase.com](https://www.citationforge.io/badge/supabase.com.svg)](https://www.citationforge.io/scan/supabase.com?utm_source=github_readme)
+
+[![CitationForge CNN Scorecard](https://www.citationforge.io/api/badge/cnn/linear.app.svg)](https://www.citationforge.io/leaderboard?utm_source=github_cnn_card)
 
 > **Live Interactive Benchmark & Deliverable Compiler**: **[https://www.citationforge.io](https://www.citationforge.io/?utm_source=github_repo)**  
+> **Public Hall of Fame & Wall of Shame Leaderboard**: **[https://www.citationforge.io/leaderboard](https://www.citationforge.io/leaderboard)** ([Markdown](https://www.citationforge.io/leaderboard.md))  
 > **60-Page Programmatic Benchmark Directory**: **[https://www.citationforge.io/directory](https://www.citationforge.io/directory)**  
 > **AI Agent / LLM Manifest (`llms.txt`)**: **[https://www.citationforge.io/llms.txt](https://www.citationforge.io/llms.txt)** • **[OpenAPI 3.1 Spec](https://www.citationforge.io/openapi.json)** • **[MCP Server Registry](https://www.citationforge.io/.well-known/mcp-registry.json)**
 
 ---
+
+## 🏆 Live Public Scan Permalinks (`/scan/:target`) & Leaderboard
+
+- **[Public Scan: linear.app](https://www.citationforge.io/scan/linear.app)** ([Markdown Twin](https://www.citationforge.io/scan/linear.app.md) • [CNN SVG Card](https://www.citationforge.io/api/badge/cnn/linear.app.svg))
+- **[Public Scan: stripe.com](https://www.citationforge.io/scan/stripe.com)** ([Markdown Twin](https://www.citationforge.io/scan/stripe.com.md) • [CNN SVG Card](https://www.citationforge.io/api/badge/cnn/stripe.com.svg))
+- **[Public Scan: supabase.com](https://www.citationforge.io/scan/supabase.com)** ([Markdown Twin](https://www.citationforge.io/scan/supabase.com.md) • [CNN SVG Card](https://www.citationforge.io/api/badge/cnn/supabase.com.svg))
+- **[View Full Public Leaderboard (Hall of Fame A+ & Wall of Shame)](https://www.citationforge.io/leaderboard)**
 
 ## ⚡ Free Interactive Calculators & Micro-Tools (`/tools/:slug`)
 
@@ -22,11 +32,16 @@
 
 ---
 
-## 🛡️ Embed a Live CitationForge SVG Score Badge in Your README or Docs
+## 🛡️ Embed a Live CitationForge SVG Score Badge or CNN Scorecard in Your README
 
-Inspired by [`anuraghazra/github-readme-stats`](https://github.com/anuraghazra/github-readme-stats) and [`badges/shields`](https://github.com/badges/shields), you can embed a live, deterministic CitationForge badge for any domain, brand, ingredient, or store:
+Inspired by [`anuraghazra/github-readme-stats`](https://github.com/anuraghazra/github-readme-stats) and [`badges/shields`](https://github.com/badges/shields), you can embed a live, deterministic CitationForge badge or multi-metric CNN scorecard for any domain, brand, ingredient, or store:
 
-### Markdown Badge Snippet
+### Multi-Metric CNN Scorecard SVG (`440x128`)
+```markdown
+[![CitationForge CNN Scorecard](https://www.citationforge.io/api/badge/cnn/linear.app.svg)](https://www.citationforge.io/scan/linear.app?utm_source=readme_cnn_card)
+```
+
+### Compact Shield Badge (`240x20`)
 ```markdown
 [![Verified by CitationForge](https://www.citationforge.io/badge/linear.app.svg)](https://www.citationforge.io/?q=linear.app&utm_source=readme_badge)
 ```
@@ -51,6 +66,8 @@ CitationForge implements the **Machine-Actionable Agent Discovery Triad** for ze
 | :--- | :--- | :--- |
 | **AnswerDotAI `llms.txt`** | [`https://www.citationforge.io/llms.txt`](https://www.citationforge.io/llms.txt) | Compact Markdown index of all 60+ benchmarks & tools |
 | **Full Corpus `llms-full.txt`** | [`https://www.citationforge.io/llms-full.txt`](https://www.citationforge.io/llms-full.txt) | Full deterministic benchmark corpus for RAG ingestion |
+| **Public Scan Sitemap** | [`https://www.citationforge.io/sitemap-scans.xml`](https://www.citationforge.io/sitemap-scans.xml) | Live XML sitemap of all public `/scan/:target` permalinks |
+| **CNN Sensor Inspection API** | [`https://www.citationforge.io/api/cnn/inspect`](https://www.citationforge.io/api/cnn/inspect) | Deterministic + CNN visual/acoustic sensor inspection |
 | **OpenAPI 3.1.0 Specification** | [`https://www.citationforge.io/openapi.json`](https://www.citationforge.io/openapi.json) | Public REST API schema for Custom GPTs & agent tool-calling |
 | **AI Plugin Manifest** | [`https://www.citationforge.io/.well-known/ai-plugin.json`](https://www.citationforge.io/.well-known/ai-plugin.json) | Standard agent plugin discovery manifest |
 | **MCP Server Registry** | [`https://www.citationforge.io/.well-known/mcp-registry.json`](https://www.citationforge.io/.well-known/mcp-registry.json) | Model Context Protocol JSON-RPC server (`POST /api/mcp/rpc`) |
