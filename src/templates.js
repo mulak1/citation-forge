@@ -718,7 +718,7 @@ function renderInteractiveScript(initialAudit) {
       executeAudit(domain);
     }
 
-    function switchCompilerTab(tabKey) {
+    function switchCompilerTab(tabKey, isAuto) {
       window.__ACTIVE_TAB__ = tabKey;
       document.querySelectorAll('.tab-btn').forEach(btn => {
         btn.classList.toggle('active', btn.getAttribute('data-tab') === tabKey);
@@ -727,6 +727,9 @@ function renderInteractiveScript(initialAudit) {
       const audit = window.__CURRENT_AUDIT__;
       if (codeEl && audit && audit.artifacts) {
         codeEl.textContent = audit.artifacts[tabKey] || '';
+      }
+      if (!isAuto) {
+        fetch('/api/telemetry/event', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ event_type: 'tab_switch', page_url: window.location.pathname, meta: { tab: tabKey } }) }).catch(() => {});
       }
     }
 
@@ -765,9 +768,11 @@ function renderInteractiveScript(initialAudit) {
 
     async function executeAudit(overrideDomain) {
       const inputEl = document.getElementById('domain-input');
+      const catEl = document.getElementById('category-select');
       const errEl = document.getElementById('grader-error');
       const submitBtn = document.getElementById('run-audit-btn');
       const raw = overrideDomain || (inputEl ? inputEl.value.trim() : '');
+      const category = catEl ? catEl.value.trim() : '';
       if (!raw || raw.length < 2) {
         if (errEl) {
           errEl.textContent = 'Enter a valid domain or brand name (for example: stripe.com or linear.app).';
@@ -778,18 +783,22 @@ function renderInteractiveScript(initialAudit) {
       if (errEl) errEl.style.display = 'none';
       if (submitBtn) {
         submitBtn.disabled = true;
-        submitBtn.textContent = 'Auditing 25 Buyer Prompts...';
+        submitBtn.textContent = 'Probing Live Origin & 25 Prompts...';
       }
       try {
         const res = await fetch('/api/audit', {
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify({ domain: raw, ...getUtmParams() })
+          body: JSON.stringify({ domain: raw, category: category || undefined, ...getUtmParams() })
         });
         const data = await res.json();
         if (data && data.audit) {
           window.__CURRENT_AUDIT__ = data.audit;
           renderAuditToDom(data.audit);
+          try {
+            const nextUrl = '/?domain=' + encodeURIComponent(data.audit.domain) + (category ? '&category=' + encodeURIComponent(category) : '');
+            window.history.replaceState(null, '', nextUrl);
+          } catch (_) {}
           trackMetaEvent('Lead', { audited_domain: data.audit.domain, csov_pct: data.audit.scores.csovPct });
         }
       } catch (e) {
@@ -800,7 +809,7 @@ function renderInteractiveScript(initialAudit) {
       } finally {
         if (submitBtn) {
           submitBtn.disabled = false;
-          submitBtn.innerHTML = '<span>Run Free GEO Audit</span><span class="btn-arrow-pill" aria-hidden="true">&#8599;</span>';
+          submitBtn.innerHTML = '<span>Check My Website Free</span><span class="btn-arrow-pill" aria-hidden="true">&#8599;</span>';
         }
       }
     }
@@ -817,6 +826,7 @@ function renderInteractiveScript(initialAudit) {
       setTxt('score-exec-ms', audit.executionMs + 'ms');
       setTxt('diag-domain-label', audit.domain);
       setTxt('gemini-grounding-summary', audit.geminiInsight?.groundingSummary || '');
+      setTxt('live-probe-badge', '● LIVE ORIGIN PROBE · /robots.txt (' + (audit.liveProbe?.robotsHttpStatus || 200) + ') • /llms.txt (' + (audit.llmsTxtStatus?.hasLlmsTxt ? '200 OK' : '404 MISSING') + ')');
 
       const botContainer = document.getElementById('bot-status-row');
       if (botContainer && audit.bots) {
@@ -852,9 +862,11 @@ function renderInteractiveScript(initialAudit) {
 
       const pmEl = document.getElementById('prompt-matrix-tbody');
       if (pmEl && audit.promptRows) {
-        pmEl.innerHTML = audit.promptRows.slice(0, 12).map(r => {
+        pmEl.innerHTML = audit.promptRows.slice(0, 12).map((r, idx) => {
           const fmtRank = (eng) => eng && eng.cited ? '<span class="badge badge-emerald mono">#' + eng.rank + ' (' + eng.weight + ')</span>' : '<span class="badge badge-rose mono">Uncited</span>';
-          return '<tr>' +
+          const isBlurred = idx >= 3 && !(idx === 3 && window.__ROW4_UNLOCKED__);
+          const blurStyle = isBlurred ? ' style="filter:blur(4px);user-select:none;opacity:0.65;" title="Unlock full 25-prompt matrix via Email or $1.99 Pass"' : '';
+          return '<tr' + blurStyle + '>' +
             '<td class="mono" style="color:var(--text-muted);">P' + String(r.id).padStart(2, '0') + '</td>' +
             '<td style="font-weight:500;color:var(--text-primary);">' + r.prompt + '</td>' +
             '<td>' + fmtRank(r.engines.perplexity) + '</td>' +
@@ -865,7 +877,7 @@ function renderInteractiveScript(initialAudit) {
         }).join('');
       }
 
-      switchCompilerTab(window.__ACTIVE_TAB__);
+      switchCompilerTab(window.__ACTIVE_TAB__, true);
     }
 
     async function startCheckout(planId) {

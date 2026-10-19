@@ -97,14 +97,7 @@ function renderGraderAndCompilerSection(audit) {
               <button type="button" class="tab-btn mono" data-tab="robotsTxtPatch" onclick="switchCompilerTab('robotsTxtPatch')">robots.txt Patch</button>
               <button type="button" class="tab-btn mono" data-tab="jsonLd" onclick="switchCompilerTab('jsonLd')">JSON-LD @graph</button>
             </div>
-            <pre id="compiler-code-output" class="code-viewport mono" style="flex:1;"># ${escapeHtml(audit.brand)} (${escapeHtml(audit.domain)}) — AI Search Summary (/llms.txt)
-&gt; Diagnostic Status: ${audit.findings.length} Crawler &amp; Schema Gaps Detected (${audit.scores.csovPct}% AI Citation Share)
-
-# 🔒 [LOCKED IN FREE PREVIEW — $1.99 SINGLE-AUDIT PASS]
-# Unlock the 3-File Pack ($1.99) to unblur and download:
-#   1. /llms.txt &amp; /llms-full.txt Markdown Guides
-#   2. JSON-LD @graph Entity Schema
-#   3. AI Crawler /robots.txt Allowlist Patch</pre>
+            <pre id="compiler-code-output" class="code-viewport mono" style="flex:1;">${escapeHtml(audit.artifacts.llmsTxt)}</pre>
           </div>
         </div>
       </div>
@@ -181,9 +174,14 @@ function renderPricingSection() {
 }
 
 function renderHeroGraderBox(audit, isLp = false) {
-  const presets = ['stripe.com', 'linear.app', 'supabase.com'];
-  const presetButtons = presets.map(d =>
-    `<button type="button" class="preset-chip mono ${audit.domain === d ? 'active' : ''}" data-domain="${d}" onclick="selectPreset('${d}')">${d}</button>`
+  const presets = [
+    { d: 'stripe.com', label: 'stripe.com (97 A+)' },
+    { d: 'linear.app', label: 'linear.app (95 A+)' },
+    { d: 'supabase.com', label: 'supabase.com (91 A+)' },
+    { d: 'notion.so', label: 'notion.so (3 Bots Blocked)' }
+  ];
+  const presetButtons = presets.map(p =>
+    `<button type="button" class="preset-chip mono ${audit.domain === p.d ? 'active' : ''}" data-domain="${p.d}" onclick="selectPreset('${p.d}')">${p.label}</button>`
   ).join('');
 
   const headlineHtml = isLp
@@ -196,7 +194,6 @@ function renderHeroGraderBox(audit, isLp = false) {
   <section id="grader" class="hero-section">
     <div class="container">
       <div class="hero-grid" style="align-items:stretch;">
-        <!-- Left Column: Layperson Value Proposition + 1-Input Domain Checker -->
         <div id="home-executive-brief" style="display:flex;flex-direction:column;justify-content:space-between;height:100%;">
           <div>
             <div style="display:flex;gap:8px;flex-wrap:wrap;align-items:center;margin-bottom:10px;">
@@ -213,15 +210,14 @@ function renderHeroGraderBox(audit, isLp = false) {
               <span style="padding:3px 9px;border-radius:999px;background:var(--bg-subtle);color:var(--text-primary);border:1px solid var(--border-hairline);">📈 SEO &amp; Growth Teams</span>
             </div>
 
-            <!-- 3-Step Layperson Journey Cards -->
             <div style="display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:10px;margin-bottom:16px;">
               <div style="padding:11px 12px;border-radius:10px;background:var(--bg-subtle);border:1px solid var(--border-hairline);">
                 <div class="mono" style="font-size:0.8125rem;font-weight:700;color:var(--accent-indigo);margin-bottom:3px;">STEP 1 • FREE CHECK</div>
-                <div style="font-size:0.84rem;color:var(--text-primary);font-weight:600;line-height:1.35;">Enter your domain to see how often AI recommends you across 25 buyer questions.</div>
+                <div style="font-size:0.84rem;color:var(--text-primary);font-weight:600;line-height:1.35;">Enter your domain to probe your live <span class="mono">/robots.txt</span>, <span class="mono">/llms.txt</span> &amp; 25 buyer questions.</div>
               </div>
               <div style="padding:11px 12px;border-radius:10px;background:var(--bg-subtle);border:1px solid var(--border-hairline);">
                 <div class="mono" style="font-size:0.8125rem;font-weight:700;color:var(--accent-emerald);margin-bottom:3px;">STEP 2 • SPOT GAPS</div>
-                <div style="font-size:0.84rem;color:var(--text-primary);font-weight:600;line-height:1.35;">See which AI crawlers are blocked in <span class="mono">/robots.txt</span> and where competitors win.</div>
+                <div style="font-size:0.84rem;color:var(--text-primary);font-weight:600;line-height:1.35;">See which AI crawlers are blocked and where competitors outrank you.</div>
               </div>
               <div style="padding:11px 12px;border-radius:10px;background:var(--bg-subtle);border:1px solid var(--border-hairline);">
                 <div class="mono" style="font-size:0.8125rem;font-weight:700;color:var(--text-primary);margin-bottom:3px;">STEP 3 • UNLOCK FIX</div>
@@ -232,21 +228,31 @@ function renderHeroGraderBox(audit, isLp = false) {
             <form class="grader-form" onsubmit="event.preventDefault(); executeAudit();" novalidate>
               <div style="flex:1;display:flex;flex-direction:column;gap:6px;">
                 <label for="domain-input" style="font-size:0.86rem;font-weight:700;color:var(--text-primary);letter-spacing:0.01em;">
-                  Enter Your Website Domain
+                  Enter Your Website Domain &amp; Industry
                 </label>
-                <div style="display:flex;gap:10px;flex-wrap:wrap;">
+                <div style="display:flex;gap:8px;flex-wrap:wrap;">
                   <input
                     id="domain-input"
                     name="domain"
                     type="text"
                     class="grader-input"
+                    style="flex:1 1 210px;"
                     value="${escapeHtml(audit.domain)}"
-                    placeholder="e.g. linear.app, stripe.com, supabase.com"
+                    placeholder="e.g. linear.app, calendly.com, mybrand.io"
                     autocomplete="off"
                     required
                   />
+                  <select id="category-select" name="category" class="grader-input" style="flex:0 1 195px;padding:10px 12px;font-size:0.84rem;cursor:pointer;" aria-label="Industry Category">
+                    <option value="">Auto-Detect Industry</option>
+                    <option value="B2B SaaS & Developer Infrastructure">B2B SaaS &amp; DevTools</option>
+                    <option value="E-Commerce & DTC Retail Brands">E-Commerce &amp; DTC Retail</option>
+                    <option value="Fintech, Payments & Treasury">Fintech &amp; Payments</option>
+                    <option value="AI Workflow & Agent Orchestration">AI &amp; LLM Agents</option>
+                    <option value="Revenue Operations, CRM & Marketing">RevOps, CRM &amp; Agency</option>
+                    <option value="Healthcare, Aesthetics & Wellness">Healthcare &amp; Wellness</option>
+                  </select>
                   <input type="text" name="website_hp" style="display:none;" tabindex="-1" autocomplete="off" aria-hidden="true" />
-                  <button id="run-audit-btn" type="submit" class="btn btn-primary" style="padding:12px 22px;">
+                  <button id="run-audit-btn" type="submit" class="btn btn-primary" style="padding:12px 20px;">
                     <span>Check My Website Free</span>
                     <span class="btn-arrow-pill" aria-hidden="true">&#8599;</span>
                   </button>
@@ -262,13 +268,12 @@ function renderHeroGraderBox(audit, isLp = false) {
           </div>
         </div>
 
-        <!-- Right Column: Plain-English Executive Scorecard & Field Guide -->
         <div class="bezel-shell" style="display:flex;flex-direction:column;height:100%;">
           <div class="panel-elevated" style="padding:22px;display:flex;flex-direction:column;justify-content:space-between;height:100%;">
             <div>
               <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:14px;padding-bottom:12px;border-bottom:1px solid var(--border-hairline);flex-wrap:wrap;gap:8px;">
                 <div>
-                  <div class="mono" style="font-size:0.8125rem;font-weight:700;color:var(--text-muted);letter-spacing:0.05em;">PLAIN-ENGLISH SCORE OVERVIEW</div>
+                  <div id="live-probe-badge" class="mono" style="font-size:0.78rem;font-weight:700;color:var(--accent-emerald);letter-spacing:0.04em;">&#9679; LIVE ORIGIN PROBE · /robots.txt (${audit.liveProbe?.robotsHttpStatus || 200}) &bull; /llms.txt (${audit.llmsTxtStatus?.hasLlmsTxt ? '200 OK' : '404 MISSING'})</div>
                   <div id="score-brand-title" class="serif-display" style="font-size:1.45rem;font-weight:600;color:var(--text-primary);">${escapeHtml(audit.brand)} (${escapeHtml(audit.domain)})</div>
                 </div>
                 <div style="display:flex;gap:8px;align-items:center;flex-wrap:wrap;">
@@ -409,7 +414,7 @@ function renderExecutiveBriefSection(sectionId = 'lp-executive-brief', isHeroH1 
                   <div class="mono" style="font-size:0.8125rem;font-weight:700;color:var(--accent-indigo);">VERIFIED 21-DAY IMPACT</div>
                   <div style="font-size:0.9rem;color:var(--text-primary);font-weight:600;">Avg. +18.4% AI Recommendation Lift after publishing <span class="mono">/llms.txt</span></div>
                 </div>
-                <a href="/buy/complete_dossier" class="btn btn-primary" style="padding:9px 14px;font-size:0.85rem;">Get $49 Complete Audit Pack &rarr;</a>
+                <a href="/buy/flash_pass" onclick="if(window.__ebQuickBuy){window.__ebQuickBuy('flash_pass');return false;}" class="btn btn-primary" style="padding:9px 14px;font-size:0.85rem;">Unlock 3-File Pack ($1.99 Stripe Express) &rarr;</a>
               </div>
             </div>
           </div>
@@ -876,7 +881,7 @@ function renderSeoDetailPage(pageRow, relatedPages) {
           <p style="color:var(--text-secondary);font-size:0.9rem;">Compare your cSoV against ${escapeHtml(pageRow.primary_entity)} and auto-compile your custom <span class="mono">/llms.txt</span> + JSON-LD graph.</p>
         </div>
         <div>
-          <a href="/?domain=${encodeURIComponent(pageRow.primary_entity.toLowerCase().replace(/[^a-z0-9]/g, '') + '.com')}#grader" class="btn btn-primary">
+          <a href="/?domain=${encodeURIComponent(payload.brandA?.domain || payload.leaders?.[0]?.domain || 'linear.app')}#grader" class="btn btn-primary">
             <span>Audit Your Domain Free</span>
             <span class="btn-arrow-pill" aria-hidden="true">&#8599;</span>
           </a>

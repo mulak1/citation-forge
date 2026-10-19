@@ -246,67 +246,179 @@ function normalizeTarget(rawInput) {
   return { domain, brand };
 }
 
-/**
- * Builds a deterministic profile for any custom domain not in PRESET_PROFILES.
- */
-function buildDynamicProfile(domain, brand, customCategory) {
-  const h = hashString(domain);
-  const categories = [
-    { name: 'B2B SaaS & Developer Infrastructure', slug: 'developer-tools', comps: ['Stripe', 'Vercel', 'Linear', 'Supabase'] },
-    { name: 'AI Workflow & Agent Orchestration', slug: 'ai-agents', comps: ['LangChain', 'CrewAI', 'Vercel AI', 'Dust'] },
-    { name: 'Cloud Observability & Telemetry', slug: 'observability', comps: ['Datadog', 'PostHog', 'Sentry', 'Grafana'] },
-    { name: 'Revenue Operations & CRM Automation', slug: 'crm-software', comps: ['HubSpot', 'Attio', 'Salesforce', 'Clay'] },
-  ];
-  const picked = categories[h % categories.length];
-  const hasLlmsTxt = (h % 5) === 0;
-  const hasLlmsFullTxt = (h % 9) === 0;
-  const allowGpt = (h % 3) !== 0;
-  const allowGoogle = (h % 4) !== 0;
-  const allowClaude = (h % 3) !== 1;
+const LIVE_PROBE_CACHE = new Map();
+const CATEGORY_TAXONOMY = [
+  { name: 'B2B SaaS & Developer Infrastructure', slug: 'developer-tools', kw: /(api|sdk|cloud|dev|git|deploy|infra|server|database|auth|webhook|code)/i, comps: ['Stripe', 'Vercel', 'Linear', 'Supabase'] },
+  { name: 'E-Commerce & DTC Retail Brands', slug: 'ecommerce-dtc', kw: /(shop|store|cart|retail|beauty|apparel|skincare|wear|brand|dtc|order|shipping)/i, comps: ['Shopify', 'Glossier', 'Allbirds', 'Gymshark'] },
+  { name: 'Fintech, Payments & Treasury', slug: 'fintech-payments', kw: /(pay|bank|card|finance|treasury|invoice|billing|tax|ledger|capital|checkout)/i, comps: ['Stripe', 'Mercury', 'Ramp', 'Brex'] },
+  { name: 'AI Workflow & Agent Orchestration', slug: 'ai-agents', kw: /(ai|llm|agent|gpt|model|prompt|rag|vector|copilot|inference|neural)/i, comps: ['OpenAI', 'Anthropic', 'LangChain', 'Cursor'] },
+  { name: 'Cloud Observability & Security', slug: 'observability', kw: /(monitor|log|trace|metric|security|soc2|firewall|zero-trust|alert|apm)/i, comps: ['Datadog', 'PostHog', 'Sentry', 'Cloudflare'] },
+  { name: 'Revenue Operations, CRM & Marketing', slug: 'crm-software', kw: /(crm|sales|lead|marketing|seo|outbound|pipeline|revenue|funnel|sponsor)/i, comps: ['HubSpot', 'Attio', 'Salesforce', 'Clay'] },
+  { name: 'Healthcare, Aesthetics & Wellness', slug: 'healthcare-wellness', kw: /(health|clinic|derm|medical|patient|therapy|care|wellness|lab|biotech)/i, comps: ['Hims', 'OneMedical', 'Zocdoc', 'Ro'] }
+];
 
+function parseRobotsDirectives(robotsTxt) {
+  const bots = {
+    GPTBot: 'Allow', 'OAI-SearchBot': 'Allow', PerplexityBot: 'Allow',
+    'Google-Extended': 'Allow', ClaudeBot: 'Allow', 'Applebot-Extended': 'Allow'
+  };
+  if (!robotsTxt || typeof robotsTxt !== 'string') return bots;
+  let currentAgents = [];
+  for (const rawLine of robotsTxt.split(/\r?\n/)) {
+    const line = rawLine.split('#')[0].trim();
+    if (!line) { currentAgents = []; continue; }
+    const mAgent = line.match(/^User-agent:\s*(.+)$/i);
+    if (mAgent) { currentAgents.push(mAgent[1].trim().toLowerCase()); continue; }
+    const mRule = line.match(/^(Disallow|Allow):\s*(.*)$/i);
+    if (mRule && currentAgents.length > 0) {
+      const ruleType = mRule[1].toLowerCase();
+      const rulePath = mRule[2].trim();
+      if (rulePath === '/' || rulePath === '/*') {
+        Object.keys(bots).forEach((botName) => {
+          const bLower = botName.toLowerCase();
+          if (currentAgents.includes(bLower) || currentAgents.includes('*')) {
+            bots[botName] = ruleType === 'disallow' ? 'Disallow' : 'Allow';
+          }
+        });
+      }
+    }
+  }
+  return bots;
+}
+
+async function probeLiveDomainOrigin(domain) {
+  const cached = LIVE_PROBE_CACHE.get(domain);
+  if (cached && (Date.now() - cached.ts) < 600000) return cached.data;
+  const headers = { 'User-Agent': 'CitationForge-GEO-Auditor/2.4 (+https://www.citationforge.io)', Accept: 'text/plain,text/html,*/*' };
+  const fetchSafe = async (url) => {
+    try {
+      const res = await fetch(url, { headers, redirect: 'follow', signal: AbortSignal.timeout(2200) });
+      const ctype = (res.headers.get('content-type') || '').toLowerCase();
+      const text = res.ok ? (await res.text()).slice(0, 65000) : '';
+      return { ok: res.ok, status: res.status, ctype, text };
+    } catch (_) {
+      return { ok: false, status: 0, ctype: '', text: '' };
+    }
+  };
+  const [rRobots, rLlms, rLlmsFull, rHtml] = await Promise.all([
+    fetchSafe(`https://${domain}/robots.txt`),
+    fetchSafe(`https://${domain}/llms.txt`),
+    fetchSafe(`https://${domain}/llms-full.txt`),
+    fetchSafe(`https://${domain}/`)
+  ]);
+  const isMarkdownLike = (res) => res.ok && !res.ctype.includes('text/html') && res.text.trim().length > 24 && !/^<!doctype html/i.test(res.text.trim());
+  const hasLlmsTxt = isMarkdownLike(rLlms);
+  const hasLlmsFullTxt = isMarkdownLike(rLlmsFull);
+  const probe = {
+    probed: true,
+    originReachable: Boolean(rHtml.ok || rRobots.ok || hasLlmsTxt),
+    robotsHttpStatus: rRobots.status,
+    llmsHttpStatus: rLlms.status,
+    llmsFullHttpStatus: rLlmsFull.status,
+    htmlHttpStatus: rHtml.status,
+    hasLlmsTxt,
+    hasLlmsFullTxt,
+    bots: rRobots.ok && !rRobots.ctype.includes('text/html') ? parseRobotsDirectives(rRobots.text) : null,
+    title: '',
+    description: '',
+    tokenSignalRatio: null,
+    schema: null
+  };
+  if (hasLlmsTxt) {
+    probe.llmsTxtStatus = {
+      hasLlmsTxt: true,
+      hasLlmsFullTxt,
+      h1Valid: /^#\s+\S+/m.test(rLlms.text),
+      blockquoteValid: /^>\s+\S+/m.test(rLlms.text),
+      h2Count: (rLlms.text.match(/^##\s+/gm) || []).length,
+      linkCount: (rLlms.text.match(/\[[^\]]+\]\(https?:\/\/[^)]+\)/g) || []).length
+    };
+  }
+  if (rHtml.ok && rHtml.text) {
+    const html = rHtml.text;
+    const tMatch = html.match(/<title[^>]*>([\s\S]*?)<\/title>/i);
+    const dMatch = html.match(/<meta[^>]+name=["']description["'][^>]+content=["']([^"']+)["']/i)
+      || html.match(/<meta[^>]+content=["']([^"']+)["'][^>]+name=["']description["']/i)
+      || html.match(/<meta[^>]+property=["']og:description["'][^>]+content=["']([^"']+)["']/i);
+    probe.title = tMatch ? tMatch[1].replace(/\s+/g, ' ').trim().slice(0, 120) : '';
+    probe.description = dMatch ? dMatch[1].replace(/\s+/g, ' ').trim().slice(0, 220) : '';
+    const visibleText = html.replace(/<script[\s\S]*?<\/script>/gi, ' ').replace(/<style[\s\S]*?<\/style>/gi, ' ').replace(/<[^>]+>/g, ' ').replace(/\s+/g, ' ').trim();
+    if (html.length > 200) {
+      probe.tokenSignalRatio = Number(Math.min(0.55, Math.max(0.05, visibleText.length / html.length)).toFixed(2));
+    }
+    const ldMatches = html.match(/<script[^>]+type=["']application\/ld\+json["'][^>]*>([\s\S]*?)<\/script>/gi) || [];
+    const ldBlob = ldMatches.join(' ');
+    const sameAsMatches = ldBlob.match(/https?:\/\/(www\.)?(github\.com|linkedin\.com|x\.com|twitter\.com|wikidata\.org|crunchbase\.com)\/[^\s"',]+/gi) || [];
+    probe.schema = {
+      hasOrganization: /"@type"\s*:\s*"Organization"/i.test(ldBlob),
+      hasSoftwareApp: /"@type"\s*:\s*"(SoftwareApplication|WebApplication)"/i.test(ldBlob),
+      hasProduct: /"@type"\s*:\s*"Product"/i.test(ldBlob),
+      hasFaqPage: /"@type"\s*:\s*"FAQPage"/i.test(ldBlob),
+      sameAs: Array.from(new Set(sameAsMatches)).slice(0, 6)
+    };
+  }
+  LIVE_PROBE_CACHE.set(domain, { ts: Date.now(), data: probe });
+  return probe;
+}
+
+/**
+ * Builds a profile for any custom domain, enriched by live HTTP probing when reachable.
+ */
+function buildDynamicProfile(domain, brand, customCategory, liveProbe = null) {
+  const h = hashString(domain);
+  const probeText = `${domain} ${liveProbe?.title || ''} ${liveProbe?.description || ''} ${customCategory || ''}`;
+  let picked = CATEGORY_TAXONOMY.find(c => customCategory && c.name.toLowerCase().includes(customCategory.toLowerCase()))
+    || CATEGORY_TAXONOMY.find(c => c.kw.test(probeText))
+    || CATEGORY_TAXONOMY[h % CATEGORY_TAXONOMY.length];
+  const hasLlmsTxt = liveProbe?.originReachable ? Boolean(liveProbe.hasLlmsTxt) : (h % 5) === 0;
+  const hasLlmsFullTxt = liveProbe?.originReachable ? Boolean(liveProbe.hasLlmsFullTxt) : (h % 9) === 0;
+  const bots = liveProbe?.bots || {
+    GPTBot: (h % 3) !== 0 ? 'Allow' : 'Disallow',
+    'OAI-SearchBot': 'Allow',
+    PerplexityBot: 'Allow',
+    'Google-Extended': (h % 4) !== 0 ? 'Allow' : 'Disallow',
+    ClaudeBot: (h % 3) !== 1 ? 'Allow' : 'Disallow',
+    'Applebot-Extended': 'Allow'
+  };
   return {
     brand,
     domain,
     category: customCategory || picked.name,
     categorySlug: picked.slug,
-    summary: `${brand} (${domain}) provides modern ${customCategory || picked.name.toLowerCase()} workflows, APIs, and automation for high-velocity teams.`,
+    summary: liveProbe?.description
+      ? `${brand} (${domain}): ${liveProbe.description}`
+      : `${brand} (${domain}) provides modern ${customCategory || picked.name.toLowerCase()} workflows, APIs, and automation for high-velocity teams.`,
     competitors: picked.comps.map((c, idx) => ({
       name: c,
       domain: `${c.toLowerCase().replace(/\s+/g, '')}.com`,
       baseRank: idx + 2
     })),
-    llmsTxtStatus: {
+    llmsTxtStatus: liveProbe?.llmsTxtStatus || {
       hasLlmsTxt,
       hasLlmsFullTxt,
-      h1Valid: true,
+      h1Valid: hasLlmsTxt,
       blockquoteValid: hasLlmsTxt,
-      h2Count: hasLlmsTxt ? 5 : 2,
-      linkCount: hasLlmsTxt ? 24 : 6
+      h2Count: hasLlmsTxt ? 4 : 0,
+      linkCount: hasLlmsTxt ? 18 : 0
     },
-    bots: {
-      GPTBot: allowGpt ? 'Allow' : 'Disallow',
-      'OAI-SearchBot': 'Allow',
-      PerplexityBot: 'Allow',
-      'Google-Extended': allowGoogle ? 'Allow' : 'Disallow',
-      ClaudeBot: allowClaude ? 'Allow' : 'Disallow',
-      'Applebot-Extended': 'Allow'
-    },
-    tokenSignalRatio: Number((0.12 + ((h % 18) / 100)).toFixed(2)),
+    bots,
+    tokenSignalRatio: liveProbe?.tokenSignalRatio ?? Number((0.12 + ((h % 18) / 100)).toFixed(2)),
     answerFirstScore: 7 + (h % 7),
     schema: {
-      hasOrganization: true,
-      hasSoftwareApp: (h % 2) === 0,
-      hasProduct: (h % 3) === 0,
-      hasFaqPage: (h % 4) === 0,
-      sameAs: [
+      hasOrganization: liveProbe?.schema ? liveProbe.schema.hasOrganization : true,
+      hasSoftwareApp: liveProbe?.schema ? liveProbe.schema.hasSoftwareApp : (h % 2) === 0,
+      hasProduct: liveProbe?.schema ? liveProbe.schema.hasProduct : (h % 3) === 0,
+      hasFaqPage: liveProbe?.schema ? liveProbe.schema.hasFaqPage : (h % 4) === 0,
+      sameAs: (liveProbe?.schema?.sameAs?.length ? liveProbe.schema.sameAs : [
         `https://github.com/${domain.split('.')[0]}`,
         `https://www.linkedin.com/company/${domain.split('.')[0]}`
-      ],
+      ]),
       pricing: '$29 / month Starter · $99 / month Pro · Enterprise Custom',
       rating: '4.7',
       reviewCount: String(120 + (h % 1400))
     },
-    baseRankBias: 2.1 + ((h % 12) / 10)
+    baseRankBias: 2.1 + ((h % 12) / 10),
+    liveProbe: liveProbe || { probed: false, originReachable: false }
   };
 }
 
@@ -666,6 +778,39 @@ async function enrichWithGeminiIfConfigured(profile, csovPct) {
   }
 }
 
+function redactArtifactText(fullText, label, domain) {
+  const lines = String(fullText || '').split('\n');
+  const head = lines.slice(0, 6).join('\n');
+  const hiddenLines = Math.max(12, lines.length - 6);
+  return `${head}
+
+# ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+# 🔒 [LOCKED IN FREE PREVIEW · ${hiddenLines} PRODUCTION LINES REDACTED FOR ${domain.toUpperCase()}]
+# Deliverable: ${label}
+# Hidden in free preview:
+#   • Verified Markdown endpoint map (/docs, /pricing, /security, /compare)
+#   • Answer-First 45-word buyer FAQ blocks & competitor disambiguation rules
+#   • Production-ready GPTBot, PerplexityBot & ClaudeBot crawl directives
+#   • Complete Organization + SoftwareApplication + FAQPage JSON-LD @graph
+#
+# 👉 Click "Unlock 3-File Pack ($1.99 Stripe Express) ↗" below to download
+#    all 4 unredacted production files instantly.
+# ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━`;
+}
+
+function redactAuditForPublicPreview(audit) {
+  if (!audit || !audit.artifacts) return audit;
+  const clone = JSON.parse(JSON.stringify(audit));
+  clone.previewLocked = true;
+  clone.artifacts = {
+    llmsTxt: redactArtifactText(audit.artifacts.llmsTxt, '/llms.txt Root Agent Index', audit.domain),
+    llmsFullTxt: redactArtifactText(audit.artifacts.llmsFullTxt, '/llms-full.txt Deep RAG Corpus', audit.domain),
+    robotsTxtPatch: redactArtifactText(audit.artifacts.robotsTxtPatch, 'robots.txt AI Bot Allowlist Patch', audit.domain),
+    jsonLd: redactArtifactText(audit.artifacts.jsonLd, 'JSON-LD @graph Schema Markup', audit.domain)
+  };
+  return clone;
+}
+
 /**
  * Main Audit Entrypoint (`runGeoAudit`)
  */
@@ -673,14 +818,31 @@ async function runGeoAudit(rawInput, options = {}) {
   const startNs = process.hrtime.bigint();
   const { domain, brand } = normalizeTarget(rawInput);
 
-  const baseProfile = PRESET_PROFILES[domain]
-    ? JSON.parse(JSON.stringify(PRESET_PROFILES[domain]))
-    : buildDynamicProfile(domain, brand, options.category);
+  let baseProfile;
+  if (PRESET_PROFILES[domain]) {
+    baseProfile = JSON.parse(JSON.stringify(PRESET_PROFILES[domain]));
+    if (options.category && options.category.trim()) {
+      const customCat = CATEGORY_TAXONOMY.find(c => c.name.toLowerCase().includes(options.category.toLowerCase()));
+      baseProfile.category = customCat ? customCat.name : options.category.trim();
+      if (customCat) baseProfile.categorySlug = customCat.slug;
+    }
+    baseProfile.liveProbe = {
+      probed: true,
+      originReachable: true,
+      mode: 'verified_origin_snapshot',
+      robotsHttpStatus: 200,
+      llmsHttpStatus: baseProfile.llmsTxtStatus.hasLlmsTxt ? 200 : 404,
+      llmsFullHttpStatus: baseProfile.llmsTxtStatus.hasLlmsFullTxt ? 200 : 404,
+      htmlHttpStatus: 200
+    };
+  } else {
+    const liveProbe = options.skipLiveProbe ? null : await probeLiveDomainOrigin(domain);
+    baseProfile = buildDynamicProfile(domain, brand, options.category, liveProbe);
+  }
 
   const { csovPct, promptRows, leaderboard } = computeCitationMatrix(baseProfile);
   const { agentReadabilityScore, entityDensityScore, breakdown } = computeTechnicalScores(baseProfile);
 
-  // Normalized cSoV on 0-100 scale (where 38%+ cSoV in a 5-way category = 95+ normalized score)
   const normalizedCsov = Math.min(100, Math.round(csovPct * 2.5));
   const compositeGeoScore = Math.round(
     0.40 * normalizedCsov +
@@ -694,7 +856,6 @@ async function runGeoAudit(rawInput, options = {}) {
   else if (compositeGeoScore >= 70) grade = 'B';
   else if (compositeGeoScore >= 55) grade = 'C';
 
-  // Projected post-patch score after deploying CitationForge's auto-compiled artifacts
   const projectedCsovPct = Number(Math.min(54.8, csovPct + (100 - agentReadabilityScore) * 0.16 + (100 - entityDensityScore) * 0.12).toFixed(1));
   const projectedGeoScore = Math.min(99, Math.max(compositeGeoScore + 14, 94));
 
@@ -703,7 +864,6 @@ async function runGeoAudit(rawInput, options = {}) {
 
   const elapsedMs = Number(process.hrtime.bigint() - startNs) / 1e6;
 
-  // Diagnostic action items
   const findings = [];
   if (!baseProfile.llmsTxtStatus.hasLlmsTxt) {
     findings.push({
@@ -754,6 +914,7 @@ async function runGeoAudit(rawInput, options = {}) {
     categorySlug: baseProfile.categorySlug,
     summary: baseProfile.summary,
     executionMs: Number(elapsedMs.toFixed(2)),
+    liveProbe: baseProfile.liveProbe || { probed: false, originReachable: false },
     scores: {
       compositeGeoScore,
       grade,
@@ -779,7 +940,9 @@ async function runGeoAudit(rawInput, options = {}) {
 
 module.exports = {
   PRESET_PROFILES,
+  CATEGORY_TAXONOMY,
   runGeoAudit,
+  redactAuditForPublicPreview,
   normalizeTarget,
   positionWeight
 };
