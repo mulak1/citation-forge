@@ -1,4 +1,4 @@
-# CitationForge — AI Search & GEO Visibility
+# CitationForge — AI Search & ChatGPT Visibility
 
 [![CitationForge linear.app](https://www.citationforge.io/badge/linear.app.svg)](https://www.citationforge.io/scan/linear.app?utm_source=github_readme) [![CitationForge stripe.com](https://www.citationforge.io/badge/stripe.com.svg)](https://www.citationforge.io/scan/stripe.com?utm_source=github_readme) [![CitationForge supabase.com](https://www.citationforge.io/badge/supabase.com.svg)](https://www.citationforge.io/scan/supabase.com?utm_source=github_readme)
 
@@ -20,15 +20,15 @@
 
 ## ⚡ Free Interactive Calculators & Micro-Tools (`/tools/:slug`)
 
-- **[Free llms.txt & llms-full.txt Validator and Auto-Compiler (2026)](https://www.citationforge.io/tools/llms-txt-validator-and-compiler)** ([Markdown Twin](https://www.citationforge.io/tools/llms-txt-validator-and-compiler.md)) — Validate your root /llms.txt and /llms-full.txt against the AnswerDotAI v2 specification and auto-compile agent-readable Markdown indexes in 10 seconds.
-- **[ChatGPT Search & Perplexity Citation Share-of-Voice (cSoV) Calculator](https://www.citationforge.io/tools/chatgpt-perplexity-citation-share-calculator)** ([Markdown Twin](https://www.citationforge.io/tools/chatgpt-perplexity-citation-share-calculator.md)) — Calculate position-weighted Citation Share-of-Voice across 25 commercial buyer prompts in ChatGPT Search, Perplexity, Gemini, and Claude.
-- **[AI-Ready @graph JSON-LD & Speakable Schema Generator for SaaS](https://www.citationforge.io/tools/json-ld-schema-graph-generator)** ([Markdown Twin](https://www.citationforge.io/tools/json-ld-schema-graph-generator.md)) — Compile deterministic Organization, SoftwareApplication, Dataset, FAQPage, and SpeakableSpecification @graph JSON-LD for Google AI Overviews and RAG crawlers.
+- **[Free llms.txt & llms-full.txt Checker and Generator (2026)](https://www.citationforge.io/tools/llms-txt-validator-and-compiler)** ([Markdown Twin](https://www.citationforge.io/tools/llms-txt-validator-and-compiler.md)) — Check your website’s /llms.txt and /llms-full.txt files and generate clean AI-readable site guides for ChatGPT and Perplexity in 10 seconds.
+- **[ChatGPT Search & Perplexity Brand Mention Calculator](https://www.citationforge.io/tools/chatgpt-perplexity-citation-share-calculator)** ([Markdown Twin](https://www.citationforge.io/tools/chatgpt-perplexity-citation-share-calculator.md)) — Measure how often ChatGPT Search, Perplexity, Gemini, and Claude recommend your brand across 25 high-intent buyer questions.
+- **[AI-Ready JSON-LD Schema Generator for Websites & SaaS](https://www.citationforge.io/tools/json-ld-schema-graph-generator)** ([Markdown Twin](https://www.citationforge.io/tools/json-ld-schema-graph-generator.md)) — Generate copy-paste Organization, Product, FAQ, and Article JSON-LD schema markup so Google AI Overviews and AI assistants cite your site accurately.
 
 ## ⚖️ Head-to-Head Deterministic Comparisons (`/compare/:slug`)
 
-- **[Stripe vs. Adyen: AI Search Citation Share-of-Voice & llms.txt Teardown (2026)](https://www.citationforge.io/compare/stripe-vs-adyen-ai-search-citation-audit)** ([Markdown Twin](https://www.citationforge.io/compare/stripe-vs-adyen-ai-search-citation-audit.md)) — Head-to-head Generative Engine Optimization (GEO) benchmark comparing Stripe (41.2% cSoV) against Adyen (24.8% cSoV) across 25 payment gateway buyer prompts.
-- **[Supabase vs. Firebase: AI Coding Agent & Perplexity Citation Benchmark](https://www.citationforge.io/compare/supabase-vs-firebase-llms-txt-readiness)** ([Markdown Twin](https://www.citationforge.io/compare/supabase-vs-firebase-llms-txt-readiness.md)) — Why Supabase captures 38.6% of AI coding assistant recommendations vs. Firebase (27.1%) through clean Markdown twins and high token-to-HTML readability.
-- **[Linear vs. Jira: B2B Issue Tracker AI Search Visibility & Entity Graph Audit](https://www.citationforge.io/compare/linear-vs-jira-perplexity-seo-benchmark)** ([Markdown Twin](https://www.citationforge.io/compare/linear-vs-jira-perplexity-seo-benchmark.md)) — Empirical comparison of Linear vs. Atlassian Jira across ChatGPT Search and Perplexity buyer-intent prompts for modern product management teams.
+- **[Stripe vs. Adyen: ChatGPT & Perplexity Brand Visibility Comparison (2026)](https://www.citationforge.io/compare/stripe-vs-adyen-ai-search-citation-audit)** ([Markdown Twin](https://www.citationforge.io/compare/stripe-vs-adyen-ai-search-citation-audit.md)) — Side-by-side AI search comparison showing why Stripe captures 41.2% of payment gateway recommendations vs. Adyen (24.8%) across 25 buyer prompts.
+- **[Supabase vs. Firebase: AI Coding Assistant Recommendation Benchmark](https://www.citationforge.io/compare/supabase-vs-firebase-llms-txt-readiness)** ([Markdown Twin](https://www.citationforge.io/compare/supabase-vs-firebase-llms-txt-readiness.md)) — Why Supabase captures 38.6% of AI coding assistant recommendations vs. Firebase (27.1%) through clean Markdown docs and structured guides.
+- **[Linear vs. Jira: AI Search Visibility & Recommendation Comparison](https://www.citationforge.io/compare/linear-vs-jira-perplexity-seo-benchmark)** ([Markdown Twin](https://www.citationforge.io/compare/linear-vs-jira-perplexity-seo-benchmark.md)) — Side-by-side comparison of Linear vs. Atlassian Jira across ChatGPT Search and Perplexity buyer questions for software teams.
 
 ---
 

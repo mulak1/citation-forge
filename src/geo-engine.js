@@ -640,7 +640,7 @@ async function enrichWithGeminiIfConfigured(profile, csovPct) {
     return {
       mode: 'deterministic_instant',
       modelUsed: 'CitationForge Deterministic Engine v2.4 (Offline/Zero-Latency Mode)',
-      groundingSummary: `${profile.brand} achieves a ${csovPct}% weighted Citation Share-of-Voice across 25 buyer prompts in ${profile.category}. Deploying the compiled /llms.txt and @graph JSON-LD bundle is projected to lift Perplexity & ChatGPT Search citation rank by +1.4 positions.`
+      groundingSummary: `${profile.brand} is recommended in ${csovPct}% of AI buyer answers across 25 commercial questions in ${profile.category}. Adding the ready-to-use /llms.txt guide and verified Schema markup is projected to lift your ChatGPT Search & Perplexity recommendation rank by +1.4 positions.`
     };
   }
 
@@ -649,19 +649,19 @@ async function enrichWithGeminiIfConfigured(profile, csovPct) {
     // Note: Per gemini-api-dev skill, gemini-2.5-* is deprecated; we use gemini-3.8-flash with google_search tool
     const interaction = await client.interactions.create({
       model: 'gemini-3.8-flash',
-      input: `Provide a 2-sentence executive GEO citation assessment for ${profile.brand} (${profile.domain}) in the ${profile.category} market.`,
+      input: `Provide a 2-sentence plain-English AI search recommendation assessment for ${profile.brand} (${profile.domain}) in the ${profile.category} market.`,
       tools: [{ type: 'google_search' }]
     });
     return {
       mode: 'gemini_grounded',
       modelUsed: 'gemini-3.8-flash + google_search grounding',
-      groundingSummary: interaction.output_text || `${profile.brand} holds ${csovPct}% cSoV in ${profile.category}.`
+      groundingSummary: interaction.output_text || `${profile.brand} is recommended in ${csovPct}% of AI answers in ${profile.category}.`
     };
   } catch (err) {
     return {
       mode: 'deterministic_fallback',
       modelUsed: 'CitationForge Deterministic Engine v2.4',
-      groundingSummary: `${profile.brand} achieves a ${csovPct}% weighted Citation Share-of-Voice across 25 buyer prompts in ${profile.category}.`
+      groundingSummary: `${profile.brand} is recommended in ${csovPct}% of AI buyer answers across 25 commercial questions in ${profile.category}.`
     };
   }
 }

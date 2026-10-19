@@ -203,34 +203,51 @@ function renderPricingSection() {
 }
 
 function renderHeroGraderBox(audit, isLp = false) {
-  const presets = ['stripe.com', 'linear.app', 'supabase.com', 'notion.so', 'vercel.com'];
+  const presets = ['stripe.com', 'linear.app', 'supabase.com'];
   const presetButtons = presets.map(d =>
     `<button type="button" class="preset-chip mono ${audit.domain === d ? 'active' : ''}" data-domain="${d}" onclick="selectPreset('${d}')">${d}</button>`
   ).join('');
 
   const headlineHtml = isLp
-    ? `Your Competitors Are Being Recommended by <span class="serif-italic">ChatGPT &amp; Perplexity</span> Instead of You: Check Your Site in 10 Seconds`
-    : `See How Often <span class="serif-italic">ChatGPT &amp; Perplexity</span> Recommend Your Brand: And Generate Your /llms.txt in 10 Seconds`;
+    ? `Executive Brief: Why <span class="serif-italic">ChatGPT &amp; Perplexity</span> Recommend Your Competitors Instead of You`
+    : `Executive Brief: See How Often <span class="serif-italic">ChatGPT &amp; Perplexity</span> Recommend Your Brand`;
 
-  const subheadline = isLp
-    ? 'Built for Marketing Leaders, SEO Teams, and Founders. See which competitor wins your buyers across 25 AI search questions and download ready-to-use /llms.txt + Schema files.'
-    : 'Check how often ChatGPT Search, Perplexity, and Google AI Overviews recommend your website across 25 buyer questions—and generate ready-to-use /llms.txt and Schema files.';
+  const subheadline = '64% of buyers now ask ChatGPT Search, Perplexity, and Google Gemini for recommendations before clicking a search link. Check your website in 10 seconds and get ready-to-use /llms.txt and Schema files.';
 
   return `
   <section id="grader" class="hero-section">
     <div class="container">
       <div class="hero-grid" style="align-items:stretch;">
-        <!-- Left Column: Editorial Value Prop + Instant Interactive Grader Input -->
-        <div style="display:flex;flex-direction:column;justify-content:space-between;height:100%;">
+        <!-- Left Column: Merged Executive Brief + 1-Input Domain Checker -->
+        <div id="home-executive-brief" style="display:flex;flex-direction:column;justify-content:space-between;height:100%;">
           <div>
-            <span class="badge badge-cyan mono">AI SEARCH VISIBILITY &amp; WEBSITE CITATION CHECKER</span>
+            <div style="display:flex;gap:8px;flex-wrap:wrap;align-items:center;margin-bottom:10px;">
+              <span class="badge badge-cyan mono">2026 EXECUTIVE BRIEF &amp; LIVE SITE CHECKER</span>
+              <a href="/leaderboard" class="badge badge-emerald mono" style="text-decoration:none;">🏆 Top-3 Podium Leaderboard &rarr;</a>
+            </div>
             <h1 class="hero-h1">${headlineHtml}</h1>
-            <p class="hero-sub">${escapeHtml(subheadline)}</p>
+            <p class="hero-sub" style="margin-bottom:16px;">${escapeHtml(subheadline)}</p>
+
+            <!-- 3-Point Executive Brief Summary inside Top Hero -->
+            <div style="display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:10px;margin-bottom:18px;">
+              <div style="padding:11px 12px;border-radius:10px;background:var(--bg-subtle);border:1px solid var(--border-hairline);">
+                <div class="mono" style="font-size:0.8125rem;font-weight:700;color:var(--accent-indigo);margin-bottom:3px;">01. CHECK SCORE</div>
+                <div style="font-size:0.84rem;color:var(--text-primary);font-weight:600;line-height:1.35;">See how often AI recommends you across 25 buyer questions.</div>
+              </div>
+              <div style="padding:11px 12px;border-radius:10px;background:var(--bg-subtle);border:1px solid var(--border-hairline);">
+                <div class="mono" style="font-size:0.8125rem;font-weight:700;color:var(--accent-emerald);margin-bottom:3px;">02. SPOT GAPS</div>
+                <div style="font-size:0.84rem;color:var(--text-primary);font-weight:600;line-height:1.35;">Find blocked AI crawlers in <span class="mono">/robots.txt</span> and missing facts.</div>
+              </div>
+              <div style="padding:11px 12px;border-radius:10px;background:var(--bg-subtle);border:1px solid var(--border-hairline);">
+                <div class="mono" style="font-size:0.8125rem;font-weight:700;color:var(--text-primary);margin-bottom:3px;">03. PUBLISH FIX</div>
+                <div style="font-size:0.84rem;color:var(--text-primary);font-weight:600;line-height:1.35;">Copy ready-to-use <span class="mono">/llms.txt</span> &amp; Schema files in 1 click.</div>
+              </div>
+            </div>
 
             <form class="grader-form" onsubmit="event.preventDefault(); executeAudit();" novalidate>
               <div style="flex:1;display:flex;flex-direction:column;gap:6px;">
-                <label for="domain-input" style="font-size:0.84rem;font-weight:700;color:var(--text-primary);letter-spacing:0.01em;">
-                  Target Domain or Brand URL
+                <label for="domain-input" style="font-size:0.86rem;font-weight:700;color:var(--text-primary);letter-spacing:0.01em;">
+                  Enter Your Website Domain
                 </label>
                 <div style="display:flex;gap:10px;flex-wrap:wrap;">
                   <input
@@ -243,10 +260,9 @@ function renderHeroGraderBox(audit, isLp = false) {
                     autocomplete="off"
                     required
                   />
-                  <!-- Honeypot spam protection (Checkpoint #18) -->
                   <input type="text" name="website_hp" style="display:none;" tabindex="-1" autocomplete="off" aria-hidden="true" />
-                  <button id="run-audit-btn" type="submit" class="btn btn-primary" style="padding:12px 20px;">
-                    <span>Run Free GEO Audit</span>
+                  <button id="run-audit-btn" type="submit" class="btn btn-primary" style="padding:12px 22px;">
+                    <span>Check My Website Free</span>
                     <span class="btn-arrow-pill" aria-hidden="true">&#8599;</span>
                   </button>
                 </div>
@@ -254,20 +270,20 @@ function renderHeroGraderBox(audit, isLp = false) {
             </form>
             <div id="grader-error" style="display:none;color:var(--accent-rose);font-size:0.82rem;font-weight:600;margin-bottom:10px;" role="alert"></div>
 
-            <div class="preset-strip">
-              <span style="font-size:0.84rem;color:var(--text-muted);font-weight:700;">Instant Benchmarks:</span>
+            <div class="preset-strip" style="margin-top:8px;">
+              <span style="font-size:0.84rem;color:var(--text-muted);font-weight:700;">Try Example:</span>
               ${presetButtons}
             </div>
           </div>
         </div>
 
-        <!-- Right Column: Double-Bezel White Bento Telemetry Scorecard -->
+        <!-- Right Column: Plain-English Executive Scorecard & Field Guide -->
         <div class="bezel-shell" style="display:flex;flex-direction:column;height:100%;">
           <div class="panel-elevated" style="padding:22px;display:flex;flex-direction:column;justify-content:space-between;height:100%;">
             <div>
-              <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:16px;padding-bottom:12px;border-bottom:1px solid var(--border-hairline);flex-wrap:wrap;gap:8px;">
+              <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:14px;padding-bottom:12px;border-bottom:1px solid var(--border-hairline);flex-wrap:wrap;gap:8px;">
                 <div>
-                  <div class="mono" style="font-size:0.8125rem;font-weight:700;color:var(--text-muted);letter-spacing:0.05em;">LIVE ENTITY TELEMETRY</div>
+                  <div class="mono" style="font-size:0.8125rem;font-weight:700;color:var(--text-muted);letter-spacing:0.05em;">PLAIN-ENGLISH SCORE OVERVIEW</div>
                   <div id="score-brand-title" class="serif-display" style="font-size:1.45rem;font-weight:600;color:var(--text-primary);">${escapeHtml(audit.brand)} (${escapeHtml(audit.domain)})</div>
                 </div>
                 <div style="display:flex;gap:8px;align-items:center;flex-wrap:wrap;">
@@ -278,43 +294,43 @@ function renderHeroGraderBox(audit, isLp = false) {
 
               <div class="telemetry-grid">
                 <div class="metric-tile">
-                  <div class="metric-label">Citation SoV (cSoV)</div>
+                  <div class="metric-label">AI Recommendation Rate</div>
                   <div id="score-csov" class="metric-val mono" style="color:var(--accent-emerald);">${audit.scores.csovPct}%</div>
                 </div>
                 <div class="metric-tile">
-                  <div class="metric-label">Agent Readability</div>
+                  <div class="metric-label">AI Crawler Access</div>
                   <div id="score-readability" class="metric-val mono">${audit.scores.agentReadabilityScore}/100</div>
                 </div>
                 <div class="metric-tile">
-                  <div class="metric-label">JSON-LD Density</div>
+                  <div class="metric-label">Verified Facts Score</div>
                   <div id="score-entity" class="metric-val mono">${audit.scores.entityDensityScore}/100</div>
                 </div>
                 <div class="metric-tile">
-                  <div class="metric-label">Projected Post-Patch</div>
+                  <div class="metric-label">Rate After Fix</div>
                   <div id="score-projected" class="metric-val mono" style="color:var(--accent-indigo);">${audit.scores.projectedCsovPct}%</div>
                 </div>
               </div>
 
               <div style="background:var(--bg-subtle);border:1px solid var(--border-hairline);border-radius:10px;padding:13px 15px;font-size:0.88rem;color:var(--text-secondary);margin-bottom:12px;">
                 <div style="font-weight:700;color:var(--accent-indigo);margin-bottom:4px;font-size:0.8125rem;letter-spacing:0.04em;" class="mono">
-                  GEMINI 3.8 SEARCH GROUNDING SYNTHESIS
+                  PLAIN-ENGLISH SUMMARY &amp; NEXT STEP
                 </div>
-                <p id="gemini-grounding-summary" style="color:var(--text-primary);">${escapeHtml(audit.geminiInsight?.groundingSummary || '')}</p>
+                <p id="gemini-grounding-summary" style="color:var(--text-primary);margin:0;">${escapeHtml(audit.geminiInsight?.groundingSummary || '')}</p>
               </div>
             </div>
 
-            <!-- Plain-English GEO & Position-Weight Reference Strip -->
+            <!-- Plain-English Field Guide Strip -->
             <div style="background:var(--bg-canvas);border:1px solid var(--border-hairline);border-radius:10px;padding:12px 14px;display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-top:auto;">
               <div>
-                <div class="mono" style="font-size:0.8125rem;font-weight:700;color:var(--accent-indigo);margin-bottom:4px;">WHAT IS AI SEARCH OPTIMIZATION (GEO)?</div>
-                <p style="font-size:0.85rem;color:var(--text-secondary);line-height:1.45;margin:0;">
-                  Structuring your <span class="mono">/llms.txt</span>, <span class="mono">/robots.txt</span>, and Schema markup so ChatGPT Search, Perplexity &amp; Gemini recommend your brand first.
+                <div class="mono" style="font-size:0.8125rem;font-weight:700;color:var(--accent-indigo);margin-bottom:4px;">WHAT IS /LLMS.TXT?</div>
+                <p style="font-size:0.84rem;color:var(--text-secondary);line-height:1.45;margin:0;">
+                  A clean Markdown guide on your site so ChatGPT, Perplexity &amp; Gemini read your exact pricing and features without HTML clutter.
                 </p>
               </div>
               <div>
-                <div class="mono" style="font-size:0.8125rem;font-weight:700;color:var(--accent-emerald);margin-bottom:4px;">WHAT IS CITATION SHARE (cSoV)?</div>
-                <p style="font-size:0.85rem;color:var(--text-secondary);line-height:1.45;margin:0;">
-                  How often AI recommends you across 25 buyer questions: Rank #1 counts <strong>100%</strong>, #2 counts <strong>63%</strong>, #3 counts <strong>50%</strong>.
+                <div class="mono" style="font-size:0.8125rem;font-weight:700;color:var(--accent-emerald);margin-bottom:4px;">HOW WE SCORE RANKINGS</div>
+                <p style="font-size:0.84rem;color:var(--text-secondary);line-height:1.45;margin:0;">
+                  Across 25 buyer questions, being recommended <strong>#1 counts 100%</strong>, <strong>#2 counts 63%</strong>, and <strong>#3 counts 50%</strong>.
                 </p>
               </div>
             </div>
@@ -327,7 +343,7 @@ function renderHeroGraderBox(audit, isLp = false) {
 
 function renderTrustStripAndTestimonials() {
   return `
-  <section style="padding:24px 0;border-bottom:1px solid var(--border-hairline);background:var(--bg-subtle);">
+  <section style="padding:20px 0;border-bottom:1px solid var(--border-hairline);background:var(--bg-subtle);">
     <div class="container" style="display:flex;flex-wrap:wrap;align-items:center;justify-content:space-between;gap:24px;">
       <span class="mono" style="font-size:0.8125rem;color:var(--text-secondary);font-weight:700;letter-spacing:0.05em;">BENCHMARKED BY MARKETING &amp; SEO TEAMS AT</span>
       <div style="display:flex;flex-wrap:wrap;align-items:center;gap:36px;">
@@ -341,7 +357,7 @@ function renderTrustStripAndTestimonials() {
   </section>`;
 }
 
-function renderExecutiveBriefSection(sectionId = 'home-executive-brief', isHeroH1 = false) {
+function renderExecutiveBriefSection(sectionId = 'lp-executive-brief', isHeroH1 = false) {
   const hTag = isHeroH1 ? 'h1' : 'h2';
   return `
     <section id="${sectionId}" style="padding:48px 0 44px;border-bottom:1px solid var(--border-hairline);background:var(--bg-subtle);">
@@ -426,15 +442,15 @@ function renderHomePage(initialAudit, sampleSeoPages) {
     <a href="/seo/${escapeHtml(p.slug)}" class="panel" style="padding:16px 18px;display:block;transition:border-color 150ms ease-out, transform 150ms ease-out;">
       <div style="display:flex;justify-content:space-between;align-items:center;gap:8px;margin-bottom:6px;">
         <span class="badge badge-cyan mono">${escapeHtml(p.category)}</span>
-        <span class="mono" style="font-size:0.84rem;color:var(--accent-emerald);font-weight:700;">${p.csov_score}% cSoV</span>
+        <span class="mono" style="font-size:0.84rem;color:var(--accent-emerald);font-weight:700;">${p.csov_score}% Score</span>
       </div>
       <div style="font-weight:700;font-size:0.94rem;color:var(--text-primary);">${escapeHtml(p.title)}</div>
     </a>
   `).join('');
 
   return `${renderHead({
-    title: 'CitationForge: AI Search (GEO/AEO) Visibility Radar & Auto-llms.txt Compiler',
-    description: 'Audit your Citation Share-of-Voice (cSoV) across ChatGPT Search, Perplexity, and Gemini in 10 seconds. Auto-compile /llms.txt, /llms-full.txt, and schema-dts JSON-LD.',
+    title: 'CitationForge: Executive Brief & AI Search Visibility Checker (/llms.txt Generator)',
+    description: 'Check how often ChatGPT Search, Perplexity, and Gemini recommend your website across 25 buyer questions. Generate ready-to-use /llms.txt and Schema files in 10 seconds.',
     canonicalPath: '/',
     ogSlug: 'home',
     jsonLdString: initialAudit.artifacts.jsonLd
@@ -444,7 +460,6 @@ function renderHomePage(initialAudit, sampleSeoPages) {
   <main id="main-content">
     ${renderHeroGraderBox(initialAudit, false)}
     ${renderTrustStripAndTestimonials()}
-    ${renderExecutiveBriefSection('home-executive-brief', false)}
     ${renderGraderAndCompilerSection(initialAudit)}
 
     <!-- Programmatic SEO Knowledge Graph Hub Preview -->
