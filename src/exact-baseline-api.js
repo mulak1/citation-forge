@@ -521,12 +521,12 @@ function createTelemetryStore(dataDir, moduleId) {
       const rawCandidates = baseClean.filter(isJsVerifiedHuman);
       const humanEvents = []; const seenPw = new Map(), seenVis = new Map();
       for (const e of rawCandidates) {
-        const ts = new Date(e.created_at).getTime(), ck = (e.meta && e.meta.vid) || e.client_ip;
-        if (e.event_type === 'visit_hydrated') {
-          if (seenVis.has(ck) && Math.abs(ts - seenVis.get(ck)) <= 15000) continue;
-          seenVis.set(ck, ts); humanEvents.push({ ...e, event_type: 'visit' }); continue;
+        const ts = new Date(e.created_at).getTime(), ipKey = e.client_ip || '', ck = (e.meta && e.meta.vid) || ipKey;
+        if (e.event_type === 'visit' || e.event_type === 'visit_hydrated') {
+          if ((seenVis.has(ck) && Math.abs(ts - seenVis.get(ck)) <= 20000) || (ipKey && seenVis.has(ipKey) && Math.abs(ts - seenVis.get(ipKey)) <= 20000)) continue;
+          seenVis.set(ck, ts); if (ipKey) seenVis.set(ipKey, ts);
+          humanEvents.push(e.event_type === 'visit_hydrated' ? { ...e, event_type: 'visit' } : e); continue;
         }
-        if (e.event_type === 'visit') seenVis.set(ck, ts);
         if (e.event_type === 'view_paywall') {
           if (seenPw.has(ck) && Math.abs(ts - seenPw.get(ck)) <= 60000) continue;
           seenPw.set(ck, ts);
@@ -586,7 +586,8 @@ function attachExactBaselinePack(app, options = {}) {
     if (isCrawler) store.recordEvent({ eventType: 'crawler_feed', pageUrl: '/feed.xml', isTest, isCrawler });
     const nowRfc = new Date().toUTCString(), seoEntries = loadVerticalSeoCatalog(cfg, __dirname), escX = (s) => String(s || '').replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;');
     const itemsXml = [
-      ...cfg.presets.map((p) => `    <item><title>${escX(cfg.brandName)} Scenario: ${escX(p.label)}</title><link>https://${cfg.domain}/?preset=${encodeURIComponent(p.key)}</link><guid>https://${cfg.domain}/?preset=${encodeURIComponent(p.key)}</guid><pubDate>${nowRfc}</pubDate><description>${escX(cfg.explainerText)}</description></item>`),
+      `    <item><title>${escX(cfg.brandName)} Public Leaderboard &amp; Hall of Fame</title><link>https://${cfg.domain}/leaderboard</link><guid>https://${cfg.domain}/leaderboard</guid><pubDate>${nowRfc}</pubDate><description>${escX(cfg.explainerText)}</description></item>`,
+      ...cfg.presets.map((p) => `    <item><title>${escX(cfg.brandName)} Public Scan: ${escX(p.label)}</title><link>https://${cfg.domain}/scan/${encodeURIComponent(p.key)}</link><guid>https://${cfg.domain}/scan/${encodeURIComponent(p.key)}</guid><pubDate>${nowRfc}</pubDate><description>${escX(cfg.explainerText)}</description></item>`),
       ...seoEntries.map((e) => `    <item><title>${escX(e.title)}</title><link>https://${cfg.domain}/seo/${escX(e.slug)}</link><guid>https://${cfg.domain}/seo/${escX(e.slug)}</guid><pubDate>${nowRfc}</pubDate><description>${escX(e.summary)}</description></item>`)
     ].join('\n');
     res.status(200).type('application/rss+xml; charset=utf-8').send(`<?xml version="1.0" encoding="UTF-8"?>\n<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">\n  <channel>\n    <title>${escX(cfg.brandName)}: Live Deterministic Benchmarks &amp; Audit Feed</title>\n    <link>https://${cfg.domain}/</link>\n    <atom:link href="https://pubsubhubbub.appspot.com/" rel="hub"/>\n    <atom:link href="https://${cfg.domain}/feed.xml" rel="self" type="application/rss+xml"/>\n    <description>${escX(cfg.explainerText)}</description>\n    <lastBuildDate>${nowRfc}</lastBuildDate>\n${itemsXml}\n  </channel>\n</rss>`);
@@ -596,7 +597,7 @@ function attachExactBaselinePack(app, options = {}) {
     const { isTest, isCrawler } = classifyTrafficRequest(req);
     if (isCrawler) store.recordEvent({ eventType: 'crawler_feed', pageUrl: '/feed.json', isTest, isCrawler });
     const seoEntries = loadVerticalSeoCatalog(cfg, __dirname);
-    res.json({ version: 'https://jsonfeed.org/version/1.1', title: `${cfg.brandName}: Live Benchmark Feed`, home_page_url: `https://${cfg.domain}/`, feed_url: `https://${cfg.domain}/feed.json`, items: [...cfg.presets.map((p) => ({ id: `${cfg.moduleId}_${p.key}`, url: `https://${cfg.domain}/?preset=${encodeURIComponent(p.key)}`, title: `${cfg.brandName} Executive Audit: ${p.label}`, content_text: cfg.explainerText })), ...seoEntries.map((e) => ({ id: `${cfg.moduleId}_seo_${e.slug}`, url: `https://${cfg.domain}/seo/${e.slug}`, title: e.title, content_text: e.summary }))] });
+    res.json({ version: 'https://jsonfeed.org/version/1.1', title: `${cfg.brandName}: Live Benchmark Feed`, home_page_url: `https://${cfg.domain}/`, feed_url: `https://${cfg.domain}/feed.json`, items: [{ id: `${cfg.moduleId}_leaderboard`, url: `https://${cfg.domain}/leaderboard`, title: `${cfg.brandName} Public Leaderboard`, content_text: cfg.explainerText }, ...cfg.presets.map((p) => ({ id: `${cfg.moduleId}_${p.key}`, url: `https://${cfg.domain}/scan/${encodeURIComponent(p.key)}`, title: `${cfg.brandName} Executive Audit: ${p.label}`, content_text: cfg.explainerText })), ...seoEntries.map((e) => ({ id: `${cfg.moduleId}_seo_${e.slug}`, url: `https://${cfg.domain}/seo/${e.slug}`, title: e.title, content_text: e.summary }))] });
   });
 
   app.get('/api/github-upgrade/export.csv', (req, res) => {
