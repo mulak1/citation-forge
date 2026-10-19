@@ -86,9 +86,9 @@ function renderGraderAndCompilerSection(audit) {
                   <p style="font-size:0.84rem;color:var(--text-secondary);">Copy or download for Next.js, WordPress, Webflow, Shopify &amp; Cloudflare</p>
                 </div>
               </div>
-              <div style="display:flex;gap:8px;">
-                <button type="button" id="copy-code-btn" class="btn btn-secondary mono" style="padding:7px 12px;font-size:0.84rem;" onclick="copyCompiledCode()">Copy Code</button>
-                <button type="button" class="btn btn-primary mono" style="padding:7px 12px;font-size:0.84rem;" onclick="downloadCompiledFile()">Download File</button>
+              <div style="display:flex;gap:8px;align-items:center;">
+                <span class="badge badge-amber mono">PREVIEW MODE</span>
+                <button type="button" id="copy-code-btn" class="btn btn-primary mono" style="padding:7px 14px;font-size:0.84rem;" onclick="if(window.__ebQuickBuy){window.__ebQuickBuy('flash_pass')}else{downloadCompiledFile()}">Unlock 3-File Pack ($1.99 Stripe Express) &#8599;</button>
               </div>
             </div>
             <div class="tab-bar" role="tablist">
@@ -125,68 +125,39 @@ function renderGraderAndCompilerSection(audit) {
 
 function renderPricingSection() {
   return `
-  <section id="pricing" style="padding:64px 0;">
+  <section id="pricing" style="padding:56px 0;">
     <div class="container">
-      <div style="margin-bottom:28px;">
-        <h2 class="serif-display" style="font-size:2.1rem;margin-bottom:8px;">
-          Full 50-Question AI Search Audit &amp; Automated <span class="serif-italic">Site Updates</span>
-        </h2>
-        <p style="color:var(--text-secondary);font-size:0.98rem;max-width:64ch;">
-          Built for Marketing Leaders, SEO Teams, and Founders. Add verified <span class="mono">/llms.txt</span> and Schema files to your site today, backed by our 30-day Visibility Guarantee.
-        </p>
-      </div>
-      <div style="max-width:440px;margin-bottom:24px;">
-        <label for="checkout-email" style="display:block;font-size:0.82rem;font-weight:700;color:var(--text-primary);margin-bottom:6px;">
-          Work Email for Report &amp; File Delivery
-        </label>
-        <input id="checkout-email" type="email" class="grader-input" style="width:100%;" placeholder="vp-marketing@company.com" value="vp-marketing@linear.app" required />
-        <div id="checkout-email-error" style="display:none;color:var(--accent-rose);font-size:0.8rem;margin-top:6px;" role="alert"></div>
-      </div>
-      <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(320px,1fr));gap:24px;align-items:stretch;">
-        <div class="panel" style="padding:30px;display:flex;flex-direction:column;justify-content:space-between;height:100%;">
-          <div>
-            <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:12px;">
-              <span style="font-weight:700;font-size:1.12rem;">One-Time Complete AI Search Pack</span>
-              <span class="badge badge-cyan mono">ONE-TIME PACK</span>
-            </div>
-            <div class="mono" style="font-size:2.35rem;font-weight:800;margin-bottom:8px;color:var(--text-primary);">$49 <span style="font-size:0.86rem;font-weight:500;color:var(--text-secondary);">USD flat</span></div>
-            <p style="color:var(--text-secondary);font-size:0.9rem;margin-bottom:20px;">
-              Complete 50-question competitor benchmark, full site scan (up to 250 pages), and ready-to-publish <span class="mono">/llms.txt</span> + <span class="mono">/llms-full.txt</span> + Schema bundle.
-            </p>
-            <ul style="list-style:none;display:grid;gap:10px;font-size:0.88rem;color:var(--text-primary);margin-bottom:26px;">
-              <li>&#10003; 50 Buyer Questions Tested Across 4 AI Search Engines</li>
-              <li>&#10003; Ready-to-Use <span class="mono">/llms.txt</span> &amp; <span class="mono">/llms-full.txt</span> (up to 250 pages)</li>
-              <li>&#10003; Verified Organization, Product &amp; FAQ Schema Markup</li>
-              <li>&#10003; 30-Day Money-Back Visibility Guarantee</li>
-            </ul>
+      <div class="bezel-shell" style="max-width:860px;margin:0 auto;">
+        <div class="panel-elevated" style="padding:32px;border-color:var(--accent-indigo);">
+          <div style="display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:10px;margin-bottom:12px;">
+            <span class="badge badge-emerald mono">PHASE 3 PUREST PATH • INSTANT STRIPE EXPRESS</span>
+            <span class="mono" style="font-size:0.84rem;color:var(--text-secondary);">ONE-TIME MICRO-TRANSACTION • NO SUBSCRIPTION TRAP</span>
           </div>
-          <button type="button" class="btn btn-secondary" style="width:100%;padding:12px 20px;" onclick="startCheckout('audit_49')">
-            Buy $49 One-Time Audit Pack
-          </button>
-        </div>
-        <div class="bezel-shell" style="display:flex;flex-direction:column;height:100%;">
-          <div class="panel-elevated" style="padding:28px;height:100%;border-color:var(--accent-indigo);display:flex;flex-direction:column;justify-content:space-between;">
+          <h2 class="serif-display" style="font-size:2rem;margin-bottom:8px;">
+            Unlock Your Complete 3-File AI Search Fix Pack <span class="serif-italic">($1.99 Stripe Express)</span>
+          </h2>
+          <p style="color:var(--text-secondary);font-size:0.96rem;margin-bottom:20px;">
+            Unblur all 25 buyer-question rankings and download your production-ready <span class="mono">/llms.txt</span>, <span class="mono">/llms-full.txt</span>, and <span class="mono">JSON-LD @graph</span> bundle immediately after 1-click checkout.
+          </p>
+          <div style="display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:16px;padding:18px 20px;border-radius:12px;background:var(--bg-subtle);border:1px solid var(--border-hairline);">
             <div>
-              <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:12px;">
-                <span style="font-weight:800;font-size:1.12rem;">Pro Weekly Tracking &amp; Auto-Sync</span>
-                <span class="badge badge-emerald mono">MOST POPULAR</span>
-              </div>
-              <div class="mono" style="font-size:2.35rem;font-weight:800;margin-bottom:8px;color:var(--accent-indigo);">$99 <span style="font-size:0.86rem;font-weight:500;color:var(--text-secondary);">/ month</span></div>
-              <p style="color:var(--text-secondary);font-size:0.9rem;margin-bottom:20px;">
-                Automated weekly AI ranking checks across ChatGPT, Perplexity &amp; Gemini plus automatic <span class="mono">/llms.txt</span> updates whenever your site changes.
-              </p>
-              <ul style="list-style:none;display:grid;gap:10px;font-size:0.88rem;color:var(--text-primary);margin-bottom:26px;">
-                <li>&#10003; Everything in One-Time Pack + Weekly 50-Question Tracking</li>
-                <li>&#10003; Automatic GitHub PR Bot keeping <span class="mono">/llms.txt</span> up to date</li>
-                <li>&#10003; Competitor Ranking Alerts in Slack &amp; Email</li>
-                <li>&#10003; AI Search Traffic &amp; Referral Tracking Dashboard</li>
-              </ul>
+              <div class="mono" style="font-size:2.2rem;font-weight:800;color:var(--accent-indigo);line-height:1;">$1.99 <span style="font-size:0.88rem;font-weight:600;color:var(--text-secondary);">USD one-time pass</span></div>
+              <div style="font-size:0.85rem;color:var(--text-secondary);margin-top:4px;">&#10003; Full 3-File Bundle (<span class="mono">llms.txt</span> + <span class="mono">schema.json</span> + <span class="mono">robots.txt</span>) &bull; Instant Browser Unlock</div>
             </div>
-            <button type="button" class="btn btn-primary" style="width:100%;padding:12px 20px;" onclick="startCheckout('pro_99')">
-              <span>Start $99/mo Pro Tracking</span>
+            <a href="/buy/flash_pass" onclick="if(window.__ebQuickBuy){window.__ebQuickBuy('flash_pass');return false;}" class="btn btn-primary" style="padding:14px 26px;font-size:0.98rem;text-decoration:none;">
+              <span>Unlock Complete 3-File Pack ($1.99 Stripe Express)</span>
               <span class="btn-arrow-pill" aria-hidden="true">&#8599;</span>
-            </button>
+            </a>
           </div>
+          <details style="margin-top:16px;font-size:0.85rem;color:var(--text-secondary);">
+            <summary style="cursor:pointer;font-weight:700;">Need Multi-Site Agency / Continuous Weekly Tracking ($49–$99)?</summary>
+            <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:12px;margin-top:12px;">
+              <input id="checkout-email" type="email" class="grader-input" style="display:none;" value="vp-marketing@linear.app" />
+              <div id="checkout-email-error" style="display:none;"></div>
+              <button type="button" class="btn btn-secondary" onclick="startCheckout('audit_49')">50-Question Dossier ($49 One-Time)</button>
+              <button type="button" class="btn btn-secondary" onclick="startCheckout('pro_99')">Agency Weekly Auto-Sync ($99/mo)</button>
+            </div>
+          </details>
         </div>
       </div>
     </div>

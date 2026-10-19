@@ -575,25 +575,25 @@ function renderNavbar(activePath = '/') {
         <span class="brand-sub-pill mono hide-mobile">GEO Studio</span>
       </a>
       <nav class="nav-links" aria-label="Primary Navigation">
-        <a href="/#grader" class="${activePath === '/' ? 'active' : ''}">Free Grader</a>
+        <a href="/#grader" class="${activePath === '/' ? 'active' : ''}">AI Visibility Grader</a>
         <a href="/#home-executive-brief" class="${activePath === '/lp' ? 'active' : ''}">Executive Brief</a>
         <a href="/leaderboard" class="${activePath.startsWith('/leaderboard') ? 'active' : ''}" style="font-weight:700;color:var(--accent-indigo);">🏆 Leaderboard</a>
         <a href="/directory" class="${activePath.startsWith('/directory') || activePath.startsWith('/seo') ? 'active' : ''}">GEO Benchmarks (60+)</a>
-        <a href="/#pricing">Pricing</a>
+        <a href="/#pricing">3-File Pack ($1.99)</a>
       </nav>
       <div style="display:flex;align-items:center;gap:10px;">
-        <a href="/#grader" class="btn btn-primary" style="padding:9px 16px;font-size:0.88rem;">
-          <span>Run Free AI Audit</span>
+        <a href="/buy/flash_pass" onclick="if(window.__ebQuickBuy){window.__ebQuickBuy('flash_pass');return false;}" class="btn btn-primary" style="padding:9px 16px;font-size:0.88rem;">
+          <span>Unlock 3-File Pack ($1.99)</span>
           <span class="btn-arrow-pill" aria-hidden="true">&#8599;</span>
         </a>
       </div>
     </div>
     <nav class="mobile-nav-strip" aria-label="Mobile Navigation">
-      <a href="/#grader">Free Grader</a>
+      <a href="/#grader">AI Grader</a>
       <a href="/#home-executive-brief">Executive Brief</a>
       <a href="/leaderboard" style="font-weight:700;color:var(--accent-indigo);">🏆 Leaderboard</a>
       <a href="/directory">60+ Benchmarks</a>
-      <a href="/#pricing">Pricing</a>
+      <a href="/buy/flash_pass" onclick="if(window.__ebQuickBuy){window.__ebQuickBuy('flash_pass');return false;}">3-File Pack ($1.99)</a>
     </nav>
   </header>`;
 }
