@@ -10,7 +10,7 @@
     "issue": "Optimal @graph + Speakable Schema",
     "cnnModel": "PP-OCRv4 + DOM Visual Block Saliency CNN (ONNX INT8 • 14ms)",
     "cnnSensorLabel": "Page Structure & AI Readability Check",
-    "scannedAt": "2026-10-19T00:36:07.285Z"
+    "scannedAt": "2026-10-19T00:46:31.406Z"
   },
   {
     "target": "supabase.com",
@@ -23,7 +23,7 @@
     "issue": "Full ClaudeBot & PerplexityBot Allow",
     "cnnModel": "PP-OCRv4 + DOM Visual Block Saliency CNN (ONNX INT8 • 14ms)",
     "cnnSensorLabel": "Page Structure & AI Readability Check",
-    "scannedAt": "2026-10-19T00:36:07.289Z"
+    "scannedAt": "2026-10-19T00:46:31.410Z"
   },
   {
     "target": "linear.app",
@@ -36,7 +36,7 @@
     "issue": "Minor FAQPage Schema Expansion Available",
     "cnnModel": "PP-OCRv4 + DOM Visual Block Saliency CNN (ONNX INT8 • 14ms)",
     "cnnSensorLabel": "Page Structure & AI Readability Check",
-    "scannedAt": "2026-10-19T00:36:07.292Z"
+    "scannedAt": "2026-10-19T00:46:31.414Z"
   },
   {
     "target": "vercel.com",
@@ -49,7 +49,7 @@
     "issue": "Optimal AI Crawler Headers",
     "cnnModel": "PP-OCRv4 + DOM Visual Block Saliency CNN (ONNX INT8 • 14ms)",
     "cnnSensorLabel": "Page Structure & AI Readability Check",
-    "scannedAt": "2026-10-19T00:36:07.296Z"
+    "scannedAt": "2026-10-19T00:46:31.418Z"
   },
   {
     "target": "cloudflare.com",
@@ -62,7 +62,7 @@
     "issue": "High RAG Authority",
     "cnnModel": "PP-OCRv4 + DOM Visual Block Saliency CNN (ONNX INT8 • 14ms)",
     "cnnSensorLabel": "Page Structure & AI Readability Check",
-    "scannedAt": "2026-10-19T00:36:07.301Z"
+    "scannedAt": "2026-10-19T00:46:31.422Z"
   },
   {
     "target": "notion.so",
@@ -75,7 +75,7 @@
     "issue": "Missing /llms-full.txt Root Manifest",
     "cnnModel": "PP-OCRv4 + DOM Visual Block Saliency CNN (ONNX INT8 • 14ms)",
     "cnnSensorLabel": "Page Structure & AI Readability Check",
-    "scannedAt": "2026-10-19T00:36:07.305Z"
+    "scannedAt": "2026-10-19T00:46:31.427Z"
   },
   {
     "target": "adyen.com",
@@ -88,7 +88,7 @@
     "issue": "Losing 16.4% AI Citation Share to Stripe",
     "cnnModel": "PP-OCRv4 + DOM Visual Block Saliency CNN (ONNX INT8 • 14ms)",
     "cnnSensorLabel": "Page Structure & AI Readability Check",
-    "scannedAt": "2026-10-19T00:36:07.308Z"
+    "scannedAt": "2026-10-19T00:46:31.431Z"
   },
   {
     "target": "atlassian.com",
@@ -101,7 +101,7 @@
     "issue": "Missing SpeakableSpecification & llms.txt",
     "cnnModel": "PP-OCRv4 + DOM Visual Block Saliency CNN (ONNX INT8 • 14ms)",
     "cnnSensorLabel": "Page Structure & AI Readability Check",
-    "scannedAt": "2026-10-19T00:36:07.313Z"
+    "scannedAt": "2026-10-19T00:46:31.435Z"
   },
   {
     "target": "oracle.com",
@@ -114,7 +114,7 @@
     "issue": "Critical GEO Deficit : Deploy Auto-llms.txt Patch",
     "cnnModel": "PP-OCRv4 + DOM Visual Block Saliency CNN (ONNX INT8 • 14ms)",
     "cnnSensorLabel": "Page Structure & AI Readability Check",
-    "scannedAt": "2026-10-19T00:36:07.317Z"
+    "scannedAt": "2026-10-19T00:46:31.439Z"
   },
   {
     "target": "legacy-erp.io",
@@ -127,6 +127,6 @@
     "issue": "Invisible to ChatGPT Search & Perplexity",
     "cnnModel": "PP-OCRv4 + DOM Visual Block Saliency CNN (ONNX INT8 • 14ms)",
     "cnnSensorLabel": "Page Structure & AI Readability Check",
-    "scannedAt": "2026-10-19T00:36:07.321Z"
+    "scannedAt": "2026-10-19T00:46:31.443Z"
   }
 ]
