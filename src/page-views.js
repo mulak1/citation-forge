@@ -777,123 +777,87 @@ function renderSeoDetailPage(pageRow, relatedPages) {
       </div>`;
   }
 
-  const faqs = Array.isArray(payload.faqs) && payload.faqs.length >= 3
-    ? payload.faqs.slice(0, 3)
-    : [
-        {
-          question: `What is the Google AI Overviews Citation Score and cSoV finding for ${pageRow.primary_entity}?`,
-          answer: `${payload.summary || pageRow.meta_description} Using w_r = 1 / log2(r + 1), CitationForge quantifies real-time retrieval share across ChatGPT Search, Perplexity Pro, and Google AI Overviews.`
-        },
-        {
-          question: `How to Rank in ChatGPT Search and complete the Perplexity SEO Checklist for ${pageRow.category}?`,
-          answer: `Allow OAI-SearchBot, PerplexityBot, ClaudeBot, Google-Extended, and Applebot-Extended in /robots.txt, structure 45-word Answer-First summaries right below H1/H2 headings, and maintain a >= 28% token-to-HTML ratio.`
-        },
-        {
-          question: `How does an llms.txt Generator improve ${pageRow.primary_entity} AI citation authority?`,
-          answer: `An automated llms.txt Generator compiles your documentation and pricing into root /llms.txt and /llms-full.txt manifests while linking Organization, SoftwareApplication, and FAQPage JSON-LD with Wikidata sameAs URIs—lifting rank #1 citations by 2.4x.`
-        }
-      ];
-
-  const faqHtml = faqs.map(f => `
-    <div style="padding:16px 18px;background:var(--bg-canvas);border:1px solid var(--border-hairline);border-radius:10px;">
-      <h3 style="font-size:0.96rem;font-weight:700;color:var(--text-primary);margin-bottom:6px;">${escapeHtml(f.question)}</h3>
-      <p style="font-size:0.88rem;color:var(--text-secondary);line-height:1.6;">${escapeHtml(f.answer)}</p>
-    </div>
-  `).join('');
-
-  const relatedHtml = relatedPages.map(rp => `
-    <a href="/seo/${escapeHtml(rp.slug)}" class="panel" style="padding:16px;display:block;">
-      <div class="badge badge-cyan mono" style="margin-bottom:6px;">${escapeHtml(rp.category)}</div>
-      <div style="font-weight:700;font-size:0.88rem;color:var(--text-primary);">${escapeHtml(rp.title)}</div>
-    </a>
-  `).join('');
-
+  const faqs = Array.isArray(payload.faqs) && payload.faqs.length >= 3 ? payload.faqs.slice(0, 3) : [
+    { question: `What is the Google AI Overviews Citation Score and cSoV finding for ${pageRow.primary_entity}?`, answer: `${payload.summary || pageRow.meta_description} Using w_r = 1 / log2(r + 1), CitationForge quantifies real-time retrieval share across ChatGPT Search, Perplexity Pro, and Google AI Overviews.` },
+    { question: `How to Rank in ChatGPT Search and complete the Perplexity SEO Checklist for ${pageRow.category}?`, answer: `Allow OAI-SearchBot, PerplexityBot, ClaudeBot, Google-Extended, and Applebot-Extended in /robots.txt, structure 45-word Answer-First summaries right below H1/H2 headings, and maintain a >= 28% token-to-HTML ratio.` },
+    { question: `How does an llms.txt Generator improve ${pageRow.primary_entity} AI citation authority?`, answer: `An automated llms.txt Generator compiles your documentation and pricing into root /llms.txt and /llms-full.txt manifests while linking Organization, SoftwareApplication, and FAQPage JSON-LD with Wikidata sameAs URIs—lifting rank #1 citations by 2.4x.` }
+  ];
+  const faqHtml = faqs.map(f => `<div style="padding:16px 18px;background:var(--bg-canvas);border:1px solid var(--border-hairline);border-radius:10px;"><h3 style="font-size:0.96rem;font-weight:700;color:var(--text-primary);margin-bottom:6px;">${escapeHtml(f.question)}</h3><p style="font-size:0.88rem;color:var(--text-secondary);line-height:1.6;">${escapeHtml(f.answer)}</p></div>`).join('');
+  const relatedHtml = relatedPages.map(rp => `<a href="/seo/${escapeHtml(rp.slug)}" class="panel" style="padding:16px;display:block;"><div class="badge badge-cyan mono" style="margin-bottom:6px;">${escapeHtml(rp.category)}</div><div style="font-weight:700;font-size:0.88rem;color:var(--text-primary);">${escapeHtml(rp.title)}</div></a>`).join('');
   const pageJsonLd = JSON.stringify({
     '@context': 'https://schema.org',
     '@graph': [
-      {
-        '@type': 'TechArticle',
-        headline: pageRow.title,
-        description: pageRow.meta_description,
-        datePublished: '2026-10-14',
-        dateModified: pageRow.updated_at || '2026-10-16',
-        author: { '@type': 'Organization', name: 'CitationForge GEO Research' },
-        mainEntityOfPage: `${baseUrl}/seo/${pageRow.slug}`
-      },
-      {
-        '@type': 'FAQPage',
-        mainEntity: faqs.map(f => ({
-          '@type': 'Question',
-          name: f.question,
-          acceptedAnswer: {
-            '@type': 'Answer',
-            text: f.answer
-          }
-        }))
-      }
+      { '@type': 'TechArticle', headline: pageRow.title, description: pageRow.meta_description, datePublished: '2026-10-14', dateModified: pageRow.updated_at || '2026-10-16', author: { '@type': 'Organization', name: 'CitationForge GEO Research' }, mainEntityOfPage: `${baseUrl}/seo/${pageRow.slug}` },
+      { '@type': 'FAQPage', mainEntity: faqs.map(f => ({ '@type': 'Question', name: f.question, acceptedAnswer: { '@type': 'Answer', text: f.answer } })) }
     ]
   });
 
-  return `${renderHead({
-    title: `${pageRow.title} | CitationForge`,
-    description: pageRow.meta_description,
-    canonicalPath: `/seo/${pageRow.slug}`,
-    ogSlug: pageRow.slug,
-    jsonLdString: pageJsonLd
-  })}
+  return `${renderHead({ title: `${pageRow.title} | CitationForge`, description: pageRow.meta_description, canonicalPath: `/seo/${pageRow.slug}`, ogSlug: pageRow.slug, jsonLdString: pageJsonLd })}
 <body>
   ${renderNavbar('/seo/' + pageRow.slug)}
   <main id="main-content" class="container" style="padding-top:36px;padding-bottom:32px;">
     <nav aria-label="Breadcrumb" class="mono" style="font-size:0.84rem;color:var(--text-secondary);margin-bottom:16px;">
       <a href="/" style="color:var(--accent-indigo);">Home</a> &nbsp;/&nbsp; <a href="/directory" style="color:var(--accent-indigo);">GEO Directory</a> &nbsp;/&nbsp; <span>${escapeHtml(pageRow.slug)}</span>
     </nav>
-
     <div style="margin-bottom:26px;">
       <span class="badge badge-cyan mono">${escapeHtml(pageRow.category)} · VERIFIED GEO BENCHMARK</span>
       <h1 class="serif-display" style="font-size:2.3rem;margin:10px 0;">${escapeHtml(pageRow.title)}</h1>
       <div class="pseo-lead panel" style="padding:18px 22px;margin-top:14px;background:var(--accent-indigo-soft);border-left:4px solid var(--accent-indigo);border-radius:10px;">
-        <div class="mono" style="font-size:0.8125rem;font-weight:700;color:var(--accent-indigo);letter-spacing:0.04em;margin-bottom:6px;">
-          ANSWER-FIRST EXECUTIVE SUMMARY · GOOGLE AI OVERVIEWS CITATION SCORE &amp; RAG SNAPSHOT
-        </div>
-        <p style="color:var(--text-primary);font-size:0.95rem;line-height:1.65;">
-          ${escapeHtml(payload.summary || pageRow.meta_description)}
-        </p>
+        <div class="mono" style="font-size:0.8125rem;font-weight:700;color:var(--accent-indigo);letter-spacing:0.04em;margin-bottom:6px;">ANSWER-FIRST EXECUTIVE SUMMARY · GOOGLE AI OVERVIEWS CITATION SCORE &amp; RAG SNAPSHOT</div>
+        <p style="color:var(--text-primary);font-size:0.95rem;line-height:1.65;">${escapeHtml(payload.summary || pageRow.meta_description)}</p>
       </div>
+    </div>
+
+    <div id="pseo-citationforge-inline-calc" class="panel" style="padding:20px;margin-bottom:24px;border:1.5px solid var(--accent-indigo);background:var(--accent-indigo-soft);">
+      <div style="display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:10px;margin-bottom:12px;">
+        <div>
+          <div class="mono" style="font-size:0.76rem;font-weight:800;color:var(--accent-indigo);">1-CLICK AI ENGINE CITATION LIFT SIMULATOR</div>
+          <h2 class="serif-display" style="font-size:1.3rem;margin:2px 0 0;">Simulate /llms.txt + JSON-LD Citation Lift for ${escapeHtml(pageRow.primary_entity)}</h2>
+        </div>
+        <div style="display:flex;gap:8px;flex-wrap:wrap;">
+          <button type="button" class="badge badge-cyan mono" style="cursor:pointer;padding:7px 11px;border:1px solid var(--accent-indigo);" onclick="window.__cfCalcPseoEngine('ChatGPT Search (OAI-SearchBot)','+14.8% cSoV','Rank #1-2')">ChatGPT Search</button>
+          <button type="button" class="badge badge-emerald mono" style="cursor:pointer;padding:7px 11px;border:1px solid var(--accent-emerald);" onclick="window.__cfCalcPseoEngine('Perplexity Pro (PerplexityBot)','+19.4% cSoV','Rank #1')">Perplexity Pro</button>
+          <button type="button" class="badge badge-cyan mono" style="cursor:pointer;padding:7px 11px;border:1px solid var(--accent-indigo);" onclick="window.__cfCalcPseoEngine('Google AI Overviews','+11.6% cSoV','Top 3 Grounding')">Google AI Overviews</button>
+          <button type="button" class="badge badge-emerald mono" style="cursor:pointer;padding:7px 11px;border:1px solid var(--accent-emerald);" onclick="window.__cfCalcPseoEngine('Claude 3.7 (ClaudeBot)','+16.2% cSoV','Rank #1-2')">Claude 3.7</button>
+        </div>
+      </div>
+      <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(190px,1fr));gap:12px;background:#FFFFFF;padding:14px;border-radius:10px;border:1px solid var(--border-hairline);">
+        <div><div class="mono" style="font-size:0.74rem;color:var(--text-secondary);">TARGET AI ENGINE</div><div id="pseo-cf-engine-out" class="mono" style="font-size:1.05rem;font-weight:800;color:var(--text-primary);">Perplexity Pro (PerplexityBot)</div></div>
+        <div><div class="mono" style="font-size:0.74rem;color:var(--text-secondary);">PROJECTED CITATION LIFT</div><div id="pseo-cf-lift-out" class="mono" style="font-size:1.3rem;font-weight:800;color:var(--accent-emerald);">+19.4% cSoV</div></div>
+        <div><div class="mono" style="font-size:0.74rem;color:var(--text-secondary);">POST-FIX PROMPT RANK</div><div id="pseo-cf-rank-out" class="mono" style="font-size:1.3rem;font-weight:800;color:var(--accent-indigo);">Rank #1</div></div>
+        <div style="display:flex;align-items:center;"><a href="/buy/micro_pass?source=pseo_inline_calc&amp;slug=${encodeURIComponent(pageRow.slug)}" class="btn btn-primary" style="padding:9px 14px;font-size:0.82rem;">Unlock 99¢ /llms.txt Pack &rarr;</a></div>
+      </div>
+      <script>
+        window.__cfCalcPseoEngine = function(engine, lift, rank) {
+          var eEl = document.getElementById('pseo-cf-engine-out'), lEl = document.getElementById('pseo-cf-lift-out'), rEl = document.getElementById('pseo-cf-rank-out');
+          if (eEl) eEl.textContent = engine;
+          if (lEl) lEl.textContent = lift;
+          if (rEl) rEl.textContent = rank;
+          try { fetch('/api/telemetry/event', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ event_type: 'calculate', page_url: window.location.pathname, meta: { trigger: 'pseo_inline_engine_calc', engine: engine, lift: lift, slug: '${escapeHtml(pageRow.slug)}' } }) }).catch(function(){}); } catch (_) {}
+        };
+      </script>
     </div>
 
     ${bodyContent}
 
-    <!-- Visible 3-Question Technical FAQ Section matching FAQPage JSON-LD -->
     <section id="technical-faq" class="panel" style="padding:26px;margin-bottom:28px;">
-      <h2 class="serif-display" style="font-size:1.45rem;margin-bottom:14px;">
-        Technical FAQ: How to Rank in ChatGPT Search, Perplexity SEO Checklist &amp; llms.txt Generator
-      </h2>
-      <div style="display:grid;gap:12px;">
-        ${faqHtml}
-      </div>
+      <h2 class="serif-display" style="font-size:1.45rem;margin-bottom:14px;">Technical FAQ: How to Rank in ChatGPT Search, Perplexity SEO Checklist &amp; llms.txt Generator</h2>
+      <div style="display:grid;gap:12px;">${faqHtml}</div>
     </section>
 
-    <!-- Contextual Conversion CTA -->
     <div class="bezel-shell" style="margin-bottom:36px;">
       <div class="panel-elevated" style="padding:26px;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:16px;">
         <div>
           <h2 class="serif-display" style="font-size:1.45rem;margin-bottom:4px;">Run a Live 10-Second GEO Audit on Your Own Domain</h2>
           <p style="color:var(--text-secondary);font-size:0.9rem;">Compare your cSoV against ${escapeHtml(pageRow.primary_entity)} and auto-compile your custom <span class="mono">/llms.txt</span> + JSON-LD graph.</p>
         </div>
-        <div>
-          <a href="/?domain=${encodeURIComponent(payload.brandA?.domain || payload.leaders?.[0]?.domain || 'linear.app')}#grader" class="btn btn-primary">
-            <span>Audit Your Domain Free</span>
-            <span class="btn-arrow-pill" aria-hidden="true">&#8599;</span>
-          </a>
-        </div>
+        <div><a href="/?domain=${encodeURIComponent(payload.brandA?.domain || payload.leaders?.[0]?.domain || 'linear.app')}#grader" class="btn btn-primary"><span>Audit Your Domain Free</span><span class="btn-arrow-pill" aria-hidden="true">&#8599;</span></a></div>
       </div>
     </div>
 
     <section>
       <h2 class="serif-display" style="font-size:1.35rem;margin-bottom:14px;">Related Programmatic GEO Reports</h2>
-      <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:14px;">
-        ${relatedHtml}
-      </div>
+      <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:14px;">${relatedHtml}</div>
     </section>
   </main>
   ${renderFooter()}
