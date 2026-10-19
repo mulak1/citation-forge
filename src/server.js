@@ -68,7 +68,7 @@ app.get('/favicon.ico', (req, res) => {
 
 app.get('/manifest.webmanifest', (req, res) => {
   res.status(200).type('application/manifest+json; charset=utf-8').send(JSON.stringify({
-    name: 'CitationForge — AI Search Visibility Studio',
+    name: 'CitationForge: AI Search Visibility Studio',
     short_name: 'CitationForge',
     start_url: '/',
     display: 'standalone',

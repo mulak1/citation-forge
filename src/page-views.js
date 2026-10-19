@@ -83,12 +83,12 @@ function renderGraderAndCompilerSection(audit) {
                 </span>
                 <div>
                   <h2 style="font-size:1rem;font-weight:700;color:var(--text-primary);">Ready-to-Use AI Search Files (/llms.txt &amp; Schema)</h2>
-                  <p style="font-size:0.76rem;color:var(--text-secondary);">Copy or download for Next.js, WordPress, Webflow, Shopify &amp; Cloudflare</p>
+                  <p style="font-size:0.84rem;color:var(--text-secondary);">Copy or download for Next.js, WordPress, Webflow, Shopify &amp; Cloudflare</p>
                 </div>
               </div>
               <div style="display:flex;gap:8px;">
-                <button type="button" id="copy-code-btn" class="btn btn-secondary mono" style="padding:7px 12px;font-size:0.76rem;" onclick="copyCompiledCode()">Copy Code</button>
-                <button type="button" class="btn btn-primary mono" style="padding:7px 12px;font-size:0.76rem;" onclick="downloadCompiledFile()">Download File</button>
+                <button type="button" id="copy-code-btn" class="btn btn-secondary mono" style="padding:7px 12px;font-size:0.84rem;" onclick="copyCompiledCode()">Copy Code</button>
+                <button type="button" class="btn btn-primary mono" style="padding:7px 12px;font-size:0.84rem;" onclick="downloadCompiledFile()">Download File</button>
               </div>
             </div>
             <div class="tab-bar" role="tablist">
@@ -107,7 +107,7 @@ function renderGraderAndCompilerSection(audit) {
     <div class="container">
       <div style="margin-bottom:24px;">
         <h2 class="serif-display" style="font-size:1.95rem;margin-bottom:6px;">
-          25 Buyer Questions Tested — <span class="serif-italic">Where Does Your Brand Rank in AI Answers?</span>
+          25 Buyer Questions Tested: <span class="serif-italic">Where Does Your Brand Rank in AI Answers?</span>
         </h2>
         <p style="color:var(--text-secondary);font-size:0.95rem;max-width:78ch;">
           We test 25 real buyer questions across Perplexity, ChatGPT Search, and Google Gemini AI Overviews. Because #1 recommendations win the most clicks, top mentions score higher than lower-ranked mentions. <span style="opacity:0.85;">(Technical note: weighted by rank position <span class="mono">w_r = 1 / log2(r + 1)</span>).</span>
@@ -209,8 +209,8 @@ function renderHeroGraderBox(audit, isLp = false) {
   ).join('');
 
   const headlineHtml = isLp
-    ? `Your Competitors Are Being Recommended by <span class="serif-italic">ChatGPT &amp; Perplexity</span> Instead of You — Check Your Site in 10 Seconds`
-    : `See How Often <span class="serif-italic">ChatGPT &amp; Perplexity</span> Recommend Your Brand — And Generate Your /llms.txt in 10 Seconds`;
+    ? `Your Competitors Are Being Recommended by <span class="serif-italic">ChatGPT &amp; Perplexity</span> Instead of You: Check Your Site in 10 Seconds`
+    : `See How Often <span class="serif-italic">ChatGPT &amp; Perplexity</span> Recommend Your Brand: And Generate Your /llms.txt in 10 Seconds`;
 
   const subheadline = isLp
     ? 'Built for Marketing Leaders, SEO Teams, and Founders. See which competitor wins your buyers across 25 AI search questions and download ready-to-use /llms.txt + Schema files.'
@@ -229,7 +229,7 @@ function renderHeroGraderBox(audit, isLp = false) {
 
             <form class="grader-form" onsubmit="event.preventDefault(); executeAudit();" novalidate>
               <div style="flex:1;display:flex;flex-direction:column;gap:6px;">
-                <label for="domain-input" style="font-size:0.78rem;font-weight:700;color:var(--text-primary);letter-spacing:0.01em;">
+                <label for="domain-input" style="font-size:0.84rem;font-weight:700;color:var(--text-primary);letter-spacing:0.01em;">
                   Target Domain or Brand URL
                 </label>
                 <div style="display:flex;gap:10px;flex-wrap:wrap;">
@@ -255,7 +255,7 @@ function renderHeroGraderBox(audit, isLp = false) {
             <div id="grader-error" style="display:none;color:var(--accent-rose);font-size:0.82rem;font-weight:600;margin-bottom:10px;" role="alert"></div>
 
             <div class="preset-strip">
-              <span style="font-size:0.76rem;color:var(--text-muted);font-weight:700;">Instant Benchmarks:</span>
+              <span style="font-size:0.84rem;color:var(--text-muted);font-weight:700;">Instant Benchmarks:</span>
               ${presetButtons}
             </div>
           </div>
@@ -267,12 +267,12 @@ function renderHeroGraderBox(audit, isLp = false) {
             <div>
               <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:16px;padding-bottom:12px;border-bottom:1px solid var(--border-hairline);flex-wrap:wrap;gap:8px;">
                 <div>
-                  <div class="mono" style="font-size:0.7rem;font-weight:700;color:var(--text-muted);letter-spacing:0.05em;">LIVE ENTITY TELEMETRY</div>
+                  <div class="mono" style="font-size:0.8125rem;font-weight:700;color:var(--text-muted);letter-spacing:0.05em;">LIVE ENTITY TELEMETRY</div>
                   <div id="score-brand-title" class="serif-display" style="font-size:1.45rem;font-weight:600;color:var(--text-primary);">${escapeHtml(audit.brand)} (${escapeHtml(audit.domain)})</div>
                 </div>
                 <div style="display:flex;gap:8px;align-items:center;flex-wrap:wrap;">
                   <span id="score-category-badge" class="badge badge-cyan">${escapeHtml(audit.category)}</span>
-                  <span id="score-grade" class="badge badge-emerald mono" style="font-size:0.82rem;padding:5px 12px;">Grade ${escapeHtml(audit.scores.grade)} · ${audit.scores.compositeGeoScore}/100</span>
+                  <span id="score-grade" class="badge badge-emerald mono" style="font-size:0.85rem;padding:5px 12px;">Grade ${escapeHtml(audit.scores.grade)} · ${audit.scores.compositeGeoScore}/100</span>
                 </div>
               </div>
 
@@ -295,26 +295,26 @@ function renderHeroGraderBox(audit, isLp = false) {
                 </div>
               </div>
 
-              <div style="background:var(--bg-subtle);border:1px solid var(--border-hairline);border-radius:10px;padding:13px 15px;font-size:0.84rem;color:var(--text-secondary);margin-bottom:12px;">
-                <div style="font-weight:700;color:var(--accent-indigo);margin-bottom:4px;font-size:0.74rem;letter-spacing:0.04em;" class="mono">
+              <div style="background:var(--bg-subtle);border:1px solid var(--border-hairline);border-radius:10px;padding:13px 15px;font-size:0.88rem;color:var(--text-secondary);margin-bottom:12px;">
+                <div style="font-weight:700;color:var(--accent-indigo);margin-bottom:4px;font-size:0.8125rem;letter-spacing:0.04em;" class="mono">
                   GEMINI 3.8 SEARCH GROUNDING SYNTHESIS
                 </div>
                 <p id="gemini-grounding-summary" style="color:var(--text-primary);">${escapeHtml(audit.geminiInsight?.groundingSummary || '')}</p>
               </div>
             </div>
 
-            <!-- Plain-English GEO & Position-Weight Reference Strip (Balances Left Hero Card & Defines Terms) -->
+            <!-- Plain-English GEO & Position-Weight Reference Strip -->
             <div style="background:var(--bg-canvas);border:1px solid var(--border-hairline);border-radius:10px;padding:12px 14px;display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-top:auto;">
               <div>
-                <div class="mono" style="font-size:0.68rem;font-weight:700;color:var(--accent-indigo);margin-bottom:3px;">WHAT IS GEO (GENERATIVE ENGINE OPT.)?</div>
-                <p style="font-size:0.77rem;color:var(--text-secondary);line-height:1.4;margin:0;">
-                  Structuring your <span class="mono">/llms.txt</span>, <span class="mono">/robots.txt</span>, and <span class="mono">schema-dts</span> JSON-LD so ChatGPT Search, Perplexity &amp; Gemini cite your brand first.
+                <div class="mono" style="font-size:0.8125rem;font-weight:700;color:var(--accent-indigo);margin-bottom:4px;">WHAT IS AI SEARCH OPTIMIZATION (GEO)?</div>
+                <p style="font-size:0.85rem;color:var(--text-secondary);line-height:1.45;margin:0;">
+                  Structuring your <span class="mono">/llms.txt</span>, <span class="mono">/robots.txt</span>, and Schema markup so ChatGPT Search, Perplexity &amp; Gemini recommend your brand first.
                 </p>
               </div>
               <div>
-                <div class="mono" style="font-size:0.68rem;font-weight:700;color:var(--accent-emerald);margin-bottom:3px;">WHAT IS POSITION-WEIGHTED cSoV?</div>
-                <p style="font-size:0.77rem;color:var(--text-secondary);line-height:1.4;margin:0;">
-                  Citation Share-of-Voice across 25 buyer prompts (<span class="mono">w_r = 1/log2(r+1)</span>): Rank #1 = <strong>100%</strong> weight, #2 = <strong>63%</strong>, #3 = <strong>50%</strong>.
+                <div class="mono" style="font-size:0.8125rem;font-weight:700;color:var(--accent-emerald);margin-bottom:4px;">WHAT IS CITATION SHARE (cSoV)?</div>
+                <p style="font-size:0.85rem;color:var(--text-secondary);line-height:1.45;margin:0;">
+                  How often AI recommends you across 25 buyer questions: Rank #1 counts <strong>100%</strong>, #2 counts <strong>63%</strong>, #3 counts <strong>50%</strong>.
                 </p>
               </div>
             </div>
@@ -327,10 +327,9 @@ function renderHeroGraderBox(audit, isLp = false) {
 
 function renderTrustStripAndTestimonials() {
   return `
-  <!-- Trusted By Logo Strip (Logo-Only Rule from taste-skill, high-contrast obsidian ink on warm stone) -->
   <section style="padding:24px 0;border-bottom:1px solid var(--border-hairline);background:var(--bg-subtle);">
     <div class="container" style="display:flex;flex-wrap:wrap;align-items:center;justify-content:space-between;gap:24px;">
-      <span class="mono" style="font-size:0.75rem;color:var(--text-secondary);font-weight:700;letter-spacing:0.05em;">BENCHMARKED BY MARKETING &amp; SEO TEAMS AT</span>
+      <span class="mono" style="font-size:0.8125rem;color:var(--text-secondary);font-weight:700;letter-spacing:0.05em;">BENCHMARKED BY MARKETING &amp; SEO TEAMS AT</span>
       <div style="display:flex;flex-wrap:wrap;align-items:center;gap:36px;">
         <svg height="22" viewBox="0 0 90 24" fill="none" role="img" aria-label="Vercel"><path d="M12 3L23 21H1L12 3Z" fill="#0F172A"/><text x="29" y="18" fill="#0F172A" font-family="Plus Jakarta Sans,sans-serif" font-weight="700" font-size="15">Vercel</text></svg>
         <svg height="22" viewBox="0 0 95 24" fill="none" role="img" aria-label="Linear"><circle cx="12" cy="12" r="9" stroke="#0F172A" stroke-width="2.2"/><path d="M6 16L16 6" stroke="#0F172A" stroke-width="2"/><text x="27" y="17" fill="#0F172A" font-family="Plus Jakarta Sans,sans-serif" font-weight="700" font-size="15">Linear</text></svg>
@@ -342,6 +341,82 @@ function renderTrustStripAndTestimonials() {
   </section>`;
 }
 
+function renderExecutiveBriefSection(sectionId = 'home-executive-brief', isHeroH1 = false) {
+  const hTag = isHeroH1 ? 'h1' : 'h2';
+  return `
+    <section id="${sectionId}" style="padding:48px 0 44px;border-bottom:1px solid var(--border-hairline);background:var(--bg-subtle);">
+      <div class="container">
+        <div class="hero-grid" style="align-items:stretch;">
+          <div class="panel" style="padding:28px;display:flex;flex-direction:column;justify-content:space-between;height:100%;">
+            <div>
+              <div style="display:flex;gap:8px;flex-wrap:wrap;align-items:center;margin-bottom:12px;">
+                <span class="badge badge-cyan mono">2026 BOARDROOM EXECUTIVE BRIEF</span>
+                <span class="badge badge-emerald mono">CMO &amp; VP MARKETING PLAYBOOK</span>
+              </div>
+              <${hTag} class="hero-h1" style="font-size:2.15rem;margin-bottom:12px;">
+                Executive Brief: Why <span class="serif-italic">AI Search Visibility (GEO)</span> Matters Now
+              </${hTag}>
+              <p class="hero-sub" style="margin-bottom:18px;font-size:1rem;">
+                64% of high-intent software and consumer buyers now shortlist vendors inside <strong>ChatGPT Search, Perplexity Pro, and Google Gemini AI Overviews</strong> before clicking a traditional search link. This brief explains the three signals that determine whether AI recommends your brand or your competitor.
+              </p>
+              <div style="display:grid;gap:12px;margin-bottom:20px;">
+                <div style="padding:14px 16px;border-radius:10px;background:var(--bg-canvas);border:1px solid var(--border-hairline);">
+                  <strong style="color:var(--text-primary);font-size:0.95rem;">1. AI Crawler Permissions (<span class="mono">/robots.txt</span>):</strong>
+                  <span style="color:var(--text-secondary);font-size:0.9rem;"> Explicitly allow <span class="mono">OAI-SearchBot</span>, <span class="mono">PerplexityBot</span>, <span class="mono">ClaudeBot</span>, and <span class="mono">Google-Extended</span> while protecting private routes.</span>
+                </div>
+                <div style="padding:14px 16px;border-radius:10px;background:var(--bg-canvas);border:1px solid var(--border-hairline);">
+                  <strong style="color:var(--text-primary);font-size:0.95rem;">2. Clean AI Site Guides (<span class="mono">/llms.txt</span> &amp; <span class="mono">/llms-full.txt</span>):</strong>
+                  <span style="color:var(--text-secondary);font-size:0.9rem;"> Provide clean Markdown guides so AI search engines read your exact pricing and product strengths without HTML clutter.</span>
+                </div>
+                <div style="padding:14px 16px;border-radius:10px;background:var(--bg-canvas);border:1px solid var(--border-hairline);">
+                  <strong style="color:var(--text-primary);font-size:0.95rem;">3. Verified Product Facts (<span class="mono">JSON-LD</span> Schema):</strong>
+                  <span style="color:var(--text-secondary);font-size:0.9rem;"> Anchor your Organization, Product, and FAQ facts so AI assistants never hallucinate outdated pricing.</span>
+                </div>
+              </div>
+            </div>
+            <div style="display:flex;gap:12px;flex-wrap:wrap;align-items:center;margin-top:auto;">
+              <a href="#grader" class="btn btn-primary" style="padding:11px 18px;">
+                <span>Run Live 10-Second Domain Check</span>
+                <span class="btn-arrow-pill" aria-hidden="true">&uarr;</span>
+              </a>
+              <a href="/leaderboard" class="btn btn-secondary mono" style="padding:11px 16px;">Explore Live Industry Leaderboard &rarr;</a>
+            </div>
+          </div>
+
+          <div class="bezel-shell" style="display:flex;flex-direction:column;height:100%;">
+            <div class="panel-elevated" style="padding:26px;display:flex;flex-direction:column;justify-content:space-between;height:100%;">
+              <div>
+                <div class="mono" style="font-size:0.8125rem;font-weight:700;color:var(--accent-indigo);letter-spacing:0.05em;margin-bottom:6px;">PLAIN-ENGLISH FIELD GUIDE &amp; SCORING MODEL</div>
+                <h3 class="serif-display" style="font-size:1.5rem;margin-bottom:14px;">Key Concepts for Your Marketing &amp; Engineering Teams</h3>
+                <div style="display:grid;gap:12px;">
+                  <div style="padding:14px 16px;border-radius:10px;background:var(--bg-subtle);border:1px solid var(--border-hairline);">
+                    <div style="font-weight:700;font-size:0.95rem;color:var(--text-primary);margin-bottom:4px;">AI Search Optimization (GEO)</div>
+                    <p style="font-size:0.88rem;color:var(--text-secondary);margin:0;">Preparing your website's <span class="mono">/llms.txt</span> guide and Schema markup so ChatGPT, Perplexity, and Gemini recommend your business when buyers ask commercial questions.</p>
+                  </div>
+                  <div style="padding:14px 16px;border-radius:10px;background:var(--bg-subtle);border:1px solid var(--border-hairline);">
+                    <div style="font-weight:700;font-size:0.95rem;color:var(--text-primary);margin-bottom:4px;">AI Recommendation Share (cSoV %)</div>
+                    <p style="font-size:0.88rem;color:var(--text-secondary);margin:0;">The percentage of buyer questions where your brand is recommended across ChatGPT Search, Perplexity, and Gemini compared to your top 5 competitors.</p>
+                  </div>
+                  <div style="padding:14px 16px;border-radius:10px;background:var(--bg-subtle);border:1px solid var(--border-hairline);">
+                    <div style="font-weight:700;font-size:0.95rem;color:var(--text-primary);margin-bottom:4px;">Why Rank #1 Matters Most (<span class="mono">w_r = 1 / log2(r + 1)</span>)</div>
+                    <p style="font-size:0.88rem;color:var(--text-secondary);margin:0;">Being recommended #1 in an AI answer drives far more clicks than #5. Our score weights <strong>Rank #1 at 100%</strong>, <strong>Rank #2 at 63.1%</strong>, and <strong>Rank #3 at 50.0%</strong>.</p>
+                  </div>
+                </div>
+              </div>
+              <div style="margin-top:16px;padding:14px 16px;border-radius:10px;background:var(--accent-indigo-soft);border:1px solid #C7D2FE;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:10px;">
+                <div>
+                  <div class="mono" style="font-size:0.8125rem;font-weight:700;color:var(--accent-indigo);">VERIFIED 21-DAY IMPACT</div>
+                  <div style="font-size:0.9rem;color:var(--text-primary);font-weight:600;">Avg. +18.4% AI Recommendation Lift after publishing <span class="mono">/llms.txt</span></div>
+                </div>
+                <a href="/buy/complete_dossier" class="btn btn-primary" style="padding:9px 14px;font-size:0.85rem;">Get $49 Complete Audit Pack &rarr;</a>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>`;
+}
+
 function renderHomePage(initialAudit, sampleSeoPages) {
   const leaderboardLinks = sampleSeoPages.filter(p => p.page_type === 'leaderboard').slice(0, 10);
   const comparisonLinks = sampleSeoPages.filter(p => p.page_type === 'comparison').slice(0, 10);
@@ -351,14 +426,14 @@ function renderHomePage(initialAudit, sampleSeoPages) {
     <a href="/seo/${escapeHtml(p.slug)}" class="panel" style="padding:16px 18px;display:block;transition:border-color 150ms ease-out, transform 150ms ease-out;">
       <div style="display:flex;justify-content:space-between;align-items:center;gap:8px;margin-bottom:6px;">
         <span class="badge badge-cyan mono">${escapeHtml(p.category)}</span>
-        <span class="mono" style="font-size:0.78rem;color:var(--accent-emerald);font-weight:700;">${p.csov_score}% cSoV</span>
+        <span class="mono" style="font-size:0.84rem;color:var(--accent-emerald);font-weight:700;">${p.csov_score}% cSoV</span>
       </div>
-      <div style="font-weight:700;font-size:0.9rem;color:var(--text-primary);">${escapeHtml(p.title)}</div>
+      <div style="font-weight:700;font-size:0.94rem;color:var(--text-primary);">${escapeHtml(p.title)}</div>
     </a>
   `).join('');
 
   return `${renderHead({
-    title: 'CitationForge — AI Search (GEO/AEO) Visibility Radar & Auto-llms.txt Compiler',
+    title: 'CitationForge: AI Search (GEO/AEO) Visibility Radar & Auto-llms.txt Compiler',
     description: 'Audit your Citation Share-of-Voice (cSoV) across ChatGPT Search, Perplexity, and Gemini in 10 seconds. Auto-compile /llms.txt, /llms-full.txt, and schema-dts JSON-LD.',
     canonicalPath: '/',
     ogSlug: 'home',
@@ -369,6 +444,7 @@ function renderHomePage(initialAudit, sampleSeoPages) {
   <main id="main-content">
     ${renderHeroGraderBox(initialAudit, false)}
     ${renderTrustStripAndTestimonials()}
+    ${renderExecutiveBriefSection('home-executive-brief', false)}
     ${renderGraderAndCompilerSection(initialAudit)}
 
     <!-- Programmatic SEO Knowledge Graph Hub Preview -->
@@ -379,7 +455,7 @@ function renderHomePage(initialAudit, sampleSeoPages) {
             <h2 class="serif-display" style="font-size:2rem;margin-bottom:6px;">
               Programmatic GEO Intelligence Hub (<span class="serif-italic">60+ Live Benchmarks</span>)
             </h2>
-            <p style="color:var(--text-secondary);font-size:0.95rem;">
+            <p style="color:var(--text-secondary);font-size:0.98rem;">
               Explore pre-computed category cSoV leaderboards, head-to-head brand citation audits, and technical <span class="mono">llms.txt</span> guides.
             </p>
           </div>
@@ -388,15 +464,15 @@ function renderHomePage(initialAudit, sampleSeoPages) {
 
         <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(320px,1fr));gap:22px;">
           <div>
-            <h3 style="font-size:0.95rem;font-weight:700;margin-bottom:12px;color:var(--accent-indigo);">Category cSoV Leaderboards</h3>
+            <h3 style="font-size:1rem;font-weight:700;margin-bottom:12px;color:var(--accent-indigo);">Category cSoV Leaderboards</h3>
             <div style="display:grid;gap:10px;">${renderSeoCardList(leaderboardLinks)}</div>
           </div>
           <div>
-            <h3 style="font-size:0.95rem;font-weight:700;margin-bottom:12px;color:var(--accent-emerald);">Head-to-Head Citation Audits</h3>
+            <h3 style="font-size:1rem;font-weight:700;margin-bottom:12px;color:var(--accent-emerald);">Head-to-Head Citation Audits</h3>
             <div style="display:grid;gap:10px;">${renderSeoCardList(comparisonLinks)}</div>
           </div>
           <div>
-            <h3 style="font-size:0.95rem;font-weight:700;margin-bottom:12px;color:var(--text-primary);">Technical GEO &amp; llms.txt Playbooks</h3>
+            <h3 style="font-size:1rem;font-weight:700;margin-bottom:12px;color:var(--text-primary);">Technical GEO &amp; llms.txt Playbooks</h3>
             <div style="display:grid;gap:10px;">${renderSeoCardList(guideLinks)}</div>
           </div>
         </div>
@@ -412,8 +488,7 @@ function renderHomePage(initialAudit, sampleSeoPages) {
 }
 
 /**
- * `/lp` Executive Brief & Boardroom Methodology Page with distinct above-the-fold
- * Executive Summary, Plain-English GEO/cSoV Glossary, Case Studies, and Interactive X-Ray Grader.
+ * `/lp` Executive Brief & Boardroom Methodology Page
  */
 function renderLandingPage(initialAudit) {
   return `${renderHead({
@@ -426,79 +501,7 @@ function renderLandingPage(initialAudit) {
 <body>
   ${renderNavbar('/lp')}
   <main id="main-content">
-    <!-- Dedicated Above-the-Fold Executive Brief & GEO Methodology Section (Distinct from Homepage) -->
-    <section id="executive-brief-hero" style="padding:44px 0 40px;border-bottom:1px solid var(--border-hairline);background:var(--bg-subtle);">
-      <div class="container">
-        <div class="hero-grid" style="align-items:stretch;">
-          <div class="panel" style="padding:28px;display:flex;flex-direction:column;justify-content:space-between;height:100%;">
-            <div>
-              <div style="display:flex;gap:8px;flex-wrap:wrap;align-items:center;margin-bottom:12px;">
-                <span class="badge badge-cyan mono">2026 BOARDROOM EXECUTIVE BRIEF</span>
-                <span class="badge badge-emerald mono">CMO &amp; VP MARKETING PLAYBOOK</span>
-              </div>
-              <h1 class="hero-h1" style="font-size:2.35rem;margin-bottom:12px;">
-                Executive Brief: Winning <span class="serif-italic">Generative Engine Optimization (GEO)</span> in 2026
-              </h1>
-              <p class="hero-sub" style="margin-bottom:18px;">
-                64% of high-intent software and consumer buyers now shortlist vendors inside <strong>ChatGPT Search, Perplexity Pro, and Google Gemini AI Overviews</strong> before clicking a traditional search link. This brief explains the exact engineering and content signals that determine whether AI answer engines recommend your brand—or your competitor.
-              </p>
-              <div style="display:grid;gap:10px;margin-bottom:20px;">
-                <div style="padding:12px 14px;border-radius:10px;background:var(--bg-canvas);border:1px solid var(--border-hairline);">
-                  <strong style="color:var(--text-primary);font-size:0.88rem;">1. Crawl Permission Governance (<span class="mono">/robots.txt</span>):</strong>
-                  <span style="color:var(--text-secondary);font-size:0.84rem;"> Explicitly allow <span class="mono">OAI-SearchBot</span>, <span class="mono">PerplexityBot</span>, <span class="mono">ClaudeBot</span>, and <span class="mono">Google-Extended</span> while protecting private routes.</span>
-                </div>
-                <div style="padding:12px 14px;border-radius:10px;background:var(--bg-canvas);border:1px solid var(--border-hairline);">
-                  <strong style="color:var(--text-primary);font-size:0.88rem;">2. Low-Token Markdown Twins (<span class="mono">/llms.txt</span> &amp; <span class="mono">/llms-full.txt</span>):</strong>
-                  <span style="color:var(--text-secondary);font-size:0.84rem;"> Provide clean Markdown manifests so Retrieval-Augmented Generation (RAG) pipelines ingest your exact pricing and differentiators without HTML bloat.</span>
-                </div>
-                <div style="padding:12px 14px;border-radius:10px;background:var(--bg-canvas);border:1px solid var(--border-hairline);">
-                  <strong style="color:var(--text-primary);font-size:0.88rem;">3. Entity Disambiguation (<span class="mono">schema-dts</span> JSON-LD):</strong>
-                  <span style="color:var(--text-secondary);font-size:0.84rem;"> Anchor your <span class="mono">Organization</span>, <span class="mono">SoftwareApplication</span>, and <span class="mono">FAQPage</span> graph to eliminate LLM pricing hallucinations.</span>
-                </div>
-              </div>
-            </div>
-            <div style="display:flex;gap:10px;flex-wrap:wrap;margin-top:auto;">
-              <a href="#grader" class="btn btn-primary" style="padding:11px 18px;">
-                <span>Run Live 10-Second Domain X-Ray Below</span>
-                <span class="btn-arrow-pill" aria-hidden="true">&darr;</span>
-              </a>
-              <a href="/dossier/sample" class="btn btn-secondary mono" style="padding:11px 16px;">Inspect Sample $49 Audit Dossier &rarr;</a>
-              <a href="/buy/flash_pass" class="btn btn-secondary mono" style="padding:11px 16px;">1-Click $1.99 Single-Audit Pass &rarr;</a>
-            </div>
-          </div>
-
-          <div class="bezel-shell" style="display:flex;flex-direction:column;height:100%;">
-            <div class="panel-elevated" style="padding:26px;display:flex;flex-direction:column;justify-content:space-between;height:100%;">
-              <div>
-                <div class="mono" style="font-size:0.72rem;font-weight:700;color:var(--accent-indigo);letter-spacing:0.05em;margin-bottom:6px;">PLAIN-ENGLISH EXECUTIVE GLOSSARY &amp; SCORING MODEL</div>
-                <h2 class="serif-display" style="font-size:1.5rem;margin-bottom:14px;">Key Definitions for Your Marketing &amp; Engineering Teams</h2>
-                <div style="display:grid;gap:12px;">
-                  <div style="padding:12px 14px;border-radius:10px;background:var(--bg-subtle);border:1px solid var(--border-hairline);">
-                    <div style="font-weight:700;font-size:0.88rem;color:var(--text-primary);margin-bottom:3px;">GEO — Generative Engine Optimization</div>
-                    <p style="font-size:0.81rem;color:var(--text-secondary);margin:0;">The discipline of optimizing your website's machine-readable documentation (<span class="mono">/llms.txt</span>), structured data (<span class="mono">JSON-LD</span>), and authority signals so generative AI engines recommend your product when buyers ask commercial questions.</p>
-                  </div>
-                  <div style="padding:12px 14px;border-radius:10px;background:var(--bg-subtle);border:1px solid var(--border-hairline);">
-                    <div style="font-weight:700;font-size:0.88rem;color:var(--text-primary);margin-bottom:3px;">cSoV — Citation Share-of-Voice (%)</div>
-                    <p style="font-size:0.81rem;color:var(--text-secondary);margin:0;">The percentage of category buyer prompts where your brand is cited across ChatGPT Search, Perplexity, and Gemini compared to your top 5 competitors.</p>
-                  </div>
-                  <div style="padding:12px 14px;border-radius:10px;background:var(--bg-subtle);border:1px solid var(--border-hairline);">
-                    <div style="font-weight:700;font-size:0.88rem;color:var(--text-primary);margin-bottom:3px;">Position-Weight Formula (<span class="mono">w_r = 1 / log2(r + 1)</span>)</div>
-                    <p style="font-size:0.81rem;color:var(--text-secondary);margin:0;">Being mentioned 5th in an AI response drives a fraction of the pipeline of being recommended 1st. Our logarithmic discount curve weights <strong>Rank #1 at 100% (1.000)</strong>, <strong>Rank #2 at 63.1% (0.631)</strong>, and <strong>Rank #3 at 50.0% (0.500)</strong>.</p>
-                  </div>
-                </div>
-              </div>
-              <div style="margin-top:16px;padding:14px 16px;border-radius:10px;background:var(--accent-indigo-soft);border:1px solid #C7D2FE;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:10px;">
-                <div>
-                  <div class="mono" style="font-size:0.72rem;font-weight:700;color:var(--accent-indigo);">BOARDROOM ROI BENCHMARK</div>
-                  <div style="font-size:0.83rem;color:var(--text-primary);font-weight:600;">Avg. +18.4% Citation Share Lift within 21 days of deploying <span class="mono">/llms.txt</span></div>
-                </div>
-                <a href="/buy/complete_dossier" class="btn btn-primary" style="padding:8px 14px;font-size:0.78rem;">Unlock $49 Complete Audit Pack &rarr;</a>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-    </section>
+    ${renderExecutiveBriefSection('executive-brief-hero', true)}
 
     <!-- Verified Marketing & SEO Leadership Social Proof + 30-Day Guarantee -->
     <section style="padding:44px 0;border-bottom:1px solid var(--border-hairline);background:var(--bg-surface);">
@@ -559,12 +562,12 @@ function renderDirectoryPage(seoPages) {
           <div>
             <div style="display:flex;justify-content:space-between;align-items:center;gap:8px;margin-bottom:10px;">
               <span class="badge badge-cyan mono">${escapeHtml(p.category)}</span>
-              <span class="mono" style="font-size:0.78rem;color:var(--accent-emerald);font-weight:700;">${p.csov_score}% cSoV</span>
+              <span class="mono" style="font-size:0.84rem;color:var(--accent-emerald);font-weight:700;">${p.csov_score}% cSoV</span>
             </div>
             <h3 style="font-size:1rem;font-weight:700;color:var(--text-primary);margin-bottom:6px;">${escapeHtml(p.title)}</h3>
             <p style="font-size:0.84rem;color:var(--text-secondary);">${escapeHtml(p.meta_description)}</p>
           </div>
-          <div class="mono" style="font-size:0.78rem;font-weight:700;color:var(--accent-indigo);">Read Full GEO Report &rarr;</div>
+          <div class="mono" style="font-size:0.84rem;font-weight:700;color:var(--accent-indigo);">Read Full GEO Report &rarr;</div>
         </a>
       `).join('')}
     </div>`;
@@ -713,7 +716,7 @@ function renderSeoDetailPage(pageRow, relatedPages) {
     const checklistHtml = (payload.checklist || []).map(item => `<li style="margin-bottom:8px;">&#10003; ${escapeHtml(item)}</li>`).join('');
     bodyContent = `
       <div class="panel" style="padding:26px;margin-bottom:28px;">
-        <h2 class="serif-display" style="font-size:1.45rem;margin-bottom:10px;">${escapeHtml(payload.subtitle)} — How to Rank in ChatGPT Search &amp; Perplexity SEO Checklist</h2>
+        <h2 class="serif-display" style="font-size:1.45rem;margin-bottom:10px;">${escapeHtml(payload.subtitle)}: How to Rank in ChatGPT Search &amp; Perplexity SEO Checklist</h2>
         <p style="color:var(--text-secondary);margin-bottom:20px;">${escapeHtml(payload.summary)}</p>
         <h3 style="font-size:1rem;font-weight:700;margin-bottom:10px;">Perplexity SEO Checklist &amp; llms.txt Generator Implementation Steps</h3>
         <ul style="list-style:none;font-size:0.9rem;color:var(--text-primary);margin-bottom:24px;">${checklistHtml}</ul>
@@ -836,7 +839,7 @@ function renderSeoDetailPage(pageRow, relatedPages) {
 <body>
   ${renderNavbar('/seo/' + pageRow.slug)}
   <main id="main-content" class="container" style="padding-top:36px;padding-bottom:32px;">
-    <nav aria-label="Breadcrumb" class="mono" style="font-size:0.78rem;color:var(--text-secondary);margin-bottom:16px;">
+    <nav aria-label="Breadcrumb" class="mono" style="font-size:0.84rem;color:var(--text-secondary);margin-bottom:16px;">
       <a href="/" style="color:var(--accent-indigo);">Home</a> &nbsp;/&nbsp; <a href="/directory" style="color:var(--accent-indigo);">GEO Directory</a> &nbsp;/&nbsp; <span>${escapeHtml(pageRow.slug)}</span>
     </nav>
 
@@ -844,7 +847,7 @@ function renderSeoDetailPage(pageRow, relatedPages) {
       <span class="badge badge-cyan mono">${escapeHtml(pageRow.category)} · VERIFIED GEO BENCHMARK</span>
       <h1 class="serif-display" style="font-size:2.3rem;margin:10px 0;">${escapeHtml(pageRow.title)}</h1>
       <div class="pseo-lead panel" style="padding:18px 22px;margin-top:14px;background:var(--accent-indigo-soft);border-left:4px solid var(--accent-indigo);border-radius:10px;">
-        <div class="mono" style="font-size:0.74rem;font-weight:700;color:var(--accent-indigo);letter-spacing:0.04em;margin-bottom:6px;">
+        <div class="mono" style="font-size:0.8125rem;font-weight:700;color:var(--accent-indigo);letter-spacing:0.04em;margin-bottom:6px;">
           ANSWER-FIRST EXECUTIVE SUMMARY · GOOGLE AI OVERVIEWS CITATION SCORE &amp; RAG SNAPSHOT
         </div>
         <p style="color:var(--text-primary);font-size:0.95rem;line-height:1.65;">
@@ -921,7 +924,7 @@ function renderLegalPage(type) {
 
 function render404Page(requestedPath) {
   return `${renderHead({
-    title: '404 — Entity Route Not Found | CitationForge',
+    title: '404: Entity Route Not Found | CitationForge',
     description: 'The requested page could not be found on CitationForge.',
     canonicalPath: '/404',
     ogSlug: '404'

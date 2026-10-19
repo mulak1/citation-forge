@@ -485,7 +485,7 @@ compiled_by: "CitationForge GEO Compiler v2.4"
 last_verified: "2026-10-14"
 ---
 
-# ${brand} (${domain}) — Canonical Entity Reference
+# ${brand} (${domain}): Canonical Entity Reference
 
 > ${summary}
 
@@ -741,7 +741,7 @@ async function runGeoAudit(rawInput, options = {}) {
   if (findings.length === 0) {
     findings.push({
       severity: 'optimal',
-      title: 'Strong Baseline GEO Posture — Expand Long-Tail Prompt Coverage',
+      title: 'Strong Baseline GEO Posture: Expand Long-Tail Prompt Coverage',
       impact: '+5.4% Incremental Share-of-Voice',
       detail: `Your root /llms.txt and AI bot permissions are active. Embed Answer-First 45-word comparison blocks for your #2 and #3 competitor queries.`
     });

@@ -1,5 +1,5 @@
 /**
- * CitationForge UI Templates — Persona-Driven Redesign
+ * CitationForge UI Templates: Persona-Driven Redesign
  * Aesthetic: "Attio + Perplexity + Stripe Editorial Studio"
  * Target Personas:
  *   1. VP of Marketing / Head of SEO & Content Growth (B2B SaaS, FinTech, E-Commerce)
@@ -203,11 +203,11 @@ function renderHead({ title, description, canonicalPath, ogSlug, jsonLdString })
     }
     .brand-mark:hover { opacity: 0.88; }
     .brand-sub-pill {
-      font-size: 0.68rem;
+      font-size:0.84rem;
       font-weight: 700;
-      letter-spacing: 0.06em;
+      letter-spacing: 0.05em;
       text-transform: uppercase;
-      padding: 3px 8px;
+      padding: 4px 10px;
       border-radius: 9999px;
       background: var(--accent-indigo-soft);
       color: var(--accent-indigo);
@@ -217,8 +217,8 @@ function renderHead({ title, description, canonicalPath, ogSlug, jsonLdString })
     .nav-links {
       display: flex;
       align-items: center;
-      gap: 22px;
-      font-size: 0.88rem;
+      gap: 20px;
+      font-size: 0.92rem;
       font-weight: 600;
       color: var(--text-secondary);
       white-space: nowrap;
@@ -236,10 +236,10 @@ function renderHead({ title, description, canonicalPath, ogSlug, jsonLdString })
       display: none;
       border-top: 1px solid var(--border-hairline);
       background: var(--bg-subtle);
-      padding: 8px 16px;
+      padding: 10px 16px;
       overflow-x: auto;
-      gap: 14px;
-      font-size: 0.8rem;
+      gap: 16px;
+      font-size: 0.85rem;
       font-weight: 600;
       color: var(--text-secondary);
       white-space: nowrap;
@@ -252,7 +252,7 @@ function renderHead({ title, description, canonicalPath, ogSlug, jsonLdString })
       gap: 8px;
       font-family: inherit;
       font-weight: 600;
-      font-size: 0.9rem;
+      font-size: 0.92rem;
       padding: 10px 18px;
       border-radius: var(--radius-input);
       border: 1px solid transparent;
@@ -296,7 +296,7 @@ function renderHead({ title, description, canonicalPath, ogSlug, jsonLdString })
       height: 20px;
       border-radius: 9999px;
       background: rgba(255, 255, 255, 0.18);
-      font-size: 0.75rem;
+      font-size: 0.8125rem;
       line-height: 1;
     }
     /* Double-Bezel & Bento Surfaces */
@@ -326,7 +326,7 @@ function renderHead({ title, description, canonicalPath, ogSlug, jsonLdString })
       gap: 6px;
       padding: 4px 10px;
       border-radius: 9999px;
-      font-size: 0.74rem;
+      font-size: 0.8125rem;
       font-weight: 600;
       letter-spacing: 0.01em;
       white-space: nowrap;
@@ -368,7 +368,7 @@ function renderHead({ title, description, canonicalPath, ogSlug, jsonLdString })
       font-family: 'Newsreader', Georgia, serif;
       font-size: clamp(2.15rem, 3.2vw, 3.1rem);
       font-weight: 500;
-      line-height: 1.09;
+      line-height: 1.12;
       letter-spacing: -0.025em;
       color: var(--text-primary);
       margin: 14px 0 16px;
@@ -376,8 +376,8 @@ function renderHead({ title, description, canonicalPath, ogSlug, jsonLdString })
     }
     .hero-sub {
       color: var(--text-secondary);
-      font-size: 1.02rem;
-      max-width: 58ch;
+      font-size: 1.04rem;
+      max-width: 60ch;
       margin-bottom: 22px;
     }
     /* Grader Console Input Box */
@@ -416,8 +416,8 @@ function renderHead({ title, description, canonicalPath, ogSlug, jsonLdString })
       color: var(--text-secondary);
       padding: 6px 12px;
       border-radius: 9999px;
-      font-size: 0.78rem;
-      font-weight: 500;
+      font-size: 0.84rem;
+      font-weight: 600;
       cursor: pointer;
       transition: border-color 140ms ease-out, color 140ms ease-out, background-color 140ms ease-out, transform 140ms ease-out;
     }
@@ -425,7 +425,7 @@ function renderHead({ title, description, canonicalPath, ogSlug, jsonLdString })
       border-color: var(--accent-indigo);
       color: var(--accent-indigo);
       background: var(--accent-indigo-soft);
-      font-weight: 600;
+      font-weight: 700;
     }
     .preset-chip:active { transform: scale(0.97); }
     /* Scorecard Telemetry Grid */
@@ -442,7 +442,7 @@ function renderHead({ title, description, canonicalPath, ogSlug, jsonLdString })
       border-radius: 10px;
     }
     .metric-label {
-      font-size: 0.72rem;
+      font-size: 0.8125rem;
       font-weight: 600;
       color: var(--text-secondary);
       margin-bottom: 6px;
@@ -496,7 +496,7 @@ function renderHead({ title, description, canonicalPath, ogSlug, jsonLdString })
       border-bottom: 2px solid transparent;
       color: var(--text-secondary);
       padding: 8px 12px;
-      font-size: 0.79rem;
+      font-size: 0.85rem;
       font-weight: 600;
       cursor: pointer;
       white-space: nowrap;
@@ -510,7 +510,7 @@ function renderHead({ title, description, canonicalPath, ogSlug, jsonLdString })
     .code-viewport {
       background: var(--bg-subtle);
       padding: 18px;
-      font-size: 0.78rem;
+      font-size: 0.85rem;
       line-height: 1.6;
       color: var(--text-primary);
       overflow-x: auto;
@@ -522,7 +522,7 @@ function renderHead({ title, description, canonicalPath, ogSlug, jsonLdString })
     .data-table {
       width: 100%;
       border-collapse: collapse;
-      font-size: 0.86rem;
+      font-size: 0.92rem;
     }
     .data-table th, .data-table td {
       padding: 12px 14px;
@@ -531,8 +531,8 @@ function renderHead({ title, description, canonicalPath, ogSlug, jsonLdString })
     }
     .data-table th {
       color: var(--text-secondary);
-      font-weight: 600;
-      font-size: 0.75rem;
+      font-weight: 700;
+      font-size: 0.8125rem;
       text-transform: uppercase;
       letter-spacing: 0.04em;
       background: var(--bg-subtle);
@@ -563,9 +563,6 @@ function renderHead({ title, description, canonicalPath, ogSlug, jsonLdString })
 
 /**
  * Unified Sticky Header Navigation across ALL pages.
- * - Hyperlinked bespoke SVG logo (<a href="/">)
- * - Root-relative links that work from /, /lp, /directory, /seo/:slug, /privacy, /terms, 404
- * - Mobile secondary nav strip so links are always present & never float over content.
  */
 function renderNavbar(activePath = '/') {
   return `
@@ -579,15 +576,13 @@ function renderNavbar(activePath = '/') {
       </a>
       <nav class="nav-links" aria-label="Primary Navigation">
         <a href="/#grader" class="${activePath === '/' ? 'active' : ''}">Free Grader</a>
-        <a href="/#compiler">llms.txt Compiler</a>
-        <a href="/#matrix">25-Prompt Radar</a>
+        <a href="/#home-executive-brief" class="${activePath === '/lp' ? 'active' : ''}">Executive Brief</a>
+        <a href="/leaderboard" class="${activePath.startsWith('/leaderboard') ? 'active' : ''}" style="font-weight:700;color:var(--accent-indigo);">🏆 Leaderboard</a>
         <a href="/directory" class="${activePath.startsWith('/directory') || activePath.startsWith('/seo') ? 'active' : ''}">GEO Benchmarks (60+)</a>
-        <a href="/lp" class="${activePath === '/lp' ? 'active' : ''}">Executive Brief</a>
         <a href="/#pricing">Pricing</a>
       </nav>
       <div style="display:flex;align-items:center;gap:10px;">
-        <a href="/llms.txt" class="btn btn-secondary mono hide-mobile" style="padding:8px 12px;font-size:0.78rem;">/llms.txt</a>
-        <a href="/#grader" class="btn btn-primary" style="padding:8px 14px;font-size:0.84rem;">
+        <a href="/#grader" class="btn btn-primary" style="padding:9px 16px;font-size:0.88rem;">
           <span>Run Free AI Audit</span>
           <span class="btn-arrow-pill" aria-hidden="true">&#8599;</span>
         </a>
@@ -595,10 +590,9 @@ function renderNavbar(activePath = '/') {
     </div>
     <nav class="mobile-nav-strip" aria-label="Mobile Navigation">
       <a href="/#grader">Free Grader</a>
-      <a href="/#compiler">llms.txt Compiler</a>
-      <a href="/#matrix">25-Prompt Radar</a>
+      <a href="/#home-executive-brief">Executive Brief</a>
+      <a href="/leaderboard" style="font-weight:700;color:var(--accent-indigo);">🏆 Leaderboard</a>
       <a href="/directory">60+ Benchmarks</a>
-      <a href="/lp">Executive Brief</a>
       <a href="/#pricing">Pricing</a>
     </nav>
   </header>`;
@@ -616,8 +610,8 @@ function renderFooter() {
         <strong style="color:var(--text-primary);">Telemetry &amp; Privacy Governance:</strong> We use first-party SQLite attribution and Meta CAPI deduplication only with your explicit consent. See our <a href="/privacy" style="text-decoration:underline;color:var(--accent-indigo);">Privacy Policy</a>.
       </div>
       <div style="display:flex;gap:8px;">
-        <button type="button" class="btn btn-secondary" style="padding:6px 12px;font-size:0.78rem;" onclick="setCookieConsent('rejected')">Reject Non-Essential</button>
-        <button type="button" class="btn btn-primary" style="padding:6px 12px;font-size:0.78rem;" onclick="setCookieConsent('accepted')">Accept Telemetry</button>
+        <button type="button" class="btn btn-secondary" style="padding:6px 12px;font-size:0.84rem;" onclick="setCookieConsent('rejected')">Reject Non-Essential</button>
+        <button type="button" class="btn btn-primary" style="padding:6px 12px;font-size:0.84rem;" onclick="setCookieConsent('accepted')">Accept Telemetry</button>
       </div>
     </div>
   </aside>

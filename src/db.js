@@ -189,7 +189,7 @@ function buildSeoPagesSeed() {
   TECHNICAL_GUIDES.forEach(([slug, title, subtitle, category], idx) => {
     const rawMeta = `${title}: How to Rank in ChatGPT Search, Perplexity SEO Checklist, Google AI Overviews Citation Score & llms.txt Generator.`;
     const metaDesc = trimMetaDescription(rawMeta, 158);
-    const summary = `${title} — Production engineering blueprint for ${subtitle}. Learn How to Rank in ChatGPT Search, execute the 2026 Perplexity SEO Checklist, boost your Google AI Overviews Citation Score, and deploy a spec-compliant llms.txt Generator manifest in under 10 minutes.`;
+    const summary = `${title}: Production engineering blueprint for ${subtitle}. Learn How to Rank in ChatGPT Search, execute the 2026 Perplexity SEO Checklist, boost your Google AI Overviews Citation Score, and deploy a spec-compliant llms.txt Generator manifest in under 10 minutes.`;
     const payload = {
       type: 'guide',
       category,
