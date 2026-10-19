@@ -193,8 +193,8 @@ function renderHeroGraderBox(audit, isLp = false) {
   return `
   <section id="grader" class="hero-section">
     <div class="container">
-      <div class="hero-grid" style="align-items:stretch;">
-        <div id="home-executive-brief" style="display:flex;flex-direction:column;justify-content:space-between;height:100%;">
+      <div class="hero-grid" style="align-items:start;">
+        <div id="home-executive-brief" style="display:flex;flex-direction:column;justify-content:flex-start;gap:14px;">
           <div>
             <div style="display:flex;gap:8px;flex-wrap:wrap;align-items:center;margin-bottom:10px;">
               <span class="badge badge-cyan mono">AI SEARCH VISIBILITY CHECKER</span>
@@ -268,8 +268,8 @@ function renderHeroGraderBox(audit, isLp = false) {
           </div>
         </div>
 
-        <div class="bezel-shell" style="display:flex;flex-direction:column;height:100%;">
-          <div class="panel-elevated" style="padding:22px;display:flex;flex-direction:column;justify-content:space-between;height:100%;">
+        <div class="bezel-shell" style="display:flex;flex-direction:column;">
+          <div class="panel-elevated" style="padding:22px;display:flex;flex-direction:column;justify-content:flex-start;gap:12px;">
             <div>
               <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:14px;padding-bottom:12px;border-bottom:1px solid var(--border-hairline);flex-wrap:wrap;gap:8px;">
                 <div>
@@ -310,7 +310,7 @@ function renderHeroGraderBox(audit, isLp = false) {
             </div>
 
             <!-- Plain-English Field Guide Strip -->
-            <div style="background:var(--bg-canvas);border:1px solid var(--border-hairline);border-radius:10px;padding:12px 14px;display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-top:auto;">
+            <div style="background:var(--bg-canvas);border:1px solid var(--border-hairline);border-radius:10px;padding:12px 14px;display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-top:0;">
               <div>
                 <div class="mono" style="font-size:0.8125rem;font-weight:700;color:var(--accent-indigo);margin-bottom:4px;">WHAT IS /LLMS.TXT?</div>
                 <p style="font-size:0.84rem;color:var(--text-secondary);line-height:1.45;margin:0;">
