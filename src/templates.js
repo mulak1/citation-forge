@@ -576,7 +576,7 @@ function renderNavbar(activePath = '/') {
       </a>
       <nav class="nav-links" aria-label="Primary Navigation">
         <a href="/#grader" class="${activePath === '/' ? 'active' : ''}">AI Visibility Grader</a>
-        <a href="/#home-executive-brief" class="${activePath === '/lp' ? 'active' : ''}">Executive Brief</a>
+        <a href="/#matrix">25 Buyer Questions</a>
         <a href="/leaderboard" class="${activePath.startsWith('/leaderboard') ? 'active' : ''}" style="font-weight:700;color:var(--accent-indigo);">🏆 Leaderboard</a>
         <a href="/directory" class="${activePath.startsWith('/directory') || activePath.startsWith('/seo') ? 'active' : ''}">GEO Benchmarks (60+)</a>
         <a href="/#pricing">3-File Pack ($1.99)</a>
@@ -590,7 +590,7 @@ function renderNavbar(activePath = '/') {
     </div>
     <nav class="mobile-nav-strip" aria-label="Mobile Navigation">
       <a href="/#grader">AI Grader</a>
-      <a href="/#home-executive-brief">Executive Brief</a>
+      <a href="/#matrix">25 Questions</a>
       <a href="/leaderboard" style="font-weight:700;color:var(--accent-indigo);">🏆 Leaderboard</a>
       <a href="/directory">60+ Benchmarks</a>
       <a href="/buy/flash_pass" onclick="if(window.__ebQuickBuy){window.__ebQuickBuy('flash_pass');return false;}">3-File Pack ($1.99)</a>

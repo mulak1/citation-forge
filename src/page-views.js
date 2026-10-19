@@ -97,7 +97,14 @@ function renderGraderAndCompilerSection(audit) {
               <button type="button" class="tab-btn mono" data-tab="robotsTxtPatch" onclick="switchCompilerTab('robotsTxtPatch')">robots.txt Patch</button>
               <button type="button" class="tab-btn mono" data-tab="jsonLd" onclick="switchCompilerTab('jsonLd')">JSON-LD @graph</button>
             </div>
-            <pre id="compiler-code-output" class="code-viewport mono" style="flex:1;">${escapeHtml(audit.artifacts.llmsTxt)}</pre>
+            <pre id="compiler-code-output" class="code-viewport mono" style="flex:1;"># ${escapeHtml(audit.brand)} (${escapeHtml(audit.domain)}) — AI Search Summary (/llms.txt)
+&gt; Diagnostic Status: ${audit.findings.length} Crawler &amp; Schema Gaps Detected (${audit.scores.csovPct}% AI Citation Share)
+
+# 🔒 [LOCKED IN FREE PREVIEW — $1.99 SINGLE-AUDIT PASS]
+# Unlock the 3-File Pack ($1.99) to unblur and download:
+#   1. /llms.txt &amp; /llms-full.txt Markdown Guides
+#   2. JSON-LD @graph Entity Schema
+#   3. AI Crawler /robots.txt Allowlist Patch</pre>
           </div>
         </div>
       </div>
@@ -130,7 +137,7 @@ function renderPricingSection() {
       <div class="bezel-shell" style="max-width:860px;margin:0 auto;">
         <div class="panel-elevated" style="padding:32px;border-color:var(--accent-indigo);">
           <div style="display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:10px;margin-bottom:12px;">
-            <span class="badge badge-emerald mono">PHASE 3 PUREST PATH • INSTANT STRIPE EXPRESS</span>
+            <span class="badge badge-emerald mono">INSTANT STRIPE EXPRESS PASS</span>
             <span class="mono" style="font-size:0.84rem;color:var(--text-secondary);">ONE-TIME MICRO-TRANSACTION • NO SUBSCRIPTION TRAP</span>
           </div>
           <h2 class="serif-display" style="font-size:2rem;margin-bottom:8px;">
@@ -180,38 +187,45 @@ function renderHeroGraderBox(audit, isLp = false) {
   ).join('');
 
   const headlineHtml = isLp
-    ? `Executive Brief: Why <span class="serif-italic">ChatGPT &amp; Perplexity</span> Recommend Your Competitors Instead of You`
-    : `Executive Brief: See How Often <span class="serif-italic">ChatGPT &amp; Perplexity</span> Recommend Your Brand`;
+    ? `Why <span class="serif-italic">ChatGPT &amp; Perplexity</span> Recommend Your Competitors Instead of You`
+    : `See How Often <span class="serif-italic">ChatGPT &amp; Perplexity</span> Recommend Your Business`;
 
-  const subheadline = '64% of buyers now ask ChatGPT Search, Perplexity, and Google Gemini for recommendations before clicking a search link. Check your website in 10 seconds and get ready-to-use /llms.txt and Schema files.';
+  const subheadline = '64% of buyers now ask ChatGPT Search, Perplexity, and Google Gemini for recommendations before clicking a search link. Check your website in 10 seconds to see where you rank and what is blocking AI from citing you.';
 
   return `
   <section id="grader" class="hero-section">
     <div class="container">
       <div class="hero-grid" style="align-items:stretch;">
-        <!-- Left Column: Merged Executive Brief + 1-Input Domain Checker -->
+        <!-- Left Column: Layperson Value Proposition + 1-Input Domain Checker -->
         <div id="home-executive-brief" style="display:flex;flex-direction:column;justify-content:space-between;height:100%;">
           <div>
             <div style="display:flex;gap:8px;flex-wrap:wrap;align-items:center;margin-bottom:10px;">
-              <span class="badge badge-cyan mono">2026 EXECUTIVE BRIEF &amp; LIVE SITE CHECKER</span>
-              <a href="/leaderboard" class="badge badge-emerald mono" style="text-decoration:none;">🏆 Top-3 Podium Leaderboard &rarr;</a>
+              <span class="badge badge-cyan mono">AI SEARCH VISIBILITY CHECKER</span>
+              <a href="/leaderboard" class="badge badge-emerald mono" style="text-decoration:none;">🏆 Live Industry Leaderboard &rarr;</a>
             </div>
             <h1 class="hero-h1">${headlineHtml}</h1>
-            <p class="hero-sub" style="margin-bottom:16px;">${escapeHtml(subheadline)}</p>
+            <p class="hero-sub" style="margin-bottom:12px;">${escapeHtml(subheadline)}</p>
 
-            <!-- 3-Point Executive Brief Summary inside Top Hero -->
-            <div style="display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:10px;margin-bottom:18px;">
+            <div style="display:flex;flex-wrap:wrap;gap:6px;align-items:center;margin-bottom:12px;font-size:0.8rem;font-weight:700;color:var(--text-secondary);">
+              <span style="color:var(--text-primary);">Built for:</span>
+              <span style="padding:3px 9px;border-radius:999px;background:var(--accent-indigo-soft);color:var(--accent-indigo);border:1px solid #C7D2FE;">🏢 SaaS &amp; Tech Founders</span>
+              <span style="padding:3px 9px;border-radius:999px;background:#ECFDF5;color:#059669;border:1px solid #A7F3D0;">🛍️ E-Commerce Brands</span>
+              <span style="padding:3px 9px;border-radius:999px;background:var(--bg-subtle);color:var(--text-primary);border:1px solid var(--border-hairline);">📈 SEO &amp; Growth Teams</span>
+            </div>
+
+            <!-- 3-Step Layperson Journey Cards -->
+            <div style="display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:10px;margin-bottom:16px;">
               <div style="padding:11px 12px;border-radius:10px;background:var(--bg-subtle);border:1px solid var(--border-hairline);">
-                <div class="mono" style="font-size:0.8125rem;font-weight:700;color:var(--accent-indigo);margin-bottom:3px;">01. CHECK SCORE</div>
-                <div style="font-size:0.84rem;color:var(--text-primary);font-weight:600;line-height:1.35;">See how often AI recommends you across 25 buyer questions.</div>
+                <div class="mono" style="font-size:0.8125rem;font-weight:700;color:var(--accent-indigo);margin-bottom:3px;">STEP 1 • FREE CHECK</div>
+                <div style="font-size:0.84rem;color:var(--text-primary);font-weight:600;line-height:1.35;">Enter your domain to see how often AI recommends you across 25 buyer questions.</div>
               </div>
               <div style="padding:11px 12px;border-radius:10px;background:var(--bg-subtle);border:1px solid var(--border-hairline);">
-                <div class="mono" style="font-size:0.8125rem;font-weight:700;color:var(--accent-emerald);margin-bottom:3px;">02. SPOT GAPS</div>
-                <div style="font-size:0.84rem;color:var(--text-primary);font-weight:600;line-height:1.35;">Find blocked AI crawlers in <span class="mono">/robots.txt</span> and missing facts.</div>
+                <div class="mono" style="font-size:0.8125rem;font-weight:700;color:var(--accent-emerald);margin-bottom:3px;">STEP 2 • SPOT GAPS</div>
+                <div style="font-size:0.84rem;color:var(--text-primary);font-weight:600;line-height:1.35;">See which AI crawlers are blocked in <span class="mono">/robots.txt</span> and where competitors win.</div>
               </div>
               <div style="padding:11px 12px;border-radius:10px;background:var(--bg-subtle);border:1px solid var(--border-hairline);">
-                <div class="mono" style="font-size:0.8125rem;font-weight:700;color:var(--text-primary);margin-bottom:3px;">03. PUBLISH FIX</div>
-                <div style="font-size:0.84rem;color:var(--text-primary);font-weight:600;line-height:1.35;">Copy ready-to-use <span class="mono">/llms.txt</span> &amp; Schema files in 1 click.</div>
+                <div class="mono" style="font-size:0.8125rem;font-weight:700;color:var(--text-primary);margin-bottom:3px;">STEP 3 • UNLOCK FIX</div>
+                <div style="font-size:0.84rem;color:var(--text-primary);font-weight:600;line-height:1.35;">Unlock your ready-to-publish <span class="mono">/llms.txt</span> &amp; Schema files for $1.99.</div>
               </div>
             </div>
 
@@ -337,11 +351,11 @@ function renderExecutiveBriefSection(sectionId = 'lp-executive-brief', isHeroH1 
           <div class="panel" style="padding:28px;display:flex;flex-direction:column;justify-content:space-between;height:100%;">
             <div>
               <div style="display:flex;gap:8px;flex-wrap:wrap;align-items:center;margin-bottom:12px;">
-                <span class="badge badge-cyan mono">2026 BOARDROOM EXECUTIVE BRIEF</span>
+                <span class="badge badge-cyan mono">2026 AI SEARCH VISIBILITY GUIDE</span>
                 <span class="badge badge-emerald mono">CMO &amp; VP MARKETING PLAYBOOK</span>
               </div>
               <${hTag} class="hero-h1" style="font-size:2.15rem;margin-bottom:12px;">
-                Executive Brief: Why <span class="serif-italic">AI Search Visibility (GEO)</span> Matters Now
+                Why <span class="serif-italic">AI Search Visibility (GEO)</span> Matters Now
               </${hTag}>
               <p class="hero-sub" style="margin-bottom:18px;font-size:1rem;">
                 64% of high-intent software and consumer buyers now shortlist vendors inside <strong>ChatGPT Search, Perplexity Pro, and Google Gemini AI Overviews</strong> before clicking a traditional search link. This brief explains the three signals that determine whether AI recommends your brand or your competitor.
