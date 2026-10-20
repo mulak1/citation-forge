@@ -443,7 +443,7 @@ function renderHomePage(initialAudit, sampleSeoPages) {
     description: 'Check how often ChatGPT Search, Perplexity, and Gemini recommend your website across 25 buyer questions. Generate ready-to-use /llms.txt and Schema files in 10 seconds.',
     canonicalPath: '/',
     ogSlug: 'home',
-    jsonLdString: initialAudit.artifacts.jsonLd
+    jsonLdString: null
   })}
 <body>
   ${renderNavbar('/')}
@@ -501,7 +501,7 @@ function renderLandingPage(initialAudit) {
     description: 'Executive Brief for Marketing VPs, CMOs, and SEO Directors: How Generative Engine Optimization (GEO), position-weighted Citation Share-of-Voice (cSoV), and /llms.txt drive AI answer-engine recommendations.',
     canonicalPath: '/lp',
     ogSlug: 'lp-xray',
-    jsonLdString: initialAudit.artifacts.jsonLd
+    jsonLdString: null
   })}
 <body>
   ${renderNavbar('/lp')}

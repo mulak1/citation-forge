@@ -557,7 +557,15 @@ function renderHead({ title, description, canonicalPath, ogSlug, jsonLdString })
       *, *::before, *::after { transition: none !important; animation: none !important; scroll-behavior: auto !important; }
     }
   </style>
-  ${jsonLdString ? `<script type="application/ld+json">${jsonLdString}</script>` : ''}
+  ${(() => {
+    if (!jsonLdString || typeof jsonLdString !== 'string') return '';
+    try {
+      JSON.parse(jsonLdString);
+      return `<script type="application/ld+json">${jsonLdString}</script>`;
+    } catch (_) {
+      return '';
+    }
+  })()}
 </head>`;
 }
 
