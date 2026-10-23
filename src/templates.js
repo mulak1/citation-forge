@@ -80,7 +80,6 @@ function renderHead({ title, description, canonicalPath, ogSlug, jsonLdString })
   <meta name="theme-color" content="#FAF9F5" />
   <link rel="canonical" href="${canonicalUrl}" />
   <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
-  <link rel="manifest" href="/manifest.webmanifest" />
   <meta property="og:type" content="website" />
   <meta property="og:site_name" content="CitationForge" />
   <meta property="og:title" content="${escapeHtml(title)}" />

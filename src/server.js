@@ -71,7 +71,7 @@ app.get('/manifest.webmanifest', (req, res) => {
     name: 'CitationForge: AI Search Visibility Studio',
     short_name: 'CitationForge',
     start_url: '/',
-    display: 'standalone',
+    display: 'browser',
     background_color: '#FAF9F5',
     theme_color: '#4F46E5',
     icons: [
