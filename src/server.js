@@ -115,9 +115,23 @@ app.get('/directory', (req, res) => {
 
 // 4. Programmatic SEO Detail Page (`GET /seo/:slug`)
 app.get('/seo/:slug', (req, res) => {
-  const slug = String(req.params.slug || '').trim().toLowerCase();
+  const slug = String(req.params.slug || '').trim().toLowerCase().replace(/[^a-z0-9-_]/g, '');
   const pageRow = queryOne('SELECT * FROM seo_pages WHERE slug = ?', [slug]);
   if (!pageRow) {
+    const allSlugs = queryAll('SELECT slug FROM seo_pages ORDER BY id ASC');
+    let matched = allSlugs.find((r) => r.slug.startsWith(slug) || slug.startsWith(r.slug));
+    if (!matched && slug) {
+      const candTokens = slug.split('-').filter((t) => t.length >= 2), firstToken = candTokens[0] || '';
+      let bestScore = 0;
+      for (const r of allSlugs) {
+        const eSlug = String(r.slug || '').toLowerCase(), eTokens = eSlug.split('-');
+        let score = (firstToken && eTokens[0] === firstToken) ? 5 : 0;
+        for (const t of candTokens) { if (eTokens.includes(t) || eSlug.includes(t)) score += 2; }
+        if (score > bestScore && score >= 4) { bestScore = score; matched = r; }
+      }
+    }
+    if (matched) return res.redirect(301, `/seo/${matched.slug}`);
+    res.setHeader('X-Robots-Tag', 'noindex');
     return res.status(404).type('html').send(render404Page(req.originalUrl));
   }
   const relatedPages = queryAll(

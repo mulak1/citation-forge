@@ -144,7 +144,7 @@ function renderPricingSection() {
               <div class="mono" style="font-size:2.2rem;font-weight:800;color:var(--accent-indigo);line-height:1;">$1.99 <span style="font-size:0.88rem;font-weight:600;color:var(--text-secondary);">USD one-time pass</span></div>
               <div style="font-size:0.85rem;color:var(--text-secondary);margin-top:4px;">&#10003; Full 3-File Bundle (<span class="mono">llms.txt</span> + <span class="mono">schema.json</span> + <span class="mono">robots.txt</span>) &bull; Instant Browser Unlock</div>
             </div>
-            <a href="/buy/flash_pass" onclick="if(window.__ebQuickBuy){window.__ebQuickBuy('flash_pass');return false;}" class="btn btn-primary" style="padding:14px 26px;font-size:0.98rem;text-decoration:none;">
+            <a href="/buy/flash_pass" rel="nofollow" onclick="if(window.__ebQuickBuy){window.__ebQuickBuy('flash_pass');return false;}" class="btn btn-primary" style="padding:14px 26px;font-size:0.98rem;text-decoration:none;">
               <span>Unlock Complete 3-File Pack ($1.99 Stripe Express)</span>
               <span class="btn-arrow-pill" aria-hidden="true">&#8599;</span>
             </a>
@@ -414,7 +414,7 @@ function renderExecutiveBriefSection(sectionId = 'lp-executive-brief', isHeroH1 
                   <div class="mono" style="font-size:0.8125rem;font-weight:700;color:var(--accent-indigo);">VERIFIED 21-DAY IMPACT</div>
                   <div style="font-size:0.9rem;color:var(--text-primary);font-weight:600;">Avg. +18.4% AI Recommendation Lift after publishing <span class="mono">/llms.txt</span></div>
                 </div>
-                <a href="/buy/flash_pass" onclick="if(window.__ebQuickBuy){window.__ebQuickBuy('flash_pass');return false;}" class="btn btn-primary" style="padding:9px 14px;font-size:0.85rem;">Unlock 3-File Pack ($1.99 Stripe Express) &rarr;</a>
+                <a href="/buy/flash_pass" rel="nofollow" onclick="if(window.__ebQuickBuy){window.__ebQuickBuy('flash_pass');return false;}" class="btn btn-primary" style="padding:9px 14px;font-size:0.85rem;">Unlock 3-File Pack ($1.99 Stripe Express) &rarr;</a>
               </div>
             </div>
           </div>
@@ -825,7 +825,7 @@ function renderSeoDetailPage(pageRow, relatedPages) {
         <div><div class="mono" style="font-size:0.74rem;color:var(--text-secondary);">TARGET AI ENGINE</div><div id="pseo-cf-engine-out" class="mono" style="font-size:1.05rem;font-weight:800;color:var(--text-primary);">Perplexity Pro (PerplexityBot)</div></div>
         <div><div class="mono" style="font-size:0.74rem;color:var(--text-secondary);">PROJECTED CITATION LIFT</div><div id="pseo-cf-lift-out" class="mono" style="font-size:1.3rem;font-weight:800;color:var(--accent-emerald);">+19.4% cSoV</div></div>
         <div><div class="mono" style="font-size:0.74rem;color:var(--text-secondary);">POST-FIX PROMPT RANK</div><div id="pseo-cf-rank-out" class="mono" style="font-size:1.3rem;font-weight:800;color:var(--accent-indigo);">Rank #1</div></div>
-        <div style="display:flex;align-items:center;"><a href="/buy/micro_pass?source=pseo_inline_calc&amp;slug=${encodeURIComponent(pageRow.slug)}" class="btn btn-primary" style="padding:9px 14px;font-size:0.82rem;">Unlock 99¢ /llms.txt Pack &rarr;</a></div>
+        <div style="display:flex;align-items:center;"><a href="/buy/micro_pass?source=pseo_inline_calc&amp;slug=${encodeURIComponent(pageRow.slug)}" rel="nofollow" class="btn btn-primary" style="padding:9px 14px;font-size:0.82rem;">Unlock 99¢ /llms.txt Pack &rarr;</a></div>
       </div>
       <script>
         window.__cfCalcPseoEngine = function(engine, lift, rank) {

@@ -589,7 +589,7 @@ function renderNavbar(activePath = '/') {
         <a href="/#pricing">3-File Pack ($1.99)</a>
       </nav>
       <div style="display:flex;align-items:center;gap:10px;">
-        <a href="/buy/flash_pass" onclick="if(window.__ebQuickBuy){window.__ebQuickBuy('flash_pass');return false;}" class="btn btn-primary" style="padding:9px 16px;font-size:0.88rem;">
+        <a href="/buy/flash_pass" rel="nofollow" onclick="if(window.__ebQuickBuy){window.__ebQuickBuy('flash_pass');return false;}" class="btn btn-primary" style="padding:9px 16px;font-size:0.88rem;">
           <span>Unlock 3-File Pack ($1.99)</span>
           <span class="btn-arrow-pill" aria-hidden="true">&#8599;</span>
         </a>
@@ -600,7 +600,7 @@ function renderNavbar(activePath = '/') {
       <a href="/#matrix">25 Questions</a>
       <a href="/leaderboard" style="font-weight:700;color:var(--accent-indigo);">🏆 Leaderboard</a>
       <a href="/directory">60+ Benchmarks</a>
-      <a href="/buy/flash_pass" onclick="if(window.__ebQuickBuy){window.__ebQuickBuy('flash_pass');return false;}">3-File Pack ($1.99)</a>
+      <a href="/buy/flash_pass" rel="nofollow" onclick="if(window.__ebQuickBuy){window.__ebQuickBuy('flash_pass');return false;}">3-File Pack ($1.99)</a>
     </nav>
   </header>`;
 }
