@@ -26,12 +26,12 @@ const VERTICAL_CONFIGS = {
     moduleId: 'citation_forge',
     brandName: 'CitationForge',
     domain: 'www.citationforge.io',
-    accentColor: '#0F4C81',
+    accentColor: '#0F172A',
     theme: {
-      canvasBg: '#F8FAFC', cardBg: '#FFFFFF', subtleBg: '#F1F5F9', dockBg: 'rgba(248, 250, 252, 0.96)',
-      border: '#E2E8F0', accentBorder: '#BFDBFE', textPrimary: '#0F172A', textSecondary: '#1E293B', textMuted: '#334155',
-      brandPrimary: '#0F4C81', brandSoftBg: '#EBF3FA', brandText: '#0B3861',
-      safeColor: '#047857', safeSoftBg: '#ECFDF5', safeBorder: '#A7F3D0', warnColor: '#92400E',
+      canvasBg: '#FAF9F5', cardBg: '#FFFFFF', subtleBg: '#F3F1EC', dockBg: 'rgba(250, 249, 245, 0.96)',
+      border: '#E4E2DD', accentBorder: '#CBD5E1', textPrimary: '#0F172A', textSecondary: '#334155', textMuted: '#475569',
+      brandPrimary: '#0F172A', brandSoftBg: '#F1F5F9', brandText: '#0F172A',
+      safeColor: '#047857', safeSoftBg: '#ECFDF5', safeBorder: '#A7F3D0', warnColor: '#B45309',
       fontDisplay: "'Newsreader', Georgia, serif", fontSans: "'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, sans-serif",
       radiusCard: '14px', radiusPill: '8px', shadow: 'none'
     },
@@ -46,7 +46,7 @@ const VERTICAL_CONFIGS = {
     lockedTitle: 'Competitor AI Visibility Comparison',
     deliverableName: 'Complete AI Search Fix Pack (/llms-full.txt + Structured Data + 25 Buyer Questions)',
     freeDeliverableName: 'Ready-to-Use AI Search Fix Files (/llms.txt & Schema)',
-    unlockBannerTitle: 'Ready-to-Use AI Fix Files & 50-Question Report',
+    unlockBannerTitle: 'Ready-to-Use AI Search Fix Files',
     explainerText: 'See how often ChatGPT, Perplexity & Google AI recommend your brand across 25 buyer questions',
     hudLabel: 'GEO Crawl HUD',
     redditSub: 'SEO',
@@ -107,7 +107,7 @@ const VERTICAL_CONFIGS = {
     ],
     githubRepo: {
       name: 'AnswerDotAI/llms-txt + colinhacks/zod + kpdecker/jsdiff',
-      stars: '★ 167,494 Combined', url: 'https://github.com/colinhacks/zod',
+      stars: '167,494 Combined Stars', url: 'https://github.com/colinhacks/zod',
       badge: 'AnswerDotAI/llms-txt + Zod Schema-Verified Deliverable Contract',
       title: 'Deterministic /llms.txt, JSON-LD @graph & Zod-Verified Export Bundle',
       summary: 'Compiles spec-compliant /llms-full.txt manifests and schema-dts @graph blocks with Zod contract verification.'
@@ -124,14 +124,14 @@ const VERTICAL_CONFIGS = {
     }
   },
   sponsor_radar: {
-    moduleId: 'sponsor_radar', brandName: 'SponsorRadar', domain: 'www.sponsorradar.io', accentColor: '#E84E36',
+    moduleId: 'sponsor_radar', brandName: 'SponsorRadar', domain: 'www.sponsorradar.io', accentColor: '#C23B22',
     theme: {
-      canvasBg: '#FBF8F3', cardBg: '#FFFFFF', subtleBg: '#F4EFE6', dockBg: 'rgba(251, 248, 243, 0.95)',
-      border: '#E5DEC9', accentBorder: '#F5C2B8', textPrimary: '#161412', textSecondary: '#57524A', textMuted: '#78716C',
-      brandPrimary: '#E84E36', brandSoftBg: '#FFF4F1', brandText: '#B9311C',
-      safeColor: '#0F766E', safeSoftBg: '#ECFDF5', safeBorder: '#A7F3D0', warnColor: '#B45309',
+      canvasBg: '#F8F9FA', cardBg: '#FFFFFF', subtleBg: '#F1F3F5', dockBg: 'rgba(248, 249, 250, 0.96)',
+      border: '#DEE2E6', accentBorder: '#F5C2B8', textPrimary: '#14171A', textSecondary: '#212529', textMuted: '#495057',
+      brandPrimary: '#C23B22', brandSoftBg: '#FFF4F1', brandText: '#9B2C18',
+      safeColor: '#0F766E', safeSoftBg: '#ECFDF5', safeBorder: '#A7F3D0', warnColor: '#92400E',
       fontDisplay: "'Newsreader', Georgia, serif", fontSans: "'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, sans-serif",
-      radiusCard: '14px', radiusPill: '8px', shadow: '0 14px 34px -12px rgba(24, 20, 16, 0.07), 0 2px 6px rgba(24, 20, 16, 0.03)'
+      radiusCard: '14px', radiusPill: '8px', shadow: 'none'
     },
     flashPriceEnv: 'STRIPE_PRICE_FLASH_199', flashPriceDefault: 'price_1UQjMrIaoGnkXxS82T5cPcjM',
     corePriceEnv: 'STRIPE_PRICE_CREATOR_49', corePriceUsd: 49, coreLabel: 'Complete Creator Sponsor Database ($49/mo)',
@@ -139,7 +139,7 @@ const VERTICAL_CONFIGS = {
     lockedTitle: 'Verified Sponsor Partnership Contacts',
     deliverableName: 'Verified Sponsor Contact Email + Ready-to-Send Pitch + Full Ad Rate Table',
     freeDeliverableName: 'Verified Sponsor Contact & 3-Ad Pilot Pitch Pack',
-    unlockBannerTitle: 'Get Verified Sponsor Contact Emails, Real Ad Rates (CPM) & Pitch Templates',
+    unlockBannerTitle: 'Verified Sponsor Emails & Rates',
     explainerText: 'See which sponsors booked 3+ repeat ads, what they paid, and who to email on their partnerships team',
     hudLabel: 'Media Buyer HUD', redditSub: 'podcasting',
     sliderLabel: 'Bookings', sliderMin: 1, sliderMax: 30, sliderVal: 14,
@@ -198,7 +198,7 @@ const VERTICAL_CONFIGS = {
     ],
     githubRepo: {
       name: 'pyannote/pyannote-audio + colinhacks/zod + parallax/jsPDF',
-      stars: '★ 216,756 Combined', url: 'https://github.com/pyannote/pyannote-audio',
+      stars: '216,756 Combined Stars', url: 'https://github.com/pyannote/pyannote-audio',
       badge: 'Host-Read Diarization + Zod-Verified Buyer Contact Ledger',
       title: 'Host-Voiced Ad-Read Diarization & 3-Flight Pitch Engine',
       summary: 'Verifies host-voiced ad reads vs. spliced dynamic insertions and compiles 3x-renewal anchored sponsorship pitches.'
@@ -215,14 +215,14 @@ const VERTICAL_CONFIGS = {
     }
   },
   derm_logic: {
-    moduleId: 'derm_logic', brandName: 'DermLogic', domain: 'www.dermlogic.io', accentColor: '#C85A68',
+    moduleId: 'derm_logic', brandName: 'DermLogic', domain: 'www.dermlogic.io', accentColor: 'var(--rose-brand)',
     theme: {
-      canvasBg: '#FAF6F0', cardBg: '#FFFDFB', subtleBg: '#F4EDE4', dockBg: 'rgba(255, 253, 251, 0.95)',
-      border: '#E6DDD2', accentBorder: '#F3C8CE', textPrimary: '#1C1613', textSecondary: '#6E6259', textMuted: '#93857B',
-      brandPrimary: '#C85A68', brandSoftBg: '#FDF2F4', brandText: '#9E3B49',
-      safeColor: '#2D6A4F', safeSoftBg: '#EAF4EE', safeBorder: '#B7DFC7', warnColor: '#B4690E',
-      fontDisplay: "'Cormorant Garamond', Georgia, serif", fontSans: "'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, sans-serif",
-      radiusCard: '20px', radiusPill: '999px', shadow: '0 14px 36px -14px rgba(110, 98, 89, 0.12), 0 2px 8px rgba(110, 98, 89, 0.04)'
+      canvasBg: 'var(--bg-canvas)', cardBg: 'var(--bg-surface)', subtleBg: 'var(--bg-oat)', surfaceBg: 'var(--bg-surface)', dockBg: 'var(--bg-porcelain)',
+      border: 'var(--border-hairline)', accentBorder: 'var(--border-strong)', textPrimary: 'var(--text-primary)', textSecondary: 'var(--text-secondary)', textMuted: 'var(--text-muted)',
+      brandPrimary: 'var(--rose-brand)', brandSoftBg: 'var(--rose-pill-bg)', brandText: 'var(--rose-brand)',
+      safeColor: 'var(--sage-safe)', safeSoftBg: 'var(--sage-bg)', safeBorder: 'var(--border-hairline)', warnColor: 'var(--honey-warn)',
+      fontDisplay: "'Newsreader', Georgia, serif", fontSans: "'Newsreader', Georgia, serif",
+      radiusCard: '0px', radiusPill: '0px', shadow: 'none'
     },
     flashPriceEnv: 'STRIPE_PRICE_FLASH_199', flashPriceDefault: 'price_1UQjMsIaoGnkXxS8ru7bwyQe',
     corePriceEnv: 'STRIPE_PRICE_VANITY_499', corePriceUsd: 4.99, coreLabel: 'Complete Morning & Night Routine Kit ($4.99)',
@@ -230,7 +230,7 @@ const VERTICAL_CONFIGS = {
     lockedTitle: 'Morning vs. Night Layering Order',
     deliverableName: '4-Night Skincare Schedule + 9:16 Phone Wallpaper Card + Pore-Safe Swaps',
     freeDeliverableName: '9:16 Morning/Night Routine Card & 4-Night Schedule',
-    unlockBannerTitle: 'Save Your Personalized Morning & Night Skincare Schedule & Phone Card',
+    unlockBannerTitle: 'Personalized AM & PM Routine Card',
     explainerText: 'See which products clash, how long to wait between steps, and your safe Morning & Night order',
     hudLabel: 'Vanity Shelf HUD', redditSub: 'SkincareAddiction',
     sliderLabel: 'Products', sliderMin: 2, sliderMax: 8, sliderVal: 4,
@@ -289,7 +289,7 @@ const VERTICAL_CONFIGS = {
     ],
     githubRepo: {
       name: 'rdkit/rdkit + EU CosIng pKa Matrix + adamgibbons/ics',
-      stars: '★ 159,786 Combined', url: 'https://github.com/rdkit/rdkit',
+      stars: '159,786 Combined Stars', url: 'https://github.com/rdkit/rdkit',
       badge: 'Henderson-Hasselbalch pKa + 500-Dalton Layering Engine',
       title: 'Cosmetic-Chemist ΔpH & 500-Dalton Routine Harmony Engine',
       summary: 'Calculates free-acid bio-availability, Cu2+/Retinoid redox inactivation, and 4-night skin-cycling schedules.'
@@ -306,14 +306,14 @@ const VERTICAL_CONFIGS = {
     }
   },
   abandon_alpha: {
-    moduleId: 'abandon_alpha', brandName: 'AbandonAlpha', domain: 'www.abandonalpha.com', accentColor: '#533AFD',
+    moduleId: 'abandon_alpha', brandName: 'AbandonAlpha', domain: 'www.abandonalpha.com', accentColor: '#0F172A',
     theme: {
-      canvasBg: '#F8FAFC', cardBg: '#FFFFFF', subtleBg: '#F1F5F9', dockBg: 'rgba(255, 255, 255, 0.95)',
-      border: '#E2E8F0', accentBorder: '#C7D2FE', textPrimary: '#0A2540', textSecondary: '#334155', textMuted: '#64748B',
-      brandPrimary: '#533AFD', brandSoftBg: '#EEF2FF', brandText: '#4338CA',
+      canvasBg: '#F8FAFC', cardBg: '#FFFFFF', subtleBg: '#F1F5F9', dockBg: 'rgba(248, 250, 252, 0.96)',
+      border: '#E2E8F0', accentBorder: '#CBD5E1', textPrimary: '#0A2540', textSecondary: '#334155', textMuted: '#475569',
+      brandPrimary: '#0F172A', brandSoftBg: '#F1F5F9', brandText: '#0F172A',
       safeColor: '#047857', safeSoftBg: '#ECFDF5', safeBorder: '#A7F3D0', warnColor: '#B45309',
       fontDisplay: "'Playfair Display', Georgia, serif", fontSans: "'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, sans-serif",
-      radiusCard: '16px', radiusPill: '999px', shadow: '0 12px 32px -8px rgba(10, 37, 64, 0.06), 0 2px 6px rgba(10, 37, 64, 0.03)'
+      radiusCard: '16px', radiusPill: '999px', shadow: 'none'
     },
     flashPriceEnv: 'STRIPE_PRICE_FLASH_199', flashPriceDefault: 'price_1UQjMtIaoGnkXxS8fAEYjqnp',
     corePriceEnv: 'STRIPE_PRICE_STARTER_49', corePriceUsd: 49, coreLabel: 'Complete Store Recovery Suite ($49/mo)',
@@ -321,7 +321,7 @@ const VERTICAL_CONFIGS = {
     lockedTitle: 'Stripe Decline-Code Retry Schedule',
     deliverableName: 'Smart Exit-Offer Script + Stripe Retry Webhook (.JS) + Recovery Email/SMS Templates',
     freeDeliverableName: 'Smart Exit-Offer Script & Stripe Retry Schedule',
-    unlockBannerTitle: 'Get Your Smart Checkout Exit-Offer Script & Failed-Payment Retry Schedule',
+    unlockBannerTitle: 'Smart Checkout & Stripe Retry Pack',
     explainerText: 'Recover leaving shoppers and retry failed Stripe cards on the exact day & hour banks approve them',
     hudLabel: 'Checkout Ops HUD', redditSub: 'SaaS',
     sliderLabel: 'Monthly Sales ($k)', sliderMin: 15, sliderMax: 500, sliderVal: 85,
@@ -380,7 +380,7 @@ const VERTICAL_CONFIGS = {
     ],
     githubRepo: {
       name: 'carlsednaoui/ouibounce + PostHog/posthog + colinhacks/zod',
-      stars: '★ 171,369 Combined', url: 'https://github.com/PostHog/posthog',
+      stars: '171,369 Combined Stars', url: 'https://github.com/PostHog/posthog',
       badge: 'Beta-Bernoulli C1–C6 Bandit + Stripe Decline-Code Retry Engine',
       title: 'Autonomous Exit-Intent Bandit & Issuer-Window Dunning Worker',
       summary: 'Replaces naive 24h card retries and static popups with decline-code aware scheduling and Thompson Sampling.'

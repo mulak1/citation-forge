@@ -840,8 +840,7 @@ function buildTopLeaderboardPodiumShowcaseHtml(cfg) {
     <div class="eb-panel-card" style="margin:0;padding:24px;background:${t.cardBg};">
       <div style="display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:12px;margin-bottom:16px;">
         <div>
-          <span style="font-size:13.5px;font-weight:700;color:${t.brandPrimary};">Live Public Benchmark Leaderboard</span>
-          <h2 style="margin:4px 0 0 0;font-size:22px;font-family:${t.fontDisplay};font-weight:700;color:${t.textPrimary};">Top-Rated Industry Leaders (Grade A+) &amp; Common Mistakes</h2>
+          <h2 style="margin:0;font-size:22px;font-family:${t.fontDisplay};font-weight:700;color:${t.textPrimary};">Top-Rated Industry Leaders</h2>
         </div>
         <a href="/leaderboard" style="padding:9px 18px;border-radius:999px;background:${t.brandPrimary};color:#FFFFFF;font-size:14px;font-weight:700;text-decoration:none;">Explore Full Interactive Leaderboard →</a>
       </div>
