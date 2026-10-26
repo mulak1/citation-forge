@@ -28,8 +28,8 @@ const VERTICAL_CONFIGS = {
     domain: 'www.citationforge.io',
     accentColor: '#0F4C81',
     theme: {
-      canvasBg: '#F7F6F2', cardBg: '#FFFFFF', subtleBg: '#EFEDE7', dockBg: 'rgba(247, 246, 242, 0.96)',
-      border: '#E2E0D8', accentBorder: '#BFDBFE', textPrimary: '#0F172A', textSecondary: '#334155', textMuted: '#475569',
+      canvasBg: '#F8FAFC', cardBg: '#FFFFFF', subtleBg: '#F1F5F9', dockBg: 'rgba(248, 250, 252, 0.96)',
+      border: '#E2E8F0', accentBorder: '#BFDBFE', textPrimary: '#0F172A', textSecondary: '#1E293B', textMuted: '#334155',
       brandPrimary: '#0F4C81', brandSoftBg: '#EBF3FA', brandText: '#0B3861',
       safeColor: '#047857', safeSoftBg: '#ECFDF5', safeBorder: '#A7F3D0', warnColor: '#92400E',
       fontDisplay: "'Newsreader', Georgia, serif", fontSans: "'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, sans-serif",

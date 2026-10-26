@@ -17,8 +17,8 @@ function renderGraderAndCompilerSection(audit) {
     const badgeClass = f.severity === 'critical' ? 'badge-rose' : f.severity === 'high' ? 'badge-amber' : 'badge-emerald';
     return `<div style="padding:14px 16px;background:var(--bg-subtle);border-radius:10px;display:flex;justify-content:space-between;align-items:center;gap:12px;flex-wrap:wrap;">
       <div>
-        <div style="font-weight:700;font-size:0.94rem;color:var(--text-primary);margin-bottom:3px;">${escapeHtml(f.title)}</div>
-        <div style="font-size:0.88rem;color:var(--text-secondary);">${escapeHtml(f.detail)}</div>
+        <div style="font-weight:700;font-size:1rem;color:var(--text-primary);margin-bottom:3px;">${escapeHtml(f.title)}</div>
+        <div style="font-size:1rem;color:var(--text-secondary);">${escapeHtml(f.detail)}</div>
       </div>
       <span class="badge ${badgeClass} mono">${escapeHtml(f.impact)}</span>
     </div>`;
@@ -266,16 +266,16 @@ function renderHeroGraderBox(audit, isLp = false) {
 
           <div style="padding:16px 18px;border-radius:12px;background:var(--bg-subtle);display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:14px;">
             <div>
-              <div style="font-size:0.84rem;font-weight:700;color:var(--accent-indigo);margin-bottom:3px;">1. Check Access</div>
-              <div style="font-size:0.86rem;color:var(--text-secondary);line-height:1.4;">Verify live <span class="mono">/robots.txt</span> &amp; <span class="mono">/llms.txt</span> status in 10 seconds.</div>
+              <div style="font-size:1rem;font-weight:700;color:var(--accent-indigo);margin-bottom:3px;">1. Check Access</div>
+              <div style="font-size:1rem;color:var(--text-secondary);line-height:1.45;">Verify live <span class="mono">/robots.txt</span> &amp; <span class="mono">/llms.txt</span> status in 10 seconds.</div>
             </div>
             <div>
-              <div style="font-size:0.84rem;font-weight:700;color:var(--accent-emerald);margin-bottom:3px;">2. Compare 25 Answers</div>
-              <div style="font-size:0.86rem;color:var(--text-secondary);line-height:1.4;">See where competitors outrank you on ChatGPT &amp; Perplexity.</div>
+              <div style="font-size:1rem;font-weight:700;color:var(--accent-emerald);margin-bottom:3px;">2. Compare 25 Answers</div>
+              <div style="font-size:1rem;color:var(--text-secondary);line-height:1.45;">See where competitors outrank you on ChatGPT &amp; Perplexity.</div>
             </div>
             <div>
-              <div style="font-size:0.84rem;font-weight:700;color:var(--text-primary);margin-bottom:3px;">3. Publish Fix Files</div>
-              <div style="font-size:0.86rem;color:var(--text-secondary);line-height:1.4;">Download ready-to-use <span class="mono">/llms.txt</span> &amp; Schema files for $1.99.</div>
+              <div style="font-size:1rem;font-weight:700;color:var(--text-primary);margin-bottom:3px;">3. Publish Fix Files</div>
+              <div style="font-size:1rem;color:var(--text-secondary);line-height:1.45;">Download ready-to-use <span class="mono">/llms.txt</span> &amp; Schema files for $1.99.</div>
             </div>
           </div>
         </div>
@@ -313,25 +313,25 @@ function renderHeroGraderBox(audit, isLp = false) {
                 </div>
               </div>
 
-              <div style="background:var(--bg-subtle);border-radius:10px;padding:14px 16px;font-size:0.9rem;color:var(--text-secondary);">
-                <div style="font-weight:700;color:var(--accent-indigo);margin-bottom:4px;font-size:0.84rem;" class="mono">
+              <div style="background:var(--bg-subtle);border-radius:10px;padding:14px 16px;font-size:1rem;color:var(--text-secondary);">
+                <div style="font-weight:700;color:var(--accent-indigo);margin-bottom:4px;font-size:0.95rem;" class="mono">
                   PLAIN-ENGLISH SUMMARY &amp; NEXT STEP
                 </div>
-                <p id="gemini-grounding-summary" style="color:var(--text-primary);margin:0;">${escapeHtml(audit.geminiInsight?.groundingSummary || '')}</p>
+                <p id="gemini-grounding-summary" style="color:var(--text-primary);margin:0;font-size:1rem;">${escapeHtml(audit.geminiInsight?.groundingSummary || '')}</p>
               </div>
             </div>
 
             <!-- Plain-English Field Guide Strip -->
             <div style="background:var(--bg-subtle);border-radius:10px;padding:14px 16px;display:grid;grid-template-columns:1fr 1fr;gap:14px;">
               <div>
-                <div class="mono" style="font-size:0.84rem;font-weight:700;color:var(--accent-indigo);margin-bottom:4px;">WHAT IS /LLMS.TXT?</div>
-                <p style="font-size:0.86rem;color:var(--text-secondary);line-height:1.45;margin:0;">
+                <div class="mono" style="font-size:0.95rem;font-weight:700;color:var(--accent-indigo);margin-bottom:4px;">WHAT IS /LLMS.TXT?</div>
+                <p style="font-size:1rem;color:var(--text-secondary);line-height:1.45;margin:0;">
                   A clean Markdown guide on your site so ChatGPT, Perplexity &amp; Gemini read your exact pricing and features without HTML clutter.
                 </p>
               </div>
               <div>
-                <div class="mono" style="font-size:0.84rem;font-weight:700;color:var(--accent-emerald);margin-bottom:4px;">HOW WE SCORE RANKINGS</div>
-                <p style="font-size:0.86rem;color:var(--text-secondary);line-height:1.45;margin:0;">
+                <div class="mono" style="font-size:0.95rem;font-weight:700;color:var(--accent-emerald);margin-bottom:4px;">HOW WE SCORE RANKINGS</div>
+                <p style="font-size:1rem;color:var(--text-secondary);line-height:1.45;margin:0;">
                   Across 25 buyer questions, being recommended <strong>#1 counts 100%</strong>, <strong>#2 counts 63%</strong>, and <strong>#3 counts 50%</strong>.
                 </p>
               </div>

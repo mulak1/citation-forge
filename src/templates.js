@@ -97,20 +97,20 @@ function renderHead({ title, description, canonicalPath, ogSlug, jsonLdString })
   <link href="https://fonts.googleapis.com/css2?family=Newsreader:ital,opsz,wght@0,6..72,400;0,6..72,500;0,6..72,600;1,6..72,400&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
   <style>
     :root {
-      --bg-canvas: #F7F6F2;
-      --bg-subtle: #EFEDE7;
+      --bg-canvas: #F8FAFC;
+      --bg-subtle: #F1F5F9;
       --bg-surface: #FFFFFF;
       --bg-elevated: #FFFFFF;
-      --bg-bezel: #EAE7DF;
-      --bg-glass: rgba(247, 246, 242, 0.94);
+      --bg-bezel: #E2E8F0;
+      --bg-glass: rgba(248, 250, 252, 0.94);
       --bg-dock: #0B0F19;
       --bg-dock-header: #111827;
-      --border-hairline: #E2DFD7;
-      --border-bezel: #D8D4CA;
-      --border-active: #3730A3;
+      --border-hairline: #E2E8F0;
+      --border-bezel: #CBD5E1;
+      --border-active: #0F4C81;
       --text-primary: #0F172A;
-      --text-secondary: #334155;
-      --text-muted: #475569;
+      --text-secondary: #1E293B;
+      --text-muted: #334155;
       --accent-indigo: #0F4C81;
       --accent-indigo-hover: #0B3861;
       --accent-indigo-soft: #EBF3FA;
@@ -591,19 +591,19 @@ function renderNavbar(activePath = '/') {
 function renderFooter() {
   return `
   <!-- Non-Overlapping Docked Telemetry Consent Bar (Pre-Launch Checkpoint #5) -->
-  <aside id="cookie-banner" aria-label="Cookie and Telemetry Consent" style="border-top:1px solid var(--border-hairline);background:var(--bg-subtle);padding:14px 0;">
+  <aside id="cookie-banner" aria-label="Cookie and Telemetry Consent" style="background:var(--bg-subtle);padding:14px 0;">
     <div class="container" style="display:flex;flex-wrap:wrap;align-items:center;justify-content:space-between;gap:12px;">
-      <div style="font-size:0.82rem;color:var(--text-secondary);">
+      <div style="font-size:1rem;color:var(--text-secondary);">
         <strong style="color:var(--text-primary);">Telemetry &amp; Privacy Governance:</strong> We use first-party SQLite attribution and Meta CAPI deduplication only with your explicit consent. See our <a href="/privacy" style="text-decoration:underline;color:var(--accent-indigo);">Privacy Policy</a>.
       </div>
       <div style="display:flex;gap:8px;">
-        <button type="button" class="btn btn-secondary" style="padding:6px 12px;font-size:0.84rem;" onclick="setCookieConsent('rejected')">Reject Non-Essential</button>
-        <button type="button" class="btn btn-primary" style="padding:6px 12px;font-size:0.84rem;" onclick="setCookieConsent('accepted')">Accept Telemetry</button>
+        <button type="button" class="btn btn-secondary" style="padding:6px 12px;font-size:0.9375rem;" onclick="setCookieConsent('rejected')">Reject Non-Essential</button>
+        <button type="button" class="btn btn-primary" style="padding:6px 12px;font-size:0.9375rem;" onclick="setCookieConsent('accepted')">Accept Telemetry</button>
       </div>
     </div>
   </aside>
 
-  <footer style="border-top:1px solid var(--border-hairline);padding:56px 0 40px;background:var(--bg-surface);">
+  <footer style="padding:56px 0 40px;background:var(--bg-subtle);">
     <div class="container">
       <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:32px;margin-bottom:36px;">
         <div>

@@ -785,7 +785,7 @@ function redactArtifactText(fullText, label, domain) {
   return `${head}
 
 # ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-# 🔒 [LOCKED IN FREE PREVIEW · ${hiddenLines} PRODUCTION LINES REDACTED FOR ${domain.toUpperCase()}]
+# [LOCKED IN FREE PREVIEW · ${hiddenLines} PRODUCTION LINES REDACTED FOR ${domain.toUpperCase()}]
 # Deliverable: ${label}
 # Hidden in free preview:
 #   • Verified Markdown endpoint map (/docs, /pricing, /security, /compare)
@@ -793,8 +793,8 @@ function redactArtifactText(fullText, label, domain) {
 #   • Production-ready GPTBot, PerplexityBot & ClaudeBot crawl directives
 #   • Complete Organization + SoftwareApplication + FAQPage JSON-LD @graph
 #
-# 👉 Click "Unlock 3-File Pack ($1.99 Stripe Express) ↗" below to download
-#    all 4 unredacted production files instantly.
+# Click "Unlock 3-File Pack ($1.99 Stripe Express)" below to download
+# all 4 unredacted production files instantly.
 # ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━`;
 }
 
