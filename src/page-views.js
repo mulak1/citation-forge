@@ -15,10 +15,10 @@ function renderGraderAndCompilerSection(audit) {
 
   const findingItems = audit.findings.map(f => {
     const badgeClass = f.severity === 'critical' ? 'badge-rose' : f.severity === 'high' ? 'badge-amber' : 'badge-emerald';
-    return `<div style="padding:14px 16px;background:var(--bg-canvas);border:1px solid var(--border-hairline);border-radius:10px;display:flex;justify-content:space-between;align-items:center;gap:12px;flex-wrap:wrap;">
+    return `<div style="padding:14px 16px;background:var(--bg-subtle);border-radius:10px;display:flex;justify-content:space-between;align-items:center;gap:12px;flex-wrap:wrap;">
       <div>
-        <div style="font-weight:700;font-size:0.9rem;color:var(--text-primary);margin-bottom:3px;">${escapeHtml(f.title)}</div>
-        <div style="font-size:0.81rem;color:var(--text-secondary);">${escapeHtml(f.detail)}</div>
+        <div style="font-weight:700;font-size:0.94rem;color:var(--text-primary);margin-bottom:3px;">${escapeHtml(f.title)}</div>
+        <div style="font-size:0.88rem;color:var(--text-secondary);">${escapeHtml(f.detail)}</div>
       </div>
       <span class="badge ${badgeClass} mono">${escapeHtml(f.impact)}</span>
     </div>`;
@@ -36,7 +36,7 @@ function renderGraderAndCompilerSection(audit) {
     const fmt = (eng) => eng && eng.cited
       ? `<span class="badge badge-emerald mono">#${eng.rank} (${eng.weight})</span>`
       : `<span class="badge badge-rose mono">Uncited</span>`;
-    return `<tr>
+    return `<tr data-perplexity="${r.engines.perplexity?.cited ? 'cited' : 'uncited'}" data-chatgpt="${r.engines.chatgpt?.cited ? 'cited' : 'uncited'}" data-gemini="${r.engines.gemini?.cited ? 'cited' : 'uncited'}">
       <td class="mono" style="color:var(--text-muted);">P${String(r.id).padStart(2, '0')}</td>
       <td style="font-weight:500;color:var(--text-primary);">${escapeHtml(r.prompt)}</td>
       <td>${fmt(r.engines.perplexity)}</td>
@@ -54,8 +54,8 @@ function renderGraderAndCompilerSection(audit) {
           <div>
             <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:14px;flex-wrap:wrap;gap:8px;">
               <div>
-                <h2 class="serif-display" style="font-size:1.45rem;">AI Crawler Governance &amp; Remediation Matrix</h2>
-                <p style="font-size:0.86rem;color:var(--text-secondary);">Live <span class="mono">/robots.txt</span> permissions &amp; schema gaps for <span id="diag-domain-label" class="mono" style="color:var(--accent-indigo);font-weight:600;">${escapeHtml(audit.domain)}</span></p>
+                <h2 class="serif-display" style="font-size:1.45rem;">AI Crawler Access &amp; Visibility Gaps</h2>
+                <p style="font-size:0.9rem;color:var(--text-secondary);">Live <span class="mono">/robots.txt</span> permissions &amp; content gaps for <span id="diag-domain-label" class="mono" style="color:var(--accent-indigo);font-weight:600;">${escapeHtml(audit.domain)}</span></p>
               </div>
               <span id="score-exec-ms" class="badge badge-cyan mono">${audit.executionMs}ms</span>
             </div>
@@ -63,10 +63,10 @@ function renderGraderAndCompilerSection(audit) {
             <div id="findings-list" style="display:grid;gap:10px;margin-bottom:24px;">${findingItems}</div>
           </div>
           <div>
-            <h3 style="font-size:0.95rem;font-weight:700;margin-bottom:10px;">Category Citation Share-of-Voice (cSoV) Leaderboard</h3>
-            <div style="overflow-x:auto;border:1px solid var(--border-hairline);border-radius:10px;">
+            <h3 style="font-size:0.98rem;font-weight:700;margin-bottom:10px;">Industry AI Recommendation Share Leaderboard</h3>
+            <div style="overflow-x:auto;border-radius:10px;">
               <table class="data-table">
-                <thead><tr><th>Rank</th><th>Brand</th><th>Domain</th><th>Weighted cSoV</th></tr></thead>
+                <thead><tr><th>Rank</th><th>Brand</th><th>Domain</th><th>AI Mention Share</th></tr></thead>
                 <tbody id="leaderboard-tbody">${leaderboardRows}</tbody>
               </table>
             </div>
@@ -83,19 +83,19 @@ function renderGraderAndCompilerSection(audit) {
                 </span>
                 <div>
                   <h2 style="font-size:1rem;font-weight:700;color:var(--text-primary);">Ready-to-Use AI Search Files (/llms.txt &amp; Schema)</h2>
-                  <p style="font-size:0.84rem;color:var(--text-secondary);">Copy or download for Next.js, WordPress, Webflow, Shopify &amp; Cloudflare</p>
+                  <p style="font-size:0.88rem;color:var(--text-secondary);">Copy or download for Next.js, WordPress, Webflow, Shopify &amp; Cloudflare</p>
                 </div>
               </div>
               <div style="display:flex;gap:8px;align-items:center;">
                 <span class="badge badge-amber mono">PREVIEW MODE</span>
-                <button type="button" id="copy-code-btn" class="btn btn-primary mono" style="padding:7px 14px;font-size:0.84rem;" onclick="if(window.__ebQuickBuy){window.__ebQuickBuy('flash_pass')}else{downloadCompiledFile()}">Unlock 3-File Pack ($1.99 Stripe Express) &#8599;</button>
+                <button type="button" id="copy-code-btn" class="btn btn-primary mono" style="padding:7px 14px;font-size:0.86rem;" onclick="if(window.__ebQuickBuy){window.__ebQuickBuy('flash_pass')}else{downloadCompiledFile()}">Unlock 3-File Pack ($1.99 Stripe Express) &#8599;</button>
               </div>
             </div>
             <div class="tab-bar" role="tablist">
-              <button type="button" class="tab-btn active mono" data-tab="llmsTxt" onclick="switchCompilerTab('llmsTxt')">/llms.txt</button>
+              <button type="button" class="tab-btn active mono" data-tab="llmsTxt" onclick="switchCompilerTab('llmsTxt')">/llms.txt Guide</button>
               <button type="button" class="tab-btn mono" data-tab="llmsFullTxt" onclick="switchCompilerTab('llmsFullTxt')">/llms-full.txt</button>
-              <button type="button" class="tab-btn mono" data-tab="robotsTxtPatch" onclick="switchCompilerTab('robotsTxtPatch')">robots.txt Patch</button>
-              <button type="button" class="tab-btn mono" data-tab="jsonLd" onclick="switchCompilerTab('jsonLd')">JSON-LD @graph</button>
+              <button type="button" class="tab-btn mono" data-tab="robotsTxtPatch" onclick="switchCompilerTab('robotsTxtPatch')">robots.txt Rules</button>
+              <button type="button" class="tab-btn mono" data-tab="jsonLd" onclick="switchCompilerTab('jsonLd')">Schema Markup</button>
             </div>
             <pre id="compiler-code-output" class="code-viewport mono" style="flex:1;">${escapeHtml(audit.artifacts.llmsTxt)}</pre>
           </div>
@@ -105,13 +105,20 @@ function renderGraderAndCompilerSection(audit) {
   </section>
   <section id="matrix" style="padding:60px 0;border-bottom:1px solid var(--border-hairline);background:var(--bg-subtle);">
     <div class="container">
-      <div style="margin-bottom:24px;">
-        <h2 class="serif-display" style="font-size:1.95rem;margin-bottom:6px;">
-          25 Buyer Questions Tested: <span class="serif-italic">Where Does Your Brand Rank in AI Answers?</span>
-        </h2>
-        <p style="color:var(--text-secondary);font-size:0.95rem;max-width:78ch;">
-          We test 25 real buyer questions across Perplexity, ChatGPT Search, and Google Gemini AI Overviews. Because #1 recommendations win the most clicks, top mentions score higher than lower-ranked mentions. <span style="opacity:0.85;">(Technical note: weighted by rank position <span class="mono">w_r = 1 / log2(r + 1)</span>).</span>
-        </p>
+      <div style="display:flex;justify-content:space-between;align-items:flex-end;margin-bottom:20px;flex-wrap:wrap;gap:14px;">
+        <div>
+          <h2 class="serif-display" style="font-size:1.95rem;margin-bottom:6px;">
+            25 Buyer Questions Tested: Where Does Your Brand Rank?
+          </h2>
+          <p style="color:var(--text-secondary);font-size:0.96rem;max-width:74ch;">
+            We test 25 real buyer questions across Perplexity, ChatGPT Search, and Google Gemini AI Overviews. Filter by AI engine below to spot where competitors are winning recommendations instead of you.
+          </p>
+        </div>
+        <div style="display:flex;gap:8px;flex-wrap:wrap;align-items:center;">
+          <input type="search" id="matrix-question-filter" class="grader-input" style="padding:9px 14px;font-size:0.88rem;min-width:220px;" placeholder="Filter buyer questions..." oninput="const q=this.value.toLowerCase();document.querySelectorAll('#prompt-matrix-tbody tr').forEach(r=>{r.style.display=r.textContent.toLowerCase().includes(q)?'':'none';});" aria-label="Filter buyer questions" />
+          <button type="button" class="preset-chip active" onclick="document.querySelectorAll('#matrix .preset-chip').forEach(b=>b.classList.remove('active'));this.classList.add('active');document.querySelectorAll('#prompt-matrix-tbody tr').forEach(r=>{r.style.display='';});">All 25 Questions</button>
+          <button type="button" class="preset-chip" onclick="document.querySelectorAll('#matrix .preset-chip').forEach(b=>b.classList.remove('active'));this.classList.add('active');document.querySelectorAll('#prompt-matrix-tbody tr').forEach(r=>{r.style.display=r.textContent.includes('Uncited')?'':'none';});">Missing Mentions Only</button>
+        </div>
       </div>
       <div class="panel" style="overflow-x:auto;">
         <table class="data-table">
@@ -123,33 +130,49 @@ function renderGraderAndCompilerSection(audit) {
   </section>`;
 }
 
-function renderPricingSection() {
+function renderPricingSection(isCompact = false) {
+  if (isCompact) {
+    return `
+    <div id="pricing" style="display:none;">
+      <input id="checkout-email" type="email" class="grader-input" style="display:none;" value="vp-marketing@linear.app" />
+      <div id="checkout-email-error" style="display:none;"></div>
+    </div>
+    <div id="checkout-modal" style="display:none;position:fixed;inset:0;background:rgba(15,23,42,0.55);backdrop-filter:blur(6px);z-index:100;align-items:center;justify-content:center;padding:20px;">
+      <div class="panel-elevated" style="max-width:540px;width:100%;padding:28px;">
+        <div id="checkout-modal-body"></div>
+        <div style="display:flex;justify-content:flex-end;gap:10px;">
+          <button type="button" class="btn btn-secondary" onclick="document.getElementById('checkout-modal').style.display='none'">Close</button>
+          <button type="button" class="btn btn-primary" onclick="downloadCompiledFile();document.getElementById('checkout-modal').style.display='none'">Download Compiled Bundle</button>
+        </div>
+      </div>
+    </div>`;
+  }
   return `
   <section id="pricing" style="padding:56px 0;">
     <div class="container">
       <div class="bezel-shell" style="max-width:860px;margin:0 auto;">
-        <div class="panel-elevated" style="padding:32px;border-color:var(--accent-indigo);">
+        <div class="panel-elevated" style="padding:32px;">
           <div style="display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:10px;margin-bottom:12px;">
             <span class="badge badge-emerald mono">INSTANT STRIPE EXPRESS PASS</span>
-            <span class="mono" style="font-size:0.84rem;color:var(--text-secondary);">ONE-TIME MICRO-TRANSACTION • NO SUBSCRIPTION TRAP</span>
+            <span class="mono" style="font-size:0.86rem;color:var(--text-secondary);">ONE-TIME PASS • NO SUBSCRIPTION</span>
           </div>
           <h2 class="serif-display" style="font-size:2rem;margin-bottom:8px;">
-            Unlock Your Complete 3-File AI Search Fix Pack <span class="serif-italic">($1.99 Stripe Express)</span>
+            Unlock Your Complete 3-File AI Search Fix Pack ($1.99 Stripe Express)
           </h2>
           <p style="color:var(--text-secondary);font-size:0.96rem;margin-bottom:20px;">
-            Unblur all 25 buyer-question rankings and download your production-ready <span class="mono">/llms.txt</span>, <span class="mono">/llms-full.txt</span>, and <span class="mono">JSON-LD @graph</span> bundle immediately after 1-click checkout.
+            Unblur all 25 buyer-question rankings and download your ready-to-use <span class="mono">/llms.txt</span>, <span class="mono">/llms-full.txt</span>, and Schema markup bundle immediately after 1-click checkout.
           </p>
-          <div style="display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:16px;padding:18px 20px;border-radius:12px;background:var(--bg-subtle);border:1px solid var(--border-hairline);">
+          <div style="display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:16px;padding:18px 20px;border-radius:12px;background:var(--bg-subtle);">
             <div>
               <div class="mono" style="font-size:2.2rem;font-weight:800;color:var(--accent-indigo);line-height:1;">$1.99 <span style="font-size:0.88rem;font-weight:600;color:var(--text-secondary);">USD one-time pass</span></div>
-              <div style="font-size:0.85rem;color:var(--text-secondary);margin-top:4px;">&#10003; Full 3-File Bundle (<span class="mono">llms.txt</span> + <span class="mono">schema.json</span> + <span class="mono">robots.txt</span>) &bull; Instant Browser Unlock</div>
+              <div style="font-size:0.88rem;color:var(--text-secondary);margin-top:4px;">&#10003; Full 3-File Bundle (<span class="mono">llms.txt</span> + <span class="mono">schema.json</span> + <span class="mono">robots.txt</span>) &bull; Instant Browser Unlock</div>
             </div>
             <a href="/buy/flash_pass" rel="nofollow" onclick="if(window.__ebQuickBuy){window.__ebQuickBuy('flash_pass');return false;}" class="btn btn-primary" style="padding:14px 26px;font-size:0.98rem;text-decoration:none;">
               <span>Unlock Complete 3-File Pack ($1.99 Stripe Express)</span>
               <span class="btn-arrow-pill" aria-hidden="true">&#8599;</span>
             </a>
           </div>
-          <details style="margin-top:16px;font-size:0.85rem;color:var(--text-secondary);">
+          <details style="margin-top:16px;font-size:0.88rem;color:var(--text-secondary);">
             <summary style="cursor:pointer;font-weight:700;">Need Multi-Site Agency / Continuous Weekly Tracking ($49–$99)?</summary>
             <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:12px;margin-top:12px;">
               <input id="checkout-email" type="email" class="grader-input" style="display:none;" value="vp-marketing@linear.app" />
@@ -163,7 +186,7 @@ function renderPricingSection() {
     </div>
   </section>
   <div id="checkout-modal" style="display:none;position:fixed;inset:0;background:rgba(15,23,42,0.55);backdrop-filter:blur(6px);z-index:100;align-items:center;justify-content:center;padding:20px;">
-    <div class="panel-elevated" style="max-width:540px;width:100%;padding:28px;border-color:var(--accent-indigo);">
+    <div class="panel-elevated" style="max-width:540px;width:100%;padding:28px;">
       <div id="checkout-modal-body"></div>
       <div style="display:flex;justify-content:flex-end;gap:10px;">
         <button type="button" class="btn btn-secondary" onclick="document.getElementById('checkout-modal').style.display='none'">Close</button>
@@ -185,49 +208,27 @@ function renderHeroGraderBox(audit, isLp = false) {
   ).join('');
 
   const headlineHtml = isLp
-    ? `Why <span class="serif-italic">ChatGPT &amp; Perplexity</span> Recommend Your Competitors Instead of You`
-    : `See How Often <span class="serif-italic">ChatGPT &amp; Perplexity</span> Recommend Your Business`;
+    ? `See Why ChatGPT &amp; Perplexity Cite Your Competitors`
+    : `See How Often ChatGPT &amp; Perplexity Cite You`;
 
-  const subheadline = '64% of buyers now ask ChatGPT Search, Perplexity, and Google Gemini for recommendations before clicking a search link. Check your website in 10 seconds to see where you rank and what is blocking AI from citing you.';
+  const subheadline = '64% of buyers ask ChatGPT Search, Perplexity, and Google Gemini for recommendations before clicking a search link. Enter your domain below to see where you rank across 25 buyer questions and what is blocking AI from recommending you.';
 
   return `
   <section id="grader" class="hero-section">
     <div class="container">
       <div class="hero-grid" style="align-items:stretch;">
-        <div id="home-executive-brief" style="display:flex;flex-direction:column;justify-content:flex-start;gap:14px;height:100%;">
+        <div id="home-executive-brief" style="display:flex;flex-direction:column;justify-content:space-between;gap:16px;height:100%;">
           <div>
-            <div style="display:flex;gap:8px;flex-wrap:wrap;align-items:center;margin-bottom:10px;">
+            <div style="display:flex;gap:8px;flex-wrap:wrap;align-items:center;margin-bottom:12px;">
               <span class="badge badge-cyan mono">AI SEARCH VISIBILITY CHECKER</span>
-              <a href="/leaderboard" class="badge badge-emerald mono" style="text-decoration:none;">🏆 Live Industry Leaderboard &rarr;</a>
+              <a href="/leaderboard" class="badge badge-emerald mono" style="text-decoration:none;">Live Industry Leaderboard &rarr;</a>
             </div>
             <h1 class="hero-h1">${headlineHtml}</h1>
-            <p class="hero-sub" style="margin-bottom:12px;">${escapeHtml(subheadline)}</p>
-
-            <div style="display:flex;flex-wrap:wrap;gap:6px;align-items:center;margin-bottom:12px;font-size:0.8rem;font-weight:700;color:var(--text-secondary);">
-              <span style="color:var(--text-primary);">Built for:</span>
-              <span style="padding:3px 9px;border-radius:999px;background:var(--accent-indigo-soft);color:var(--accent-indigo);border:1px solid #C7D2FE;">🏢 SaaS &amp; Tech Founders</span>
-              <span style="padding:3px 9px;border-radius:999px;background:#ECFDF5;color:#059669;border:1px solid #A7F3D0;">🛍️ E-Commerce Brands</span>
-              <span style="padding:3px 9px;border-radius:999px;background:var(--bg-subtle);color:var(--text-primary);border:1px solid var(--border-hairline);">📈 SEO &amp; Growth Teams</span>
-            </div>
-
-            <div style="display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:10px;margin-bottom:16px;">
-              <div style="padding:11px 12px;border-radius:10px;background:var(--bg-subtle);border:1px solid var(--border-hairline);">
-                <div class="mono" style="font-size:0.8125rem;font-weight:700;color:var(--accent-indigo);margin-bottom:3px;">STEP 1 • FREE CHECK</div>
-                <div style="font-size:0.84rem;color:var(--text-primary);font-weight:600;line-height:1.35;">Enter your domain to probe your live <span class="mono">/robots.txt</span>, <span class="mono">/llms.txt</span> &amp; 25 buyer questions.</div>
-              </div>
-              <div style="padding:11px 12px;border-radius:10px;background:var(--bg-subtle);border:1px solid var(--border-hairline);">
-                <div class="mono" style="font-size:0.8125rem;font-weight:700;color:var(--accent-emerald);margin-bottom:3px;">STEP 2 • SPOT GAPS</div>
-                <div style="font-size:0.84rem;color:var(--text-primary);font-weight:600;line-height:1.35;">See which AI crawlers are blocked and where competitors outrank you.</div>
-              </div>
-              <div style="padding:11px 12px;border-radius:10px;background:var(--bg-subtle);border:1px solid var(--border-hairline);">
-                <div class="mono" style="font-size:0.8125rem;font-weight:700;color:var(--text-primary);margin-bottom:3px;">STEP 3 • UNLOCK FIX</div>
-                <div style="font-size:0.84rem;color:var(--text-primary);font-weight:600;line-height:1.35;">Unlock your ready-to-publish <span class="mono">/llms.txt</span> &amp; Schema files for $1.99.</div>
-              </div>
-            </div>
+            <p class="hero-sub" style="margin-bottom:18px;">${escapeHtml(subheadline)}</p>
 
             <form class="grader-form" onsubmit="event.preventDefault(); executeAudit();" novalidate>
-              <div style="flex:1;display:flex;flex-direction:column;gap:6px;">
-                <label for="domain-input" style="font-size:0.86rem;font-weight:700;color:var(--text-primary);letter-spacing:0.01em;">
+              <div style="flex:1;display:flex;flex-direction:column;gap:8px;">
+                <label for="domain-input" style="font-size:0.9rem;font-weight:700;color:var(--text-primary);">
                   Enter Your Website Domain &amp; Industry
                 </label>
                 <div style="display:flex;gap:8px;flex-wrap:wrap;">
@@ -242,7 +243,7 @@ function renderHeroGraderBox(audit, isLp = false) {
                     autocomplete="off"
                     required
                   />
-                  <select id="category-select" name="category" class="grader-input" style="flex:0 1 195px;padding:10px 12px;font-size:0.84rem;cursor:pointer;" aria-label="Industry Category">
+                  <select id="category-select" name="category" class="grader-input" style="flex:0 1 195px;padding:10px 12px;font-size:0.88rem;cursor:pointer;" aria-label="Industry Category">
                     <option value="">Auto-Detect Industry</option>
                     <option value="B2B SaaS & Developer Infrastructure">B2B SaaS &amp; DevTools</option>
                     <option value="E-Commerce & DTC Retail Brands">E-Commerce &amp; DTC Retail</option>
@@ -259,26 +260,41 @@ function renderHeroGraderBox(audit, isLp = false) {
                 </div>
               </div>
             </form>
-            <div id="grader-error" style="display:none;color:var(--accent-rose);font-size:0.82rem;font-weight:600;margin-bottom:10px;" role="alert"></div>
+            <div id="grader-error" style="display:none;color:var(--accent-rose);font-size:0.86rem;font-weight:600;margin-bottom:10px;" role="alert"></div>
 
-            <div class="preset-strip" style="margin-top:8px;">
-              <span style="font-size:0.84rem;color:var(--text-muted);font-weight:700;">Try Example:</span>
+            <div class="preset-strip" style="margin-top:10px;">
+              <span style="font-size:0.86rem;color:var(--text-muted);font-weight:700;">Try Example:</span>
               ${presetButtons}
+            </div>
+          </div>
+
+          <div style="padding:16px 18px;border-radius:12px;background:var(--bg-subtle);display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:14px;">
+            <div>
+              <div style="font-size:0.84rem;font-weight:700;color:var(--accent-indigo);margin-bottom:3px;">1. Check Access</div>
+              <div style="font-size:0.86rem;color:var(--text-secondary);line-height:1.4;">Verify live <span class="mono">/robots.txt</span> &amp; <span class="mono">/llms.txt</span> status in 10 seconds.</div>
+            </div>
+            <div>
+              <div style="font-size:0.84rem;font-weight:700;color:var(--accent-emerald);margin-bottom:3px;">2. Compare 25 Answers</div>
+              <div style="font-size:0.86rem;color:var(--text-secondary);line-height:1.4;">See where competitors outrank you on ChatGPT &amp; Perplexity.</div>
+            </div>
+            <div>
+              <div style="font-size:0.84rem;font-weight:700;color:var(--text-primary);margin-bottom:3px;">3. Publish Fix Files</div>
+              <div style="font-size:0.86rem;color:var(--text-secondary);line-height:1.4;">Download ready-to-use <span class="mono">/llms.txt</span> &amp; Schema files for $1.99.</div>
             </div>
           </div>
         </div>
 
         <div class="bezel-shell" style="display:flex;flex-direction:column;height:100%;">
-          <div class="panel-elevated" style="padding:22px;display:flex;flex-direction:column;justify-content:flex-start;gap:12px;height:100%;">
+          <div class="panel-elevated" style="padding:24px;display:flex;flex-direction:column;justify-content:space-between;gap:14px;height:100%;">
             <div>
               <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:14px;padding-bottom:12px;border-bottom:1px solid var(--border-hairline);flex-wrap:wrap;gap:8px;">
                 <div>
-                  <div id="live-probe-badge" class="mono" style="font-size:0.78rem;font-weight:700;color:var(--accent-emerald);letter-spacing:0.04em;">&#9679; LIVE ORIGIN PROBE · /robots.txt (${audit.liveProbe?.robotsHttpStatus || 200}) &bull; /llms.txt (${audit.llmsTxtStatus?.hasLlmsTxt ? '200 OK' : '404 MISSING'})</div>
+                  <div id="live-probe-badge" class="mono" style="font-size:0.82rem;font-weight:700;color:var(--accent-emerald);">&#9679; LIVE ORIGIN PROBE · /robots.txt (${audit.liveProbe?.robotsHttpStatus || 200}) &bull; /llms.txt (${audit.llmsTxtStatus?.hasLlmsTxt ? '200 OK' : '404 MISSING'})</div>
                   <div id="score-brand-title" class="serif-display" style="font-size:1.45rem;font-weight:600;color:var(--text-primary);">${escapeHtml(audit.brand)} (${escapeHtml(audit.domain)})</div>
                 </div>
                 <div style="display:flex;gap:8px;align-items:center;flex-wrap:wrap;">
                   <span id="score-category-badge" class="badge badge-cyan">${escapeHtml(audit.category)}</span>
-                  <span id="score-grade" class="badge badge-emerald mono" style="font-size:0.85rem;padding:5px 12px;">Grade ${escapeHtml(audit.scores.grade)} · ${audit.scores.compositeGeoScore}/100</span>
+                  <span id="score-grade" class="badge badge-emerald mono" style="font-size:0.86rem;padding:5px 12px;">Grade ${escapeHtml(audit.scores.grade)} · ${audit.scores.compositeGeoScore}/100</span>
                 </div>
               </div>
 
@@ -301,8 +317,8 @@ function renderHeroGraderBox(audit, isLp = false) {
                 </div>
               </div>
 
-              <div style="background:var(--bg-subtle);border:1px solid var(--border-hairline);border-radius:10px;padding:13px 15px;font-size:0.88rem;color:var(--text-secondary);margin-bottom:12px;">
-                <div style="font-weight:700;color:var(--accent-indigo);margin-bottom:4px;font-size:0.8125rem;letter-spacing:0.04em;" class="mono">
+              <div style="background:var(--bg-subtle);border-radius:10px;padding:14px 16px;font-size:0.9rem;color:var(--text-secondary);">
+                <div style="font-weight:700;color:var(--accent-indigo);margin-bottom:4px;font-size:0.84rem;" class="mono">
                   PLAIN-ENGLISH SUMMARY &amp; NEXT STEP
                 </div>
                 <p id="gemini-grounding-summary" style="color:var(--text-primary);margin:0;">${escapeHtml(audit.geminiInsight?.groundingSummary || '')}</p>
@@ -310,16 +326,16 @@ function renderHeroGraderBox(audit, isLp = false) {
             </div>
 
             <!-- Plain-English Field Guide Strip -->
-            <div style="background:var(--bg-canvas);border:1px solid var(--border-hairline);border-radius:10px;padding:12px 14px;display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-top:0;">
+            <div style="background:var(--bg-subtle);border-radius:10px;padding:14px 16px;display:grid;grid-template-columns:1fr 1fr;gap:14px;">
               <div>
-                <div class="mono" style="font-size:0.8125rem;font-weight:700;color:var(--accent-indigo);margin-bottom:4px;">WHAT IS /LLMS.TXT?</div>
-                <p style="font-size:0.84rem;color:var(--text-secondary);line-height:1.45;margin:0;">
+                <div class="mono" style="font-size:0.84rem;font-weight:700;color:var(--accent-indigo);margin-bottom:4px;">WHAT IS /LLMS.TXT?</div>
+                <p style="font-size:0.86rem;color:var(--text-secondary);line-height:1.45;margin:0;">
                   A clean Markdown guide on your site so ChatGPT, Perplexity &amp; Gemini read your exact pricing and features without HTML clutter.
                 </p>
               </div>
               <div>
-                <div class="mono" style="font-size:0.8125rem;font-weight:700;color:var(--accent-emerald);margin-bottom:4px;">HOW WE SCORE RANKINGS</div>
-                <p style="font-size:0.84rem;color:var(--text-secondary);line-height:1.45;margin:0;">
+                <div class="mono" style="font-size:0.84rem;font-weight:700;color:var(--accent-emerald);margin-bottom:4px;">HOW WE SCORE RANKINGS</div>
+                <p style="font-size:0.86rem;color:var(--text-secondary);line-height:1.45;margin:0;">
                   Across 25 buyer questions, being recommended <strong>#1 counts 100%</strong>, <strong>#2 counts 63%</strong>, and <strong>#3 counts 50%</strong>.
                 </p>
               </div>
@@ -452,39 +468,39 @@ function renderHomePage(initialAudit, sampleSeoPages) {
     ${renderTrustStripAndTestimonials()}
     ${renderGraderAndCompilerSection(initialAudit)}
 
-    <!-- Programmatic SEO Knowledge Graph Hub Preview -->
+    <!-- Industry AI Search Reports & Comparisons -->
     <section style="padding:60px 0;border-bottom:1px solid var(--border-hairline);">
       <div class="container">
         <div style="display:flex;justify-content:space-between;align-items:flex-end;margin-bottom:28px;flex-wrap:wrap;gap:12px;">
           <div>
             <h2 class="serif-display" style="font-size:2rem;margin-bottom:6px;">
-              Programmatic GEO Intelligence Hub (<span class="serif-italic">60+ Live Benchmarks</span>)
+              Industry AI Search Reports &amp; Comparisons (60+ Benchmarks)
             </h2>
             <p style="color:var(--text-secondary);font-size:0.98rem;">
-              Explore pre-computed category cSoV leaderboards, head-to-head brand citation audits, and technical <span class="mono">llms.txt</span> guides.
+              Explore industry AI recommendation leaderboards, head-to-head brand comparisons, and step-by-step <span class="mono">/llms.txt</span> setup guides.
             </p>
           </div>
-          <a href="/directory" class="btn btn-secondary">Browse All 60+ GEO Benchmarks &rarr;</a>
+          <a href="/directory" class="btn btn-secondary">Browse All 60+ Reports &rarr;</a>
         </div>
 
         <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(320px,1fr));gap:22px;">
           <div>
-            <h3 style="font-size:1rem;font-weight:700;margin-bottom:12px;color:var(--accent-indigo);">Category cSoV Leaderboards</h3>
+            <h3 style="font-size:1rem;font-weight:700;margin-bottom:12px;color:var(--accent-indigo);">Industry AI Recommendation Leaderboards</h3>
             <div style="display:grid;gap:10px;">${renderSeoCardList(leaderboardLinks)}</div>
           </div>
           <div>
-            <h3 style="font-size:1rem;font-weight:700;margin-bottom:12px;color:var(--accent-emerald);">Head-to-Head Citation Audits</h3>
+            <h3 style="font-size:1rem;font-weight:700;margin-bottom:12px;color:var(--accent-emerald);">Head-to-Head Brand Comparisons</h3>
             <div style="display:grid;gap:10px;">${renderSeoCardList(comparisonLinks)}</div>
           </div>
           <div>
-            <h3 style="font-size:1rem;font-weight:700;margin-bottom:12px;color:var(--text-primary);">Technical GEO &amp; llms.txt Playbooks</h3>
+            <h3 style="font-size:1rem;font-weight:700;margin-bottom:12px;color:var(--text-primary);">AI Site Guide (/llms.txt) Playbooks</h3>
             <div style="display:grid;gap:10px;">${renderSeoCardList(guideLinks)}</div>
           </div>
         </div>
       </div>
     </section>
 
-    ${renderPricingSection()}
+    ${renderPricingSection(true)}
   </main>
   ${renderFooter()}
   ${renderInteractiveScript(initialAudit)}

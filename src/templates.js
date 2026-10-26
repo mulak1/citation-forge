@@ -94,46 +94,47 @@ function renderHead({ title, description, canonicalPath, ogSlug, jsonLdString })
   <meta name="twitter:image" content="${ogImageUrl}" />
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600;700&family=Newsreader:ital,opsz,wght@0,6..72,400;0,6..72,500;0,6..72,600;1,6..72,400&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css2?family=Newsreader:ital,opsz,wght@0,6..72,400;0,6..72,500;0,6..72,600;1,6..72,400&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
   <style>
     :root {
-      --bg-canvas: #FAF9F5;
-      --bg-subtle: #F3F1EC;
+      --bg-canvas: #F7F6F2;
+      --bg-subtle: #EFEDE7;
       --bg-surface: #FFFFFF;
       --bg-elevated: #FFFFFF;
-      --bg-bezel: #EFECE6;
-      --bg-glass: rgba(250, 249, 245, 0.88);
+      --bg-bezel: #EAE7DF;
+      --bg-glass: rgba(247, 246, 242, 0.94);
       --bg-dock: #0B0F19;
       --bg-dock-header: #111827;
-      --border-hairline: #E4E2DD;
-      --border-bezel: #DCD8D0;
-      --border-active: #4F46E5;
+      --border-hairline: #E2DFD7;
+      --border-bezel: #D8D4CA;
+      --border-active: #3730A3;
       --text-primary: #0F172A;
-      --text-secondary: #475569;
-      --text-muted: #64748B;
-      --accent-indigo: #4F46E5;
-      --accent-indigo-hover: #4338CA;
+      --text-secondary: #334155;
+      --text-muted: #475569;
+      --accent-indigo: #3730A3;
+      --accent-indigo-hover: #312E81;
       --accent-indigo-soft: #EEF2FF;
-      --accent-emerald: #059669;
+      --accent-emerald: #047857;
       --accent-emerald-soft: #ECFDF5;
-      --accent-cyan: #0284C7;
+      --accent-cyan: #0369A1;
       --accent-cyan-soft: #F0F9FF;
-      --accent-amber: #D97706;
+      --accent-amber: #B45309;
       --accent-amber-soft: #FFFBEB;
-      --accent-rose: #E11D48;
+      --accent-rose: #BE123C;
       --accent-rose-soft: #FFF1F2;
-      --shadow-soft: 0 16px 40px -12px rgba(15, 23, 42, 0.06), 0 2px 6px -1px rgba(15, 23, 42, 0.03);
-      --shadow-card: 0 4px 16px -4px rgba(15, 23, 42, 0.04), 0 1px 3px rgba(15, 23, 42, 0.02);
+      --shadow-soft: none;
+      --shadow-card: none;
       --radius-outer: 16px;
       --radius-card: 12px;
       --radius-input: 8px;
     }
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-    html { scroll-behavior: smooth; }
+    html { scroll-behavior: smooth; font-size: 16px; }
     html, body {
       background-color: var(--bg-canvas);
       color: var(--text-primary);
       font-family: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, sans-serif;
+      font-size: 1rem;
       line-height: 1.6;
       overflow-x: clip;
       -webkit-font-smoothing: antialiased;
@@ -145,12 +146,16 @@ function renderHead({ title, description, canonicalPath, ogSlug, jsonLdString })
     }
     .serif-italic {
       font-family: 'Newsreader', Georgia, serif;
-      font-style: italic;
-      font-weight: 400;
+      font-style: normal;
+      font-weight: 500;
       color: var(--accent-indigo);
     }
     .mono {
-      font-family: 'JetBrains Mono', monospace;
+      font-family: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, sans-serif;
+      font-variant-numeric: tabular-nums;
+    }
+    pre.mono, code.mono {
+      font-family: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, sans-serif;
       font-variant-numeric: tabular-nums;
     }
     .tabular { font-variant-numeric: tabular-nums; }
@@ -265,17 +270,14 @@ function renderHead({ title, description, canonicalPath, ogSlug, jsonLdString })
       background: var(--accent-indigo);
       color: #FFFFFF;
       font-weight: 600;
-      box-shadow: 0 2px 8px rgba(79, 70, 229, 0.25);
     }
     .btn-primary:hover {
       background: var(--accent-indigo-hover);
-      box-shadow: 0 4px 14px rgba(79, 70, 229, 0.34);
     }
     .btn-secondary {
       background: var(--bg-surface);
       color: var(--text-primary);
       border-color: var(--border-hairline);
-      box-shadow: 0 1px 2px rgba(15, 23, 42, 0.04);
     }
     .btn-secondary:hover {
       border-color: #CBD5E1;
@@ -295,28 +297,22 @@ function renderHead({ title, description, canonicalPath, ogSlug, jsonLdString })
       height: 20px;
       border-radius: 9999px;
       background: rgba(255, 255, 255, 0.18);
-      font-size: 0.8125rem;
+      font-size: 0.875rem;
       line-height: 1;
     }
     /* Double-Bezel & Bento Surfaces */
     .bezel-shell {
       background: var(--bg-bezel);
-      border: 1px solid var(--border-bezel);
       padding: 6px;
       border-radius: var(--radius-outer);
-      box-shadow: var(--shadow-soft);
     }
     .panel {
       background: var(--bg-surface);
-      border: 1px solid var(--border-hairline);
       border-radius: var(--radius-card);
-      box-shadow: var(--shadow-card);
     }
     .panel-elevated {
       background: var(--bg-surface);
-      border: 1px solid var(--border-hairline);
       border-radius: var(--radius-card);
-      box-shadow: var(--shadow-soft);
     }
     /* Semantic Status Badges (Editorial Studio Pastels) */
     .badge {
@@ -325,7 +321,7 @@ function renderHead({ title, description, canonicalPath, ogSlug, jsonLdString })
       gap: 6px;
       padding: 4px 10px;
       border-radius: 9999px;
-      font-size: 0.8125rem;
+      font-size: 0.875rem;
       font-weight: 600;
       letter-spacing: 0.01em;
       white-space: nowrap;
@@ -333,29 +329,23 @@ function renderHead({ title, description, canonicalPath, ogSlug, jsonLdString })
     .badge-emerald {
       background: var(--accent-emerald-soft);
       color: #065F46;
-      border: 1px solid #A7F3D0;
     }
     .badge-cyan {
       background: var(--accent-indigo-soft);
-      color: #3730A3;
-      border: 1px solid #C7D2FE;
+      color: #312E81;
     }
     .badge-amber {
       background: var(--accent-amber-soft);
       color: #92400E;
-      border: 1px solid #FDE68A;
     }
     .badge-rose {
       background: var(--accent-rose-soft);
       color: #9F1239;
-      border: 1px solid #FECDD3;
     }
     /* Hero Editorial Split Layout */
     .hero-section {
-      padding: 48px 0 44px;
-      border-bottom: 1px solid var(--border-hairline);
-      background: radial-gradient(circle at 85% 12%, rgba(79, 70, 229, 0.06), transparent 48%),
-                  radial-gradient(circle at 15% 80%, rgba(5, 150, 105, 0.05), transparent 45%);
+      padding: 44px 0 40px;
+      background: var(--bg-canvas);
     }
     .hero-grid {
       display: grid;
@@ -365,19 +355,19 @@ function renderHead({ title, description, canonicalPath, ogSlug, jsonLdString })
     }
     .hero-h1 {
       font-family: 'Newsreader', Georgia, serif;
-      font-size: clamp(2.15rem, 3.2vw, 3.1rem);
+      font-size: clamp(2.1rem, 2.85vw, 2.75rem);
       font-weight: 500;
-      line-height: 1.12;
+      line-height: 1.14;
       letter-spacing: -0.025em;
       color: var(--text-primary);
-      margin: 14px 0 16px;
+      margin: 10px 0 14px;
       text-wrap: balance;
     }
     .hero-sub {
       color: var(--text-secondary);
       font-size: 1.04rem;
       max-width: 60ch;
-      margin-bottom: 22px;
+      margin-bottom: 18px;
     }
     /* Grader Console Input Box */
     .grader-form {
@@ -393,9 +383,8 @@ function renderHead({ title, description, canonicalPath, ogSlug, jsonLdString })
       padding: 12px 16px;
       border-radius: var(--radius-input);
       font-size: 1rem; /* 16px prevents iOS Safari zoom */
-      font-family: 'JetBrains Mono', monospace;
-      box-shadow: inset 0 1px 2px rgba(15, 23, 42, 0.04);
-      transition: border-color 150ms ease-out, box-shadow 150ms ease-out;
+      font-family: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, sans-serif;
+      transition: border-color 150ms ease-out;
     }
     .grader-input:focus {
       outline: none;
@@ -410,18 +399,17 @@ function renderHead({ title, description, canonicalPath, ogSlug, jsonLdString })
       margin-bottom: 16px;
     }
     .preset-chip {
-      background: var(--bg-surface);
-      border: 1px solid var(--border-hairline);
+      background: var(--bg-subtle);
+      border: none;
       color: var(--text-secondary);
-      padding: 6px 12px;
+      padding: 7px 13px;
       border-radius: 9999px;
-      font-size: 0.84rem;
+      font-size: 0.9rem;
       font-weight: 600;
       cursor: pointer;
-      transition: border-color 140ms ease-out, color 140ms ease-out, background-color 140ms ease-out, transform 140ms ease-out;
+      transition: color 140ms ease-out, background-color 140ms ease-out, transform 140ms ease-out;
     }
     .preset-chip:hover, .preset-chip.active {
-      border-color: var(--accent-indigo);
       color: var(--accent-indigo);
       background: var(--accent-indigo-soft);
       font-weight: 700;
@@ -436,12 +424,11 @@ function renderHead({ title, description, canonicalPath, ogSlug, jsonLdString })
     }
     .metric-tile {
       padding: 14px;
-      background: var(--bg-canvas);
-      border: 1px solid var(--border-hairline);
+      background: var(--bg-subtle);
       border-radius: 10px;
     }
     .metric-label {
-      font-size: 0.8125rem;
+      font-size: 0.875rem;
       font-weight: 600;
       color: var(--text-secondary);
       margin-bottom: 6px;
@@ -456,15 +443,12 @@ function renderHead({ title, description, canonicalPath, ogSlug, jsonLdString })
     .artifact-dock {
       background: var(--bg-surface);
       color: var(--text-primary);
-      border: 1px solid var(--border-hairline);
       border-radius: var(--radius-card);
       overflow: hidden;
-      box-shadow: var(--shadow-card);
     }
     .dock-header {
       padding: 14px 18px;
       background: var(--bg-subtle);
-      border-bottom: 1px solid var(--border-hairline);
       display: flex;
       justify-content: space-between;
       align-items: center;
@@ -484,7 +468,6 @@ function renderHead({ title, description, canonicalPath, ogSlug, jsonLdString })
     .tab-bar {
       display: flex;
       gap: 6px;
-      border-bottom: 1px solid var(--border-hairline);
       padding: 8px 14px 0;
       background: var(--bg-canvas);
       overflow-x: auto;
@@ -495,7 +478,7 @@ function renderHead({ title, description, canonicalPath, ogSlug, jsonLdString })
       border-bottom: 2px solid transparent;
       color: var(--text-secondary);
       padding: 8px 12px;
-      font-size: 0.85rem;
+      font-size: 0.9rem;
       font-weight: 600;
       cursor: pointer;
       white-space: nowrap;
@@ -509,7 +492,7 @@ function renderHead({ title, description, canonicalPath, ogSlug, jsonLdString })
     .code-viewport {
       background: var(--bg-subtle);
       padding: 18px;
-      font-size: 0.85rem;
+      font-size: 0.9rem;
       line-height: 1.6;
       color: var(--text-primary);
       overflow-x: auto;
@@ -521,7 +504,7 @@ function renderHead({ title, description, canonicalPath, ogSlug, jsonLdString })
     .data-table {
       width: 100%;
       border-collapse: collapse;
-      font-size: 0.92rem;
+      font-size: 0.95rem;
     }
     .data-table th, .data-table td {
       padding: 12px 14px;
@@ -531,9 +514,7 @@ function renderHead({ title, description, canonicalPath, ogSlug, jsonLdString })
     .data-table th {
       color: var(--text-secondary);
       font-weight: 700;
-      font-size: 0.8125rem;
-      text-transform: uppercase;
-      letter-spacing: 0.04em;
+      font-size: 0.875rem;
       background: var(--bg-subtle);
     }
     .data-table tr:last-child td { border-bottom: none; }
@@ -543,7 +524,7 @@ function renderHead({ title, description, canonicalPath, ogSlug, jsonLdString })
       .hero-grid { grid-template-columns: 1fr; }
       .telemetry-grid { grid-template-columns: repeat(2, 1fr); }
       .nav-links { display: none; }
-      .mobile-nav-strip { display: flex; }
+      .mobile-nav-strip { display: flex; flex-wrap: wrap; padding: 10px 20px; gap: 12px 16px; overflow-x: visible; white-space: normal; }
     }
     @media (max-width: 560px) {
       .container { padding: 0 16px; }
@@ -574,32 +555,31 @@ function renderHead({ title, description, canonicalPath, ogSlug, jsonLdString })
 function renderNavbar(activePath = '/') {
   return `
   <a href="#main-content" class="skip-link">Skip to main content</a>
-  <header class="topbar">
+  <header class="topbar" style="border-bottom:none;">
     <div class="container topbar-inner">
       <a href="/" id="nav-brand-logo-link" class="brand-mark" aria-label="CitationForge Home">
         ${renderBrandLogoSvg(32)}
         <span>CitationForge</span>
-        <span class="brand-sub-pill mono hide-mobile">GEO Studio</span>
       </a>
       <nav class="nav-links" aria-label="Primary Navigation">
-        <a href="/#grader" class="${activePath === '/' ? 'active' : ''}">AI Visibility Grader</a>
+        <a href="/#grader" class="${activePath === '/' ? 'active' : ''}">AI Visibility Checker</a>
         <a href="/#matrix">25 Buyer Questions</a>
-        <a href="/leaderboard" class="${activePath.startsWith('/leaderboard') ? 'active' : ''}" style="font-weight:700;color:var(--accent-indigo);">🏆 Leaderboard</a>
-        <a href="/directory" class="${activePath.startsWith('/directory') || activePath.startsWith('/seo') ? 'active' : ''}">GEO Benchmarks (60+)</a>
-        <a href="/#pricing">3-File Pack ($1.99)</a>
+        <a href="/leaderboard" class="${activePath.startsWith('/leaderboard') ? 'active' : ''}" style="font-weight:700;color:var(--accent-indigo);">Industry Leaderboard</a>
+        <a href="/directory" class="${activePath.startsWith('/directory') || activePath.startsWith('/seo') ? 'active' : ''}">Industry Reports (60+)</a>
+        <a href="/#in-card-unlock-bar">3-File Pack ($1.99)</a>
       </nav>
       <div style="display:flex;align-items:center;gap:10px;">
-        <a href="/buy/flash_pass" rel="nofollow" onclick="if(window.__ebQuickBuy){window.__ebQuickBuy('flash_pass');return false;}" class="btn btn-primary" style="padding:9px 16px;font-size:0.88rem;">
+        <a href="/buy/flash_pass" rel="nofollow" onclick="if(window.__ebQuickBuy){window.__ebQuickBuy('flash_pass');return false;}" class="btn btn-primary" style="padding:9px 16px;font-size:0.9rem;">
           <span>Unlock 3-File Pack ($1.99)</span>
           <span class="btn-arrow-pill" aria-hidden="true">&#8599;</span>
         </a>
       </div>
     </div>
-    <nav class="mobile-nav-strip" aria-label="Mobile Navigation">
-      <a href="/#grader">AI Grader</a>
+    <nav class="mobile-nav-strip" style="border-top:none;" aria-label="Mobile Navigation">
+      <a href="/#grader">AI Checker</a>
       <a href="/#matrix">25 Questions</a>
-      <a href="/leaderboard" style="font-weight:700;color:var(--accent-indigo);">🏆 Leaderboard</a>
-      <a href="/directory">60+ Benchmarks</a>
+      <a href="/leaderboard" style="font-weight:700;color:var(--accent-indigo);">Leaderboard</a>
+      <a href="/directory">60+ Reports</a>
       <a href="/buy/flash_pass" rel="nofollow" onclick="if(window.__ebQuickBuy){window.__ebQuickBuy('flash_pass');return false;}">3-File Pack ($1.99)</a>
     </nav>
   </header>`;
@@ -666,9 +646,9 @@ function renderFooter() {
           </ul>
         </div>
       </div>
-      <div style="display:flex;flex-wrap:wrap;justify-content:space-between;align-items:center;gap:12px;padding-top:24px;border-top:1px solid var(--border-hairline);font-size:0.8rem;color:var(--text-muted);">
+      <div style="display:flex;flex-wrap:wrap;justify-content:space-between;align-items:center;gap:12px;padding-top:24px;font-size:0.88rem;color:var(--text-muted);">
         <span>&copy; 2026 CitationForge Inc. Built for Marketing VPs, SEO Directors &amp; Technical Founders.</span>
-        <span class="mono">cSoV Formula: w_r = 1 / log2(r + 1) · AnswerDotAI llms.txt v1.0</span>
+        <span>Weighted by Top Recommendation Position (#1 = 100%, #2 = 63%, #3 = 50%) &middot; Ready-to-Use /llms.txt &amp; Schema</span>
       </div>
     </div>
   </footer>`;
@@ -848,9 +828,9 @@ function renderInteractiveScript(initialAudit) {
       if (findingsEl && audit.findings) {
         findingsEl.innerHTML = audit.findings.map(f => {
           const badgeClass = f.severity === 'critical' ? 'badge-rose' : f.severity === 'high' ? 'badge-amber' : 'badge-emerald';
-          return '<div style="padding:14px 16px;background:var(--bg-canvas);border:1px solid var(--border-hairline);border-radius:10px;display:flex;justify-content:space-between;align-items:center;gap:12px;flex-wrap:wrap;">' +
-            '<div><div style="font-weight:700;font-size:0.9rem;color:var(--text-primary);margin-bottom:3px;">' + f.title + '</div>' +
-            '<div style="font-size:0.81rem;color:var(--text-secondary);">' + f.detail + '</div></div>' +
+          return '<div style="padding:14px 16px;background:var(--bg-subtle);border-radius:10px;display:flex;justify-content:space-between;align-items:center;gap:12px;flex-wrap:wrap;">' +
+            '<div><div style="font-weight:700;font-size:0.94rem;color:var(--text-primary);margin-bottom:3px;">' + f.title + '</div>' +
+            '<div style="font-size:0.88rem;color:var(--text-secondary);">' + f.detail + '</div></div>' +
             '<span class="badge ' + badgeClass + ' mono">' + f.impact + '</span></div>';
         }).join('');
       }

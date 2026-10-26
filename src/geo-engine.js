@@ -868,42 +868,42 @@ async function runGeoAudit(rawInput, options = {}) {
   if (!baseProfile.llmsTxtStatus.hasLlmsTxt) {
     findings.push({
       severity: 'critical',
-      title: 'Missing /llms.txt Root Agent Index',
-      impact: '+11.4% Perplexity & Claude Citation Lift',
-      detail: `AI crawlers hitting https://${domain}/llms.txt receive a 404. Deploy the compiled CommonMark index below.`
+      title: 'Missing /llms.txt AI Site Guide',
+      impact: '+11.4% Perplexity & Claude Mentions',
+      detail: `AI crawlers visiting https://${domain}/llms.txt receive a 404. Publish the ready-to-use Markdown guide below.`
     });
   }
   if (!baseProfile.llmsTxtStatus.hasLlmsFullTxt) {
     findings.push({
       severity: 'high',
-      title: 'Missing /llms-full.txt Deep Context Corpus',
-      impact: '+8.2% Deep Research Ingestion Rate',
-      detail: `RAG agents cannot ingest your full product & pricing documentation in a single HTTP request.`
+      title: 'Missing /llms-full.txt Complete Product & Pricing Guide',
+      impact: '+8.2% AI Research & Comparison Mentions',
+      detail: `AI search assistants cannot read your full product features and pricing tiers in a single fast request.`
     });
   }
   const blockedBots = Object.entries(baseProfile.bots).filter(([, v]) => v === 'Disallow').map(([k]) => k);
   if (blockedBots.length > 0) {
     findings.push({
       severity: 'critical',
-      title: `AI Crawlers Blocked in robots.txt (${blockedBots.join(', ')})`,
-      impact: '+16.5% Immediate Answer Engine Visibility',
-      detail: `Your robots.txt currently blocks ${blockedBots.join(', ')}, preventing direct citation in synthesized answers.`
+      title: `AI Search Crawlers Blocked in robots.txt (${blockedBots.join(', ')})`,
+      impact: '+16.5% Immediate AI Recommendation Lift',
+      detail: `Your robots.txt currently blocks ${blockedBots.join(', ')}, stopping AI assistants from recommending your business.`
     });
   }
   if (!baseProfile.schema.hasFaqPage || (baseProfile.schema.sameAs?.length || 0) < 4) {
     findings.push({
       severity: 'medium',
-      title: 'Incomplete JSON-LD @graph & Wikidata sameAs Disambiguation',
-      impact: '+6.8% Entity Salience Confidence',
-      detail: `Add the compiled Organization + SoftwareApplication + FAQPage JSON-LD graph to eliminate model hallucinations.`
+      title: 'Incomplete Product, Pricing & FAQ Schema Markup',
+      impact: '+6.8% Verified Fact Accuracy',
+      detail: `Add the ready-to-use Organization, Product, and FAQ Schema code so AI assistants never guess or misstate your pricing.`
     });
   }
   if (findings.length === 0) {
     findings.push({
       severity: 'optimal',
-      title: 'Strong Baseline GEO Posture: Expand Long-Tail Prompt Coverage',
-      impact: '+5.4% Incremental Share-of-Voice',
-      detail: `Your root /llms.txt and AI bot permissions are active. Embed Answer-First 45-word comparison blocks for your #2 and #3 competitor queries.`
+      title: 'Strong AI Search Setup: Add Competitor Comparison Answers',
+      impact: '+5.4% More #1 Recommendations',
+      detail: `Your /llms.txt and AI bot permissions are active. Add short 45-word comparison answers for your top competitor questions.`
     });
   }
 
