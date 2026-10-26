@@ -111,9 +111,9 @@ function renderHead({ title, description, canonicalPath, ogSlug, jsonLdString })
       --text-primary: #0F172A;
       --text-secondary: #334155;
       --text-muted: #475569;
-      --accent-indigo: #3730A3;
-      --accent-indigo-hover: #312E81;
-      --accent-indigo-soft: #EEF2FF;
+      --accent-indigo: #0F4C81;
+      --accent-indigo-hover: #0B3861;
+      --accent-indigo-soft: #EBF3FA;
       --accent-emerald: #047857;
       --accent-emerald-soft: #ECFDF5;
       --accent-cyan: #0369A1;

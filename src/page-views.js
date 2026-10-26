@@ -47,7 +47,7 @@ function renderGraderAndCompilerSection(audit) {
   }).join('');
 
   return `
-  <section id="compiler" style="padding:56px 0;border-bottom:1px solid var(--border-hairline);">
+  <section id="compiler" style="padding:56px 0;">
     <div class="container">
       <div class="hero-grid" style="align-items:stretch;">
         <div class="panel" style="padding:26px;display:flex;flex-direction:column;justify-content:space-between;height:100%;">
@@ -103,14 +103,14 @@ function renderGraderAndCompilerSection(audit) {
       </div>
     </div>
   </section>
-  <section id="matrix" style="padding:60px 0;border-bottom:1px solid var(--border-hairline);background:var(--bg-subtle);">
+  <section id="matrix" style="padding:60px 0;background:var(--bg-subtle);">
     <div class="container">
       <div style="display:flex;justify-content:space-between;align-items:flex-end;margin-bottom:20px;flex-wrap:wrap;gap:14px;">
         <div>
-          <h2 class="serif-display" style="font-size:1.95rem;margin-bottom:6px;">
-            25 Buyer Questions Tested: Where Does Your Brand Rank?
+          <h2 class="serif-display" style="font-size:1.85rem;margin-bottom:6px;">
+            25 Buyer Questions: Where Does Your Brand Rank?
           </h2>
-          <p style="color:var(--text-secondary);font-size:0.96rem;max-width:74ch;">
+          <p style="color:var(--text-secondary);font-size:0.98rem;max-width:74ch;">
             We test 25 real buyer questions across Perplexity, ChatGPT Search, and Google Gemini AI Overviews. Filter by AI engine below to spot where competitors are winning recommendations instead of you.
           </p>
         </div>
@@ -219,10 +219,6 @@ function renderHeroGraderBox(audit, isLp = false) {
       <div class="hero-grid" style="align-items:stretch;">
         <div id="home-executive-brief" style="display:flex;flex-direction:column;justify-content:space-between;gap:16px;height:100%;">
           <div>
-            <div style="display:flex;gap:8px;flex-wrap:wrap;align-items:center;margin-bottom:12px;">
-              <span class="badge badge-cyan mono">AI SEARCH VISIBILITY CHECKER</span>
-              <a href="/leaderboard" class="badge badge-emerald mono" style="text-decoration:none;">Live Industry Leaderboard &rarr;</a>
-            </div>
             <h1 class="hero-h1">${headlineHtml}</h1>
             <p class="hero-sub" style="margin-bottom:18px;">${escapeHtml(subheadline)}</p>
 
@@ -287,7 +283,7 @@ function renderHeroGraderBox(audit, isLp = false) {
         <div class="bezel-shell" style="display:flex;flex-direction:column;height:100%;">
           <div class="panel-elevated" style="padding:24px;display:flex;flex-direction:column;justify-content:space-between;gap:14px;height:100%;">
             <div>
-              <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:14px;padding-bottom:12px;border-bottom:1px solid var(--border-hairline);flex-wrap:wrap;gap:8px;">
+              <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:14px;flex-wrap:wrap;gap:8px;">
                 <div>
                   <div id="live-probe-badge" class="mono" style="font-size:0.82rem;font-weight:700;color:var(--accent-emerald);">&#9679; LIVE ORIGIN PROBE · /robots.txt (${audit.liveProbe?.robotsHttpStatus || 200}) &bull; /llms.txt (${audit.llmsTxtStatus?.hasLlmsTxt ? '200 OK' : '404 MISSING'})</div>
                   <div id="score-brand-title" class="serif-display" style="font-size:1.45rem;font-weight:600;color:var(--text-primary);">${escapeHtml(audit.brand)} (${escapeHtml(audit.domain)})</div>
@@ -300,15 +296,15 @@ function renderHeroGraderBox(audit, isLp = false) {
 
               <div class="telemetry-grid">
                 <div class="metric-tile">
-                  <div class="metric-label">AI Recommendation Rate</div>
+                  <div class="metric-label">AI Mention Share</div>
                   <div id="score-csov" class="metric-val mono" style="color:var(--accent-emerald);">${audit.scores.csovPct}%</div>
                 </div>
                 <div class="metric-tile">
-                  <div class="metric-label">AI Crawler Access</div>
+                  <div class="metric-label">Crawler Access</div>
                   <div id="score-readability" class="metric-val mono">${audit.scores.agentReadabilityScore}/100</div>
                 </div>
                 <div class="metric-tile">
-                  <div class="metric-label">Verified Facts Score</div>
+                  <div class="metric-label">Verified Facts</div>
                   <div id="score-entity" class="metric-val mono">${audit.scores.entityDensityScore}/100</div>
                 </div>
                 <div class="metric-tile">
@@ -349,9 +345,9 @@ function renderHeroGraderBox(audit, isLp = false) {
 
 function renderTrustStripAndTestimonials() {
   return `
-  <section style="padding:20px 0;border-bottom:1px solid var(--border-hairline);background:var(--bg-subtle);">
+  <section style="padding:20px 0;background:var(--bg-subtle);">
     <div class="container" style="display:flex;flex-wrap:wrap;align-items:center;justify-content:space-between;gap:24px;">
-      <span class="mono" style="font-size:0.8125rem;color:var(--text-secondary);font-weight:700;letter-spacing:0.05em;">BENCHMARKED BY MARKETING &amp; SEO TEAMS AT</span>
+      <span style="font-size:0.9rem;color:var(--text-secondary);font-weight:700;">Benchmarked by marketing &amp; SEO teams at</span>
       <div style="display:flex;flex-wrap:wrap;align-items:center;gap:36px;">
         <svg height="22" viewBox="0 0 90 24" fill="none" role="img" aria-label="Vercel"><path d="M12 3L23 21H1L12 3Z" fill="#0F172A"/><text x="29" y="18" fill="#0F172A" font-family="Plus Jakarta Sans,sans-serif" font-weight="700" font-size="15">Vercel</text></svg>
         <svg height="22" viewBox="0 0 95 24" fill="none" role="img" aria-label="Linear"><circle cx="12" cy="12" r="9" stroke="#0F172A" stroke-width="2.2"/><path d="M6 16L16 6" stroke="#0F172A" stroke-width="2"/><text x="27" y="17" fill="#0F172A" font-family="Plus Jakarta Sans,sans-serif" font-weight="700" font-size="15">Linear</text></svg>
@@ -469,12 +465,12 @@ function renderHomePage(initialAudit, sampleSeoPages) {
     ${renderGraderAndCompilerSection(initialAudit)}
 
     <!-- Industry AI Search Reports & Comparisons -->
-    <section style="padding:60px 0;border-bottom:1px solid var(--border-hairline);">
+    <section style="padding:60px 0;">
       <div class="container">
         <div style="display:flex;justify-content:space-between;align-items:flex-end;margin-bottom:28px;flex-wrap:wrap;gap:12px;">
           <div>
-            <h2 class="serif-display" style="font-size:2rem;margin-bottom:6px;">
-              Industry AI Search Reports &amp; Comparisons (60+ Benchmarks)
+            <h2 class="serif-display" style="font-size:1.85rem;margin-bottom:6px;">
+              Industry AI Search Reports (60+ Benchmarks)
             </h2>
             <p style="color:var(--text-secondary);font-size:0.98rem;">
               Explore industry AI recommendation leaderboards, head-to-head brand comparisons, and step-by-step <span class="mono">/llms.txt</span> setup guides.
