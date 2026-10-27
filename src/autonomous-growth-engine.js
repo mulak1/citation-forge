@@ -1,5 +1,8 @@
 'use strict';
 
+let CF_TPL = null;
+try { CF_TPL = require('./templates'); } catch (_) {}
+
 /**
  * Autonomous Zero-HITL Growth & Open-Source Distribution Engine (Iteration 28)
  * Implements:
@@ -188,37 +191,10 @@ function renderGrowthPageHtml(cfg, item, kind) {
 
   const trsHtml = rows.map((r, idx) => `<tr${idx === 3 ? ' id="eb-growth-row4-tr"' : ''}><th${idx === 0 ? ' id="eb-growth-r1-name"' : ''} scope="row" style="padding:11px 14px;border-bottom:1px solid ${escXml(t.border)};font-weight:700;color:${escXml(t.textPrimary)};text-align:left;font-size:14px;">${escXml(r.name)}</th><td${idx === 0 ? ' id="eb-growth-r1-kpi"' : (idx === 1 ? ' id="eb-growth-r2-kpi"' : (idx === 3 ? ' id="eb-growth-row4-val"' : ''))} style="padding:11px 14px;border-bottom:1px solid ${escXml(t.border)};font-variant-numeric:tabular-nums;font-weight:700;color:${escXml(g.badgeColor)};font-size:14px;">${escXml(r.kpi)}</td><td style="padding:11px 14px;border-bottom:1px solid ${escXml(t.border)};color:${escXml(t.textSecondary)};font-size:14px;">${escXml(r.action)}</td><td${idx === 3 ? ' id="eb-growth-row4-status"' : ''} style="padding:11px 14px;border-bottom:1px solid ${escXml(t.border)};font-size:13px;font-weight:700;color:${escXml(t.safeColor)};">${escXml(r.status)}</td></tr>`).join('');
 
-  return `<!DOCTYPE html>
-<html lang="en">
-<head>
-  <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>${escXml(item.title)} | ${escXml(cfg.brandName)}</title>
-  <meta name="description" content="${escXml(item.summary.slice(0, 156))}" />
-  <link rel="canonical" href="${escXml(canonicalUrl)}" />
-  <meta property="og:title" content="${escXml(item.title)}" />
-  <meta property="og:description" content="${escXml(item.summary.slice(0, 156))}" />
-  <meta property="og:url" content="${escXml(canonicalUrl)}" />
-  <meta property="og:type" content="article" />
-  <meta property="og:image" content="https://${escXml(cfg.domain)}/api/og/scorecard?target=${escXml(encodeURIComponent(item.target))}" />
-  <meta name="twitter:card" content="summary_large_image" />
-  <meta name="twitter:title" content="${escXml(item.title)}" />
-  <meta name="twitter:description" content="${escXml(item.summary.slice(0, 156))}" />
-</head>
+  return `${CF_TPL ? CF_TPL.renderHead({ title: `${item.title} | ${cfg.brandName}`, description: item.summary.slice(0, 156), canonicalPath: `/${kind}/${item.slug}`, ogSlug: item.slug }) : `<!DOCTYPE html><html lang="en"><head><meta charset="utf-8" /><title>${escXml(item.title)} | ${escXml(cfg.brandName)}</title></head>`}
 <body style="margin:0;background:${escXml(t.canvasBg)};color:${escXml(t.textPrimary)};font-family:${escXml(t.fontSans || 'Plus Jakarta Sans,-apple-system,BlinkMacSystemFont,sans-serif')};font-size:16px;line-height:1.6;">
-  <header style="border-bottom:1px solid ${escXml(t.border)};background:#FFFFFF;padding:14px 24px;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:12px;">
-    <div style="display:flex;align-items:center;gap:10px;">
-      <a href="/" style="font-weight:800;font-size:18px;color:${escXml(t.textPrimary)};text-decoration:none;">${escXml(cfg.brandName)}</a>
-      <span style="font-size:13px;font-weight:700;padding:4px 10px;border-radius:999px;background:${escXml(t.brandSoftBg)};color:${escXml(g.badgeColor)};">${escXml(kind === 'compare' ? 'Side-by-Side Comparison' : 'Free Interactive Tool')}</span>
-    </div>
-    <nav aria-label="Primary" style="display:flex;gap:16px;align-items:center;font-size:14px;font-weight:600;">
-      <a href="/" style="color:${escXml(t.textSecondary)};text-decoration:none;">Home Calculator</a>
-      <a href="/leaderboard" style="color:${escXml(t.textSecondary)};text-decoration:none;">Leaderboard</a>
-      <a href="/directory" style="color:${escXml(t.textSecondary)};text-decoration:none;">All Guides</a>
-      <a href="/buy/flash_pass" rel="nofollow" style="padding:8px 16px;border-radius:999px;background:${escXml(g.badgeColor)};color:#FFFFFF;text-decoration:none;font-weight:700;">Unlock 3-File Pack ($1.99) ↗</a>
-    </nav>
-  </header>
-  <main style="max-width:1240px;margin:0 auto;padding:24px;">
+  ${CF_TPL ? CF_TPL.renderNavbar('/directory') : ''}
+  <main id="main-content" style="max-width:1240px;margin:0 auto;padding:24px;">
     <nav aria-label="Breadcrumb" style="font-size:13px;color:#64748B;margin-bottom:10px;">
       <a href="/" style="color:${escXml(g.badgeColor)};text-decoration:none;font-weight:600;">Home</a> / <a href="/directory" style="color:${escXml(g.badgeColor)};text-decoration:none;font-weight:600;">Directory</a> / <span>${escXml(item.slug)}</span>
     </nav>

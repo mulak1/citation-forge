@@ -312,6 +312,74 @@ function renderInteractiveScript(initialAudit) {
   <script>
     window.__CURRENT_AUDIT__ = ${safeJson};
     window.__ACTIVE_TAB__ = 'llmsTxt';
+    const CF_STATE_KEY = 'cf_workspace_state_v1';
+
+    function saveCfWorkspaceState() {
+      try {
+        const audit = window.__CURRENT_AUDIT__ || {};
+        const state = {
+          domain: document.getElementById('domain-input')?.value || audit.domain || 'linear.app',
+          category: document.getElementById('category-select')?.value || '',
+          activeTab: window.__ACTIVE_TAB__ || 'llmsTxt',
+          customBots: document.getElementById('cf-custom-bots')?.value || 'all_4',
+          customRoutes: document.getElementById('cf-custom-routes')?.value || '/pricing, /docs, /security',
+          customSummary: document.getElementById('cf-custom-summary')?.value || '',
+          savedAt: Date.now()
+        };
+        localStorage.setItem(CF_STATE_KEY, JSON.stringify(state));
+      } catch (_) {}
+    }
+
+    function restoreCfWorkspaceState() {
+      try {
+        const raw = localStorage.getItem(CF_STATE_KEY);
+        if (!raw) return null;
+        const s = JSON.parse(raw);
+        if (!s || typeof s !== 'object') return null;
+        const setVal = (id, v) => {
+          const el = document.getElementById(id);
+          if (!el || v === undefined || v === null) return;
+          if (el.tagName === 'SELECT' && !Array.from(el.options).some(o => o.value === String(v))) return;
+          el.value = v;
+        };
+        setVal('domain-input', s.domain);
+        setVal('category-select', s.category);
+        setVal('cf-custom-bots', s.customBots);
+        setVal('cf-custom-routes', s.customRoutes);
+        setVal('cf-custom-summary', s.customSummary);
+        if (s.activeTab) window.__ACTIVE_TAB__ = s.activeTab;
+        return s;
+      } catch (_) {
+        return null;
+      }
+    }
+
+    function updateUnmaskedCompilerHeader() {
+      const audit = window.__CURRENT_AUDIT__;
+      const headerEl = document.getElementById('compiler-unmasked-header');
+      if (!audit || !headerEl) return;
+      const botsPolicy = document.getElementById('cf-custom-bots')?.value || 'all_4';
+      const routesRaw = document.getElementById('cf-custom-routes')?.value || '/pricing, /docs, /security';
+      const customSummary = document.getElementById('cf-custom-summary')?.value?.trim() || '';
+      const scrapedLine = (audit.artifacts?.llmsTxt || '').split('\\n').find(l => l.startsWith('> '))?.slice(2) || '';
+      const summaryLine = customSummary || scrapedLine || (audit.brand + ' — Official AI Search Citation & Product Fact Sheet (' + audit.category + ').');
+      const botsLabel = botsPolicy === 'oai_perplexity'
+        ? 'OAI-SearchBot, PerplexityBot (Allow: / | ClaudeBot: Disallow)'
+        : (botsPolicy === 'docs_pricing_only' ? 'All 4 AI Bots (Allow: /docs, /pricing Only)' : 'OAI-SearchBot, PerplexityBot, ClaudeBot, Google-Extended (Allow: /)');
+      const routeUrls = routesRaw.split(',').map(r => 'https://' + audit.domain + r.trim()).join(' | ');
+      headerEl.textContent = [
+        '# ' + audit.brand + ' (' + audit.domain + ') — Verified /llms.txt Manifest Header (Unmasked Live Preview)',
+        '> ' + summaryLine,
+        'Allowed AI Answer Bots: ' + botsLabel,
+        'Priority RAG Routes: ' + routeUrls,
+        'Weighted Category cSoV: ' + audit.scores.csovPct + '% -> Projected Post-Fix: ' + audit.scores.projectedCsovPct + '% (Full 3-File Bundle locked below ↓)'
+      ].join('\\n');
+    }
+
+    function onCfCustomizerChange() {
+      updateUnmaskedCompilerHeader();
+      saveCfWorkspaceState();
+    }
 
     function getUtmParams() {
       const p = new URLSearchParams(window.location.search);
@@ -367,7 +435,9 @@ function renderInteractiveScript(initialAudit) {
       if (codeEl && audit && audit.artifacts) {
         codeEl.textContent = audit.artifacts[tabKey] || '';
       }
+      updateUnmaskedCompilerHeader();
       if (!isAuto) {
+        saveCfWorkspaceState();
         fetch('/api/telemetry/event', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ event_type: 'tab_switch', page_url: window.location.pathname, meta: { tab: tabKey } }) }).catch(() => {});
       }
     }
@@ -517,6 +587,17 @@ function renderInteractiveScript(initialAudit) {
       }
 
       switchCompilerTab(window.__ACTIVE_TAB__, true);
+      const permalinkEl = document.getElementById('cf-live-scan-permalink');
+      if (permalinkEl && audit.domain) {
+        permalinkEl.href = '/scan/' + encodeURIComponent(audit.domain);
+        permalinkEl.textContent = 'Public Scan (/scan/' + audit.domain + ') ↗';
+      }
+      const checkoutEmailEl = document.getElementById('checkout-email');
+      if (checkoutEmailEl && audit.domain) {
+        checkoutEmailEl.value = 'vp-marketing@' + audit.domain;
+      }
+      updateUnmaskedCompilerHeader();
+      saveCfWorkspaceState();
     }
 
     async function startCheckout(planId) {
@@ -581,6 +662,13 @@ function renderInteractiveScript(initialAudit) {
           if (b) b.style.display = 'none';
         }
       } catch (_) {}
+      const params = new URLSearchParams(window.location.search);
+      const restored = restoreCfWorkspaceState();
+      if (!params.get('domain') && restored && restored.domain && restored.domain !== (window.__CURRENT_AUDIT__ && window.__CURRENT_AUDIT__.domain)) {
+        executeAudit(restored.domain);
+      } else {
+        switchCompilerTab(window.__ACTIVE_TAB__ || 'llmsTxt', true);
+      }
       trackMetaEvent('ViewContent', { path: window.location.pathname });
     });
   </script>`;

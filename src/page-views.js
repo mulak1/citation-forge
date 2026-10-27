@@ -86,9 +86,38 @@ function renderGraderAndCompilerSection(audit) {
                   <p style="font-size:0.88rem;color:var(--text-secondary);">Copy or download for Next.js, WordPress, Webflow, Shopify &amp; Cloudflare</p>
                 </div>
               </div>
-              <div style="display:flex;gap:8px;align-items:center;">
+              <div style="display:flex;gap:8px;align-items:center;flex-wrap:wrap;">
+                <a id="cf-live-scan-permalink" href="/scan/${escapeHtml(audit.domain)}" class="badge badge-cyan mono" style="text-decoration:none;">Public Scan (/scan/${escapeHtml(audit.domain)}) &#8599;</a>
                 <span class="badge badge-amber mono">PREVIEW MODE</span>
                 <button type="button" id="copy-code-btn" class="btn btn-primary mono" style="padding:7px 14px;font-size:0.86rem;" onclick="if(window.__ebQuickBuy){window.__ebQuickBuy('flash_pass')}else{downloadCompiledFile()}">Unlock 3-File Pack ($1.99 Stripe Express) &#8599;</button>
+              </div>
+            </div>
+            <div id="cf-endowment-customizer" style="padding:12px 16px;background:var(--bg-canvas);border-bottom:1px solid var(--border-hairline);display:grid;gap:8px;">
+              <div style="display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:6px;">
+                <span class="mono" style="font-size:0.78rem;font-weight:800;color:var(--accent-indigo);">3-STEP GEO MANIFEST CUSTOMIZER (TAILOR YOUR /LLMS.TXT &amp; SCHEMA BEFORE EXPORT)</span>
+                <span class="mono" style="font-size:0.75rem;color:var(--accent-emerald);font-weight:700;">&#10003; Auto-saved in browser</span>
+              </div>
+              <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(175px,1fr));gap:8px;">
+                <label style="font-size:0.76rem;font-weight:700;color:var(--text-secondary);display:flex;flex-direction:column;gap:3px;">
+                  1. AI Crawler Policy
+                  <select id="cf-custom-bots" class="grader-input" style="padding:6px 8px;font-size:0.8rem;" onchange="onCfCustomizerChange()">
+                    <option value="all_4" selected>Allow All 4 AI Bots (Recommended)</option>
+                    <option value="oai_perplexity">OAI-SearchBot + PerplexityBot Only</option>
+                    <option value="docs_pricing_only">Allow /docs &amp; /pricing Only</option>
+                  </select>
+                </label>
+                <label style="font-size:0.76rem;font-weight:700;color:var(--text-secondary);display:flex;flex-direction:column;gap:3px;">
+                  2. Priority Citation Routes
+                  <select id="cf-custom-routes" class="grader-input" style="padding:6px 8px;font-size:0.8rem;" onchange="onCfCustomizerChange()">
+                    <option value="/pricing, /docs, /security" selected>/pricing, /docs, /security</option>
+                    <option value="/features, /customers, /api">/features, /customers, /api</option>
+                    <option value="/Waitlist, /changelog, /benchmarks">/changelog, /benchmarks, /docs</option>
+                  </select>
+                </label>
+                <label style="font-size:0.76rem;font-weight:700;color:var(--text-secondary);display:flex;flex-direction:column;gap:3px;">
+                  3. Custom Brand Positioning
+                  <input id="cf-custom-summary" type="text" class="grader-input" style="padding:6px 8px;font-size:0.8rem;" placeholder="e.g. #1 B2B workflow platform for..." oninput="onCfCustomizerChange()" />
+                </label>
               </div>
             </div>
             <div class="tab-bar" role="tablist">
@@ -97,6 +126,11 @@ function renderGraderAndCompilerSection(audit) {
               <button type="button" class="tab-btn mono" data-tab="robotsTxtPatch" onclick="switchCompilerTab('robotsTxtPatch')">robots.txt Rules</button>
               <button type="button" class="tab-btn mono" data-tab="jsonLd" onclick="switchCompilerTab('jsonLd')">Schema Markup</button>
             </div>
+            <pre id="compiler-unmasked-header" class="code-viewport mono" style="max-height:145px;padding:12px 18px;background:#ECFDF5;color:#065F46;border-bottom:1px dashed #10B981;font-size:0.8rem;line-height:1.45;margin:0;"># ${escapeHtml(audit.brand)} (${escapeHtml(audit.domain)}) — Verified /llms.txt Manifest Header (Unmasked Live Preview)
+&gt; ${escapeHtml((audit.artifacts?.llmsTxt || '').split('\n').find(l => l.startsWith('> '))?.slice(2) || (audit.brand + ' — Official AI Search Citation & Product Fact Sheet (' + audit.category + ').'))}
+Allowed AI Answer Bots: OAI-SearchBot, PerplexityBot, ClaudeBot, Google-Extended (Allow: /)
+Priority RAG Routes: https://${escapeHtml(audit.domain)}/pricing | https://${escapeHtml(audit.domain)}/docs | https://${escapeHtml(audit.domain)}/security
+Weighted Category cSoV: ${audit.scores.csovPct}% -&gt; Projected Post-Fix: ${audit.scores.projectedCsovPct}% (Full 3-File Bundle locked below &#8595;)</pre>
             <pre id="compiler-code-output" class="code-viewport mono" style="flex:1;">${escapeHtml(audit.artifacts.llmsTxt)}</pre>
           </div>
         </div>
@@ -216,12 +250,13 @@ function renderPricingSection(isCompact = false) {
             </a>
           </div>
           <details style="margin-top:16px;font-size:0.88rem;color:var(--text-secondary);">
-            <summary style="cursor:pointer;font-weight:700;">Need Multi-Site Agency / Continuous Weekly Tracking ($49–$99)?</summary>
-            <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:12px;margin-top:12px;">
+            <summary style="cursor:pointer;font-weight:700;">Need Full Production Fix Pack, 50-Prompt Dossier or Agency License ($19 / $49 / $99)?</summary>
+            <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:12px;margin-top:12px;">
               <input id="checkout-email" type="email" class="grader-input" style="display:none;" value="vp-marketing@linear.app" />
               <div id="checkout-email-error" style="display:none;"></div>
+              <button type="button" class="btn btn-secondary" onclick="startCheckout('audit_49')">Single-Domain Fix Pack ($19 One-Time)</button>
               <button type="button" class="btn btn-secondary" onclick="startCheckout('audit_49')">50-Question Dossier ($49 One-Time)</button>
-              <button type="button" class="btn btn-secondary" onclick="startCheckout('pro_99')">Agency Weekly Auto-Sync ($99/mo)</button>
+              <button type="button" class="btn btn-secondary" onclick="startCheckout('pro_99')">Multi-Brand Agency Pack ($99 One-Time)</button>
             </div>
           </details>
         </div>

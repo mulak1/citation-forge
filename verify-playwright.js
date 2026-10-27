@@ -1,11 +1,34 @@
 const fs = require('fs');
 const path = require('path');
+const { spawn } = require('child_process');
 const { chromium } = require('playwright');
 
 const BASE_URL = 'http://127.0.0.1:4101';
 const SCREENSHOT_DIR = path.join(__dirname, 'screenshots');
 
+async function ensureServerRunning() {
+  try {
+    const r = await fetch(`${BASE_URL}/api/health`);
+    if (r.ok) return null;
+  } catch (_) {}
+  const child = spawn(process.execPath, [path.join(__dirname, 'src/server.js')], {
+    env: { ...process.env, PORT: '4101' },
+    stdio: 'ignore'
+  });
+  for (let i = 0; i < 30; i += 1) {
+    await new Promise((r) => setTimeout(r, 200));
+    try {
+      const res = await fetch(`${BASE_URL}/api/health`);
+      if (res.ok) return child;
+    } catch (_) {}
+  }
+  child.kill();
+  throw new Error('Failed to start citation-forge server on port 4101');
+}
+
 async function runVerification() {
+  const spawnedServer = await ensureServerRunning();
+  try {
   fs.mkdirSync(SCREENSHOT_DIR, { recursive: true });
   const results = {
     url: BASE_URL,
@@ -259,6 +282,9 @@ async function runVerification() {
   console.log(JSON.stringify(results, null, 2));
   if (results.consoleErrors.length > 0 || results.pageErrors.length > 0) {
     process.exit(1);
+  }
+  } finally {
+    if (spawnedServer) spawnedServer.kill();
   }
 }
 
