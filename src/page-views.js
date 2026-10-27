@@ -148,6 +148,49 @@ function renderPricingSection(isCompact = false) {
     </div>`;
   }
   return `
+  <section id="cf-user-segments-strip" style="padding:36px 0 8px;">
+    <div class="container">
+      <div style="display:flex;justify-content:space-between;align-items:flex-end;flex-wrap:wrap;gap:12px;margin-bottom:16px;">
+        <div>
+          <span class="badge badge-cyan mono">BUILT FOR EVERY AI SEARCH TEAM</span>
+          <h2 class="serif-display" style="font-size:1.7rem;margin:6px 0 0;">How Founders, Growth VPs &amp; Product Marketers Use CitationForge</h2>
+        </div>
+        <span class="mono" style="font-size:0.84rem;color:var(--text-secondary);">ChatGPT Search &bull; Perplexity Pro &bull; Google AI Overviews</span>
+      </div>
+      <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(275px,1fr));gap:16px;">
+        <div class="panel" style="padding:18px;display:flex;flex-direction:column;gap:10px;">
+          <div style="display:flex;align-items:center;gap:12px;">
+            <img src="/public/editorial-segment-1.jpg" alt="B2B SaaS Founder reviewing AI search share-of-voice" width="60" height="60" loading="lazy" style="width:60px;height:60px;border-radius:12px;object-fit:cover;flex-shrink:0;" />
+            <div>
+              <div class="mono" style="font-size:0.76rem;font-weight:700;color:var(--accent-indigo);">SEGMENT 01 &bull; SAAS FOUNDERS &amp; CEOS</div>
+              <div style="font-size:1rem;font-weight:700;color:var(--text-primary);">Own Category AI Recommendations</div>
+            </div>
+          </div>
+          <p style="font-size:0.88rem;color:var(--text-secondary);line-height:1.52;margin:0;">See why ChatGPT Search or Perplexity recommends a competitor on high-intent buyer prompts and deploy root <span class="mono">/llms.txt</span> in 5 minutes.</p>
+        </div>
+        <div class="panel" style="padding:18px;display:flex;flex-direction:column;gap:10px;">
+          <div style="display:flex;align-items:center;gap:12px;">
+            <img src="/public/editorial-segment-2.jpg" alt="VP of Growth and Content auditing Answer-First H2 blocks" width="60" height="60" loading="lazy" style="width:60px;height:60px;border-radius:12px;object-fit:cover;flex-shrink:0;" />
+            <div>
+              <div class="mono" style="font-size:0.76rem;font-weight:700;color:var(--accent-emerald);">SEGMENT 02 &bull; GROWTH &amp; SEO LEADS</div>
+              <div style="font-size:1rem;font-weight:700;color:var(--text-primary);">Fix Bot Blocks &amp; Low Citation Share</div>
+            </div>
+          </div>
+          <p style="font-size:0.88rem;color:var(--text-secondary);line-height:1.52;margin:0;">Unblock <span class="mono">OAI-SearchBot</span> and <span class="mono">PerplexityBot</span> in <span class="mono">/robots.txt</span> and structure Answer-First summaries that win rank #1 citations.</p>
+        </div>
+        <div class="panel" style="padding:18px;display:flex;flex-direction:column;gap:10px;">
+          <div style="display:flex;align-items:center;gap:12px;">
+            <img src="/public/editorial-segment-3.jpg" alt="Product Marketing Strategist verifying JSON-LD entity graph" width="60" height="60" loading="lazy" style="width:60px;height:60px;border-radius:12px;object-fit:cover;flex-shrink:0;" />
+            <div>
+              <div class="mono" style="font-size:0.76rem;font-weight:700;color:var(--accent-cyan);">SEGMENT 03 &bull; PRODUCT MARKETING &amp; AGENCIES</div>
+              <div style="font-size:1rem;font-weight:700;color:var(--text-primary);">Ship Verified Pricing &amp; Schema Graphs</div>
+            </div>
+          </div>
+          <p style="font-size:0.88rem;color:var(--text-secondary);line-height:1.52;margin:0;">Eliminate LLM pricing hallucinations with linked <span class="mono">SoftwareApplication</span> and <span class="mono">FAQPage</span> JSON-LD backed by Wikidata <span class="mono">sameAs</span> entities.</p>
+        </div>
+      </div>
+    </div>
+  </section>
   <section id="pricing" style="padding:56px 0;">
     <div class="container">
       <div class="bezel-shell" style="max-width:860px;margin:0 auto;">
@@ -371,61 +414,32 @@ function renderExecutiveBriefSection(sectionId = 'lp-executive-brief', isHeroH1 
                 <span class="badge badge-cyan mono">2026 AI SEARCH VISIBILITY GUIDE</span>
                 <span class="badge badge-emerald mono">CMO &amp; VP MARKETING PLAYBOOK</span>
               </div>
-              <${hTag} class="hero-h1" style="font-size:2.15rem;margin-bottom:12px;">
-                Why <span class="serif-italic">AI Search Visibility (GEO)</span> Matters Now
-              </${hTag}>
-              <p class="hero-sub" style="margin-bottom:18px;font-size:1rem;">
-                64% of high-intent software and consumer buyers now shortlist vendors inside <strong>ChatGPT Search, Perplexity Pro, and Google Gemini AI Overviews</strong> before clicking a traditional search link. This brief explains the three signals that determine whether AI recommends your brand or your competitor.
-              </p>
+              <${hTag} class="hero-h1" style="font-size:2.15rem;margin-bottom:12px;">Why <span class="serif-italic">AI Search Visibility (GEO)</span> Matters Now</${hTag}>
+              <p class="hero-sub" style="margin-bottom:18px;font-size:1rem;">64% of high-intent software and consumer buyers now shortlist vendors inside <strong>ChatGPT Search, Perplexity Pro, and Google Gemini AI Overviews</strong> before clicking a traditional search link. This brief explains the three signals that determine whether AI recommends your brand or your competitor.</p>
               <div style="display:grid;gap:12px;margin-bottom:20px;">
-                <div style="padding:14px 16px;border-radius:10px;background:var(--bg-canvas);border:1px solid var(--border-hairline);">
-                  <strong style="color:var(--text-primary);font-size:0.95rem;">1. AI Crawler Permissions (<span class="mono">/robots.txt</span>):</strong>
-                  <span style="color:var(--text-secondary);font-size:0.9rem;"> Explicitly allow <span class="mono">OAI-SearchBot</span>, <span class="mono">PerplexityBot</span>, <span class="mono">ClaudeBot</span>, and <span class="mono">Google-Extended</span> while protecting private routes.</span>
-                </div>
-                <div style="padding:14px 16px;border-radius:10px;background:var(--bg-canvas);border:1px solid var(--border-hairline);">
-                  <strong style="color:var(--text-primary);font-size:0.95rem;">2. Clean AI Site Guides (<span class="mono">/llms.txt</span> &amp; <span class="mono">/llms-full.txt</span>):</strong>
-                  <span style="color:var(--text-secondary);font-size:0.9rem;"> Provide clean Markdown guides so AI search engines read your exact pricing and product strengths without HTML clutter.</span>
-                </div>
-                <div style="padding:14px 16px;border-radius:10px;background:var(--bg-canvas);border:1px solid var(--border-hairline);">
-                  <strong style="color:var(--text-primary);font-size:0.95rem;">3. Verified Product Facts (<span class="mono">JSON-LD</span> Schema):</strong>
-                  <span style="color:var(--text-secondary);font-size:0.9rem;"> Anchor your Organization, Product, and FAQ facts so AI assistants never hallucinate outdated pricing.</span>
-                </div>
+                <div style="padding:14px 16px;border-radius:10px;background:var(--bg-canvas);"><strong style="color:var(--text-primary);font-size:0.95rem;">1. AI Crawler Permissions (<span class="mono">/robots.txt</span>):</strong><span style="color:var(--text-secondary);font-size:0.9rem;"> Explicitly allow <span class="mono">OAI-SearchBot</span>, <span class="mono">PerplexityBot</span>, <span class="mono">ClaudeBot</span>, and <span class="mono">Google-Extended</span> while protecting private routes.</span></div>
+                <div style="padding:14px 16px;border-radius:10px;background:var(--bg-canvas);"><strong style="color:var(--text-primary);font-size:0.95rem;">2. Clean AI Site Guides (<span class="mono">/llms.txt</span> &amp; <span class="mono">/llms-full.txt</span>):</strong><span style="color:var(--text-secondary);font-size:0.9rem;"> Provide clean Markdown guides so AI search engines read your exact pricing and product strengths without HTML clutter.</span></div>
+                <div style="padding:14px 16px;border-radius:10px;background:var(--bg-canvas);"><strong style="color:var(--text-primary);font-size:0.95rem;">3. Verified Product Facts (<span class="mono">JSON-LD</span> Schema):</strong><span style="color:var(--text-secondary);font-size:0.9rem;"> Anchor your Organization, Product, and FAQ facts so AI assistants never hallucinate outdated pricing.</span></div>
               </div>
             </div>
             <div style="display:flex;gap:12px;flex-wrap:wrap;align-items:center;margin-top:auto;">
-              <a href="#grader" class="btn btn-primary" style="padding:11px 18px;">
-                <span>Run Live 10-Second Domain Check</span>
-                <span class="btn-arrow-pill" aria-hidden="true">&uarr;</span>
-              </a>
+              <a href="#grader" class="btn btn-primary" style="padding:11px 18px;"><span>Run Live 10-Second Domain Check</span><span class="btn-arrow-pill" aria-hidden="true">&uarr;</span></a>
               <a href="/leaderboard" class="btn btn-secondary mono" style="padding:11px 16px;">Explore Live Industry Leaderboard &rarr;</a>
             </div>
           </div>
-
           <div class="bezel-shell" style="display:flex;flex-direction:column;height:100%;">
             <div class="panel-elevated" style="padding:26px;display:flex;flex-direction:column;justify-content:space-between;height:100%;">
               <div>
-                <div class="mono" style="font-size:0.8125rem;font-weight:700;color:var(--accent-indigo);letter-spacing:0.05em;margin-bottom:6px;">PLAIN-ENGLISH FIELD GUIDE &amp; SCORING MODEL</div>
+                <div class="mono" style="font-size:0.85rem;font-weight:700;color:var(--accent-indigo);margin-bottom:6px;">Plain-English Field Guide &amp; Scoring Model</div>
                 <h3 class="serif-display" style="font-size:1.5rem;margin-bottom:14px;">Key Concepts for Your Marketing &amp; Engineering Teams</h3>
                 <div style="display:grid;gap:12px;">
-                  <div style="padding:14px 16px;border-radius:10px;background:var(--bg-subtle);border:1px solid var(--border-hairline);">
-                    <div style="font-weight:700;font-size:0.95rem;color:var(--text-primary);margin-bottom:4px;">AI Search Optimization (GEO)</div>
-                    <p style="font-size:0.88rem;color:var(--text-secondary);margin:0;">Preparing your website's <span class="mono">/llms.txt</span> guide and Schema markup so ChatGPT, Perplexity, and Gemini recommend your business when buyers ask commercial questions.</p>
-                  </div>
-                  <div style="padding:14px 16px;border-radius:10px;background:var(--bg-subtle);border:1px solid var(--border-hairline);">
-                    <div style="font-weight:700;font-size:0.95rem;color:var(--text-primary);margin-bottom:4px;">AI Recommendation Share (cSoV %)</div>
-                    <p style="font-size:0.88rem;color:var(--text-secondary);margin:0;">The percentage of buyer questions where your brand is recommended across ChatGPT Search, Perplexity, and Gemini compared to your top 5 competitors.</p>
-                  </div>
-                  <div style="padding:14px 16px;border-radius:10px;background:var(--bg-subtle);border:1px solid var(--border-hairline);">
-                    <div style="font-weight:700;font-size:0.95rem;color:var(--text-primary);margin-bottom:4px;">Why Rank #1 Matters Most (<span class="mono">w_r = 1 / log2(r + 1)</span>)</div>
-                    <p style="font-size:0.88rem;color:var(--text-secondary);margin:0;">Being recommended #1 in an AI answer drives far more clicks than #5. Our score weights <strong>Rank #1 at 100%</strong>, <strong>Rank #2 at 63.1%</strong>, and <strong>Rank #3 at 50.0%</strong>.</p>
-                  </div>
+                  <div style="padding:14px 16px;border-radius:10px;background:var(--bg-subtle);"><div style="font-weight:700;font-size:0.95rem;color:var(--text-primary);margin-bottom:4px;">AI Search Optimization (GEO)</div><p style="font-size:0.88rem;color:var(--text-secondary);margin:0;">Preparing your website's <span class="mono">/llms.txt</span> guide and Schema markup so ChatGPT, Perplexity, and Gemini recommend your business when buyers ask commercial questions.</p></div>
+                  <div style="padding:14px 16px;border-radius:10px;background:var(--bg-subtle);"><div style="font-weight:700;font-size:0.95rem;color:var(--text-primary);margin-bottom:4px;">AI Recommendation Share (cSoV %)</div><p style="font-size:0.88rem;color:var(--text-secondary);margin:0;">The percentage of buyer questions where your brand is recommended across ChatGPT Search, Perplexity, and Gemini compared to your top 5 competitors.</p></div>
+                  <div style="padding:14px 16px;border-radius:10px;background:var(--bg-subtle);"><div style="font-weight:700;font-size:0.95rem;color:var(--text-primary);margin-bottom:4px;">Why Rank #1 Matters Most (<span class="mono">w_r = 1 / log2(r + 1)</span>)</div><p style="font-size:0.88rem;color:var(--text-secondary);margin:0;">Being recommended #1 in an AI answer drives far more clicks than #5. Our score weights <strong>Rank #1 at 100%</strong>, <strong>Rank #2 at 63.1%</strong>, and <strong>Rank #3 at 50.0%</strong>.</p></div>
                 </div>
               </div>
-              <div style="margin-top:16px;padding:14px 16px;border-radius:10px;background:var(--accent-indigo-soft);border:1px solid #C7D2FE;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:10px;">
-                <div>
-                  <div class="mono" style="font-size:0.8125rem;font-weight:700;color:var(--accent-indigo);">VERIFIED 21-DAY IMPACT</div>
-                  <div style="font-size:0.9rem;color:var(--text-primary);font-weight:600;">Avg. +18.4% AI Recommendation Lift after publishing <span class="mono">/llms.txt</span></div>
-                </div>
+              <div style="margin-top:16px;padding:14px 16px;border-radius:10px;background:var(--accent-indigo-soft);display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:10px;">
+                <div><div class="mono" style="font-size:0.85rem;font-weight:700;color:var(--accent-indigo);">Verified 21-Day Impact</div><div style="font-size:0.9rem;color:var(--text-primary);font-weight:600;">Avg. +18.4% AI Recommendation Lift after publishing <span class="mono">/llms.txt</span></div></div>
                 <a href="/buy/flash_pass" rel="nofollow" onclick="if(window.__ebQuickBuy){window.__ebQuickBuy('flash_pass');return false;}" class="btn btn-primary" style="padding:9px 14px;font-size:0.85rem;">Unlock 3-File Pack ($1.99 Stripe Express) &rarr;</a>
               </div>
             </div>
@@ -439,63 +453,31 @@ function renderHomePage(initialAudit, sampleSeoPages) {
   const leaderboardLinks = sampleSeoPages.filter(p => p.page_type === 'leaderboard').slice(0, 10);
   const comparisonLinks = sampleSeoPages.filter(p => p.page_type === 'comparison').slice(0, 10);
   const guideLinks = sampleSeoPages.filter(p => p.page_type === 'guide').slice(0, 10);
+  const renderSeoCardList = (items) => items.map(p => `<a href="/seo/${escapeHtml(p.slug)}" class="panel" style="padding:16px 18px;display:block;transition:border-color 150ms ease-out, transform 150ms ease-out;"><div style="display:flex;justify-content:space-between;align-items:center;gap:8px;margin-bottom:6px;"><span class="badge badge-cyan mono">${escapeHtml(p.category)}</span><span class="mono" style="font-size:0.84rem;color:var(--accent-emerald);font-weight:700;">${p.csov_score}% Score</span></div><div style="font-weight:700;font-size:0.94rem;color:var(--text-primary);">${escapeHtml(p.title)}</div></a>`).join('');
 
-  const renderSeoCardList = (items) => items.map(p => `
-    <a href="/seo/${escapeHtml(p.slug)}" class="panel" style="padding:16px 18px;display:block;transition:border-color 150ms ease-out, transform 150ms ease-out;">
-      <div style="display:flex;justify-content:space-between;align-items:center;gap:8px;margin-bottom:6px;">
-        <span class="badge badge-cyan mono">${escapeHtml(p.category)}</span>
-        <span class="mono" style="font-size:0.84rem;color:var(--accent-emerald);font-weight:700;">${p.csov_score}% Score</span>
-      </div>
-      <div style="font-weight:700;font-size:0.94rem;color:var(--text-primary);">${escapeHtml(p.title)}</div>
-    </a>
-  `).join('');
-
-  return `${renderHead({
-    title: 'CitationForge: Executive Brief & AI Search Visibility Checker (/llms.txt Generator)',
-    description: 'Check how often ChatGPT Search, Perplexity, and Gemini recommend your website across 25 buyer questions. Generate ready-to-use /llms.txt and Schema files in 10 seconds.',
-    canonicalPath: '/',
-    ogSlug: 'home',
-    jsonLdString: null
-  })}
+  return `${renderHead({ title: 'CitationForge: Executive Brief & AI Search Visibility Checker (/llms.txt Generator)', description: 'Check how often ChatGPT Search, Perplexity, and Gemini recommend your website across 25 buyer questions. Generate ready-to-use /llms.txt and Schema files in 10 seconds.', canonicalPath: '/', ogSlug: 'home', jsonLdString: null })}
 <body>
   ${renderNavbar('/')}
   <main id="main-content">
     ${renderHeroGraderBox(initialAudit, false)}
     ${renderTrustStripAndTestimonials()}
     ${renderGraderAndCompilerSection(initialAudit)}
-
-    <!-- Industry AI Search Reports & Comparisons -->
     <section style="padding:60px 0;">
       <div class="container">
         <div style="display:flex;justify-content:space-between;align-items:flex-end;margin-bottom:28px;flex-wrap:wrap;gap:12px;">
           <div>
-            <h2 class="serif-display" style="font-size:1.85rem;margin-bottom:6px;">
-              Industry AI Search Reports (60+ Benchmarks)
-            </h2>
-            <p style="color:var(--text-secondary);font-size:0.98rem;">
-              Explore industry AI recommendation leaderboards, head-to-head brand comparisons, and step-by-step <span class="mono">/llms.txt</span> setup guides.
-            </p>
+            <h2 class="serif-display" style="font-size:1.85rem;margin-bottom:6px;">Industry AI Search Reports (60+ Benchmarks)</h2>
+            <p style="color:var(--text-secondary);font-size:0.98rem;">Explore industry AI recommendation leaderboards, head-to-head brand comparisons, and step-by-step <span class="mono">/llms.txt</span> setup guides.</p>
           </div>
           <a href="/directory" class="btn btn-secondary">Browse All 60+ Reports &rarr;</a>
         </div>
-
         <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(320px,1fr));gap:22px;">
-          <div>
-            <h3 style="font-size:1rem;font-weight:700;margin-bottom:12px;color:var(--accent-indigo);">Industry AI Recommendation Leaderboards</h3>
-            <div style="display:grid;gap:10px;">${renderSeoCardList(leaderboardLinks)}</div>
-          </div>
-          <div>
-            <h3 style="font-size:1rem;font-weight:700;margin-bottom:12px;color:var(--accent-emerald);">Head-to-Head Brand Comparisons</h3>
-            <div style="display:grid;gap:10px;">${renderSeoCardList(comparisonLinks)}</div>
-          </div>
-          <div>
-            <h3 style="font-size:1rem;font-weight:700;margin-bottom:12px;color:var(--text-primary);">AI Site Guide (/llms.txt) Playbooks</h3>
-            <div style="display:grid;gap:10px;">${renderSeoCardList(guideLinks)}</div>
-          </div>
+          <div><h3 style="font-size:1rem;font-weight:700;margin-bottom:12px;color:var(--accent-indigo);">Industry AI Recommendation Leaderboards</h3><div style="display:grid;gap:10px;">${renderSeoCardList(leaderboardLinks)}</div></div>
+          <div><h3 style="font-size:1rem;font-weight:700;margin-bottom:12px;color:var(--accent-emerald);">Head-to-Head Brand Comparisons</h3><div style="display:grid;gap:10px;">${renderSeoCardList(comparisonLinks)}</div></div>
+          <div><h3 style="font-size:1rem;font-weight:700;margin-bottom:12px;color:var(--text-primary);">AI Site Guide (/llms.txt) Playbooks</h3><div style="display:grid;gap:10px;">${renderSeoCardList(guideLinks)}</div></div>
         </div>
       </div>
     </section>
-
     ${renderPricingSection(true)}
   </main>
   ${renderFooter()}
@@ -504,58 +486,22 @@ function renderHomePage(initialAudit, sampleSeoPages) {
 </html>`;
 }
 
-/**
- * `/lp` Executive Brief & Boardroom Methodology Page
- */
 function renderLandingPage(initialAudit) {
-  return `${renderHead({
-    title: 'Executive Brief: 2026 Generative Engine Optimization (GEO) & AI Search Methodology | CitationForge',
-    description: 'Executive Brief for Marketing VPs, CMOs, and SEO Directors: How Generative Engine Optimization (GEO), position-weighted Citation Share-of-Voice (cSoV), and /llms.txt drive AI answer-engine recommendations.',
-    canonicalPath: '/lp',
-    ogSlug: 'lp-xray',
-    jsonLdString: null
-  })}
+  return `${renderHead({ title: 'Executive Brief: 2026 Generative Engine Optimization (GEO) & AI Search Methodology | CitationForge', description: 'Executive Brief for Marketing VPs, CMOs, and SEO Directors: How Generative Engine Optimization (GEO), position-weighted Citation Share-of-Voice (cSoV), and /llms.txt drive AI answer-engine recommendations.', canonicalPath: '/lp', ogSlug: 'lp-xray', jsonLdString: null })}
 <body>
   ${renderNavbar('/lp')}
   <main id="main-content">
     ${renderExecutiveBriefSection('executive-brief-hero', true)}
-
-    <!-- Verified Marketing & SEO Leadership Social Proof + 30-Day Guarantee -->
     <section style="padding:44px 0;border-bottom:1px solid var(--border-hairline);background:var(--bg-surface);">
       <div class="container">
-        <h2 class="serif-display" style="font-size:1.85rem;margin-bottom:22px;">
-          Why Marketing VPs &amp; SEO Directors Standardize on <span class="serif-italic">CitationForge</span>
-        </h2>
+        <h2 class="serif-display" style="font-size:1.85rem;margin-bottom:22px;">Why Marketing VPs &amp; SEO Directors Standardize on <span class="serif-italic">CitationForge</span></h2>
         <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(290px,1fr));gap:20px;align-items:stretch;">
-          <blockquote class="panel" style="padding:22px;background:var(--bg-canvas);display:flex;flex-direction:column;justify-content:space-between;">
-            <p style="font-size:0.92rem;color:var(--text-primary);margin-bottom:14px;">
-              &ldquo;Our robots.txt silently blocked PerplexityBot and ClaudeBot for six months. Shipping the CitationForge llms.txt patch lifted our category citation share from 14% to 38% in three weeks.&rdquo;
-            </p>
-            <footer style="font-size:0.82rem;color:var(--text-secondary);font-weight:700;">
-              Marcus Vance, VP of Growth Marketing at ChronoScale
-            </footer>
-          </blockquote>
-          <blockquote class="panel" style="padding:22px;background:var(--bg-canvas);display:flex;flex-direction:column;justify-content:space-between;">
-            <p style="font-size:0.92rem;color:var(--text-primary);margin-bottom:14px;">
-              &ldquo;ChatGPT Search kept hallucinating our legacy 2023 pricing tiers. The compiled schema-dts JSON-LD graph and llms-full.txt manifest fixed our pricing accuracy across all four engines.&rdquo;
-            </p>
-            <footer style="font-size:0.82rem;color:var(--text-secondary);font-weight:700;">
-              Elena Rostova, Director of Organic &amp; AI Search at VectorFlow
-            </footer>
-          </blockquote>
-          <blockquote class="panel" style="padding:22px;background:var(--accent-indigo-soft);border-color:#C7D2FE;display:flex;flex-direction:column;justify-content:space-between;">
-            <div>
-              <div class="badge badge-emerald mono" style="margin-bottom:10px;">30-DAY CITATION LIFT GUARANTEE</div>
-              <p style="font-size:0.9rem;color:var(--text-primary);margin-bottom:10px;">
-                Deploy your compiled <span class="mono">/llms.txt</span> and JSON-LD bundle. If your weighted Citation Share-of-Voice does not measurably improve within 30 days, receive a 100% instant refund.
-              </p>
-            </div>
-            <div style="font-size:0.8rem;font-weight:700;color:var(--accent-indigo);">Zero Lock-In · Self-Serve GitHub PR Export</div>
-          </blockquote>
+          <blockquote class="panel" style="padding:22px;background:var(--bg-canvas);display:flex;flex-direction:column;justify-content:space-between;"><p style="font-size:0.92rem;color:var(--text-primary);margin-bottom:14px;">&ldquo;Our robots.txt silently blocked PerplexityBot and ClaudeBot for six months. Shipping the CitationForge llms.txt patch lifted our category citation share from 14% to 38% in three weeks.&rdquo;</p><footer style="font-size:0.86rem;color:var(--text-secondary);font-weight:700;">Marcus Vance, VP of Growth Marketing at ChronoScale</footer></blockquote>
+          <blockquote class="panel" style="padding:22px;background:var(--bg-canvas);display:flex;flex-direction:column;justify-content:space-between;"><p style="font-size:0.92rem;color:var(--text-primary);margin-bottom:14px;">&ldquo;ChatGPT Search kept hallucinating our legacy 2023 pricing tiers. The compiled schema-dts JSON-LD graph and llms-full.txt manifest fixed our pricing accuracy across all four engines.&rdquo;</p><footer style="font-size:0.86rem;color:var(--text-secondary);font-weight:700;">Elena Rostova, Director of Organic &amp; AI Search at VectorFlow</footer></blockquote>
+          <blockquote class="panel" style="padding:22px;background:var(--accent-indigo-soft);display:flex;flex-direction:column;justify-content:space-between;"><div><div class="badge badge-emerald mono" style="margin-bottom:10px;">30-DAY CITATION LIFT GUARANTEE</div><p style="font-size:0.9rem;color:var(--text-primary);margin-bottom:10px;">Deploy your compiled <span class="mono">/llms.txt</span> and JSON-LD bundle. If your weighted Citation Share-of-Voice does not measurably improve within 30 days, receive a 100% instant refund.</p></div><div style="font-size:0.85rem;font-weight:700;color:var(--accent-indigo);">Zero Lock-In · Self-Serve GitHub PR Export</div></blockquote>
         </div>
       </div>
     </section>
-
     ${renderHeroGraderBox(initialAudit, true)}
     ${renderTrustStripAndTestimonials()}
     ${renderGraderAndCompilerSection(initialAudit)}
@@ -571,73 +517,24 @@ function renderDirectoryPage(seoPages) {
   const leaderboards = seoPages.filter(p => p.page_type === 'leaderboard');
   const comparisons = seoPages.filter(p => p.page_type === 'comparison');
   const guides = seoPages.filter(p => p.page_type === 'guide');
-
-  const renderSectionGrid = (items) => `
-    <div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(340px,1fr));gap:18px;">
-      ${items.map(p => `
-        <a href="/seo/${escapeHtml(p.slug)}" class="panel" style="padding:20px;display:flex;flex-direction:column;justify-content:space-between;gap:12px;">
-          <div>
-            <div style="display:flex;justify-content:space-between;align-items:center;gap:8px;margin-bottom:10px;">
-              <span class="badge badge-cyan mono">${escapeHtml(p.category)}</span>
-              <span class="mono" style="font-size:0.84rem;color:var(--accent-emerald);font-weight:700;">${p.csov_score}% cSoV</span>
-            </div>
-            <h3 style="font-size:1rem;font-weight:700;color:var(--text-primary);margin-bottom:6px;">${escapeHtml(p.title)}</h3>
-            <p style="font-size:0.84rem;color:var(--text-secondary);">${escapeHtml(p.meta_description)}</p>
-          </div>
-          <div class="mono" style="font-size:0.84rem;font-weight:700;color:var(--accent-indigo);">Read Full GEO Report &rarr;</div>
-        </a>
-      `).join('')}
-    </div>`;
-
+  const renderSectionGrid = (items) => `<div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(340px,1fr));gap:18px;">${items.map(p => `<a href="/seo/${escapeHtml(p.slug)}" class="panel" style="padding:20px;display:flex;flex-direction:column;justify-content:space-between;gap:12px;"><div><div style="display:flex;justify-content:space-between;align-items:center;gap:8px;margin-bottom:10px;"><span class="badge badge-cyan mono">${escapeHtml(p.category)}</span><span class="mono" style="font-size:0.84rem;color:var(--accent-emerald);font-weight:700;">${p.csov_score}% cSoV</span></div><h3 style="font-size:1rem;font-weight:700;color:var(--text-primary);margin-bottom:6px;">${escapeHtml(p.title)}</h3><p style="font-size:0.86rem;color:var(--text-secondary);">${escapeHtml(p.meta_description)}</p></div><div class="mono" style="font-size:0.84rem;font-weight:700;color:var(--accent-indigo);">Read Full GEO Report &rarr;</div></a>`).join('')}</div>`;
   const baseUrl = (process.env.PUBLIC_URL || process.env.BASE_URL || 'https://www.citationforge.io').replace(/\/$/, '');
-  const dirJsonLd = JSON.stringify({
-    '@context': 'https://schema.org',
-    '@type': 'CollectionPage',
-    name: 'CitationForge Programmatic GEO & AI Citation Directory',
-    description: `Browse ${seoPages.length} live AI Search Visibility leaderboards, head-to-head brand citation audits, and llms.txt engineering guides.`,
-    url: `${baseUrl}/directory`
-  });
+  const dirJsonLd = JSON.stringify({ '@context': 'https://schema.org', '@type': 'CollectionPage', name: 'CitationForge Programmatic GEO & AI Citation Directory', description: `Browse ${seoPages.length} live AI Search Visibility leaderboards, head-to-head brand citation audits, and llms.txt engineering guides.`, url: `${baseUrl}/directory` });
 
-  return `${renderHead({
-    title: `AI Search Visibility & GEO Directory (${seoPages.length} Benchmarks) | CitationForge`,
-    description: `Explore ${seoPages.length} programmatic GEO reports: category cSoV leaderboards, brand vs brand AI citation audits, and llms.txt implementation guides.`,
-    canonicalPath: '/directory',
-    ogSlug: 'directory',
-    jsonLdString: dirJsonLd
-  })}
+  return `${renderHead({ title: `AI Search Visibility & GEO Directory (${seoPages.length} Benchmarks) | CitationForge`, description: `Explore ${seoPages.length} programmatic GEO reports: category cSoV leaderboards, brand vs brand AI citation audits, and llms.txt implementation guides.`, canonicalPath: '/directory', ogSlug: 'directory', jsonLdString: dirJsonLd })}
 <body>
   ${renderNavbar('/directory')}
-  <main id="main-content" class="container" style="padding-top:44px;padding-bottom:32px;">
-    <div style="margin-bottom:36px;">
-      <span class="badge badge-cyan mono">PROGRAMMATIC GEO KNOWLEDGE GRAPH (${seoPages.length} INDEXED PAGES)</span>
-      <h1 class="serif-display" style="font-size:2.55rem;margin:12px 0 10px;">
-        AI Search Citation Benchmarks, Comparisons &amp; <span class="serif-italic">Technical Playbooks</span>
-      </h1>
-      <p style="color:var(--text-secondary);max-width:68ch;font-size:0.98rem;">
-        Every report below is backed by deterministic Citation Share-of-Voice (<span class="mono">w_r = 1 / log2(r + 1)</span>) telemetry across Perplexity Pro, ChatGPT Search, Gemini AI Overviews, and Claude Search.
-      </p>
+  <main id="main-content" class="container" style="padding-top:36px;padding-bottom:32px;">
+    <div style="margin-bottom:28px;">
+      <h1 class="serif-display" style="font-size:clamp(2.1rem,3.8vw,3.5rem);line-height:1.08;max-width:22ch;margin:0 0 12px;">AI Citation Directory</h1>
+      <p style="color:var(--text-secondary);max-width:68ch;font-size:0.98rem;margin-bottom:14px;">Browse ${seoPages.length} AI search visibility leaderboards, head-to-head brand comparisons, and step-by-step /llms.txt setup guides across ChatGPT Search, Perplexity, Gemini, and Claude.</p>
+      <div style="padding:12px 14px;border-radius:12px;background:var(--bg-subtle);display:flex;gap:10px;align-items:center;flex-wrap:wrap;margin-top:16px;">
+        <input id="cf-dir-search" type="search" class="grader-input" style="flex:1;min-width:220px;padding:9px 14px;" placeholder="Filter ${seoPages.length} AI search leaderboards, brand comparisons, and /llms.txt guides..." aria-label="Filter GEO directory" oninput="var q=this.value.toLowerCase();document.querySelectorAll('#main-content section a.panel').forEach(function(el){el.style.display=(!q||el.textContent.toLowerCase().indexOf(q)!==-1)?'':'none';});" />
+      </div>
     </div>
-
-    <section style="margin-bottom:48px;">
-      <h2 class="serif-display" style="font-size:1.55rem;margin-bottom:16px;padding-bottom:10px;border-bottom:1px solid var(--border-hairline);">
-        1. Category AI Search Visibility Leaderboards (${leaderboards.length})
-      </h2>
-      ${renderSectionGrid(leaderboards)}
-    </section>
-
-    <section style="margin-bottom:48px;">
-      <h2 class="serif-display" style="font-size:1.55rem;margin-bottom:16px;padding-bottom:10px;border-bottom:1px solid var(--border-hairline);">
-        2. Head-to-Head Brand Citation Comparisons (${comparisons.length})
-      </h2>
-      ${renderSectionGrid(comparisons)}
-    </section>
-
-    <section style="margin-bottom:48px;">
-      <h2 class="serif-display" style="font-size:1.55rem;margin-bottom:16px;padding-bottom:10px;border-bottom:1px solid var(--border-hairline);">
-        3. Technical GEO &amp; /llms.txt Engineering Guides (${guides.length})
-      </h2>
-      ${renderSectionGrid(guides)}
-    </section>
+    <section style="margin-bottom:48px;"><div style="display:flex;align-items:center;gap:10px;margin-bottom:16px;"><img src="/public/editorial-segment-1.jpg" alt="" width="34" height="34" loading="lazy" style="width:34px;height:34px;border-radius:8px;object-fit:cover;" /><h2 class="serif-display" style="font-size:1.55rem;margin:0;">1. Category AI Search Visibility Leaderboards (${leaderboards.length})</h2></div>${renderSectionGrid(leaderboards)}</section>
+    <section style="margin-bottom:48px;"><div style="display:flex;align-items:center;gap:10px;margin-bottom:16px;"><img src="/public/editorial-segment-2.jpg" alt="" width="34" height="34" loading="lazy" style="width:34px;height:34px;border-radius:8px;object-fit:cover;" /><h2 class="serif-display" style="font-size:1.55rem;margin:0;">2. Head-to-Head Brand Citation Comparisons (${comparisons.length})</h2></div>${renderSectionGrid(comparisons)}</section>
+    <section style="margin-bottom:48px;"><div style="display:flex;align-items:center;gap:10px;margin-bottom:16px;"><img src="/public/editorial-segment-3.jpg" alt="" width="34" height="34" loading="lazy" style="width:34px;height:34px;border-radius:8px;object-fit:cover;" /><h2 class="serif-display" style="font-size:1.55rem;margin:0;">3. Technical GEO &amp; /llms.txt Engineering Guides (${guides.length})</h2></div>${renderSectionGrid(guides)}</section>
   </main>
   ${renderFooter()}
 </body>
@@ -650,142 +547,74 @@ function renderSeoDetailPage(pageRow, relatedPages) {
   let bodyContent = '';
 
   if (payload.type === 'leaderboard') {
-    const rowsHtml = (payload.leaders || []).map(l => `
-      <tr>
-        <td class="mono">#${l.rank}</td>
-        <td style="font-weight:700;color:var(--text-primary);">${escapeHtml(l.brand)}</td>
-        <td class="mono" style="color:var(--text-secondary);">${escapeHtml(l.domain)}</td>
-        <td class="mono" style="color:var(--accent-emerald);font-weight:700;">${l.csov}%</td>
-        <td class="mono">${escapeHtml(l.llmsTxt)}</td>
-        <td class="mono">${l.schemaScore}/100</td>
-      </tr>
-    `).join('');
-
+    const rowsHtml = (payload.leaders || []).map(l => `<tr><td class="mono">#${l.rank}</td><td style="font-weight:700;color:var(--text-primary);">${escapeHtml(l.brand)}</td><td class="mono" style="color:var(--text-secondary);">${escapeHtml(l.domain)}</td><td class="mono" style="color:var(--accent-emerald);font-weight:700;">${l.csov}%</td><td class="mono">${escapeHtml(l.llmsTxt)}</td><td class="mono">${l.schemaScore}/100</td></tr>`).join('');
     bodyContent = `
       <div class="panel" style="padding:26px;margin-bottom:28px;">
-        <h2 class="serif-display" style="font-size:1.45rem;margin-bottom:10px;">Google AI Overviews Citation Score &amp; Category cSoV Leaderboard (${escapeHtml(pageRow.category)})</h2>
+        <h2 class="serif-display" style="font-size:1.45rem;margin-bottom:10px;">Category cSoV Leaderboard (${escapeHtml(pageRow.category)})</h2>
         <p style="color:var(--text-secondary);margin-bottom:20px;">${escapeHtml(payload.summary)}</p>
-        <div style="overflow-x:auto;border:1px solid var(--border-hairline);border-radius:10px;">
+        <div style="overflow-x:auto;border-radius:10px;background:var(--bg-subtle);">
           <table class="data-table">
-            <thead>
-              <tr>
-                <th>Rank</th>
-                <th>Brand</th>
-                <th>Domain</th>
-                <th>Weighted cSoV</th>
-                <th>/llms.txt Status</th>
-                <th>JSON-LD Score</th>
-              </tr>
-            </thead>
+            <thead><tr><th>Rank</th><th>Brand</th><th>Domain</th><th>Weighted cSoV</th><th>/llms.txt Status</th><th>JSON-LD Score</th></tr></thead>
             <tbody>${rowsHtml}</tbody>
           </table>
         </div>
       </div>
-      <div class="panel" style="padding:22px;margin-bottom:28px;background:var(--accent-indigo-soft);border-color:#C7D2FE;">
+      <div class="panel" style="padding:22px;margin-bottom:28px;background:var(--accent-indigo-soft);">
         <div style="font-weight:700;color:var(--accent-indigo);margin-bottom:6px;">How to Rank in ChatGPT Search &amp; Perplexity SEO Checklist Takeaway</div>
         <p style="color:var(--text-primary);font-size:0.92rem;">${escapeHtml(payload.keyTakeaway)}</p>
       </div>`;
   } else if (payload.type === 'comparison') {
     const { brandA, brandB, samplePrompts } = payload;
-    const promptHtml = (samplePrompts || []).map(sp => `
-      <tr>
-        <td style="font-weight:500;">${escapeHtml(sp.prompt)}</td>
-        <td class="mono">#${sp.rankA}</td>
-        <td class="mono">#${sp.rankB}</td>
-        <td><span class="badge badge-emerald mono">${escapeHtml(sp.winner)}</span></td>
-      </tr>
-    `).join('');
-
+    const promptHtml = (samplePrompts || []).map(sp => `<tr><td style="font-weight:500;">${escapeHtml(sp.prompt)}</td><td class="mono">#${sp.rankA}</td><td class="mono">#${sp.rankB}</td><td><span class="badge badge-emerald mono">${escapeHtml(sp.winner)}</span></td></tr>`).join('');
     bodyContent = `
       <div class="panel" style="padding:26px;margin-bottom:28px;">
-        <h2 class="serif-display" style="font-size:1.45rem;margin-bottom:10px;">Head-to-Head Citation Synthesis &amp; Google AI Overviews Citation Score: ${escapeHtml(brandA.name)} vs ${escapeHtml(brandB.name)}</h2>
+        <h2 class="serif-display" style="font-size:1.45rem;margin-bottom:10px;">Citation Synthesis: ${escapeHtml(brandA.name)} vs ${escapeHtml(brandB.name)}</h2>
         <p style="color:var(--text-secondary);margin-bottom:22px;">${escapeHtml(payload.summary)}</p>
         <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:18px;margin-bottom:24px;">
-          <div class="panel" style="padding:20px;background:var(--accent-emerald-soft);border-color:#A7F3D0;">
+          <div class="panel" style="padding:20px;background:var(--accent-emerald-soft);">
             <div class="badge badge-emerald mono" style="margin-bottom:8px;">CATEGORY LEADER</div>
             <div class="serif-display" style="font-size:1.4rem;font-weight:600;">${escapeHtml(brandA.name)} (${escapeHtml(brandA.domain)})</div>
             <div class="mono" style="font-size:1.95rem;color:var(--accent-emerald);font-weight:800;margin:8px 0;">${brandA.csov}% cSoV</div>
-            <div style="font-size:0.83rem;color:var(--text-secondary);">Google AI Overviews Citation Score: ${brandA.geoScore}/100 · /llms.txt: ${escapeHtml(brandA.llmsTxt)}</div>
+            <div style="font-size:0.86rem;color:var(--text-secondary);">Google AI Overviews Citation Score: ${brandA.geoScore}/100 · /llms.txt: ${escapeHtml(brandA.llmsTxt)}</div>
           </div>
           <div class="panel" style="padding:20px;background:var(--bg-canvas);">
             <div class="badge badge-cyan mono" style="margin-bottom:8px;">CHALLENGER</div>
             <div class="serif-display" style="font-size:1.4rem;font-weight:600;">${escapeHtml(brandB.name)} (${escapeHtml(brandB.domain)})</div>
             <div class="mono" style="font-size:1.95rem;color:var(--accent-indigo);font-weight:800;margin:8px 0;">${brandB.csov}% cSoV</div>
-            <div style="font-size:0.83rem;color:var(--text-secondary);">Google AI Overviews Citation Score: ${brandB.geoScore}/100 · /llms.txt: ${escapeHtml(brandB.llmsTxt)}</div>
+            <div style="font-size:0.86rem;color:var(--text-secondary);">Google AI Overviews Citation Score: ${brandB.geoScore}/100 · /llms.txt: ${escapeHtml(brandB.llmsTxt)}</div>
           </div>
         </div>
-        <h3 style="font-size:1rem;font-weight:700;margin-bottom:10px;">Buyer Prompt Rank Breakdown (How to Rank in ChatGPT Search &amp; Perplexity Pro)</h3>
-        <div style="overflow-x:auto;border:1px solid var(--border-hairline);border-radius:10px;">
+        <h3 style="font-size:1rem;font-weight:700;margin-bottom:10px;">Buyer Prompt Rank Breakdown</h3>
+        <div style="overflow-x:auto;border-radius:10px;background:var(--bg-subtle);">
           <table class="data-table">
-            <thead>
-              <tr>
-                <th>Buyer Prompt</th>
-                <th>${escapeHtml(brandA.name)} Rank</th>
-                <th>${escapeHtml(brandB.name)} Rank</th>
-                <th>Primary Citation Winner</th>
-              </tr>
-            </thead>
+            <thead><tr><th>Buyer Prompt</th><th>${escapeHtml(brandA.name)} Rank</th><th>${escapeHtml(brandB.name)} Rank</th><th>Primary Citation Winner</th></tr></thead>
             <tbody>${promptHtml}</tbody>
           </table>
         </div>
       </div>`;
   } else {
-    const checklistHtml = (payload.checklist || []).map(item => `<li style="margin-bottom:8px;">&#10003; ${escapeHtml(item)}</li>`).join('');
+    const checklistHtml = (payload.checklist || []).map((item, idx) => `<li style="margin-bottom:8px;"><strong style="color:var(--accent-emerald);margin-right:6px;">${idx + 1}.</strong>${escapeHtml(item)}</li>`).join('');
     bodyContent = `
       <div class="panel" style="padding:26px;margin-bottom:28px;">
-        <h2 class="serif-display" style="font-size:1.45rem;margin-bottom:10px;">${escapeHtml(payload.subtitle)}: How to Rank in ChatGPT Search &amp; Perplexity SEO Checklist</h2>
+        <h2 class="serif-display" style="font-size:1.45rem;margin-bottom:10px;">${escapeHtml(payload.subtitle)}</h2>
         <p style="color:var(--text-secondary);margin-bottom:20px;">${escapeHtml(payload.summary)}</p>
-        <h3 style="font-size:1rem;font-weight:700;margin-bottom:10px;">Perplexity SEO Checklist &amp; llms.txt Generator Implementation Steps</h3>
+        <h3 style="font-size:1rem;font-weight:700;margin-bottom:10px;">Perplexity SEO Checklist &amp; llms.txt Implementation Steps</h3>
         <ul style="list-style:none;font-size:0.9rem;color:var(--text-primary);margin-bottom:24px;">${checklistHtml}</ul>
-        <h3 style="font-size:1rem;font-weight:700;margin-bottom:10px;">AI Answer Engine Crawler Matrix &amp; Google AI Overviews Citation Score Weights</h3>
-        <div style="overflow-x:auto;border:1px solid var(--border-hairline);border-radius:10px;margin-bottom:24px;">
+        <h3 style="font-size:1rem;font-weight:700;margin-bottom:10px;">AI Answer Engine Crawler Matrix</h3>
+        <div style="overflow-x:auto;border-radius:10px;margin-bottom:24px;background:var(--bg-subtle);">
           <table class="data-table">
-            <thead>
-              <tr>
-                <th>AI Answer Crawler</th>
-                <th>Citation Weighting Formula</th>
-                <th>/llms.txt Ingestion Behavior</th>
-                <th>Target Token-to-HTML Ratio</th>
-              </tr>
-            </thead>
+            <thead><tr><th>AI Answer Crawler</th><th>Citation Weighting Formula</th><th>/llms.txt Ingestion Behavior</th><th>Target Token-to-HTML Ratio</th></tr></thead>
             <tbody>
-              <tr>
-                <td class="mono" style="font-weight:700;color:var(--accent-indigo);">OAI-SearchBot</td>
-                <td class="mono">w_r = 1 / log2(r + 1) · Bing + Direct RAG</td>
-                <td>Fetches root <span class="mono">/llms.txt</span> &amp; Answer-First H2 summaries on 24h delta crawl</td>
-                <td class="mono">&gt;= 28% (&lt; 120KB DOM)</td>
-              </tr>
-              <tr>
-                <td class="mono" style="font-weight:700;color:var(--accent-emerald);">PerplexityBot</td>
-                <td class="mono">w_r = 1 / log2(r + 1) · Real-Time Reranker</td>
-                <td>Primary CommonMark parser; prioritizes <span class="mono">/llms.txt</span> links &amp; fact tables</td>
-                <td class="mono">&gt;= 32% (&lt; 90KB DOM)</td>
-              </tr>
-              <tr>
-                <td class="mono" style="font-weight:700;color:var(--text-primary);">ClaudeBot</td>
-                <td class="mono">w_r = 1 / log2(r + 1) · Code &amp; Schema Weight</td>
-                <td>Ingests <span class="mono">/llms-full.txt</span> for single-fetch API &amp; pricing verification</td>
-                <td class="mono">&gt;= 30% (&lt; 100KB DOM)</td>
-              </tr>
-              <tr>
-                <td class="mono" style="font-weight:700;color:var(--accent-cyan);">Google-Extended</td>
-                <td class="mono">Google AI Overviews Citation Score (@id + sameAs)</td>
-                <td>Combines Search Grounding chunks with Organization &amp; FAQPage JSON-LD</td>
-                <td class="mono">&gt;= 25% (SSR HTML5)</td>
-              </tr>
-              <tr>
-                <td class="mono" style="font-weight:700;color:var(--accent-amber);">Applebot-Extended</td>
-                <td class="mono">Entity Graph Trust + Wikidata Q-ID Alignment</td>
-                <td>Crawls <span class="mono">/robots.txt</span> Allow rules, <span class="mono">/llms.txt</span> anchors &amp; FAQPage nodes</td>
-                <td class="mono">&gt;= 26% (Semantic DOM)</td>
-              </tr>
+              <tr><td class="mono" style="font-weight:700;color:var(--accent-indigo);">OAI-SearchBot</td><td class="mono">w_r = 1 / log2(r + 1) · Bing + Direct RAG</td><td>Fetches root <span class="mono">/llms.txt</span> &amp; Answer-First H2 summaries on 24h delta crawl</td><td class="mono">&gt;= 28% (&lt; 120KB DOM)</td></tr>
+              <tr><td class="mono" style="font-weight:700;color:var(--accent-emerald);">PerplexityBot</td><td class="mono">w_r = 1 / log2(r + 1) · Real-Time Reranker</td><td>Primary CommonMark parser; prioritizes <span class="mono">/llms.txt</span> links &amp; fact tables</td><td class="mono">&gt;= 32% (&lt; 90KB DOM)</td></tr>
+              <tr><td class="mono" style="font-weight:700;color:var(--text-primary);">ClaudeBot</td><td class="mono">w_r = 1 / log2(r + 1) · Code &amp; Schema Weight</td><td>Ingests <span class="mono">/llms-full.txt</span> for single-fetch API &amp; pricing verification</td><td class="mono">&gt;= 30% (&lt; 100KB DOM)</td></tr>
+              <tr><td class="mono" style="font-weight:700;color:var(--accent-cyan);">Google-Extended</td><td class="mono">Google AI Overviews Citation Score (@id + sameAs)</td><td>Combines Search Grounding chunks with Organization &amp; FAQPage JSON-LD</td><td class="mono">&gt;= 25% (SSR HTML5)</td></tr>
+              <tr><td class="mono" style="font-weight:700;color:var(--accent-amber);">Applebot-Extended</td><td class="mono">Entity Graph Trust + Wikidata Q-ID Alignment</td><td>Crawls <span class="mono">/robots.txt</span> Allow rules, <span class="mono">/llms.txt</span> anchors &amp; FAQPage nodes</td><td class="mono">&gt;= 26% (Semantic DOM)</td></tr>
             </tbody>
           </table>
         </div>
         <h3 style="font-size:1rem;font-weight:700;margin-bottom:10px;">llms.txt Generator Reference Specification Snippet</h3>
-        <div class="artifact-dock">
-          <pre class="code-viewport mono">${escapeHtml(payload.codeExample || '')}</pre>
-        </div>
+        <div class="artifact-dock"><pre class="code-viewport mono">${escapeHtml(payload.codeExample || '')}</pre></div>
       </div>`;
   }
 
@@ -794,13 +623,18 @@ function renderSeoDetailPage(pageRow, relatedPages) {
     { question: `How to Rank in ChatGPT Search and complete the Perplexity SEO Checklist for ${pageRow.category}?`, answer: `Allow OAI-SearchBot, PerplexityBot, ClaudeBot, Google-Extended, and Applebot-Extended in /robots.txt, structure 45-word Answer-First summaries right below H1/H2 headings, and maintain a >= 28% token-to-HTML ratio.` },
     { question: `How does an llms.txt Generator improve ${pageRow.primary_entity} AI citation authority?`, answer: `An automated llms.txt Generator compiles your documentation and pricing into root /llms.txt and /llms-full.txt manifests while linking Organization, SoftwareApplication, and FAQPage JSON-LD with Wikidata sameAs URIs—lifting rank #1 citations by 2.4x.` }
   ];
-  const faqHtml = faqs.map(f => `<div style="padding:16px 18px;background:var(--bg-canvas);border:1px solid var(--border-hairline);border-radius:10px;"><h3 style="font-size:0.96rem;font-weight:700;color:var(--text-primary);margin-bottom:6px;">${escapeHtml(f.question)}</h3><p style="font-size:0.88rem;color:var(--text-secondary);line-height:1.6;">${escapeHtml(f.answer)}</p></div>`).join('');
+  const faqHtml = faqs.map(f => `<div style="padding:16px 18px;background:var(--bg-canvas);border-radius:10px;"><h3 style="font-size:0.96rem;font-weight:700;color:var(--text-primary);margin-bottom:6px;">${escapeHtml(f.question)}</h3><p style="font-size:0.88rem;color:var(--text-secondary);line-height:1.6;">${escapeHtml(f.answer)}</p></div>`).join('');
   const relatedHtml = relatedPages.map(rp => `<a href="/seo/${escapeHtml(rp.slug)}" class="panel" style="padding:16px;display:block;"><div class="badge badge-cyan mono" style="margin-bottom:6px;">${escapeHtml(rp.category)}</div><div style="font-weight:700;font-size:0.88rem;color:var(--text-primary);">${escapeHtml(rp.title)}</div></a>`).join('');
   const pageJsonLd = JSON.stringify({
     '@context': 'https://schema.org',
     '@graph': [
       { '@type': 'TechArticle', headline: pageRow.title, description: pageRow.meta_description, datePublished: '2026-10-14', dateModified: pageRow.updated_at || '2026-10-16', author: { '@type': 'Organization', name: 'CitationForge GEO Research' }, mainEntityOfPage: `${baseUrl}/seo/${pageRow.slug}` },
-      { '@type': 'FAQPage', mainEntity: faqs.map(f => ({ '@type': 'Question', name: f.question, acceptedAnswer: { '@type': 'Answer', text: f.answer } })) }
+      { '@type': 'FAQPage', mainEntity: faqs.map(f => ({ '@type': 'Question', name: f.question, acceptedAnswer: { '@type': 'Answer', text: f.answer } })) },
+      { '@type': 'BreadcrumbList', itemListElement: [
+        { '@type': 'ListItem', position: 1, name: 'Home', item: `${baseUrl}/` },
+        { '@type': 'ListItem', position: 2, name: 'GEO Directory', item: `${baseUrl}/directory` },
+        { '@type': 'ListItem', position: 3, name: pageRow.title, item: `${baseUrl}/seo/${pageRow.slug}` }
+      ] }
     ]
   });
 
@@ -808,36 +642,39 @@ function renderSeoDetailPage(pageRow, relatedPages) {
 <body>
   ${renderNavbar('/seo/' + pageRow.slug)}
   <main id="main-content" class="container" style="padding-top:36px;padding-bottom:32px;">
-    <nav aria-label="Breadcrumb" class="mono" style="font-size:0.84rem;color:var(--text-secondary);margin-bottom:16px;">
+    <nav aria-label="Breadcrumb" class="mono" style="font-size:0.86rem;color:var(--text-secondary);margin-bottom:16px;">
       <a href="/" style="color:var(--accent-indigo);">Home</a> &nbsp;/&nbsp; <a href="/directory" style="color:var(--accent-indigo);">GEO Directory</a> &nbsp;/&nbsp; <span>${escapeHtml(pageRow.slug)}</span>
     </nav>
     <div style="margin-bottom:26px;">
-      <span class="badge badge-cyan mono">${escapeHtml(pageRow.category)} · VERIFIED GEO BENCHMARK</span>
-      <h1 class="serif-display" style="font-size:2.3rem;margin:10px 0;">${escapeHtml(pageRow.title)}</h1>
-      <div class="pseo-lead panel" style="padding:18px 22px;margin-top:14px;background:var(--accent-indigo-soft);border-left:4px solid var(--accent-indigo);border-radius:10px;">
-        <div class="mono" style="font-size:0.8125rem;font-weight:700;color:var(--accent-indigo);letter-spacing:0.04em;margin-bottom:6px;">ANSWER-FIRST EXECUTIVE SUMMARY · GOOGLE AI OVERVIEWS CITATION SCORE &amp; RAG SNAPSHOT</div>
-        <p style="color:var(--text-primary);font-size:0.95rem;line-height:1.65;">${escapeHtml(payload.summary || pageRow.meta_description)}</p>
+      <h1 class="serif-display" style="font-size:clamp(1.65rem, 3.2vw, 2.75rem);line-height:1.12;max-width:28ch;margin:0 0 12px;">${escapeHtml(String(pageRow.title || '').replace(/\s*\(.*?\)/g, '').split(/[:—–|]/)[0].trim().split(/\s+/).slice(0, 5).join(' '))}</h1>
+      <span class="badge badge-cyan mono">${escapeHtml(pageRow.category)} · Verified GEO Benchmark</span>
+      <div class="pseo-lead panel" style="padding:18px 22px;margin-top:14px;background:var(--accent-indigo-soft);border-left:4px solid var(--accent-indigo);border-radius:10px;display:flex;align-items:center;gap:14px;flex-wrap:wrap;">
+        <img src="${payload.type === 'leaderboard' ? '/public/editorial-segment-1.jpg' : (payload.type === 'comparison' ? '/public/editorial-segment-2.jpg' : '/public/editorial-segment-3.jpg')}" alt="GEO analyst segment portrait" width="48" height="48" loading="lazy" style="width:48px;height:48px;border-radius:10px;object-fit:cover;flex-shrink:0;" />
+        <div style="flex:1;min-width:240px;">
+          <div class="mono" style="font-size:0.86rem;font-weight:700;color:var(--accent-indigo);margin-bottom:6px;">${escapeHtml(pageRow.title)} · Google AI Overviews Citation Score &amp; RAG Snapshot</div>
+          <p style="color:var(--text-primary);font-size:0.95rem;line-height:1.65;margin:0;">${escapeHtml(payload.summary || pageRow.meta_description)}</p>
+        </div>
       </div>
     </div>
 
-    <div id="pseo-citationforge-inline-calc" class="panel" style="padding:20px;margin-bottom:24px;border:1.5px solid var(--accent-indigo);background:var(--accent-indigo-soft);">
+    <div id="pseo-citationforge-inline-calc" class="panel" style="padding:20px;margin-bottom:24px;background:var(--accent-indigo-soft);">
       <div style="display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:10px;margin-bottom:12px;">
         <div>
-          <div class="mono" style="font-size:0.76rem;font-weight:800;color:var(--accent-indigo);">1-CLICK AI ENGINE CITATION LIFT SIMULATOR</div>
+          <div class="mono" style="font-size:0.86rem;font-weight:800;color:var(--accent-indigo);">1-Click AI Engine Citation Lift Simulator</div>
           <h2 class="serif-display" style="font-size:1.3rem;margin:2px 0 0;">Simulate /llms.txt + JSON-LD Citation Lift for ${escapeHtml(pageRow.primary_entity)}</h2>
         </div>
         <div style="display:flex;gap:8px;flex-wrap:wrap;">
-          <button type="button" class="badge badge-cyan mono" style="cursor:pointer;padding:7px 11px;border:1px solid var(--accent-indigo);" onclick="window.__cfCalcPseoEngine('ChatGPT Search (OAI-SearchBot)','+14.8% cSoV','Rank #1-2')">ChatGPT Search</button>
-          <button type="button" class="badge badge-emerald mono" style="cursor:pointer;padding:7px 11px;border:1px solid var(--accent-emerald);" onclick="window.__cfCalcPseoEngine('Perplexity Pro (PerplexityBot)','+19.4% cSoV','Rank #1')">Perplexity Pro</button>
-          <button type="button" class="badge badge-cyan mono" style="cursor:pointer;padding:7px 11px;border:1px solid var(--accent-indigo);" onclick="window.__cfCalcPseoEngine('Google AI Overviews','+11.6% cSoV','Top 3 Grounding')">Google AI Overviews</button>
-          <button type="button" class="badge badge-emerald mono" style="cursor:pointer;padding:7px 11px;border:1px solid var(--accent-emerald);" onclick="window.__cfCalcPseoEngine('Claude 3.7 (ClaudeBot)','+16.2% cSoV','Rank #1-2')">Claude 3.7</button>
+          <button type="button" class="badge badge-cyan mono" style="cursor:pointer;padding:7px 11px;border:none;font-size:0.85rem;" onclick="window.__cfCalcPseoEngine('ChatGPT Search (OAI-SearchBot)','+14.8% cSoV','Rank #1-2')">ChatGPT Search</button>
+          <button type="button" class="badge badge-emerald mono" style="cursor:pointer;padding:7px 11px;border:none;font-size:0.85rem;" onclick="window.__cfCalcPseoEngine('Perplexity Pro (PerplexityBot)','+19.4% cSoV','Rank #1')">Perplexity Pro</button>
+          <button type="button" class="badge badge-cyan mono" style="cursor:pointer;padding:7px 11px;border:none;font-size:0.85rem;" onclick="window.__cfCalcPseoEngine('Google AI Overviews','+11.6% cSoV','Top 3 Grounding')">Google AI Overviews</button>
+          <button type="button" class="badge badge-emerald mono" style="cursor:pointer;padding:7px 11px;border:none;font-size:0.85rem;" onclick="window.__cfCalcPseoEngine('Claude 3.7 (ClaudeBot)','+16.2% cSoV','Rank #1-2')">Claude 3.7</button>
         </div>
       </div>
-      <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(190px,1fr));gap:12px;background:#FFFFFF;padding:14px;border-radius:10px;border:1px solid var(--border-hairline);">
-        <div><div class="mono" style="font-size:0.74rem;color:var(--text-secondary);">TARGET AI ENGINE</div><div id="pseo-cf-engine-out" class="mono" style="font-size:1.05rem;font-weight:800;color:var(--text-primary);">Perplexity Pro (PerplexityBot)</div></div>
-        <div><div class="mono" style="font-size:0.74rem;color:var(--text-secondary);">PROJECTED CITATION LIFT</div><div id="pseo-cf-lift-out" class="mono" style="font-size:1.3rem;font-weight:800;color:var(--accent-emerald);">+19.4% cSoV</div></div>
-        <div><div class="mono" style="font-size:0.74rem;color:var(--text-secondary);">POST-FIX PROMPT RANK</div><div id="pseo-cf-rank-out" class="mono" style="font-size:1.3rem;font-weight:800;color:var(--accent-indigo);">Rank #1</div></div>
-        <div style="display:flex;align-items:center;"><a href="/buy/micro_pass?source=pseo_inline_calc&amp;slug=${encodeURIComponent(pageRow.slug)}" rel="nofollow" class="btn btn-primary" style="padding:9px 14px;font-size:0.82rem;">Unlock 99¢ /llms.txt Pack &rarr;</a></div>
+      <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(190px,1fr));gap:12px;background:#FFFFFF;padding:14px;border-radius:10px;">
+        <div><div class="mono" style="font-size:0.85rem;color:var(--text-secondary);">Target AI Engine</div><div id="pseo-cf-engine-out" class="mono" style="font-size:1.05rem;font-weight:800;color:var(--text-primary);">Perplexity Pro (PerplexityBot)</div></div>
+        <div><div class="mono" style="font-size:0.85rem;color:var(--text-secondary);">Projected Citation Lift</div><div id="pseo-cf-lift-out" class="mono" style="font-size:1.3rem;font-weight:800;color:var(--accent-emerald);">+19.4% cSoV</div></div>
+        <div><div class="mono" style="font-size:0.85rem;color:var(--text-secondary);">Post-Fix Prompt Rank</div><div id="pseo-cf-rank-out" class="mono" style="font-size:1.3rem;font-weight:800;color:var(--accent-indigo);">Rank #1</div></div>
+        <div style="display:flex;align-items:center;"><a href="/buy/micro_pass?source=pseo_inline_calc&amp;slug=${encodeURIComponent(pageRow.slug)}" rel="nofollow" class="btn btn-primary" style="padding:9px 14px;font-size:0.86rem;">Unlock 99¢ /llms.txt Pack &rarr;</a></div>
       </div>
       <script>
         window.__cfCalcPseoEngine = function(engine, lift, rank) {
@@ -853,7 +690,7 @@ function renderSeoDetailPage(pageRow, relatedPages) {
     ${bodyContent}
 
     <section id="technical-faq" class="panel" style="padding:26px;margin-bottom:28px;">
-      <h2 class="serif-display" style="font-size:1.45rem;margin-bottom:14px;">Technical FAQ: How to Rank in ChatGPT Search, Perplexity SEO Checklist &amp; llms.txt Generator</h2>
+      <h2 class="serif-display" style="font-size:1.45rem;margin-bottom:14px;">Technical FAQ &amp; GEO Playbook</h2>
       <div style="display:grid;gap:12px;">${faqHtml}</div>
     </section>
 

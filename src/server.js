@@ -30,6 +30,7 @@ function rateLimitMiddleware(req, res, next) {
   const now = Date.now();
   const windowMs = 60 * 1000;
   const maxReqs = 120;
+  if (rateLimitStore.size > 5000) rateLimitStore.clear();
   const record = rateLimitStore.get(ip) || { count: 0, resetAt: now + windowMs };
   if (now > record.resetAt) {
     record.count = 0;
@@ -48,12 +49,14 @@ function rateLimitMiddleware(req, res, next) {
 // Security headers & HTTPS enforcement (Pre-Launch Checklist Checkpoint #4)
 app.use((req, res, next) => {
   if (req.headers['x-forwarded-proto'] === 'http') {
-    return res.redirect(301, `https://${req.headers.host}${req.originalUrl}`);
+    return res.redirect(301, `${PUBLIC_URL}${req.originalUrl}`);
   }
   res.setHeader('Strict-Transport-Security', 'max-age=31536000; includeSubDomains; preload');
   res.setHeader('X-Content-Type-Options', 'nosniff');
   res.setHeader('X-Frame-Options', 'SAMEORIGIN');
   res.setHeader('Referrer-Policy', 'strict-origin-when-cross-origin');
+  res.setHeader('Permissions-Policy', 'camera=(), microphone=(), geolocation=()');
+  res.setHeader('Content-Security-Policy', "default-src 'self' 'unsafe-inline' https:; img-src 'self' data: https:; connect-src 'self' https:;");
   next();
 });
 
@@ -91,7 +94,7 @@ app.get('/', async (req, res) => {
     const sampleSeoPages = queryAll('SELECT slug, page_type, title, meta_description, category, csov_score FROM seo_pages ORDER BY id ASC');
     res.status(200).type('html').send(renderHomePage(initialAudit, sampleSeoPages));
   } catch (err) {
-    res.status(500).send('Internal Server Error: ' + err.message);
+    res.status(500).send('Internal Server Error');
   }
 });
 
@@ -103,7 +106,7 @@ app.get('/lp', async (req, res) => {
     const initialAudit = req.query.unlocked === '1' ? rawAudit : redactAuditForPublicPreview(rawAudit);
     res.status(200).type('html').send(renderLandingPage(initialAudit));
   } catch (err) {
-    res.status(500).send('Internal Server Error: ' + err.message);
+    res.status(500).send('Internal Server Error');
   }
 });
 

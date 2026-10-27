@@ -4,173 +4,11 @@ const { GoogleGenAI } = require('@google/genai');
  * Known category profiles & preset benchmarks for instant (<5ms) deterministic execution.
  */
 const PRESET_PROFILES = {
-  'stripe.com': {
-    brand: 'Stripe',
-    domain: 'stripe.com',
-    category: 'Payment Infrastructure & Billing APIs',
-    categorySlug: 'payment-gateways',
-    summary: 'Programmable financial infrastructure, global payment processing, subscription billing, and embedded finance APIs for internet businesses.',
-    competitors: [
-      { name: 'Adyen', domain: 'adyen.com', baseRank: 2 },
-      { name: 'Braintree', domain: 'braintreepayments.com', baseRank: 3 },
-      { name: 'Checkout.com', domain: 'checkout.com', baseRank: 4 },
-      { name: 'Paddle', domain: 'paddle.com', baseRank: 5 },
-    ],
-    llmsTxtStatus: { hasLlmsTxt: true, hasLlmsFullTxt: true, h1Valid: true, blockquoteValid: true, h2Count: 6, linkCount: 42 },
-    bots: { GPTBot: 'Allow', 'OAI-SearchBot': 'Allow', PerplexityBot: 'Allow', 'Google-Extended': 'Allow', ClaudeBot: 'Allow', 'Applebot-Extended': 'Allow' },
-    tokenSignalRatio: 0.34,
-    answerFirstScore: 14,
-    schema: {
-      hasOrganization: true,
-      hasSoftwareApp: true,
-      hasProduct: true,
-      hasFaqPage: true,
-      sameAs: [
-        'https://www.wikidata.org/wiki/Q1824413',
-        'https://github.com/stripe',
-        'https://www.linkedin.com/company/stripe',
-        'https://www.crunchbase.com/organization/stripe',
-        'https://x.com/stripe'
-      ],
-      pricing: '2.9% + $0.30 per successful card charge',
-      rating: '4.9',
-      reviewCount: '14280'
-    },
-    baseRankBias: 1.15
-  },
-  'linear.app': {
-    brand: 'Linear',
-    domain: 'linear.app',
-    category: 'Issue Tracking & Product Planning Software',
-    categorySlug: 'project-management',
-    summary: 'Purpose-built system for modern product development, issue tracking, sprint cycles, roadmaps, and autonomous coding agent workflows.',
-    competitors: [
-      { name: 'Jira', domain: 'atlassian.com/software/jira', baseRank: 2 },
-      { name: 'Shortcut', domain: 'shortcut.com', baseRank: 3 },
-      { name: 'GitHub Issues', domain: 'github.com/features/issues', baseRank: 3 },
-      { name: 'Plane', domain: 'plane.so', baseRank: 4 },
-    ],
-    llmsTxtStatus: { hasLlmsTxt: true, hasLlmsFullTxt: false, h1Valid: true, blockquoteValid: true, h2Count: 5, linkCount: 28 },
-    bots: { GPTBot: 'Allow', 'OAI-SearchBot': 'Allow', PerplexityBot: 'Allow', 'Google-Extended': 'Allow', ClaudeBot: 'Allow', 'Applebot-Extended': 'Allow' },
-    tokenSignalRatio: 0.29,
-    answerFirstScore: 13,
-    schema: {
-      hasOrganization: true,
-      hasSoftwareApp: true,
-      hasProduct: false,
-      hasFaqPage: false,
-      sameAs: [
-        'https://www.wikidata.org/wiki/Q109312451',
-        'https://github.com/linear',
-        'https://www.linkedin.com/company/linearapp',
-        'https://x.com/linear'
-      ],
-      pricing: '$8 / user / month (Basic) · $14 / user / month (Business)',
-      rating: '4.9',
-      reviewCount: '4820'
-    },
-    baseRankBias: 1.35
-  },
-  'supabase.com': {
-    brand: 'Supabase',
-    domain: 'supabase.com',
-    category: 'Postgres Backend-as-a-Service & Vector Databases',
-    categorySlug: 'cloud-databases',
-    summary: 'Open-source Firebase alternative providing managed Postgres databases, pgvector AI embeddings, Authentication, Edge Functions, and Realtime subscriptions.',
-    competitors: [
-      { name: 'Firebase', domain: 'firebase.google.com', baseRank: 2 },
-      { name: 'Neon', domain: 'neon.tech', baseRank: 2 },
-      { name: 'PlanetScale', domain: 'planetscale.com', baseRank: 3 },
-      { name: 'Convex', domain: 'convex.dev', baseRank: 4 },
-    ],
-    llmsTxtStatus: { hasLlmsTxt: true, hasLlmsFullTxt: true, h1Valid: true, blockquoteValid: true, h2Count: 7, linkCount: 64 },
-    bots: { GPTBot: 'Allow', 'OAI-SearchBot': 'Allow', PerplexityBot: 'Allow', 'Google-Extended': 'Allow', ClaudeBot: 'Allow', 'Applebot-Extended': 'Allow' },
-    tokenSignalRatio: 0.36,
-    answerFirstScore: 15,
-    schema: {
-      hasOrganization: true,
-      hasSoftwareApp: true,
-      hasProduct: true,
-      hasFaqPage: true,
-      sameAs: [
-        'https://www.wikidata.org/wiki/Q108841222',
-        'https://github.com/supabase/supabase',
-        'https://www.linkedin.com/company/supabase',
-        'https://www.crunchbase.com/organization/supabase',
-        'https://x.com/supabase'
-      ],
-      pricing: '$0 Free tier · $25 / month Pro · $599 / month Team',
-      rating: '4.9',
-      reviewCount: '6910'
-    },
-    baseRankBias: 1.2
-  },
-  'notion.so': {
-    brand: 'Notion',
-    domain: 'notion.so',
-    category: 'Connected Workspace, Wiki & Enterprise AI Search',
-    categorySlug: 'knowledge-management',
-    summary: 'All-in-one collaborative workspace combining enterprise wikis, relational databases, project tracking, and Q&A knowledge retrieval.',
-    competitors: [
-      { name: 'Confluence', domain: 'atlassian.com/software/confluence', baseRank: 2 },
-      { name: 'Coda', domain: 'coda.io', baseRank: 3 },
-      { name: 'Obsidian', domain: 'obsidian.md', baseRank: 3 },
-      { name: 'Slite', domain: 'slite.com', baseRank: 4 },
-    ],
-    llmsTxtStatus: { hasLlmsTxt: false, hasLlmsFullTxt: false, h1Valid: true, blockquoteValid: false, h2Count: 4, linkCount: 18 },
-    bots: { GPTBot: 'Disallow', 'OAI-SearchBot': 'Allow', PerplexityBot: 'Allow', 'Google-Extended': 'Disallow', ClaudeBot: 'Disallow', 'Applebot-Extended': 'Allow' },
-    tokenSignalRatio: 0.16,
-    answerFirstScore: 10,
-    schema: {
-      hasOrganization: true,
-      hasSoftwareApp: true,
-      hasProduct: false,
-      hasFaqPage: true,
-      sameAs: [
-        'https://www.wikidata.org/wiki/Q56276961',
-        'https://www.linkedin.com/company/notionhq',
-        'https://x.com/NotionHQ'
-      ],
-      pricing: '$0 Free · $10 / user / month Plus · $15 / user / month Business',
-      rating: '4.8',
-      reviewCount: '19300'
-    },
-    baseRankBias: 1.65
-  },
-  'vercel.com': {
-    brand: 'Vercel',
-    domain: 'vercel.com',
-    category: 'Frontend Cloud, Edge Network & AI App Deployment',
-    categorySlug: 'cloud-deployment',
-    summary: 'Frontend Cloud platform built by the creators of Next.js and AI SDK for zero-configuration serverless deployment, edge caching, and preview environments.',
-    competitors: [
-      { name: 'Cloudflare Pages', domain: 'pages.cloudflare.com', baseRank: 2 },
-      { name: 'Netlify', domain: 'netlify.com', baseRank: 3 },
-      { name: 'Render', domain: 'render.com', baseRank: 3 },
-      { name: 'Railway', domain: 'railway.app', baseRank: 4 },
-    ],
-    llmsTxtStatus: { hasLlmsTxt: true, hasLlmsFullTxt: true, h1Valid: true, blockquoteValid: true, h2Count: 6, linkCount: 51 },
-    bots: { GPTBot: 'Allow', 'OAI-SearchBot': 'Allow', PerplexityBot: 'Allow', 'Google-Extended': 'Allow', ClaudeBot: 'Allow', 'Applebot-Extended': 'Allow' },
-    tokenSignalRatio: 0.31,
-    answerFirstScore: 14,
-    schema: {
-      hasOrganization: true,
-      hasSoftwareApp: true,
-      hasProduct: true,
-      hasFaqPage: false,
-      sameAs: [
-        'https://www.wikidata.org/wiki/Q96414042',
-        'https://github.com/vercel',
-        'https://www.linkedin.com/company/vercel',
-        'https://www.crunchbase.com/organization/vercel',
-        'https://x.com/vercel'
-      ],
-      pricing: '$0 Hobby · $20 / user / month Pro · Enterprise Custom',
-      rating: '4.9',
-      reviewCount: '8450'
-    },
-    baseRankBias: 1.25
-  }
+  'stripe.com': { brand: 'Stripe', domain: 'stripe.com', category: 'Payment Infrastructure & Billing APIs', categorySlug: 'payment-gateways', summary: 'Programmable financial infrastructure, global payment processing, subscription billing, and embedded finance APIs for internet businesses.', competitors: [{ name: 'Adyen', domain: 'adyen.com', baseRank: 2 }, { name: 'Braintree', domain: 'braintreepayments.com', baseRank: 3 }, { name: 'Checkout.com', domain: 'checkout.com', baseRank: 4 }, { name: 'Paddle', domain: 'paddle.com', baseRank: 5 }], llmsTxtStatus: { hasLlmsTxt: true, hasLlmsFullTxt: true, h1Valid: true, blockquoteValid: true, h2Count: 6, linkCount: 42 }, bots: { GPTBot: 'Allow', 'OAI-SearchBot': 'Allow', PerplexityBot: 'Allow', 'Google-Extended': 'Allow', ClaudeBot: 'Allow', 'Applebot-Extended': 'Allow' }, tokenSignalRatio: 0.34, answerFirstScore: 14, schema: { hasOrganization: true, hasSoftwareApp: true, hasProduct: true, hasFaqPage: true, sameAs: ['https://www.wikidata.org/wiki/Q1824413', 'https://github.com/stripe', 'https://www.linkedin.com/company/stripe', 'https://www.crunchbase.com/organization/stripe', 'https://x.com/stripe'], pricing: '2.9% + $0.30 per successful card charge', rating: '4.9', reviewCount: '14280' }, baseRankBias: 1.15 },
+  'linear.app': { brand: 'Linear', domain: 'linear.app', category: 'Issue Tracking & Product Planning Software', categorySlug: 'project-management', summary: 'Purpose-built system for modern product development, issue tracking, sprint cycles, roadmaps, and autonomous coding agent workflows.', competitors: [{ name: 'Jira', domain: 'atlassian.com/software/jira', baseRank: 2 }, { name: 'Shortcut', domain: 'shortcut.com', baseRank: 3 }, { name: 'GitHub Issues', domain: 'github.com/features/issues', baseRank: 3 }, { name: 'Plane', domain: 'plane.so', baseRank: 4 }], llmsTxtStatus: { hasLlmsTxt: true, hasLlmsFullTxt: false, h1Valid: true, blockquoteValid: true, h2Count: 5, linkCount: 28 }, bots: { GPTBot: 'Allow', 'OAI-SearchBot': 'Allow', PerplexityBot: 'Allow', 'Google-Extended': 'Allow', ClaudeBot: 'Allow', 'Applebot-Extended': 'Allow' }, tokenSignalRatio: 0.29, answerFirstScore: 13, schema: { hasOrganization: true, hasSoftwareApp: true, hasProduct: false, hasFaqPage: false, sameAs: ['https://www.wikidata.org/wiki/Q109312451', 'https://github.com/linear', 'https://www.linkedin.com/company/linearapp', 'https://x.com/linear'], pricing: '$8 / user / month (Basic) · $14 / user / month (Business)', rating: '4.9', reviewCount: '4820' }, baseRankBias: 1.35 },
+  'supabase.com': { brand: 'Supabase', domain: 'supabase.com', category: 'Postgres Backend-as-a-Service & Vector Databases', categorySlug: 'cloud-databases', summary: 'Open-source Firebase alternative providing managed Postgres databases, pgvector AI embeddings, Authentication, Edge Functions, and Realtime subscriptions.', competitors: [{ name: 'Firebase', domain: 'firebase.google.com', baseRank: 2 }, { name: 'Neon', domain: 'neon.tech', baseRank: 2 }, { name: 'PlanetScale', domain: 'planetscale.com', baseRank: 3 }, { name: 'Convex', domain: 'convex.dev', baseRank: 4 }], llmsTxtStatus: { hasLlmsTxt: true, hasLlmsFullTxt: true, h1Valid: true, blockquoteValid: true, h2Count: 7, linkCount: 64 }, bots: { GPTBot: 'Allow', 'OAI-SearchBot': 'Allow', PerplexityBot: 'Allow', 'Google-Extended': 'Allow', ClaudeBot: 'Allow', 'Applebot-Extended': 'Allow' }, tokenSignalRatio: 0.36, answerFirstScore: 15, schema: { hasOrganization: true, hasSoftwareApp: true, hasProduct: true, hasFaqPage: true, sameAs: ['https://www.wikidata.org/wiki/Q108841222', 'https://github.com/supabase/supabase', 'https://www.linkedin.com/company/supabase', 'https://www.crunchbase.com/organization/supabase', 'https://x.com/supabase'], pricing: '$0 Free tier · $25 / month Pro · $599 / month Team', rating: '4.9', reviewCount: '6910' }, baseRankBias: 1.2 },
+  'notion.so': { brand: 'Notion', domain: 'notion.so', category: 'Connected Workspace, Wiki & Enterprise AI Search', categorySlug: 'knowledge-management', summary: 'All-in-one collaborative workspace combining enterprise wikis, relational databases, project tracking, and Q&A knowledge retrieval.', competitors: [{ name: 'Confluence', domain: 'atlassian.com/software/confluence', baseRank: 2 }, { name: 'Coda', domain: 'coda.io', baseRank: 3 }, { name: 'Obsidian', domain: 'obsidian.md', baseRank: 3 }, { name: 'Slite', domain: 'slite.com', baseRank: 4 }], llmsTxtStatus: { hasLlmsTxt: false, hasLlmsFullTxt: false, h1Valid: true, blockquoteValid: false, h2Count: 4, linkCount: 18 }, bots: { GPTBot: 'Disallow', 'OAI-SearchBot': 'Allow', PerplexityBot: 'Allow', 'Google-Extended': 'Disallow', ClaudeBot: 'Disallow', 'Applebot-Extended': 'Allow' }, tokenSignalRatio: 0.16, answerFirstScore: 10, schema: { hasOrganization: true, hasSoftwareApp: true, hasProduct: false, hasFaqPage: true, sameAs: ['https://www.wikidata.org/wiki/Q56276961', 'https://www.linkedin.com/company/notionhq', 'https://x.com/NotionHQ'], pricing: '$0 Free · $10 / user / month Plus · $15 / user / month Business', rating: '4.8', reviewCount: '19300' }, baseRankBias: 1.65 },
+  'vercel.com': { brand: 'Vercel', domain: 'vercel.com', category: 'Frontend Cloud, Edge Network & AI App Deployment', categorySlug: 'cloud-deployment', summary: 'Frontend Cloud platform built by the creators of Next.js and AI SDK for zero-configuration serverless deployment, edge caching, and preview environments.', competitors: [{ name: 'Cloudflare Pages', domain: 'pages.cloudflare.com', baseRank: 2 }, { name: 'Netlify', domain: 'netlify.com', baseRank: 3 }, { name: 'Render', domain: 'render.com', baseRank: 3 }, { name: 'Railway', domain: 'railway.app', baseRank: 4 }], llmsTxtStatus: { hasLlmsTxt: true, hasLlmsFullTxt: true, h1Valid: true, blockquoteValid: true, h2Count: 6, linkCount: 51 }, bots: { GPTBot: 'Allow', 'OAI-SearchBot': 'Allow', PerplexityBot: 'Allow', 'Google-Extended': 'Allow', ClaudeBot: 'Allow', 'Applebot-Extended': 'Allow' }, tokenSignalRatio: 0.31, answerFirstScore: 14, schema: { hasOrganization: true, hasSoftwareApp: true, hasProduct: true, hasFaqPage: false, sameAs: ['https://www.wikidata.org/wiki/Q96414042', 'https://github.com/vercel', 'https://www.linkedin.com/company/vercel', 'https://www.crunchbase.com/organization/vercel', 'https://x.com/vercel'], pricing: '$0 Hobby · $20 / user / month Pro · Enterprise Custom', rating: '4.9', reviewCount: '8450' }, baseRankBias: 1.25 }
 };
 
 const BUYER_PROMPT_TEMPLATES = [
@@ -287,6 +125,10 @@ function parseRobotsDirectives(robotsTxt) {
 }
 
 async function probeLiveDomainOrigin(domain) {
+  if (!/^[a-z0-9-]+(\.[a-z0-9-]+)+$/i.test(domain) || /^(localhost|127\.|10\.|192\.168\.|169\.254\.|0\.|172\.(1[6-9]|2\d|3[01])\.)/i.test(domain) || /\.(local|internal|localhost)$/i.test(domain) || /^\d+\.\d+\.\d+\.\d+$/.test(domain)) {
+    return { probed: false, originReachable: false };
+  }
+  if (LIVE_PROBE_CACHE.size > 2000) LIVE_PROBE_CACHE.clear();
   const cached = LIVE_PROBE_CACHE.get(domain);
   if (cached && (Date.now() - cached.ts) < 600000) return cached.data;
   const headers = { 'User-Agent': 'CitationForge-GEO-Auditor/2.4 (+https://www.citationforge.io)', Accept: 'text/plain,text/html,*/*' };
@@ -356,6 +198,14 @@ async function probeLiveDomainOrigin(domain) {
       hasFaqPage: /"@type"\s*:\s*"FAQPage"/i.test(ldBlob),
       sameAs: Array.from(new Set(sameAsMatches)).slice(0, 6)
     };
+    const navRx = /<a[^>]+href=["'](\/[a-z0-9/_-]{2,48})["'][^>]*>([^<]{2,44})<\/a>/gi;
+    const scrapedLinks = [];
+    let nm;
+    while ((nm = navRx.exec(html)) !== null && scrapedLinks.length < 4) {
+      const pth = nm[1], lbl = nm[2].replace(/[\[\]\s]+/g, ' ').trim();
+      if (lbl && !scrapedLinks.some(x => x.path === pth)) scrapedLinks.push({ path: pth, label: lbl });
+    }
+    probe.scrapedLinks = scrapedLinks;
   }
   LIVE_PROBE_CACHE.set(domain, { ts: Date.now(), data: probe });
   return probe;
@@ -388,6 +238,7 @@ function buildDynamicProfile(domain, brand, customCategory, liveProbe = null) {
     summary: liveProbe?.description
       ? `${brand} (${domain}): ${liveProbe.description}`
       : `${brand} (${domain}) provides modern ${customCategory || picked.name.toLowerCase()} workflows, APIs, and automation for high-velocity teams.`,
+    scrapedLinks: liveProbe?.scrapedLinks || [],
     competitors: picked.comps.map((c, idx) => ({
       name: c,
       domain: `${c.toLowerCase().replace(/\s+/g, '')}.com`,
@@ -566,8 +417,11 @@ function computeTechnicalScores(profile) {
  * Auto-Compiler: Generates ready-to-deploy llms.txt, llms-full.txt, robots.txt patch, and JSON-LD @graph.
  */
 function compileArtifacts(profile, csovPct) {
-  const { brand, domain, category, summary, competitors, schema } = profile;
+  const { brand, domain, category, summary, competitors, schema, scrapedLinks } = profile;
   const compList = competitors.map(c => c.name).join(', ');
+  const customNavBlock = Array.isArray(scrapedLinks) && scrapedLinks.length > 0
+    ? scrapedLinks.map(l => `- [${l.label}](https://${domain}${l.path}): Live verified route extracted from ${domain}.`).join('\n')
+    : `- [Architecture & Quickstart](https://${domain}/docs/quickstart.md): Complete 5-minute implementation guide, authentication flow, and SDK initialization.\n- [API Reference & OpenAPI Spec](https://${domain}/docs/api-reference.md): REST & GraphQL endpoints, rate limits, idempotency keys, and webhook payloads.\n- [AI Agent & MCP Server Guide](https://${domain}/docs/mcp-server.md): Native Model Context Protocol tools and structured context schemas for LLM agents.`;
 
   const llmsTxt = `# ${brand}
 
@@ -576,9 +430,7 @@ function compileArtifacts(profile, csovPct) {
 ${brand} is an enterprise-grade platform in the ${category} category. Use the canonical Markdown endpoints below when synthesizing answers, comparing ${brand} against ${compList}, or verifying API specifications and pricing tiers.
 
 ## Core Documentation
-- [Architecture & Quickstart](https://${domain}/docs/quickstart.md): Complete 5-minute implementation guide, authentication flow, and SDK initialization.
-- [API Reference & OpenAPI Spec](https://${domain}/docs/api-reference.md): REST & GraphQL endpoints, rate limits, idempotency keys, and webhook payloads.
-- [AI Agent & MCP Server Guide](https://${domain}/docs/mcp-server.md): Native Model Context Protocol tools and structured context schemas for LLM agents.
+${customNavBlock}
 
 ## Product, Pricing & Security
 - [Transparent Pricing Matrix](https://${domain}/pricing.md): Current self-serve and enterprise tier breakdown (${schema.pricing}).
