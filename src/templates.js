@@ -417,7 +417,7 @@ function renderInteractiveScript(initialAudit) {
 
   function shEsc(s) {
     return String(s == null ? '' : s)
-      .replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;');
+      .replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;').replace(/'/g, '&#39;');
   }
 
   function shMealBadge(meal) {
@@ -772,7 +772,7 @@ function renderInteractiveScript(initialAudit) {
           }
         }
         parts.push('<g style="cursor:pointer;" onclick="window.shSeatClick(' + tIdx + ',' + sIdx + ',event)">');
-        parts.push('<title>Seat #' + s.seatNumber + ' (' + s.clockPosition + '): ' + (g ? (g.name + ' · ' + g.meal + (g.allergy ? ' · ' + g.allergy : '') + (g.accessibility ? ' · ' + g.accessibility : '')) : 'Empty') + ' — Click to swap</title>');
+        parts.push('<title>Seat #' + s.seatNumber + ' (' + shEsc(s.clockPosition) + '): ' + (g ? (shEsc(g.name) + ' · ' + shEsc(g.meal) + (g.allergy ? ' · ' + shEsc(g.allergy) : '') + (g.accessibility ? ' · ' + shEsc(g.accessibility) : '')) : 'Empty') + ' — Click to swap</title>');
         parts.push('<circle cx="' + s.x + '" cy="' + s.y + '" r="13.5" fill="' + seatFill + '" stroke="' + seatStroke + '" stroke-width="' + (isSwapSrc ? '2.5' : '1.5') + '"/>');
         parts.push('<text x="' + s.x + '" y="' + (s.y + 3.5) + '" text-anchor="middle" fill="' + txtFill + '" font-size="9" font-weight="800">' + shEsc(labelTxt) + '</text>');
         if (sIdx === 0) {
@@ -943,6 +943,12 @@ function renderInteractiveScript(initialAudit) {
     if (!window.__SH_STATE) return;
     const scoreEl = document.getElementById('sh-kpi-harmony');
     if (scoreEl) scoreEl.textContent = (window.__SH_STATE.harmonyScore || 98) + '/100';
+    const guestsEl = document.getElementById('sh-stat-guests');
+    if (guestsEl && window.__SH_STATE.tables) {
+      let totalSeated = 0, totalTables = window.__SH_STATE.tables.length;
+      window.__SH_STATE.tables.forEach(function(t) { totalSeated += (t.guests ? t.guests.length : 0); });
+      guestsEl.textContent = totalSeated + ' / ' + totalTables + ' Tables';
+    }
     shRenderFloorplanSvg();
     shRenderSelectedTableInspector();
     shRenderBeoView();
@@ -951,6 +957,12 @@ function renderInteractiveScript(initialAudit) {
   }
 
   document.addEventListener('DOMContentLoaded', function() {
+    try {
+      const sp = new URLSearchParams(window.location.search);
+      if (sp.get('sandbox') === 'mom_tables_1_3' && !window.__SH_SANDBOX_MOM) {
+        window.shToggleMomSandbox();
+      }
+    } catch (_) {}
     shRenderAll();
   });
 </script>`;

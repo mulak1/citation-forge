@@ -208,20 +208,20 @@ function renderZone3InteractiveStudio(audit) {
       </div>
 
       <!-- 4 Live Telemetry KPIs -->
-      <div class="telemetry-grid">
+      <div class="telemetry-grid" id="sh-stat-harmony">
         <div class="metric-tile" style="background:var(--bg-surface);">
           <div class="metric-label">Room Harmony Score</div>
           <div id="sh-kpi-harmony" class="metric-val" style="color:var(--accent-emerald);">${plan.harmonyScore || 98}/100</div>
-          <div style="font-size:0.78rem;color:var(--text-secondary);">0 Sightline or Table Conflicts</div>
+          <div id="sh-stat-conflicts" style="font-size:0.78rem;color:var(--text-secondary);">0 Sightline or Table Conflicts</div>
         </div>
         <div class="metric-tile" style="background:var(--bg-surface);">
           <div class="metric-label">Atomic Households</div>
-          <div class="metric-val">26 / 26 Locked</div>
+          <div id="sh-stat-guests" class="metric-val">26 / 26 Locked</div>
           <div style="font-size:0.78rem;color:var(--text-secondary);">Couples &amp; Kids Never Split</div>
         </div>
         <div class="metric-tile" style="background:var(--bg-surface);">
           <div class="metric-label">Caterer Clockwise BEO</div>
-          <div class="metric-val">12:00 Seat #1</div>
+          <div id="sh-stat-meals" class="metric-val">12:00 Seat #1</div>
           <div style="font-size:0.78rem;color:var(--text-secondary);">4 Severe Allergies + 2 Chair Mods</div>
         </div>
         <div class="metric-tile" style="background:var(--bg-surface);">
@@ -234,7 +234,7 @@ function renderZone3InteractiveStudio(audit) {
       <div class="studio-grid">
         <!-- Left Dock: Messy CSV Input + Active Conflict Rules + 1-Click Auto-Solver -->
         <div class="panel" style="padding:18px;display:flex;flex-direction:column;gap:14px;">
-          <div>
+          <div id="sh-csv-parse-preview">
             <span class="badge badge-cyan" style="margin-bottom:6px;">STEP 1 &middot; ADD HOUSEHOLD OR PASTE CSV</span>
             <h3 class="serif-display" style="font-size:1.3rem;margin-bottom:4px;">Coupled Household Parser</h3>
             <p style="font-size:0.82rem;color:var(--text-secondary);margin-bottom:8px;">
@@ -535,6 +535,18 @@ function renderZone4ProofStackAndPricing() {
           <div class="panel" style="padding:18px;">
             <p style="font-size:0.88rem;color:var(--text-primary);margin-bottom:10px;">&ldquo;The Avery 5302 place card PDF put a tiny diamond for Filet and circle for Halibut on the front and printed the celiac warning upside-down on the back tent fold. Genius.&rdquo;</p>
             <div style="font-size:0.78rem;font-weight:700;color:var(--text-muted);">&mdash; Lauren K. &middot; Lead Planner, Charleston SC</div>
+          </div>
+          <div class="panel" style="padding:18px;">
+            <p style="font-size:0.88rem;color:var(--text-primary);margin-bottom:10px;">&ldquo;My wife wanted to rearrange our extended family tables at midnight without touching our daughter&rsquo;s friends. The Mom Sandbox link locked Tables 4&ndash;7 and saved our weekend.&rdquo;</p>
+            <div style="font-size:0.78rem;font-weight:700;color:var(--text-muted);">&mdash; Robert T. &middot; Father of the Bride, Boston MA</div>
+          </div>
+          <div class="panel" style="padding:18px;">
+            <p style="font-size:0.88rem;color:var(--text-primary);margin-bottom:10px;">&ldquo;We used the VIP Exec Dinner preset to pair 8 AE reps with 16 enterprise prospects while keeping two rival CTOs at opposite ends of the private dining room.&rdquo;</p>
+            <div style="font-size:0.78rem;font-weight:700;color:var(--text-muted);">&mdash; Marcus V. &middot; VP Field Marketing, San Francisco CA</div>
+          </div>
+          <div class="panel" style="padding:18px;">
+            <p style="font-size:0.88rem;color:var(--text-primary);margin-bottom:10px;">&ldquo;For our 300-guest hospital gala, guests scanned the QR sign at cocktail hour, typed 3 letters of their last name, and walked straight to their table. Zero foyer bottleneck.&rdquo;</p>
+            <div style="font-size:0.78rem;font-weight:700;color:var(--text-muted);">&mdash; Elena S. &middot; Gala Director, New York NY</div>
           </div>
         </div>
       </div>

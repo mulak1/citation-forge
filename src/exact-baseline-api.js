@@ -986,9 +986,7 @@ function attachExactBaselinePack(app, options = {}) {
         if (body.includes('data-seatharmony-native="1"')) {
           const shCheckoutHelper = `<script>(function(){if(!document.cookie.includes('vs_vid=')){document.cookie='vs_vid=v_'+Date.now()+'_'+Math.random().toString(36).slice(2,7)+'; Path=/; Max-Age=31536000; SameSite=Lax';}window.__ebQuickBuy=window.__ebCheckout=function(tier){var vid=(document.cookie.match(/vs_vid=([^;]+)/)||[])[1]||'';window.location.href='/buy/'+(tier||'complete_dossier')+'?target=estate-150&vid='+encodeURIComponent(vid);};})();</script>`;
           body = body.includes('</body>') ? body.replace('</body>', `${shCheckoutHelper}</body>`) : (body + shCheckoutHelper);
-        } else if (!body.includes('id="eb-bottom-conversion-suite"')) {
-          body = renderExactBaselineEnhancements(body, cfg, req.path);
-        }
+        } else if (!body.includes('id="eb-bottom-conversion-suite"')) body = renderExactBaselineEnhancements(body, cfg, req.path);
       }
       return origSend(body);
     };

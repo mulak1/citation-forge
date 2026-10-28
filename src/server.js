@@ -21,6 +21,21 @@ const PUBLIC_URL = (process.env.PUBLIC_URL || process.env.BASE_URL || 'https://w
 const app = express();
 app.use(express.json({ limit: '1mb' }));
 app.use(express.urlencoded({ extended: true }));
+
+// Security headers & HTTPS enforcement (Pre-Launch Checklist Checkpoint #4)
+app.use((req, res, next) => {
+  if (req.headers['x-forwarded-proto'] === 'http') {
+    return res.redirect(301, `${PUBLIC_URL}${req.originalUrl}`);
+  }
+  res.setHeader('Strict-Transport-Security', 'max-age=31536000; includeSubDomains; preload');
+  res.setHeader('X-Content-Type-Options', 'nosniff');
+  res.setHeader('X-Frame-Options', 'SAMEORIGIN');
+  res.setHeader('Referrer-Policy', 'strict-origin-when-cross-origin');
+  res.setHeader('Permissions-Policy', 'camera=(), microphone=(), geolocation=()');
+  res.setHeader('Content-Security-Policy', "default-src 'self' 'unsafe-inline' https:; img-src 'self' data: https:; connect-src 'self' https:;");
+  next();
+});
+
 attachExactBaselinePack(app, { verticalId: 'citation_forge' });
 
 // In-memory rate limiter for public API routes (Pre-Launch Checklist Checkpoint #18)
@@ -45,20 +60,6 @@ function rateLimitMiddleware(req, res, next) {
   }
   next();
 }
-
-// Security headers & HTTPS enforcement (Pre-Launch Checklist Checkpoint #4)
-app.use((req, res, next) => {
-  if (req.headers['x-forwarded-proto'] === 'http') {
-    return res.redirect(301, `${PUBLIC_URL}${req.originalUrl}`);
-  }
-  res.setHeader('Strict-Transport-Security', 'max-age=31536000; includeSubDomains; preload');
-  res.setHeader('X-Content-Type-Options', 'nosniff');
-  res.setHeader('X-Frame-Options', 'SAMEORIGIN');
-  res.setHeader('Referrer-Policy', 'strict-origin-when-cross-origin');
-  res.setHeader('Permissions-Policy', 'camera=(), microphone=(), geolocation=()');
-  res.setHeader('Content-Security-Policy', "default-src 'self' 'unsafe-inline' https:; img-src 'self' data: https:; connect-src 'self' https:;");
-  next();
-});
 
 // Bespoke Brand Logo Favicon & Web App Manifest (Pre-Launch Checklist Checkpoint #8)
 app.get('/favicon.svg', (req, res) => {
@@ -86,7 +87,7 @@ app.get('/manifest.webmanifest', (req, res) => {
 // 1. Home Page (`GET /`)
 app.get('/', async (req, res) => {
   try {
-    const targetDomain = req.query.domain || req.query.q || req.query.target || 'estate-150';
+    const targetDomain = req.query.preset || req.query.domain || req.query.q || req.query.target || 'estate-150';
     const category = req.query.category || undefined;
     const rawAudit = await runGeoAudit(targetDomain, { category });
     const isUnlocked = req.query.unlocked === '1' || req.query.checkout === 'success';
@@ -101,7 +102,7 @@ app.get('/', async (req, res) => {
 // 2. Cold Paid-Social Landing Page (`GET /lp`)
 app.get('/lp', async (req, res) => {
   try {
-    const targetDomain = req.query.domain || req.query.q || req.query.target || 'estate-150';
+    const targetDomain = req.query.preset || req.query.domain || req.query.q || req.query.target || 'estate-150';
     const rawAudit = await runGeoAudit(targetDomain, { category: req.query.category });
     const initialAudit = req.query.unlocked === '1' ? rawAudit : redactAuditForPublicPreview(rawAudit);
     res.status(200).type('html').send(renderLandingPage(initialAudit));

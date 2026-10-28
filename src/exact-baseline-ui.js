@@ -962,16 +962,8 @@ function buildClientRuntimeScript(cfg) {
     try { var sp = new URLSearchParams(window.location.search || ''), qp = sp.get('q') || sp.get('preset') || sp.get('domain') || sp.get('brand') || sp.get('show') || sp.get('pub') || sp.get('active'), refRx = new RegExp('/(?:seo|tools|compare|scan)/([a-z0-9._-]+)', 'i'), refM = (!qp && window.location.pathname === '/' && document.referrer) ? document.referrer.match(refRx) : null; if (refM && refM[1]) { qp = decodeURIComponent(refM[1]).replace(new RegExp('-(?:sponsors-and-cpm-rates|ad-rates|layering|conflict|recovery|retry-schedule|ai-visibility-audit)$', 'i'), '').replace(new RegExp('^stripe-decline-code-', 'i'), '').replace(/-/g, ' '); var hostIn = document.querySelector('#lookup-query, #domain-input, #rawInciTextarea, #input-store, #eb-fuse-search-input'); if (hostIn && !hostIn.value) hostIn.value = qp; window.__ebLogEvent('calculate', { trigger: 'seo_referrer_carryover', query: qp }); } if (qp) setTimeout(function() { var mIn = document.getElementById('eb-mobile-quick-input'); if (mIn) mIn.value = qp; window.__ebCompileCustomCurtain(qp); }, 110); } catch (_) {}
   };
   if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', __ebBootAll); else __ebBootAll();
-})();
-</script>
-<script type="text/javascript">
-  var vglnk = { key: '${SOVRN_KEY}' };
-  (function(d, t) {
-    if (window.location.hostname === '127.0.0.1' || window.location.hostname === 'localhost' || window.location.hostname === '0.0.0.0') return;
-    var s = d.createElement(t); s.type = 'text/javascript'; s.async = true; s.src = '//cdn.viglink.com/api/vglnk.js';
-    var r = d.getElementsByTagName(t)[0]; if (r && r.parentNode) r.parentNode.insertBefore(s, r);
-  }(document, 'script'));
-</script>`;
+})();</script>
+<script type="text/javascript">var vglnk = { key: '${SOVRN_KEY}' }; (function(d, t) { if (window.location.hostname === '127.0.0.1' || window.location.hostname === 'localhost' || window.location.hostname === '0.0.0.0') return; var s = d.createElement(t); s.type = 'text/javascript'; s.async = true; s.src = '//cdn.viglink.com/api/vglnk.js'; var r = d.getElementsByTagName(t)[0]; if (r && r.parentNode) r.parentNode.insertBefore(s, r); }(document, 'script'));</script>`;
 }
 function renderExactBaselineEnhancements(html, cfg, reqPath) {
   let out = enhanceHtmlForSearchAndAiBots(html, cfg, reqPath);
