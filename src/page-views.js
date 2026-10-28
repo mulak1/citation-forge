@@ -29,7 +29,7 @@ function renderZone1Hero(plan) {
         <div class="sh-zone1-header-block">
           <div style="display:flex;align-items:center;justify-content:center;gap:10px;flex-wrap:wrap;">
             <div class="sh-eyebrow-pill"><span class="sh-eyebrow-dot"></span><span>WEDDING SEATING &amp; FLOORPLAN SOLVER &bull; 24&times;36&Prime; SIGN STUDIO</span></div>
-            <button type="button" id="hero-vault-pill-btn" onclick="window.shOpenVaultModal()" style="cursor:pointer;display:inline-flex;align-items:center;gap:6px;font-size:12.5px;font-weight:700;color:#78350F;background:#FAF3E3;border:1px solid #D6CBB9;border-radius:999px;padding:6px 13px;" title="Save or Resume Your Event Vault"><span>&#128190; Vault <strong id="hero-vault-code-label">#${vId}</strong> &bull; Save / Login &nearr;</span></button>
+            <button type="button" id="hero-vault-pill-btn" onclick="window.shOpenVaultModal()" style="cursor:pointer;display:inline-flex;align-items:center;gap:6px;font-size:13.5px;font-weight:700;color:#78350F;background:#FAF3E3;border:1px solid #D6CBB9;border-radius:999px;padding:6px 13px;" title="Save or Resume Your Event Vault"><span>&#128190; Vault <strong id="hero-vault-code-label">#${vId}</strong> &bull; Save / Login &nearr;</span></button>
           </div>
           <h1 id="score-brand-title" class="sh-display-h1">The 6-Hour Seating Chart.<br/><span class="sh-h1-accent">Solved in 60 Seconds, Drama-Free.</span></h1>
           <p class="sh-lead-sub">Paste your Zola, The Knot, or Excel guest list to automatically separate divorced relatives across the dance floor, keep every couple side-by-side, and print your caterer&rsquo;s Clockwise Seat 1&ndash;10 meal sheet and framed 24&times;36&Prime; welcome sign.</p>
@@ -170,12 +170,12 @@ function renderZone3InteractiveStudio(plan) {
   const vId = escapeHtml(plan.vaultId || 'SH-4819');
   const activeRules = plan.rules || plan.conflictRules || [];
   const rulesHtml = activeRules.map(r => `
-    <div style="padding:8px 10px;border-radius:10px;background:#FAF8F5;border:1px solid #E2D9C8;font-size:0.76rem;display:flex;justify-content:space-between;align-items:center;gap:8px;flex-wrap:wrap;">
+    <div style="padding:8px 10px;border-radius:10px;background:#FAF8F5;border:1px solid #E2D9C8;font-size:0.84rem;display:flex;justify-content:space-between;align-items:center;gap:8px;flex-wrap:wrap;">
       <div style="min-width:0;flex:1;">
         <div style="font-weight:800;color:#181412;">${(r.type === 'keep_apart' || r.type === 'must_keep_apart') ? '🔴 ' : (r.type === 'zone_quiet' ? '🔇 ' : '🟢 ')}${escapeHtml(r.label)}</div>
-        <div style="font-size:0.70rem;color:#57534E;">${escapeHtml(r.detail)}</div>
+        <div style="font-size:0.82rem;color:#57534E;">${escapeHtml(r.detail)}</div>
       </div>
-      <span class="badge badge-emerald" style="font-size:0.62rem;flex-shrink:0;">&#10003; ${escapeHtml(r.status)}</span>
+      <span class="badge badge-emerald" style="font-size:0.82rem;flex-shrink:0;">&#10003; ${escapeHtml(r.status)}</span>
     </div>`).join('');
 
   return `
@@ -187,7 +187,7 @@ function renderZone3InteractiveStudio(plan) {
           <div class="studio-eyebrow-kicker">LIVE WEDDING &amp; RECEPTION STUDIO &middot; EVENT #<span id="sh-studio-vault-code">${vId}</span></div>
           <h2 class="studio-zone-title" style="margin-bottom:2px;">Arrange tables, swap seats &amp; <em>preview all 4 reception files live.</em></h2>
         </div>
-        <div style="display:inline-flex;align-items:center;gap:8px;font-size:0.74rem;font-weight:800;color:#065F46;background:#ECFDF5;border:1px solid #A7F3D0;padding:5px 12px;border-radius:999px;">
+        <div style="display:inline-flex;align-items:center;gap:8px;font-size:0.82rem;font-weight:800;color:#065F46;background:#ECFDF5;border:1px solid #A7F3D0;padding:5px 12px;border-radius:999px;">
           <span id="sh-endowed-progress-label">Reception Plan: Step 1 of 5</span>
           <span style="width:82px;height:7px;background:#E6E0D6;border-radius:999px;overflow:hidden;display:inline-block;"><span id="sh-endowed-progress-fill" style="display:block;width:64%;height:100%;background:linear-gradient(90deg,#C8A96E,#10B981);transition:width 0.25s ease;"></span></span>
         </div>
@@ -195,13 +195,13 @@ function renderZone3InteractiveStudio(plan) {
 
       <!-- Live Status Toast + Mobile Quick-Jump to Live Canvas -->
       <div style="display:flex;flex-wrap:wrap;align-items:center;justify-content:space-between;gap:8px;margin-bottom:8px;">
-        <div id="sh-live-toast" style="background:#181412;color:#FDE68A;border:1px solid #C8A96E;padding:7px 13px;border-radius:999px;font-size:0.74rem;font-weight:700;display:inline-flex;align-items:center;gap:8px;max-width:100%;">
+        <div id="sh-live-toast" style="background:#181412;color:#FDE68A;border:1px solid #C8A96E;padding:7px 13px;border-radius:999px;font-size:0.82rem;font-weight:700;display:inline-flex;align-items:center;gap:8px;max-width:100%;">
           &#10022; Ready: Drag any table or seat on the floorplan, or use Focus Table (2.4&times;) to zoom in
         </div>
         <div style="display:flex;gap:6px;flex-wrap:wrap;">
           <button type="button" id="sh-expand-stage-top-btn" onclick="window.shToggleFullWidthStage()" class="studio-tap-chip" style="border-color:#181412;background:#FFFFFF;color:#181412;font-weight:800;">&#9974; Full-Width Floorplan</button>
           <button type="button" onclick="window.shOpenVaultModal()" class="studio-tap-chip" style="border-color:#C8A96E;background:#FAF3E3;color:#78350F;font-weight:800;">&#128190; Save / Login (#<span id="sh-btn-vault-id">${vId}</span>)</button>
-          <a href="#studio-bespoke-artifact-stage" onclick="var el=document.getElementById('sh-stat-harmony')||document.getElementById('studio-bespoke-artifact-stage');if(el){window.scrollTo({top:el.getBoundingClientRect().top+window.pageYOffset-110,behavior:'auto'});}return false;" class="mobile-jump-canvas-btn" style="font-size:0.74rem;font-weight:800;color:#181412;background:#FAF3E3;border:1.5px solid #C8A96E;padding:6px 12px;border-radius:999px;text-decoration:none;">&#128065; Jump to Stage &darr;</a>
+          <a href="#studio-bespoke-artifact-stage" onclick="var el=document.getElementById('sh-stat-harmony')||document.getElementById('studio-bespoke-artifact-stage');if(el){window.scrollTo({top:el.getBoundingClientRect().top+window.pageYOffset-110,behavior:'auto'});}return false;" class="mobile-jump-canvas-btn" style="font-size:0.82rem;font-weight:800;color:#181412;background:#FAF3E3;border:1.5px solid #C8A96E;padding:6px 12px;border-radius:999px;text-decoration:none;">&#128065; Jump to Stage &darr;</a>
         </div>
       </div>
 
@@ -237,7 +237,7 @@ function renderZone3InteractiveStudio(plan) {
                 </div>
               </div>
               <div style="display:flex;align-items:center;gap:6px;flex-wrap:wrap;margin-bottom:8px;">
-                <input id="sh-crest-logo-input" type="text" class="grader-input" style="flex:1 1 160px;font-size:0.74rem;padding:5px 8px;" placeholder="Optional Logo URL (or auto M&amp;L Crest)" oninput="window.shUpdateCrestLogo(this.value)" aria-label="Optional Monogram or Planner Crest Logo URL" />
+                <input id="sh-crest-logo-input" type="text" class="grader-input" style="flex:1 1 160px;font-size:0.82rem;padding:5px 8px;" placeholder="Optional Logo URL (or auto M&amp;L Crest)" oninput="window.shUpdateCrestLogo(this.value)" aria-label="Optional Monogram or Planner Crest Logo URL" />
                 <button type="button" class="studio-tap-chip" onclick="var el=document.getElementById('sh-crest-logo-input');if(el){el.value=el.value?'':'/favicon.svg';window.shUpdateCrestLogo(el.value);}">&#10022; Logo</button>
               </div>
               <div style="display:flex;flex-wrap:wrap;justify-content:space-between;align-items:center;gap:6px;background:#FAF6EE;border:1px solid #E2D9C8;border-radius:8px;padding:6px 8px;">
@@ -245,7 +245,7 @@ function renderZone3InteractiveStudio(plan) {
                   <button type="button" id="sh-add-table-btn" class="studio-tap-chip" onclick="window.shAddNewTable()">+ Table</button>
                   <button type="button" id="sh-clear-demo-btn" class="studio-tap-chip" style="border-color:#8C2D19;color:#8C2D19;" onclick="window.shStartBlankList()">&#10024; Start Blank</button>
                 </div>
-                <button type="button" onclick="window.scrollToShCard(2)" style="background:#181412;color:#FDE68A;border:1px solid #C8A96E;border-radius:7px;padding:5px 10px;font-size:0.70rem;font-weight:800;cursor:pointer;">Step 2: Guests &darr;</button>
+                <button type="button" onclick="window.scrollToShCard(2)" style="background:#181412;color:#FDE68A;border:1px solid #C8A96E;border-radius:7px;padding:5px 10px;font-size:0.82rem;font-weight:800;cursor:pointer;">Step 2: Guests &darr;</button>
               </div>
             </div>
           </div>
@@ -272,7 +272,7 @@ function renderZone3InteractiveStudio(plan) {
                     <option value="6">Table 7 (Friends)</option>
                     <option value="7">Table 8 (Seniors)</option>
                   </select>
-                  <button type="button" class="btn btn-primary" style="padding:7px 12px;font-size:0.76rem;" onclick="window.shAddMessyHousehold()">+ Seat</button>
+                  <button type="button" class="btn btn-primary" style="padding:7px 12px;font-size:0.82rem;" onclick="window.shAddMessyHousehold()">+ Seat</button>
                 </div>
               </div>
               <div style="margin-bottom:8px;">
@@ -285,24 +285,24 @@ function renderZone3InteractiveStudio(plan) {
               <!-- 2C. Bulk Spreadsheet / CSV Paste & File Upload Drawer -->
               <div id="sh-bulk-csv-drawer" style="display:none;background:#FAF6EE;border:1.5px solid #C8A96E;border-radius:10px;padding:10px;margin-bottom:8px;">
                 <div style="display:flex;justify-content:space-between;align-items:center;gap:8px;flex-wrap:wrap;margin-bottom:6px;">
-                  <span style="font-size:0.71rem;font-weight:800;color:#181412;">Paste RSVP Rows or Upload <code>.CSV</code>:</span>
+                  <span style="font-size:0.82rem;font-weight:800;color:#181412;">Paste RSVP Rows or Upload <code>.CSV</code>:</span>
                   <label class="studio-tap-chip" style="cursor:pointer;background:#FFFFFF;border-color:#181412;font-weight:800;">
                     &#128194; Upload .CSV
                     <input id="sh-csv-file-input" type="file" accept=".csv,.txt" style="display:none;" onchange="window.shHandleCsvFileUpload(this)" />
                   </label>
                 </div>
-                <textarea id="sh-bulk-csv-textarea" rows="3" class="grader-input" style="width:100%;font-family:var(--font-mono);font-size:0.72rem;margin-bottom:6px;" placeholder="Paste 1 household per line...">Dr. &amp; Mrs. James Chen (Halibut)
+                <textarea id="sh-bulk-csv-textarea" rows="3" class="grader-input" style="width:100%;font-family:var(--font-mono);font-size:0.82rem;margin-bottom:6px;" placeholder="Paste 1 household per line...">Dr. &amp; Mrs. James Chen (Halibut)
 Sarah &amp; Mark Miller + 2 Kids (GF)
 Aunt Patricia + Guest (Wheelchair, Vegan)
 David &amp; Elena Rostova (Filet, Peanut Allergy)</textarea>
                 <div style="display:flex;gap:6px;flex-wrap:wrap;">
-                  <button type="button" id="sh-bulk-append-btn" class="btn btn-primary" style="padding:6px 11px;font-size:0.73rem;" onclick="window.shProcessBulkCsv(false)">&#9889; Append List</button>
+                  <button type="button" id="sh-bulk-append-btn" class="btn btn-primary" style="padding:6px 11px;font-size:0.82rem;" onclick="window.shProcessBulkCsv(false)">&#9889; Append List</button>
                   <button type="button" id="sh-bulk-replace-btn" class="studio-tap-chip" style="border-color:#8C2D19;color:#8C2D19;font-weight:800;" onclick="window.shProcessBulkCsv(true)">&#10024; Replace Demo</button>
                 </div>
               </div>
               <div style="display:flex;justify-content:space-between;align-items:center;gap:6px;">
-                <button type="button" onclick="window.scrollToShCard(1)" style="background:transparent;color:#57534E;border:1px solid #D6CFC2;border-radius:7px;padding:4px 9px;font-size:0.68rem;font-weight:700;cursor:pointer;">&uarr; Step 1</button>
-                <button type="button" onclick="window.scrollToShCard(3)" style="background:#181412;color:#FDE68A;border:1px solid #C8A96E;border-radius:7px;padding:5px 10px;font-size:0.70rem;font-weight:800;cursor:pointer;">Step 3: Rules &darr;</button>
+                <button type="button" onclick="window.scrollToShCard(1)" style="background:transparent;color:#57534E;border:1px solid #D6CFC2;border-radius:7px;padding:4px 9px;font-size:0.82rem;font-weight:700;cursor:pointer;">&uarr; Step 1</button>
+                <button type="button" onclick="window.scrollToShCard(3)" style="background:#181412;color:#FDE68A;border:1px solid #C8A96E;border-radius:7px;padding:5px 10px;font-size:0.82rem;font-weight:800;cursor:pointer;">Step 3: Rules &darr;</button>
               </div>
             </div>
           </div>
@@ -318,8 +318,8 @@ David &amp; Elena Rostova (Filet, Peanut Allergy)</textarea>
               <div style="background:#FAF6EE;border:1px solid #E2D9C8;border-radius:10px;padding:8px;margin-bottom:8px;">
                 <label for="sh-custom-rule-input" class="studio-field-label">Add Family Buffer or Quiet Table Rule:</label>
                 <div style="display:flex;flex-wrap:wrap;gap:5px;">
-                  <input id="sh-custom-rule-input" type="text" class="grader-input" style="flex:1 1 150px;font-size:0.74rem;" value="Keep Uncle Bob &amp; Aunt Linda 2+ tables apart" />
-                  <select id="sh-custom-rule-type" class="grader-input" style="flex:0 1 140px;font-size:0.73rem;" aria-label="Rule Type">
+                  <input id="sh-custom-rule-input" type="text" class="grader-input" style="flex:1 1 150px;font-size:0.82rem;" value="Keep Uncle Bob &amp; Aunt Linda 2+ tables apart" />
+                  <select id="sh-custom-rule-type" class="grader-input" style="flex:0 1 140px;font-size:0.82rem;" aria-label="Rule Type">
                     <option value="must_keep_apart">&#128308; Keep Apart</option>
                     <option value="zone_quiet">&#128263; Quiet Zone</option>
                     <option value="must_sit_together">&#128994; Sit Together</option>
@@ -327,10 +327,10 @@ David &amp; Elena Rostova (Filet, Peanut Allergy)</textarea>
                   <button type="button" class="studio-tap-chip active" onclick="window.shAddCustomRule()">+ Add Rule</button>
                 </div>
               </div>
-              <button id="sh-solve-btn" type="button" class="btn btn-primary" style="width:100%;padding:9px 12px;font-size:0.78rem;margin-bottom:8px;" onclick="window.shRunSimulatedAnnealingSolver()">&#10024; Auto-Arrange All Tables (1 Click)</button>
+              <button id="sh-solve-btn" type="button" class="btn btn-primary" style="width:100%;padding:9px 12px;font-size:0.84rem;margin-bottom:8px;" onclick="window.shRunSimulatedAnnealingSolver()">&#10024; Auto-Arrange All Tables (1 Click)</button>
               <div style="display:flex;justify-content:space-between;align-items:center;gap:6px;">
-                <button type="button" onclick="window.scrollToShCard(2)" style="background:transparent;color:#57534E;border:1px solid #D6CFC2;border-radius:7px;padding:4px 9px;font-size:0.68rem;font-weight:700;cursor:pointer;">&uarr; Step 2</button>
-                <button type="button" onclick="window.scrollToShCard(4)" style="background:#181412;color:#FDE68A;border:1px solid #C8A96E;border-radius:7px;padding:5px 10px;font-size:0.70rem;font-weight:800;cursor:pointer;">Step 4: Tables &darr;</button>
+                <button type="button" onclick="window.scrollToShCard(2)" style="background:transparent;color:#57534E;border:1px solid #D6CFC2;border-radius:7px;padding:4px 9px;font-size:0.82rem;font-weight:700;cursor:pointer;">&uarr; Step 2</button>
+                <button type="button" onclick="window.scrollToShCard(4)" style="background:#181412;color:#FDE68A;border:1px solid #C8A96E;border-radius:7px;padding:5px 10px;font-size:0.82rem;font-weight:800;cursor:pointer;">Step 4: Tables &darr;</button>
               </div>
             </div>
           </div>
@@ -375,8 +375,8 @@ David &amp; Elena Rostova (Filet, Peanut Allergy)</textarea>
                 </div>
               </div>
               <div style="display:flex;justify-content:space-between;align-items:center;gap:6px;">
-                <button type="button" onclick="window.scrollToShCard(3)" style="background:transparent;color:#57534E;border:1px solid #D6CFC2;border-radius:7px;padding:4px 9px;font-size:0.68rem;font-weight:700;cursor:pointer;">&uarr; Step 3</button>
-                <button type="button" onclick="window.scrollToShCard(5)" style="background:#181412;color:#FDE68A;border:1px solid #C8A96E;border-radius:7px;padding:5px 10px;font-size:0.70rem;font-weight:800;cursor:pointer;">Step 5: Print &darr;</button>
+                <button type="button" onclick="window.scrollToShCard(3)" style="background:transparent;color:#57534E;border:1px solid #D6CFC2;border-radius:7px;padding:4px 9px;font-size:0.82rem;font-weight:700;cursor:pointer;">&uarr; Step 3</button>
+                <button type="button" onclick="window.scrollToShCard(5)" style="background:#181412;color:#FDE68A;border:1px solid #C8A96E;border-radius:7px;padding:5px 10px;font-size:0.82rem;font-weight:800;cursor:pointer;">Step 5: Print &darr;</button>
               </div>
             </div>
           </div>
@@ -402,7 +402,7 @@ David &amp; Elena Rostova (Filet, Peanut Allergy)</textarea>
               <div style="display:grid;grid-template-columns:1fr 1fr;gap:6px;margin-bottom:8px;">
                 <div>
                   <label for="sh-sign-kicker-input" class="studio-field-label">5B. Sign Header Kicker:</label>
-                  <select id="sh-sign-kicker-input" class="grader-input" style="padding:5px 7px;font-size:0.74rem;" onchange="window.shUpdateSignKicker(this.value)">
+                  <select id="sh-sign-kicker-input" class="grader-input" style="padding:5px 7px;font-size:0.82rem;" onchange="window.shUpdateSignKicker(this.value)">
                     <option value="Please Find Your Seat">Please Find Your Seat</option>
                     <option value="Welcome to Our Reception">Welcome to Our Reception</option>
                     <option value="Dinner &amp; Dancing">Dinner &amp; Dancing</option>
@@ -411,7 +411,7 @@ David &amp; Elena Rostova (Filet, Peanut Allergy)</textarea>
                 </div>
                 <div>
                   <label for="sh-sign-monogram-input" class="studio-field-label">5C. Crest Monogram:</label>
-                  <input id="sh-sign-monogram-input" type="text" class="grader-input" style="padding:5px 7px;font-size:0.74rem;" value="M&amp;L &middot; EST. 2026" oninput="window.shUpdateSignMonogram(this.value)" placeholder="M&amp;L · EST. 2026" />
+                  <input id="sh-sign-monogram-input" type="text" class="grader-input" style="padding:5px 7px;font-size:0.82rem;" value="M&amp;L &middot; EST. 2026" oninput="window.shUpdateSignMonogram(this.value)" placeholder="M&amp;L · EST. 2026" />
                 </div>
               </div>
               <div style="margin-bottom:8px;">
@@ -424,8 +424,8 @@ David &amp; Elena Rostova (Filet, Peanut Allergy)</textarea>
                 </div>
               </div>
               <div style="display:flex;align-items:center;justify-content:space-between;gap:6px;flex-wrap:wrap;padding-top:6px;border-top:1px solid #EFEAE1;">
-                <button type="button" onclick="window.scrollToShCard(4)" style="background:transparent;color:#57534E;border:1px solid #D6CFC2;border-radius:7px;padding:4px 9px;font-size:0.68rem;font-weight:700;cursor:pointer;">&uarr; Step 4</button>
-                <a id="sh-card5-buy-btn" href="/buy/complete_dossier?target=estate-150&amp;vault=${vId}" style="background:#065F46;color:#FFFFFF;border:1px solid #10B981;border-radius:8px;padding:6px 12px;font-size:0.72rem;font-weight:800;text-decoration:none;">
+                <button type="button" onclick="window.scrollToShCard(4)" style="background:transparent;color:#57534E;border:1px solid #D6CFC2;border-radius:7px;padding:4px 9px;font-size:0.82rem;font-weight:700;cursor:pointer;">&uarr; Step 4</button>
+                <a id="sh-card5-buy-btn" href="/buy/complete_dossier?target=estate-150&amp;vault=${vId}" style="background:#065F46;color:#FFFFFF;border:1px solid #10B981;border-radius:8px;padding:6px 12px;font-size:0.82rem;font-weight:800;text-decoration:none;">
                   &#10003; Unlock Print &amp; BEO Pack ($14.99) &rarr;
                 </a>
               </div>
@@ -435,17 +435,17 @@ David &amp; Elena Rostova (Filet, Peanut Allergy)</textarea>
           <!-- Compact Vault Hold & Checkout Bar -->
           <div id="sh-vault-checkout-bar" style="background:#FAF3E6;border:1.5px solid #C8A96E;border-radius:12px;padding:12px 14px;color:#181412;display:flex;flex-direction:column;gap:8px;">
             <div style="display:flex;align-items:center;justify-content:space-between;gap:8px;flex-wrap:wrap;">
-              <div style="font-size:0.78rem;font-weight:800;color:#78350F;" id="sh-vault-bar-headline">
+              <div style="font-size:0.82rem;font-weight:800;color:#78350F;" id="sh-vault-bar-headline">
                 &#128274; Vault #${vId} Auto-Saved
               </div>
               <div style="display:flex;gap:6px;flex-wrap:wrap;align-items:center;">
-                <button type="button" onclick="window.shOpenVaultModal()" style="cursor:pointer;background:#FFFFFF;color:#78350F;border:1px solid #C8A96E;border-radius:8px;padding:7px 10px;font-size:0.72rem;font-weight:800;">
+                <button type="button" onclick="window.shOpenVaultModal()" style="cursor:pointer;background:#FFFFFF;color:#78350F;border:1px solid #C8A96E;border-radius:8px;padding:7px 10px;font-size:0.82rem;font-weight:800;">
                   &#128190; Save / Email Link
                 </button>
-                <a id="sh-vault-buy-pack-btn" href="/buy/complete_dossier?target=estate-150&amp;vault=${vId}" style="background:#181412;color:#FDE68A;border:1px solid #C8A96E;border-radius:8px;padding:8px 12px;font-size:0.74rem;font-weight:800;text-decoration:none;">
+                <a id="sh-vault-buy-pack-btn" href="/buy/complete_dossier?target=estate-150&amp;vault=${vId}" style="background:#181412;color:#FDE68A;border:1px solid #C8A96E;border-radius:8px;padding:8px 12px;font-size:0.82rem;font-weight:800;text-decoration:none;">
                   &#10022; Print &amp; BEO Pack ($14.99) &rarr;
                 </a>
-                <a id="sh-vault-buy-pro-btn" href="/buy/pro_b2b?target=estate-150&amp;vault=${vId}" style="background:#FFFFFF;color:#181412;border:1px solid #D6CFC2;border-radius:8px;padding:7px 10px;font-size:0.70rem;font-weight:700;text-decoration:none;">
+                <a id="sh-vault-buy-pro-btn" href="/buy/pro_b2b?target=estate-150&amp;vault=${vId}" style="background:#FFFFFF;color:#181412;border:1px solid #D6CFC2;border-radius:8px;padding:7px 10px;font-size:0.82rem;font-weight:700;text-decoration:none;">
                   Pro ($39/mo)
                 </a>
               </div>
@@ -476,12 +476,12 @@ David &amp; Elena Rostova (Filet, Peanut Allergy)</textarea>
           <!-- Warm Sunlit Champagne & Gold Live 4-Tab Reception Stage -->
           <div class="studio-bespoke-stage" id="studio-bespoke-artifact-stage">
             <div style="display:flex;align-items:center;justify-content:space-between;gap:8px;flex-wrap:wrap;">
-              <span class="mono" style="font-size:0.70rem;font-weight:800;letter-spacing:0.08em;text-transform:uppercase;color:#78350F;">
+              <span class="mono" style="font-size:0.82rem;font-weight:800;letter-spacing:0.08em;text-transform:uppercase;color:#78350F;">
                 &#10022; LIVE 4-TAB RECEPTION STAGE &middot; <span id="sh-stage-venue-label">${escapeHtml(plan.venueName || 'Rosewood Conservatory')}</span>
               </span>
               <div style="display:flex;align-items:center;gap:6px;flex-wrap:wrap;">
-                <button type="button" id="sh-stage-expand-btn" onclick="window.shToggleFullWidthStage()" style="font-size:0.68rem;font-weight:800;color:#181412;background:#FDE68A;border:1px solid #C8A96E;padding:4px 10px;border-radius:999px;cursor:pointer;">&#9974; Full-Width Stage</button>
-                <span id="sh-mom-sandbox-badge" class="badge badge-cyan" style="font-size:0.66rem;cursor:pointer;" onclick="window.shToggleMomSandbox()">&#128117; Family Share Mode: OFF</span>
+                <button type="button" id="sh-stage-expand-btn" onclick="window.shToggleFullWidthStage()" style="font-size:0.82rem;font-weight:800;color:#181412;background:#FDE68A;border:1px solid #C8A96E;padding:4px 10px;border-radius:999px;cursor:pointer;">&#9974; Full-Width Stage</button>
+                <span id="sh-mom-sandbox-badge" class="badge badge-cyan" style="font-size:0.82rem;cursor:pointer;" onclick="window.shToggleMomSandbox()">&#128117; Family Share Mode: OFF</span>
               </div>
             </div>
 
@@ -501,18 +501,18 @@ David &amp; Elena Rostova (Filet, Peanut Allergy)</textarea>
                   <div id="specimen-logo-badge" title="Couple Monogram / Planner Crest Badge" style="width:50px;height:50px;border-radius:12px;background:linear-gradient(135deg,#181412 0%,#2E241E 100%);border:2px solid #C8A96E;color:#FDE68A;display:flex;flex-direction:column;align-items:center;justify-content:center;flex-shrink:0;box-shadow:0 6px 16px rgba(24,20,18,0.16);overflow:hidden;position:relative;padding:2px;">
                     <span id="specimen-logo-monogram" style="display:flex;flex-direction:column;align-items:center;justify-content:center;line-height:1;">
                       <span id="specimen-logo-monogram-initials" style="font-family:var(--font-serif);font-size:1.12rem;font-weight:700;letter-spacing:0.03em;color:#FDE68A;">M&amp;L</span>
-                      <span id="specimen-logo-monogram-sub" style="font-family:var(--font-mono);font-size:0.44rem;font-weight:800;letter-spacing:0.08em;color:#C8A96E;margin-top:2px;text-transform:uppercase;">EST. 2026</span>
+                      <span id="specimen-logo-monogram-sub" style="font-family:var(--font-mono);font-size:0.82rem;font-weight:800;letter-spacing:0.04em;color:#C8A96E;margin-top:2px;text-transform:uppercase;display:none;">EST. 2026</span>
                     </span>
                     <img id="specimen-logo-img" src="" alt="Planner or Couple Crest Logo" style="display:none;width:100%;height:100%;object-fit:contain;background:#FFFFFF;padding:3px;border-radius:9px;" />
                   </div>
                   <div style="min-width:0;flex:1;">
                     <div style="display:flex;align-items:center;justify-content:space-between;gap:6px;">
-                      <div id="specimen-salon-crest" style="font-size:0.62rem;font-weight:800;letter-spacing:0.09em;text-transform:uppercase;color:#8C2D19;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;">&#10022; ${escapeHtml((plan.venueName || 'Rosewood Conservatory').toUpperCase())}</div>
-                      <span id="specimen-harmony-pill" class="badge badge-emerald" style="font-size:0.62rem;padding:2px 8px;flex-shrink:0;">&#10022; ${plan.harmonyScore || 98}/100 HARMONY</span>
+                      <div id="specimen-salon-crest" style="font-size:0.82rem;font-weight:800;letter-spacing:0.09em;text-transform:uppercase;color:#8C2D19;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;">&#10022; ${escapeHtml((plan.venueName || 'Rosewood Conservatory').toUpperCase())}</div>
+                      <span id="specimen-harmony-pill" class="badge badge-emerald" style="font-size:0.82rem;padding:2px 8px;flex-shrink:0;">&#10022; ${plan.harmonyScore || 98}/100 HARMONY</span>
                     </div>
                     <div id="specimen-client-headline" class="serif-display" style="font-size:1.10rem;color:#181412;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;">${escapeHtml(plan.title || "Maya & Liam's Estate Reception")}</div>
                     <div id="specimen-tagline-sub" style="display:none;"></div>
-                    <div id="specimen-meta-sub" class="mono" style="font-size:0.60rem;color:#57534E;font-weight:700;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;">98/100 Harmony &bull; 62 Guests (8 Tbls) &bull; 12:00 Seat #1 BEO</div>
+                    <div id="specimen-meta-sub" class="mono" style="font-size:0.82rem;color:#57534E;font-weight:700;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;">98/100 Harmony &bull; 62 Guests (8 Tbls) &bull; 12:00 Seat #1 BEO</div>
                   </div>
                 </div>
               </div>
@@ -522,19 +522,19 @@ David &amp; Elena Rostova (Filet, Peanut Allergy)</textarea>
                 <!-- Floorplan Zoom, Focus Table & Table Position Toolbar -->
                 <div style="display:flex;flex-wrap:wrap;align-items:center;justify-content:space-between;gap:6px;margin-bottom:8px;padding:7px 10px;background:#FAF6EE;border:1px solid #E2D9C8;border-radius:10px;">
                   <div style="display:flex;align-items:center;gap:5px;flex-wrap:wrap;">
-                    <span style="font-size:0.68rem;font-weight:800;color:#181412;margin-right:2px;">VIEW:</span>
-                    <button type="button" id="sh-zoom-room-btn" class="studio-tap-chip active" style="padding:4px 9px;font-size:0.71rem;" onclick="window.shSetCanvasZoom('room')">&#128506; Full Room (1&times;)</button>
-                    <button type="button" id="sh-zoom-15-btn" class="studio-tap-chip" style="padding:4px 9px;font-size:0.71rem;" onclick="window.shSetCanvasZoom('zoom15')">&#128269; Zoom 1.5&times;</button>
-                    <button type="button" id="sh-zoom-table-btn" class="studio-tap-chip" style="padding:4px 10px;font-size:0.71rem;border-color:#8C2D19;color:#8C2D19;font-weight:800;" onclick="window.shSetCanvasZoom('table')">&#127919; Focus Selected Table (2.4&times;)</button>
-                    <button type="button" id="sh-toolbar-add-table-btn" class="studio-tap-chip" style="padding:4px 10px;font-size:0.71rem;border-color:#065F46;background:#ECFDF5;color:#065F46;font-weight:800;" onclick="window.shAddNewTable()">+ Add Table</button>
+                    <span style="font-size:0.82rem;font-weight:800;color:#181412;margin-right:2px;">VIEW:</span>
+                    <button type="button" id="sh-zoom-room-btn" class="studio-tap-chip active" style="padding:4px 9px;font-size:0.82rem;" onclick="window.shSetCanvasZoom('room')">&#128506; Full Room (1&times;)</button>
+                    <button type="button" id="sh-zoom-15-btn" class="studio-tap-chip" style="padding:4px 9px;font-size:0.82rem;" onclick="window.shSetCanvasZoom('zoom15')">&#128269; Zoom 1.5&times;</button>
+                    <button type="button" id="sh-zoom-table-btn" class="studio-tap-chip" style="padding:4px 10px;font-size:0.82rem;border-color:#8C2D19;color:#8C2D19;font-weight:800;" onclick="window.shSetCanvasZoom('table')">&#127919; Focus Selected Table (2.4&times;)</button>
+                    <button type="button" id="sh-toolbar-add-table-btn" class="studio-tap-chip" style="padding:4px 10px;font-size:0.82rem;border-color:#065F46;background:#ECFDF5;color:#065F46;font-weight:800;" onclick="window.shAddNewTable()">+ Add Table</button>
                   </div>
                   <div style="display:flex;align-items:center;gap:4px;flex-wrap:wrap;">
-                    <span style="font-size:0.67rem;font-weight:800;color:#57534E;margin-right:2px;">MOVE TABLE:</span>
-                    <button type="button" class="studio-tap-chip" style="padding:3px 8px;font-size:0.72rem;" title="Move Selected Table Left" onclick="window.shNudgeSelectedTable(-32,0)">&larr;</button>
-                    <button type="button" class="studio-tap-chip" style="padding:3px 8px;font-size:0.72rem;" title="Move Selected Table Up" onclick="window.shNudgeSelectedTable(0,-28)">&uarr;</button>
-                    <button type="button" class="studio-tap-chip" style="padding:3px 8px;font-size:0.72rem;" title="Move Selected Table Down" onclick="window.shNudgeSelectedTable(0,28)">&darr;</button>
-                    <button type="button" class="studio-tap-chip" style="padding:3px 8px;font-size:0.72rem;" title="Move Selected Table Right" onclick="window.shNudgeSelectedTable(32,0)">&rarr;</button>
-                    <span style="font-size:0.66rem;color:#78716C;margin-left:4px;">or drag any table / seat directly</span>
+                    <span style="font-size:0.82rem;font-weight:800;color:#57534E;margin-right:2px;">MOVE TABLE:</span>
+                    <button type="button" class="studio-tap-chip" style="padding:3px 8px;font-size:0.82rem;" title="Move Selected Table Left" onclick="window.shNudgeSelectedTable(-32,0)">&larr;</button>
+                    <button type="button" class="studio-tap-chip" style="padding:3px 8px;font-size:0.82rem;" title="Move Selected Table Up" onclick="window.shNudgeSelectedTable(0,-28)">&uarr;</button>
+                    <button type="button" class="studio-tap-chip" style="padding:3px 8px;font-size:0.82rem;" title="Move Selected Table Down" onclick="window.shNudgeSelectedTable(0,28)">&darr;</button>
+                    <button type="button" class="studio-tap-chip" style="padding:3px 8px;font-size:0.82rem;" title="Move Selected Table Right" onclick="window.shNudgeSelectedTable(32,0)">&rarr;</button>
+                    <span style="font-size:0.82rem;color:#78716C;margin-left:4px;">or drag any table / seat directly</span>
                   </div>
                 </div>
 
@@ -616,7 +616,7 @@ David &amp; Elena Rostova (Filet, Peanut Allergy)</textarea>
             </div>
 
             <!-- Stage Footer -->
-            <div style="display:flex;justify-content:space-between;align-items:center;gap:8px;flex-wrap:wrap;font-size:0.72rem;color:#57534E;">
+            <div style="display:flex;justify-content:space-between;align-items:center;gap:8px;flex-wrap:wrap;font-size:0.82rem;color:#57534E;">
               <span>&#10022; Click Tabs 1-4 above or open full print views (<a id="sh-footer-vault-link" href="/vault/${vId}" style="color:#065F46;font-weight:800;">Command Center /vault/${vId} &nearr;</a>)</span>
               <a href="/directory" style="color:#8C2D19;text-decoration:underline;font-weight:700;">Browse 60+ Venue Floorplans &nearr;</a>
             </div>
