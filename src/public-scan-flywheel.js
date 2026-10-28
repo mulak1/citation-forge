@@ -108,6 +108,7 @@ function loadPublicScanLedger(cfg) {
     if (!x || !x.target) return false;
     const t = String(x.target).toLowerCase();
     if (cfg.moduleId !== 'citation_forge' && t === 'stripe.com') return false;
+    if (cfg.moduleId === 'citation_forge' && /^(stripe\.com|supabase\.com|linear\.app|vercel\.com|cloudflare\.com|notion\.so|adyen\.com|atlassian\.com|oracle\.com|legacy-erp\.io)$/i.test(t)) return false;
     if (/^(test|playwright|synthetic|bot|localhost|127\.0\.0\.1|99\.112\.|84\.17\.)/i.test(t) || /(onload|alert|xss|script)/i.test(t)) return false;
     return true;
   }).map((x) => {

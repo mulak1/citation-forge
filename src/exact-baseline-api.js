@@ -432,7 +432,7 @@ function classifyTrafficRequest(req, extraEmail = '') {
   if (isHtmlRoute && clientIp && !isOwnerIp) {
     const now = Date.now(), recent = (ipBurstWindow.get(clientIp) || []).filter((x) => now - x.ts < 30000);
     recent.push({ ts: now, path: req.path }); ipBurstWindow.set(clientIp, recent);
-    if (recent.length >= 3 || recent.filter((x) => x.path === req.path && now - x.ts < 15000).length >= 2) isBurstScrape = true;
+    if (recent.length >= 8 || recent.filter((x) => x.path === req.path && now - x.ts < 5000).length >= 4) isBurstScrape = true;
   }
   const isSearchOrAiCrawler = !isMirofish && (CRAWLER_UA_REGEX.test(ua) || isPrefetch || isBurstScrape);
   if (isMirofish || isOwnerIp || isPlaywrightHeader || isQueryTest || isSearchOrAiCrawler || !ua || ua.includes('headlesschrome') || ua.includes('playwright') || ua.includes('puppeteer') || ua.includes('cypress') || ua.includes('curl/') || ua.includes('python-requests') || ua.includes('node-fetch') || ua.includes('undici') || ua.includes('go-http-client') || ua.includes('railway') || ua.includes('bot') || ua.includes('crawler') || ua.includes('spider') || emailLower.includes('example.com') || emailLower.includes('playwright') || emailLower.includes('test')) {
@@ -460,8 +460,8 @@ function createTelemetryStore(dataDir, moduleId) {
       const t0 = new Date(e.created_at).getTime(), win = state.events.slice(Math.max(0, i - 8), Math.min(state.events.length, i + 9));
       const sameIpVisits = win.filter((x) => x.event_type === 'visit' && x.client_ip === e.client_ip && Math.abs(new Date(x.created_at).getTime() - t0) <= 90000).length;
       const hasJs = win.some((x) => x.event_type !== 'visit' && x.client_ip === e.client_ip && Math.abs(new Date(x.created_at).getTime() - t0) <= 90000);
-      const seoBurst = (String(e.page_url || '').startsWith('/seo/') || String(e.page_url || '').startsWith('/scan/') || String(e.page_url || '').startsWith('/?preset=')) && win.filter((x) => x.event_type === 'visit' && Math.abs(new Date(x.created_at).getTime() - t0) <= 5000).length >= 3;
-      if (seoBurst || (sameIpVisits >= 2 && !hasJs)) { e.is_test = 1; e.is_crawler = 1; sanitized = true; }
+      const seoBurst = (String(e.page_url || '').startsWith('/seo/') || String(e.page_url || '').startsWith('/scan/') || String(e.page_url || '').startsWith('/?preset=')) && win.filter((x) => x.event_type === 'visit' && Math.abs(new Date(x.created_at).getTime() - t0) <= 5000).length >= 5;
+      if (seoBurst || (sameIpVisits >= 6 && !hasJs)) { e.is_test = 1; e.is_crawler = 1; sanitized = true; }
     }
   }
   for (const l of state.leads) { if (Number(l.is_test) === 0 && (!l.client_ip || isExcludedOwnerIp(l.client_ip) || l.is_owner)) { l.is_test = 1; l.is_owner = 1; sanitized = true; } }
@@ -982,9 +982,9 @@ function attachExactBaselinePack(app, options = {}) {
       const isHtml = typeof body === 'string' && (String(res.getHeader('Content-Type') || '').includes('text/html') || body.trim().startsWith('<!DOCTYPE html>'));
       if (isHtml && req.method === 'GET' && (req.path === '/' || req.path === '/lp' || req.path === '/directory' || req.path === '/leaderboard' || req.path === '/privacy' || req.path === '/terms' || req.path.startsWith('/dossier/sample') || req.path.startsWith('/seo/') || req.path.startsWith('/tools/') || req.path.startsWith('/compare/') || req.path.startsWith('/scan/') || req.path.startsWith('/report/'))) {
         try { res.setHeader('X-Robots-Tag', 'all, index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1'); res.setHeader('Link', `<https://${cfg.domain}/llms.txt>; rel="llms-txt", <https://${cfg.domain}/llms-full.txt>; rel="llms-full-txt", <https://${cfg.domain}/openapi.json>; rel="service-desc", <https://${cfg.domain}/feed.xml>; rel="alternate"; type="application/rss+xml"`); } catch (_) {}
-        store.recordEvent({ eventType: 'visit', pageUrl: req.originalUrl || req.path, deviceType, utmSource: String(req.query?.utm_source || ''), utmCampaign: String(req.query?.utm_campaign || ''), isTest, isCrawler, isOwnerIp, clientIp });
+        store.recordEvent({ eventType: 'visit', pageUrl: req.originalUrl || req.path, deviceType, utmSource: String(req.query?.utm_source || ''), utmCampaign: String(req.query?.utm_campaign || ''), isTest, isCrawler, isOwnerIp, clientIp, meta: { ref: String(req.headers.referer || '').slice(0, 180), ua: String(req.headers['user-agent'] || '').slice(0, 120) } });
         if (body.includes('data-seatharmony-native="1"')) {
-          const shCheckoutHelper = `<script>(function(){if(!document.cookie.includes('vs_vid=')){document.cookie='vs_vid=v_'+Date.now()+'_'+Math.random().toString(36).slice(2,7)+'; Path=/; Max-Age=31536000; SameSite=Lax';}window.__ebQuickBuy=window.__ebCheckout=function(tier){var vid=(document.cookie.match(/vs_vid=([^;]+)/)||[])[1]||'';window.location.href='/buy/'+(tier||'complete_dossier')+'?target=estate-150&vid='+encodeURIComponent(vid);};})();</script>`;
+          const shCheckoutHelper = `<script>(function(){if(!document.cookie.includes('vs_vid=')){document.cookie='vs_vid=v_'+Date.now()+'_'+Math.random().toString(36).slice(2,7)+'; Path=/; Max-Age=31536000; SameSite=Lax';}var vid=(document.cookie.match(/vs_vid=([^;]+)/)||[])[1]||'';if(!window.__ebHydratedSent){window.__ebHydratedSent=true;try{fetch('/api/telemetry/event',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({event_type:'visit_hydrated',page_url:window.location.pathname,meta:{vid:vid,js_hydrated:1,vw:window.innerWidth||0,vh:window.innerHeight||0,ref:document.referrer||''}})});}catch(_){}}window.__ebQuickBuy=window.__ebCheckout=function(tier){window.location.href='/buy/'+(tier||'complete_dossier')+'?target=estate-150&vid='+encodeURIComponent(vid);};})();</script>`;
           body = body.includes('</body>') ? body.replace('</body>', `${shCheckoutHelper}</body>`) : (body + shCheckoutHelper);
         } else if (!body.includes('id="eb-bottom-conversion-suite"')) body = renderExactBaselineEnhancements(body, cfg, req.path);
       }
