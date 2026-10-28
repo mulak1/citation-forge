@@ -19,36 +19,61 @@ function renderInteractiveScript(initialPlan) {
   window.__SH_SWAP_SOURCE = null;
   window.__SH_SANDBOX_MOM = false;
   window.__SH_CREST_LOGO_URL = '';
+  window.__SH_SIGN_KICKER = 'Please Find Your Seat';
+  window.__SH_SIGN_MONOGRAM = 'M&L · EST. 2026';
   window.__SH_CANVAS_ZOOM = 'room';
   window.__SH_DRAG_STATE = null;
+  window.__SH_VSL_TIMER = null;
 
   var SH_VSL_SCENES = [
-    { badge: '98.4/100 HARMONY · 410PX SIGHTLINE BUFFER', leftImg: '/public/editorial-hero.jpg', rightImg: '/public/editorial-segment-1.jpg', objectPosition: 'center 28%', trapTag: '2 Family Clashes + 5 Hrs Canva', leftTitle: '2 AM Spreadsheet & Canva Chaos', leftDesc: 'Divorced parents placed in direct sightline across the dance floor, plus 5 hours re-typing 150 names into Canva.', rightPill: 'Estate Reception • 98/100 Harmony', rightRxTitle: '✓ Eleanor (Table 2) & Richard (Table 5) Separated 410px', rightTicket: '$14.99 Print & BEO Pack', rightDesc: 'Couples locked together • Clockwise 12:00 Caterer BEO • 24"×36" Welcome Sign + Avery 5302 Cards.' },
-    { badge: '100% COUPLED HOUSEHOLDS · KING\\\'S & BANQUET TABLES', leftImg: '/public/editorial-hero.jpg', rightImg: '/public/editorial-segment-2.jpg', objectPosition: 'center 24%', trapTag: '4 Split Couples on Long Tables', leftTitle: 'Manual Dragging Splits Plus-Ones', leftDesc: 'Switching from Round to Banquet tables in generic tools scrambles seats and splits married couples across table ends.', rightPill: 'Tuscan 80 • Perimeter Ring Math', rightRxTitle: '✓ 1-Click Round ↔ Banquet ↔ King\\\'s Table Morphing', rightTicket: '0 Split Couples', rightDesc: 'Perimeter geometry keeps couples side-by-side and places High-Chairs on outer corners automatically.' },
-    { badge: '100% CLOCKWISE 12:00 SEAT #1 CATERER BEO', leftImg: '/public/editorial-segment-1.jpg', rightImg: '/public/editorial-segment-3.jpg', objectPosition: 'center 34%', trapTag: '6 Unmarked Severe Allergies', leftTitle: 'Servers Guessing Entrées & Allergies', leftDesc: 'Flat spreadsheets force servers to ask guests who ordered Halibut and miss severe peanut allergies.', rightPill: 'Clockwise 12:00 Anchor • Avery 5302', rightRxTitle: '✓ Red 12 O\\\'Clock Dot = Seat #1 (Clockwise 1..N Roster)', rightTicket: 'Instant BEO .CSV + Tent PDF', rightDesc: 'Seats number 1..N clockwise from the Dance Floor with meal symbols (◆●▲★) and allergy flags.' }
+    { badge: '98.4/100 HARMONY · 560PX SIGHTLINE BUFFER', leftImg: '/public/editorial-hero.jpg', rightImg: '/public/editorial-segment-1.jpg', objectPosition: 'center 28%', trapTag: '2 Clashes + 5 Hrs Canva', leftTitle: '2 AM Spreadsheet & Canva Chaos', leftDesc: 'Divorced parents in direct sightline; 5 hours re-typing 150 names into Canva after RSVP drops.', rightPill: '98/100 Harmony', rightRxTitle: '✓ Tables 2 & 5 Separated 560px', rightTicket: 'Load in Studio ↓', rightDesc: 'Couples Locked • Clockwise 12:00 BEO • 24"×36" Sign + Avery 5302 Cards.' },
+    { badge: "100% COUPLED HOUSEHOLDS · KING'S & BANQUET TABLES", leftImg: '/public/editorial-hero.jpg', rightImg: '/public/editorial-segment-2.jpg', objectPosition: 'center 24%', trapTag: '4 Split Couples on Long Tables', leftTitle: 'Manual Dragging Splits Plus-Ones', leftDesc: 'Switching from Round to Banquet tables in generic tools scrambles seats and splits married couples.', rightPill: 'Tuscan 80 • Perimeter Math', rightRxTitle: "✓ 1-Click Round ↔ Banquet ↔ King's Table Morphing", rightTicket: 'Load in Studio ↓', rightDesc: 'Perimeter geometry keeps couples side-by-side and places High-Chairs on outer corners.' },
+    { badge: '100% CLOCKWISE 12:00 SEAT #1 CATERER BEO', leftImg: '/public/editorial-segment-1.jpg', rightImg: '/public/editorial-segment-3.jpg', objectPosition: 'center 34%', trapTag: '6 Unmarked Severe Allergies', leftTitle: 'Servers Guessing Entrées & Allergies', leftDesc: 'Flat spreadsheets force servers to ask guests who ordered Halibut and miss severe peanut allergies.', rightPill: 'Clockwise 12:00 Anchor', rightRxTitle: "✓ Red 12 O'Clock Dot = Seat #1 (Clockwise 1..N)", rightTicket: 'Load in Studio ↓', rightDesc: 'Seats number 1..N clockwise from the Dance Floor with meal symbols (◆●▲★) and allergy flags.' },
+    { badge: '6 ARCH D SIGN DESIGNS · AVERY 5302 + LIVE QR', leftImg: '/public/editorial-segment-2.jpg', rightImg: '/public/editorial-segment-1.jpg', objectPosition: 'center 26%', trapTag: '$220 Etsy Sign + Foyer Jam', leftTitle: '48-Hour RSVP Drops Ruin Printed Signs', leftDesc: 'Three last-minute guest changes force a full Canva re-layout and cause a 15-minute foyer line.', rightPill: '6 Luxury Sign Styles + QR', rightRxTitle: '✓ 300-DPI 24"×36" PDF + Instant Phone QR Lookup', rightTicket: 'Preview 6 Signs ↓', rightDesc: 'Switch between Parisian Gold, Botanical Ivory, Editorial Noir, Tuscan Sage, Blush Rosewater & Terracotta.' }
   ];
 
   window.selectShVslScene = function(idx) {
-    window.__SH_ACTIVE_VSL_SCENE = idx;
-    var s = SH_VSL_SCENES[idx] || SH_VSL_SCENES[0];
-    document.querySelectorAll('#sh-vsl-scene-pills .vsl-scene-pill').forEach(function(b, i) { b.classList.toggle('active', i === idx); });
+    var total = SH_VSL_SCENES.length;
+    var cleanIdx = ((idx % total) + total) % total;
+    window.__SH_ACTIVE_VSL_SCENE = cleanIdx;
+    var s = SH_VSL_SCENES[cleanIdx] || SH_VSL_SCENES[0];
+    document.querySelectorAll('#sh-vsl-scene-pills .vsl-scene-pill').forEach(function(b, i) { b.classList.toggle('active', i === cleanIdx); });
     var setTxt = function(id, val) { var el = document.getElementById(id); if (el) el.textContent = val; };
     setTxt('vsl-center-delta-badge', s.badge); setTxt('vsl-trap-tag', s.trapTag);
     setTxt('vsl-left-title', s.leftTitle); setTxt('vsl-left-desc', s.leftDesc);
     setTxt('vsl-right-season-pill', s.rightPill); setTxt('vsl-right-rx-title', s.rightRxTitle);
-    setTxt('vsl-right-ticket-pill', 'Load Scene in Studio ↓'); setTxt('vsl-right-desc', s.rightDesc);
+    setTxt('vsl-right-ticket-pill', s.rightTicket || 'Load in Studio ↓'); setTxt('vsl-right-desc', s.rightDesc);
+    var prog = document.getElementById('sh-vsl-progress-bar');
+    if (prog) prog.style.width = (((cleanIdx + 1) / total) * 100) + '%';
     var imgL = document.getElementById('vsl-img-left'), imgR = document.getElementById('vsl-img-right');
     if (imgL) { imgL.src = s.leftImg; imgL.style.objectPosition = s.objectPosition || 'center 28%'; }
     if (imgR) { imgR.src = s.rightImg; imgR.style.objectPosition = s.objectPosition || 'center 28%'; }
   };
 
+  window.shNextVslScene = function() {
+    window.selectShVslScene((window.__SH_ACTIVE_VSL_SCENE || 0) + 1);
+  };
+
+  window.shToggleVslAutoPlay = function() {
+    var iconEl = document.getElementById('sh-vsl-play-icon'), lblEl = document.getElementById('sh-vsl-play-label');
+    if (window.__SH_VSL_TIMER) {
+      clearInterval(window.__SH_VSL_TIMER); window.__SH_VSL_TIMER = null;
+      if (iconEl) iconEl.textContent = '▶'; if (lblEl) lblEl.textContent = 'Auto-Play Story';
+      return;
+    }
+    if (iconEl) iconEl.textContent = '⏸'; if (lblEl) lblEl.textContent = 'Playing Story';
+    window.shNextVslScene();
+    window.__SH_VSL_TIMER = setInterval(function() { window.shNextVslScene(); }, 3400);
+  };
+
   window.shLoadVslSceneIntoStudio = function() {
     var idx = window.__SH_ACTIVE_VSL_SCENE || 0;
-    var presetMap = ['estate-150', 'tuscan-banquet-80', 'planner-beo-sandbox'];
+    var presetMap = ['estate-150', 'tuscan-banquet-80', 'planner-beo-sandbox', 'estate-150'];
     var preset = presetMap[idx] || 'estate-150';
     var chip = document.querySelector('[data-preset="' + preset + '"]');
     window.loadPresetScenario(preset, chip);
     if (idx === 2) window.shSetActiveTab('beo');
+    if (idx === 3) window.shSetActiveTab('poster');
     var st = document.getElementById('studio');
     if (st) st.scrollIntoView({ behavior: 'smooth' });
   };
@@ -762,36 +787,10 @@ function renderInteractiveScript(initialPlan) {
       const cleanAllergy = g.allergy ? String(g.allergy).replace(/^[⚠️🥜🌾🐚🥛]+\\s*/, '') : '', cleanAccess = g.accessibility ? String(g.accessibility).replace(/^[♿👶]+\\s*/, '') : '';
       const tagLabel = cleanAllergy ? ('⚠️ ' + shEsc(cleanAllergy)) : (cleanAccess ? ('♿ ' + shEsc(cleanAccess)) : '+ Tag');
       const tagStyle = cleanAllergy ? 'background:#FFF1F2;color:#9F1239;border:1px solid #FECDD3;' : (cleanAccess ? 'background:#FEF3C7;color:#92400E;border:1px solid #FDE68A;' : 'background:#F5F5F4;color:#57534E;border:1px solid #D6D3D1;');
-      return '<div onclick="window.shSeatClick(' + tIdx + ',' + idx + ',event)" style="cursor:pointer;display:flex;flex-wrap:wrap;align-items:center;justify-content:space-between;gap:5px;padding:7px 9px;border-radius:8px;background:#FFFFFF;border:1px solid #EAE2D3;font-size:0.76rem;min-width:0;">' +
-        '<div style="display:flex;align-items:center;gap:5px;min-width:0;flex:1 1 110px;">' +
-          '<span class="mono" style="font-size:0.66rem;font-weight:800;padding:2px 5px;border-radius:5px;flex-shrink:0;background:' + (idx === 0 ? '#8C2D19' : '#F3EDE3') + ';color:' + (idx === 0 ? '#FFF' : '#1C1917') + ';">#' + seat.seatNumber + '</span>' +
-          '<strong style="color:#1C1917;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;">' + shEsc(g.name) + '</strong>' +
-        '</div>' +
-        '<div style="display:flex;flex-wrap:wrap;align-items:center;gap:3px;" onclick="event.stopPropagation()">' +
-          '<button type="button" title="Move Seat Counter-Clockwise" onclick="window.shMoveGuestSeatOffset(' + tIdx + ',' + idx + ',-1,event)" style="cursor:pointer;border:1px solid #D6CFC2;background:#FAF7F2;color:#181412;font-size:0.64rem;font-weight:800;padding:2px 5px;border-radius:4px;">&#9664;</button>' +
-          '<button type="button" title="Move Seat Clockwise" onclick="window.shMoveGuestSeatOffset(' + tIdx + ',' + idx + ',1,event)" style="cursor:pointer;border:1px solid #D6CFC2;background:#FAF7F2;color:#181412;font-size:0.64rem;font-weight:800;padding:2px 5px;border-radius:4px;">&#9654;</button>' +
-          '<select aria-label="Move guest to another table" onchange="window.shMoveGuestToTable(' + tIdx + ',' + idx + ',this.value,event)" style="cursor:pointer;border:1px solid #C8A96E;background:#FAF3E3;color:#78350F;font-size:0.64rem;font-weight:800;padding:2px 4px;border-radius:4px;">' + tableMoveOpts + '</select>' +
-          '<button type="button" title="Cycle Entrée" onclick="window.shCycleGuestMeal(' + tIdx + ',' + idx + ',event)" style="cursor:pointer;border:1px solid ' + mb.color + ';font-size:0.64rem;font-weight:800;padding:2px 5px;border-radius:4px;background:' + mb.bg + ';color:' + mb.color + ';">' + mb.code + ' ' + mb.short + '</button>' +
-          '<button type="button" title="Cycle Allergy / Chair" onclick="window.shCycleGuestAllergy(' + tIdx + ',' + idx + ',event)" style="cursor:pointer;font-size:0.62rem;font-weight:800;padding:2px 5px;border-radius:4px;' + tagStyle + '">' + tagLabel + '</button>' +
-          '<button type="button" title="Remove guest" onclick="window.shRemoveGuest(' + tIdx + ',' + idx + ',event)" style="cursor:pointer;border:1px solid #FECDD3;background:#FFF1F2;color:#9F1239;font-size:0.63rem;font-weight:800;padding:2px 5px;border-radius:4px;">✕</button>' +
-        '</div></div>';
+      return '<div onclick="window.shSeatClick(' + tIdx + ',' + idx + ',event)" style="cursor:pointer;display:flex;flex-wrap:wrap;align-items:center;justify-content:space-between;gap:5px;padding:7px 9px;border-radius:8px;background:#FFFFFF;border:1px solid #EAE2D3;font-size:0.76rem;min-width:0;"><div style="display:flex;align-items:center;gap:5px;min-width:0;flex:1 1 110px;"><span class="mono" style="font-size:0.66rem;font-weight:800;padding:2px 5px;border-radius:5px;flex-shrink:0;background:' + (idx === 0 ? '#8C2D19' : '#F3EDE3') + ';color:' + (idx === 0 ? '#FFF' : '#1C1917') + ';">#' + seat.seatNumber + '</span><strong style="color:#1C1917;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;">' + shEsc(g.name) + '</strong></div><div style="display:flex;flex-wrap:wrap;align-items:center;gap:3px;" onclick="event.stopPropagation()"><button type="button" title="Move Seat Counter-Clockwise" onclick="window.shMoveGuestSeatOffset(' + tIdx + ',' + idx + ',-1,event)" style="cursor:pointer;border:1px solid #D6CFC2;background:#FAF7F2;color:#181412;font-size:0.64rem;font-weight:800;padding:2px 5px;border-radius:4px;">&#9664;</button><button type="button" title="Move Seat Clockwise" onclick="window.shMoveGuestSeatOffset(' + tIdx + ',' + idx + ',1,event)" style="cursor:pointer;border:1px solid #D6CFC2;background:#FAF7F2;color:#181412;font-size:0.64rem;font-weight:800;padding:2px 5px;border-radius:4px;">&#9654;</button><select aria-label="Move guest to another table" onchange="window.shMoveGuestToTable(' + tIdx + ',' + idx + ',this.value,event)" style="cursor:pointer;border:1px solid #C8A96E;background:#FAF3E3;color:#78350F;font-size:0.64rem;font-weight:800;padding:2px 4px;border-radius:4px;">' + tableMoveOpts + '</select><button type="button" title="Cycle Entrée" onclick="window.shCycleGuestMeal(' + tIdx + ',' + idx + ',event)" style="cursor:pointer;border:1px solid ' + mb.color + ';font-size:0.64rem;font-weight:800;padding:2px 5px;border-radius:4px;background:' + mb.bg + ';color:' + mb.color + ';">' + mb.code + ' ' + mb.short + '</button><button type="button" title="Cycle Allergy / Chair" onclick="window.shCycleGuestAllergy(' + tIdx + ',' + idx + ',event)" style="cursor:pointer;font-size:0.62rem;font-weight:800;padding:2px 5px;border-radius:4px;' + tagStyle + '">' + tagLabel + '</button><button type="button" title="Remove guest" onclick="window.shRemoveGuest(' + tIdx + ',' + idx + ',event)" style="cursor:pointer;border:1px solid #FECDD3;background:#FFF1F2;color:#9F1239;font-size:0.63rem;font-weight:800;padding:2px 5px;border-radius:4px;">✕</button></div></div>';
     }).join('') : '<div style="padding:10px;font-size:0.78rem;color:#57534E;">No guests seated at ' + shEsc(t.name) + ' yet. Use Step 2 to add guests.</div>';
 
-    box.innerHTML =
-      '<div style="display:flex;flex-wrap:wrap;align-items:center;justify-content:space-between;gap:8px;margin-bottom:8px;">' +
-        '<div style="min-width:0;">' +
-          '<div style="font-size:0.64rem;font-weight:800;text-transform:uppercase;letter-spacing:0.06em;color:#8C2D19;">SELECTED TABLE SEAT MANIPULATOR (&#9664;/&#9654; ROTATE SEAT &middot; &#8644; MOVE TABLE &middot; MEAL &middot; ✕ DROP)</div>' +
-          '<div class="serif-display" style="font-size:1.10rem;color:#181412;">' + shEsc(t.name) + ' &middot; ' + shEsc(shFriendlyShape(t.shape)) + '</div>' +
-        '</div>' +
-        '<div style="display:flex;flex-wrap:wrap;gap:4px;">' +
-          '<button type="button" onclick="window.shMorphSelectedTable(\\\'round\\\')" class="studio-tap-chip' + (normShape === 'round' ? ' active' : '') + '">● Round</button>' +
-          '<button type="button" onclick="window.shMorphSelectedTable(\\\'sweetheart\\\')" class="studio-tap-chip' + (normShape === 'sweetheart' ? ' active' : '') + '">💕 Sweetheart</button>' +
-          '<button type="button" onclick="window.shMorphSelectedTable(\\\'banquet_2sided\\\')" class="studio-tap-chip' + (normShape === 'banquet_2sided' ? ' active' : '') + '">▬ Banquet</button>' +
-          '<button type="button" onclick="window.shMorphSelectedTable(\\\'kings_4sided\\\')" class="studio-tap-chip' + (normShape === 'kings_4sided' ? ' active' : '') + '">⊞ King\\\'s</button>' +
-          '<button type="button" onclick="window.shRotateSelectedTable()" class="studio-tap-chip">↻ 45°</button>' +
-        '</div>' +
-      '</div>' +
-      '<div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(275px,1fr));gap:6px;">' + seatRows + '</div>';
+    box.innerHTML = '<div style="display:flex;flex-wrap:wrap;align-items:center;justify-content:space-between;gap:8px;margin-bottom:8px;"><div style="min-width:0;"><div style="font-size:0.64rem;font-weight:800;text-transform:uppercase;letter-spacing:0.06em;color:#8C2D19;">SELECTED TABLE SEAT MANIPULATOR (&#9664;/&#9654; ROTATE SEAT &middot; &#8644; MOVE TABLE &middot; MEAL &middot; ✕ DROP)</div><div class="serif-display" style="font-size:1.10rem;color:#181412;">' + shEsc(t.name) + ' &middot; ' + shEsc(shFriendlyShape(t.shape)) + '</div></div><div style="display:flex;flex-wrap:wrap;gap:4px;"><button type="button" onclick="window.shMorphSelectedTable(\\\'round\\\')" class="studio-tap-chip' + (normShape === 'round' ? ' active' : '') + '">● Round</button><button type="button" onclick="window.shMorphSelectedTable(\\\'sweetheart\\\')" class="studio-tap-chip' + (normShape === 'sweetheart' ? ' active' : '') + '">💕 Sweetheart</button><button type="button" onclick="window.shMorphSelectedTable(\\\'banquet_2sided\\\')" class="studio-tap-chip' + (normShape === 'banquet_2sided' ? ' active' : '') + '">▬ Banquet</button><button type="button" onclick="window.shMorphSelectedTable(\\\'kings_4sided\\\')" class="studio-tap-chip' + (normShape === 'kings_4sided' ? ' active' : '') + '">⊞ King\\\'s</button><button type="button" onclick="window.shRotateSelectedTable()" class="studio-tap-chip">↻ 45°</button></div></div><div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(275px,1fr));gap:6px;">' + seatRows + '</div>';
   }
 
   function shRenderBeoView() {
@@ -809,14 +808,7 @@ function renderInteractiveScript(initialPlan) {
       }).join('');
       return '<div style="background:#FFFFFF;border:1px solid #E2D9C8;border-radius:12px;padding:12px;margin-bottom:10px;"><div style="display:flex;flex-wrap:wrap;justify-content:space-between;align-items:center;gap:6px;margin-bottom:6px;"><strong style="font-size:0.90rem;color:#181412;">' + shEsc(t.name) + ' (' + t.guests.length + ' Covers)</strong><span class="badge badge-emerald">Seat #1 = 12 O\\'Clock Anchor</span></div><div style="overflow-x:auto;"><table class="ba-table" style="font-size:0.76rem;"><thead><tr><th>Clockwise Seat</th><th>Guest Name</th><th>Entrée</th><th>Allergy Alert</th><th>Chair Spec</th></tr></thead><tbody>' + rows + '</tbody></table></div></div>';
     }).join('');
-    container.innerHTML =
-      '<div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(85px,1fr));gap:8px;margin-bottom:12px;">' +
-        '<div style="background:#FDF2EE;border:1px solid #F5D0C5;padding:8px;border-radius:10px;text-align:center;"><div style="font-size:0.65rem;font-weight:800;color:#8C2D19;">◆ FILET</div><div style="font-size:1.15rem;font-weight:800;color:#181412;">' + totalFilet + '</div></div>' +
-        '<div style="background:#F0F9FF;border:1px solid #BAE6FD;padding:8px;border-radius:10px;text-align:center;"><div style="font-size:0.65rem;font-weight:800;color:#0369A1;">● HALIBUT</div><div style="font-size:1.15rem;font-weight:800;color:#181412;">' + totalHalibut + '</div></div>' +
-        '<div style="background:#ECFDF5;border:1px solid #A7F3D0;padding:8px;border-radius:10px;text-align:center;"><div style="font-size:0.65rem;font-weight:800;color:#065F46;">▲ VEGAN</div><div style="font-size:1.15rem;font-weight:800;color:#181412;">' + totalVegan + '</div></div>' +
-        '<div style="background:#FFFBEB;border:1px solid #FDE68A;padding:8px;border-radius:10px;text-align:center;"><div style="font-size:0.65rem;font-weight:800;color:#A16207;">★ KIDS</div><div style="font-size:1.15rem;font-weight:800;color:#181412;">' + totalKids + '</div></div>' +
-        '<div style="background:#FFF1F2;border:1px solid #FECDD3;padding:8px;border-radius:10px;text-align:center;"><div style="font-size:0.65rem;font-weight:800;color:#9F1239;">⚠️ ALLERGIES</div><div style="font-size:1.15rem;font-weight:800;color:#9F1239;">' + totalAllergies + '</div></div>' +
-      '</div>' + tableCards;
+    container.innerHTML = '<div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(85px,1fr));gap:8px;margin-bottom:12px;"><div style="background:#FDF2EE;border:1px solid #F5D0C5;padding:8px;border-radius:10px;text-align:center;"><div style="font-size:0.65rem;font-weight:800;color:#8C2D19;">◆ FILET</div><div style="font-size:1.15rem;font-weight:800;color:#181412;">' + totalFilet + '</div></div><div style="background:#F0F9FF;border:1px solid #BAE6FD;padding:8px;border-radius:10px;text-align:center;"><div style="font-size:0.65rem;font-weight:800;color:#0369A1;">● HALIBUT</div><div style="font-size:1.15rem;font-weight:800;color:#181412;">' + totalHalibut + '</div></div><div style="background:#ECFDF5;border:1px solid #A7F3D0;padding:8px;border-radius:10px;text-align:center;"><div style="font-size:0.65rem;font-weight:800;color:#065F46;">▲ VEGAN</div><div style="font-size:1.15rem;font-weight:800;color:#181412;">' + totalVegan + '</div></div><div style="background:#FFFBEB;border:1px solid #FDE68A;padding:8px;border-radius:10px;text-align:center;"><div style="font-size:0.65rem;font-weight:800;color:#A16207;">★ KIDS</div><div style="font-size:1.15rem;font-weight:800;color:#181412;">' + totalKids + '</div></div><div style="background:#FFF1F2;border:1px solid #FECDD3;padding:8px;border-radius:10px;text-align:center;"><div style="font-size:0.65rem;font-weight:800;color:#9F1239;">⚠️ ALLERGIES</div><div style="font-size:1.15rem;font-weight:800;color:#9F1239;">' + totalAllergies + '</div></div></div>' + tableCards;
   }
 
   function shFormatPosterName(rawName) {
@@ -827,26 +819,52 @@ function renderInteractiveScript(initialPlan) {
     return { sortKey: (last + ', ' + first).toLowerCase(), display: last + ', ' + first + suffix };
   }
 
+  var SH_POSTER_THEMES = {
+    alabaster: { label: 'Parisian Gold', bg: '#FAF7F2', fg: '#181412', sub: '#57534E', borderCol: '#C8A96E', badgeBg: '#181412', badgeFg: '#FDE68A', motif: '✦', fontStyle: 'normal' },
+    ivory: { label: 'Botanical Ivory', bg: '#FCFBF7', fg: '#1F291E', sub: '#4B5D48', borderCol: '#7D8C6D', badgeBg: '#2C3E2B', badgeFg: '#D9F99D', motif: '🌿', fontStyle: 'italic' },
+    obsidian: { label: 'Editorial Noir', bg: '#181412', fg: '#FAF7F2', sub: '#D6CBB8', borderCol: '#C8A96E', badgeBg: '#2B231D', badgeFg: '#FDE68A', motif: '◆', fontStyle: 'normal' },
+    sage: { label: 'Tuscan Sage', bg: '#EFF5F1', fg: '#14291E', sub: '#3E5C4A', borderCol: '#4D7C5D', badgeBg: '#064E3B', badgeFg: '#A7F3D0', motif: '✦', fontStyle: 'italic' },
+    rosewater: { label: 'Blush Rosewater', bg: '#FDF4F5', fg: '#3B1821', sub: '#7D4250', borderCol: '#D48C96', badgeBg: '#6B2134', badgeFg: '#FECDD3', motif: '🌸', fontStyle: 'italic' },
+    terracotta: { label: 'Villa Terracotta', bg: '#FDF6F0', fg: '#2E160B', sub: '#7C4327', borderCol: '#B45309', badgeBg: '#7C2D12', badgeFg: '#FDE68A', motif: '☀', fontStyle: 'normal' }
+  };
+
+  window.shUpdateSignKicker = function(val) {
+    window.__SH_SIGN_KICKER = String(val || 'Please Find Your Seat').trim();
+    shRenderPosterView();
+    shToast('✓ Updated 24"×36" Sign Header → "' + window.__SH_SIGN_KICKER + '"');
+  };
+
+  window.shUpdateSignMonogram = function(val) {
+    window.__SH_SIGN_MONOGRAM = String(val || '').trim();
+    shRenderPosterView();
+    shToast('✓ Updated 24"×36" Sign Crest Monogram → "' + (window.__SH_SIGN_MONOGRAM || shComputeCoupleMonogram(window.__SH_STATE && window.__SH_STATE.title)) + '"');
+  };
+
   window.shSetPosterMode = function(mode, theme) {
     if (mode) window.__SH_POSTER_MODE = mode;
     if (theme) window.__SH_POSTER_THEME = theme;
     document.querySelectorAll('[data-poster-sort], #sh-card5-sort-pills [data-sort]').forEach(function(b) { b.classList.toggle('active', (b.getAttribute('data-poster-sort') || b.getAttribute('data-sort')) === window.__SH_POSTER_MODE); });
     document.querySelectorAll('[data-poster-theme], #sh-card5-theme-pills [data-theme]').forEach(function(b) { b.classList.toggle('active', (b.getAttribute('data-poster-theme') || b.getAttribute('data-theme')) === window.__SH_POSTER_THEME); });
+    const tSpec = SH_POSTER_THEMES[window.__SH_POSTER_THEME || 'alabaster'] || SH_POSTER_THEMES.alabaster;
     const sum5 = document.getElementById('sh-wizard-summary-5');
-    if (sum5) sum5.textContent = (window.__SH_POSTER_THEME || 'alabaster').toUpperCase() + ' • ' + (window.__SH_POSTER_MODE === 'by_table' ? 'By Table' : 'A-Z');
+    if (sum5) sum5.textContent = tSpec.label + ' • ' + (window.__SH_POSTER_MODE === 'by_table' ? 'By Table' : 'A-Z');
     shRenderPosterView();
   };
 
   function shRenderPosterView() {
     const posterEl = document.getElementById('sh-poster-preview');
     if (!posterEl || !window.__SH_STATE) return;
-    const theme = window.__SH_POSTER_THEME || 'alabaster', bg = theme === 'obsidian' ? '#181412' : (theme === 'sage' ? '#EFF5F1' : '#FAF7F2');
-    const fg = theme === 'obsidian' ? '#FAF7F2' : '#181412', sub = theme === 'obsidian' ? '#D6CBB8' : '#57534E', borderCol = theme === 'obsidian' ? '#C8A96E' : '#C8B9A6';
-    const initials = shComputeCoupleMonogram(window.__SH_STATE.title), logoUrl = window.__SH_CREST_LOGO_URL || '';
+    const themeKey = window.__SH_POSTER_THEME || 'alabaster', tSpec = SH_POSTER_THEMES[themeKey] || SH_POSTER_THEMES.alabaster;
+    const bg = tSpec.bg, fg = tSpec.fg, sub = tSpec.sub, borderCol = tSpec.borderCol;
+    const rawMono = String(window.__SH_SIGN_MONOGRAM || '').trim(), partsMono = rawMono.split('·');
+    const initials = (partsMono[0] && partsMono[0].trim()) || shComputeCoupleMonogram(window.__SH_STATE.title);
+    const monoSub = (partsMono[1] && partsMono[1].trim()) || 'EST. 2026';
+    const kickerText = window.__SH_SIGN_KICKER || 'Please Find Your Seat';
+    const logoUrl = window.__SH_CREST_LOGO_URL || '';
     let bodyHtml = '';
     if (window.__SH_POSTER_MODE === 'by_table') {
       bodyHtml = '<div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(175px,1fr));gap:12px;text-align:left;">' +
-        (window.__SH_STATE.tables || []).map(function(t) { return '<div style="border-top:1px solid ' + borderCol + ';padding-top:6px;"><div class="serif-display" style="font-size:0.95rem;color:' + fg + ';margin-bottom:4px;">Table ' + t.number + '</div>' + t.guests.map(function(g) { return '<div style="font-size:0.74rem;color:' + sub + ';">' + shEsc(g.name) + '</div>'; }).join('') + '</div>'; }).join('') + '</div>';
+        (window.__SH_STATE.tables || []).map(function(t) { return '<div style="border-top:1px solid ' + borderCol + ';padding-top:6px;"><div class="serif-display" style="font-size:0.95rem;color:' + fg + ';margin-bottom:4px;">' + tSpec.motif + ' Table ' + t.number + '</div>' + t.guests.map(function(g) { return '<div style="font-size:0.74rem;color:' + sub + ';">' + shEsc(g.name) + '</div>'; }).join('') + '</div>'; }).join('') + '</div>';
     } else {
       const all = [];
       (window.__SH_STATE.tables || []).forEach(function(t) { t.guests.forEach(function(g, idx) { const parsed = shFormatPosterName(g.name); all.push({ sortKey: parsed.sortKey, display: parsed.display, tableNum: t.number, seatNum: idx + 1 }); }); });
@@ -855,19 +873,13 @@ function renderInteractiveScript(initialPlan) {
     }
     const posterCrestHtml = logoUrl
       ? '<img src="' + shEsc(logoUrl) + '" alt="Couple Crest" style="width:100%;height:100%;object-fit:contain;background:#FFFFFF;padding:4px;" />'
-      : '<div style="display:flex;flex-direction:column;align-items:center;justify-content:center;line-height:1;"><span class="serif-display" style="font-size:1.24rem;font-weight:800;color:#FDE68A;letter-spacing:0.04em;">' + shEsc(initials) + '</span><span class="mono" style="font-size:0.44rem;font-weight:800;color:#D6CFC2;letter-spacing:0.12em;margin-top:2px;">EST. 2026</span></div>';
+      : '<div id="sh-live-sign-monogram" style="display:flex;flex-direction:column;align-items:center;justify-content:center;line-height:1;"><span class="serif-display" style="font-size:1.22rem;font-weight:800;color:' + tSpec.badgeFg + ';letter-spacing:0.04em;">' + shEsc(initials) + '</span><span class="mono" style="font-size:0.44rem;font-weight:800;color:' + tSpec.badgeFg + ';opacity:0.85;letter-spacing:0.10em;margin-top:2px;">' + shEsc(monoSub) + '</span></div>';
     posterEl.innerHTML =
-      '<div style="background:' + bg + ';color:' + fg + ';border:2px double ' + borderCol + ';border-radius:14px;padding:20px 18px;box-shadow:0 16px 36px rgba(24,20,18,0.12);"><div style="display:flex;align-items:center;gap:14px;text-align:left;border-bottom:1.5px double ' + borderCol + ';padding-bottom:12px;margin-bottom:14px;"><div id="poster-logo-badge" style="width:58px;height:58px;border-radius:14px;border:2px solid #C8A96E;background:linear-gradient(135deg,#181412 0%,#2B231D 100%);display:flex;align-items:center;justify-content:center;flex-shrink:0;box-shadow:0 6px 14px rgba(24,20,18,0.18);overflow:hidden;">' + posterCrestHtml + '</div><div style="min-width:0;flex:1;"><div style="font-size:0.62rem;letter-spacing:0.14em;text-transform:uppercase;color:' + sub + ';font-weight:800;">24&Prime; &times; 36&Prime; ARCH D FOYER EASEL SIGN &middot; 0.125&Prime; PRINT BLEED READY</div><h3 class="serif-display" style="font-size:1.68rem;color:' + fg + ';margin:1px 0;">Please Find Your Seat</h3><div style="font-size:0.80rem;color:' + sub + ';font-style:italic;">' + shEsc(window.__SH_STATE.title) + ' &middot; ' + shEsc(window.__SH_STATE.venueName || 'Rosewood Conservatory') + '</div></div></div>' + bodyHtml + '</div>';
+      '<div style="background:' + bg + ';color:' + fg + ';border:3px double ' + borderCol + ';border-radius:14px;padding:20px 18px;box-shadow:0 16px 36px rgba(24,20,18,0.12);"><div style="display:flex;align-items:center;gap:14px;text-align:left;border-bottom:1.5px double ' + borderCol + ';padding-bottom:12px;margin-bottom:14px;"><div id="poster-logo-badge" style="width:58px;height:58px;border-radius:14px;border:2px solid ' + borderCol + ';background:' + tSpec.badgeBg + ';display:flex;align-items:center;justify-content:center;flex-shrink:0;box-shadow:0 6px 14px rgba(24,20,18,0.18);overflow:hidden;">' + posterCrestHtml + '</div><div style="min-width:0;flex:1;"><div style="font-size:0.62rem;letter-spacing:0.14em;text-transform:uppercase;color:' + sub + ';font-weight:800;">' + tSpec.motif + ' 24&Prime; &times; 36&Prime; ARCH D FOYER EASEL SIGN &middot; ' + tSpec.label.toUpperCase() + ' &middot; 0.125&Prime; BLEED</div><h3 id="sh-live-sign-kicker" class="serif-display" style="font-size:1.68rem;color:' + fg + ';font-style:' + tSpec.fontStyle + ';margin:1px 0;">' + shEsc(kickerText) + '</h3><div style="font-size:0.80rem;color:' + sub + ';font-style:italic;">' + shEsc(window.__SH_STATE.title) + ' &middot; ' + shEsc(window.__SH_STATE.venueName || 'Rosewood Conservatory') + '</div></div></div>' + bodyHtml + '</div>';
     const averyEl = document.getElementById('sh-avery-preview');
     if (averyEl) {
-      const selTbl = window.__SH_STATE.tables[window.__SH_SELECTED_TABLE_IDX || 1] || window.__SH_STATE.tables[0];
-      const sampleGuest = (selTbl && selTbl.guests && (selTbl.guests.find(function(x) { return x.allergy; }) || selTbl.guests[0])) || { name: 'Aunt Clara Lin', meal: 'Vegan Risotto', allergy: '🌾 SEVERE CELIAC (GF)' };
-      const mb = shMealBadge(sampleGuest.meal);
-      averyEl.innerHTML =
-        '<div style="padding:10px 12px;border-radius:10px;background:#FAF7F2;border:1px solid #E2D9C8;display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:10px;align-items:center;">' +
-          '<div style="background:#FFFFFF;border:1.5px solid #C8A96E;border-radius:8px;padding:10px 12px;box-shadow:0 4px 12px rgba(24,20,18,0.06);"><div style="display:flex;justify-content:space-between;align-items:center;font-size:0.62rem;font-weight:800;color:#78716C;text-transform:uppercase;letter-spacing:0.08em;margin-bottom:4px;"><span>AVERY 5302 TENT (FRONT)</span><span style="color:' + mb.color + ';font-size:0.80rem;">' + mb.code + ' ' + mb.short + '</span></div><div class="serif-display" style="font-size:1.12rem;color:#181412;">' + shEsc(sampleGuest.name) + '</div><div class="mono" style="font-size:0.70rem;font-weight:700;color:#8C2D19;margin-top:2px;">Table ' + (selTbl ? selTbl.number : 2) + ' &middot; Clockwise Seat #1 (12:00)</div></div>' +
-          '<div style="background:#FFF1F2;border:1.5px dashed #E11D48;border-radius:8px;padding:10px 12px;"><div style="display:flex;justify-content:space-between;align-items:center;font-size:0.62rem;font-weight:800;color:#9F1239;text-transform:uppercase;letter-spacing:0.08em;margin-bottom:4px;"><span>SERVER BACK FOLD (UPSIDE-DOWN)</span><span class="badge badge-emerald" style="font-size:0.58rem;padding:1px 6px;">2&Prime;&times;3.5&Prime; Die-Cut</span></div><div style="font-size:0.76rem;font-weight:800;color:#9F1239;">⚠️ ' + shEsc(sampleGuest.allergy || 'No Dietary Allergy · Standard Service') + '</div><div style="font-size:0.69rem;color:#57534E;margin-top:2px;">Entrée: <strong>' + shEsc(sampleGuest.meal) + '</strong> &middot; Server Key: <code>◆ Beef · ● Fish · ▲ Vegan · ★ Kid</code></div></div>' +
-        '</div>';
+      const vid = shEsc((window.__SH_STATE && window.__SH_STATE.vaultId) || 'SH-4819');
+      averyEl.innerHTML = '<div style="padding:11px 14px;border-radius:12px;background:linear-gradient(135deg,#FAF3E6 0%,#F5ECE0 100%);border:1.5px solid #D8C29D;display:flex;flex-wrap:wrap;align-items:center;justify-content:space-between;gap:10px;"><div style="display:flex;align-items:center;gap:10px;min-width:0;"><span style="font-size:1.25rem;">🔒</span><div><div style="font-size:0.66rem;font-weight:800;letter-spacing:0.08em;text-transform:uppercase;color:#78350F;">PRINT-READY 300-DPI ARCH D CROP MARKS + AVERY 5302 TENT CARD DIE-CUTS</div><div style="font-size:0.78rem;color:#44403C;">Includes 2&Prime;&times;3.5&Prime; Avery 5302 sheets with server meal icons (<code>◆ Beef · ● Fish · ▲ Vegan · ★ Kid</code>) &amp; upside-down allergy alerts.</div></div></div><div style="display:flex;gap:6px;flex-wrap:wrap;"><a href="/print/avery-5302/' + vid + '" target="_blank" class="btn btn-secondary" style="padding:6px 11px;font-size:0.73rem;">🎫 Preview Avery 5302 Sheet ↗</a><a href="/buy/complete_dossier?target=estate-150&vault=' + vid + '" class="btn btn-primary" style="padding:6px 12px;font-size:0.73rem;">Unlock Print Pack ($14.99) →</a></div></div>';
     }
   }
 
