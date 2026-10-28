@@ -12,9 +12,6 @@
     "express": "^5.3.0",
     "sql.js": "^1.14.2"
   },
-  "devDependencies": {
-    "playwright": "^1.64.0"
-  },
   "engines": {
     "node": "20.x"
   }
