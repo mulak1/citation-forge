@@ -11,19 +11,10 @@ function renderInteractiveScript(initialPlan) {
   const safeInitialJson = JSON.stringify(initialPlan || {}).replace(/</g, '\\u003c');
   return `<script>
   window.__SH_STATE = ${safeInitialJson};
-  window.__SH_SELECTED_TABLE_IDX = 1;
-  window.__SH_RING_MODE = 'harmony';
-  window.__SH_ACTIVE_VIEW = 'floorplan';
-  window.__SH_POSTER_MODE = 'alphabetical';
-  window.__SH_POSTER_THEME = 'alabaster';
-  window.__SH_SWAP_SOURCE = null;
-  window.__SH_SANDBOX_MOM = false;
-  window.__SH_CREST_LOGO_URL = '';
-  window.__SH_SIGN_KICKER = 'Please Find Your Seat';
-  window.__SH_SIGN_MONOGRAM = 'M&L · EST. 2026';
-  window.__SH_CANVAS_ZOOM = 'room';
-  window.__SH_DRAG_STATE = null;
-  window.__SH_VSL_TIMER = null;
+  window.__SH_SELECTED_TABLE_IDX = 1; window.__SH_RING_MODE = 'harmony'; window.__SH_ACTIVE_VIEW = 'floorplan';
+  window.__SH_POSTER_MODE = 'alphabetical'; window.__SH_POSTER_THEME = 'alabaster'; window.__SH_SWAP_SOURCE = null;
+  window.__SH_SANDBOX_MOM = false; window.__SH_CREST_LOGO_URL = ''; window.__SH_SIGN_KICKER = 'Please Find Your Seat';
+  window.__SH_SIGN_MONOGRAM = 'M&L · EST. 2026'; window.__SH_CANVAS_ZOOM = 'room'; window.__SH_DRAG_STATE = null; window.__SH_VSL_TIMER = null;
 
   var SH_VSL_SCENES = [
     { badge: '98.4/100 HARMONY · OPPOSITE SIDES OF DANCE FLOOR', leftImg: '/public/editorial-hero.jpg', rightImg: '/public/editorial-segment-1.jpg', objectPosition: 'center 28%', trapTag: '2 Clashes + 5 Hrs Canva', leftTitle: '2 AM Spreadsheet & Canva Chaos', leftDesc: 'Divorced parents in direct sightline; 5 hours re-typing 150 names into Canva after RSVP drops.', rightPill: '98/100 Harmony', rightRxTitle: '✓ Tables 2 & 5 Separated Across the Dance Floor', rightTicket: 'Load in Studio ↓', rightDesc: 'Couples Kept Together • Clockwise 12:00 Meal Sheet • 24"×36" Sign + Avery 5302 Cards.' },
@@ -33,61 +24,35 @@ function renderInteractiveScript(initialPlan) {
   ];
 
   window.selectShVslScene = function(idx) {
-    var total = SH_VSL_SCENES.length;
-    var cleanIdx = ((idx % total) + total) % total;
+    var total = SH_VSL_SCENES.length, cleanIdx = ((idx % total) + total) % total, s = SH_VSL_SCENES[cleanIdx] || SH_VSL_SCENES[0];
     window.__SH_ACTIVE_VSL_SCENE = cleanIdx;
-    var s = SH_VSL_SCENES[cleanIdx] || SH_VSL_SCENES[0];
     document.querySelectorAll('#sh-vsl-scene-pills .vsl-scene-pill').forEach(function(b, i) { b.classList.toggle('active', i === cleanIdx); });
     var setTxt = function(id, val) { var el = document.getElementById(id); if (el) el.textContent = val; };
-    setTxt('vsl-center-delta-badge', s.badge); setTxt('vsl-trap-tag', s.trapTag);
-    setTxt('vsl-left-title', s.leftTitle); setTxt('vsl-left-desc', s.leftDesc);
-    setTxt('vsl-right-season-pill', s.rightPill); setTxt('vsl-right-rx-title', s.rightRxTitle);
-    setTxt('vsl-right-ticket-pill', s.rightTicket || 'Load in Studio ↓'); setTxt('vsl-right-desc', s.rightDesc);
-    var prog = document.getElementById('sh-vsl-progress-bar');
-    if (prog) prog.style.width = (((cleanIdx + 1) / total) * 100) + '%';
+    setTxt('vsl-center-delta-badge', s.badge); setTxt('vsl-trap-tag', s.trapTag); setTxt('vsl-left-title', s.leftTitle); setTxt('vsl-left-desc', s.leftDesc);
+    setTxt('vsl-right-season-pill', s.rightPill); setTxt('vsl-right-rx-title', s.rightRxTitle); setTxt('vsl-right-ticket-pill', s.rightTicket || 'Load in Studio ↓'); setTxt('vsl-right-desc', s.rightDesc);
+    var prog = document.getElementById('sh-vsl-progress-bar'); if (prog) prog.style.width = (((cleanIdx + 1) / total) * 100) + '%';
     var imgL = document.getElementById('vsl-img-left'), imgR = document.getElementById('vsl-img-right');
     if (imgL) { imgL.src = s.leftImg; imgL.style.objectPosition = s.objectPosition || 'center 28%'; }
     if (imgR) { imgR.src = s.rightImg; imgR.style.objectPosition = s.objectPosition || 'center 28%'; }
   };
-
-  window.shNextVslScene = function() {
-    window.selectShVslScene((window.__SH_ACTIVE_VSL_SCENE || 0) + 1);
-  };
-
+  window.shNextVslScene = function() { window.selectShVslScene((window.__SH_ACTIVE_VSL_SCENE || 0) + 1); };
   window.shToggleVslAutoPlay = function() {
     var iconEl = document.getElementById('sh-vsl-play-icon'), lblEl = document.getElementById('sh-vsl-play-label');
-    if (window.__SH_VSL_TIMER) {
-      clearInterval(window.__SH_VSL_TIMER); window.__SH_VSL_TIMER = null;
-      if (iconEl) iconEl.textContent = '▶'; if (lblEl) lblEl.textContent = 'Auto-Play Story';
-      return;
-    }
+    if (window.__SH_VSL_TIMER) { clearInterval(window.__SH_VSL_TIMER); window.__SH_VSL_TIMER = null; if (iconEl) iconEl.textContent = '▶'; if (lblEl) lblEl.textContent = 'Auto-Play Story'; return; }
     if (iconEl) iconEl.textContent = '⏸'; if (lblEl) lblEl.textContent = 'Playing Story';
-    window.shNextVslScene();
-    window.__SH_VSL_TIMER = setInterval(function() { window.shNextVslScene(); }, 3400);
+    window.shNextVslScene(); window.__SH_VSL_TIMER = setInterval(function() { window.shNextVslScene(); }, 3400);
   };
-
   window.shLoadVslSceneIntoStudio = function() {
-    var idx = window.__SH_ACTIVE_VSL_SCENE || 0;
-    var presetMap = ['estate-150', 'tuscan-banquet-80', 'planner-beo-sandbox', 'estate-150'];
-    var preset = presetMap[idx] || 'estate-150';
-    var chip = document.querySelector('[data-preset="' + preset + '"]');
-    window.loadPresetScenario(preset, chip);
-    if (idx === 2) window.shSetActiveTab('beo');
-    if (idx === 3) window.shSetActiveTab('poster');
-    var st = document.getElementById('studio');
-    if (st) st.scrollIntoView({ behavior: 'smooth' });
+    var idx = window.__SH_ACTIVE_VSL_SCENE || 0, preset = ['estate-150', 'tuscan-banquet-80', 'planner-beo-sandbox', 'estate-150'][idx] || 'estate-150';
+    window.loadPresetScenario(preset, document.querySelector('[data-preset="' + preset + '"]'));
+    if (idx === 2) window.shSetActiveTab('beo'); if (idx === 3) window.shSetActiveTab('poster');
+    var st = document.getElementById('studio'); if (st) st.scrollIntoView({ behavior: 'smooth' });
   };
-
   window.scrollToShCard = function(stepNum) {
-    document.querySelectorAll('.studio-wizard-step').forEach(function(el) {
-      el.classList.toggle('active', Number(el.getAttribute('data-step')) === Number(stepNum));
-    });
-    var pct = Math.min(100, 55 + Number(stepNum) * 9);
-    var lbl = document.getElementById('sh-endowed-progress-label'), fill = document.getElementById('sh-endowed-progress-fill');
-    if (lbl) lbl.textContent = 'Reception Plan: Step ' + stepNum + ' of 5 (' + pct + '%)';
-    if (fill) fill.style.width = pct + '%';
-    var target = document.getElementById('sh-wizard-step-' + stepNum);
-    if (target) target.scrollIntoView({ behavior: 'smooth', block: 'center' });
+    document.querySelectorAll('.studio-wizard-step').forEach(function(el) { el.classList.toggle('active', Number(el.getAttribute('data-step')) === Number(stepNum)); });
+    var pct = Math.min(100, 55 + Number(stepNum) * 9), lbl = document.getElementById('sh-endowed-progress-label'), fill = document.getElementById('sh-endowed-progress-fill');
+    if (lbl) lbl.textContent = 'Reception Plan: Step ' + stepNum + ' of 5 (' + pct + '%)'; if (fill) fill.style.width = pct + '%';
+    var target = document.getElementById('sh-wizard-step-' + stepNum); if (target) target.scrollIntoView({ behavior: 'smooth', block: 'center' });
   };
 
   function shEsc(s) {
@@ -204,7 +169,8 @@ function renderInteractiveScript(initialPlan) {
     const tIdx = window.__SH_SELECTED_TABLE_IDX || 0;
     const tbl = window.__SH_STATE && window.__SH_STATE.tables && window.__SH_STATE.tables[tIdx];
     if (!tbl) return;
-    if (window.__SH_SANDBOX_MOM && tIdx >= 3) { shToast('🔒 Mom Sandbox Active: Tables 4-8 are locked.'); return; }
+    if (window.__SH_SANDBOX_MOM && tIdx >= 3 && !tbl.isUserAdded) { shToast('🔒 Family Share Mode: Tables 4-8 are locked.'); return; }
+    if (window.__SH_CANVAS_ZOOM === 'table') window.__SH_CANVAS_ZOOM = 'room';
     tbl.x = Math.max(95, Math.min(1025, Math.round((tbl.x || 250) + dx)));
     tbl.y = Math.max(72, Math.min(605, Math.round((tbl.y || 200) + dy)));
     shRecomputeGeometry(tbl);
@@ -227,18 +193,20 @@ function renderInteractiveScript(initialPlan) {
 
   window.shStartTableDrag = function(tIdx, ev) {
     if (ev && ev.button && ev.button !== 0) return;
-    if (ev) ev.stopPropagation();
-    window.shSelectTable(tIdx);
-    if (window.__SH_SANDBOX_MOM && tIdx >= 3) { shToast('🔒 Mom Sandbox Active: Tables 4-8 are locked.'); return; }
+    if (ev) { ev.stopPropagation(); if (ev.type === 'mousedown' && ev.preventDefault) ev.preventDefault(); }
     const tbl = window.__SH_STATE && window.__SH_STATE.tables && window.__SH_STATE.tables[tIdx];
     if (!tbl) return;
+    window.__SH_SELECTED_TABLE_IDX = tIdx;
+    if (window.__SH_SANDBOX_MOM && tIdx >= 3 && !tbl.isUserAdded) { shToast('🔒 Family Share Mode: Tables 4-8 are locked.'); shRenderAll(); return; }
+    const svgEl = document.getElementById('sh-floorplan-svg');
+    window.__SH_DRAG_VIEWBOX = svgEl ? svgEl.getAttribute('viewBox') : '0 0 1120 680';
     const startPt = shSvgCoord(ev);
     const origX = tbl.x || 250, origY = tbl.y || 200;
     let moved = false;
     const onMove = function(moveEv) {
       const cur = shSvgCoord(moveEv);
       const dx = cur.x - startPt.x, dy = cur.y - startPt.y;
-      if (Math.abs(dx) > 3 || Math.abs(dy) > 3) moved = true;
+      if (Math.abs(dx) > 2 || Math.abs(dy) > 2) moved = true;
       if (!moved) return;
       if (moveEv.cancelable) moveEv.preventDefault();
       tbl.x = Math.max(95, Math.min(1025, origX + dx));
@@ -251,7 +219,14 @@ function renderInteractiveScript(initialPlan) {
       window.removeEventListener('mouseup', onUp);
       window.removeEventListener('touchmove', onMove);
       window.removeEventListener('touchend', onUp);
-      if (moved) { shToast('✓ Dragged ' + tbl.name + ' to (' + tbl.x + ', ' + tbl.y + ') · Sightlines updated!'); shRenderAll(); }
+      window.__SH_DRAG_VIEWBOX = null;
+      if (moved) shToast('✓ Moved ' + tbl.name + ' to (' + tbl.x + ', ' + tbl.y + ')!');
+      else if (window.__SH_SWAP_SOURCE && window.__SH_SWAP_SOURCE.tableIdx !== tIdx) {
+        window.shMoveGuestToTable(window.__SH_SWAP_SOURCE.tableIdx, window.__SH_SWAP_SOURCE.seatIdx, tIdx);
+        window.__SH_SWAP_SOURCE = null;
+        return;
+      }
+      shRenderAll();
     };
     window.addEventListener('mousemove', onMove);
     window.addEventListener('mouseup', onUp);
@@ -261,10 +236,15 @@ function renderInteractiveScript(initialPlan) {
 
   window.shStartSeatDrag = function(tIdx, sIdx, ev) {
     if (ev && ev.button && ev.button !== 0) return;
-    if (ev) ev.stopPropagation();
-    if (window.__SH_SANDBOX_MOM && tIdx >= 3) { shToast('🔒 Mom Sandbox Mode: Only Tables 1-3 are editable.'); return; }
     const tbl = window.__SH_STATE && window.__SH_STATE.tables && window.__SH_STATE.tables[tIdx];
     const guest = tbl && tbl.guests && tbl.guests[sIdx];
+    if (!guest) {
+      if (window.__SH_SWAP_SOURCE) { if (ev) ev.stopPropagation(); window.shSeatClick(tIdx, sIdx, ev); return; }
+      window.shStartTableDrag(tIdx, ev);
+      return;
+    }
+    if (ev) { ev.stopPropagation(); if (ev.type === 'mousedown' && ev.preventDefault) ev.preventDefault(); }
+    if (window.__SH_SANDBOX_MOM && tIdx >= 3 && !tbl.isUserAdded) { shToast('🔒 Family Share Mode: Only Tables 1-3 are editable.'); return; }
     const startPt = shSvgCoord(ev);
     let moved = false;
     const onMove = function(moveEv) {
@@ -296,7 +276,7 @@ function renderInteractiveScript(initialPlan) {
         window.shSeatClick(bestSeat.tIdx, bestSeat.sIdx, upEv);
         return;
       }
-      let bestTblIdx = -1, bestTblDist = 85;
+      let bestTblIdx = -1, bestTblDist = 95;
       (window.__SH_STATE.tables || []).forEach(function(candTbl, cTIdx) {
         const d = Math.hypot(dropPt.x - candTbl.x, dropPt.y - candTbl.y);
         if (d < bestTblDist) { bestTblDist = d; bestTblIdx = cTIdx; }
@@ -399,20 +379,27 @@ function renderInteractiveScript(initialPlan) {
 
   window.shSeatClick = function(tIdx, sIdx, ev) {
     if (ev) ev.stopPropagation();
-    if (window.__SH_SANDBOX_MOM && tIdx >= 3) { shToast('🔒 Mom Sandbox Mode: Only Tables 1-3 (Family Tables) are editable.'); return; }
+    const dstTbl = window.__SH_STATE && window.__SH_STATE.tables && window.__SH_STATE.tables[tIdx];
+    if (!dstTbl) return;
+    if (window.__SH_SANDBOX_MOM && tIdx >= 3 && !dstTbl.isUserAdded) { shToast('🔒 Family Share Mode: Only Tables 1-3 are editable.'); return; }
     window.__SH_SELECTED_TABLE_IDX = tIdx;
     if (!window.__SH_SWAP_SOURCE) {
+      const g = dstTbl.guests && dstTbl.guests[sIdx];
+      if (!g) { shToast('Selected ' + dstTbl.name + ' · Drag table to move it, or click a seated guest first to move them here.'); shRenderAll(); return; }
       window.__SH_SWAP_SOURCE = { tableIdx: tIdx, seatIdx: sIdx };
-      const g = window.__SH_STATE.tables[tIdx].guests[sIdx];
-      shToast('Selected ' + (g ? g.name : ('Seat #' + (sIdx + 1))) + ' · click any other seat or table to swap/move!');
+      shToast('Selected ' + g.name + ' · click any other seat or table to swap/move!');
       shRenderAll(); return;
     }
     const src = window.__SH_SWAP_SOURCE; window.__SH_SWAP_SOURCE = null;
     if (src.tableIdx === tIdx && src.seatIdx === sIdx) { shRenderAll(); return; }
-    if (window.__SH_SANDBOX_MOM && src.tableIdx >= 3) { shToast('🔒 Mom Sandbox Mode: Cannot move guests from locked Tables 4-8.'); shRenderAll(); return; }
-    const tA = window.__SH_STATE.tables[src.tableIdx], tB = window.__SH_STATE.tables[tIdx];
+    const tA = window.__SH_STATE.tables[src.tableIdx], tB = dstTbl;
+    if (!tA || !tB || !tA.guests[src.seatIdx]) { shRenderAll(); return; }
+    if (!tB.guests[sIdx]) {
+      window.shMoveGuestToTable(src.tableIdx, src.seatIdx, tIdx);
+      return;
+    }
     const tmp = tA.guests[src.seatIdx]; tA.guests[src.seatIdx] = tB.guests[sIdx]; tB.guests[sIdx] = tmp;
-    shToast('✓ Swapped ' + (tmp ? tmp.name : 'Seat') + ' ↔ ' + (tA.guests[src.seatIdx] ? tA.guests[src.seatIdx].name : 'Seat') + ' · BEO & 24"×36" Sign synced!');
+    shToast('✓ Swapped ' + (tmp ? tmp.name : 'Seat') + ' ↔ ' + (tA.guests[src.seatIdx] ? tA.guests[src.seatIdx].name : 'Seat') + ' · Meal Sheet & 24"×36" Sign synced!');
     shRenderAll();
   };
 
@@ -591,7 +578,9 @@ function renderInteractiveScript(initialPlan) {
     if (!svgEl || !window.__SH_STATE || !window.__SH_STATE.tables) return;
     const plan = window.__SH_STATE, selTbl = plan.tables[window.__SH_SELECTED_TABLE_IDX || 0] || plan.tables[0];
     const zMode = window.__SH_CANVAS_ZOOM || 'room';
-    if (zMode === 'table' && selTbl) {
+    if (window.__SH_DRAG_VIEWBOX) {
+      svgEl.setAttribute('viewBox', window.__SH_DRAG_VIEWBOX);
+    } else if (zMode === 'table' && selTbl) {
       const vx = Math.max(0, Math.min(730, Math.round((selTbl.x || 250) - 195))), vy = Math.max(0, Math.min(430, Math.round((selTbl.y || 200) - 125)));
       svgEl.setAttribute('viewBox', vx + ' ' + vy + ' 390 250');
     } else if (zMode === 'zoom15' && selTbl) {
@@ -721,12 +710,27 @@ function renderInteractiveScript(initialPlan) {
 
   window.shAddNewTable = function() {
     if (!window.__SH_STATE || !window.__SH_STATE.tables) return;
-    const num = window.__SH_STATE.tables.length + 1, col = (num - 1) % 4, row = Math.floor((num - 1) / 4);
-    const newTbl = { id: 'table-' + num, number: num, name: 'Table ' + num + ' (Added Guests)', shape: 'round', capacity: 8, x: 170 + col * 200, y: Math.min(490, 210 + row * 145), rotation: 0, locked: false, guests: [] };
+    const num = window.__SH_STATE.tables.length + 1;
+    const candidates = [{ x: 560, y: 395 }, { x: 365, y: 215 }, { x: 745, y: 215 }, { x: 365, y: 555 }, { x: 755, y: 555 }, { x: 205, y: 365 }, { x: 910, y: 365 }, { x: 350, y: 110 }, { x: 760, y: 110 }, { x: 560, y: 485 }, { x: 280, y: 300 }, { x: 830, y: 300 }];
+    let bestPt = { x: 560, y: 395 }, bestClearance = -1;
+    candidates.forEach(function(pt) {
+      let minDist = 9999;
+      (window.__SH_STATE.tables || []).forEach(function(t) { const d = Math.hypot((t.x || 0) - pt.x, (t.y || 0) - pt.y); if (d < minDist) minDist = d; });
+      (window.__SH_STATE.landmarks || []).forEach(function(lm) { const d = Math.hypot((lm.x || 0) - pt.x, (lm.y || 0) - pt.y); if (d < minDist) minDist = d; });
+      if (minDist > bestClearance) { bestClearance = minDist; bestPt = pt; }
+    });
+    const newTbl = { id: 'table-' + num, number: num, name: 'Table ' + num + ' (Added Guests)', shape: 'round', capacity: 8, x: bestPt.x, y: bestPt.y, rotation: 0, locked: false, isUserAdded: true, guests: [] };
     shRecomputeGeometry(newTbl); window.__SH_STATE.tables.push(newTbl); window.__SH_SELECTED_TABLE_IDX = window.__SH_STATE.tables.length - 1;
-    shSyncTableSelectAndPills(); shToast('✓ Added ' + newTbl.name + ' (60" Round · 8 Seats)!'); shRenderAll();
+    if (window.__SH_CANVAS_ZOOM === 'table') window.shSetCanvasZoom('room');
+    shSyncTableSelectAndPills(); shToast('✓ Added ' + newTbl.name + ' at (' + bestPt.x + ', ' + bestPt.y + ') · Drag table or use ← ↑ ↓ → to move!'); shRenderAll();
   };
-
+  window.shDeleteSelectedTable = function() {
+    if (!window.__SH_STATE || !window.__SH_STATE.tables || window.__SH_STATE.tables.length <= 1) return;
+    const tIdx = window.__SH_SELECTED_TABLE_IDX || 0, removed = window.__SH_STATE.tables.splice(tIdx, 1)[0];
+    window.__SH_STATE.tables.forEach(function(t, i) { t.number = i + 1; });
+    window.__SH_SELECTED_TABLE_IDX = Math.max(0, Math.min(tIdx, window.__SH_STATE.tables.length - 1));
+    shSyncTableSelectAndPills(); shToast('✓ Removed ' + (removed ? removed.name : 'Table')); shRenderAll();
+  };
   window.shStartBlankList = function() {
     if (!window.__SH_STATE || !window.__SH_STATE.tables) return;
     window.__SH_STATE.tables.forEach(function(t, idx) {
@@ -737,16 +741,13 @@ function renderInteractiveScript(initialPlan) {
     const drawer = document.getElementById('sh-bulk-csv-drawer'); if (drawer) drawer.style.display = 'block';
     shToast('✨ Cleared demo guests! Paste your spreadsheet in Step 2 or add households.'); window.scrollToShCard(2); shRenderAll();
   };
-
   window.shToggleBulkCsvDrawer = function() { const d = document.getElementById('sh-bulk-csv-drawer'); if (d) d.style.display = d.style.display === 'none' ? 'block' : 'none'; };
-
   window.shHandleCsvFileUpload = function(inputEl) {
     const f = inputEl && inputEl.files && inputEl.files[0]; if (!f) return;
     const reader = new FileReader();
     reader.onload = function(ev) { const ta = document.getElementById('sh-bulk-csv-textarea'); if (ta) ta.value = String(ev.target.result || '').trim(); window.shProcessBulkCsv(false); };
     reader.readAsText(f);
   };
-
   window.shProcessBulkCsv = function(replaceAll) {
     const ta = document.getElementById('sh-bulk-csv-textarea'), rawText = ta ? ta.value.trim() : '';
     if (!rawText || !window.__SH_STATE) return;
@@ -789,7 +790,7 @@ function renderInteractiveScript(initialPlan) {
       return '<div onclick="window.shSeatClick(' + tIdx + ',' + idx + ',event)" style="cursor:pointer;display:flex;flex-wrap:wrap;align-items:center;justify-content:space-between;gap:5px;padding:7px 9px;border-radius:8px;background:#FFFFFF;border:1px solid #EAE2D3;font-size:0.76rem;min-width:0;"><div style="display:flex;align-items:center;gap:5px;min-width:0;flex:1 1 110px;"><span class="mono" style="font-size:0.66rem;font-weight:800;padding:2px 5px;border-radius:5px;flex-shrink:0;background:' + (idx === 0 ? '#8C2D19' : '#F3EDE3') + ';color:' + (idx === 0 ? '#FFF' : '#1C1917') + ';">#' + seat.seatNumber + '</span><strong style="color:#1C1917;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;">' + shEsc(g.name) + '</strong></div><div style="display:flex;flex-wrap:wrap;align-items:center;gap:3px;" onclick="event.stopPropagation()"><button type="button" title="Move Seat Counter-Clockwise" onclick="window.shMoveGuestSeatOffset(' + tIdx + ',' + idx + ',-1,event)" style="cursor:pointer;border:1px solid #D6CFC2;background:#FAF7F2;color:#181412;font-size:0.64rem;font-weight:800;padding:2px 5px;border-radius:4px;">&#9664;</button><button type="button" title="Move Seat Clockwise" onclick="window.shMoveGuestSeatOffset(' + tIdx + ',' + idx + ',1,event)" style="cursor:pointer;border:1px solid #D6CFC2;background:#FAF7F2;color:#181412;font-size:0.64rem;font-weight:800;padding:2px 5px;border-radius:4px;">&#9654;</button><select aria-label="Move guest to another table" onchange="window.shMoveGuestToTable(' + tIdx + ',' + idx + ',this.value,event)" style="cursor:pointer;border:1px solid #C8A96E;background:#FAF3E3;color:#78350F;font-size:0.64rem;font-weight:800;padding:2px 4px;border-radius:4px;">' + tableMoveOpts + '</select><button type="button" title="Cycle Entrée" onclick="window.shCycleGuestMeal(' + tIdx + ',' + idx + ',event)" style="cursor:pointer;border:1px solid ' + mb.color + ';font-size:0.64rem;font-weight:800;padding:2px 5px;border-radius:4px;background:' + mb.bg + ';color:' + mb.color + ';">' + mb.code + ' ' + mb.short + '</button><button type="button" title="Cycle Allergy / Chair" onclick="window.shCycleGuestAllergy(' + tIdx + ',' + idx + ',event)" style="cursor:pointer;font-size:0.62rem;font-weight:800;padding:2px 5px;border-radius:4px;' + tagStyle + '">' + tagLabel + '</button><button type="button" title="Remove guest" onclick="window.shRemoveGuest(' + tIdx + ',' + idx + ',event)" style="cursor:pointer;border:1px solid #FECDD3;background:#FFF1F2;color:#9F1239;font-size:0.63rem;font-weight:800;padding:2px 5px;border-radius:4px;">✕</button></div></div>';
     }).join('') : '<div style="padding:10px;font-size:0.78rem;color:#57534E;">No guests seated at ' + shEsc(t.name) + ' yet. Use Step 2 to add guests.</div>';
 
-    box.innerHTML = '<div style="display:flex;flex-wrap:wrap;align-items:center;justify-content:space-between;gap:8px;margin-bottom:8px;"><div style="min-width:0;"><div style="font-size:0.64rem;font-weight:800;text-transform:uppercase;letter-spacing:0.06em;color:#8C2D19;">TABLE SEATING &amp; ENTR&Eacute;E ARRANGEMENT (&#9664;/&#9654; SWAP SEAT &middot; &#8644; CHANGE TABLE &middot; MEAL &middot; ALLERGY)</div><div class="serif-display" style="font-size:1.10rem;color:#181412;">' + shEsc(t.name) + ' &middot; ' + shEsc(shFriendlyShape(t.shape)) + '</div></div><div style="display:flex;flex-wrap:wrap;gap:4px;"><button type="button" onclick="window.shMorphSelectedTable(\\\'round\\\')" class="studio-tap-chip' + (normShape === 'round' ? ' active' : '') + '">● Round</button><button type="button" onclick="window.shMorphSelectedTable(\\\'sweetheart\\\')" class="studio-tap-chip' + (normShape === 'sweetheart' ? ' active' : '') + '">💕 Sweetheart</button><button type="button" onclick="window.shMorphSelectedTable(\\\'banquet_2sided\\\')" class="studio-tap-chip' + (normShape === 'banquet_2sided' ? ' active' : '') + '">▬ Banquet</button><button type="button" onclick="window.shMorphSelectedTable(\\\'kings_4sided\\\')" class="studio-tap-chip' + (normShape === 'kings_4sided' ? ' active' : '') + '">⊞ King\\\'s</button><button type="button" onclick="window.shRotateSelectedTable()" class="studio-tap-chip">↻ 45°</button></div></div><div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(275px,1fr));gap:6px;">' + seatRows + '</div>';
+    box.innerHTML = '<div style="display:flex;flex-wrap:wrap;align-items:center;justify-content:space-between;gap:8px;margin-bottom:8px;"><div style="min-width:0;"><div style="font-size:0.64rem;font-weight:800;text-transform:uppercase;letter-spacing:0.06em;color:#8C2D19;">TABLE SEATING &amp; ENTR&Eacute;E ARRANGEMENT (&#9664;/&#9654; SWAP SEAT &middot; &#8644; CHANGE TABLE &middot; MEAL &middot; ALLERGY)</div><div class="serif-display" style="font-size:1.10rem;color:#181412;">' + shEsc(t.name) + ' &middot; ' + shEsc(shFriendlyShape(t.shape)) + ' <span class="mono" style="font-size:0.70rem;color:#78716C;">(' + t.x + ', ' + t.y + ')</span></div></div><div style="display:flex;flex-wrap:wrap;gap:4px;align-items:center;"><button type="button" title="Move Table Left" onclick="window.shNudgeSelectedTable(-32,0)" class="studio-tap-chip" style="padding:3px 7px;">&larr;</button><button type="button" title="Move Table Up" onclick="window.shNudgeSelectedTable(0,-28)" class="studio-tap-chip" style="padding:3px 7px;">&uarr;</button><button type="button" title="Move Table Down" onclick="window.shNudgeSelectedTable(0,28)" class="studio-tap-chip" style="padding:3px 7px;">&darr;</button><button type="button" title="Move Table Right" onclick="window.shNudgeSelectedTable(32,0)" class="studio-tap-chip" style="padding:3px 7px;">&rarr;</button><button type="button" onclick="window.shMorphSelectedTable(\\\'round\\\')" class="studio-tap-chip' + (normShape === 'round' ? ' active' : '') + '">● Round</button><button type="button" onclick="window.shMorphSelectedTable(\\\'sweetheart\\\')" class="studio-tap-chip' + (normShape === 'sweetheart' ? ' active' : '') + '">💕 Sweetheart</button><button type="button" onclick="window.shMorphSelectedTable(\\\'banquet_2sided\\\')" class="studio-tap-chip' + (normShape === 'banquet_2sided' ? ' active' : '') + '">▬ Banquet</button><button type="button" onclick="window.shMorphSelectedTable(\\\'kings_4sided\\\')" class="studio-tap-chip' + (normShape === 'kings_4sided' ? ' active' : '') + '">⊞ King\\\'s</button><button type="button" onclick="window.shRotateSelectedTable()" class="studio-tap-chip">↻ 45°</button>' + (window.__SH_STATE.tables.length > 1 ? '<button type="button" title="Delete Selected Table" onclick="window.shDeleteSelectedTable()" class="studio-tap-chip" style="border-color:#FECDD3;background:#FFF1F2;color:#9F1239;">✕ Table</button>' : '') + '</div></div><div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(275px,1fr));gap:6px;">' + seatRows + '</div>';
   }
 
   function shRenderBeoView() {
@@ -912,7 +913,6 @@ function renderInteractiveScript(initialPlan) {
     const unlBar = document.getElementById('sh-unlocked-command-bar');
     if (unlBar && window.__SH_STATE && window.__SH_STATE.isUnlocked) unlBar.style.display = 'flex';
   }
-
   function shAutoPersistVault() {
     if (!window.__SH_STATE) return;
     try { localStorage.setItem('sh_saved_vault_v1', JSON.stringify(window.__SH_STATE)); } catch (_) {}
@@ -921,10 +921,8 @@ function renderInteractiveScript(initialPlan) {
       fetch('/api/vault/save', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ vaultId: window.__SH_STATE.vaultId || 'SH-4819', ownerEmail: window.__SH_STATE.ownerEmail || '', state: window.__SH_STATE }) }).catch(function() {});
     }, 650);
   }
-
   window.shOpenVaultModal = function() { const m = document.getElementById('sh-vault-modal'); if (m) m.style.display = 'flex'; };
   window.shCloseVaultModal = function() { const m = document.getElementById('sh-vault-modal'); if (m) m.style.display = 'none'; };
-
   window.shSaveVaultToServer = async function() {
     const emailEl = document.getElementById('sh-vault-email-input'), pinEl = document.getElementById('sh-vault-pin-input'), btn = document.getElementById('sh-vault-save-submit-btn');
     const email = emailEl ? emailEl.value.trim() : '', pin = pinEl ? pinEl.value.trim() : '2026';
@@ -933,14 +931,9 @@ function renderInteractiveScript(initialPlan) {
       if (window.__SH_STATE) window.__SH_STATE.ownerEmail = email;
       const res = await fetch('/api/vault/save', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ vaultId: (window.__SH_STATE && window.__SH_STATE.vaultId) || 'SH-4819', ownerEmail: email, pinCode: pin, state: window.__SH_STATE }) });
       const data = await res.json(), vid = data && (data.vaultId || data.vault_id);
-      if (data && data.ok && vid) {
-        shSyncVaultIdLinks(vid);
-        if (btn) btn.textContent = '✓ Saved Vault #' + vid + ' (' + (email || 'Cloud Link Ready') + ')';
-        shToast('✓ Saved Reception Vault #' + vid + '! All 5 print & QR links updated.');
-      }
+      if (data && data.ok && vid) { shSyncVaultIdLinks(vid); if (btn) btn.textContent = '✓ Saved Vault #' + vid + ' (' + (email || 'Cloud Link Ready') + ')'; shToast('✓ Saved Reception Vault #' + vid + '! All 5 print & QR links updated.'); }
     } catch (e) { if (btn) btn.textContent = '💾 Save My Event & Generate Magic Links'; }
   };
-
   window.shLookupSavedVault = async function() {
     const inp = document.getElementById('sh-vault-lookup-input'), st = document.getElementById('sh-vault-lookup-status'), q = inp ? inp.value.trim() : '';
     if (!q) return;
@@ -956,13 +949,12 @@ function renderInteractiveScript(initialPlan) {
       } else if (st) { st.innerHTML = '<span style="color:#9F1239;">No vault found for "' + shEsc(q) + '". Try SH-4819.</span>'; }
     } catch (e) { if (st) st.textContent = 'Could not look up vault.'; }
   };
-
   function shRenderAll() {
     if (!window.__SH_STATE) return;
     const csovEl = document.getElementById('score-csov'); if (csovEl) csovEl.textContent = String(window.__SH_STATE.harmonyScore || 98);
     if (window.__SH_STATE.tables) {
       let totalSeated = 0, totalTables = window.__SH_STATE.tables.length, allergyAndChairCount = 0;
-      window.__SH_STATE.tables.forEach(function(t) { totalSeated += (t.guests ? t.guests.length : 0); (t.guests || []).forEach(function(g) { if (g.allergy || g.accessibility) allergyAndChairCount++; }); });
+      window.__SH_STATE.tables.forEach(function(t) { t.guests = (t.guests || []).filter(Boolean); totalSeated += t.guests.length; t.guests.forEach(function(g) { if (g.allergy || g.accessibility) allergyAndChairCount++; }); });
       const guestsEl = document.getElementById('sh-stat-guests'); if (guestsEl) guestsEl.textContent = totalSeated + ' Guests (' + totalTables + ' Tbls)';
       const hhSub = document.getElementById('sh-stat-households-sub'); if (hhSub) hhSub.textContent = '✓ ' + (window.__SH_STATE.householdsCoupled || 26) + ' Coupled • 150 Scale';
       const alSub = document.getElementById('sh-stat-allergies-sub'); if (alSub) alSub.textContent = '✓ ' + allergyAndChairCount + ' Alerts + Avery 5302';

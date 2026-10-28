@@ -501,6 +501,7 @@ David &amp; Elena Rostova (Filet, Peanut Allergy)</textarea>
                     <button type="button" id="sh-zoom-room-btn" class="studio-tap-chip active" style="padding:4px 9px;font-size:0.71rem;" onclick="window.shSetCanvasZoom('room')">&#128506; Full Room (1&times;)</button>
                     <button type="button" id="sh-zoom-15-btn" class="studio-tap-chip" style="padding:4px 9px;font-size:0.71rem;" onclick="window.shSetCanvasZoom('zoom15')">&#128269; Zoom 1.5&times;</button>
                     <button type="button" id="sh-zoom-table-btn" class="studio-tap-chip" style="padding:4px 10px;font-size:0.71rem;border-color:#8C2D19;color:#8C2D19;font-weight:800;" onclick="window.shSetCanvasZoom('table')">&#127919; Focus Selected Table (2.4&times;)</button>
+                    <button type="button" id="sh-toolbar-add-table-btn" class="studio-tap-chip" style="padding:4px 10px;font-size:0.71rem;border-color:#065F46;background:#ECFDF5;color:#065F46;font-weight:800;" onclick="window.shAddNewTable()">+ Add Table</button>
                   </div>
                   <div style="display:flex;align-items:center;gap:4px;flex-wrap:wrap;">
                     <span style="font-size:0.67rem;font-weight:800;color:#57534E;margin-right:2px;">MOVE TABLE:</span>
