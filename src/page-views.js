@@ -54,6 +54,10 @@ function renderGraderAndCompilerSection(audit) {
           <div>
             <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:14px;flex-wrap:wrap;gap:8px;">
               <div>
+                <div style="display:flex;align-items:center;gap:8px;flex-wrap:wrap;margin-bottom:4px;">
+                  <span class="mono" style="background:var(--accent-indigo);color:#FFFFFF;font-size:0.74rem;font-weight:800;padding:3px 9px;border-radius:6px;letter-spacing:0.04em;white-space:nowrap;flex-shrink:0;">STEP 1 OF 3</span>
+                  <span class="mono" style="font-size:0.8rem;font-weight:800;color:var(--accent-indigo);text-transform:uppercase;letter-spacing:0.04em;">Inspect Crawler Access &amp; Gaps</span>
+                </div>
                 <h2 class="serif-display" style="font-size:1.45rem;">AI Crawler Access &amp; Visibility Gaps</h2>
                 <p style="font-size:0.9rem;color:var(--text-secondary);">Live <span class="mono">/robots.txt</span> permissions &amp; content gaps for <span id="diag-domain-label" class="mono" style="color:var(--accent-indigo);font-weight:600;">${escapeHtml(audit.domain)}</span></p>
               </div>
@@ -92,31 +96,34 @@ function renderGraderAndCompilerSection(audit) {
                 <button type="button" id="copy-code-btn" class="btn btn-primary mono" style="padding:7px 14px;font-size:0.86rem;" onclick="if(window.__ebQuickBuy){window.__ebQuickBuy('flash_pass')}else{downloadCompiledFile()}">Unlock 3-File Pack ($1.99 Stripe Express) &#8599;</button>
               </div>
             </div>
-            <div id="cf-endowment-customizer" style="padding:12px 16px;background:var(--bg-canvas);border-bottom:1px solid var(--border-hairline);display:grid;gap:8px;">
+            <div id="cf-endowment-customizer" style="padding:12px 16px;background:var(--bg-canvas);display:grid;gap:8px;">
               <div style="display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:6px;">
-                <span class="mono" style="font-size:0.78rem;font-weight:800;color:var(--accent-indigo);">3-STEP GEO MANIFEST CUSTOMIZER (TAILOR YOUR /LLMS.TXT &amp; SCHEMA BEFORE EXPORT)</span>
-                <span class="mono" style="font-size:0.75rem;color:var(--accent-emerald);font-weight:700;">&#10003; Auto-saved in browser</span>
+                <div style="display:flex;align-items:center;gap:8px;flex-wrap:wrap;">
+                  <span class="mono" style="background:var(--accent-emerald);color:#FFFFFF;font-size:0.72rem;font-weight:800;padding:2px 8px;border-radius:6px;letter-spacing:0.04em;white-space:nowrap;flex-shrink:0;">STEP 2 OF 3</span>
+                  <span class="mono" style="font-size:0.82rem;font-weight:800;color:var(--accent-indigo);">CUSTOMIZE YOUR AI SEARCH FILES BEFORE DOWNLOAD</span>
+                </div>
+                <span class="mono" style="font-size:0.8rem;color:var(--accent-emerald);font-weight:700;">Auto-saved in browser</span>
               </div>
-              <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(175px,1fr));gap:8px;">
-                <label style="font-size:0.76rem;font-weight:700;color:var(--text-secondary);display:flex;flex-direction:column;gap:3px;">
+              <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(160px,1fr));gap:8px;">
+                <label style="font-size:0.82rem;font-weight:700;color:var(--text-secondary);display:flex;flex-direction:column;gap:4px;min-width:0;">
                   1. AI Crawler Policy
-                  <select id="cf-custom-bots" class="grader-input" style="padding:6px 8px;font-size:0.8rem;" onchange="onCfCustomizerChange()">
-                    <option value="all_4" selected>Allow All 4 AI Bots (Recommended)</option>
-                    <option value="oai_perplexity">OAI-SearchBot + PerplexityBot Only</option>
+                  <select id="cf-custom-bots" class="grader-input" style="padding:6px 8px;font-size:0.82rem;width:100%;" onchange="onCfCustomizerChange()">
+                    <option value="all_4" selected>Allow All 4 AI Bots</option>
+                    <option value="oai_perplexity">ChatGPT + Perplexity Only</option>
                     <option value="docs_pricing_only">Allow /docs &amp; /pricing Only</option>
                   </select>
                 </label>
-                <label style="font-size:0.76rem;font-weight:700;color:var(--text-secondary);display:flex;flex-direction:column;gap:3px;">
-                  2. Priority Citation Routes
-                  <select id="cf-custom-routes" class="grader-input" style="padding:6px 8px;font-size:0.8rem;" onchange="onCfCustomizerChange()">
+                <label style="font-size:0.82rem;font-weight:700;color:var(--text-secondary);display:flex;flex-direction:column;gap:4px;min-width:0;">
+                  2. Priority Pages
+                  <select id="cf-custom-routes" class="grader-input" style="padding:6px 8px;font-size:0.82rem;width:100%;" onchange="onCfCustomizerChange()">
                     <option value="/pricing, /docs, /security" selected>/pricing, /docs, /security</option>
                     <option value="/features, /customers, /api">/features, /customers, /api</option>
                     <option value="/Waitlist, /changelog, /benchmarks">/changelog, /benchmarks, /docs</option>
                   </select>
                 </label>
-                <label style="font-size:0.76rem;font-weight:700;color:var(--text-secondary);display:flex;flex-direction:column;gap:3px;">
-                  3. Custom Brand Positioning
-                  <input id="cf-custom-summary" type="text" class="grader-input" style="padding:6px 8px;font-size:0.8rem;" placeholder="e.g. #1 B2B workflow platform for..." oninput="onCfCustomizerChange()" />
+                <label style="font-size:0.82rem;font-weight:700;color:var(--text-secondary);display:flex;flex-direction:column;gap:4px;min-width:0;">
+                  3. Brand Summary
+                  <input id="cf-custom-summary" type="text" class="grader-input" style="padding:6px 8px;font-size:0.82rem;width:100%;" placeholder="e.g. #1 store for..." oninput="onCfCustomizerChange()" />
                 </label>
               </div>
             </div>
@@ -126,12 +133,33 @@ function renderGraderAndCompilerSection(audit) {
               <button type="button" class="tab-btn mono" data-tab="robotsTxtPatch" onclick="switchCompilerTab('robotsTxtPatch')">robots.txt Rules</button>
               <button type="button" class="tab-btn mono" data-tab="jsonLd" onclick="switchCompilerTab('jsonLd')">Schema Markup</button>
             </div>
-            <pre id="compiler-unmasked-header" class="code-viewport mono" style="max-height:145px;padding:12px 18px;background:#ECFDF5;color:#065F46;border-bottom:1px dashed #10B981;font-size:0.8rem;line-height:1.45;margin:0;"># ${escapeHtml(audit.brand)} (${escapeHtml(audit.domain)}) — Verified /llms.txt Manifest Header (Unmasked Live Preview)
+            <pre id="compiler-unmasked-header" style="margin:12px 16px 10px;padding:14px 16px;border-radius:10px;background:#0F172A;color:#F8FAFC;font-family:ui-monospace,SFMono-Regular,Menlo,Monaco,Consolas,monospace;font-size:0.82rem;line-height:1.58;white-space:pre-wrap;word-break:break-word;overflow:hidden;"># ${escapeHtml(audit.brand)} (${escapeHtml(audit.domain)}) — Live /llms.txt Preview
 &gt; ${escapeHtml((audit.artifacts?.llmsTxt || '').split('\n').find(l => l.startsWith('> '))?.slice(2) || (audit.brand + ' — Official AI Search Citation & Product Fact Sheet (' + audit.category + ').'))}
-Allowed AI Answer Bots: OAI-SearchBot, PerplexityBot, ClaudeBot, Google-Extended (Allow: /)
-Priority RAG Routes: https://${escapeHtml(audit.domain)}/pricing | https://${escapeHtml(audit.domain)}/docs | https://${escapeHtml(audit.domain)}/security
-Weighted Category cSoV: ${audit.scores.csovPct}% -&gt; Projected Post-Fix: ${audit.scores.projectedCsovPct}% (Full 3-File Bundle locked below &#8595;)</pre>
-            <pre id="compiler-code-output" class="code-viewport mono" style="flex:1;">${escapeHtml(audit.artifacts.llmsTxt)}</pre>
+Allowed AI Bots: OAI-SearchBot, PerplexityBot, ClaudeBot, Google-Extended (Allow: /)
+Priority Pages: https://${escapeHtml(audit.domain)}/pricing · /docs · /security
+AI Mention Lift: ${audit.scores.csovPct}% &rarr; ${audit.scores.projectedCsovPct}% after publishing</pre>
+            <div id="cf-compiler-lock-card" style="flex:1;margin:0 16px 16px;padding:14px 16px;border-radius:10px;background:var(--bg-subtle);border:1px solid var(--border-hairline);display:flex;flex-direction:column;justify-content:space-between;gap:10px;">
+              <div style="display:flex;justify-content:space-between;align-items:center;gap:8px;flex-wrap:wrap;">
+                <div style="display:flex;align-items:center;gap:8px;flex-wrap:wrap;">
+                  <span class="mono" style="background:#0F172A;color:#FFFFFF;font-size:0.72rem;font-weight:800;padding:2px 8px;border-radius:6px;letter-spacing:0.04em;white-space:nowrap;flex-shrink:0;">STEP 3 OF 3</span>
+                  <span style="font-size:0.9rem;font-weight:700;color:var(--text-primary);">Included in Your 3-File AI Fix Pack (<span id="cf-lock-domain-label" class="mono" style="color:var(--accent-indigo);">${escapeHtml(audit.domain)}</span>)</span>
+                </div>
+                <span class="badge badge-cyan mono" style="font-size:0.78rem;">Copy &amp; Download</span>
+              </div>
+              <div style="display:grid;gap:7px;">
+                <div style="padding:9px 12px;border-radius:8px;background:#FFFFFF;display:flex;justify-content:space-between;align-items:center;gap:10px;"><span style="font-size:0.85rem;color:var(--text-primary);min-width:0;"><strong>1. /llms.txt &amp; /llms-full.txt</strong> &middot; Markdown site &amp; pricing guide</span><span class="badge badge-emerald mono" style="font-size:0.75rem;flex-shrink:0;">Ready</span></div>
+                <div style="padding:9px 12px;border-radius:8px;background:#FFFFFF;display:flex;justify-content:space-between;align-items:center;gap:10px;"><span style="font-size:0.85rem;color:var(--text-primary);min-width:0;"><strong>2. /robots.txt Rules</strong> &middot; Unblocks ChatGPT, Perplexity &amp; Claude</span><span class="badge badge-emerald mono" style="font-size:0.75rem;flex-shrink:0;">Ready</span></div>
+                <div style="padding:9px 12px;border-radius:8px;background:#FFFFFF;display:flex;justify-content:space-between;align-items:center;gap:10px;"><span style="font-size:0.85rem;color:var(--text-primary);min-width:0;"><strong>3. Schema.org JSON-LD</strong> &middot; Verified Organization, Product &amp; FAQ facts</span><span class="badge badge-emerald mono" style="font-size:0.75rem;flex-shrink:0;">Ready</span></div>
+              </div>
+              <div style="display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:8px;padding-top:2px;">
+                <span style="font-size:0.8rem;color:var(--text-secondary);">One-time $1.99 pass &middot; No subscription &middot; Instant unlock</span>
+                <div style="display:flex;gap:8px;align-items:center;flex-wrap:wrap;">
+                  <button type="button" class="btn btn-secondary" style="padding:6px 12px;font-size:0.82rem;" onclick="if(window.__ebCheckout){window.__ebCheckout('micro_pass')}">Single File (99&cent;)</button>
+                  <button type="button" class="btn btn-primary" style="padding:7px 14px;font-size:0.84rem;" onclick="if(window.__ebQuickBuy){window.__ebQuickBuy('flash_pass')}else{downloadCompiledFile()}">Unlock All Files ($1.99) &rarr;</button>
+                </div>
+              </div>
+            </div>
+            <pre id="compiler-code-output" class="code-viewport mono" style="display:none;flex:1;">${escapeHtml(audit.artifacts.llmsTxt)}</pre>
           </div>
         </div>
       </div>
@@ -186,41 +214,31 @@ function renderPricingSection(isCompact = false) {
     <div class="container">
       <div style="display:flex;justify-content:space-between;align-items:flex-end;flex-wrap:wrap;gap:12px;margin-bottom:16px;">
         <div>
-          <span class="badge badge-cyan mono">BUILT FOR EVERY AI SEARCH TEAM</span>
-          <h2 class="serif-display" style="font-size:1.7rem;margin:6px 0 0;">How Founders, Growth VPs &amp; Product Marketers Use CitationForge</h2>
+          <h2 class="serif-display" style="font-size:1.45rem;margin:0;">Built for AI Search &amp; Growth Teams</h2>
         </div>
-        <span class="mono" style="font-size:0.84rem;color:var(--text-secondary);">ChatGPT Search &bull; Perplexity Pro &bull; Google AI Overviews</span>
+        <span class="mono" style="font-size:0.875rem;color:var(--text-secondary);">ChatGPT Search &bull; Perplexity Pro &bull; Google AI Overviews</span>
       </div>
       <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(275px,1fr));gap:16px;">
-        <div class="panel" style="padding:18px;display:flex;flex-direction:column;gap:10px;">
-          <div style="display:flex;align-items:center;gap:12px;">
-            <img src="/public/editorial-segment-1.jpg" alt="B2B SaaS Founder reviewing AI search share-of-voice" width="60" height="60" loading="lazy" style="width:60px;height:60px;border-radius:12px;object-fit:cover;flex-shrink:0;" />
-            <div>
-              <div class="mono" style="font-size:0.76rem;font-weight:700;color:var(--accent-indigo);">SEGMENT 01 &bull; SAAS FOUNDERS &amp; CEOS</div>
-              <div style="font-size:1rem;font-weight:700;color:var(--text-primary);">Own Category AI Recommendations</div>
-            </div>
+        <div class="panel" style="padding:20px;display:flex;flex-direction:column;gap:10px;">
+          <div>
+            <div class="mono" style="font-size:0.875rem;font-weight:700;color:var(--accent-indigo);">SAAS FOUNDERS &amp; CEOS</div>
+            <div style="font-size:1.05rem;font-weight:700;color:var(--text-primary);margin-top:2px;">Own Category AI Recommendations</div>
           </div>
-          <p style="font-size:0.88rem;color:var(--text-secondary);line-height:1.52;margin:0;">See why ChatGPT Search or Perplexity recommends a competitor on high-intent buyer prompts and deploy root <span class="mono">/llms.txt</span> in 5 minutes.</p>
+          <p style="font-size:0.9rem;color:var(--text-secondary);line-height:1.52;margin:0;">See why ChatGPT Search or Perplexity recommends a competitor on high-intent buyer prompts and deploy root <span class="mono">/llms.txt</span> in 5 minutes.</p>
         </div>
-        <div class="panel" style="padding:18px;display:flex;flex-direction:column;gap:10px;">
-          <div style="display:flex;align-items:center;gap:12px;">
-            <img src="/public/editorial-segment-2.jpg" alt="VP of Growth and Content auditing Answer-First H2 blocks" width="60" height="60" loading="lazy" style="width:60px;height:60px;border-radius:12px;object-fit:cover;flex-shrink:0;" />
-            <div>
-              <div class="mono" style="font-size:0.76rem;font-weight:700;color:var(--accent-emerald);">SEGMENT 02 &bull; GROWTH &amp; SEO LEADS</div>
-              <div style="font-size:1rem;font-weight:700;color:var(--text-primary);">Fix Bot Blocks &amp; Low Citation Share</div>
-            </div>
+        <div class="panel" style="padding:20px;display:flex;flex-direction:column;gap:10px;">
+          <div>
+            <div class="mono" style="font-size:0.875rem;font-weight:700;color:var(--accent-emerald);">GROWTH &amp; SEO LEADS</div>
+            <div style="font-size:1.05rem;font-weight:700;color:var(--text-primary);margin-top:2px;">Fix Bot Blocks &amp; Low Citation Share</div>
           </div>
-          <p style="font-size:0.88rem;color:var(--text-secondary);line-height:1.52;margin:0;">Unblock <span class="mono">OAI-SearchBot</span> and <span class="mono">PerplexityBot</span> in <span class="mono">/robots.txt</span> and structure Answer-First summaries that win rank #1 citations.</p>
+          <p style="font-size:0.9rem;color:var(--text-secondary);line-height:1.52;margin:0;">Unblock <span class="mono">OAI-SearchBot</span> and <span class="mono">PerplexityBot</span> in <span class="mono">/robots.txt</span> and structure Answer-First summaries that win rank #1 citations.</p>
         </div>
-        <div class="panel" style="padding:18px;display:flex;flex-direction:column;gap:10px;">
-          <div style="display:flex;align-items:center;gap:12px;">
-            <img src="/public/editorial-segment-3.jpg" alt="Product Marketing Strategist verifying JSON-LD entity graph" width="60" height="60" loading="lazy" style="width:60px;height:60px;border-radius:12px;object-fit:cover;flex-shrink:0;" />
-            <div>
-              <div class="mono" style="font-size:0.76rem;font-weight:700;color:var(--accent-cyan);">SEGMENT 03 &bull; PRODUCT MARKETING &amp; AGENCIES</div>
-              <div style="font-size:1rem;font-weight:700;color:var(--text-primary);">Ship Verified Pricing &amp; Schema Graphs</div>
-            </div>
+        <div class="panel" style="padding:20px;display:flex;flex-direction:column;gap:10px;">
+          <div>
+            <div class="mono" style="font-size:0.875rem;font-weight:700;color:var(--accent-cyan);">PRODUCT MARKETING &amp; AGENCIES</div>
+            <div style="font-size:1.05rem;font-weight:700;color:var(--text-primary);margin-top:2px;">Ship Verified Pricing &amp; Schema Graphs</div>
           </div>
-          <p style="font-size:0.88rem;color:var(--text-secondary);line-height:1.52;margin:0;">Eliminate LLM pricing hallucinations with linked <span class="mono">SoftwareApplication</span> and <span class="mono">FAQPage</span> JSON-LD backed by Wikidata <span class="mono">sameAs</span> entities.</p>
+          <p style="font-size:0.9rem;color:var(--text-secondary);line-height:1.52;margin:0;">Eliminate LLM pricing hallucinations with linked <span class="mono">SoftwareApplication</span> and <span class="mono">FAQPage</span> JSON-LD backed by Wikidata <span class="mono">sameAs</span> entities.</p>
         </div>
       </div>
     </div>
@@ -242,7 +260,7 @@ function renderPricingSection(isCompact = false) {
           <div style="display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:16px;padding:18px 20px;border-radius:12px;background:var(--bg-subtle);">
             <div>
               <div class="mono" style="font-size:2.2rem;font-weight:800;color:var(--accent-indigo);line-height:1;">$1.99 <span style="font-size:0.88rem;font-weight:600;color:var(--text-secondary);">USD one-time pass</span></div>
-              <div style="font-size:0.88rem;color:var(--text-secondary);margin-top:4px;">&#10003; Full 3-File Bundle (<span class="mono">llms.txt</span> + <span class="mono">schema.json</span> + <span class="mono">robots.txt</span>) &bull; Instant Browser Unlock</div>
+              <div style="font-size:0.88rem;color:var(--text-secondary);margin-top:4px;">Includes Full 3-File Bundle (<span class="mono">llms.txt</span> + <span class="mono">schema.json</span> + <span class="mono">robots.txt</span>) &bull; Instant Browser Unlock</div>
             </div>
             <a href="/buy/flash_pass" rel="nofollow" onclick="if(window.__ebQuickBuy){window.__ebQuickBuy('flash_pass');return false;}" class="btn btn-primary" style="padding:14px 26px;font-size:0.98rem;text-decoration:none;">
               <span>Unlock Complete 3-File Pack ($1.99 Stripe Express)</span>
@@ -276,8 +294,9 @@ function renderPricingSection(isCompact = false) {
 
 function renderHeroGraderBox(audit, isLp = false) {
   const presets = [
+    { d: 'shopify.com', label: 'shopify.com (96 A+)' },
+    { d: 'gymshark.com', label: 'gymshark.com (92 A)' },
     { d: 'stripe.com', label: 'stripe.com (97 A+)' },
-    { d: 'linear.app', label: 'linear.app (95 A+)' },
     { d: 'supabase.com', label: 'supabase.com (91 A+)' },
     { d: 'notion.so', label: 'notion.so (3 Bots Blocked)' }
   ];
@@ -285,134 +304,160 @@ function renderHeroGraderBox(audit, isLp = false) {
     `<button type="button" class="preset-chip mono ${audit.domain === p.d ? 'active' : ''}" data-domain="${p.d}" onclick="selectPreset('${p.d}')">${p.label}</button>`
   ).join('');
 
-  const headlineHtml = isLp
-    ? `See Why ChatGPT &amp; Perplexity Cite Your Competitors`
-    : `See How Often ChatGPT &amp; Perplexity Cite You`;
-
-  const subheadline = '64% of buyers ask ChatGPT Search, Perplexity, and Google Gemini for recommendations before clicking a search link. Enter your domain below to see where you rank across 25 buyer questions and what is blocking AI from recommending you.';
-
   return `
-  <section id="grader" class="hero-section">
+  <section id="grader" class="hero-section" style="padding:36px 0 44px;">
     <div class="container">
-      <div class="hero-grid" style="align-items:stretch;">
-        <div id="home-executive-brief" style="display:flex;flex-direction:column;justify-content:space-between;gap:16px;height:100%;">
-          <div>
-            <h1 class="hero-h1">${headlineHtml}</h1>
-            <p class="hero-sub" style="margin-bottom:18px;">${escapeHtml(subheadline)}</p>
+      <div id="home-executive-brief" style="width:100%;margin-bottom:22px;">
+        <div style="display:inline-flex;align-items:center;gap:8px;padding:5px 14px;border-radius:999px;background:var(--accent-indigo-soft);color:var(--accent-indigo);font-size:0.8125rem;font-weight:700;margin-bottom:16px;">
+          <span>For SaaS Founders, E-Commerce Brands &amp; SEO Teams</span>
+        </div>
+        <h1 class="hero-h1" style="font-size:clamp(26px,2.85vw,38px);line-height:1.22;margin:0 0 14px 0;">See If ChatGPT &amp; Perplexity Recommend Your Website</h1>
+        <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(230px,1fr));gap:10px 18px;padding:10px 14px;border-radius:10px;background:#FFFFFF;border:1px solid var(--border-hairline);font-size:12.5px;font-weight:400;color:var(--text-secondary);line-height:1.4;width:100%;box-sizing:border-box;">
+          <div><span style="color:var(--accent-emerald);font-weight:600;">&#9679; Verified Source:</span> Live <span class="mono">/llms.txt</span>, <span class="mono">robots.txt</span> &amp; Schema check + 25 AI buyer prompts.</div>
+          <div><span style="color:var(--accent-emerald);font-weight:600;">&#9679; Last Verified:</span> Checked live today (rolling 30-day AI search index).</div>
+          <div><span style="color:var(--accent-emerald);font-weight:600;">&#9679; Always Current:</span> Live domain check on click + daily 24h ranking refresh.</div>
+        </div>
+      </div>
 
-            <form class="grader-form" onsubmit="event.preventDefault(); executeAudit();" novalidate>
-              <div style="flex:1;display:flex;flex-direction:column;gap:8px;">
-                <label for="domain-input" style="font-size:0.9rem;font-weight:700;color:var(--text-primary);">
-                  Enter Your Website Domain &amp; Industry
-                </label>
-                <div style="display:flex;gap:8px;flex-wrap:wrap;">
-                  <input
-                    id="domain-input"
-                    name="domain"
-                    type="text"
-                    class="grader-input"
-                    style="flex:1 1 210px;"
-                    value="${escapeHtml(audit.domain)}"
-                    placeholder="e.g. linear.app, calendly.com, mybrand.io"
-                    autocomplete="off"
-                    required
-                  />
-                  <select id="category-select" name="category" class="grader-input" style="flex:0 1 195px;padding:10px 12px;font-size:0.88rem;cursor:pointer;" aria-label="Industry Category">
-                    <option value="">Auto-Detect Industry</option>
-                    <option value="B2B SaaS & Developer Infrastructure">B2B SaaS &amp; DevTools</option>
-                    <option value="E-Commerce & DTC Retail Brands">E-Commerce &amp; DTC Retail</option>
-                    <option value="Fintech, Payments & Treasury">Fintech &amp; Payments</option>
-                    <option value="AI Workflow & Agent Orchestration">AI &amp; LLM Agents</option>
-                    <option value="Revenue Operations, CRM & Marketing">RevOps, CRM &amp; Agency</option>
-                    <option value="Healthcare, Aesthetics & Wellness">Healthcare &amp; Wellness</option>
-                  </select>
-                  <input type="text" name="website_hp" style="display:none;" tabindex="-1" autocomplete="off" aria-hidden="true" />
-                  <button id="run-audit-btn" type="submit" class="btn btn-primary" style="padding:12px 20px;">
-                    <span>Check My Website Free</span>
-                    <span class="btn-arrow-pill" aria-hidden="true">&#8599;</span>
-                  </button>
+      <div class="hero-grid" style="align-items:stretch;gap:28px;">
+        <!-- LEFT CARD: STEP 1 (FREE WEBSITE CHECK) -->
+        <div class="panel-elevated" style="padding:26px;display:flex;flex-direction:column;justify-content:space-between;gap:18px;height:100%;border:1px solid var(--border-hairline);">
+          <div style="display:flex;flex-direction:column;gap:16px;">
+            <div style="display:flex;justify-content:space-between;align-items:center;padding-bottom:12px;border-bottom:1px solid var(--border-hairline);gap:8px;flex-wrap:wrap;">
+              <div style="display:flex;align-items:center;gap:8px;flex-wrap:wrap;">
+                <span class="mono" style="background:var(--accent-indigo);color:#FFFFFF;font-size:0.75rem;font-weight:800;padding:3px 9px;border-radius:6px;letter-spacing:0.04em;white-space:nowrap;flex-shrink:0;">STEP 1 OF 3</span>
+                <span style="font-size:0.98rem;font-weight:800;color:var(--text-primary);">Check Your Website Domain (Free)</span>
+              </div>
+              <span class="badge badge-emerald mono" style="font-size:0.8125rem;">&#9679; Live Check</span>
+            </div>
+
+            <div>
+              <div style="font-size:0.875rem;font-weight:700;color:var(--text-secondary);margin-bottom:8px;">Click a Well-Known Benchmark or Type Your Domain Below:</div>
+              <div class="preset-strip" style="margin-top:0;display:flex;flex-wrap:wrap;gap:6px;">
+                ${presetButtons}
+              </div>
+            </div>
+
+            <form class="grader-form" onsubmit="event.preventDefault(); executeAudit();" novalidate style="margin-bottom:0;">
+              <div style="flex:1;display:flex;flex-direction:column;gap:12px;">
+                <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:10px;">
+                  <label for="domain-input" style="font-size:0.875rem;font-weight:700;color:var(--text-primary);display:flex;flex-direction:column;gap:6px;">
+                    Website Domain to Check
+                    <input
+                      id="domain-input"
+                      name="domain"
+                      type="text"
+                      class="grader-input"
+                      style="width:100%;"
+                      value="${escapeHtml(audit.domain)}"
+                      placeholder="e.g. shopify.com, gymshark.com, mystore.com"
+                      autocomplete="off"
+                      required
+                    />
+                  </label>
+                  <label for="category-select" style="font-size:0.875rem;font-weight:700;color:var(--text-primary);display:flex;flex-direction:column;gap:6px;">
+                    Industry Category
+                    <select id="category-select" name="category" class="grader-input" style="width:100%;padding:10px 12px;font-size:0.88rem;cursor:pointer;" aria-label="Industry Category">
+                      <option value="">Auto-Detect Industry</option>
+                      <option value="B2B SaaS & Developer Infrastructure">B2B SaaS &amp; DevTools</option>
+                      <option value="E-Commerce & DTC Retail Brands">E-Commerce &amp; DTC Retail</option>
+                      <option value="Fintech, Payments & Treasury">Fintech &amp; Payments</option>
+                      <option value="AI Workflow & Agent Orchestration">AI &amp; LLM Agents</option>
+                      <option value="Revenue Operations, CRM & Marketing">RevOps, CRM &amp; Agency</option>
+                      <option value="Healthcare, Aesthetics & Wellness">Healthcare &amp; Wellness</option>
+                    </select>
+                  </label>
+                </div>
+                <input type="text" name="website_hp" style="display:none;" tabindex="-1" autocomplete="off" aria-hidden="true" />
+                <button id="run-audit-btn" type="submit" class="btn btn-primary" style="width:100%;padding:13px 20px;font-size:0.96rem;">
+                  <span>Check My Website Free</span>
+                  <span class="btn-arrow-pill" aria-hidden="true">&#8599;</span>
+                </button>
+                <div id="cf-step1-next-cue" onclick="var c=document.getElementById('cf-step2-card');if(c&&c.scrollIntoView)c.scrollIntoView({behavior:'smooth',block:'nearest'});" style="display:none;cursor:pointer;padding:8px 12px;border-radius:8px;background:#ECFDF5;border:1px solid #A7F3D0;font-size:0.82rem;font-weight:700;color:#047857;align-items:center;justify-content:space-between;gap:8px;">
+                  <span id="cf-step1-next-cue-text">✓ Step 1 Done &rarr; Now Focus on Step 2 (Right): Review Your Free AI Diagnosis</span>
+                  <span style="text-decoration:underline;white-space:nowrap;">Focus Step 2 &rarr;</span>
                 </div>
               </div>
             </form>
-            <div id="grader-error" style="display:none;color:var(--accent-rose);font-size:0.86rem;font-weight:600;margin-bottom:10px;" role="alert"></div>
-
-            <div class="preset-strip" style="margin-top:10px;">
-              <span style="font-size:0.86rem;color:var(--text-muted);font-weight:700;">Try Example:</span>
-              ${presetButtons}
-            </div>
+            <div id="grader-error" style="display:none;color:var(--accent-rose);font-size:0.86rem;font-weight:600;" role="alert"></div>
           </div>
 
-          <div style="padding:16px 18px;border-radius:12px;background:var(--bg-subtle);display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:14px;">
-            <div>
-              <div style="font-size:1rem;font-weight:700;color:var(--accent-indigo);margin-bottom:3px;">1. Check Access</div>
-              <div style="font-size:1rem;color:var(--text-secondary);line-height:1.45;">Verify live <span class="mono">/robots.txt</span> &amp; <span class="mono">/llms.txt</span> status in 10 seconds.</div>
-            </div>
-            <div>
-              <div style="font-size:1rem;font-weight:700;color:var(--accent-emerald);margin-bottom:3px;">2. Compare 25 Answers</div>
-              <div style="font-size:1rem;color:var(--text-secondary);line-height:1.45;">See where competitors outrank you on ChatGPT &amp; Perplexity.</div>
-            </div>
-            <div>
-              <div style="font-size:1rem;font-weight:700;color:var(--text-primary);margin-bottom:3px;">3. Publish Fix Files</div>
-              <div style="font-size:1rem;color:var(--text-secondary);line-height:1.45;">Download ready-to-use <span class="mono">/llms.txt</span> &amp; Schema files for $1.99.</div>
-            </div>
+          <div style="padding:14px 16px;border-radius:12px;background:var(--bg-subtle);display:flex;flex-direction:column;gap:8px;">
+            <div class="mono" style="font-size:0.8125rem;font-weight:800;color:var(--accent-indigo);text-transform:uppercase;letter-spacing:0.04em;">How This Page Works (Follow Steps 1 &rarr; 2 &rarr; 3)</div>
+            <ul style="list-style:none;margin:0;padding:0;display:flex;flex-direction:column;gap:6px;font-size:0.875rem;color:var(--text-secondary);line-height:1.45;">
+              <li style="display:flex;align-items:flex-start;gap:8px;">
+                <span style="display:inline-block;width:7px;height:7px;border-radius:50%;background:var(--accent-indigo);margin-top:6px;flex-shrink:0;" aria-hidden="true"></span>
+                <span><strong style="color:var(--text-primary);">Step 1 (Here):</strong> Click a benchmark chip above or type your domain and press <strong>Check My Website Free</strong>.</span>
+              </li>
+              <li style="display:flex;align-items:flex-start;gap:8px;">
+                <span style="display:inline-block;width:7px;height:7px;border-radius:50%;background:var(--accent-emerald);margin-top:6px;flex-shrink:0;" aria-hidden="true"></span>
+                <span><strong style="color:var(--text-primary);">Step 2 (Right &rarr;):</strong> Your diagnosis card lights up on the right with your AI Mention Share &amp; missing files.</span>
+              </li>
+              <li style="display:flex;align-items:flex-start;gap:8px;">
+                <span style="display:inline-block;width:7px;height:7px;border-radius:50%;background:#0F172A;margin-top:6px;flex-shrink:0;" aria-hidden="true"></span>
+                <span><strong style="color:var(--text-primary);">Step 3 (Below &darr;):</strong> Customize &amp; download your ready-to-use <span class="mono">/llms.txt</span> &amp; Schema Fix Pack ($1.99).</span>
+              </li>
+            </ul>
           </div>
         </div>
 
+        <!-- RIGHT CARD: STEP 2 OF 3 (FREE DIAGNOSIS & FINDINGS) -->
         <div class="bezel-shell" style="display:flex;flex-direction:column;height:100%;">
-          <div class="panel-elevated" style="padding:24px;display:flex;flex-direction:column;justify-content:space-between;gap:14px;height:100%;">
-            <div>
-              <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:14px;flex-wrap:wrap;gap:8px;">
+          <div class="panel-elevated card" id="cf-step2-card" style="padding:20px 22px;display:flex;flex-direction:column;justify-content:space-between;gap:12px;height:100%;transition:box-shadow 260ms ease;">
+            <div style="display:flex;flex-direction:column;gap:12px;">
+              <div style="display:flex;justify-content:space-between;align-items:center;padding-bottom:8px;border-bottom:1px solid var(--border-hairline);flex-wrap:wrap;gap:8px;">
                 <div>
-                  <div id="live-probe-badge" class="mono" style="font-size:0.82rem;font-weight:700;color:var(--accent-emerald);">&#9679; LIVE ORIGIN PROBE · /robots.txt (${audit.liveProbe?.robotsHttpStatus || 200}) &bull; /llms.txt (${audit.llmsTxtStatus?.hasLlmsTxt ? '200 OK' : '404 MISSING'})</div>
-                  <div id="score-brand-title" class="serif-display" style="font-size:1.45rem;font-weight:600;color:var(--text-primary);">${escapeHtml(audit.brand)} (${escapeHtml(audit.domain)})</div>
+                  <div style="display:flex;align-items:center;gap:8px;flex-wrap:wrap;margin-bottom:4px;">
+                    <span class="mono" style="background:var(--accent-emerald);color:#FFFFFF;font-size:0.75rem;font-weight:800;padding:3px 9px;border-radius:6px;letter-spacing:0.04em;white-space:nowrap;flex-shrink:0;">STEP 2 OF 3</span>
+                    <span style="font-size:0.95rem;font-weight:800;color:var(--text-primary);">Review Your Free AI Search Diagnosis</span>
+                  </div>
+                  <div id="live-probe-badge" class="mono" style="font-size:0.75rem;font-weight:700;color:var(--accent-emerald);">&#9679; LIVE ORIGIN PROBE · /robots.txt (${audit.liveProbe?.robotsHttpStatus || 200}) &bull; /llms.txt (${audit.llmsTxtStatus?.hasLlmsTxt ? '200 OK' : '404 MISSING'})</div>
+                  <div id="score-brand-title" class="serif-display" style="font-size:1.3rem;font-weight:600;color:var(--text-primary);">${escapeHtml(audit.brand)} (${escapeHtml(audit.domain)})</div>
                 </div>
                 <div style="display:flex;gap:8px;align-items:center;flex-wrap:wrap;">
-                  <span id="score-category-badge" class="badge badge-cyan">${escapeHtml(audit.category)}</span>
-                  <span id="score-grade" class="badge badge-emerald mono" style="font-size:0.86rem;padding:5px 12px;">Grade ${escapeHtml(audit.scores.grade)} · ${audit.scores.compositeGeoScore}/100</span>
+                  <span id="score-category-badge" class="badge badge-cyan" style="display:none;">${escapeHtml(audit.category)}</span>
+                  <span id="score-grade" class="badge badge-emerald mono" style="font-size:0.84rem;padding:4px 11px;">Grade ${escapeHtml(audit.scores.grade)} · ${audit.scores.compositeGeoScore}/100</span>
                 </div>
               </div>
 
-              <div class="telemetry-grid">
-                <div class="metric-tile">
+              <div class="telemetry-grid" style="margin-bottom:0;gap:10px;">
+                <div class="metric-tile" style="padding:11px 12px;">
                   <div class="metric-label">AI Mention Share</div>
-                  <div id="score-csov" class="metric-val mono" style="color:var(--accent-emerald);">${audit.scores.csovPct}%</div>
+                  <div id="score-csov" class="metric-val mono" style="color:var(--accent-emerald);font-size:1.35rem;">${audit.scores.csovPct}%</div>
                 </div>
-                <div class="metric-tile">
+                <div class="metric-tile" style="padding:11px 12px;">
                   <div class="metric-label">Crawler Access</div>
-                  <div id="score-readability" class="metric-val mono">${audit.scores.agentReadabilityScore}/100</div>
+                  <div id="score-readability" class="metric-val mono" style="font-size:1.35rem;">${audit.scores.agentReadabilityScore}/100</div>
                 </div>
-                <div class="metric-tile">
+                <div class="metric-tile" style="padding:11px 12px;">
                   <div class="metric-label">Verified Facts</div>
-                  <div id="score-entity" class="metric-val mono">${audit.scores.entityDensityScore}/100</div>
+                  <div id="score-entity" class="metric-val mono" style="font-size:1.35rem;">${audit.scores.entityDensityScore}/100</div>
                 </div>
-                <div class="metric-tile">
+                <div class="metric-tile" style="padding:11px 12px;">
                   <div class="metric-label">Rate After Fix</div>
-                  <div id="score-projected" class="metric-val mono" style="color:var(--accent-indigo);">${audit.scores.projectedCsovPct}%</div>
+                  <div id="score-projected" class="metric-val mono" style="color:var(--accent-indigo);font-size:1.35rem;">${audit.scores.projectedCsovPct}%</div>
                 </div>
               </div>
 
-              <div style="background:var(--bg-subtle);border-radius:10px;padding:14px 16px;font-size:1rem;color:var(--text-secondary);">
-                <div style="font-weight:700;color:var(--accent-indigo);margin-bottom:4px;font-size:0.95rem;" class="mono">
-                  PLAIN-ENGLISH SUMMARY &amp; NEXT STEP
+              <div style="background:var(--bg-subtle);border-radius:10px;padding:10px 14px;font-size:0.875rem;color:var(--text-secondary);">
+                <div style="font-weight:800;color:var(--accent-indigo);margin-bottom:3px;font-size:0.78rem;text-transform:uppercase;letter-spacing:0.04em;" class="mono">
+                  Key Finding &amp; Recommended Action
                 </div>
-                <p id="gemini-grounding-summary" style="color:var(--text-primary);margin:0;font-size:1rem;">${escapeHtml(audit.geminiInsight?.groundingSummary || '')}</p>
+                <p id="gemini-grounding-summary" style="color:var(--text-primary);margin:0 0 6px 0;font-size:0.86rem;line-height:1.42;">${escapeHtml(audit.geminiInsight?.groundingSummary || '')}</p>
+                <ul style="list-style:none;margin:0;padding:6px 0 0 0;border-top:1px solid var(--border-hairline);display:flex;flex-direction:column;gap:3px;font-size:0.8rem;color:var(--text-secondary);">
+                  <li style="display:flex;align-items:center;gap:6px;"><span style="color:var(--accent-indigo);font-weight:800;">&bull;</span><span><strong>What is /llms.txt?</strong> A Markdown site guide so ChatGPT &amp; Perplexity read your exact pricing and features.</span></li>
+                  <li style="display:flex;align-items:center;gap:6px;"><span style="color:var(--accent-emerald);font-weight:800;">&bull;</span><span><strong>How rankings are weighted:</strong> Across 25 buyer questions, #1 counts 100%, #2 counts 63%, and #3 counts 50%.</span></li>
+                </ul>
               </div>
             </div>
 
-            <!-- Plain-English Field Guide Strip -->
-            <div style="background:var(--bg-subtle);border-radius:10px;padding:14px 16px;display:grid;grid-template-columns:1fr 1fr;gap:14px;">
+            <!-- CLEAN HANDOFF BAR TO STEP 3 BELOW (NO DUPLICATE 3-FILE BOX) -->
+            <div style="background:#ECFDF5;padding:12px 14px;border-radius:12px;border:1px solid #A7F3D0;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:10px;">
               <div>
-                <div class="mono" style="font-size:0.95rem;font-weight:700;color:var(--accent-indigo);margin-bottom:4px;">WHAT IS /LLMS.TXT?</div>
-                <p style="font-size:1rem;color:var(--text-secondary);line-height:1.45;margin:0;">
-                  A clean Markdown guide on your site so ChatGPT, Perplexity &amp; Gemini read your exact pricing and features without HTML clutter.
-                </p>
+                <div style="font-size:0.68rem;font-weight:800;text-transform:uppercase;letter-spacing:0.05em;color:var(--accent-emerald);">Next &bull; Step 3 of 3 Below</div>
+                <strong style="font-size:0.875rem;color:var(--text-primary);">Preview &amp; download the 3 AI fix files in your Fix Pack below</strong>
               </div>
-              <div>
-                <div class="mono" style="font-size:0.95rem;font-weight:700;color:var(--accent-emerald);margin-bottom:4px;">HOW WE SCORE RANKINGS</div>
-                <p style="font-size:1rem;color:var(--text-secondary);line-height:1.45;margin:0;">
-                  Across 25 buyer questions, being recommended <strong>#1 counts 100%</strong>, <strong>#2 counts 63%</strong>, and <strong>#3 counts 50%</strong>.
-                </p>
-              </div>
+              <button type="button" class="btn btn-primary" style="padding:7px 14px;font-size:0.8125rem;flex-shrink:0;" onclick="var c=document.getElementById('eb-deliverable-curtain')||document.getElementById('compiler');if(c&&c.scrollIntoView){c.scrollIntoView({behavior:'smooth',block:'center'});}else if(window.__ebQuickBuy){window.__ebQuickBuy('flash_pass');}">View Step 3 Files &darr;</button>
             </div>
           </div>
         </div>
@@ -465,7 +510,7 @@ function renderExecutiveBriefSection(sectionId = 'lp-executive-brief', isHeroH1 
           <div class="bezel-shell" style="display:flex;flex-direction:column;height:100%;">
             <div class="panel-elevated" style="padding:26px;display:flex;flex-direction:column;justify-content:space-between;height:100%;">
               <div>
-                <div class="mono" style="font-size:0.85rem;font-weight:700;color:var(--accent-indigo);margin-bottom:6px;">Plain-English Field Guide &amp; Scoring Model</div>
+                <div class="mono" style="font-size:0.85rem;font-weight:700;color:var(--accent-indigo);margin-bottom:6px;">AI Search Methodology &amp; Scoring Model</div>
                 <h3 class="serif-display" style="font-size:1.5rem;margin-bottom:14px;">Key Concepts for Your Marketing &amp; Engineering Teams</h3>
                 <div style="display:grid;gap:12px;">
                   <div style="padding:14px 16px;border-radius:10px;background:var(--bg-subtle);"><div style="font-weight:700;font-size:0.95rem;color:var(--text-primary);margin-bottom:4px;">AI Search Optimization (GEO)</div><p style="font-size:0.88rem;color:var(--text-secondary);margin:0;">Preparing your website's <span class="mono">/llms.txt</span> guide and Schema markup so ChatGPT, Perplexity, and Gemini recommend your business when buyers ask commercial questions.</p></div>
@@ -563,13 +608,60 @@ function renderDirectoryPage(seoPages) {
     <div style="margin-bottom:28px;">
       <h1 class="serif-display" style="font-size:clamp(2.1rem,3.8vw,3.5rem);line-height:1.08;max-width:22ch;margin:0 0 12px;">AI Citation Directory</h1>
       <p style="color:var(--text-secondary);max-width:68ch;font-size:0.98rem;margin-bottom:14px;">Browse ${seoPages.length} AI search visibility leaderboards, head-to-head brand comparisons, and step-by-step /llms.txt setup guides across ChatGPT Search, Perplexity, Gemini, and Claude.</p>
-      <div style="padding:12px 14px;border-radius:12px;background:var(--bg-subtle);display:flex;gap:10px;align-items:center;flex-wrap:wrap;margin-top:16px;">
-        <input id="cf-dir-search" type="search" class="grader-input" style="flex:1;min-width:220px;padding:9px 14px;" placeholder="Filter ${seoPages.length} AI search leaderboards, brand comparisons, and /llms.txt guides..." aria-label="Filter GEO directory" oninput="var q=this.value.toLowerCase();document.querySelectorAll('#main-content section a.panel').forEach(function(el){el.style.display=(!q||el.textContent.toLowerCase().indexOf(q)!==-1)?'':'none';});" />
+      <div style="padding:14px 16px;border-radius:12px;background:var(--bg-subtle);display:flex;flex-direction:column;gap:10px;margin-top:16px;">
+        <div style="display:flex;gap:10px;align-items:center;flex-wrap:wrap;">
+          <input id="cf-dir-search" type="search" class="grader-input" style="flex:1;min-width:220px;padding:9px 14px;" placeholder="Filter ${seoPages.length} AI search leaderboards, brand comparisons, and /llms.txt guides..." aria-label="Filter GEO directory" oninput="window.__cfFilterDir(this.value)" />
+          <button type="button" class="btn btn-secondary" style="padding:8px 12px;font-size:0.84rem;" onclick="var inp=document.getElementById('cf-dir-search');if(inp){inp.value='';}window.__cfFilterDir('');">Reset</button>
+          <span id="cf-dir-match-status" class="mono" style="font-size:0.82rem;font-weight:700;color:var(--accent-emerald);">Showing all ${seoPages.length} Benchmarks</span>
+        </div>
+        <div style="display:flex;gap:6px;flex-wrap:wrap;align-items:center;">
+          <span class="mono" style="font-size:0.78rem;font-weight:700;color:var(--text-muted);">Quick Filter:</span>
+          ${['All', 'Shopify', 'Stripe', 'Linear', 'Supabase', 'CRM', 'llms.txt', 'Perplexity'].map(tag => `<button type="button" class="preset-chip" style="padding:4px 10px;font-size:0.8rem;background:#FFFFFF;" onclick="var inp=document.getElementById('cf-dir-search');if(inp){inp.value='${tag === 'All' ? '' : tag}';window.__cfFilterDir(inp.value);}">${tag}</button>`).join('')}
+        </div>
+      </div>
+      <div id="cf-dir-empty-state" class="panel" style="display:none;margin-top:16px;padding:24px;text-align:center;background:#FFFFFF;border:1px solid var(--border-hairline);">
+        <div class="mono" style="font-size:0.8rem;font-weight:700;color:var(--accent-indigo);margin-bottom:6px;">CUSTOM LIVE DOMAIN CHECK READY</div>
+        <h2 class="serif-display" style="font-size:1.35rem;margin:0 0 8px;">No pre-built report matched &ldquo;<span id="cf-dir-empty-q"></span>&rdquo;</h2>
+        <p style="font-size:0.92rem;color:var(--text-secondary);max-width:56ch;margin:0 auto 14px;">You can run a live 10-second AI Search check on any custom website domain, or reset the filter to browse all ${seoPages.length} benchmarks.</p>
+        <div style="display:inline-flex;gap:10px;flex-wrap:wrap;justify-content:center;">
+          <button type="button" class="btn btn-secondary" onclick="var inp=document.getElementById('cf-dir-search');if(inp){inp.value='';}window.__cfFilterDir('');">Reset Filter (Show All ${seoPages.length})</button>
+          <a id="cf-dir-empty-cta" href="/#grader" class="btn btn-primary"><span>Check Domain Live (Free)</span><span class="btn-arrow-pill" aria-hidden="true">&#8599;</span></a>
+        </div>
       </div>
     </div>
-    <section style="margin-bottom:48px;"><div style="display:flex;align-items:center;gap:10px;margin-bottom:16px;"><img src="/public/editorial-segment-1.jpg" alt="" width="34" height="34" loading="lazy" style="width:34px;height:34px;border-radius:8px;object-fit:cover;" /><h2 class="serif-display" style="font-size:1.55rem;margin:0;">1. Category AI Search Visibility Leaderboards (${leaderboards.length})</h2></div>${renderSectionGrid(leaderboards)}</section>
-    <section style="margin-bottom:48px;"><div style="display:flex;align-items:center;gap:10px;margin-bottom:16px;"><img src="/public/editorial-segment-2.jpg" alt="" width="34" height="34" loading="lazy" style="width:34px;height:34px;border-radius:8px;object-fit:cover;" /><h2 class="serif-display" style="font-size:1.55rem;margin:0;">2. Head-to-Head Brand Citation Comparisons (${comparisons.length})</h2></div>${renderSectionGrid(comparisons)}</section>
-    <section style="margin-bottom:48px;"><div style="display:flex;align-items:center;gap:10px;margin-bottom:16px;"><img src="/public/editorial-segment-3.jpg" alt="" width="34" height="34" loading="lazy" style="width:34px;height:34px;border-radius:8px;object-fit:cover;" /><h2 class="serif-display" style="font-size:1.55rem;margin:0;">3. Technical GEO &amp; /llms.txt Engineering Guides (${guides.length})</h2></div>${renderSectionGrid(guides)}</section>
+    <script>
+      window.__cfFilterDir = function(q) {
+        var raw = String(q || '').toLowerCase().replace(/[_.-]+/g, ' ').trim();
+        var tokens = raw ? raw.split(/\\s+/).filter(Boolean) : [];
+        var cards = Array.prototype.slice.call(document.querySelectorAll('#main-content section.cf-dir-sec a.panel'));
+        var visCount = 0;
+        cards.forEach(function(el) {
+          var hay = ((el.getAttribute('href') || '') + ' ' + (el.textContent || '')).toLowerCase().replace(/[_.-]+/g, ' ');
+          var ok = !tokens.length || tokens.every(function(t) { return hay.indexOf(t) !== -1; });
+          el.style.display = ok ? 'flex' : 'none';
+          if (ok) visCount++;
+        });
+        document.querySelectorAll('#main-content section.cf-dir-sec').forEach(function(sec) {
+          var secVis = 0;
+          sec.querySelectorAll('a.panel').forEach(function(c) { if (c.style.display !== 'none') secVis++; });
+          sec.style.display = secVis > 0 ? '' : 'none';
+          var cnt = sec.querySelector('.cf-sec-count');
+          if (cnt) cnt.textContent = String(secVis);
+        });
+        var st = document.getElementById('cf-dir-match-status');
+        if (st) st.textContent = !tokens.length ? ('Showing all ' + cards.length + ' Benchmarks') : ('Showing ' + visCount + ' of ' + cards.length + ' Benchmarks');
+        var emp = document.getElementById('cf-dir-empty-state');
+        if (emp) {
+          emp.style.display = visCount === 0 ? 'block' : 'none';
+          var eq = document.getElementById('cf-dir-empty-q'), eCta = document.getElementById('cf-dir-empty-cta');
+          if (eq) eq.textContent = String(q || '').trim() || 'filter';
+          if (eCta && raw) eCta.href = '/?domain=' + encodeURIComponent(String(q || '').trim()) + '#grader';
+        }
+      };
+    </script>
+    <section class="cf-dir-sec" style="margin-bottom:48px;"><div style="display:flex;align-items:center;gap:10px;margin-bottom:16px;"><h2 class="serif-display" style="font-size:1.55rem;margin:0;">1. Category AI Search Visibility Leaderboards (<span class="cf-sec-count">${leaderboards.length}</span>)</h2></div>${renderSectionGrid(leaderboards)}</section>
+    <section class="cf-dir-sec" style="margin-bottom:48px;"><div style="display:flex;align-items:center;gap:10px;margin-bottom:16px;"><h2 class="serif-display" style="font-size:1.55rem;margin:0;">2. Head-to-Head Brand Citation Comparisons (<span class="cf-sec-count">${comparisons.length}</span>)</h2></div>${renderSectionGrid(comparisons)}</section>
+    <section class="cf-dir-sec" style="margin-bottom:48px;"><div style="display:flex;align-items:center;gap:10px;margin-bottom:16px;"><h2 class="serif-display" style="font-size:1.55rem;margin:0;">3. Technical GEO &amp; /llms.txt Engineering Guides (<span class="cf-sec-count">${guides.length}</span>)</h2></div>${renderSectionGrid(guides)}</section>
   </main>
   ${renderFooter()}
 </body>
@@ -684,7 +776,6 @@ function renderSeoDetailPage(pageRow, relatedPages) {
       <h1 class="serif-display" style="font-size:clamp(1.65rem, 3.2vw, 2.75rem);line-height:1.12;max-width:28ch;margin:0 0 12px;">${escapeHtml(String(pageRow.title || '').replace(/\s*\(.*?\)/g, '').split(/[:—–|]/)[0].trim().split(/\s+/).slice(0, 5).join(' '))}</h1>
       <span class="badge badge-cyan mono">${escapeHtml(pageRow.category)} · Verified GEO Benchmark</span>
       <div class="pseo-lead panel" style="padding:18px 22px;margin-top:14px;background:var(--accent-indigo-soft);border-left:4px solid var(--accent-indigo);border-radius:10px;display:flex;align-items:center;gap:14px;flex-wrap:wrap;">
-        <img src="${payload.type === 'leaderboard' ? '/public/editorial-segment-1.jpg' : (payload.type === 'comparison' ? '/public/editorial-segment-2.jpg' : '/public/editorial-segment-3.jpg')}" alt="GEO analyst segment portrait" width="48" height="48" loading="lazy" style="width:48px;height:48px;border-radius:10px;object-fit:cover;flex-shrink:0;" />
         <div style="flex:1;min-width:240px;">
           <div class="mono" style="font-size:0.86rem;font-weight:700;color:var(--accent-indigo);margin-bottom:6px;">${escapeHtml(pageRow.title)} · Google AI Overviews Citation Score &amp; RAG Snapshot</div>
           <p style="color:var(--text-primary);font-size:0.95rem;line-height:1.65;margin:0;">${escapeHtml(payload.summary || pageRow.meta_description)}</p>

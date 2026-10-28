@@ -118,14 +118,15 @@ function renderHead({ title, description, canonicalPath, ogSlug, jsonLdString })
     .skip-link:focus { left: 16px; }
     .container { width: 100%; max-width: 1280px; margin: 0 auto; padding: 0 24px; }
     .topbar { border-bottom: 1px solid var(--border-hairline); background: var(--bg-glass); backdrop-filter: blur(14px); position: sticky; top: 0; z-index: 50; }
-    .topbar-inner { min-height: 68px; display: flex; align-items: center; justify-content: space-between; gap: 16px; }
-    .brand-mark { display: inline-flex; align-items: center; gap: 11px; font-weight: 800; font-size: 1.12rem; letter-spacing: -0.025em; color: var(--text-primary); transition: opacity 150ms ease-out; }
+    .topbar-inner { min-height: 68px; display: flex; align-items: center; justify-content: space-between; gap: 12px; flex-wrap: nowrap; }
+    p { max-width: 65ch; }
+    .brand-mark { display: inline-flex; align-items: center; gap: 10px; font-weight: 800; font-size: 1.08rem; letter-spacing: -0.025em; color: var(--text-primary); white-space: nowrap; flex-shrink: 0; transition: opacity 150ms ease-out; }
     .brand-mark:hover { opacity: 0.88; }
     .brand-sub-pill { font-size: 0.86rem; font-weight: 700; padding: 4px 10px; border-radius: 9999px; background: var(--accent-indigo-soft); color: var(--accent-indigo); white-space: nowrap; }
-    .nav-links { display: flex; align-items: center; gap: 20px; font-size: 0.92rem; font-weight: 600; color: var(--text-secondary); white-space: nowrap; }
+    .nav-links { display: flex; align-items: center; gap: 14px; font-size: 0.875rem; font-weight: 600; color: var(--text-secondary); white-space: nowrap; flex-wrap: nowrap; }
     .nav-links a { white-space: nowrap; padding: 6px 2px; transition: color 150ms ease-out; }
     .nav-links a:hover, .nav-links a.active { color: var(--accent-indigo); }
-    .mobile-nav-strip { display: none; border-top: 1px solid var(--border-hairline); background: var(--bg-subtle); padding: 10px 16px; overflow-x: auto; gap: 16px; font-size: 0.86rem; font-weight: 600; color: var(--text-secondary); white-space: nowrap; }
+    .mobile-nav-strip { display: none; border-top: 1px solid var(--border-hairline); background: var(--bg-subtle); padding: 10px 16px; overflow-x: auto; gap: 14px; font-size: 0.84rem; font-weight: 600; color: var(--text-secondary); white-space: nowrap; flex-wrap: nowrap; }
     .btn { display: inline-flex; align-items: center; justify-content: center; gap: 8px; font-family: inherit; font-weight: 600; font-size: 0.92rem; padding: 10px 18px; border-radius: var(--radius-input); border: 1px solid transparent; cursor: pointer; white-space: nowrap; transition: transform 160ms cubic-bezier(0.16, 1, 0.3, 1), background-color 160ms ease-out, border-color 160ms ease-out; }
     .btn:active { transform: scale(0.98); }
     .btn:focus-visible { outline: 2px solid var(--accent-indigo); outline-offset: 2px; }
@@ -145,7 +146,7 @@ function renderHead({ title, description, canonicalPath, ogSlug, jsonLdString })
     .badge-rose { background: var(--accent-rose-soft); color: #9F1239; }
     .hero-section { padding: 44px 0 40px; background: var(--bg-canvas); }
     .hero-grid { display: grid; grid-template-columns: 1.05fr 0.95fr; gap: 36px; align-items: start; }
-    .hero-h1 { font-family: 'Newsreader', Georgia, serif; font-size: clamp(2.1rem, 2.85vw, 2.75rem); font-weight: 500; line-height: 1.14; letter-spacing: -0.025em; color: var(--text-primary); margin: 10px 0 14px; text-wrap: balance; }
+    .hero-h1 { font-family: 'Newsreader', Georgia, serif; font-size: clamp(2.1rem, 4.5vw, 4.1rem); font-weight: 500; line-height: 1.08; letter-spacing: -0.025em; color: var(--text-primary); margin: 10px 0 14px; }
     .hero-sub { color: var(--text-secondary); font-size: 1.04rem; max-width: 60ch; margin-bottom: 18px; }
     .grader-form { display: flex; gap: 10px; margin-bottom: 14px; }
     .grader-input { flex: 1; background: var(--bg-surface); border: 1px solid #CBD5E1; color: var(--text-primary); padding: 12px 16px; border-radius: var(--radius-input); font-size: 1rem; font-family: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, sans-serif; transition: border-color 150ms ease-out; }
@@ -162,21 +163,26 @@ function renderHead({ title, description, canonicalPath, ogSlug, jsonLdString })
     .dock-header { padding: 14px 18px; background: var(--bg-subtle); display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 10px; }
     .window-dots { display: inline-flex; gap: 6px; margin-right: 10px; }
     .window-dot { width: 10px; height: 10px; border-radius: 9999px; }
-    .tab-bar { display: flex; gap: 6px; padding: 8px 14px 0; background: var(--bg-canvas); overflow-x: auto; }
+    .tab-bar { display: flex; flex-wrap: wrap; gap: 4px; padding: 8px 16px 0; background: var(--bg-canvas); border-bottom: 1px solid var(--border-hairline); overflow: hidden; }
     .tab-btn { background: transparent; border: none; border-bottom: 2px solid transparent; color: var(--text-secondary); padding: 8px 12px; font-size: 0.9rem; font-weight: 600; cursor: pointer; white-space: nowrap; transition: color 140ms ease-out, border-color 140ms ease-out; }
     .tab-btn:hover { color: var(--text-primary); }
     .tab-btn.active { color: var(--accent-indigo); border-bottom-color: var(--accent-indigo); }
-    .code-viewport { background: var(--bg-subtle); padding: 18px; font-size: 0.9rem; line-height: 1.6; color: var(--text-primary); overflow-x: auto; max-height: 330px; overflow-y: auto; white-space: pre; }
+    .code-viewport { background: var(--bg-subtle); padding: 14px 16px; font-size: 0.85rem; line-height: 1.55; color: var(--text-primary); overflow-x: hidden; max-height: 330px; overflow-y: auto; white-space: pre-wrap; word-break: break-word; }
     .data-table { width: 100%; border-collapse: collapse; font-size: 0.95rem; }
     .data-table th, .data-table td { padding: 12px 14px; text-align: left; border-bottom: 1px solid var(--border-hairline); }
     .data-table th { color: var(--text-secondary); font-weight: 700; font-size: 0.875rem; background: var(--bg-subtle); }
     .data-table tr:last-child td { border-bottom: none; }
     .hero-grid > *, .telemetry-grid > * { min-width: 0; }
-    @media (max-width: 980px) {
+    @media (max-width: 1140px) {
+      .hide-at-1120 { display: none !important; }
+      .nav-links { gap: 10px; font-size: 0.82rem; }
+      .topbar-inner .btn-primary { padding: 8px 12px !important; font-size: 0.82rem !important; }
+    }
+    @media (max-width: 900px) {
       .hero-grid { grid-template-columns: 1fr; }
       .telemetry-grid { grid-template-columns: repeat(2, 1fr); }
       .nav-links { display: none; }
-      .mobile-nav-strip { display: flex; flex-wrap: wrap; padding: 10px 20px; gap: 12px 16px; overflow-x: visible; white-space: normal; }
+      .mobile-nav-strip { display: flex; flex-wrap: nowrap; padding: 10px 20px; gap: 14px; overflow-x: auto; white-space: nowrap; }
     }
     @media (max-width: 560px) {
       .container { padding: 0 16px; }
@@ -218,7 +224,7 @@ function renderNavbar(activePath = '/') {
         <a href="/#matrix">25 Buyer Questions</a>
         <a href="/leaderboard" class="${activePath.startsWith('/leaderboard') ? 'active' : ''}">Industry Leaderboard</a>
         <a href="/directory" class="${activePath.startsWith('/directory') || activePath.startsWith('/seo') ? 'active' : ''}">Industry Reports (60+)</a>
-        <a href="/#in-card-unlock-bar">3-File Pack ($1.99)</a>
+        <a href="/#in-card-unlock-bar" class="hide-at-1120">3-File Pack ($1.99)</a>
       </nav>
       <div style="display:flex;align-items:center;gap:10px;">
         <a href="/buy/flash_pass" rel="nofollow" onclick="if(window.__ebQuickBuy){window.__ebQuickBuy('flash_pass');return false;}" class="btn btn-primary" style="padding:9px 16px;font-size:0.9rem;">
@@ -366,14 +372,18 @@ function renderInteractiveScript(initialAudit) {
       const botsLabel = botsPolicy === 'oai_perplexity'
         ? 'OAI-SearchBot, PerplexityBot (Allow: / | ClaudeBot: Disallow)'
         : (botsPolicy === 'docs_pricing_only' ? 'All 4 AI Bots (Allow: /docs, /pricing Only)' : 'OAI-SearchBot, PerplexityBot, ClaudeBot, Google-Extended (Allow: /)');
-      const routeUrls = routesRaw.split(',').map(r => 'https://' + audit.domain + r.trim()).join(' | ');
+      const routeUrls = routesRaw.split(',').map(r => 'https://' + audit.domain + r.trim()).join(' · ');
+      const tab = window.__ACTIVE_TAB__ || 'llmsTxt';
+      const tabTitle = tab === 'llmsFullTxt' ? '/llms-full.txt' : (tab === 'robotsTxtPatch' ? '/robots.txt Rules' : (tab === 'jsonLd' ? 'Schema.org JSON-LD' : '/llms.txt Guide'));
       headerEl.textContent = [
-        '# ' + audit.brand + ' (' + audit.domain + ') — Verified /llms.txt Manifest Header (Unmasked Live Preview)',
+        '# ' + audit.brand + ' (' + audit.domain + ') — Live ' + tabTitle + ' Preview',
         '> ' + summaryLine,
-        'Allowed AI Answer Bots: ' + botsLabel,
-        'Priority RAG Routes: ' + routeUrls,
-        'Weighted Category cSoV: ' + audit.scores.csovPct + '% -> Projected Post-Fix: ' + audit.scores.projectedCsovPct + '% (Full 3-File Bundle locked below ↓)'
+        'Allowed AI Bots: ' + botsLabel,
+        'Priority Pages: ' + routeUrls,
+        'AI Mention Lift: ' + audit.scores.csovPct + '% -> ' + audit.scores.projectedCsovPct + '% after publishing'
       ].join('\\n');
+      const lockDom = document.getElementById('cf-lock-domain-label');
+      if (lockDom && audit.domain) lockDom.textContent = audit.domain;
     }
 
     function onCfCustomizerChange() {
@@ -509,17 +519,41 @@ function renderInteractiveScript(initialAudit) {
             window.history.replaceState(null, '', nextUrl);
           } catch (_) {}
           trackMetaEvent('Lead', { audited_domain: data.audit.domain, csov_pct: data.audit.scores.csovPct });
+          if (submitBtn) {
+            submitBtn.disabled = false;
+            submitBtn.style.background = '#059669';
+            submitBtn.innerHTML = '<span>✓ Checked: ' + data.audit.domain + ' (' + data.audit.scores.csovPct + '% AI Share)</span><span class="btn-arrow-pill" aria-hidden="true">✓</span>';
+            setTimeout(() => {
+              submitBtn.style.background = '';
+              submitBtn.innerHTML = '<span>Check My Website Free</span><span class="btn-arrow-pill" aria-hidden="true">&#8599;</span>';
+            }, 3000);
+          }
+          const scoreCard = document.getElementById('cf-step2-card') || document.getElementById('score-brand-title')?.closest('.card');
+          const cueEl = document.getElementById('cf-step1-next-cue'), cueTxt = document.getElementById('cf-step1-next-cue-text'), gradeEl = document.getElementById('score-grade');
+          if (cueEl && cueTxt) {
+            cueEl.style.display = 'flex';
+            cueTxt.textContent = '✓ Step 1 Complete for ' + data.audit.domain + ' → Now Focus on Step 2 (Right): Grade ' + data.audit.scores.grade + ' (' + data.audit.scores.csovPct + '% AI Share)';
+          }
+          if (gradeEl) {
+            gradeEl.textContent = '👉 FOCUS HERE NEXT • Grade ' + data.audit.scores.grade + ' (' + data.audit.scores.compositeGeoScore + '/100)';
+            gradeEl.style.background = '#059669';
+            gradeEl.style.color = '#FFFFFF';
+          }
+          if (scoreCard) {
+            scoreCard.style.boxShadow = '0 0 0 3px #10B981, 0 14px 32px rgba(5, 150, 105, 0.18)';
+            if (window.innerWidth < 960 && scoreCard.scrollIntoView) scoreCard.scrollIntoView({ behavior: 'smooth', block: 'start' });
+          }
+          return;
         }
       } catch (e) {
         if (errEl) {
           errEl.textContent = 'Connection failed. Please verify the domain and try again.';
           errEl.style.display = 'block';
         }
-      } finally {
-        if (submitBtn) {
-          submitBtn.disabled = false;
-          submitBtn.innerHTML = '<span>Check My Website Free</span><span class="btn-arrow-pill" aria-hidden="true">&#8599;</span>';
-        }
+      }
+      if (submitBtn) {
+        submitBtn.disabled = false;
+        submitBtn.innerHTML = '<span>Check My Website Free</span><span class="btn-arrow-pill" aria-hidden="true">&#8599;</span>';
       }
     }
 

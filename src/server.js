@@ -86,7 +86,7 @@ app.get('/manifest.webmanifest', (req, res) => {
 // 1. Home Page (`GET /`)
 app.get('/', async (req, res) => {
   try {
-    const targetDomain = req.query.domain || req.query.q || req.query.target || 'linear.app';
+    const targetDomain = req.query.domain || req.query.q || req.query.target || 'shopify.com';
     const category = req.query.category || undefined;
     const rawAudit = await runGeoAudit(targetDomain, { category });
     const isUnlocked = req.query.unlocked === '1' || req.query.checkout === 'success';
@@ -237,7 +237,7 @@ async function handleAuditRequest(req, res) {
     if (req.body?.website_hp) {
       return res.status(400).json({ ok: false, error: 'Bot submission rejected.' });
     }
-    const rawDomain = req.body?.domain || req.query?.domain || req.body?.q || req.query?.q || 'linear.app';
+    const rawDomain = req.body?.domain || req.query?.domain || req.body?.q || req.query?.q || 'shopify.com';
     const category = req.body?.category || req.query?.category || undefined;
     const rawAudit = await runGeoAudit(rawDomain, { category });
     const isUnlocked = req.query?.unlocked === '1' || req.body?.unlocked === true;

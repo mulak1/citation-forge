@@ -1,7 +1,27 @@
 'use strict';
 
-let CF_TPL = null;
-try { CF_TPL = require('./templates'); } catch (_) {}
+let AA_VIEWS = null;
+let CF_TEMPLATES = null;
+let SR_SHELL = null;
+let DL_TEMPLATES = null;
+try { AA_VIEWS = require('./views'); } catch (_) {}
+try { CF_TEMPLATES = require('./templates'); } catch (_) {}
+try { SR_SHELL = require('./views_shell'); } catch (_) {}
+try { DL_TEMPLATES = require('./ui-templates'); } catch (_) {}
+
+function renderGrowthHeaderHtml(cfg, tagText) {
+  if (AA_VIEWS && typeof AA_VIEWS.renderUnifiedHeaderHtml === 'function') return AA_VIEWS.renderUnifiedHeaderHtml(tagText);
+  if (CF_TEMPLATES && typeof CF_TEMPLATES.renderNavbar === 'function') {
+    return `<style>.skip-link{position:absolute;left:-9999px;top:8px;background:#0F4C81;color:#FFF;padding:8px 14px;border-radius:6px;z-index:200;font-size:.85rem;font-weight:600;}.skip-link:focus{left:16px;}.topbar{border-bottom:1px solid #E2E8F0;background:rgba(248,250,252,0.95);backdrop-filter:blur(14px);position:sticky;top:0;z-index:50;}.topbar-inner{max-width:1280px;margin:0 auto;padding:0 24px;min-height:68px;display:flex;align-items:center;justify-content:space-between;gap:12px;flex-wrap:nowrap;}.brand-mark{display:inline-flex;align-items:center;gap:10px;font-weight:800;font-size:1.08rem;letter-spacing:-0.025em;color:#0F172A;text-decoration:none;white-space:nowrap;flex-shrink:0;}.nav-links{display:flex;align-items:center;gap:14px;font-size:0.875rem;font-weight:600;color:#1E293B;white-space:nowrap;flex-wrap:nowrap;}.nav-links a{white-space:nowrap;padding:6px 2px;color:#1E293B;text-decoration:none;transition:color 150ms ease-out;}.nav-links a:hover,.nav-links a.active{color:#0F4C81;}.mobile-nav-strip{display:none;}.btn{display:inline-flex;align-items:center;justify-content:center;gap:8px;font-weight:600;border-radius:8px;text-decoration:none;white-space:nowrap;}.btn-primary{background:#0F4C81;color:#FFFFFF;}.btn-primary:hover{background:#0B3861;}.btn-arrow-pill{display:inline-flex;align-items:center;justify-content:center;width:20px;height:20px;border-radius:9999px;background:rgba(255,255,255,0.18);font-size:0.875rem;line-height:1;}@media(max-width:1140px){.hide-at-1120{display:none!important;}.nav-links{gap:10px;font-size:0.82rem;}.topbar-inner .btn-primary{padding:8px 12px!important;font-size:0.82rem!important;}}@media(max-width:900px){.nav-links{display:none;}.mobile-nav-strip{display:flex;border-top:1px solid #E2E8F0;background:#F1F5F9;padding:10px 16px;overflow-x:auto;gap:16px;font-size:0.86rem;font-weight:600;color:#1E293B;white-space:nowrap;flex-wrap:nowrap;}.mobile-nav-strip a{color:#1E293B;text-decoration:none;}}</style>${CF_TEMPLATES.renderNavbar('/directory')}`;
+  }
+  if (SR_SHELL && typeof SR_SHELL.renderBrandLogoSvg === 'function') {
+    return `<header class="top-nav" style="position:sticky;top:0;z-index:50;background:rgba(251,248,243,0.96);backdrop-filter:blur(12px);border-bottom:1px solid #E4DEC9;"><div style="max-width:1280px;margin:0 auto;padding:0 24px;min-height:68px;display:flex;align-items:center;justify-content:space-between;gap:16px;"><a href="/" style="display:inline-flex;align-items:center;gap:10px;text-decoration:none;color:#181512;">${SR_SHELL.renderBrandLogoSvg(36)}<div><div style="font-weight:800;font-size:1.1rem;line-height:1.1;color:#181512;">SponsorRadar</div><div style="font-size:0.75rem;color:#655E54;font-weight:600;">3x+ Renewal Media Ledger</div></div></a><nav aria-label="Primary Navigation" style="display:flex;align-items:center;gap:22px;font-size:0.92rem;font-weight:600;"><a href="/#radar-tool" style="color:#181512;text-decoration:none;">Spend Radar</a><a href="/leaderboard" style="color:#181512;text-decoration:none;">Leaderboard</a><a href="/directory" style="color:#C83E2B;font-weight:800;text-decoration:none;">Spend Directory</a><a href="/#pricing" style="color:#181512;text-decoration:none;">Pricing</a></nav><div><a href="/buy/flash_pass?source=header_nav" rel="nofollow" onclick="if(window.__ebCheckout){window.__ebCheckout('flash_pass');return false;}" style="display:inline-flex;align-items:center;padding:9px 16px;border-radius:999px;background:#C83E2B;color:#FFFFFF;font-size:14px;font-weight:700;text-decoration:none;">Unlock Rate &amp; Sponsor Pack ($1.99) &rarr;</a></div></div></header>`;
+  }
+  if (DL_TEMPLATES && typeof DL_TEMPLATES.renderHeader === 'function') {
+    return `<style>${DL_TEMPLATES.SHARED_CSS || ''}</style>${DL_TEMPLATES.renderHeader(false)}`;
+  }
+  return '';
+}
 
 /**
  * Autonomous Zero-HITL Growth & Open-Source Distribution Engine (Iteration 28)
@@ -67,9 +87,9 @@ const GROWTH_CATALOG = {
     ]
   },
   abandon_alpha: {
-    badgeLabel: 'AbandonAlpha Recovery',
+    badgeLabel: 'AbandonAlpha',
     defaultMetric: '+62.4% Smart Retry & Checkout Lift',
-    badgeColor: '#4F46E5',
+    badgeColor: '#0F172A',
     categoryTag: 'Failed-Payment & Checkout Drop-Off Recovery',
     githubTopics: ['stripe-dunning', 'cart-abandonment', 'checkout-recovery', 'thompson-sampling', 'multi-armed-bandit', 'finops', 'saas-metrics', 'churn-reduction', 'payment-retries', 'mcp-server'],
     tools: [
@@ -112,15 +132,15 @@ function computeTargetBadgeMetric(cfg, rawTarget) {
   const presetKey = matchedPreset ? matchedPreset.key : clean.toLowerCase();
   const kpiArr = cfg.presetKpis && cfg.presetKpis[presetKey];
   if (Array.isArray(kpiArr) && kpiArr.length > 0) {
-    return { target: clean, label: `${g.badgeLabel} (${clean.slice(0, 18)})`, message: String(kpiArr.slice(0, 2).join(' • ')).slice(0, 34), color: g.badgeColor };
+    return { target: clean, label: `${cfg.brandName}: ${clean.slice(0, 18)}`, message: String(kpiArr.slice(0, 2).join(' • ')).slice(0, 34), color: g.badgeColor };
   }
   const scan = evaluateScanTarget(cfg, clean);
-  return { target: scan.target, label: `${g.badgeLabel} (${scan.target.slice(0, 18)})`, message: `${scan.grade} (${scan.score}/100) • ${scan.kpi1}`.slice(0, 36), color: g.badgeColor };
+  return { target: scan.target, label: `${cfg.brandName}: ${scan.target.slice(0, 18)}`, message: `${scan.grade} (${scan.score}/100) • ${scan.kpi1}`.slice(0, 36), color: g.badgeColor };
 }
 
 function renderShieldSvg({ label, message, color }) {
-  const leftW = Math.max(95, Math.min(210, Math.round(label.length * 6.5 + 18)));
-  const rightW = Math.max(110, Math.min(230, Math.round(message.length * 6.5 + 18)));
+  const leftW = Math.max(105, Math.round(label.length * 6.8 + 22));
+  const rightW = Math.max(115, Math.round(message.length * 6.8 + 22));
   const totalW = leftW + rightW;
   return `<svg xmlns="http://www.w3.org/2000/svg" width="${totalW}" height="22" role="img" aria-label="${escXml(label)}: ${escXml(message)}">
   <title>${escXml(label)}: ${escXml(message)}</title>
@@ -177,23 +197,38 @@ function renderGrowthPageHtml(cfg, item, kind) {
     ? [
         { name: item.entityA, kpi: item.scoreA, action: 'Top Rated • Leading Option', status: 'RECOMMENDED (#1)' },
         { name: item.entityB, kpi: item.scoreB, action: 'Alternative • Comparison Baseline', status: 'GAP FOUND' },
-        { name: 'Key Difference & Gain', kpi: item.winnerLift, action: `Use ${cfg.freeDeliverableName}`, status: 'VERIFIED GAIN' },
-        { name: 'Row #4 Step-by-Step Comparison Breakdown', kpi: 'Locked in Preview', action: 'Unlock Complete 3-File Pack ($1.99)', status: 'LOCKED_PREVIEW' },
-        { name: 'Row #5 Complete 3-File Action Pack', kpi: 'Locked in Preview', action: 'Unlock Complete 3-File Pack ($1.99)', status: 'LOCKED_PREVIEW' }
+        { name: 'Key Difference & Gain', kpi: item.winnerLift, action: `Apply ${cfg.freeDeliverableName}`, status: 'VERIFIED GAIN' },
+        { name: 'Ready-to-Use Implementation Pack', kpi: '3-File Bundle Ready', action: 'Download Action Pack Below', status: 'READY' }
       ]
     : [
         { name: `${item.target} : Baseline Check`, kpi: item.metricA, action: 'Test Your Own Above', status: 'VERIFIED' },
         { name: `${cfg.freeDeliverableName} Impact`, kpi: item.metricB, action: 'Ready-to-Use Action File', status: 'READY' },
         { name: 'Setup Time', kpi: '< 10 Seconds', action: 'Instant Browser Calculation', status: 'INSTANT' },
-        { name: 'Row #4 Step-by-Step Fix Breakdown', kpi: 'Locked in Preview', action: 'Unlock Complete 3-File Pack ($1.99)', status: 'LOCKED_PREVIEW' },
-        { name: 'Row #5 Complete 3-File Action Pack', kpi: 'Locked in Preview', action: 'Unlock Complete 3-File Pack ($1.99)', status: 'LOCKED_PREVIEW' }
+        { name: 'Ready-to-Use Implementation Pack', kpi: '3-File Bundle Ready', action: 'Download Action Pack Below', status: 'READY' }
       ];
 
   const trsHtml = rows.map((r, idx) => `<tr${idx === 3 ? ' id="eb-growth-row4-tr"' : ''}><th${idx === 0 ? ' id="eb-growth-r1-name"' : ''} scope="row" style="padding:11px 14px;border-bottom:1px solid ${escXml(t.border)};font-weight:700;color:${escXml(t.textPrimary)};text-align:left;font-size:14px;">${escXml(r.name)}</th><td${idx === 0 ? ' id="eb-growth-r1-kpi"' : (idx === 1 ? ' id="eb-growth-r2-kpi"' : (idx === 3 ? ' id="eb-growth-row4-val"' : ''))} style="padding:11px 14px;border-bottom:1px solid ${escXml(t.border)};font-variant-numeric:tabular-nums;font-weight:700;color:${escXml(g.badgeColor)};font-size:14px;">${escXml(r.kpi)}</td><td style="padding:11px 14px;border-bottom:1px solid ${escXml(t.border)};color:${escXml(t.textSecondary)};font-size:14px;">${escXml(r.action)}</td><td${idx === 3 ? ' id="eb-growth-row4-status"' : ''} style="padding:11px 14px;border-bottom:1px solid ${escXml(t.border)};font-size:13px;font-weight:700;color:${escXml(t.safeColor)};">${escXml(r.status)}</td></tr>`).join('');
 
-  return `${CF_TPL ? CF_TPL.renderHead({ title: `${item.title} | ${cfg.brandName}`, description: item.summary.slice(0, 156), canonicalPath: `/${kind}/${item.slug}`, ogSlug: item.slug }) : `<!DOCTYPE html><html lang="en"><head><meta charset="utf-8" /><title>${escXml(item.title)} | ${escXml(cfg.brandName)}</title></head>`}
+  return `<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>${escXml(item.title)} | ${escXml(cfg.brandName)}</title>
+  <meta name="description" content="${escXml(item.summary.slice(0, 156))}" />
+  <link rel="canonical" href="${escXml(canonicalUrl)}" />
+  <meta property="og:title" content="${escXml(item.title)}" />
+  <meta property="og:description" content="${escXml(item.summary.slice(0, 156))}" />
+  <meta property="og:url" content="${escXml(canonicalUrl)}" />
+  <meta property="og:type" content="article" />
+  <meta property="og:image" content="https://${escXml(cfg.domain)}/api/og/scorecard?target=${escXml(encodeURIComponent(item.target))}" />
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:title" content="${escXml(item.title)}" />
+  <meta name="twitter:description" content="${escXml(item.summary.slice(0, 156))}" />
+  <link rel="stylesheet" href="/styles.css" />
+</head>
 <body style="margin:0;background:${escXml(t.canvasBg)};color:${escXml(t.textPrimary)};font-family:${escXml(t.fontSans || 'Plus Jakarta Sans,-apple-system,BlinkMacSystemFont,sans-serif')};font-size:16px;line-height:1.6;">
-  ${CF_TPL ? CF_TPL.renderNavbar('/directory') : ''}
+  ${renderGrowthHeaderHtml(cfg, kind === 'compare' ? 'SIDE-BY-SIDE COMPARISON' : 'FREE INTERACTIVE TOOL')}
   <main id="main-content" style="max-width:1240px;margin:0 auto;padding:24px;">
     <nav aria-label="Breadcrumb" style="font-size:13px;color:#64748B;margin-bottom:10px;">
       <a href="/" style="color:${escXml(g.badgeColor)};text-decoration:none;font-weight:600;">Home</a> / <a href="/directory" style="color:${escXml(g.badgeColor)};text-decoration:none;font-weight:600;">Directory</a> / <span>${escXml(item.slug)}</span>
@@ -213,26 +248,31 @@ function renderGrowthPageHtml(cfg, item, kind) {
     <section class="table-wrap" style="background:#FFFFFF;border-radius:14px;padding:18px;margin-top:14px;">
       <div style="display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:8px;margin-bottom:12px;">
         <h2 style="font-size:18px;margin:0;">Side-by-Side Results &amp; Action Plan</h2>
-        <img id="eb-growth-badge-img" src="/badge/${escXml(encodeURIComponent(item.target))}.svg" alt="${escXml(cfg.brandName)} Live Badge" width="240" height="22" decoding="async" />
+        <span style="font-size:12.5px;font-weight:700;color:${escXml(t.safeColor)};background:#ECFDF5;padding:4px 10px;border-radius:999px;">Verified Benchmark Data</span>
       </div>
       <table aria-label="${escXml(item.title)} Benchmark Matrix" style="width:100%;border-collapse:collapse;font-size:14px;">
         <thead><tr style="background:${escXml(t.canvasBg)};text-align:left;"><th scope="col" style="padding:11px 14px;border-bottom:2px solid ${escXml(t.border)};">Option / Check</th><th scope="col" style="padding:11px 14px;border-bottom:2px solid ${escXml(t.border)};">Measured Result</th><th scope="col" style="padding:11px 14px;border-bottom:2px solid ${escXml(t.border)};">Recommended Step</th><th scope="col" style="padding:11px 14px;border-bottom:2px solid ${escXml(t.border)};">Status</th></tr></thead>
         <tbody id="prompt-matrix-tbody">${trsHtml}</tbody>
       </table>
-      <div id="eb-inline-row4-unlock" style="margin-top:14px;padding:12px 16px;border-radius:10px;background:${escXml(t.canvasBg)};display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:10px;">
-        <div style="font-size:13.5px;font-weight:800;color:${escXml(t.textPrimary)};">Rows #4 &amp; #5 Locked: Unblur your complete 3-file remediation pack via 1-Click Stripe Express</div>
+      <div id="eb-inline-row4-unlock" style="margin-top:16px;padding:14px 18px;border-radius:12px;background:${escXml(t.canvasBg)};border:1px solid ${escXml(t.border)};display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:12px;">
+        <div>
+          <div style="font-size:14px;font-weight:800;color:${escXml(t.textPrimary)};">Download the Ready-to-Use Action Pack</div>
+          <div style="font-size:13px;color:${escXml(t.textSecondary)};margin-top:2px;">Instant download · One-time payment (never a subscription) · 30-day guarantee</div>
+        </div>
         <div id="eb-growth-row4-msg" style="display:none !important;">
           <input id="eb-growth-row4-email" type="email" placeholder="you@company.com" aria-label="Work email to unlock Row 4" />
           <button id="eb-growth-row4-btn" type="button">Reveal Row #4 →</button>
         </div>
-        <div style="display:flex;align-items:center;gap:8px;">
-          <a href="/buy/flash_pass" rel="nofollow" style="padding:8px 16px;border-radius:8px;background:${escXml(g.badgeColor)};color:#FFFFFF;font-size:14px;font-weight:800;text-decoration:none;">Unlock Complete 3-File Action Pack ($1.99 Stripe Express) ↗</a>
+        <div style="display:flex;align-items:center;gap:8px;flex-wrap:wrap;">
+          <a href="/buy/micro_pass" rel="nofollow" style="padding:9px 14px;border-radius:8px;background:#FFFFFF;color:${escXml(t.textPrimary)};border:1px solid ${escXml(t.border)};font-size:13.5px;font-weight:700;text-decoration:none;">Single File (99¢)</a>
+          <a href="/buy/flash_pass" rel="nofollow" style="padding:9px 16px;border-radius:8px;background:${escXml(g.badgeColor)};color:#FFFFFF;font-size:13.5px;font-weight:800;text-decoration:none;">Get Complete 3-File Pack ($1.99) →</a>
         </div>
       </div>
     </section>
     <details style="background:#FFFFFF;border-radius:14px;padding:14px 18px;margin-top:16px;">
-      <summary style="cursor:pointer;font-size:14px;font-weight:700;color:${escXml(t.textPrimary)};">Embed Live Verified Badge &amp; Technical Specs (Layer-3)</summary>
+      <summary style="cursor:pointer;font-size:14px;font-weight:700;color:${escXml(t.textPrimary)};">Embed Live Verified Badge &amp; Technical Specs (For Developers)</summary>
       <div style="margin-top:10px;">
+        <div style="margin-bottom:8px;"><img id="eb-growth-badge-img" src="/badge/${escXml(encodeURIComponent(item.target))}.svg" alt="${escXml(cfg.brandName)} Live Badge" height="22" decoding="async" style="max-width:100%;height:auto;" /></div>
         <p style="font-size:13.5px;color:${escXml(t.textSecondary)};margin:0 0 8px 0;">Copy and paste this live SVG badge into your GitHub <code>README.md</code>, documentation, or media kit:</p>
         <pre style="background:${escXml(t.canvasBg)};border-radius:8px;padding:10px 12px;font-size:13px;overflow-x:auto;margin:0;"><code>${escXml(mdBadgeSnippet)}</code></pre>
       </div>
