@@ -24,105 +24,106 @@ const SENDGRID_API_KEY = process.env.SENDGRID_API_KEY || '';
 const VERTICAL_CONFIGS = {
   citation_forge: {
     moduleId: 'citation_forge',
-    brandName: 'CitationForge',
+    brandName: 'SeatHarmony',
     domain: 'www.citationforge.io',
-    accentColor: '#0F172A',
+    accentColor: '#8C2D19',
     theme: {
-      canvasBg: '#F8FAFC', cardBg: '#FFFFFF', subtleBg: '#F1F5F9', dockBg: 'rgba(248, 250, 252, 0.96)',
-      border: '#E4E2DD', accentBorder: '#CBD5E1', textPrimary: '#0F172A', textSecondary: '#334155', textMuted: '#475569',
-      brandPrimary: '#0F172A', brandSoftBg: '#F1F5F9', brandText: '#0F172A',
-      safeColor: '#047857', safeSoftBg: '#ECFDF5', safeBorder: '#A7F3D0', warnColor: '#B45309',
-      fontDisplay: "'Newsreader', Georgia, serif", fontSans: "'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, sans-serif",
-      radiusCard: '8px', radiusPill: '8px', shadow: 'none'
+      canvasBg: '#FAF7F2', cardBg: '#FFFFFF', subtleBg: '#F3EDE3', dockBg: 'rgba(250, 247, 242, 0.96)',
+      border: '#E5DEC9', accentBorder: '#D6CBB8', textPrimary: '#1C1917', textSecondary: '#44403C', textMuted: '#78716C',
+      brandPrimary: '#8C2D19', brandSoftBg: '#FDF2EE', brandText: '#8C2D19',
+      safeColor: '#1F5E45', safeSoftBg: '#ECFDF5', safeBorder: '#A7F3D0', warnColor: '#A16207',
+      fontDisplay: "'Cormorant Garamond', 'Newsreader', Georgia, serif", fontSans: "'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, sans-serif",
+      radiusCard: '12px', radiusPill: '999px', shadow: 'none'
     },
     flashPriceEnv: 'STRIPE_PRICE_FLASH_199',
     flashPriceDefault: 'price_1UQjMqIaoGnkXxS84yeYo8HG',
     corePriceEnv: 'STRIPE_PRICE_AUDIT_49',
-    corePriceUsd: 49,
-    coreLabel: 'Complete 50-Prompt GEO Dossier ($49)',
+    corePriceUsd: 14.99,
+    coreLabel: 'Wedding Print & Caterer BEO Pack ($14.99)',
     proPriceEnv: 'STRIPE_PRICE_PRO_99',
-    proPriceUsd: 99,
-    proLabel: 'B2B Agency Continuous Radar ($99/mo)',
-    lockedTitle: 'Competitor AI Visibility Comparison',
-    deliverableName: 'Complete AI Search Fix Pack (/llms-full.txt + Structured Data + 25 Buyer Questions)',
-    freeDeliverableName: 'Ready-to-Use AI Search Fix Files (/llms.txt & Schema)',
-    unlockBannerTitle: 'Ready-to-Use AI Search Fix Files',
-    explainerText: 'See how often ChatGPT, Perplexity & Google AI recommend your brand across 25 buyer questions',
-    hudLabel: 'GEO Crawl HUD',
-    redditSub: 'SEO',
-    sliderLabel: 'Prompts', sliderMin: 10, sliderMax: 250, sliderVal: 50,
-    searchPlaceholder: 'Check any website (e.g. figma.com)...',
-    tier1Tag: 'SINGLE-SITE FIX PASS • SAVE 96% VS $49',
-    tier1Desc: 'Instantly unlocks your ready-to-upload AI crawler file (/llms-full.txt), structured data code, and all 25 buyer-question rankings (.CSV).',
-    tier2Tag: 'COMPLETE 50-QUESTION AI SEO PACK',
-    tier2Desc: 'Full 50-question competitor comparison, copy-paste page improvements, and a ready-to-merge GitHub update.',
-    tier3Tag: 'AGENCY WEEKLY TRACKING',
-    tier3Desc: 'Automated weekly AI recommendation tracking across ChatGPT, Perplexity & Google AI for up to 10 client websites.',
+    proPriceUsd: 39,
+    proLabel: 'Planner & Venue Pro Studio ($39/mo)',
+    lockedTitle: '24"×36" Print Welcome Poster + Clockwise Caterer BEO + Avery 5302 Place Cards',
+    deliverableName: '300-DPI 24"×36" Welcome Sign (PDF/SVG) + Clockwise Caterer BEO (.CSV) + Avery 5302 Place Cards',
+    freeDeliverableName: 'Single-Sheet Clockwise Caterer BEO & Allergy Export ($1.99)',
+    unlockBannerTitle: 'Print-Ready 24"×36" Welcome Sign & Caterer BEO Pack',
+    explainerText: 'Seat 150 wedding guests in 30 seconds with zero family drama, Clockwise Caterer BEO sheets, and a print-ready 24"×36" Welcome Sign',
+    hudLabel: 'Room Harmony HUD',
+    redditSub: 'weddingplanning',
+    sliderLabel: 'Guests', sliderMin: 40, sliderMax: 300, sliderVal: 150,
+    searchPlaceholder: 'Try preset (e.g. estate-150, tuscan-banquet-80)...',
+    tier1Tag: 'SINGLE-SHEET BEO EXPRESS PASS',
+    tier1Desc: 'Instantly downloads your Clockwise Seat 1..N Caterer BEO (.CSV) with entrée counts and allergy flags.',
+    tier2Tag: 'COMPLETE WEDDING PRINT & CATERER PACK ($14.99)',
+    tier2Desc: 'Unlocks your 300-DPI 24"×36" Welcome Sign (Alphabetical A–Z & By Table), Avery 5302 Place Cards, Clockwise Caterer BEO, and Live QR Lookup.',
+    tier3Tag: 'PLANNER & VENUE PRO STUDIO ($39/MO)',
+    tier3Desc: 'Unlimited active client weddings, restricted Mom Sandbox links (Tables 1–3 only), and white-label Caterer BEO exports.',
     battlecard: {
-      heading: 'Why Marketing & SEO Teams Choose CitationForge Over Traditional SEO Tools',
-      colLegacy: 'Traditional $299/mo SEO Tools',
-      colManual: 'Checking ChatGPT by Hand',
+      heading: 'Why Couples & Planners Choose SeatHarmony Over Spreadsheets, Zola & Manual Canva',
+      colLegacy: 'Zola / Free Portals',
+      colManual: 'Sheets + Manual Canva',
       rows: [
-        ['AI Search Visibility Check', 'Checks 25 buyer questions across ChatGPT, Perplexity & Google AI in 10s', 'Tracks old Google blue links only', 'Hours of manual copy-pasting'],
-        ['Ready-to-Use Fix Files', 'Generates your /llms.txt & structured data files automatically', 'Shows vague warnings without fix files', 'Error-prone manual setup'],
-        ['Simple Pricing', '$1.99 Single-Site Pass or $49 Complete Pack', '$299–$499/mo annual contracts', 'High team time cost']
+        ['Family Conflict & Sightline Solver', '1-Click 35ms Solver keeps divorced parents 2+ tables apart', 'Manual drag-and-drop only', 'Late-night row shuffling'],
+        ['24"×36" Print Welcome Sign', 'Live Vector Poster (A–Z or By Table) with 0.125" Bleed', 'Prints tiny utilitarian table sheet', '5–6 hours re-typing 150 names'],
+        ['Clockwise Seat 1..N Caterer BEO', '12-O’Clock Seat #1 Map + Allergy & Wheelchair Callouts', 'Basic meal totals without seat numbers', 'Requires separate BEO spreadsheet']
       ]
     },
     exportActions: [
-      { id: 'btn-copy-shopping-list', label: 'Copy Summary', type: 'copy' },
-      { id: 'btn-export-csv', label: 'Export 25 Questions (.CSV)', href: '/api/github-upgrade/export.csv' },
-      { id: 'btn-export-llms', label: 'Download /llms-bundle.txt', href: '/api/github-upgrade/llms-bundle.txt' },
-      { id: 'btn-export-ics', label: 'Monthly Check Reminder (.ICS)', href: '/api/github-upgrade/skin-cycling.ics' },
-      { id: 'btn-print-summary', label: 'Print Report PDF', type: 'print' },
-      { id: 'btn-showroom-hud', label: 'GEO Crawl HUD', type: 'hud' },
+      { id: 'btn-copy-shopping-list', label: 'Copy Mom Sandbox Link', type: 'copy' },
+      { id: 'btn-export-csv', label: 'Export Caterer BEO (.CSV)', href: '/api/github-upgrade/export.csv' },
+      { id: 'btn-export-llms', label: 'Download 24x36 Spec (.TXT)', href: '/api/github-upgrade/llms-bundle.txt' },
+      { id: 'btn-export-ics', label: 'RSVP Lock Reminder (.ICS)', href: '/api/github-upgrade/skin-cycling.ics' },
+      { id: 'btn-print-summary', label: 'Print 24"×36" Poster PDF', type: 'print' },
+      { id: 'btn-showroom-hud', label: 'Harmony HUD', type: 'hud' },
       { id: 'btn-cmdk-trigger', label: '⌘K Actions', type: 'cmdk' },
-      { id: 'btn-reddit-share', label: 'Copy Reddit Post', type: 'reddit' }
+      { id: 'btn-reddit-share', label: 'Share Layout', type: 'reddit' }
     ],
     kpis: [
-      { label: 'AI Mention Share', val: '22.9%', sub: 'Across 25 Buyer Questions' },
-      { label: 'AI Crawler Access', val: '83/100', sub: 'Bot Permissions & Files' },
-      { label: 'Structured Data Score', val: '70/100', sub: 'Product & Pricing Clarity' },
-      { label: 'Expected Score After Fix', val: '29.2%', sub: '+6.3% More Mentions' }
+      { label: 'Room Harmony Score', val: '98/100', sub: '0 Family Conflicts' },
+      { label: 'Coupled Households', val: '26/26', sub: 'Zero Split Couples' },
+      { label: 'Clockwise Caterer BEO', val: '100%', sub: '12:00 Seat #1 Indexed' },
+      { label: '24"×36" Print Poster', val: '300 DPI', sub: 'A–Z & By Table Ready' }
     ],
     presetKpis: {
-      'shopify.com': ['41.2%', '96/100', '94/100', '48.6%'],
-      'gymshark.com': ['34.8%', '92/100', '90/100', '42.4%'],
-      'stripe.com': ['46.8%', '98/100', '96/100', '54.1%'],
-      'linear.app': ['22.9%', '83/100', '70/100', '29.2%'],
-      'supabase.com': ['39.4%', '92/100', '89/100', '47.0%'],
-      'notion.so': ['37.8%', '88/100', '85/100', '45.2%'],
-      'vercel.com': ['43.5%', '95/100', '93/100', '51.4%']
+      'estate-150': ['98/100', '26/26', '100%', '300 DPI'],
+      'tuscan-banquet-80': ['99/100', '18/18', '100%', '300 DPI'],
+      'planner-beo-sandbox': ['98/100', '26/26', '100%', 'Mom Sandbox'],
+      'vip-exec-dinner': ['99/100', '10 AEs', '100%', 'VIP Mode'],
+      'charity-gala-300': ['97/100', '30 Captains', '100%', 'Paddle #101+']
     },
     presets: [
-      { key: 'shopify.com', label: 'Shopify' }, { key: 'gymshark.com', label: 'Gymshark' }, { key: 'stripe.com', label: 'Stripe' },
-      { key: 'notion.so', label: 'Notion' }, { key: 'linear.app', label: 'Linear' }
+      { key: 'estate-150', label: '150-Guest Estate Reception' },
+      { key: 'tuscan-banquet-80', label: '80-Guest Tuscan Banquet' },
+      { key: 'planner-beo-sandbox', label: 'Planner BEO + Mom Sandbox' },
+      { key: 'vip-exec-dinner', label: 'VIP Exec Dinner' },
+      { key: 'charity-gala-300', label: '300-Guest Charity Gala' }
     ],
     coMarketingPills: [
-      { key: 'perplexity', label: 'Perplexity', rowText: 'Perplexity Diagnosis: Missing root /llms-full.txt & answer-first summary blocks reduce #1 citations by up to 64%.' },
-      { key: 'chatgpt', label: 'ChatGPT Search', rowText: 'ChatGPT Diagnosis: Blocked OAI-SearchBot rules or missing Product JSON-LD cause ChatGPT to recommend competitors.' },
-      { key: 'gemini', label: 'Google AI Overviews', rowText: 'Google AI Diagnosis: Unanchored FAQ & Organization entities drop AI Overview citation share by 34%.' }
+      { key: 'perplexity', label: 'Divorced Parents Guard', rowText: 'Sightline Rule: Eleanor (Table 2) and Richard (Table 5) are separated by 410px across the Dance Floor.' },
+      { key: 'chatgpt', label: 'Clockwise Caterer BEO', rowText: 'Banquet Rule: Seat #1 is anchored at 12 O’Clock with 4 anaphylactic allergies and 2 chair mods flagged.' },
+      { key: 'gemini', label: '24"×36" Print Poster', rowText: 'Pre-Press Spec: Alphabetical A–Z & By-Table vector layouts with 0.125" bleed for FedEx/Staples.' }
     ],
     affiliates: [
-      { title: 'Semrush AI SEO & Visibility Tracker', badge: 'Verified SEO Partner', cpa: 'Explore 7-Day Trial', url: 'https://www.semrush.com/' },
-      { title: 'Ahrefs Brand Radar for AI Search', badge: 'Brand Mention Tracker', cpa: 'Compare Domain Radar', url: 'https://ahrefs.com/brand-radar' },
-      { title: 'Cloudflare AI Bot & Crawler Control', badge: 'Bot Access Manager', cpa: 'Inspect Bot Traffic', url: 'https://www.cloudflare.com/' }
+      { title: 'FedEx Office 24"×36" Mounted Foam Board Poster', badge: 'Same-Day Pickup', cpa: 'Print 24"×36" Sign', url: 'https://www.office.fedex.com/' },
+      { title: 'Avery 5302 Printable Tented Escort & Place Cards', badge: 'Verified Card Stock', cpa: 'View Card Pack', url: 'https://www.avery.com/' },
+      { title: 'Staples Same-Day Architectural Welcome Sign Print', badge: 'Print Partner', cpa: 'Order Foam Board', url: 'https://www.staples.com/' }
     ],
     githubRepo: {
-      name: 'AnswerDotAI/llms-txt + colinhacks/zod + kpdecker/jsdiff',
-      stars: '167,494 Combined Stars', url: 'https://github.com/colinhacks/zod',
-      badge: 'AnswerDotAI/llms-txt + Zod Schema-Verified Deliverable Contract',
-      title: 'Deterministic /llms.txt, JSON-LD @graph & Zod-Verified Export Bundle',
-      summary: 'Compiles spec-compliant /llms-full.txt manifests and schema-dts @graph blocks with Zod contract verification.'
+      name: 'JWally/jsLPSolver + IjzerenHein/kiwi.js + konvajs/konva + parallax/jsPDF',
+      stars: '92,400+ Combined Stars (16 Repos)', url: 'https://github.com/parallax/jsPDF',
+      badge: '16-Repo Combinatorial Solver, Polar Seat Rings & 300-DPI Print Engine',
+      title: 'Simulated Annealing Conflict Solver, Clockwise BEO & 24"×36" Poster Compiler',
+      summary: 'Combines Union-Find atomic household clustering, Kempe-chain swaps, polar seat geometry, and vector PDF imposition.'
     },
     deliverableFiles: [
-      { file: 'llms-full.txt', label: 'AI Crawler Guide (llms.txt)', size: '18.4 KB', schema: 'Plain-English guide that tells ChatGPT & Perplexity what your product does and how it is priced', status: 'VALID' },
-      { file: 'schema-graph.jsonld', label: 'Product Schema Code (.JSON)', size: '3.2 KB', schema: 'Copy-paste structured data so Google AI and search engines cite your facts accurately', status: 'VALID' },
-      { file: '25-buyer-prompts.csv', label: '25 Buyer Questions (.CSV)', size: '6.1 KB', schema: 'Spreadsheet of the 25 questions buyers ask AI in your category and who currently ranks #1', status: 'VALID' }
+      { file: '24x36-welcome-poster.pdf', label: '24"×36" Welcome Sign (PDF & SVG)', size: '1.8 MB', schema: '300-DPI Alphabetical A–Z & By-Table Welcome Poster with 0.125" bleed and corner QR code', status: 'VALID' },
+      { file: 'clockwise-caterer-beo.csv', label: 'Clockwise Caterer BEO (.CSV & PDF)', size: '42 KB', schema: '12-o’clock Seat 1..N server map with Filet/Halibut/Vegan/Kids counts, allergies & chair mods', status: 'VALID' },
+      { file: 'avery-5302-placecards.pdf', label: 'Avery 5302 Tented Place Cards (.PDF)', size: '640 KB', schema: '2-up tented escort cards with geometric server meal icons (◆/●/▲/★) & back-fold allergy alerts', status: 'VALID' }
     ],
     remediationDiff: {
-      beforeLine: 'What we found: ChatGPT, Perplexity, and Google AI mention this site in only 22.9% of buyer searches because 3 key AI crawler and product-summary files are missing.',
-      afterLine: 'How the $1.99 pack fixes it: Gives you the ready-to-upload llms.txt guide, copy-paste product schema code, and 25 buyer-question rankings to lift AI mentions to an estimated 29.2%.',
-      roiBadge: 'Est. +6.3% to +27% more AI mentions'
+      beforeLine: 'Before: 3 family sightline conflicts, 5 hours re-typing 150 names into Canva, and unnumbered caterer meal sheets.',
+      afterLine: 'After ($14.99 Event Pack): 98/100 Harmony Score, 300-DPI 24"×36" Welcome Sign, Avery 5302 Place Cards & Clockwise Caterer BEO.',
+      roiBadge: 'Saves 6.5 Hours + $80 on Etsy/Canva'
     }
   },
   sponsor_radar: {
@@ -979,10 +980,15 @@ function attachExactBaselinePack(app, options = {}) {
     const origSend = res.send.bind(res);
     res.send = function patchedSend(body) {
       const isHtml = typeof body === 'string' && (String(res.getHeader('Content-Type') || '').includes('text/html') || body.trim().startsWith('<!DOCTYPE html>'));
-      if (isHtml && req.method === 'GET' && (req.path === '/' || req.path === '/lp' || req.path === '/directory' || req.path === '/leaderboard' || req.path === '/privacy' || req.path === '/terms' || req.path.startsWith('/dossier/sample') || req.path.startsWith('/seo/') || req.path.startsWith('/tools/') || req.path.startsWith('/compare/') || req.path.startsWith('/scan/') || req.path.startsWith('/report/')) && !body.includes('id="eb-bottom-conversion-suite"')) {
+      if (isHtml && req.method === 'GET' && (req.path === '/' || req.path === '/lp' || req.path === '/directory' || req.path === '/leaderboard' || req.path === '/privacy' || req.path === '/terms' || req.path.startsWith('/dossier/sample') || req.path.startsWith('/seo/') || req.path.startsWith('/tools/') || req.path.startsWith('/compare/') || req.path.startsWith('/scan/') || req.path.startsWith('/report/'))) {
         try { res.setHeader('X-Robots-Tag', 'all, index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1'); res.setHeader('Link', `<https://${cfg.domain}/llms.txt>; rel="llms-txt", <https://${cfg.domain}/llms-full.txt>; rel="llms-full-txt", <https://${cfg.domain}/openapi.json>; rel="service-desc", <https://${cfg.domain}/feed.xml>; rel="alternate"; type="application/rss+xml"`); } catch (_) {}
         store.recordEvent({ eventType: 'visit', pageUrl: req.originalUrl || req.path, deviceType, utmSource: String(req.query?.utm_source || ''), utmCampaign: String(req.query?.utm_campaign || ''), isTest, isCrawler, isOwnerIp, clientIp });
-        body = renderExactBaselineEnhancements(body, cfg, req.path);
+        if (body.includes('data-seatharmony-native="1"')) {
+          const shCheckoutHelper = `<script>(function(){if(!document.cookie.includes('vs_vid=')){document.cookie='vs_vid=v_'+Date.now()+'_'+Math.random().toString(36).slice(2,7)+'; Path=/; Max-Age=31536000; SameSite=Lax';}window.__ebQuickBuy=window.__ebCheckout=function(tier){var vid=(document.cookie.match(/vs_vid=([^;]+)/)||[])[1]||'';window.location.href='/buy/'+(tier||'complete_dossier')+'?target=estate-150&vid='+encodeURIComponent(vid);};})();</script>`;
+          body = body.includes('</body>') ? body.replace('</body>', `${shCheckoutHelper}</body>`) : (body + shCheckoutHelper);
+        } else if (!body.includes('id="eb-bottom-conversion-suite"')) {
+          body = renderExactBaselineEnhancements(body, cfg, req.path);
+        }
       }
       return origSend(body);
     };

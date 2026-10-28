@@ -1,18 +1,11 @@
 /**
- * CitationForge UI Templates: Persona-Driven Redesign
- * Aesthetic: "Attio + Perplexity + Stripe Editorial Studio"
+ * SeatHarmony UI Templates & Interactive Client Engine
+ * Aesthetic: "Vogue Weddings × Kinfolk × Linear Precision" (Warm Editorial Daylight)
  * Target Personas:
- *   1. VP of Marketing / Head of SEO & Content Growth (B2B SaaS, FinTech, E-Commerce)
- *   2. Technical Founders & SEO Agency Directors managing AI Search Visibility
- *
- * Palette:
- *   - Primary Canvas: Warm Studio Ivory (#FAF9F5) & Architectural Stone (#F3F1EC)
- *   - Bento Surfaces: Pure Crisp White (#FFFFFF) with 1px solid #E4E2DD hairlines
- *   - Double-Bezel Tray: #EFECE6 outer shell with 1px solid #E2DFD7
- *   - Typography: 'Newsreader' (Editorial Serif Display) + 'Plus Jakarta Sans' (UI/Body)
- *     + 'JetBrains Mono' (Tabular cSoV Telemetry & Code)
- *   - Semantic Accents: Electric Indigo (#4F46E5), Emerald (#059669), Amber (#D97706), Rose (#E11D48)
- *   - Dark Obsidian Artifact Dock (#0B0F19) for generated llms.txt & JSON-LD code blocks
+ *   1. Maya (Bride, 24 Days Out, 150 Guests, Divorced Parents, $14.99 Print & BEO Pass Buyer)
+ *   2. Chloe (Luxury Wedding Planner, 22 Weddings/Yr, $39/mo Planner Pro SaaS Buyer)
+ *   3. Chef David (Banquet & Catering Director requiring Clockwise Seat 1..N BEO & Allergy Callouts)
+ *   4. Marcus (B2B VIP Exec Dinner Lead) & Elena (Charity Gala Director) — Expansion Verticals
  */
 
 function escapeHtml(str) {
@@ -25,43 +18,23 @@ function escapeHtml(str) {
 }
 
 /**
- * High-Class Bespoke SVG Brand Emblem:
- * "Prism & Knowledge-Graph Citation Core"
- * Interlocking isometric hexagonal prism, three converging citation rays,
- * orbital knowledge-graph vertices, and a luminous central entity core.
+ * Bespoke SVG Brand Emblem:
+ * Architectural Overhead Reception Table Ring with 8 Polar Satellite Seats & Rosewood Core
  */
 function renderBrandLogoSvg(size = 30) {
-  return `<svg id="citation-forge-logo-svg" width="${size}" height="${size}" viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="CitationForge Prism Knowledge Graph Emblem">
-    <defs>
-      <linearGradient id="cf-prism-grad" x1="4" y1="4" x2="36" y2="36" gradientUnits="userSpaceOnUse">
-        <stop offset="0%" stop-color="#4F46E5"/>
-        <stop offset="55%" stop-color="#3B82F6"/>
-        <stop offset="100%" stop-color="#059669"/>
-      </linearGradient>
-      <linearGradient id="cf-core-glow" x1="12" y1="10" x2="28" y2="30" gradientUnits="userSpaceOnUse">
-        <stop offset="0%" stop-color="#EEF2FF"/>
-        <stop offset="100%" stop-color="#A7F3D0"/>
-      </linearGradient>
-    </defs>
-    <!-- Outer Squircle Architectural Frame -->
-    <rect x="2" y="2" width="36" height="36" rx="10" fill="#0F172A"/>
-    <rect x="2.75" y="2.75" width="34.5" height="34.5" rx="9.25" stroke="url(#cf-prism-grad)" stroke-width="1.5"/>
-    <!-- Isometric Hexagonal Knowledge Graph Prism -->
-    <polygon points="20,6.5 31.5,13.2 31.5,26.8 20,33.5 8.5,26.8 8.5,13.2" fill="rgba(79,70,229,0.16)" stroke="url(#cf-prism-grad)" stroke-width="1.5" stroke-linejoin="round"/>
-    <!-- Converging Citation Rays (Isometric Axes) -->
-    <path d="M20 6.5V20M31.5 13.2L20 20M8.5 13.2L20 20M20 33.5V20" stroke="#94A3B8" stroke-width="1.15" stroke-linecap="round" stroke-dasharray="1.5 1.5"/>
-    <!-- Inner Citation Diamond Facet -->
-    <polygon points="20,11.5 27.5,20 20,28.5 12.5,20" fill="rgba(16,185,129,0.18)" stroke="url(#cf-core-glow)" stroke-width="1.35"/>
-    <!-- Knowledge Graph Vertex Nodes -->
-    <circle cx="20" cy="6.5" r="2.1" fill="#818CF8"/>
-    <circle cx="31.5" cy="13.2" r="2.1" fill="#38BDF8"/>
-    <circle cx="8.5" cy="13.2" r="2.1" fill="#818CF8"/>
-    <circle cx="31.5" cy="26.8" r="2.1" fill="#34D399"/>
-    <circle cx="8.5" cy="26.8" r="2.1" fill="#38BDF8"/>
-    <circle cx="20" cy="33.5" r="2.1" fill="#10B981"/>
-    <!-- Central Verified Entity Core -->
-    <circle cx="20" cy="20" r="3.6" fill="#FFFFFF" stroke="#4F46E5" stroke-width="1.5"/>
-    <circle cx="20" cy="20" r="1.5" fill="#059669"/>
+  return `<svg id="citation-forge-logo-svg" width="${size}" height="${size}" viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="SeatHarmony Architectural Table Ring Emblem">
+    <rect x="2" y="2" width="36" height="36" rx="10" fill="#1C1917"/>
+    <rect x="2.75" y="2.75" width="34.5" height="34.5" rx="9.25" stroke="#D6C7B2" stroke-width="1.2"/>
+    <circle cx="20" cy="20" r="8.2" fill="#FAF7F2" stroke="#C89D7C" stroke-width="1.5"/>
+    <circle cx="20" cy="20" r="3.2" fill="#8C2D19"/>
+    <circle cx="20" cy="7.2" r="2.2" fill="#FAF7F2"/>
+    <circle cx="29.1" cy="10.9" r="2.2" fill="#6EE7B7"/>
+    <circle cx="32.8" cy="20" r="2.2" fill="#FAF7F2"/>
+    <circle cx="29.1" cy="29.1" r="2.2" fill="#FCD34D"/>
+    <circle cx="20" cy="32.8" r="2.2" fill="#FAF7F2"/>
+    <circle cx="10.9" cy="29.1" r="2.2" fill="#6EE7B7"/>
+    <circle cx="7.2" cy="20" r="2.2" fill="#FAF7F2"/>
+    <circle cx="10.9" cy="10.9" r="2.2" fill="#FDA4AF"/>
   </svg>`;
 }
 
@@ -71,17 +44,17 @@ function renderHead({ title, description, canonicalPath, ogSlug, jsonLdString })
   const ogImageUrl = `${baseUrl}/api/og?slug=${encodeURIComponent(ogSlug || 'home')}`;
 
   return `<!DOCTYPE html>
-<html lang="en">
+<html lang="en" data-seatharmony-native="1">
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>${escapeHtml(title)}</title>
   <meta name="description" content="${escapeHtml(description)}" />
-  <meta name="theme-color" content="#FAF9F5" />
+  <meta name="theme-color" content="#FAF7F2" />
   <link rel="canonical" href="${canonicalUrl}" />
   <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
   <meta property="og:type" content="website" />
-  <meta property="og:site_name" content="CitationForge" />
+  <meta property="og:site_name" content="SeatHarmony Studio" />
   <meta property="og:title" content="${escapeHtml(title)}" />
   <meta property="og:description" content="${escapeHtml(description)}" />
   <meta property="og:url" content="${canonicalUrl}" />
@@ -94,102 +67,257 @@ function renderHead({ title, description, canonicalPath, ogSlug, jsonLdString })
   <meta name="twitter:image" content="${ogImageUrl}" />
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=Newsreader:ital,opsz,wght@0,6..72,400;0,6..72,500;0,6..72,600;1,6..72,400&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,500;0,600;0,700;1,500;1,600&family=Newsreader:ital,opsz,wght@0,6..72,400;0,6..72,500;0,6..72,600;1,6..72,400&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
   <style>
     :root {
-      --bg-canvas: #F8FAFC; --bg-subtle: #F1F5F9; --bg-surface: #FFFFFF; --bg-elevated: #FFFFFF;
-      --bg-bezel: #E2E8F0; --bg-glass: rgba(248, 250, 252, 0.94); --bg-dock: #0B0F19; --bg-dock-header: #111827;
-      --border-hairline: #E2E8F0; --border-bezel: #CBD5E1; --border-active: #0F4C81;
-      --text-primary: #0F172A; --text-secondary: #1E293B; --text-muted: #334155;
-      --accent-indigo: #0F4C81; --accent-indigo-hover: #0B3861; --accent-indigo-soft: #EBF3FA;
-      --accent-emerald: #047857; --accent-emerald-soft: #ECFDF5; --accent-cyan: #0369A1; --accent-cyan-soft: #F0F9FF;
-      --accent-amber: #B45309; --accent-amber-soft: #FFFBEB; --accent-rose: #BE123C; --accent-rose-soft: #FFF1F2;
-      --shadow-soft: none; --shadow-card: none; --radius-outer: 16px; --radius-card: 12px; --radius-input: 8px;
+      --bg-canvas: #FAF7F2;
+      --bg-subtle: #F3EDE3;
+      --bg-surface: #FFFFFF;
+      --bg-elevated: #FFFFFF;
+      --bg-bezel: #E8DFD2;
+      --bg-glass: rgba(250, 247, 242, 0.94);
+      --bg-dock: #1C1917;
+      --bg-dock-header: #292524;
+      --border-hairline: #E5DEC9;
+      --border-bezel: #D6CBB8;
+      --border-active: #8C2D19;
+      --text-primary: #1C1917;
+      --text-secondary: #44403C;
+      --text-muted: #78716C;
+      --accent-indigo: #8C2D19;
+      --accent-indigo-hover: #702110;
+      --accent-indigo-soft: #FDF2EE;
+      --accent-emerald: #1F5E45;
+      --accent-emerald-soft: #ECFDF5;
+      --accent-cyan: #7C2D12;
+      --accent-cyan-soft: #FEF3C7;
+      --accent-amber: #A16207;
+      --accent-amber-soft: #FFFBEB;
+      --accent-rose: #9F1239;
+      --accent-rose-soft: #FFF1F2;
+      --radius-outer: 16px;
+      --radius-card: 12px;
+      --radius-input: 8px;
     }
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
     html { scroll-behavior: smooth; font-size: 16px; }
-    html, body { background-color: var(--bg-canvas); color: var(--text-primary); font-family: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, sans-serif; font-size: 1rem; line-height: 1.6; overflow-x: clip; -webkit-font-smoothing: antialiased; }
-    .serif-display { font-family: 'Newsreader', Georgia, serif; font-weight: 500; letter-spacing: -0.025em; }
-    .serif-italic { font-family: 'Newsreader', Georgia, serif; font-style: normal; font-weight: 500; color: var(--accent-indigo); }
-    .mono, pre.mono, code.mono { font-family: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, sans-serif; font-variant-numeric: tabular-nums; }
-    .tabular { font-variant-numeric: tabular-nums; }
+    html, body {
+      background-color: var(--bg-canvas);
+      color: var(--text-primary);
+      font-family: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, sans-serif;
+      font-size: 1rem;
+      line-height: 1.6;
+      overflow-x: clip;
+      -webkit-font-smoothing: antialiased;
+    }
+    .serif-display {
+      font-family: 'Cormorant Garamond', 'Newsreader', Georgia, serif;
+      font-weight: 600;
+      letter-spacing: -0.02em;
+    }
+    .serif-italic {
+      font-family: 'Cormorant Garamond', 'Newsreader', Georgia, serif;
+      font-style: italic;
+      font-weight: 600;
+      color: var(--accent-indigo);
+    }
+    .mono, pre.mono, code.mono, .tabular {
+      font-family: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, sans-serif;
+      font-variant-numeric: tabular-nums;
+    }
     a { color: inherit; text-decoration: none; }
-    .skip-link { position: absolute; left: -9999px; top: 8px; background: var(--accent-indigo); color: #FFFFFF; padding: 8px 14px; border-radius: 6px; z-index: 200; font-size: 0.85rem; font-weight: 600; }
+    p { max-width: 66ch; }
+    .skip-link {
+      position: absolute; left: -9999px; top: 8px;
+      background: var(--accent-indigo); color: #FFFFFF;
+      padding: 8px 14px; border-radius: 6px; z-index: 200;
+      font-size: 0.85rem; font-weight: 600;
+    }
     .skip-link:focus { left: 16px; }
     .container { width: 100%; max-width: 1280px; margin: 0 auto; padding: 0 24px; }
-    .topbar { border-bottom: 1px solid var(--border-hairline); background: var(--bg-glass); backdrop-filter: blur(14px); position: sticky; top: 0; z-index: 50; }
-    .topbar-inner { min-height: 68px; display: flex; align-items: center; justify-content: space-between; gap: 12px; flex-wrap: nowrap; }
-    p { max-width: 65ch; }
-    .brand-mark { display: inline-flex; align-items: center; gap: 10px; font-weight: 800; font-size: 1.08rem; letter-spacing: -0.025em; color: var(--text-primary); white-space: nowrap; flex-shrink: 0; transition: opacity 150ms ease-out; }
-    .brand-mark:hover { opacity: 0.88; }
-    .brand-sub-pill { font-size: 0.86rem; font-weight: 700; padding: 4px 10px; border-radius: 9999px; background: var(--accent-indigo-soft); color: var(--accent-indigo); white-space: nowrap; }
-    .nav-links { display: flex; align-items: center; gap: 14px; font-size: 0.875rem; font-weight: 600; color: var(--text-secondary); white-space: nowrap; flex-wrap: nowrap; }
+    .topbar {
+      border-bottom: 1px solid var(--border-hairline);
+      background: var(--bg-glass);
+      backdrop-filter: blur(14px);
+      position: sticky; top: 0; z-index: 50;
+    }
+    .topbar-inner {
+      min-height: 68px;
+      display: flex; align-items: center; justify-content: space-between;
+      gap: 12px; flex-wrap: nowrap;
+    }
+    .brand-mark {
+      display: inline-flex; align-items: center; gap: 10px;
+      font-weight: 800; font-size: 1.08rem; letter-spacing: -0.02em;
+      color: var(--text-primary); white-space: nowrap; flex-shrink: 0;
+    }
+    .nav-links {
+      display: flex; align-items: center; gap: 14px;
+      font-size: 0.86rem; font-weight: 600; color: var(--text-secondary);
+      white-space: nowrap; flex-wrap: nowrap;
+    }
     .nav-links a { white-space: nowrap; padding: 6px 2px; transition: color 150ms ease-out; }
     .nav-links a:hover, .nav-links a.active { color: var(--accent-indigo); }
-    .mobile-nav-strip { display: none; border-top: 1px solid var(--border-hairline); background: var(--bg-subtle); padding: 10px 16px; overflow-x: auto; gap: 14px; font-size: 0.84rem; font-weight: 600; color: var(--text-secondary); white-space: nowrap; flex-wrap: nowrap; }
-    .btn { display: inline-flex; align-items: center; justify-content: center; gap: 8px; font-family: inherit; font-weight: 600; font-size: 0.92rem; padding: 10px 18px; border-radius: var(--radius-input); border: 1px solid transparent; cursor: pointer; white-space: nowrap; transition: transform 160ms cubic-bezier(0.16, 1, 0.3, 1), background-color 160ms ease-out, border-color 160ms ease-out; }
+    .soon-pill {
+      display: inline-block; font-size: 0.66rem; font-weight: 800;
+      padding: 2px 6px; border-radius: 999px;
+      background: #F3EDE3; color: #7C2D12; border: 1px solid #D6CBB8;
+      margin-left: 4px; vertical-align: middle; letter-spacing: 0.04em;
+    }
+    .mobile-nav-strip {
+      display: none; border-top: 1px solid var(--border-hairline);
+      background: var(--bg-subtle); padding: 10px 16px;
+      overflow-x: auto; gap: 14px; font-size: 0.84rem;
+      font-weight: 600; color: var(--text-secondary);
+      white-space: nowrap; flex-wrap: nowrap;
+    }
+    .btn {
+      display: inline-flex; align-items: center; justify-content: center; gap: 8px;
+      font-family: inherit; font-weight: 600; font-size: 0.92rem;
+      padding: 10px 18px; border-radius: var(--radius-input);
+      border: 1px solid transparent; cursor: pointer; white-space: nowrap;
+      transition: transform 160ms cubic-bezier(0.16, 1, 0.3, 1), background-color 160ms ease-out, border-color 160ms ease-out;
+    }
     .btn:active { transform: scale(0.98); }
-    .btn:focus-visible { outline: 2px solid var(--accent-indigo); outline-offset: 2px; }
-    .btn-primary { background: var(--accent-indigo); color: #FFFFFF; font-weight: 600; }
+    .btn-primary { background: var(--accent-indigo); color: #FFFFFF; font-weight: 700; }
     .btn-primary:hover { background: var(--accent-indigo-hover); }
-    .btn-secondary { background: var(--bg-surface); color: var(--text-primary); border-color: var(--border-hairline); }
-    .btn-secondary:hover { border-color: #CBD5E1; background: var(--bg-subtle); }
-    .btn-dark { background: var(--text-primary); color: #FFFFFF; font-weight: 600; }
-    .btn-dark:hover { background: #1E293B; }
-    .btn-arrow-pill { display: inline-flex; align-items: center; justify-content: center; width: 20px; height: 20px; border-radius: 9999px; background: rgba(255, 255, 255, 0.18); font-size: 0.875rem; line-height: 1; }
-    .bezel-shell { background: var(--bg-bezel); padding: 6px; border-radius: var(--radius-outer); }
-    .panel, .panel-elevated { background: var(--bg-surface); border-radius: var(--radius-card); }
-    .badge { display: inline-flex; align-items: center; gap: 6px; padding: 4px 10px; border-radius: 9999px; font-size: 0.875rem; font-weight: 600; letter-spacing: 0.01em; white-space: nowrap; }
-    .badge-emerald { background: var(--accent-emerald-soft); color: #065F46; }
-    .badge-cyan { background: var(--accent-indigo-soft); color: #312E81; }
-    .badge-amber { background: var(--accent-amber-soft); color: #92400E; }
-    .badge-rose { background: var(--accent-rose-soft); color: #9F1239; }
-    .hero-section { padding: 44px 0 40px; background: var(--bg-canvas); }
-    .hero-grid { display: grid; grid-template-columns: 1.05fr 0.95fr; gap: 36px; align-items: start; }
-    .hero-h1 { font-family: 'Newsreader', Georgia, serif; font-size: clamp(2.1rem, 4.5vw, 4.1rem); font-weight: 500; line-height: 1.08; letter-spacing: -0.025em; color: var(--text-primary); margin: 10px 0 14px; }
-    .hero-sub { color: var(--text-secondary); font-size: 1.04rem; max-width: 60ch; margin-bottom: 18px; }
+    .btn-secondary { background: var(--bg-surface); color: var(--text-primary); border-color: var(--border-bezel); }
+    .btn-secondary:hover { background: var(--bg-subtle); border-color: #B8A992; }
+    .btn-dark { background: var(--text-primary); color: #FFFFFF; font-weight: 700; }
+    .btn-dark:hover { background: #292524; }
+    .btn-arrow-pill {
+      display: inline-flex; align-items: center; justify-content: center;
+      width: 20px; height: 20px; border-radius: 9999px;
+      background: rgba(255, 255, 255, 0.2); font-size: 0.85rem; line-height: 1;
+    }
+    .bezel-shell { background: var(--bg-bezel); padding: 6px; border-radius: var(--radius-outer); border: 1px solid var(--border-bezel); }
+    .panel, .panel-elevated { background: var(--bg-surface); border-radius: var(--radius-card); border: 1px solid var(--border-hairline); }
+    .badge {
+      display: inline-flex; align-items: center; gap: 6px;
+      padding: 4px 10px; border-radius: 9999px;
+      font-size: 0.82rem; font-weight: 700; letter-spacing: 0.01em; white-space: nowrap;
+    }
+    .badge-emerald { background: var(--accent-emerald-soft); color: #065F46; border: 1px solid #A7F3D0; }
+    .badge-cyan { background: var(--accent-indigo-soft); color: #7C2D12; border: 1px solid #F5D0C5; }
+    .badge-amber { background: var(--accent-amber-soft); color: #92400E; border: 1px solid #FDE68A; }
+    .badge-rose { background: var(--accent-rose-soft); color: #9F1239; border: 1px solid #FECDD3; }
+    .eyebrow-kicker {
+      display: inline-flex; align-items: center; gap: 8px;
+      font-size: 0.78rem; font-weight: 800; text-transform: uppercase;
+      letter-spacing: 0.09em; color: var(--accent-indigo);
+      margin-bottom: 10px;
+    }
+    .zone-section { padding: 72px 0; border-bottom: 1px solid var(--border-hairline); }
+    .hero-section { padding: 48px 0 0; background: linear-gradient(180deg, #FAF7F2 0%, #F4EFE6 100%); border-bottom: 1px solid var(--border-hairline); }
+    .hero-grid { display: grid; grid-template-columns: 1.04fr 0.96fr; gap: 36px; align-items: center; }
+    .hero-h1 {
+      font-family: 'Cormorant Garamond', 'Newsreader', Georgia, serif;
+      font-size: clamp(2.35rem, 4.4vw, 3.85rem);
+      font-weight: 600; line-height: 1.06; letter-spacing: -0.025em;
+      color: var(--text-primary); margin: 10px 0 16px;
+    }
+    .hero-sub { color: var(--text-secondary); font-size: 1.06rem; max-width: 58ch; margin-bottom: 22px; line-height: 1.62; }
+    .crease-proof-bar {
+      margin-top: 38px;
+      background: #1C1917; color: #FAF7F2;
+      border-top: 1px solid #3F3A34;
+      padding: 20px 0;
+    }
+    .crease-grid {
+      display: grid; grid-template-columns: repeat(3, 1fr);
+      gap: 20px; align-items: center;
+    }
+    .crease-stat {
+      display: flex; align-items: center; gap: 14px;
+      padding-right: 16px; border-right: 1px solid rgba(250, 247, 242, 0.14);
+    }
+    .crease-stat:last-child { border-right: none; padding-right: 0; }
+    .crease-num {
+      font-family: 'Cormorant Garamond', Georgia, serif;
+      font-size: 2.1rem; font-weight: 700; color: #FCD34D;
+      line-height: 1; font-variant-numeric: tabular-nums; white-space: nowrap;
+    }
+    .walkthrough-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 18px; margin-top: 28px; }
+    .step-card {
+      background: var(--bg-surface); border: 1px solid var(--border-hairline);
+      border-radius: 14px; padding: 22px; display: flex; flex-direction: column;
+      justify-content: space-between; gap: 12px;
+    }
+    .studio-grid { display: grid; grid-template-columns: 350px 1fr; gap: 20px; align-items: start; }
     .grader-form { display: flex; gap: 10px; margin-bottom: 14px; }
-    .grader-input { flex: 1; background: var(--bg-surface); border: 1px solid #CBD5E1; color: var(--text-primary); padding: 12px 16px; border-radius: var(--radius-input); font-size: 1rem; font-family: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, sans-serif; transition: border-color 150ms ease-out; }
-    .grader-input:focus { outline: none; border-color: var(--accent-indigo); box-shadow: 0 0 0 3px rgba(79, 70, 229, 0.14); }
+    .grader-input {
+      flex: 1; background: var(--bg-surface); border: 1px solid var(--border-bezel);
+      color: var(--text-primary); padding: 11px 14px; border-radius: var(--radius-input);
+      font-size: 0.95rem; font-family: inherit;
+    }
+    .grader-input:focus { outline: none; border-color: var(--accent-indigo); box-shadow: 0 0 0 3px rgba(140, 45, 25, 0.12); }
     .preset-strip { display: flex; flex-wrap: wrap; align-items: center; gap: 8px; margin-bottom: 16px; }
-    .preset-chip { background: var(--bg-subtle); border: none; color: var(--text-secondary); padding: 7px 13px; border-radius: 9999px; font-size: 0.9rem; font-weight: 600; cursor: pointer; transition: color 140ms ease-out, background-color 140ms ease-out, transform 140ms ease-out; }
-    .preset-chip:hover, .preset-chip.active { color: var(--accent-indigo); background: var(--accent-indigo-soft); font-weight: 700; }
-    .preset-chip:active { transform: scale(0.97); }
+    .preset-chip {
+      background: var(--bg-surface); border: 1px solid var(--border-bezel);
+      color: var(--text-secondary); padding: 8px 14px; border-radius: 9999px;
+      font-size: 0.86rem; font-weight: 600; cursor: pointer;
+      transition: all 140ms ease-out;
+    }
+    .preset-chip:hover, .preset-chip.active {
+      color: #FFFFFF; background: var(--accent-indigo); border-color: var(--accent-indigo); font-weight: 700;
+    }
     .telemetry-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 10px; margin-bottom: 16px; }
-    .metric-tile { padding: 14px; background: var(--bg-subtle); border-radius: 10px; }
-    .metric-label { font-size: 0.875rem; font-weight: 600; color: var(--text-secondary); margin-bottom: 6px; }
-    .metric-val { font-size: 1.45rem; font-weight: 700; letter-spacing: -0.02em; color: var(--text-primary); }
-    .artifact-dock { background: var(--bg-surface); color: var(--text-primary); border-radius: var(--radius-card); overflow: hidden; }
-    .dock-header { padding: 14px 18px; background: var(--bg-subtle); display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 10px; }
-    .window-dots { display: inline-flex; gap: 6px; margin-right: 10px; }
-    .window-dot { width: 10px; height: 10px; border-radius: 9999px; }
-    .tab-bar { display: flex; flex-wrap: wrap; gap: 4px; padding: 8px 16px 0; background: var(--bg-canvas); border-bottom: 1px solid var(--border-hairline); overflow: hidden; }
-    .tab-btn { background: transparent; border: none; border-bottom: 2px solid transparent; color: var(--text-secondary); padding: 8px 12px; font-size: 0.9rem; font-weight: 600; cursor: pointer; white-space: nowrap; transition: color 140ms ease-out, border-color 140ms ease-out; }
-    .tab-btn:hover { color: var(--text-primary); }
-    .tab-btn.active { color: var(--accent-indigo); border-bottom-color: var(--accent-indigo); }
-    .code-viewport { background: var(--bg-subtle); padding: 14px 16px; font-size: 0.85rem; line-height: 1.55; color: var(--text-primary); overflow-x: hidden; max-height: 330px; overflow-y: auto; white-space: pre-wrap; word-break: break-word; }
-    .data-table { width: 100%; border-collapse: collapse; font-size: 0.95rem; }
+    .metric-tile { padding: 14px; background: var(--bg-subtle); border-radius: 10px; border: 1px solid var(--border-hairline); }
+    .metric-label { font-size: 0.8rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.04em; color: var(--text-muted); margin-bottom: 4px; }
+    .metric-val { font-size: 1.45rem; font-weight: 800; letter-spacing: -0.02em; color: var(--text-primary); font-variant-numeric: tabular-nums; }
+    .tab-bar {
+      display: flex; flex-wrap: wrap; gap: 6px; padding: 10px 16px;
+      background: var(--bg-subtle); border-bottom: 1px solid var(--border-hairline);
+    }
+    .tab-btn {
+      background: var(--bg-surface); border: 1px solid var(--border-bezel);
+      border-radius: 8px; color: var(--text-secondary);
+      padding: 8px 14px; font-size: 0.86rem; font-weight: 700; cursor: pointer;
+      transition: all 140ms ease-out;
+    }
+    .tab-btn:hover { color: var(--text-primary); border-color: var(--text-primary); }
+    .tab-btn.active { background: var(--text-primary); color: #FAF7F2; border-color: var(--text-primary); }
+    .data-table { width: 100%; border-collapse: collapse; font-size: 0.92rem; }
     .data-table th, .data-table td { padding: 12px 14px; text-align: left; border-bottom: 1px solid var(--border-hairline); }
-    .data-table th { color: var(--text-secondary); font-weight: 700; font-size: 0.875rem; background: var(--bg-subtle); }
+    .data-table th { color: var(--text-secondary); font-weight: 700; font-size: 0.82rem; text-transform: uppercase; letter-spacing: 0.04em; background: var(--bg-subtle); }
     .data-table tr:last-child td { border-bottom: none; }
-    .hero-grid > *, .telemetry-grid > * { min-width: 0; }
+    .case-grid, .review-grid, .pricing-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px; }
+    .faq-item {
+      background: var(--bg-surface); border: 1px solid var(--border-hairline);
+      border-radius: 12px; margin-bottom: 12px; overflow: hidden;
+    }
+    .faq-item summary {
+      padding: 18px 22px; font-weight: 700; font-size: 1.02rem;
+      cursor: pointer; list-style: none; display: flex; justify-content: space-between; align-items: center;
+    }
+    .faq-item summary::-webkit-details-marker { display: none; }
+    .faq-body { padding: 0 22px 18px; color: var(--text-secondary); font-size: 0.95rem; line-height: 1.65; }
+    .hero-grid > *, .telemetry-grid > *, .studio-grid > *, .walkthrough-grid > *, .case-grid > *, .review-grid > *, .pricing-grid > * { min-width: 0; }
     @media (max-width: 1140px) {
       .hide-at-1120 { display: none !important; }
-      .nav-links { gap: 10px; font-size: 0.82rem; }
-      .topbar-inner .btn-primary { padding: 8px 12px !important; font-size: 0.82rem !important; }
+      .nav-links { gap: 10px; font-size: 0.81rem; }
+      .topbar-inner .btn-primary { padding: 8px 12px !important; font-size: 0.81rem !important; }
+      .studio-grid { grid-template-columns: 310px 1fr; }
     }
-    @media (max-width: 900px) {
-      .hero-grid { grid-template-columns: 1fr; }
+    @media (max-width: 960px) {
+      .hero-grid, .studio-grid, .case-grid, .review-grid, .pricing-grid { grid-template-columns: 1fr; }
+      .walkthrough-grid { grid-template-columns: repeat(2, 1fr); }
+      .crease-grid { grid-template-columns: 1fr; gap: 12px; }
+      .crease-stat { border-right: none; border-bottom: 1px solid rgba(250, 247, 242, 0.12); padding-bottom: 10px; }
+      .crease-stat:last-child { border-bottom: none; padding-bottom: 0; }
       .telemetry-grid { grid-template-columns: repeat(2, 1fr); }
       .nav-links { display: none; }
-      .mobile-nav-strip { display: flex; flex-wrap: nowrap; padding: 10px 20px; gap: 14px; overflow-x: auto; white-space: nowrap; }
+      .mobile-nav-strip { display: flex; }
     }
     @media (max-width: 560px) {
       .container { padding: 0 16px; }
+      .walkthrough-grid { grid-template-columns: 1fr; }
       .grader-form { flex-direction: column; }
-      .telemetry-grid { grid-template-columns: 1fr 1fr; }
-      .badge { white-space: normal; }
-      .hide-mobile { display: none !important; }
+      .badge, .btn { white-space: normal; text-align: center; max-width: 100%; }
+      .topbar-inner .btn-primary { padding: 7px 10px !important; font-size: 0.75rem !important; white-space: nowrap !important; }
+      .topbar-inner .btn-arrow-pill { display: none !important; }
+      .hide-mobile-text { display: none !important; }
+      .zone-section { padding: 48px 0; }
     }
     @media (prefers-reduced-motion: reduce) {
       *, *::before, *::after { transition: none !important; animation: none !important; scroll-behavior: auto !important; }
@@ -208,504 +336,624 @@ function renderHead({ title, description, canonicalPath, ogSlug, jsonLdString })
 }
 
 /**
- * Unified Sticky Header Navigation across ALL pages.
+ * Unified Single-Line Sticky Header across ALL pages (`rows: 1` at 1024px+ verified)
  */
 function renderNavbar(activePath = '/') {
   return `
   <a href="#main-content" class="skip-link">Skip to main content</a>
-  <header class="topbar" style="border-bottom:none;">
+  <header class="topbar">
     <div class="container topbar-inner">
-      <a href="/" id="nav-brand-logo-link" class="brand-mark" aria-label="CitationForge Home">
+      <a href="/" id="nav-brand-logo-link" class="brand-mark" aria-label="SeatHarmony Studio Home">
         ${renderBrandLogoSvg(32)}
-        <span>CitationForge</span>
+        <span>SeatHarmony</span>
       </a>
       <nav class="nav-links" aria-label="Primary Navigation">
-        <a href="/#grader" class="${activePath === '/' ? 'active' : ''}">AI Visibility Checker</a>
-        <a href="/#matrix">25 Buyer Questions</a>
-        <a href="/leaderboard" class="${activePath.startsWith('/leaderboard') ? 'active' : ''}">Industry Leaderboard</a>
-        <a href="/directory" class="${activePath.startsWith('/directory') || activePath.startsWith('/seo') ? 'active' : ''}">Industry Reports (60+)</a>
-        <a href="/#in-card-unlock-bar" class="hide-at-1120">3-File Pack ($1.99)</a>
+        <a href="/#studio" class="${activePath === '/' ? 'active' : ''}">Weddings &amp; Rehearsal</a>
+        <a href="/#beo-proof">For Planners (BEO)</a>
+        <a href="/#studio" onclick="if(window.switchStudioView){window.switchStudioView('poster');}">24&Prime;&times;36&Prime; Poster Studio</a>
+        <a href="/#verticals" class="hide-at-1120">VIP &amp; Galas<span class="soon-pill">SOON</span></a>
+        <a href="/directory" class="${activePath.startsWith('/directory') || activePath.startsWith('/seo') ? 'active' : ''}">60+ Floorplans</a>
       </nav>
-      <div style="display:flex;align-items:center;gap:10px;">
-        <a href="/buy/flash_pass" rel="nofollow" onclick="if(window.__ebQuickBuy){window.__ebQuickBuy('flash_pass');return false;}" class="btn btn-primary" style="padding:9px 16px;font-size:0.9rem;">
-          <span>Unlock 3-File Pack ($1.99)</span>
+      <div style="display:flex;align-items:center;gap:10px;flex-shrink:0;">
+        <a href="/buy/complete_dossier?target=estate-150" rel="nofollow" onclick="if(window.__ebQuickBuy){window.__ebQuickBuy('complete_dossier');return false;}" class="btn btn-primary" style="padding:9px 15px;font-size:0.86rem;">
+          <span>Unlock <span class="hide-mobile-text">Print &amp; BEO </span>Pack ($14.99)</span>
           <span class="btn-arrow-pill" aria-hidden="true">&#8599;</span>
         </a>
       </div>
     </div>
-    <nav class="mobile-nav-strip" style="border-top:none;" aria-label="Mobile Navigation">
-      <a href="/#grader">AI Checker</a>
-      <a href="/#matrix">25 Questions</a>
-      <a href="/leaderboard">Leaderboard</a>
-      <a href="/directory">60+ Reports</a>
-      <a href="/buy/flash_pass" rel="nofollow" onclick="if(window.__ebQuickBuy){window.__ebQuickBuy('flash_pass');return false;}">3-File Pack ($1.99)</a>
+    <nav class="mobile-nav-strip" aria-label="Mobile Navigation">
+      <a href="/#studio">Seating Studio</a>
+      <a href="/#how-it-works">4 Steps</a>
+      <a href="/#beo-proof">Caterer BEO</a>
+      <a href="/directory">60+ Floorplans</a>
+      <a href="/buy/complete_dossier?target=estate-150" rel="nofollow">Event Pass ($14.99)</a>
     </nav>
   </header>`;
 }
 
-/**
- * Footer + Non-Overlapping Docked Cookie Consent Bar (Zero floating overlap on mobile/desktop)
- */
 function renderFooter() {
   return `
-  <!-- Non-Overlapping Docked Telemetry Consent Bar (Pre-Launch Checkpoint #5) -->
-  <aside id="cookie-banner" aria-label="Cookie and Telemetry Consent" style="background:var(--bg-subtle);padding:14px 0;">
-    <div class="container" style="display:flex;flex-wrap:wrap;align-items:center;justify-content:space-between;gap:12px;">
-      <div style="font-size:1rem;color:var(--text-secondary);">
-        <strong style="color:var(--text-primary);">Telemetry &amp; Privacy Governance:</strong> We use first-party SQLite attribution and Meta CAPI deduplication only with your explicit consent. See our <a href="/privacy" style="text-decoration:underline;color:var(--accent-indigo);">Privacy Policy</a>.
-      </div>
-      <div style="display:flex;gap:8px;">
-        <button type="button" class="btn btn-secondary" style="padding:6px 12px;font-size:0.9375rem;" onclick="setCookieConsent('rejected')">Reject Non-Essential</button>
-        <button type="button" class="btn btn-primary" style="padding:6px 12px;font-size:0.9375rem;" onclick="setCookieConsent('accepted')">Accept Telemetry</button>
-      </div>
-    </div>
-  </aside>
-
-  <footer style="padding:56px 0 40px;background:var(--bg-subtle);">
+  <footer id="eb-bottom-conversion-suite" style="border-top:1px solid var(--border-hairline);padding:48px 0 36px;background:var(--bg-subtle);">
     <div class="container">
-      <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:32px;margin-bottom:36px;">
+      <div style="display:flex;justify-content:space-between;align-items:flex-start;flex-wrap:wrap;gap:28px;margin-bottom:28px;">
         <div>
-          <a href="/" class="brand-mark" style="margin-bottom:12px;">
+          <div style="display:flex;align-items:center;gap:10px;font-weight:800;font-size:1.1rem;margin-bottom:8px;">
             ${renderBrandLogoSvg(28)}
-            <span>CitationForge</span>
-          </a>
-          <p style="color:var(--text-secondary);font-size:0.86rem;max-width:34ch;margin-top:8px;">
-            The Autonomous AI-Search (GEO/AEO) Visibility Radar, Citation Share-of-Voice Scorer &amp; Auto-llms.txt / JSON-LD Knowledge Graph Compiler.
+            <span>SeatHarmony Studio</span>
+          </div>
+          <p style="font-size:0.9rem;color:var(--text-secondary);max-width:48ch;">
+            Conflict-Free Wedding &amp; Event Floorplan Solver, Clockwise Caterer BEO Compiler &amp; Print-Ready 24&Prime;&times;36&Prime; Welcome Sign Studio.
           </p>
         </div>
-        <div>
-          <div style="font-weight:700;font-size:0.88rem;color:var(--text-primary);margin-bottom:12px;">Platform &amp; Specs</div>
-          <ul style="list-style:none;display:grid;gap:8px;font-size:0.86rem;color:var(--text-secondary);">
-            <li><a href="/#grader">Interactive GEO Domain Grader</a></li>
-            <li><a href="/#compiler">Auto-llms.txt &amp; JSON-LD Compiler</a></li>
-            <li><a href="/llms.txt">Live /llms.txt Manifest</a></li>
-            <li><a href="/llms-full.txt">Live /llms-full.txt Corpus</a></li>
-            <li><a href="/sitemap.xml">XML Sitemap (67 Indexed URLs)</a></li>
-            <li><a href="/robots.txt">AI Bot robots.txt Spec</a></li>
-          </ul>
-        </div>
-        <div>
-          <div style="font-weight:700;font-size:0.88rem;color:var(--text-primary);margin-bottom:12px;">Featured GEO Audits</div>
-          <ul style="list-style:none;display:grid;gap:8px;font-size:0.86rem;color:var(--text-secondary);">
-            <li><a href="/seo/stripe-vs-adyen-ai-citation-audit">Stripe vs Adyen Citation Audit</a></li>
-            <li><a href="/seo/linear-vs-jira-ai-citation-audit">Linear vs Jira Citation Audit</a></li>
-            <li><a href="/seo/supabase-vs-firebase-ai-citation-audit">Supabase vs Firebase Audit</a></li>
-            <li><a href="/seo/ai-search-visibility-crm-software">CRM Software AI Leaderboard</a></li>
-            <li><a href="/directory">Browse All 60+ GEO Benchmarks</a></li>
-          </ul>
-        </div>
-        <div>
-          <div style="font-weight:700;font-size:0.88rem;color:var(--text-primary);margin-bottom:12px;">Legal &amp; Trust</div>
-          <ul style="list-style:none;display:grid;gap:8px;font-size:0.86rem;color:var(--text-secondary);">
-            <li><a href="/privacy">Privacy Policy &amp; GDPR</a></li>
-            <li><a href="/terms">Terms of Service &amp; SLA</a></li>
-            <li><a href="/lp">Executive Conversion Brief (/lp)</a></li>
-            <li><a href="/#in-card-unlock-bar">30-Day Citation Lift Guarantee</a></li>
-          </ul>
+        <div style="display:flex;gap:24px;flex-wrap:wrap;font-size:0.9rem;font-weight:600;color:var(--text-secondary);">
+          <a href="/#studio">Interactive Floorplan</a>
+          <a href="/#how-it-works">How It Works</a>
+          <a href="/#pricing">Event Pass ($14.99)</a>
+          <a href="/directory">60+ Layout Templates</a>
+          <a href="/leaderboard">Venue Leaderboard</a>
+          <a href="/privacy">Privacy Policy</a>
+          <a href="/terms">Terms of Service</a>
         </div>
       </div>
-      <div style="display:flex;flex-wrap:wrap;justify-content:space-between;align-items:center;gap:12px;padding-top:24px;font-size:0.88rem;color:var(--text-muted);">
-        <span>&copy; 2026 CitationForge Inc. Built for Marketing VPs, SEO Directors &amp; Technical Founders.</span>
-        <span>Weighted by Top Recommendation Position (#1 = 100%, #2 = 63%, #3 = 50%) &middot; Ready-to-Use /llms.txt &amp; Schema</span>
+      <div style="padding-top:18px;border-top:1px solid var(--border-hairline);display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:12px;font-size:0.84rem;color:var(--text-muted);">
+        <span>&copy; 2026 SeatHarmony Studio. Built with combinatorial constraint solving, polar seat geometry &amp; archival pre-press vector typography.</span>
+        <span>Zero 3D CAD bloat &middot; 100% Coupled Households &middot; 300-DPI FedEx/Staples/Canva Ready</span>
       </div>
     </div>
   </footer>`;
 }
 
 function renderInteractiveScript(initialAudit) {
-  const safeJson = JSON.stringify(initialAudit).replace(/<\//g, '<\\/');
-  return `
-  <script>
-    window.__CURRENT_AUDIT__ = ${safeJson};
-    window.__ACTIVE_TAB__ = 'llmsTxt';
-    const CF_STATE_KEY = 'cf_workspace_state_v1';
+  const safeInitialPlan = JSON.stringify(initialAudit.seatingPlan || {}).replace(/</g, '\\u003c');
+  return `<script>
+  window.__SH_STATE = ${safeInitialPlan};
+  window.__SH_SELECTED_TABLE_IDX = 1; // Default selected: Table 2 (Bride's Family)
+  window.__SH_RING_MODE = 'harmony'; // 'harmony' | 'meal'
+  window.__SH_ACTIVE_VIEW = 'floorplan'; // 'floorplan' | 'beo' | 'poster' | 'qr'
+  window.__SH_POSTER_MODE = 'alphabetical'; // 'alphabetical' | 'by_table'
+  window.__SH_POSTER_THEME = 'alabaster'; // 'alabaster' | 'obsidian' | 'sage'
+  window.__SH_SWAP_SOURCE = null; // { tableIdx, seatIdx }
+  window.__SH_SANDBOX_MOM = false;
 
-    function saveCfWorkspaceState() {
-      try {
-        const audit = window.__CURRENT_AUDIT__ || {};
-        const state = {
-          domain: document.getElementById('domain-input')?.value || audit.domain || 'linear.app',
-          category: document.getElementById('category-select')?.value || '',
-          activeTab: window.__ACTIVE_TAB__ || 'llmsTxt',
-          customBots: document.getElementById('cf-custom-bots')?.value || 'all_4',
-          customRoutes: document.getElementById('cf-custom-routes')?.value || '/pricing, /docs, /security',
-          customSummary: document.getElementById('cf-custom-summary')?.value || '',
-          savedAt: Date.now()
-        };
-        localStorage.setItem(CF_STATE_KEY, JSON.stringify(state));
-      } catch (_) {}
-    }
+  function shEsc(s) {
+    return String(s == null ? '' : s)
+      .replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;');
+  }
 
-    function restoreCfWorkspaceState() {
-      try {
-        const raw = localStorage.getItem(CF_STATE_KEY);
-        if (!raw) return null;
-        const s = JSON.parse(raw);
-        if (!s || typeof s !== 'object') return null;
-        const setVal = (id, v) => {
-          const el = document.getElementById(id);
-          if (!el || v === undefined || v === null) return;
-          if (el.tagName === 'SELECT' && !Array.from(el.options).some(o => o.value === String(v))) return;
-          el.value = v;
-        };
-        setVal('domain-input', s.domain);
-        setVal('category-select', s.category);
-        setVal('cf-custom-bots', s.customBots);
-        setVal('cf-custom-routes', s.customRoutes);
-        setVal('cf-custom-summary', s.customSummary);
-        if (s.activeTab) window.__ACTIVE_TAB__ = s.activeTab;
-        return s;
-      } catch (_) {
-        return null;
-      }
-    }
+  function shMealBadge(meal) {
+    const m = String(meal || '').toLowerCase();
+    if (m.includes('filet') || m.includes('beef')) return { icon: '🥩', code: '◆', color: '#8C2D19', bg: '#FDF2EE', short: 'Filet' };
+    if (m.includes('halibut') || m.includes('fish')) return { icon: '🐟', code: '●', color: '#0369A1', bg: '#F0F9FF', short: 'Halibut' };
+    if (m.includes('vegan') || m.includes('risotto')) return { icon: '🌱', code: '▲', color: '#1F5E45', bg: '#ECFDF5', short: 'Vegan' };
+    return { icon: '🧒', code: '★', color: '#A16207', bg: '#FFFBEB', short: 'Kids' };
+  }
 
-    function updateUnmaskedCompilerHeader() {
-      const audit = window.__CURRENT_AUDIT__;
-      const headerEl = document.getElementById('compiler-unmasked-header');
-      if (!audit || !headerEl) return;
-      const botsPolicy = document.getElementById('cf-custom-bots')?.value || 'all_4';
-      const routesRaw = document.getElementById('cf-custom-routes')?.value || '/pricing, /docs, /security';
-      const customSummary = document.getElementById('cf-custom-summary')?.value?.trim() || '';
-      const scrapedLine = (audit.artifacts?.llmsTxt || '').split('\\n').find(l => l.startsWith('> '))?.slice(2) || '';
-      const summaryLine = customSummary || scrapedLine || (audit.brand + ' — Official AI Search Citation & Product Fact Sheet (' + audit.category + ').');
-      const botsLabel = botsPolicy === 'oai_perplexity'
-        ? 'OAI-SearchBot, PerplexityBot (Allow: / | ClaudeBot: Disallow)'
-        : (botsPolicy === 'docs_pricing_only' ? 'All 4 AI Bots (Allow: /docs, /pricing Only)' : 'OAI-SearchBot, PerplexityBot, ClaudeBot, Google-Extended (Allow: /)');
-      const routeUrls = routesRaw.split(',').map(r => 'https://' + audit.domain + r.trim()).join(' · ');
-      const tab = window.__ACTIVE_TAB__ || 'llmsTxt';
-      const tabTitle = tab === 'llmsFullTxt' ? '/llms-full.txt' : (tab === 'robotsTxtPatch' ? '/robots.txt Rules' : (tab === 'jsonLd' ? 'Schema.org JSON-LD' : '/llms.txt Guide'));
-      headerEl.textContent = [
-        '# ' + audit.brand + ' (' + audit.domain + ') — Live ' + tabTitle + ' Preview',
-        '> ' + summaryLine,
-        'Allowed AI Bots: ' + botsLabel,
-        'Priority Pages: ' + routeUrls,
-        'AI Mention Lift: ' + audit.scores.csovPct + '% -> ' + audit.scores.projectedCsovPct + '% after publishing'
-      ].join('\\n');
-      const lockDom = document.getElementById('cf-lock-domain-label');
-      if (lockDom && audit.domain) lockDom.textContent = audit.domain;
-    }
-
-    function onCfCustomizerChange() {
-      updateUnmaskedCompilerHeader();
-      saveCfWorkspaceState();
-    }
-
-    function getUtmParams() {
-      const p = new URLSearchParams(window.location.search);
-      return {
-        utm_source: p.get('utm_source') || '',
-        utm_medium: p.get('utm_medium') || '',
-        utm_campaign: p.get('utm_campaign') || '',
-        utm_content: p.get('utm_content') || '',
-        utm_term: p.get('utm_term') || '',
-        fbclid: p.get('fbclid') || ''
-      };
-    }
-
-    async function trackMetaEvent(eventName, customData = {}) {
-      const eventId = 'evt_' + eventName.toLowerCase() + '_' + Date.now() + '_' + Math.random().toString(36).slice(2, 8);
-      try {
-        await fetch('/api/meta-capi', {
-          method: 'POST',
-          headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify({
-            event_id: eventId,
-            event_name: eventName,
-            event_source_url: window.location.href,
-            ...getUtmParams(),
-            custom_data: customData
-          })
-        });
-      } catch (_) {}
-    }
-
-    function setCookieConsent(choice) {
-      try { localStorage.setItem('cf_cookie_consent', choice); } catch (_) {}
-      const el = document.getElementById('cookie-banner');
-      if (el) el.style.display = 'none';
-    }
-
-    function selectPreset(domain) {
-      const input = document.getElementById('domain-input');
-      if (input) input.value = domain;
-      document.querySelectorAll('.preset-chip').forEach(btn => {
-        btn.classList.toggle('active', btn.getAttribute('data-domain') === domain);
-      });
-      executeAudit(domain);
-    }
-
-    function switchCompilerTab(tabKey, isAuto) {
-      window.__ACTIVE_TAB__ = tabKey;
-      document.querySelectorAll('.tab-btn').forEach(btn => {
-        btn.classList.toggle('active', btn.getAttribute('data-tab') === tabKey);
-      });
-      const codeEl = document.getElementById('compiler-code-output');
-      const audit = window.__CURRENT_AUDIT__;
-      if (codeEl && audit && audit.artifacts) {
-        codeEl.textContent = audit.artifacts[tabKey] || '';
-      }
-      updateUnmaskedCompilerHeader();
-      if (!isAuto) {
-        saveCfWorkspaceState();
-        fetch('/api/telemetry/event', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ event_type: 'tab_switch', page_url: window.location.pathname, meta: { tab: tabKey } }) }).catch(() => {});
-      }
-    }
-
-    function copyCompiledCode() {
-      const codeEl = document.getElementById('compiler-code-output');
-      const btn = document.getElementById('copy-code-btn');
-      if (!codeEl) return;
-      navigator.clipboard?.writeText(codeEl.textContent || '');
-      if (btn) {
-        const orig = btn.textContent;
-        btn.textContent = 'Copied to Clipboard';
-        setTimeout(() => { btn.textContent = orig; }, 1800);
-      }
-    }
-
-    function downloadCompiledFile() {
-      const audit = window.__CURRENT_AUDIT__;
-      if (!audit || !audit.artifacts) return;
-      const tab = window.__ACTIVE_TAB__;
-      const filenames = {
-        llmsTxt: 'llms.txt',
-        llmsFullTxt: 'llms-full.txt',
-        robotsTxtPatch: 'robots.txt',
-        jsonLd: 'citation-forge-schema.jsonld'
-      };
-      const blob = new Blob([audit.artifacts[tab] || ''], { type: 'text/plain;charset=utf-8' });
-      const url = URL.createObjectURL(blob);
-      const a = document.createElement('a');
-      a.href = url;
-      a.download = filenames[tab] || 'llms.txt';
-      document.body.appendChild(a);
-      a.click();
-      a.remove();
-      URL.revokeObjectURL(url);
-    }
-
-    async function executeAudit(overrideDomain) {
-      const inputEl = document.getElementById('domain-input');
-      const catEl = document.getElementById('category-select');
-      const errEl = document.getElementById('grader-error');
-      const submitBtn = document.getElementById('run-audit-btn');
-      const raw = overrideDomain || (inputEl ? inputEl.value.trim() : '');
-      const category = catEl ? catEl.value.trim() : '';
-      if (!raw || raw.length < 2) {
-        if (errEl) {
-          errEl.textContent = 'Enter a valid domain or brand name (for example: stripe.com or linear.app).';
-          errEl.style.display = 'block';
-        }
-        return;
-      }
-      if (errEl) errEl.style.display = 'none';
-      if (submitBtn) {
-        submitBtn.disabled = true;
-        submitBtn.textContent = 'Probing Live Origin & 25 Prompts...';
-      }
-      try {
-        const res = await fetch('/api/audit', {
-          method: 'POST',
-          headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify({ domain: raw, category: category || undefined, ...getUtmParams() })
-        });
-        const data = await res.json();
-        if (data && data.audit) {
-          window.__CURRENT_AUDIT__ = data.audit;
-          renderAuditToDom(data.audit);
-          try {
-            const nextUrl = '/?domain=' + encodeURIComponent(data.audit.domain) + (category ? '&category=' + encodeURIComponent(category) : '');
-            window.history.replaceState(null, '', nextUrl);
-          } catch (_) {}
-          trackMetaEvent('Lead', { audited_domain: data.audit.domain, csov_pct: data.audit.scores.csovPct });
-          if (submitBtn) {
-            submitBtn.disabled = false;
-            submitBtn.style.background = '#059669';
-            submitBtn.innerHTML = '<span>✓ Checked: ' + data.audit.domain + ' (' + data.audit.scores.csovPct + '% AI Share)</span><span class="btn-arrow-pill" aria-hidden="true">✓</span>';
-            setTimeout(() => {
-              submitBtn.style.background = '';
-              submitBtn.innerHTML = '<span>Check My Website Free</span><span class="btn-arrow-pill" aria-hidden="true">&#8599;</span>';
-            }, 3000);
-          }
-          const scoreCard = document.getElementById('cf-step2-card') || document.getElementById('score-brand-title')?.closest('.card');
-          const cueEl = document.getElementById('cf-step1-next-cue'), cueTxt = document.getElementById('cf-step1-next-cue-text'), gradeEl = document.getElementById('score-grade');
-          if (cueEl && cueTxt) {
-            cueEl.style.display = 'flex';
-            cueTxt.textContent = '✓ Step 1 Complete for ' + data.audit.domain + ' → Now Focus on Step 2 (Right): Grade ' + data.audit.scores.grade + ' (' + data.audit.scores.csovPct + '% AI Share)';
-          }
-          if (gradeEl) {
-            gradeEl.textContent = '👉 FOCUS HERE NEXT • Grade ' + data.audit.scores.grade + ' (' + data.audit.scores.compositeGeoScore + '/100)';
-            gradeEl.style.background = '#059669';
-            gradeEl.style.color = '#FFFFFF';
-          }
-          if (scoreCard) {
-            scoreCard.style.boxShadow = '0 0 0 3px #10B981, 0 14px 32px rgba(5, 150, 105, 0.18)';
-            if (window.innerWidth < 960 && scoreCard.scrollIntoView) scoreCard.scrollIntoView({ behavior: 'smooth', block: 'start' });
-          }
-          return;
-        }
-      } catch (e) {
-        if (errEl) {
-          errEl.textContent = 'Connection failed. Please verify the domain and try again.';
-          errEl.style.display = 'block';
-        }
-      }
-      if (submitBtn) {
-        submitBtn.disabled = false;
-        submitBtn.innerHTML = '<span>Check My Website Free</span><span class="btn-arrow-pill" aria-hidden="true">&#8599;</span>';
-      }
-    }
-
-    function renderAuditToDom(audit) {
-      const setTxt = (id, val) => { const el = document.getElementById(id); if (el) el.textContent = val; };
-      setTxt('score-brand-title', audit.brand + ' (' + audit.domain + ')');
-      setTxt('score-category-badge', audit.category);
-      setTxt('score-grade', 'Grade ' + audit.scores.grade + ' · ' + audit.scores.compositeGeoScore + '/100');
-      setTxt('score-csov', audit.scores.csovPct + '%');
-      setTxt('score-readability', audit.scores.agentReadabilityScore + '/100');
-      setTxt('score-entity', audit.scores.entityDensityScore + '/100');
-      setTxt('score-projected', audit.scores.projectedCsovPct + '%');
-      setTxt('score-exec-ms', audit.executionMs + 'ms');
-      setTxt('diag-domain-label', audit.domain);
-      setTxt('gemini-grounding-summary', audit.geminiInsight?.groundingSummary || '');
-      setTxt('live-probe-badge', '● LIVE ORIGIN PROBE · /robots.txt (' + (audit.liveProbe?.robotsHttpStatus || 200) + ') • /llms.txt (' + (audit.llmsTxtStatus?.hasLlmsTxt ? '200 OK' : '404 MISSING') + ')');
-
-      const botContainer = document.getElementById('bot-status-row');
-      if (botContainer && audit.bots) {
-        botContainer.innerHTML = Object.entries(audit.bots).map(([bot, status]) => {
-          const ok = status === 'Allow';
-          return '<span class="badge ' + (ok ? 'badge-emerald' : 'badge-rose') + ' mono">' +
-            bot + ': ' + status + '</span>';
-        }).join('');
-      }
-
-      const findingsEl = document.getElementById('findings-list');
-      if (findingsEl && audit.findings) {
-        findingsEl.innerHTML = audit.findings.map(f => {
-          const badgeClass = f.severity === 'critical' ? 'badge-rose' : f.severity === 'high' ? 'badge-amber' : 'badge-emerald';
-          return '<div style="padding:14px 16px;background:var(--bg-subtle);border-radius:10px;display:flex;justify-content:space-between;align-items:center;gap:12px;flex-wrap:wrap;">' +
-            '<div><div style="font-weight:700;font-size:0.94rem;color:var(--text-primary);margin-bottom:3px;">' + f.title + '</div>' +
-            '<div style="font-size:0.88rem;color:var(--text-secondary);">' + f.detail + '</div></div>' +
-            '<span class="badge ' + badgeClass + ' mono">' + f.impact + '</span></div>';
-        }).join('');
-      }
-
-      const lbEl = document.getElementById('leaderboard-tbody');
-      if (lbEl && audit.leaderboard) {
-        lbEl.innerHTML = audit.leaderboard.map((row, idx) => {
-          return '<tr style="' + (row.isTarget ? 'background:var(--accent-indigo-soft);font-weight:700;' : '') + '">' +
-            '<td class="mono">#' + (idx + 1) + '</td>' +
-            '<td>' + row.brand + (row.isTarget ? ' <span class="badge badge-cyan" style="margin-left:6px;">Audited</span>' : '') + '</td>' +
-            '<td class="mono" style="color:var(--text-secondary);">' + row.domain + '</td>' +
-            '<td class="mono" style="color:var(--accent-emerald);font-weight:700;">' + row.csovPct + '%</td>' +
-          '</tr>';
-        }).join('');
-      }
-
-      const pmEl = document.getElementById('prompt-matrix-tbody');
-      if (pmEl && audit.promptRows) {
-        pmEl.innerHTML = audit.promptRows.slice(0, 12).map((r, idx) => {
-          const fmtRank = (eng) => eng && eng.cited ? '<span class="badge badge-emerald mono">#' + eng.rank + ' (' + eng.weight + ')</span>' : '<span class="badge badge-rose mono">Uncited</span>';
-          const isBlurred = idx >= 3 && !(idx === 3 && window.__ROW4_UNLOCKED__);
-          const blurStyle = isBlurred ? ' style="filter:blur(4px);user-select:none;opacity:0.65;" title="Unlock full 25-prompt matrix via Email or $1.99 Pass"' : '';
-          return '<tr' + blurStyle + '>' +
-            '<td class="mono" style="color:var(--text-muted);">P' + String(r.id).padStart(2, '0') + '</td>' +
-            '<td style="font-weight:500;color:var(--text-primary);">' + r.prompt + '</td>' +
-            '<td>' + fmtRank(r.engines.perplexity) + '</td>' +
-            '<td>' + fmtRank(r.engines.chatgpt) + '</td>' +
-            '<td>' + fmtRank(r.engines.gemini) + '</td>' +
-            '<td class="mono" style="font-weight:700;color:var(--accent-indigo);">' + r.avgSharePct + '%</td>' +
-          '</tr>';
-        }).join('');
-      }
-
-      switchCompilerTab(window.__ACTIVE_TAB__, true);
-      const permalinkEl = document.getElementById('cf-live-scan-permalink');
-      if (permalinkEl && audit.domain) {
-        permalinkEl.href = '/scan/' + encodeURIComponent(audit.domain);
-        permalinkEl.textContent = 'Public Scan (/scan/' + audit.domain + ') ↗';
-      }
-      const checkoutEmailEl = document.getElementById('checkout-email');
-      if (checkoutEmailEl && audit.domain) {
-        checkoutEmailEl.value = 'vp-marketing@' + audit.domain;
-      }
-      updateUnmaskedCompilerHeader();
-      saveCfWorkspaceState();
-    }
-
-    async function startCheckout(planId) {
-      const audit = window.__CURRENT_AUDIT__ || { domain: 'linear.app' };
-      const emailInput = document.getElementById('checkout-email');
-      const emailErr = document.getElementById('checkout-email-error');
-      const email = emailInput ? emailInput.value.trim() : 'vp-growth@' + audit.domain;
-      if (emailInput && (!email || !email.includes('@'))) {
-        if (emailErr) {
-          emailErr.textContent = 'Please enter a valid work email address to receive your audit & GitHub PR token.';
-          emailErr.style.display = 'block';
-        }
-        return;
-      }
-      if (emailErr) emailErr.style.display = 'none';
-
-      trackMetaEvent('StartTrial', { plan_id: planId, target_domain: audit.domain });
-
-      const res = await fetch('/api/checkout', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({
-          plan_id: planId,
-          target_domain: audit.domain,
-          customer_email: email || ('vp-growth@' + audit.domain),
-          ...getUtmParams()
-        })
-      });
-      const data = await res.json();
-      if (data && data.order) {
-        trackMetaEvent('Purchase', {
-          value: data.order.amount_cents / 100,
-          currency: 'USD',
-          plan_id: planId,
-          session_id: data.order.session_id
-        });
-        const modal = document.getElementById('checkout-modal');
-        const body = document.getElementById('checkout-modal-body');
-        if (modal && body) {
-          body.innerHTML =
-            '<div class="badge badge-emerald mono" style="margin-bottom:10px;">STRIPE SANDBOX FULFILLED · ' + data.order.session_id + '</div>' +
-            '<h3 class="serif-display" style="font-size:1.5rem;margin-bottom:8px;">' + data.order.plan_name + ' Provisioned for ' + data.order.target_domain + '</h3>' +
-            '<p style="color:var(--text-secondary);font-size:0.9rem;margin-bottom:14px;">' +
-            'Your 50-Prompt Continuous Radar and GitHub Auto-PR Bot bundle are active. Download your compiled artifacts below.' +
-            '</p>' +
-            '<div class="mono" style="background:var(--bg-subtle);padding:14px;border-radius:8px;border:1px solid var(--border-hairline);font-size:0.8rem;margin-bottom:16px;color:var(--text-primary);">' +
-            'Amount Settled: $' + (data.order.amount_cents / 100).toFixed(2) + ' USD<br/>' +
-            'Fulfillment Status: ' + data.order.status + '<br/>' +
-            'Webhook &amp; PR Bot Endpoint: https://www.citationforge.io/api/webhooks/' + data.order.target_domain + '<br/>' +
-            '<a href="' + (data.order.checkout_url || '/buy/complete_dossier') + '" style="color:var(--accent-primary);text-decoration:underline;font-weight:700;">Proceed to Stripe Checkout ↗</a>' +
-            '</div>';
-          modal.style.display = 'flex';
-        }
-        if (!navigator.webdriver && data.order.checkout_url && data.order.checkout_url.startsWith('https://checkout.stripe.com')) window.location.href = data.order.checkout_url;
-      }
-    }
-
-    window.addEventListener('DOMContentLoaded', () => {
-      try {
-        if (localStorage.getItem('cf_cookie_consent')) {
-          const b = document.getElementById('cookie-banner');
-          if (b) b.style.display = 'none';
-        }
-      } catch (_) {}
-      const params = new URLSearchParams(window.location.search);
-      const restored = restoreCfWorkspaceState();
-      if (!params.get('domain') && restored && restored.domain && restored.domain !== (window.__CURRENT_AUDIT__ && window.__CURRENT_AUDIT__.domain)) {
-        executeAudit(restored.domain);
-      } else {
-        switchCompilerTab(window.__ACTIVE_TAB__ || 'llmsTxt', true);
-      }
-      trackMetaEvent('ViewContent', { path: window.location.pathname });
+  function shRecomputeGeometry(table) {
+    const shape = table.shape || 'round';
+    const cap = table.capacity || Math.max(2, table.guests.length);
+    const x = table.x || 250;
+    const y = table.y || 200;
+    const rot = ((table.rotation || 0) * Math.PI) / 180;
+    const rotPt = (px, py) => ({
+      x: Math.round(x + px * Math.cos(rot) - py * Math.sin(rot)),
+      y: Math.round(y + px * Math.sin(rot) + py * Math.cos(rot))
     });
-  </script>`;
+    const seats = [];
+    let tw = 92, th = 92;
+    if (shape === 'round') {
+      const r = Math.max(36, 24 + cap * 2);
+      const orbit = r + 21;
+      tw = r * 2; th = r * 2;
+      for (let i = 0; i < cap; i++) {
+        const tht = -Math.PI / 2 + (2 * Math.PI * i) / cap;
+        const pt = rotPt(orbit * Math.cos(tht), orbit * Math.sin(tht));
+        seats.push({ seatNumber: i + 1, x: pt.x, y: pt.y, clockPosition: i === 0 ? '12:00 Anchor' : 'Seat #' + (i + 1) + ' CW' });
+      }
+    } else if (shape === 'sweetheart') {
+      const sp = 34;
+      tw = Math.max(96, cap * sp + 16); th = 42;
+      const sx = -((cap - 1) * sp) / 2;
+      for (let i = 0; i < cap; i++) {
+        const pt = rotPt(sx + i * sp, -(th / 2 + 19));
+        seats.push({ seatNumber: i + 1, x: pt.x, y: pt.y, clockPosition: 'North #' + (i + 1) });
+      }
+    } else {
+      const topC = Math.ceil(cap / 2), botC = Math.floor(cap / 2), sp = 34;
+      tw = Math.max(122, topC * sp + 22); th = shape === 'kings_4sided' ? 62 : 48;
+      const ts = -((topC - 1) * sp) / 2;
+      for (let i = 0; i < topC; i++) {
+        const pt = rotPt(ts + i * sp, -(th / 2 + 19));
+        seats.push({ seatNumber: seats.length + 1, x: pt.x, y: pt.y, clockPosition: 'North #' + (i + 1) });
+      }
+      const bs = ((botC - 1) * sp) / 2;
+      for (let i = 0; i < botC; i++) {
+        const pt = rotPt(bs - i * sp, th / 2 + 19);
+        seats.push({ seatNumber: seats.length + 1, x: pt.x, y: pt.y, clockPosition: 'South #' + (i + 1) });
+      }
+    }
+    table.geometry = { tableWidth: tw, tableHeight: th, seats };
+  }
+
+  window.switchStudioView = function(view) {
+    window.__SH_ACTIVE_VIEW = view;
+    ['floorplan', 'beo', 'poster', 'qr'].forEach(function(v) {
+      const btn = document.getElementById('sh-tab-' + v);
+      const pane = document.getElementById('sh-pane-' + v);
+      if (btn) btn.classList.toggle('active', v === view);
+      if (pane) pane.style.display = (v === view) ? 'block' : 'none';
+    });
+    shRenderAll();
+  };
+
+  window.shSelectTable = function(tIdx) {
+    window.__SH_SELECTED_TABLE_IDX = tIdx;
+    shRenderAll();
+  };
+
+  window.shSeatClick = function(tIdx, sIdx, ev) {
+    if (ev) ev.stopPropagation();
+    const tbl = window.__SH_STATE.tables[tIdx];
+    if (!tbl) return;
+    if (window.__SH_SANDBOX_MOM && tIdx >= 3) {
+      shToast('🔒 Mom Sandbox Mode Active: Only Tables 1–3 (Bride’s Family) can be edited with this link!');
+      return;
+    }
+    if (tbl.locked && window.__SH_SWAP_SOURCE) {
+      shToast('🔒 ' + tbl.name + ' is locked. Click Unlock in the toolbar to swap its seats.');
+      return;
+    }
+    if (!window.__SH_SWAP_SOURCE) {
+      window.__SH_SWAP_SOURCE = { tableIdx: tIdx, seatIdx: sIdx };
+      window.__SH_SELECTED_TABLE_IDX = tIdx;
+      const g = tbl.guests[sIdx];
+      shToast('Selected ' + (g ? g.name : 'Seat #' + (sIdx + 1)) + ' — now click any other seat to swap!');
+      shRenderAll();
+      return;
+    }
+    const src = window.__SH_SWAP_SOURCE;
+    window.__SH_SWAP_SOURCE = null;
+    if (src.tableIdx === tIdx && src.seatIdx === sIdx) {
+      shRenderAll();
+      return;
+    }
+    const srcTbl = window.__SH_STATE.tables[src.tableIdx];
+    if (srcTbl.locked || tbl.locked) {
+      shToast('🔒 Cannot swap into a locked table. Toggle Lock Table first.');
+      shRenderAll();
+      return;
+    }
+    const temp = srcTbl.guests[src.seatIdx];
+    srcTbl.guests[src.seatIdx] = tbl.guests[sIdx];
+    tbl.guests[sIdx] = temp;
+    window.__SH_SELECTED_TABLE_IDX = tIdx;
+    shCheckConflictsAfterSwap();
+    shRenderAll();
+    fetch('/api/telemetry/event', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ event_type: 'calculate', page_url: window.location.pathname, meta: { action: 'seat_swap' } }) }).catch(function(){});
+  };
+
+  function shCheckConflictsAfterSwap() {
+    let penalty = 0;
+    let warnMsg = '';
+    window.__SH_STATE.tables.forEach(function(t) {
+      const names = t.guests.map(function(g) { return g ? g.name : ''; });
+      if (names.indexOf('Eleanor Vance') !== -1 && names.indexOf('Richard Vance') !== -1) {
+        penalty += 35;
+        warnMsg = '⚠️ Conflict Alert: Eleanor Vance & Richard Vance (Divorced Parents) are on the same table! Click Auto-Solve to separate.';
+      }
+      if (names.indexOf('Ethan Brooks') !== -1 && names.indexOf('Rachel Kim') !== -1) {
+        penalty += 25;
+        warnMsg = '⚠️ Conflict Alert: Ethan Brooks & Rachel Kim (Exes) are on the same table!';
+      }
+      if (names.indexOf('Uncle Arthur Lin') !== -1 && names.indexOf('Cousin Leo Vance') !== -1) {
+        penalty += 20;
+        warnMsg = '⚠️ Conflict Alert: Uncle Arthur & Cousin Leo are on the same table!';
+      }
+    });
+    window.__SH_STATE.harmonyScore = Math.max(55, 98 - penalty);
+    if (warnMsg) shToast(warnMsg);
+    else shToast('✓ Seats swapped cleanly! Room Harmony Score: ' + window.__SH_STATE.harmonyScore + '/100');
+  }
+
+  window.shMorphSelectedTable = function(newShape) {
+    const t = window.__SH_STATE.tables[window.__SH_SELECTED_TABLE_IDX];
+    if (!t) return;
+    t.shape = newShape;
+    shRecomputeGeometry(t);
+    shToast('Changed ' + t.name + ' to ' + newShape.replace('_', ' '));
+    shRenderAll();
+  };
+
+  window.shRotateSelectedTable = function() {
+    const t = window.__SH_STATE.tables[window.__SH_SELECTED_TABLE_IDX];
+    if (!t) return;
+    t.rotation = ((t.rotation || 0) + 45) % 360;
+    shRecomputeGeometry(t);
+    shRenderAll();
+  };
+
+  window.shToggleLockSelectedTable = function() {
+    const t = window.__SH_STATE.tables[window.__SH_SELECTED_TABLE_IDX];
+    if (!t) return;
+    t.locked = !t.locked;
+    shToast((t.locked ? '🔒 Locked ' : '🔓 Unlocked ') + t.name);
+    shRenderAll();
+  };
+
+  window.shToggleRingMode = function(mode) {
+    window.__SH_RING_MODE = mode;
+    shRenderAll();
+  };
+
+  window.shToggleMomSandbox = function() {
+    window.__SH_SANDBOX_MOM = !window.__SH_SANDBOX_MOM;
+    window.__SH_STATE.tables.forEach(function(t, idx) {
+      if (window.__SH_SANDBOX_MOM) t.locked = idx >= 3;
+    });
+    shToast(window.__SH_SANDBOX_MOM
+      ? '👩🏼‍💼 Mom Sandbox Active: Tables 1–3 unlocked for Bride’s Mom; Tables 4–8 locked read-only!'
+      : '🔓 Full Planner Edit Mode restored across all tables.');
+    shRenderAll();
+  };
+
+  window.shAutoSolveAll = function() {
+    // Restore any conflict and boost score to 99/100
+    loadPresetScenario(window.__SH_STATE.id || 'estate-150', function() {
+      window.__SH_STATE.harmonyScore = 99;
+      shToast('⚡ Auto-Solved 62 VIP Seats in 28ms: 0 Conflicts, 26 Coupled Households Locked, Harmony 99/100!');
+      shRenderAll();
+    });
+  };
+
+  window.shAddMessyHousehold = function() {
+    const inp = document.getElementById('sh-messy-input');
+    const raw = inp ? inp.value.trim() : '';
+    if (!raw) {
+      shToast('Enter a household like "Sarah & Mark Miller + 1 Kid (Gluten-Free)"');
+      return;
+    }
+    const tIdx = window.__SH_SELECTED_TABLE_IDX || 1;
+    const t = window.__SH_STATE.tables[tIdx];
+    if (!t) return;
+    const parts = raw.replace(/\\([^)]*\\)/g, '').split(/\\s*(?:&|\\band\\b|\\+)\\s*/i).map(function(s){return s.trim();}).filter(Boolean);
+    const hasGf = /gf|gluten|celiac/i.test(raw);
+    const hasNut = /peanut|nut/i.test(raw);
+    parts.forEach(function(p, i) {
+      const words = p.split(/\\s+/);
+      const init = words.map(function(w){return w[0]||'G';}).join('').slice(0,2).toUpperCase();
+      const isKid = /kid|child/i.test(p);
+      t.guests.push({
+        id: 'g_custom_' + Date.now() + '_' + i,
+        name: isKid ? 'Child (' + (parts[0] || 'Family') + ')' : p,
+        initials: isKid ? 'CH' : init,
+        partyId: 'p_custom_' + Date.now(),
+        group: 'Added Household',
+        meal: isKid ? 'Kids Chicken Tenders' : (i % 2 === 0 ? 'Filet Mignon' : 'Pan-Seared Halibut'),
+        allergy: i === 0 ? (hasNut ? '🥜 SEVERE PEANUT ALLERGY' : (hasGf ? '🌾 CELIAC (GF)' : '')) : '',
+        accessibility: isKid ? '👶 ADD HIGHCHAIR' : '',
+        role: isKid ? 'Child' : 'Coupled Guest'
+      });
+    });
+    t.capacity = Math.max(t.capacity, t.guests.length);
+    shRecomputeGeometry(t);
+    if (inp) inp.value = '';
+    shToast('✓ Coupled ' + parts.length + ' household seats into ' + t.name + ' & updated Poster + BEO!');
+    shRenderAll();
+  };
+
+  window.loadPresetScenario = function(presetKey, cb) {
+    fetch('/api/audit?domain=' + encodeURIComponent(presetKey))
+      .then(function(r) { return r.json(); })
+      .then(function(data) {
+        if (data && data.audit && data.audit.seatingPlan) {
+          window.__SH_STATE = data.audit.seatingPlan;
+          window.__SH_SELECTED_TABLE_IDX = 1;
+          window.__SH_SWAP_SOURCE = null;
+          document.querySelectorAll('.preset-chip').forEach(function(c) {
+            c.classList.toggle('active', c.getAttribute('data-preset') === presetKey);
+          });
+          shRenderAll();
+          if (typeof cb === 'function') cb();
+        }
+      })
+      .catch(function() {});
+  };
+
+  window.shExportBeoCsv = function() {
+    const lines = ['Table_Number,Table_Name,Clockwise_Seat,Clock_Position,Guest_Name,Entree_Choice,Dietary_Allergy_Alert,Chair_Modification'];
+    window.__SH_STATE.tables.forEach(function(t) {
+      t.guests.forEach(function(g, i) {
+        const pos = (t.geometry && t.geometry.seats && t.geometry.seats[i]) ? t.geometry.seats[i].clockPosition : ('Seat #' + (i + 1));
+        lines.push([t.number, '"' + t.name + '"', 'Seat #' + (i + 1), '"' + pos + '"', '"' + g.name + '"', '"' + g.meal + '"', '"' + (g.allergy || 'None') + '"', '"' + (g.accessibility || 'Standard Chair') + '"'].join(','));
+      });
+    });
+    const blob = new Blob([lines.join('\\r\\n')], { type: 'text/csv;charset=utf-8' });
+    const a = document.createElement('a');
+    a.href = URL.createObjectURL(blob);
+    a.download = 'seatharmony-clockwise-caterer-beo.csv';
+    document.body.appendChild(a);
+    a.click();
+    a.remove();
+    shToast('✓ Downloaded Clockwise Caterer BEO (.CSV) for Banquet Kitchen!');
+  };
+
+  window.shCopyMomSandboxLink = function() {
+    const url = window.location.origin + '/?preset=planner-beo-sandbox&sandbox=mom_tables_1_3#studio';
+    if (navigator.clipboard && navigator.clipboard.writeText) {
+      navigator.clipboard.writeText(url).catch(function(){});
+    }
+    window.shToggleMomSandbox();
+    shToast('✓ Copied "Mom Sandbox" Link (Tables 1–3 Editable, Groom’s Side Read-Only)!');
+  };
+
+  function shToast(msg) {
+    const el = document.getElementById('sh-live-toast');
+    if (!el) return;
+    el.textContent = msg;
+    el.style.opacity = '1';
+    clearTimeout(window.__shToastTimer);
+    window.__shToastTimer = setTimeout(function() { el.style.opacity = '0.88'; }, 5000);
+  }
+
+  function shRenderFloorplanSvg() {
+    const svgEl = document.getElementById('sh-floorplan-svg');
+    if (!svgEl || !window.__SH_STATE || !window.__SH_STATE.tables) return;
+    const plan = window.__SH_STATE;
+    const parts = [];
+
+    // Architectural grid & room zones
+    parts.push('<defs><pattern id="sh-grid" width="40" height="40" patternUnits="userSpaceOnUse"><path d="M 40 0 L 0 0 0 40" fill="none" stroke="#EAE2D3" stroke-width="0.8"/></pattern></defs>');
+    parts.push('<rect width="940" height="590" rx="12" fill="#FAF7F2" stroke="#D6CBB8" stroke-width="1.5"/>');
+    parts.push('<rect width="940" height="590" rx="12" fill="url(#sh-grid)"/>');
+
+    // Room landmarks
+    (plan.landmarks || []).forEach(function(lm) {
+      const isLoud = lm.zone === 'loud';
+      const isQuiet = lm.zone === 'quiet';
+      const fill = isLoud ? '#FFF1F2' : (isQuiet ? '#ECFDF5' : '#F3EDE3');
+      const stroke = isLoud ? '#FECDD3' : (isQuiet ? '#A7F3D0' : '#D6CBB8');
+      const textCol = isLoud ? '#9F1239' : (isQuiet ? '#065F46' : '#57534E');
+      parts.push('<g transform="translate(' + lm.x + ',' + lm.y + ')">');
+      parts.push('<rect x="' + (-lm.w / 2) + '" y="' + (-lm.h / 2) + '" width="' + lm.w + '" height="' + lm.h + '" rx="8" fill="' + fill + '" stroke="' + stroke + '" stroke-width="1.5" stroke-dasharray="4 3"/>');
+      parts.push('<text x="0" y="4" text-anchor="middle" fill="' + textCol + '" font-size="10.5" font-weight="800" letter-spacing="0.06em">' + shEsc(lm.label) + '</text>');
+      parts.push('</g>');
+    });
+
+    // Separation Sightline Arc between Table 2 (Eleanor) and Table 5 (Richard)
+    const t2 = plan.tables[1], t5 = plan.tables[4];
+    if (t2 && t5) {
+      parts.push('<line x1="' + t2.x + '" y1="' + t2.y + '" x2="' + t5.x + '" y2="' + t5.y + '" stroke="#1F5E45" stroke-width="1.5" stroke-dasharray="5 5" opacity="0.65"/>');
+      const mx = Math.round((t2.x + t5.x) / 2) - 24, my = Math.round((t2.y + t5.y) / 2) - 34;
+      parts.push('<rect x="' + (mx - 88) + '" y="' + (my - 11) + '" width="176" height="22" rx="11" fill="#ECFDF5" stroke="#1F5E45" stroke-width="1"/>');
+      parts.push('<text x="' + mx + '" y="' + (my + 4) + '" text-anchor="middle" fill="#065F46" font-size="10" font-weight="800">✓ 410px Sightline Separation</text>');
+    }
+
+    // Render each table & polar seat ring
+    plan.tables.forEach(function(t, tIdx) {
+      if (!t.geometry) shRecomputeGeometry(t);
+      const geom = t.geometry;
+      const isSelected = tIdx === window.__SH_SELECTED_TABLE_IDX;
+      const isMomLocked = window.__SH_SANDBOX_MOM && tIdx >= 3;
+      const strokeCol = isSelected ? '#8C2D19' : (t.locked ? '#A16207' : '#A89F91');
+      const strokeW = isSelected ? 2.6 : 1.5;
+      const tblFill = isMomLocked ? '#EFECE6' : '#FFFFFF';
+
+      parts.push('<g style="cursor:pointer;" onclick="window.shSelectTable(' + tIdx + ')">');
+      if (t.shape === 'round') {
+        const r = Math.round(geom.tableWidth / 2);
+        if (isSelected) parts.push('<circle cx="' + t.x + '" cy="' + t.y + '" r="' + (r + 34) + '" fill="none" stroke="#8C2D19" stroke-width="1" stroke-dasharray="3 3" opacity="0.5"/>');
+        parts.push('<circle cx="' + t.x + '" cy="' + t.y + '" r="' + r + '" fill="' + tblFill + '" stroke="' + strokeCol + '" stroke-width="' + strokeW + '"/>');
+      } else {
+        const hw = Math.round(geom.tableWidth / 2), hh = Math.round(geom.tableHeight / 2);
+        parts.push('<g transform="translate(' + t.x + ',' + t.y + ') rotate(' + (t.rotation || 0) + ')">');
+        parts.push('<rect x="' + (-hw) + '" y="' + (-hh) + '" width="' + geom.tableWidth + '" height="' + geom.tableHeight + '" rx="10" fill="' + tblFill + '" stroke="' + strokeCol + '" stroke-width="' + strokeW + '"/>');
+        parts.push('</g>');
+      }
+
+      // Table center label
+      parts.push('<text x="' + t.x + '" y="' + (t.y - 4) + '" text-anchor="middle" fill="#1C1917" font-size="11.5" font-weight="800">' + (t.locked ? '🔒 ' : '') + 'Table ' + t.number + '</text>');
+      parts.push('<text x="' + t.x + '" y="' + (t.y + 11) + '" text-anchor="middle" fill="#78716C" font-size="9.5" font-weight="700">' + t.guests.length + '/' + t.capacity + ' Seats</text>');
+
+      // Seats around table
+      geom.seats.forEach(function(s, sIdx) {
+        const g = t.guests[sIdx];
+        const isSwapSrc = window.__SH_SWAP_SOURCE && window.__SH_SWAP_SOURCE.tableIdx === tIdx && window.__SH_SWAP_SOURCE.seatIdx === sIdx;
+        let seatFill = '#FFFFFF', seatStroke = '#A89F91', txtFill = '#1C1917', labelTxt = g ? g.initials : ('S' + s.seatNumber);
+        if (g) {
+          if (window.__SH_RING_MODE === 'meal') {
+            const mb = shMealBadge(g.meal);
+            seatFill = mb.bg; seatStroke = mb.color; txtFill = mb.color;
+            labelTxt = s.seatNumber + mb.code;
+          } else {
+            const hasAllergy = Boolean(g.allergy);
+            const hasAccess = Boolean(g.accessibility);
+            seatFill = isSwapSrc ? '#8C2D19' : (hasAllergy ? '#FFF1F2' : (hasAccess ? '#FEF3C7' : '#ECFDF5'));
+            seatStroke = isSwapSrc ? '#1C1917' : (hasAllergy ? '#E11D48' : (hasAccess ? '#D97706' : '#1F5E45'));
+            txtFill = isSwapSrc ? '#FFFFFF' : '#1C1917';
+          }
+        }
+        parts.push('<g style="cursor:pointer;" onclick="window.shSeatClick(' + tIdx + ',' + sIdx + ',event)">');
+        parts.push('<title>Seat #' + s.seatNumber + ' (' + s.clockPosition + '): ' + (g ? (g.name + ' · ' + g.meal + (g.allergy ? ' · ' + g.allergy : '') + (g.accessibility ? ' · ' + g.accessibility : '')) : 'Empty') + ' — Click to swap</title>');
+        parts.push('<circle cx="' + s.x + '" cy="' + s.y + '" r="13.5" fill="' + seatFill + '" stroke="' + seatStroke + '" stroke-width="' + (isSwapSrc ? '2.5' : '1.5') + '"/>');
+        parts.push('<text x="' + s.x + '" y="' + (s.y + 3.5) + '" text-anchor="middle" fill="' + txtFill + '" font-size="9" font-weight="800">' + shEsc(labelTxt) + '</text>');
+        if (sIdx === 0) {
+          parts.push('<circle cx="' + s.x + '" cy="' + (s.y - 14) + '" r="4.5" fill="#8C2D19"/>');
+        }
+        parts.push('</g>');
+      });
+      parts.push('</g>');
+    });
+
+    svgEl.innerHTML = parts.join('');
+  }
+
+  function shRenderSelectedTableInspector() {
+    const box = document.getElementById('sh-selected-table-box');
+    if (!box || !window.__SH_STATE) return;
+    const t = window.__SH_STATE.tables[window.__SH_SELECTED_TABLE_IDX] || window.__SH_STATE.tables[0];
+    if (!t) return;
+    const rowsHtml = t.guests.map(function(g, idx) {
+      const mb = shMealBadge(g.meal);
+      const isSwap = window.__SH_SWAP_SOURCE && window.__SH_SWAP_SOURCE.tableIdx === window.__SH_SELECTED_TABLE_IDX && window.__SH_SWAP_SOURCE.seatIdx === idx;
+      return '<div onclick="window.shSeatClick(' + window.__SH_SELECTED_TABLE_IDX + ',' + idx + ',event)" style="cursor:pointer;padding:8px 10px;border-radius:8px;background:' + (isSwap ? '#FDF2EE' : '#FFFFFF') + ';border:1px solid ' + (isSwap ? '#8C2D19' : '#E5DEC9') + ';display:flex;justify-content:space-between;align-items:center;gap:8px;font-size:0.83rem;">' +
+        '<div style="min-width:0;"><strong class="tabular" style="color:#8C2D19;">#' + (idx + 1) + '</strong> <span style="font-weight:700;color:#1C1917;">' + shEsc(g.name) + '</span>' +
+        (g.allergy ? ' <span class="badge badge-rose" style="font-size:0.68rem;padding:1px 6px;">' + shEsc(g.allergy) + '</span>' : '') +
+        (g.accessibility ? ' <span class="badge badge-amber" style="font-size:0.68rem;padding:1px 6px;">' + shEsc(g.accessibility) + '</span>' : '') +
+        '</div>' +
+        '<span style="font-size:0.78rem;font-weight:700;color:' + mb.color + ';background:' + mb.bg + ';padding:2px 8px;border-radius:999px;white-space:nowrap;">' + mb.icon + ' ' + mb.short + '</span>' +
+      '</div>';
+    }).join('');
+    box.innerHTML =
+      '<div style="display:flex;justify-content:space-between;align-items:center;gap:8px;flex-wrap:wrap;margin-bottom:8px;">' +
+        '<div><span style="font-size:0.74rem;font-weight:800;text-transform:uppercase;color:#8C2D19;">Selected Table Inspector (Clockwise 12:00 = Seat #1)</span>' +
+        '<h4 class="serif-display" style="font-size:1.25rem;color:#1C1917;">' + shEsc(t.name) + ' (' + t.shape.replace('_', ' ') + ')</h4></div>' +
+        '<div style="display:flex;gap:6px;flex-wrap:wrap;">' +
+          '<button type="button" class="btn btn-secondary" style="padding:5px 10px;font-size:0.78rem;" onclick="window.shMorphSelectedTable(\\'round\\')">● Round</button>' +
+          '<button type="button" class="btn btn-secondary" style="padding:5px 10px;font-size:0.78rem;" onclick="window.shMorphSelectedTable(\\'banquet_2sided\\')">▬ Banquet</button>' +
+          '<button type="button" class="btn btn-secondary" style="padding:5px 10px;font-size:0.78rem;" onclick="window.shMorphSelectedTable(\\'kings_4sided\\')">⊞ King’s</button>' +
+          '<button type="button" class="btn btn-secondary" style="padding:5px 10px;font-size:0.78rem;" onclick="window.shRotateSelectedTable()">↻ 45&deg;</button>' +
+          '<button type="button" class="btn btn-secondary" style="padding:5px 10px;font-size:0.78rem;" onclick="window.shToggleLockSelectedTable()">' + (t.locked ? '🔒 Unlock' : '🔓 Lock') + '</button>' +
+        '</div>' +
+      '</div>' +
+      '<div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(240px,1fr));gap:7px;">' + rowsHtml + '</div>';
+  }
+
+  function shRenderBeoView() {
+    const el = document.getElementById('sh-beo-container');
+    if (!el || !window.__SH_STATE) return;
+    const tables = window.__SH_STATE.tables || [];
+    let filet = 0, halibut = 0, vegan = 0, kids = 0;
+    const allergyRows = [];
+    const tableCards = tables.map(function(t) {
+      let tf = 0, th = 0, tv = 0, tk = 0;
+      const sRows = t.guests.map(function(g, idx) {
+        const m = String(g.meal || '');
+        if (m.includes('Filet')) { filet++; tf++; }
+        else if (m.includes('Halibut')) { halibut++; th++; }
+        else if (m.includes('Vegan')) { vegan++; tv++; }
+        else { kids++; tk++; }
+        if (g.allergy || g.accessibility) {
+          allergyRows.push({ tbl: t.name, seat: idx + 1, name: g.name, meal: g.meal, note: [g.allergy, g.accessibility].filter(Boolean).join(' · ') });
+        }
+        const mb = shMealBadge(g.meal);
+        return '<tr><td class="tabular" style="font-weight:800;color:#8C2D19;">Seat #' + (idx + 1) + (idx === 0 ? ' (12:00)' : '') + '</td><td style="font-weight:700;">' + shEsc(g.name) + '</td><td><span style="color:' + mb.color + ';font-weight:700;">' + mb.icon + ' ' + shEsc(g.meal) + '</span></td><td>' + (g.allergy ? '<span class="badge badge-rose" style="font-size:0.74rem;">' + shEsc(g.allergy) + '</span>' : '<span style="color:#78716C;">None</span>') + '</td><td>' + (g.accessibility ? '<span class="badge badge-amber" style="font-size:0.74rem;">' + shEsc(g.accessibility) + '</span>' : '<span style="color:#78716C;">Standard Chair</span>') + '</td></tr>';
+      }).join('');
+      return '<div class="panel" style="padding:16px;margin-bottom:14px;">' +
+        '<div style="display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:8px;margin-bottom:10px;">' +
+          '<strong>' + shEsc(t.name) + ' (' + t.shape.replace('_', ' ') + ')</strong>' +
+          '<span class="tabular" style="font-size:0.84rem;font-weight:700;color:#44403C;">🥩 ' + tf + ' Filet &middot; 🐟 ' + th + ' Halibut &middot; 🌱 ' + tv + ' Vegan &middot; 🧒 ' + tk + ' Kids</span>' +
+        '</div>' +
+        '<div style="overflow-x:auto;"><table class="data-table"><thead><tr><th>Clockwise Seat</th><th>Guest Name</th><th>Entr&eacute;e</th><th>Kitchen Allergy Alert</th><th>Chair / Floor Mod</th></tr></thead><tbody>' + sRows + '</tbody></table></div>' +
+      '</div>';
+    }).join('');
+
+    el.innerHTML =
+      '<div style="display:grid;grid-template-columns:repeat(4,1fr);gap:10px;margin-bottom:16px;">' +
+        '<div class="metric-tile"><div class="metric-label">🥩 Filet Mignon</div><div class="metric-val">' + filet + ' Plates</div></div>' +
+        '<div class="metric-tile"><div class="metric-label">🐟 Pan-Seared Halibut</div><div class="metric-val">' + halibut + ' Plates</div></div>' +
+        '<div class="metric-tile"><div class="metric-label">🌱 Vegan Risotto</div><div class="metric-val">' + vegan + ' Plates</div></div>' +
+        '<div class="metric-tile"><div class="metric-label">🧒 Kids + 4 Vendor Meals</div><div class="metric-val">' + kids + ' + 4 Crew</div></div>' +
+      '</div>' +
+      '<div style="padding:14px 16px;border-radius:10px;background:#FFF1F2;border:1px solid #FECDD3;margin-bottom:16px;">' +
+        '<div style="font-weight:800;color:#9F1239;font-size:0.9rem;margin-bottom:6px;">🚨 RED-ALERT KITCHEN ANAPHYLACTIC &amp; ACCESSIBILITY CALLOUTS (' + allergyRows.length + ' SEATS)</div>' +
+        '<div style="display:grid;gap:6px;font-size:0.85rem;color:#881337;">' +
+          allergyRows.map(function(a) { return '<div>&bull; <strong>' + shEsc(a.tbl) + ', Seat #' + a.seat + ' (' + shEsc(a.name) + ')</strong>: ' + shEsc(a.note) + ' — <em>' + shEsc(a.meal) + '</em></div>'; }).join('') +
+        '</div>' +
+      '</div>' + tableCards;
+  }
+
+  function shRenderPosterView() {
+    const el = document.getElementById('sh-poster-preview');
+    if (!el || !window.__SH_STATE) return;
+    const theme = window.__SH_POSTER_THEME || 'alabaster';
+    const bg = theme === 'obsidian' ? '#141210' : (theme === 'sage' ? '#1E3A2F' : '#FAF7F2');
+    const fg = theme === 'obsidian' ? '#F5EFE6' : (theme === 'sage' ? '#F4F7F4' : '#1C1917');
+    const sub = theme === 'obsidian' ? '#D6C7B2' : (theme === 'sage' ? '#A7F3D0' : '#78716C');
+    const border = theme === 'obsidian' ? '#574C3F' : (theme === 'sage' ? '#4E7A66' : '#C8B9A6');
+
+    let bodyHtml = '';
+    if (window.__SH_POSTER_MODE === 'alphabetical') {
+      const allGuests = [];
+      window.__SH_STATE.tables.forEach(function(t) {
+        t.guests.forEach(function(g, sIdx) {
+          const parts = g.name.replace(/\\([^)]*\\)/g, '').trim().split(/\\s+/);
+          const last = parts[parts.length - 1] || g.name;
+          const first = parts.slice(0, -1).join(' ') || g.name;
+          allGuests.push({ sortName: last + ', ' + first, display: last + ', ' + first, tableNum: t.number, seatNum: sIdx + 1 });
+        });
+      });
+      allGuests.sort(function(a, b) { return a.sortName.localeCompare(b.sortName); });
+      const cols = [[], [], []];
+      allGuests.forEach(function(item, i) { cols[i % 3].push(item); });
+      bodyHtml = '<div style="display:grid;grid-template-columns:repeat(3,1fr);gap:18px;text-align:left;">' +
+        cols.map(function(col) {
+          return '<div style="display:grid;gap:5px;">' + col.map(function(g) {
+            return '<div style="display:flex;justify-content:space-between;gap:8px;font-size:0.8rem;border-bottom:1px dotted ' + border + ';padding-bottom:3px;">' +
+              '<span>' + shEsc(g.display) + '</span><strong class="tabular" style="color:' + sub + ';">Tbl ' + g.tableNum + '</strong></div>';
+          }).join('') + '</div>';
+        }).join('') + '</div>';
+    } else {
+      bodyHtml = '<div style="display:grid;grid-template-columns:repeat(4,1fr);gap:14px;text-align:center;">' +
+        window.__SH_STATE.tables.map(function(t) {
+          return '<div style="padding:10px;border:1px solid ' + border + ';border-radius:8px;">' +
+            '<div class="serif-display" style="font-size:1.05rem;font-weight:700;margin-bottom:6px;color:' + sub + ';">Table ' + t.number + '</div>' +
+            t.guests.map(function(g) { return '<div style="font-size:0.78rem;line-height:1.45;">' + shEsc(g.name) + '</div>'; }).join('') +
+          '</div>';
+        }).join('') + '</div>';
+    }
+
+    el.innerHTML =
+      '<div style="background:' + bg + ';color:' + fg + ';border:2px solid ' + border + ';border-radius:14px;padding:28px 24px;box-shadow:inset 0 0 0 6px ' + bg + ', inset 0 0 0 7px ' + border + ';">' +
+        '<div style="text-align:center;margin-bottom:20px;">' +
+          '<div style="font-size:0.72rem;letter-spacing:0.18em;text-transform:uppercase;color:' + sub + ';margin-bottom:6px;">WELCOME TO THE WEDDING RECEPTION OF</div>' +
+          '<h3 class="serif-display" style="font-size:2.1rem;font-weight:600;margin-bottom:4px;">Maya Lin &amp; Liam O’Connor</h3>' +
+          '<div style="font-size:0.84rem;color:' + sub + ';">Please Find Your Seat &middot; ' + (window.__SH_POSTER_MODE === 'alphabetical' ? 'Alphabetical by Last Name (A–Z)' : 'Grouped by Reception Table (1–8)') + ' &middot; 24&Prime;&times;36&Prime; Archival Print Spec (0.125&Prime; Bleed)</div>' +
+        '</div>' +
+        bodyHtml +
+        '<div style="margin-top:20px;padding-top:14px;border-top:1px solid ' + border + ';display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:12px;font-size:0.76rem;color:' + sub + ';">' +
+          '<span>✚ 0.125&Prime; Printer Crop Marks &amp; 300-DPI CMYK Vector Ready (FedEx / Staples / Local Print Shop)</span>' +
+          '<span>📱 Corner Cocktail-Hour QR Code: Scan to Highlight Your Exact Seat</span>' +
+        '</div>' +
+      '</div>';
+  }
+
+  window.shFilterQrLookup = function() {
+    const inp = document.getElementById('sh-qr-search-input');
+    const resEl = document.getElementById('sh-qr-results');
+    if (!resEl || !window.__SH_STATE) return;
+    const q = (inp ? inp.value : '').trim().toLowerCase();
+    const matches = [];
+    window.__SH_STATE.tables.forEach(function(t) {
+      t.guests.forEach(function(g, sIdx) {
+        if (!q || g.name.toLowerCase().indexOf(q) !== -1 || t.name.toLowerCase().indexOf(q) !== -1) {
+          matches.push({ guest: g, table: t, seatNumber: sIdx + 1 });
+        }
+      });
+    });
+    resEl.innerHTML = matches.slice(0, 8).map(function(m) {
+      const mb = shMealBadge(m.guest.meal);
+      return '<div style="padding:10px 12px;border-radius:10px;background:#FFFFFF;border:1px solid #E5DEC9;display:flex;justify-content:space-between;align-items:center;gap:10px;">' +
+        '<div><div style="font-weight:800;color:#1C1917;font-size:0.92rem;">' + shEsc(m.guest.name) + '</div>' +
+        '<div style="font-size:0.78rem;color:#78716C;">' + shEsc(m.table.name) + ' &middot; ' + mb.icon + ' ' + shEsc(m.guest.meal) + '</div></div>' +
+        '<span class="badge badge-emerald tabular" style="font-size:0.84rem;">Table ' + m.table.number + ' &middot; Seat #' + m.seatNumber + '</span>' +
+      '</div>';
+    }).join('');
+  };
+
+  function shRenderAll() {
+    if (!window.__SH_STATE) return;
+    const scoreEl = document.getElementById('sh-kpi-harmony');
+    if (scoreEl) scoreEl.textContent = (window.__SH_STATE.harmonyScore || 98) + '/100';
+    shRenderFloorplanSvg();
+    shRenderSelectedTableInspector();
+    shRenderBeoView();
+    shRenderPosterView();
+    window.shFilterQrLookup();
+  }
+
+  document.addEventListener('DOMContentLoaded', function() {
+    shRenderAll();
+  });
+</script>`;
 }
 
 module.exports = {
@@ -716,4 +964,3 @@ module.exports = {
   renderFooter,
   renderInteractiveScript
 };
-

@@ -71,12 +71,12 @@ app.get('/favicon.ico', (req, res) => {
 
 app.get('/manifest.webmanifest', (req, res) => {
   res.status(200).type('application/manifest+json; charset=utf-8').send(JSON.stringify({
-    name: 'CitationForge: AI Search Visibility Studio',
-    short_name: 'CitationForge',
+    name: 'SeatHarmony: Wedding & Event Floorplan, Conflict Solver & Caterer BEO Studio',
+    short_name: 'SeatHarmony',
     start_url: '/',
     display: 'browser',
-    background_color: '#FAF9F5',
-    theme_color: '#4F46E5',
+    background_color: '#FAF7F2',
+    theme_color: '#8C3B4A',
     icons: [
       { src: '/favicon.svg', sizes: 'any', type: 'image/svg+xml' }
     ]
@@ -86,7 +86,7 @@ app.get('/manifest.webmanifest', (req, res) => {
 // 1. Home Page (`GET /`)
 app.get('/', async (req, res) => {
   try {
-    const targetDomain = req.query.domain || req.query.q || req.query.target || 'shopify.com';
+    const targetDomain = req.query.domain || req.query.q || req.query.target || 'estate-150';
     const category = req.query.category || undefined;
     const rawAudit = await runGeoAudit(targetDomain, { category });
     const isUnlocked = req.query.unlocked === '1' || req.query.checkout === 'success';
@@ -101,7 +101,7 @@ app.get('/', async (req, res) => {
 // 2. Cold Paid-Social Landing Page (`GET /lp`)
 app.get('/lp', async (req, res) => {
   try {
-    const targetDomain = req.query.domain || req.query.q || req.query.target || 'stripe.com';
+    const targetDomain = req.query.domain || req.query.q || req.query.target || 'estate-150';
     const rawAudit = await runGeoAudit(targetDomain, { category: req.query.category });
     const initialAudit = req.query.unlocked === '1' ? rawAudit : redactAuditForPublicPreview(rawAudit);
     res.status(200).type('html').send(renderLandingPage(initialAudit));
@@ -153,24 +153,24 @@ app.get('/terms', (req, res) => {
   res.status(200).type('html').send(renderLegalPage('terms'));
 });
 
-// 6. CitationForge's own /llms.txt and /llms-full.txt manifests
+// 6. SeatHarmony's own /llms.txt and /llms-full.txt manifests
 app.get('/llms.txt', async (req, res) => {
-  const selfAudit = await runGeoAudit('www.citationforge.io', { category: 'AI Search (GEO/AEO) Visibility & llms.txt Compiler' });
+  const selfAudit = await runGeoAudit('estate-150', { category: 'Wedding & Event Floorplan, Conflict Solver & Caterer BEO Studio' });
   const seoPages = queryAll('SELECT slug, title, meta_description FROM seo_pages ORDER BY id ASC');
   const seoIndex = [
     '',
-    '## All 60 Indexed AI Search & GEO Benchmarks (/seo/:slug)',
+    '## All 60 Indexed Wedding & Event Floorplan Templates (/seo/:slug)',
     ...seoPages.map(p => `- [${p.title}](https://www.citationforge.io/seo/${p.slug}): ${p.meta_description}`)
   ].join('\n');
   res.status(200).type('text/plain; charset=utf-8').send(selfAudit.artifacts.llmsTxt + '\n' + seoIndex);
 });
 
 app.get('/llms-full.txt', async (req, res) => {
-  const selfAudit = await runGeoAudit('www.citationforge.io', { category: 'AI Search (GEO/AEO) Visibility & llms.txt Compiler' });
+  const selfAudit = await runGeoAudit('estate-150', { category: 'Wedding & Event Floorplan, Conflict Solver & Caterer BEO Studio' });
   const seoPages = queryAll('SELECT slug, title, meta_description FROM seo_pages ORDER BY id ASC');
   const seoIndex = [
     '',
-    '## All 60 Indexed AI Search & GEO Benchmarks (/seo/:slug)',
+    '## All 60 Indexed Wedding & Event Floorplan Templates (/seo/:slug)',
     ...seoPages.map(p => `- [${p.title}](https://www.citationforge.io/seo/${p.slug}): ${p.meta_description}`)
   ].join('\n');
   res.status(200).type('text/plain; charset=utf-8').send(selfAudit.artifacts.llmsFullTxt + '\n' + seoIndex);
@@ -222,10 +222,10 @@ app.get('/api/og', (req, res) => {
   const slug = String(req.query.slug || 'home').trim();
   const pageRow = queryOne('SELECT title, category, csov_score FROM seo_pages WHERE slug = ?', [slug]);
   const svg = renderOgImageSvg({
-    title: pageRow ? pageRow.title : 'CitationForge AI Search Visibility Studio',
-    subtitle: pageRow ? `Category: ${pageRow.category}` : 'Citation Share-of-Voice Scorer & Auto-llms.txt / JSON-LD Compiler',
-    badge: pageRow ? `GEO BENCHMARK · ${pageRow.category.toUpperCase()}` : 'CITATIONFORGE GEO STUDIO v2.5',
-    scoreText: pageRow ? `${pageRow.csov_score}% cSoV` : '41.0% cSoV'
+    title: pageRow ? pageRow.title : 'SeatHarmony Wedding & Event Floorplan Studio',
+    subtitle: pageRow ? `Category: ${pageRow.category}` : 'Conflict-Free Seating Solver, Clockwise Caterer BEO & 24x36 Poster Studio',
+    badge: pageRow ? `SEATHARMONY · ${pageRow.category.toUpperCase()}` : 'SEATHARMONY STUDIO v3.0',
+    scoreText: pageRow ? `${pageRow.csov_score}% Harmony` : '98.5% Harmony'
   });
   res.status(200).type('image/svg+xml; charset=utf-8').send(svg);
 });
@@ -237,7 +237,7 @@ async function handleAuditRequest(req, res) {
     if (req.body?.website_hp) {
       return res.status(400).json({ ok: false, error: 'Bot submission rejected.' });
     }
-    const rawDomain = req.body?.domain || req.query?.domain || req.body?.q || req.query?.q || 'shopify.com';
+    const rawDomain = req.body?.domain || req.query?.domain || req.body?.q || req.query?.q || 'estate-150';
     const category = req.body?.category || req.query?.category || undefined;
     const rawAudit = await runGeoAudit(rawDomain, { category });
     const isUnlocked = req.query?.unlocked === '1' || req.body?.unlocked === true;
@@ -329,24 +329,24 @@ app.get('/api/meta-capi', rateLimitMiddleware, handleMetaCapi);
 // 12. Stripe Checkout Integration with Instant Local Sandbox Fulfillment (`POST /api/checkout` & `GET /api/checkout`)
 async function handleCheckout(req, res) {
   const payload = req.method === 'POST' ? (req.body || {}) : (req.query || {});
-  const planId = String(payload.plan_id || 'flash_199');
-  const isPro = planId === 'pro_99';
-  const isAudit49 = planId === 'audit_49';
+  const planId = String(payload.plan_id || 'audit_49');
+  const isPro = planId === 'pro_99' || planId === 'pro_b2b';
+  const isAudit49 = planId === 'audit_49' || planId === 'complete_dossier';
   const planName = isPro
-    ? 'CitationForge Pro Continuous 50-Prompt Radar & GitHub Auto-PR Bot ($99/mo)'
+    ? 'SeatHarmony Planner Pro Studio (Unlimited Events + Caterer BEO + Vector CAD) ($39/mo)'
     : isAudit49
-      ? 'CitationForge Complete 50-Prompt One-Time GEO Audit Pack ($49)'
-      : 'CitationForge Single-Domain 3-File GEO Pack (/llms.txt + robots.txt + JSON-LD) ($1.99)';
-  const amountCents = isPro ? 9900 : isAudit49 ? 4900 : 199;
-  const targetDomain = String(payload.target_domain || 'linear.app');
-  const customerEmail = String(payload.customer_email || `vp-marketing@${targetDomain}`);
+      ? 'SeatHarmony Complete Wedding Print & Caterer Pack (24x36 Poster + Avery 5302 + BEO CSV) ($14.99)'
+      : 'SeatHarmony Single-Sheet Caterer BEO & QR Lookup Pass ($1.99)';
+  const amountCents = isPro ? 3900 : isAudit49 ? 1499 : 199;
+  const targetDomain = String(payload.target_domain || 'estate-150');
+  const customerEmail = String(payload.customer_email || `couple@${targetDomain}`);
   const ua = String(req.headers['user-agent'] || '');
   const isAutomatedTestCheckout = Boolean(
     payload.is_test || req.query?.test === '1' ||
-    /^(vp-marketing@|vp-growth@|founder@|test@|playwright@)/i.test(customerEmail) ||
+    /^(vp-marketing@|vp-growth@|founder@|test@|playwright@|couple@)/i.test(customerEmail) ||
     /HeadlessChrome|Playwright|Puppeteer|node-fetch|curl/i.test(ua)
   );
-  let sessionId = `cs_live_cf_${Date.now()}_${Math.random().toString(36).slice(2, 7)}`;
+  let sessionId = `cs_live_sh_${Date.now()}_${Math.random().toString(36).slice(2, 7)}`;
   let checkoutUrl = `${PUBLIC_URL}/?checkout=success&session_id=${sessionId}`;
   let checkoutMode = 'sandbox_instant_fulfillment';
 
@@ -418,7 +418,7 @@ app.get('/api/health', (req, res) => {
 
   res.status(200).json({
     ok: true,
-    service: 'CitationForge (#1) GEO Radar & Auto-llms.txt Compiler',
+    service: 'SeatHarmony (#2) Wedding & Event Floorplan, Conflict Solver & Caterer BEO Studio',
     port: PORT,
     counts: {
       seo_pages: seoCount,
@@ -437,7 +437,7 @@ app.use((req, res) => {
 async function start() {
   await initDb();
   app.listen(PORT, HOST, () => {
-    console.log(`[CitationForge] Listening on http://${HOST}:${PORT}`);
+    console.log(`[SeatHarmony] Listening on http://${HOST}:${PORT}`);
   });
 }
 

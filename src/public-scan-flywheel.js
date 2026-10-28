@@ -34,20 +34,17 @@ function renderFlywheelHeaderHtml(cfg, tagText, activePath = '/leaderboard') {
 
 const FLYWHEEL_SEED = {
   citation_forge: {
-    cnnModel: 'PP-OCRv4 + DOM Visual Block Saliency CNN (ONNX INT8 • 14ms)',
-    cnnSensorLabel: 'Page Structure & AI Readability Check',
-    inputPlaceholder: 'stripe.com, vercel.com, or any URL...',
+    cnnModel: 'Polar Seat-Ring Geometry + Simulated Annealing Harmony Solver (28ms)',
+    cnnSensorLabel: 'Reception Floorplan, Family Sightlines & Caterer BEO Check',
+    inputPlaceholder: 'estate-150, tuscan-banquet-80, or venue name...',
     entities: [
-      { target: 'stripe.com', grade: 'A+', score: 96, status: 'HALL_OF_FAME', kpi1: '41.2% AI Search Share', kpi2: 'llms-full.txt Active', cnnReadout: '98.4% AI Readability • Clean Page Structure', issue: 'Complete AI Schema & /llms.txt Active' },
-      { target: 'supabase.com', grade: 'A+', score: 94, status: 'HALL_OF_FAME', kpi1: '38.6% AI Search Share', kpi2: 'Markdown Guides Active', cnnReadout: '96.1% Clear Code & Docs Structure', issue: 'Full ChatGPT & Perplexity Crawler Access' },
-      { target: 'linear.app', grade: 'A', score: 91, status: 'HALL_OF_FAME', kpi1: '33.8% AI Search Share', kpi2: 'Schema Score 92/100', cnnReadout: '94.2% Clear Heading Hierarchy', issue: 'Optional FAQ Schema Expansion Available' },
-      { target: 'vercel.com', grade: 'A', score: 90, status: 'HALL_OF_FAME', kpi1: '35.1% AI Search Share', kpi2: 'llms.txt Indexed', cnnReadout: '93.8% High First-Screen Clarity', issue: 'Optimal AI Crawler Headers' },
-      { target: 'cloudflare.com', grade: 'A', score: 89, status: 'HALL_OF_FAME', kpi1: '31.4% AI Search Share', kpi2: 'OpenAPI + MCP Ready', cnnReadout: '91.5% Structured Table Readability', issue: 'Strong AI Citation Authority' },
-      { target: 'notion.so', grade: 'B', score: 78, status: 'WATCHLIST', kpi1: '24.2% AI Search Share', kpi2: 'Partial llms.txt', cnnReadout: '76.4% Slow JavaScript Rendering on Deep Docs', issue: 'Missing /llms-full.txt Complete Guide' },
-      { target: 'adyen.com', grade: 'C', score: 64, status: 'WALL_OF_SHAME', kpi1: '18.4% AI Search Share', kpi2: 'No /llms.txt Found', cnnReadout: '58.2% Heavy HTML Clutter (Hard for AI to Parse)', issue: 'Losing 16.4% AI Recommendations to Stripe' },
-      { target: 'atlassian.com', grade: 'C', score: 61, status: 'WALL_OF_SHAME', kpi1: '16.9% AI Search Share', kpi2: 'JS-Blocked Docs', cnnReadout: '54.0% Delayed Page Text Visibility', issue: 'Missing AI Schema & /llms.txt' },
-      { target: 'oracle.com', grade: 'D', score: 48, status: 'WALL_OF_SHAME', kpi1: '9.2% AI Search Share', kpi2: 'AI Crawlers Blocked', cnnReadout: '41.2% Legacy Page Layout Bloat', issue: 'Low AI Search Visibility: Add /llms.txt Fix' },
-      { target: 'legacy-erp.io', grade: 'D', score: 42, status: 'WALL_OF_SHAME', kpi1: '4.1% AI Search Share', kpi2: '0 Schema Tags', cnnReadout: '36.8% Unstructured Page Content', issue: 'Not Cited in ChatGPT Search or Perplexity' }
+      { target: 'estate-150', grade: 'A+', score: 98, status: 'HALL_OF_FAME', kpi1: '98/100 Room Harmony', kpi2: '24"×36" Poster + BEO Ready', cnnReadout: '0 Family Sightline Conflicts • 26/26 Households Coupled', issue: 'Divorced Parents Separated 410px • Clockwise BEO Ready' },
+      { target: 'tuscan-banquet-80', grade: 'A+', score: 99, status: 'HALL_OF_FAME', kpi1: '99/100 Room Harmony', kpi2: '2-Sided Banquet + King’s', cnnReadout: '100% Coupled Households • Courtyard String-Light Geometry', issue: 'Alphabetical A–Z 24"×36" Welcome Sign Ready' },
+      { target: 'planner-beo-sandbox', grade: 'A+', score: 98, status: 'HALL_OF_FAME', kpi1: 'Mom Sandbox Active', kpi2: 'Clockwise Seat 1..N BEO', cnnReadout: 'Tables 1–3 Unlocked for Mom • Tables 4–8 Planner Locked', issue: '4 Severe Allergies & 2 Wheelchair/Highchair Mods Indexed' },
+      { target: 'vip-exec-dinner', grade: 'A', score: 97, status: 'HALL_OF_FAME', kpi1: '1 AE + 5 Buyers/Table', kpi2: '0 Competitors Together', cnnReadout: '97.4% Executive Networking Chemistry', issue: 'Between-Course Seat Rotation Enabled' },
+      { target: 'charity-gala-300', grade: 'A', score: 96, status: 'HALL_OF_FAME', kpi1: '30 Sponsor Captains', kpi2: 'Paddles #101–#300', cnnReadout: '96.2% Check-In Kiosk & QR Lookup Speed', issue: 'VIP Board Host Seats Assigned' },
+      { target: 'zola-manual-chart', grade: 'C', score: 64, status: 'WALL_OF_SHAME', kpi1: 'Manual Drag Only', kpi2: 'No 24"×36" Print Sign', cnnReadout: '58.2% Risk of Splitting Households or Sightline Clashes', issue: 'Requires 5 Hours of Manual Canva Re-Typing' },
+      { target: 'google-sheets-seating', grade: 'D', score: 44, status: 'WALL_OF_SHAME', kpi1: '3 Family Conflicts', kpi2: 'No Clockwise Seat BEO', cnnReadout: '41.0% Unnumbered Seats Confuse Banquet Servers', issue: 'Switch to SeatHarmony Visual Table Rings & BEO' }
     ]
   },
   sponsor_radar: {

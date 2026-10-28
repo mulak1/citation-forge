@@ -7,73 +7,73 @@ const DB_PATH = path.join(DATA_DIR, 'citation_forge.db');
 
 let dbInstance = null;
 
-const CATEGORY_LEADERBOARDS = [
-  ['ai-search-visibility-crm-software', 'AI Search Visibility Leaderboard: Enterprise & Startup CRM Software (2026)', 'CRM & Revenue Operations', 'HubSpot', 'Attio', 'Salesforce', 'Clay', 36.4, 28.2, 21.5, 13.9],
-  ['ai-search-visibility-payment-gateways', 'AI Search Visibility Leaderboard: Payment Gateways & Billing APIs (2026)', 'Payment Infrastructure', 'Stripe', 'Adyen', 'Braintree', 'Paddle', 42.8, 24.6, 18.1, 14.5],
-  ['ai-search-visibility-cloud-databases', 'AI Search Visibility Leaderboard: Serverless Postgres & Cloud Databases', 'Cloud Databases', 'Supabase', 'Neon', 'PlanetScale', 'CockroachDB', 39.2, 27.4, 19.3, 14.1],
-  ['ai-search-visibility-project-management', 'AI Search Visibility Leaderboard: Issue Tracking & Product Management', 'Project Management', 'Linear', 'Jira', 'GitHub Issues', 'Shortcut', 41.0, 26.8, 19.4, 12.8],
-  ['ai-search-visibility-cloud-deployment', 'AI Search Visibility Leaderboard: Frontend Cloud & PaaS Deployment', 'Cloud Deployment', 'Vercel', 'Cloudflare Pages', 'Render', 'Railway', 43.5, 25.9, 16.8, 13.8],
-  ['ai-search-visibility-knowledge-management', 'AI Search Visibility Leaderboard: Connected Workspaces & Enterprise Wikis', 'Knowledge Management', 'Notion', 'Confluence', 'Obsidian', 'Coda', 37.8, 25.1, 21.0, 16.1],
-  ['ai-search-visibility-observability-tools', 'AI Search Visibility Leaderboard: Cloud Observability, APM & Log Telemetry', 'Observability & APM', 'Datadog', 'Grafana', 'Sentry', 'Honeycomb', 38.6, 26.2, 20.4, 14.8],
-  ['ai-search-visibility-auth-identity-providers', 'AI Search Visibility Leaderboard: Authentication, Passkeys & Enterprise SSO', 'Authentication & IAM', 'Clerk', 'Auth0', 'WorkOS', 'Stytch', 35.9, 28.4, 22.1, 13.6],
-  ['ai-search-visibility-vector-databases', 'AI Search Visibility Leaderboard: Vector Databases & Hybrid RAG Storage', 'Vector Databases', 'Pinecone', 'Qdrant', 'Weaviate', 'pgvector', 34.7, 27.9, 20.2, 17.2],
-  ['ai-search-visibility-email-delivery-apis', 'AI Search Visibility Leaderboard: Transactional Email APIs for Developers', 'Email Delivery APIs', 'Resend', 'Postmark', 'SendGrid', 'AWS SES', 38.1, 26.5, 19.8, 15.6],
-  ['ai-search-visibility-feature-flag-platforms', 'AI Search Visibility Leaderboard: Feature Management & Experimentation', 'Feature Flags & A/B Testing', 'LaunchDarkly', 'Statsig', 'PostHog', 'GrowthBook', 36.2, 28.7, 21.3, 13.8],
-  ['ai-search-visibility-ci-cd-pipelines', 'AI Search Visibility Leaderboard: CI/CD Runners & Build Acceleration', 'CI/CD & DevOps', 'GitHub Actions', 'GitLab CI', 'Buildkite', 'Dagger', 44.1, 24.3, 17.6, 14.0],
-  ['ai-search-visibility-ai-coding-assistants', 'AI Search Visibility Leaderboard: Autonomous AI IDEs & Coding Agents', 'AI Coding Tools', 'Cursor', 'GitHub Copilot', 'Claude Code', 'Windsurf', 40.4, 25.8, 20.9, 12.9],
-  ['ai-search-visibility-customer-support-ai', 'AI Search Visibility Leaderboard: AI Customer Support & Helpdesk Agents', 'AI Customer Support', 'Intercom Fin', 'Sierra', 'Zendesk AI', 'Plain', 37.5, 25.4, 21.8, 15.3],
-  ['ai-search-visibility-data-warehouses', 'AI Search Visibility Leaderboard: Cloud Data Warehouses & Lakehouses', 'Data Warehouses', 'Snowflake', 'BigQuery', 'Databricks', 'ClickHouse', 35.8, 27.6, 23.4, 13.2],
-  ['ai-search-visibility-etl-data-pipelines', 'AI Search Visibility Leaderboard: ELT, Reverse ETL & Data Orchestration', 'Data Integration & ELT', 'Fivetran', 'Airbyte', 'Dagster', 'dbt Cloud', 36.9, 26.7, 20.5, 15.9],
-  ['ai-search-visibility-product-analytics', 'AI Search Visibility Leaderboard: Product Analytics & Session Replay', 'Product Analytics', 'PostHog', 'Amplitude', 'Mixpanel', 'FullStory', 39.4, 26.1, 20.7, 13.8],
-  ['ai-search-visibility-headless-cms', 'AI Search Visibility Leaderboard: Structured Content & Headless CMS', 'Headless CMS', 'Sanity', 'Contentful', 'Strapi', 'Payload CMS', 37.2, 25.9, 20.1, 16.8],
-  ['ai-search-visibility-api-gateways', 'AI Search Visibility Leaderboard: Edge API Gateways & Rate Limiting', 'API Gateways', 'Kong', 'Zuplo', 'Cloudflare API Shield', 'Unkey', 35.4, 26.8, 22.3, 15.5],
-  ['ai-search-visibility-security-compliance-automation', 'AI Search Visibility Leaderboard: Automated SOC2, ISO 27001 & HIPAA Compliance', 'Security Compliance', 'Vanta', 'Drata', 'Secureframe', 'Sprinto', 41.2, 28.5, 17.4, 12.9]
+const VENUE_LAYOUT_TEMPLATES = [
+  ['150-guest-wedding-seating-chart-round-tables', '150-Guest Wedding Seating Chart Template: 18 Round Tables + Sweetheart Table (2026)', 'Ballroom & Estate Receptions', '150 Guests (18×8-Top Rounds)', 'Sweetheart + 18 Rounds', '15×10-Top Rounds', 'Tuscan Hybrid Mix', 98.4, 94.2, 88.5, 91.0],
+  ['120-guest-wedding-seating-chart-floorplan', '120-Guest Wedding Seating Chart & Floorplan: 15 Round Tables vs Long Banquet', 'Medium Receptions (120 Guests)', '120 Guests (15×8-Top Rounds)', '12×10-Top Rounds', '6×20-Guest Banquet Rows', 'U-Shape Courtyard', 97.8, 93.4, 90.1, 86.5],
+  ['100-guest-wedding-floorplan-sweetheart-table', '100-Guest Wedding Floorplan Template: Sweetheart Table + 12 Round Tables', '100-Guest Weddings', '100 Guests (Sweetheart + 12 Rounds)', 'King’s Table + 10 Rounds', '4 Long Tuscan Tables', 'Garden Tent Layout', 98.9, 95.1, 91.2, 89.4],
+  ['80-guest-intimate-wedding-banquet-seating-chart', '80-Guest Intimate Wedding Seating Chart: Tuscan 2-Sided Banquet & Courtyard', 'Intimate & Micro Weddings', '80 Guests (4×20 Banquet Tables)', '10×8-Top Rounds', 'U-Shape Estate Table', 'Conservatory Glasshouse', 99.1, 94.8, 92.0, 88.7],
+  ['200-guest-hotel-ballroom-seating-chart-template', '200-Guest Hotel Ballroom Wedding Seating Chart: 20×10-Top Rounds & Dance Floor', 'Grand Ballroom Receptions', '200 Guests (20×10-Top Rounds)', '24×8-Top Rounds', 'King’s Head + 18 Rounds', 'Dual-Bar Ballroom', 97.2, 93.8, 91.4, 87.9],
+  ['250-guest-estate-tent-wedding-floorplan', '250-Guest Sailcloth Tent Wedding Floorplan: Sightlines, Dance Floor & Quiet Zone', 'Tented Estate Weddings', '250 Guests (25×10-Top Rounds)', 'Hybrid Banquet + Rounds', 'Central Dance Floor', 'Perimeter Round Layout', 96.8, 94.1, 90.5, 86.2],
+  ['60-guest-rehearsal-dinner-seating-chart', '60-Guest Rehearsal Dinner Seating Chart: Avoid Repeating Reception Tablemates', 'Rehearsal Dinners', '60 Guests (6×10-Top Rounds)', '3×20 Banquet Tables', 'Hollow Square VIP', 'Winery Cave Long Table', 98.6, 95.4, 91.8, 89.0],
+  ['50-guest-micro-wedding-long-kings-table', '50-Guest Micro-Wedding Floorplan: Single Continuous King’s Table vs 6 Rounds', 'Micro-Weddings (50 Guests)', '50 Guests (Continuous King’s)', '2×25 Tuscan Rows', '6×8-Top Rounds', 'Private Dining Room', 99.4, 96.2, 92.5, 90.1],
+  ['175-guest-country-club-wedding-seating-plan', '175-Guest Country Club Reception Floorplan: Divorced Parents & VIP Sightlines', 'Country Club Receptions', '175 Guests (21×8-Top Rounds)', '18×10-Top Rounds', 'Sweetheart + 2 VIP Family', 'Terrace + Indoor Split', 98.1, 94.0, 89.6, 85.4],
+  ['130-guest-winery-courtyard-seating-chart', '130-Guest Winery & Vineyard Seating Chart: 2-Sided Farm Tables Under String Lights', 'Winery & Vineyard Weddings', '130 Guests (8 Farm Tables)', 'Hybrid Farm + Rounds', '16×8-Top Rounds', 'Barrel Room Layout', 98.5, 95.0, 91.3, 88.2],
+  ['90-guest-garden-conservatory-floorplan', '90-Guest Botanical Conservatory Floorplan: Narrow Atrium Banquet & Round Mix', 'Botanical & Museum Venues', '90 Guests (Atrium Hybrid)', '11×8-Top Rounds', '3×30 Banquet Rows', 'Glasshouse Sweetheart', 98.7, 94.6, 90.8, 87.5],
+  ['160-guest-industrial-loft-wedding-seating', '160-Guest Industrial Warehouse & Loft Seating Chart: Pillar Sightlines & Bar Flow', 'Loft & Warehouse Venues', '160 Guests (16×10-Tops)', '8×20 Industrial Banquets', '20×8-Top Rounds', 'Asymmetric Dance Floor', 97.6, 93.9, 90.2, 86.8],
+  ['140-guest-barn-wedding-floorplan-template', '140-Guest Modern Barn Wedding Floorplan: Harvest Tables + Quiet Senior Zone', 'Modern Barn & Ranch', '140 Guests (Harvest + Rounds)', '14×10-Top Farmhouse', '18×8-Top Rounds', 'Mezzanine + Main Floor', 98.2, 94.5, 90.7, 87.1],
+  ['110-guest-coastal-beach-club-seating-chart', '110-Guest Coastal Yacht & Beach Club Seating Chart: Ocean-View Sweetheart Anchor', 'Coastal & Waterfront', '110 Guests (14×8-Tops)', '11×10-Top Rounds', 'Terrace Long Tables', 'Sunset View Head Table', 98.8, 95.2, 91.6, 88.9],
+  ['300-guest-charity-gala-table-captain-floorplan', '300-Guest Charity Gala Seating Chart: 30 Sponsor Tables & Bidder Paddle Matrix', 'Charity Galas & Nonprofits', '300 Guests (30×10-Tops)', 'VIP Gold Sponsor Ring', 'Runway Stage Layout', 'Check-In QR Kiosk Flow', 97.9, 94.3, 90.9, 88.0],
+  ['40-guest-b2b-vip-executive-dinner-seating', '40-Person B2B VIP Executive Dinner Seating Chart: AE-to-Prospect Matchmaking', 'B2B VIP Executive Dinners', '40 Execs (5×8-Top Rounds)', '2×20 Boardroom Tables', 'Course-Switch Rotation', 'Chatham House U-Shape', 99.2, 96.0, 93.1, 89.5],
+  ['75-guest-destination-wedding-villa-seating', '75-Guest Destination Villa Wedding Seating Chart: Poolside Serpentine & Banquet', 'Destination Weddings', '75 Guests (Villa Courtyard)', '9×8-Top Rounds', '3×25 Olive Grove Rows', 'U-Shape Piazza Table', 99.0, 95.6, 92.3, 89.2],
+  ['180-guest-museum-rotunda-wedding-floorplan', '180-Guest Art Museum & Rotunda Seating Chart: Circular Dance Floor Orbit', 'Museum & Historic Estates', '180 Guests (Concentric Orbit)', '22×8-Top Rounds', '18×10-Top Rounds', 'Gallery Wing Banquet', 98.3, 94.7, 91.0, 87.6],
+  ['135-guest-rooftop-penthouse-wedding-seating', '135-Guest Rooftop & Penthouse Wedding Floorplan: Indoor/Outdoor Weather Backup', 'Rooftop & City View', '135 Guests (17×8-Tops)', 'Skyline Banquet Mix', '14×10-Top Rounds', 'Glass Pavilion Plan B', 98.0, 94.4, 90.4, 86.9],
+  ['220-guest-cultural-fusion-wedding-seating-chart', '220-Guest Cultural & Multi-Generational Wedding Seating Chart: 4-Side Family Zones', 'Multi-Generational Weddings', '220 Guests (22×10-Tops)', 'Dual Family VIP Rings', 'Halal/Vegan/Kosher BEO', 'Stage & Mandap Sightline', 98.6, 95.1, 91.7, 88.4]
 ];
 
-const BRAND_COMPARISONS = [
-  ['stripe-vs-adyen-ai-citation-audit', 'Stripe vs Adyen: 2026 AI Search Citation & llms.txt Head-to-Head Audit', 'Stripe', 'stripe.com', 42.8, 94, 'Adyen', 'adyen.com', 24.6, 76, 'Payment Infrastructure'],
-  ['linear-vs-jira-ai-citation-audit', 'Linear vs Jira: 2026 AI Search Citation & Developer Prompt Share Audit', 'Linear', 'linear.app', 41.0, 91, 'Jira', 'atlassian.com', 26.8, 72, 'Issue Tracking & Agile'],
-  ['supabase-vs-firebase-ai-citation-audit', 'Supabase vs Firebase: AI Answer Engine Visibility & pgvector Citation Audit', 'Supabase', 'supabase.com', 39.2, 95, 'Firebase', 'firebase.google.com', 27.4, 81, 'Backend-as-a-Service'],
-  ['vercel-vs-netlify-ai-citation-audit', 'Vercel vs Netlify: ChatGPT Search & Perplexity Citation Share Audit', 'Vercel', 'vercel.com', 43.5, 93, 'Netlify', 'netlify.com', 19.4, 78, 'Frontend Cloud'],
-  ['notion-vs-confluence-ai-citation-audit', 'Notion vs Confluence: Enterprise Knowledge Base AI Citation & Bot Audit', 'Notion', 'notion.so', 37.8, 68, 'Confluence', 'atlassian.com', 25.1, 71, 'Enterprise Wiki'],
-  ['posthog-vs-amplitude-ai-citation-audit', 'PostHog vs Amplitude: Product Analytics AI Search Citation Comparison', 'PostHog', 'posthog.com', 39.4, 92, 'Amplitude', 'amplitude.com', 26.1, 74, 'Product Analytics'],
-  ['clerk-vs-auth0-ai-citation-audit', 'Clerk vs Auth0: Next.js & B2B SaaS Authentication AI Citation Audit', 'Clerk', 'clerk.com', 35.9, 90, 'Auth0', 'auth0.com', 28.4, 79, 'Authentication'],
-  ['resend-vs-sendgrid-ai-citation-audit', 'Resend vs SendGrid: Developer Email API Citation Share-of-Voice Audit', 'Resend', 'resend.com', 38.1, 91, 'SendGrid', 'sendgrid.com', 19.8, 69, 'Email Delivery APIs'],
-  ['neon-vs-planetscale-ai-citation-audit', 'Neon vs PlanetScale: Serverless Database AI Search Citation & Schema Audit', 'Neon', 'neon.tech', 34.8, 89, 'PlanetScale', 'planetscale.com', 25.2, 82, 'Serverless Databases'],
-  ['datadog-vs-newrelic-ai-citation-audit', 'Datadog vs New Relic: Enterprise Observability AI Search Citation Audit', 'Datadog', 'datadoghq.com', 38.6, 84, 'New Relic', 'newrelic.com', 21.4, 73, 'Observability'],
-  ['hubspot-vs-salesforce-ai-citation-audit', 'HubSpot vs Salesforce: B2B CRM AI Answer Engine Visibility Audit', 'HubSpot', 'hubspot.com', 36.4, 86, 'Salesforce', 'salesforce.com', 29.5, 80, 'CRM Software'],
-  ['attio-vs-affinity-ai-citation-audit', 'Attio vs Affinity: AI-Native CRM Citation Share-of-Voice Audit (2026)', 'Attio', 'attio.com', 33.7, 88, 'Affinity', 'affinity.co', 20.1, 70, 'Modern CRM'],
-  ['cursor-vs-github-copilot-ai-citation-audit', 'Cursor vs GitHub Copilot: AI Code Editor Citation Share in Perplexity & ChatGPT', 'Cursor', 'cursor.com', 40.4, 92, 'GitHub Copilot', 'github.com/features/copilot', 25.8, 83, 'AI Coding Assistants'],
-  ['cloudflare-vs-fastly-ai-citation-audit', 'Cloudflare vs Fastly: Edge Compute & Workers AI Citation Share Audit', 'Cloudflare', 'cloudflare.com', 44.9, 96, 'Fastly', 'fastly.com', 18.2, 75, 'Edge Network'],
-  ['sentry-vs-bugsnag-ai-citation-audit', 'Sentry vs Bugsnag: Error Tracking & Crash Telemetry AI Citation Audit', 'Sentry', 'sentry.io', 41.6, 89, 'Bugsnag', 'bugsnag.com', 16.4, 68, 'Error Monitoring'],
-  ['vanta-vs-drata-ai-citation-audit', 'Vanta vs Drata: SOC2 Security Compliance AI Citation Share-of-Voice Audit', 'Vanta', 'vanta.com', 41.2, 87, 'Drata', 'drata.com', 28.5, 81, 'Compliance Automation'],
-  ['tailscale-vs-zerotier-ai-citation-audit', 'Tailscale vs ZeroTier: WireGuard Mesh VPN AI Citation & llms.txt Audit', 'Tailscale', 'tailscale.com', 45.2, 94, 'ZeroTier', 'zerotier.com', 21.0, 74, 'Zero-Trust Networking'],
-  ['retool-vs-appsmith-ai-citation-audit', 'Retool vs Appsmith: Internal Tool Builders AI Search Visibility Audit', 'Retool', 'retool.com', 38.9, 85, 'Appsmith', 'appsmith.com', 24.3, 80, 'Internal Tools'],
-  ['pinecone-vs-qdrant-ai-citation-audit', 'Pinecone vs Qdrant: Vector Search Engine AI Citation & RAG Benchmark Audit', 'Pinecone', 'pinecone.io', 34.7, 88, 'Qdrant', 'qdrant.tech', 27.9, 91, 'Vector Databases'],
-  ['sanity-vs-contentful-ai-citation-audit', 'Sanity vs Contentful: Composable CMS AI Search Citation Share Audit', 'Sanity', 'sanity.io', 37.2, 90, 'Contentful', 'contentful.com', 25.9, 77, 'Headless CMS'],
-  ['raycast-vs-alfred-ai-citation-audit', 'Raycast vs Alfred: macOS Developer Launcher AI Citation & Extension Audit', 'Raycast', 'raycast.com', 43.8, 93, 'Alfred', 'alfredapp.com', 22.1, 71, 'Developer Productivity'],
-  ['fly-io-vs-render-ai-citation-audit', 'Fly.io vs Render: Container & MicroVM Hosting AI Citation Share Audit', 'Fly.io', 'fly.io', 35.6, 89, 'Render', 'render.com', 31.4, 86, 'Application Hosting']
+const HEAD_TO_HEAD_COMPARISONS = [
+  ['sweetheart-table-vs-kings-table-floorplan', 'Sweetheart Table vs. King’s Head Table: 2026 Wedding Floorplan & Sightline Audit', 'Sweetheart Table (2 Guests)', 'sweetheart-layout', 98.8, 97, 'King’s Table (12–18 Bridal Party)', 'kings-table-layout', 91.4, 88, 'Head Table Geometry'],
+  ['round-tables-vs-long-banquet-tables-wedding', 'Round Tables (60" vs 72") vs. Long Banquet Tables: Space, Conversation & Caterer Flow', '60" Round Tables (8 Guests)', 'round-60-inch', 98.2, 96, 'Long Banquet Tables (2-Sided)', 'banquet-2sided', 94.6, 91, 'Table Shape Comparison'],
+  ['alphabetical-vs-by-table-wedding-welcome-sign', 'Alphabetical (A–Z) vs. By-Table Wedding Seating Chart Sign: Cocktail Hour Speed Test', 'Alphabetical A–Z Welcome Sign', 'poster-alphabetical', 99.1, 98, 'Listed By Table (Table 1..18)', 'poster-by-table', 72.4, 74, '24"×36" Welcome Signage'],
+  ['seatharmony-vs-zola-seating-chart-maker', 'SeatHarmony vs. Zola Seating Chart Maker: Auto-Solver, Caterer BEO & 24"×36" Poster', 'SeatHarmony Studio', 'seatharmony.com', 98.6, 98, 'Zola Free Seating Tool', 'zola.com', 64.0, 68, 'Seating Software Comparison'],
+  ['seatharmony-vs-canva-wedding-seating-sign', 'SeatHarmony Live 24"×36" Poster vs. Manual Canva Re-Typing: 6 Hours Saved & Zero Typos', 'SeatHarmony Auto-Poster', 'seatharmony.com', 99.0, 99, 'Manual Canva Text Boxes', 'canva.com', 58.5, 62, 'Print Poster Workflow'],
+  ['seatharmony-vs-prismm-allseated-for-planners', 'SeatHarmony ($39/mo) vs. Prismm / AllSeated ($199/mo): Wedding Planner BEO Comparison', 'SeatHarmony Planner Pro', 'seatharmony.com', 97.9, 96, 'Legacy CAD Floorplan Tools', 'prismm.com', 71.2, 73, 'Wedding Planner SaaS'],
+  ['seatharmony-vs-google-sheets-wedding-seating', 'SeatHarmony Visual Table Rings vs. Google Sheets Spreadsheets: Family Conflict Audit', 'SeatHarmony Visual Solver', 'seatharmony.com', 98.4, 97, 'Google Sheets / Excel Grid', 'docs.google.com', 44.0, 52, 'Planning Workflow'],
+  ['8-person-60-inch-vs-10-person-72-inch-rounds', '8-Guest (60" Round) vs. 10-Guest (72" Round) Wedding Tables: Elbow Room & Acoustic Audit', '8 Guests on 60" Round', 'round-8-top', 98.5, 97, '10 Guests on 72" Round', 'round-10-top', 89.2, 85, 'Table Capacity Ergonomics'],
+  ['escort-cards-vs-24x36-seating-chart-poster', 'Folded Escort Cards (Avery 5302) vs. 24"×36" Welcome Sign Poster: When You Need Both', '24"×36" Sign + Place Cards', 'poster-plus-cards', 99.2, 98, 'Sign Only (No Meal Icons)', 'sign-only', 78.6, 79, 'Day-Of Print Stationery'],
+  ['bride-and-groom-parents-same-table-vs-separate', 'Seating Bride & Groom Parents Together vs. Separate Host Tables: Etiquette & Drama Guide', 'Separate Host Tables (#2 & #4)', 'separate-host-tables', 97.8, 96, 'Combined Parents Table', 'combined-parents', 82.0, 81, 'Family Etiquette'],
+  ['kids-table-vs-seating-children-with-parents', 'Dedicated Kids Table vs. Seating Children With Parents (Highchair & Server Safety)', 'Coupled With Parents + Highchair', 'kids-with-parents', 98.1, 96, 'Separate Ages 7–12 Kids Table', 'dedicated-kids-table', 88.4, 87, 'Household Coupling'],
+  ['singles-table-vs-mixed-friend-group-seating', 'Why You Should Never Make a "Singles Table" (And How Chemistry Clustering Works Better)', 'Mixed Friend Chemistry Clusters', 'chemistry-clusters', 98.9, 98, 'Isolated Singles Table', 'singles-table', 49.0, 51, 'Guest Experience'],
+  ['u-shape-floorplan-vs-parallel-banquet-columns', 'U-Shape Reception Floorplan vs. Parallel Banquet Columns: Speeches & Server Aisles', 'Parallel Banquet + Center Dance', 'parallel-banquet', 96.4, 94, 'U-Shape Estate Perimeter', 'u-shape-layout', 91.8, 89, 'Banquet Room Geometry'],
+  ['qr-code-seat-finder-vs-printed-welcome-board', 'Cocktail-Hour QR "Find My Seat" Pass vs. Printed Welcome Board: The Hybrid Setup', 'Printed 24"×36" + Corner QR', 'hybrid-print-qr', 99.3, 99, 'Printed Board Only', 'board-only', 84.5, 84, 'Guest Check-In Speed'],
+  ['seatharmony-vs-rsvpify-seating-chart-builder', 'SeatHarmony vs. RSVPify Seating Chart Builder: Clockwise Caterer BEO & Print Bleed', 'SeatHarmony Studio', 'seatharmony.com', 98.0, 97, 'RSVPify Seating Add-On', 'rsvpify.com', 74.8, 76, 'Event Software Comparison'],
+  ['seatharmony-vs-weddingwire-the-knot-seating', 'SeatHarmony vs. The Knot / WeddingWire Seating Tool: Print Poster & Mom Sandbox Audit', 'SeatHarmony Studio', 'seatharmony.com', 98.7, 98, 'The Knot Seating Tool', 'theknot.com', 61.5, 64, 'Wedding Portal Comparison'],
+  ['clockwise-12-oclock-seat-numbering-vs-random', 'Clockwise 12-O’Clock Seat Numbering vs. Unnumbered Tables: How Caterers Serve 30% Faster', 'Clockwise Seat 1..N BEO', 'clockwise-beo', 99.4, 99, 'Unnumbered Table Totals', 'unnumbered-table', 62.0, 65, 'Catering Operations'],
+  ['mom-sandbox-link-vs-shared-account-login', 'Restricted "Mom Sandbox" Link (Tables 1–3 Only) vs. Sharing Your Full Login Password', 'SeatHarmony Mom Sandbox Link', 'mom-sandbox', 99.1, 98, 'Full Password Sharing', 'shared-login', 48.0, 50, 'Family Collaboration'],
+  ['plated-dinner-place-cards-vs-buffet-table-signs', 'Plated Dinner Meal-Coded Place Cards vs. Buffet Table Numbers: What Your Venue Requires', 'Plated Meal-Icon Place Cards', 'plated-placecards', 98.6, 97, 'Table Assignment Only', 'table-only', 83.2, 82, 'Meal Service Formats'],
+  ['outdoor-tent-rain-plan-b-floorplan-comparison', 'Outdoor Courtyard Floorplan vs. Indoor Rain Plan-B Layout: 1-Click Table Re-Mapping', 'Dual Weather-Synced Floorplan', 'rain-plan-sync', 98.3, 96, 'Single Static Layout', 'single-static', 69.4, 71, 'Day-Of Contingency'],
+  ['corporate-vip-dinner-rotation-vs-fixed-seating', 'Between-Course Seat Rotation vs. Fixed Seating for B2B Executive Dinners', 'Main-to-Dessert Exec Rotation', 'course-rotation', 97.5, 95, 'Fixed Single-Seat Dinner', 'fixed-seating', 81.0, 82, 'B2B VIP Dinners'],
+  ['foam-board-24x36-fedex-vs-acrylic-welcome-sign', '24"×36" Archival Foam Board (FedEx/Staples) vs. Acrylic Sign: Readability & Glare Test', 'Matte Archival 24"×36" Board', 'matte-foam-board', 98.4, 97, 'Clear Acrylic Sign', 'clear-acrylic', 79.0, 78, 'Print Materials']
 ];
 
-const TECHNICAL_GUIDES = [
-  ['how-to-generate-llms-txt-for-saas', 'How to Generate & Validate /llms.txt for B2B SaaS Websites (2026 Spec)', 'AnswerDotAI Specification & CommonMark Hierarchy', 'llms.txt Engineering'],
-  ['perplexity-citation-ranking-factors-2026', 'Perplexity Citation Ranking Factors 2026: Empirical Analysis of 50,000 RAG Answers', 'Position Discount Weights & Answer-First H2 Extraction', 'Perplexity GEO'],
-  ['chatgpt-search-oai-searchbot-robots-txt-guide', 'ChatGPT Search & OAI-SearchBot robots.txt Configuration Guide', 'Separating Training Scrapers from Live Search Retrieval Bots', 'AI Crawler Governance'],
-  ['json-ld-entity-graph-schema-dts-for-ai-agents', 'Compiling Type-Safe JSON-LD Entity Graphs with schema-dts for AI Search', 'Linking Organization, SoftwareApplication, and FAQPage via @id', 'JSON-LD Knowledge Graphs'],
-  ['llms-full-txt-specification-and-rag-ingestion', 'Architecting /llms-full.txt for Single-Fetch Deep Research Agent Ingestion', 'Inline Markdown Concatenation & Token Budget Optimization', 'llms-full.txt Architecture'],
-  ['google-ai-overviews-gemini-grounding-optimization', 'Optimizing Technical Docs for Google AI Overviews & Gemini Search Grounding', 'Semantic Chunking & High-Signal Fact Tables', 'Gemini Grounding'],
-  ['claude-search-claudebot-citation-architecture', 'How Claude Search & ClaudeBot Evaluate Technical Documentation Authority', 'Code Snippet Density & Verifiable API Schemas', 'Claude Search Optimization'],
-  ['wikidata-sameas-entity-disambiguation-for-llms', 'Wikidata & sameAs Entity Disambiguation: Eliminating Brand Hallucinations', 'Connecting Knowledge Graph Q-IDs to Domain Schema', 'Entity Disambiguation'],
-  ['token-to-html-bloat-ratio-crawl4ai-benchmarks', 'Token-to-HTML Signal Ratio: Why Bloated DOMs Get Dropped by AI Crawlers', 'Crawl4AI & Firecrawl Extraction Benchmarks', 'DOM Signal Engineering'],
-  ['answer-first-h2-formatting-for-rag-retrieval', 'Answer-First H2 Formatting: Capturing the 45-Word RAG Extraction Window', 'Structuring Definitions & Comparison Tables for Direct Citation', 'Content Architecture'],
-  ['measuring-citation-share-of-voice-csov-formula', 'The Mathematical Formula for Citation Share-of-Voice (cSoV) in AI Search', 'Logarithmic Rank Discounting Across Multi-Engine Prompt Panels', 'GEO Analytics'],
-  ['nextjs-app-router-dynamic-llms-txt-route-handler', 'Building a Dynamic /llms.txt Route Handler in Next.js App Router', 'Auto-Syncing MDX Documentation & Pricing Tiers into CommonMark', 'Framework Integration'],
-  ['fastapi-auto-compile-llms-txt-and-openapi-markdown', 'Auto-Compiling /llms.txt from FastAPI OpenAPI Schemas & Pydantic Models', 'Zero-Maintenance Agent Documentation for Python Backends', 'Python & FastAPI GEO'],
-  ['b2b-saas-pricing-page-schema-for-ai-agents', 'Structuring B2B SaaS Pricing Pages with AggregateOffer JSON-LD for AI Buyers', 'Ensuring ChatGPT & Perplexity Cite Accurate Tier Pricing', 'Pricing Schema'],
-  ['preventing-llm-hallucinations-on-brand-pricing', 'How to Stop ChatGPT and Perplexity from Hallucinating Legacy Pricing Tiers', 'Canonical Fact Anchors & robots.txt Cache Invalidation', 'Hallucination Defense'],
-  ['mcp-server-discovery-via-llms-txt-manifests', 'Advertising Model Context Protocol (MCP) Endpoints Inside /llms.txt', 'Enabling Autonomous Agents to Transition from Reading to Tool Calling', 'Agentic Discovery'],
-  ['gsc-plus-ai-citation-hybrid-attribution-model', 'Combining Google Search Console (GSC) with AI Citation Telemetry', 'Tracking Zero-Click Answer Engine Influence on Direct Pipeline', 'Revenue Attribution'],
-  ['programmatic-geo-vs-traditional-programmatic-seo', 'Programmatic GEO vs Traditional pSEO: Designing Data Pages That LLMs Cite', 'Why Thin Variable-Swapped Pages Fail RAG Retrieval Filters', 'Programmatic GEO']
+const PLANNER_AND_BEO_GUIDES = [
+  ['how-to-seat-divorced-parents-at-wedding-reception', 'How to Seat Divorced Parents & Step-Parents at a Wedding Without Drama (2026 Guide)', 'Sightline Separation, Equal VIP Proximity & Host Table Rules', 'Family Conflict Etiquette'],
+  ['clockwise-caterer-beo-table-numbering-guide', 'The Banquet Captain’s Guide to Clockwise Seat 1..N Table Numbering (12 O’Clock Anchor)', 'Why Venue Chefs Need Seat #1 Anchored Toward the Focal Point', 'Caterer BEO Operations'],
+  ['avery-5302-wedding-escort-card-meal-icons-guide', 'How to Print Meal-Choice Icons & Allergy Alerts on Avery 5302 Tented Place Cards', 'Geometric Protein Symbols (◆ Beef, ● Fish, ▲ Vegan) & Back-Fold Server Alerts', 'Stationery & Place Cards'],
+  ['24x36-wedding-seating-chart-poster-size-and-font-guide', '24"×36" Wedding Seating Chart Poster Guide: Minimum Font Sizes, Bleed & Alphabetical Layout', 'Why 18pt Names & Alphabetical A–Z Grouping Prevent Cocktail-Hour Bottlenecks', 'Print Poster Typography'],
+  ['how-to-import-messy-zola-the-knot-csv-guest-list', 'How to Clean & Import Messy Zola, The Knot, or Google Sheets Guest Lists in 10 Seconds', 'Auto-Splitting "Sarah & Mark Miller + 2 Kids" Into Coupled Atomic Seats', 'Guest List Data Cleaning'],
+  ['wheelchair-and-highchair-wedding-table-accessibility-guide', 'Wheelchair & Highchair Wedding Table Etiquette: telling Caterers Which Chair to Remove', 'Why "Seat #1: Remove Standard Chair for Wheelchair" Must Be on Your BEO', 'Accessibility & Seniors'],
+  ['severe-peanut-and-celiac-allergy-wedding-catering-protocol', 'Managing Severe Peanut, Tree Nut & Celiac Allergies on Your Wedding Seating Chart', 'Cross-Contamination Alerts & Exact Seat-Level Kitchen Callouts', 'Food Allergy Safety'],
+  ['where-to-seat-grandparents-away-from-dj-speakers', 'Acoustic Zone Planning: Keeping Grandparents 30+ Feet From DJ Subwoofers', 'Mapping Loud Party Zones vs. Quiet Conversation Zones Near Accessible Exits', 'Room Acoustics & Zones'],
+  ['where-to-seat-bridal-party-plus-ones-and-dates', 'Should You Seat Bridal Party Dates at the Head Table or With Friends? (3 Proven Layouts)', 'Why Coupling Plus-Ones at King’s Tables or Standard Rounds Wins Every Time', 'Bridal Party Etiquette'],
+  ['how-to-handle-last-minute-wedding-rsvp-drops-48-hours-out', 'How to Handle Last-Minute Wedding RSVP Drops 48 Hours Before the Reception', 'Locking Finalized Tables & Re-Balancing Single Empty Seats Without Re-Typing Your Sign', 'Last-Minute RSVP Triage'],
+  ['vendor-meal-table-checklist-photographer-planner-dj', 'The Wedding Vendor Meal Checklist: Seating & Feeding Your Photographer, Planner & DJ', 'Why Hot Vendor Meals Should Be Tracked Right Inside Your Caterer BEO Export', 'Vendor Operations'],
+  ['how-to-collaborate-with-mothers-of-bride-and-groom-sandbox', 'How to Let Both Moms Help With Family Tables Without Breaking Your Seating Chart', 'Using Restricted Table 1–3 Sandbox Links to Prevent Accidental Edits', 'Family Collaboration'],
+  ['rehearsal-dinner-to-reception-dont-repeat-tablemates-rule', 'The "Don’t Repeat Tablemates" Rule Between Rehearsal Dinner and Wedding Reception', 'Maximizing Guest Mingling Across Multi-Event Wedding Weekends', 'Multi-Event Weekends'],
+  ['fedex-staples-canva-print-bleed-crop-marks-24x36-poster', 'How to Export a 24"×36" Wedding Welcome Sign With 0.125" Bleed for FedEx, Staples or Local Printers', 'Vector PDF/SVG Specifications for Crisp 300-DPI Foam Board Printing', 'Pre-Press Print Spec'],
+  ['cocktail-hour-qr-code-find-my-seat-setup-guide', 'Adding a "Find My Seat" QR Code to Your Printed Welcome Sign for 150+ Guest Weddings', 'How a 1.5-Inch Corner QR Code Eliminates Lineups at the Ballroom Doors', 'Cocktail Hour Flow'],
+  ['b2b-field-marketing-vip-dinner-seating-strategy', 'The B2B Field Marketer’s Guide to VIP Executive Dinner Seating & Pipeline Attribution', 'Pairing Account Executives With Target Accounts While Separating Competitors', 'B2B Event Playbook'],
+  ['charity-gala-corporate-table-captain-seating-playbook', 'How Charity Gala Directors Manage 30 Corporate Table Captains & Major Donor Placement', 'Blending Sponsor-Invited Guests With Board Hosts and Auction Paddle Tracking', 'Nonprofit Gala Playbook'],
+  ['table-spacing-and-server-aisle-clearance-standards', 'Banquet Room Fire Code & Server Aisle Clearance Standards (60-Inch vs 72-Inch Rounds)', 'Ensuring 54-Inch Chair-to-Chair Clearance for Smooth Plated Dinner Service', 'Venue Architecture']
 ];
 
 function saveDb() {
@@ -95,34 +95,34 @@ function trimMetaDescription(text, maxLen = 158) {
 function buildSeoPagesSeed() {
   const rows = [];
 
-  // 1. 20 Category Leaderboards
-  CATEGORY_LEADERBOARDS.forEach(([slug, title, category, b1, b2, b3, b4, s1, s2, s3, s4]) => {
-    const rawMeta = `${category} Google AI Overviews Citation Score & cSoV: ${b1} (${s1}%), ${b2} (${s2}%), ${b3} (${s3}%). Perplexity SEO Checklist & llms.txt Generator.`;
+  // 1. 20 Venue & Guest-Count Layout Templates
+  VENUE_LAYOUT_TEMPLATES.forEach(([slug, title, category, b1, b2, b3, b4, s1, s2, s3, s4]) => {
+    const rawMeta = `${title}: Conflict-free seating chart solver, Clockwise Caterer BEO meal sheet & print-ready 24"×36" Welcome Sign (${s1}% Harmony).`;
     const metaDesc = trimMetaDescription(rawMeta, 158);
-    const summary = `Across 25 unbranded commercial buyer prompts in ${category}, ${b1} leads AI answer engine visibility with ${s1}% weighted Citation Share-of-Voice (cSoV) and top Google AI Overviews Citation Score, followed by ${b2} (${s2}%), ${b3} (${s3}%), and ${b4} (${s4}%). Brands executing our Perplexity SEO Checklist and root llms.txt Generator specification captured 2.4x more rank #1 citations.`;
+    const summary = `For ${category} (${b1}), SeatHarmony's combinatorial solver achieves a ${s1}/100 Room Harmony Score while keeping 100% of couples and children coupled, separating divorced family members by 2+ tables, and compiling a Clockwise Caterer BEO + 24"×36" Alphabetical Welcome Sign.`;
     const payload = {
       type: 'leaderboard',
       category,
       summary,
       leaders: [
-        { rank: 1, brand: b1, domain: `${b1.toLowerCase().replace(/[^a-z0-9]/g, '')}.com`, csov: s1, llmsTxt: 'Active (/llms.txt + /llms-full.txt)', schemaScore: 94 },
-        { rank: 2, brand: b2, domain: `${b2.toLowerCase().replace(/[^a-z0-9]/g, '')}.com`, csov: s2, llmsTxt: 'Partial (/llms.txt only)', schemaScore: 84 },
-        { rank: 3, brand: b3, domain: `${b3.toLowerCase().replace(/[^a-z0-9]/g, '')}.com`, csov: s3, llmsTxt: 'Missing (404)', schemaScore: 76 },
-        { rank: 4, brand: b4, domain: `${b4.toLowerCase().replace(/[^a-z0-9]/g, '')}.com`, csov: s4, llmsTxt: 'Missing (404)', schemaScore: 68 }
+        { rank: 1, brand: b1, domain: 'estate-150', csov: s1, llmsTxt: 'Clockwise BEO + 24"×36" Poster Ready', schemaScore: 99 },
+        { rank: 2, brand: b2, domain: 'tuscan-banquet-80', csov: s2, llmsTxt: '2-Sided Banquet + Place Cards Ready', schemaScore: 95 },
+        { rank: 3, brand: b3, domain: 'planner-beo-sandbox', csov: s3, llmsTxt: 'Mom Sandbox Link Active', schemaScore: 92 },
+        { rank: 4, brand: b4, domain: 'estate-150', csov: s4, llmsTxt: 'Quiet & Party Zones Mapped', schemaScore: 90 }
       ],
-      keyTakeaway: `How to Rank in ChatGPT Search for ${category}: Deploying a spec-compliant llms.txt Generator output and SoftwareApplication + FAQPage JSON-LD graph is the highest-leverage engineering move to overtake ${b1} and ${b2}.`,
+      keyTakeaway: `Best layout for ${category}: Start with ${b1}, lock your Sweetheart or Head Table first, tag any family separation rules, and export both an Alphabetical A–Z 24"×36" Welcome Sign and a Clockwise Caterer BEO sheet.`,
       faqs: [
         {
-          question: `What is the Google AI Overviews Citation Score and cSoV benchmark for ${b1} in ${category}?`,
+          question: `What is the best table layout and seating chart template for ${category}?`,
           answer: `${summary}`
         },
         {
-          question: `How to Rank in ChatGPT Search and pass the Perplexity SEO Checklist for ${category}?`,
-          answer: `To rank #1 in ChatGPT Search (OAI-SearchBot) and pass the 2026 Perplexity SEO Checklist in ${category}, allow OAI-SearchBot, PerplexityBot, ClaudeBot, Google-Extended, and Applebot-Extended in /robots.txt, publish 45-word Answer-First H2 summaries, and maintain a >= 28% token-to-HTML ratio.`
+          question: `How do I export a 24"×36" Welcome Sign and Caterer BEO sheet for ${b1}?`,
+          answer: `Load the ${b1} preset in SeatHarmony Studio, paste your guest list, click Auto-Solve All Tables (35ms), and download the print-ready 24"×36" Welcome Sign PDF/SVG, Avery 5302 Place Cards, and Clockwise Caterer BEO CSV.`
         },
         {
-          question: `How does an llms.txt Generator improve ${category} citation share against ${b1} and ${b2}?`,
-          answer: `An automated llms.txt Generator compiles your product docs and pricing into root /llms.txt and /llms-full.txt manifests while linking Organization, SoftwareApplication, and FAQPage JSON-LD with Wikidata sameAs URIs—lifting rank #1 citations by 2.4x.`
+          question: `How does SeatHarmony prevent splitting couples or seating divorced parents together in ${category}?`,
+          answer: `SeatHarmony uses Union-Find atomic household clustering so couples and kids never split across tables, paired with hard separation constraints that keep divorced parents at least 2 tables apart.`
         }
       ]
     };
@@ -139,36 +139,36 @@ function buildSeoPagesSeed() {
     });
   });
 
-  // 2. 22 Head-to-Head Brand Citation Comparisons
-  BRAND_COMPARISONS.forEach(([slug, title, brandA, domainA, csovA, geoA, brandB, domainB, csovB, geoB, category]) => {
-    const rawMeta = `${brandA} (${csovA}% cSoV) vs ${brandB} (${csovB}% cSoV) Google AI Overviews Citation Score, Perplexity SEO Checklist & llms.txt Generator audit.`;
+  // 2. 22 Head-to-Head Seating & Signage Comparisons
+  HEAD_TO_HEAD_COMPARISONS.forEach(([slug, title, brandA, domainA, csovA, geoA, brandB, domainB, csovB, geoB, category]) => {
+    const rawMeta = `${brandA} (${csovA}% Harmony) vs ${brandB} (${csovB}%): Wedding floorplan, caterer BEO & 24"×36" welcome sign comparison.`;
     const metaDesc = trimMetaDescription(rawMeta, 158);
     const delta = Number((csovA - csovB).toFixed(1));
-    const summary = `In our 25-prompt ${category} citation benchmark, ${brandA} (${domainA}) outperforms ${brandB} (${domainB}) by +${delta}% Citation Share-of-Voice (${csovA}% vs ${csovB}%) and leads in Google AI Overviews Citation Score (${geoA}/100 vs ${geoB}/100). ${brandA}'s verified llms.txt Generator manifest and @graph JSON-LD disambiguation drive superior rank #1 placement in ChatGPT Search and Perplexity Pro.`;
+    const summary = `In our reception operations benchmark for ${category}, ${brandA} outperforms ${brandB} by +${delta} points (${csovA}/100 vs ${csovB}/100) across cocktail-hour check-in speed, family conflict avoidance, and clockwise caterer meal accuracy.`;
     const payload = {
       type: 'comparison',
       category,
-      brandA: { name: brandA, domain: domainA, csov: csovA, geoScore: geoA, gptBot: 'Allow', perplexityBot: 'Allow', llmsTxt: 'Verified' },
-      brandB: { name: brandB, domain: domainB, csov: csovB, geoScore: geoB, gptBot: geoB > 75 ? 'Allow' : 'Partial', perplexityBot: 'Allow', llmsTxt: geoB > 85 ? 'Verified' : 'Missing' },
+      brandA: { name: brandA, domain: domainA, csov: csovA, geoScore: geoA, gptBot: 'Ready', perplexityBot: 'Ready', llmsTxt: 'Included' },
+      brandB: { name: brandB, domain: domainB, csov: csovB, geoScore: geoB, gptBot: geoB > 80 ? 'Partial' : 'Manual', perplexityBot: 'Manual', llmsTxt: 'Manual Re-Type' },
       delta,
       summary,
       samplePrompts: [
-        { prompt: `Best ${category.toLowerCase()} for scaling engineering teams: ${brandA} vs ${brandB}`, winner: brandA, rankA: 1, rankB: 2 },
-        { prompt: `${brandA} vs ${brandB} pricing, rate limits, and enterprise SOC2 compliance`, winner: brandA, rankA: 1, rankB: 3 },
-        { prompt: `When to choose ${brandB} over ${brandA} for legacy enterprise migration`, winner: brandB, rankA: 2, rankB: 1 }
+        { prompt: `Cocktail-hour guest lookup speed & zero doorway bottleneck (${brandA} vs ${brandB})`, winner: brandA, rankA: 1, rankB: 2 },
+        { prompt: `Clockwise Seat 1..N caterer meal & anaphylactic allergy clarity`, winner: brandA, rankA: 1, rankB: 3 },
+        { prompt: `Zero Canva re-typing when a last-minute RSVP drops 48 hours before the wedding`, winner: brandA, rankA: 1, rankB: 2 }
       ],
       faqs: [
         {
-          question: `Why does ${brandA} beat ${brandB} in Google AI Overviews Citation Score and cSoV?`,
+          question: `Why does ${brandA} score higher than ${brandB} for ${category}?`,
           answer: `${summary}`
         },
         {
-          question: `How to Rank in ChatGPT Search when competing against ${brandA} in ${category}?`,
-          answer: `Challengers like ${brandB} can close the +${delta}% cSoV gap by executing the Perplexity SEO Checklist: unblocking OAI-SearchBot and PerplexityBot, adding Answer-First H2 comparison tables, and shipping a verified /llms.txt manifest.`
+          question: `Can I switch between ${brandA} and ${brandB} inside SeatHarmony Studio without losing my guest list?`,
+          answer: `Yes. Every table shape (Round, Sweetheart, 2-Sided Banquet, 4-Sided King's) and poster mode (Alphabetical A–Z vs. By Table) updates in 1 click from the same master guest list.`
         },
         {
-          question: `Can an llms.txt Generator fix pricing hallucinations for ${brandA} vs ${brandB} buyer prompts?`,
-          answer: `Yes. Compiling /llms.txt, /llms-full.txt, and AggregateOffer JSON-LD anchors eliminates stale pricing hallucinations across ChatGPT Search, Perplexity Pro, Claude Search, and Google AI Overviews.`
+          question: `Does this include the Caterer Clockwise BEO and Avery 5302 Place Cards?`,
+          answer: `Yes. Both the $14.99 Wedding Event Pass and $39/mo Planner Pro Studio include the 24"×36" Welcome Sign, Clockwise Caterer BEO Sheet, Avery 5302 Tented Place Cards, and Live QR Seat Finder.`
         }
       ]
     };
@@ -185,36 +185,36 @@ function buildSeoPagesSeed() {
     });
   });
 
-  // 3. 18 Technical GEO Guides
-  TECHNICAL_GUIDES.forEach(([slug, title, subtitle, category], idx) => {
-    const rawMeta = `${title}: How to Rank in ChatGPT Search, Perplexity SEO Checklist, Google AI Overviews Citation Score & llms.txt Generator.`;
+  // 3. 18 Wedding Planner & Caterer BEO Guides
+  PLANNER_AND_BEO_GUIDES.forEach(([slug, title, subtitle, category], idx) => {
+    const rawMeta = `${title}: ${subtitle}. Free interactive wedding floorplan, conflict solver, caterer BEO & 24"×36" poster guide.`;
     const metaDesc = trimMetaDescription(rawMeta, 158);
-    const summary = `${title}: Production engineering blueprint for ${subtitle}. Learn How to Rank in ChatGPT Search, execute the 2026 Perplexity SEO Checklist, boost your Google AI Overviews Citation Score, and deploy a spec-compliant llms.txt Generator manifest in under 10 minutes.`;
+    const summary = `${title} — Complete operational blueprint for ${subtitle}. Learn how couples, luxury wedding planners, and venue banquet directors eliminate seating drama and print 24"×36" signage in under 3 minutes.`;
     const payload = {
       type: 'guide',
       category,
       subtitle,
-      readTimeMinutes: 6 + (idx % 5),
+      readTimeMinutes: 5 + (idx % 4),
       summary,
       checklist: [
-        'llms.txt Generator Spec: Serve /llms.txt and /llms-full.txt at root with Content-Type: text/plain; charset=utf-8.',
-        'How to Rank in ChatGPT Search: Authorize OAI-SearchBot, PerplexityBot, ClaudeBot, Google-Extended, and Applebot-Extended in /robots.txt.',
-        'Perplexity SEO Checklist: Place concise 40–60 word Answer-First definitions and semantic HTML tables immediately below every H2 heading.',
-        'Google AI Overviews Citation Score: Compile a unified @graph JSON-LD block linking Organization, SoftwareApplication, and FAQPage with Wikidata sameAs URIs.'
+        'Atomic Household Coupling: Group couples and children so they move as a single magnetic unit and never split across tables.',
+        'Hard Separation Rules: Tag divorced parents or estranged relatives with a 2-table minimum distance constraint before auto-solving.',
+        'Clockwise 12-O’Clock BEO Numbering: Anchor Seat #1 closest to the Dance Floor / Focal Point and number clockwise for banquet servers.',
+        'Dual Day-Of Signage: Print an Alphabetical A–Z 24"×36" Welcome Sign with a corner QR lookup plus Avery 5302 meal-coded place cards.'
       ],
-      codeExample: `# Example /llms.txt snippet for ${category}\n# Acme Cloud\n> Enterprise ${category.toLowerCase()} platform with deterministic APIs and SOC2 Type II compliance.\n\n## Core Documentation\n- [Quickstart Guide](https://acme.dev/docs/quickstart.md): 5-minute SDK setup and API authentication.\n- [Pricing & Limits](https://acme.dev/pricing.md): Transparent self-serve and enterprise tier breakdown.`,
+      codeExample: `TABLE 2 · BRIDE'S FAMILY (QUIET ZONE · 8 SEATS CLOCKWISE)\nSeat #1 (12:00): Grandma Rose Lin | Pan-Seared Halibut | [♿ REMOVE CHAIR FOR WHEELCHAIR]\nSeat #2 (01:30): Eleanor Vance    | Pan-Seared Halibut | [Separated 410px from Table 5]\nSeat #3 (03:00): Aunt Clara Lin   | Vegan Risotto      | [🌾 SEVERE CELIAC — GLUTEN FREE]`,
       faqs: [
         {
-          question: `What is the core engineering takeaway for ${subtitle} (${category})?`,
+          question: `What is the #1 rule for ${subtitle} (${category})?`,
           answer: `${summary}`
         },
         {
-          question: `How to Rank in ChatGPT Search and apply the Perplexity SEO Checklist for ${category}?`,
-          answer: `Ensure OAI-SearchBot and PerplexityBot have explicit Allow rules in /robots.txt, structure 45-word Answer-First executive summaries under H1/H2 tags, and keep your token-to-HTML ratio above 28%.`
+          question: `How does SeatHarmony automate ${category} for couples and planners?`,
+          answer: `SeatHarmony combines a 35ms Simulated Annealing conflict solver with live polar table rings, Clockwise Caterer BEO exports, and a 24"×36" Welcome Sign studio.`
         },
         {
-          question: `How do an llms.txt Generator and Google AI Overviews Citation Score work together?`,
-          answer: `While /llms.txt and /llms-full.txt feed clean CommonMark directly to RAG crawlers, @graph JSON-LD with Wikidata sameAs disambiguation maximizes your Google AI Overviews Citation Score and Gemini Search Grounding authority.`
+          question: `What files are included when I export my seating plan?`,
+          answer: `You receive the 300-DPI 24"×36" Welcome Sign (PDF & SVG), the Clockwise Caterer BEO Sheet (CSV & PDF), Avery 5302 Tented Place Cards with server meal icons, and a Live Cocktail-Hour QR Lookup link.`
         }
       ]
     };
@@ -225,8 +225,8 @@ function buildSeoPagesSeed() {
       meta_description: metaDesc,
       category,
       primary_entity: subtitle,
-      secondary_entity: 'CitationForge GEO Compiler',
-      csov_score: Number((88 + (idx % 11)).toFixed(1)),
+      secondary_entity: 'SeatHarmony Studio',
+      csov_score: Number((96 + (idx % 4) * 0.8).toFixed(1)),
       payload_json: JSON.stringify(payload)
     });
   });
@@ -236,12 +236,13 @@ function buildSeoPagesSeed() {
 
 function seedSeoPages(db = dbInstance) {
   if (!db) return;
+  db.run('DELETE FROM seo_pages;');
   const pages = buildSeoPagesSeed();
   const stmt = db.prepare(`
     INSERT OR REPLACE INTO seo_pages (
       id, slug, page_type, title, meta_description, category,
       primary_entity, secondary_entity, csov_score, payload_json, updated_at
-    ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, '2026-10-16')
+    ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, '2026-10-28')
   `);
   pages.forEach((p, idx) => {
     stmt.run([
@@ -293,7 +294,7 @@ async function initDb() {
       secondary_entity TEXT NOT NULL,
       csov_score REAL NOT NULL,
       payload_json TEXT NOT NULL,
-      updated_at TEXT DEFAULT '2026-10-16'
+      updated_at TEXT DEFAULT '2026-10-28'
     );
 
     CREATE TABLE IF NOT EXISTS meta_events (
@@ -338,9 +339,7 @@ async function initDb() {
     );
   `);
 
-  // Always upsert all 60 seo_pages on startup so metadata & content improvements take effect immediately
   seedSeoPages(dbInstance);
-
   saveDb();
   return dbInstance;
 }
