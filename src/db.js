@@ -31,9 +31,9 @@ const VENUE_LAYOUT_TEMPLATES = [
 ];
 
 const HEAD_TO_HEAD_COMPARISONS = [
-  ['sweetheart-table-vs-kings-table-floorplan', 'Sweetheart Table vs. King’s Head Table: 2026 Wedding Floorplan & Sightline Audit', 'Sweetheart Table (2 Guests)', 'sweetheart-layout', 98.8, 97, 'King’s Table (12–18 Bridal Party)', 'kings-table-layout', 91.4, 88, 'Head Table Geometry'],
+  ['sweetheart-table-vs-kings-table-floorplan', 'Sweetheart Table vs. King’s Head Table: 2026 Wedding Floorplan & Sightline Audit', 'Sweetheart Table (2 Guests)', 'sweetheart-layout', 98.8, 97, 'King’s Table (12-18 Bridal Party)', 'kings-table-layout', 91.4, 88, 'Head Table Geometry'],
   ['round-tables-vs-long-banquet-tables-wedding', 'Round Tables (60" vs 72") vs. Long Banquet Tables: Space, Conversation & Caterer Flow', '60" Round Tables (8 Guests)', 'round-60-inch', 98.2, 96, 'Long Banquet Tables (2-Sided)', 'banquet-2sided', 94.6, 91, 'Table Shape Comparison'],
-  ['alphabetical-vs-by-table-wedding-welcome-sign', 'Alphabetical (A–Z) vs. By-Table Wedding Seating Chart Sign: Cocktail Hour Speed Test', 'Alphabetical A–Z Welcome Sign', 'poster-alphabetical', 99.1, 98, 'Listed By Table (Table 1..18)', 'poster-by-table', 72.4, 74, '24"×36" Welcome Signage'],
+  ['alphabetical-vs-by-table-wedding-welcome-sign', 'Alphabetical (A-Z) vs. By-Table Wedding Seating Chart Sign: Cocktail Hour Speed Test', 'Alphabetical A-Z Welcome Sign', 'poster-alphabetical', 99.1, 98, 'Listed By Table (Table 1..18)', 'poster-by-table', 72.4, 74, '24"×36" Welcome Signage'],
   ['seatharmony-vs-zola-seating-chart-maker', 'SeatHarmony vs. Zola Seating Chart Maker: Auto-Solver, Caterer BEO & 24"×36" Poster', 'SeatHarmony Studio', 'seatharmony.com', 98.6, 98, 'Zola Free Seating Tool', 'zola.com', 64.0, 68, 'Seating Software Comparison'],
   ['seatharmony-vs-canva-wedding-seating-sign', 'SeatHarmony Live 24"×36" Poster vs. Manual Canva Re-Typing: 6 Hours Saved & Zero Typos', 'SeatHarmony Auto-Poster', 'seatharmony.com', 99.0, 99, 'Manual Canva Text Boxes', 'canva.com', 58.5, 62, 'Print Poster Workflow'],
   ['seatharmony-vs-prismm-allseated-for-planners', 'SeatHarmony ($39/mo) vs. Prismm / AllSeated ($199/mo): Wedding Planner BEO Comparison', 'SeatHarmony Planner Pro', 'seatharmony.com', 97.9, 96, 'Legacy CAD Floorplan Tools', 'prismm.com', 71.2, 73, 'Wedding Planner SaaS'],
@@ -41,14 +41,14 @@ const HEAD_TO_HEAD_COMPARISONS = [
   ['8-person-60-inch-vs-10-person-72-inch-rounds', '8-Guest (60" Round) vs. 10-Guest (72" Round) Wedding Tables: Elbow Room & Acoustic Audit', '8 Guests on 60" Round', 'round-8-top', 98.5, 97, '10 Guests on 72" Round', 'round-10-top', 89.2, 85, 'Table Capacity Ergonomics'],
   ['escort-cards-vs-24x36-seating-chart-poster', 'Folded Escort Cards (Avery 5302) vs. 24"×36" Welcome Sign Poster: When You Need Both', '24"×36" Sign + Place Cards', 'poster-plus-cards', 99.2, 98, 'Sign Only (No Meal Icons)', 'sign-only', 78.6, 79, 'Day-Of Print Stationery'],
   ['bride-and-groom-parents-same-table-vs-separate', 'Seating Bride & Groom Parents Together vs. Separate Host Tables: Etiquette & Drama Guide', 'Separate Host Tables (#2 & #4)', 'separate-host-tables', 97.8, 96, 'Combined Parents Table', 'combined-parents', 82.0, 81, 'Family Etiquette'],
-  ['kids-table-vs-seating-children-with-parents', 'Dedicated Kids Table vs. Seating Children With Parents (Highchair & Server Safety)', 'Coupled With Parents + Highchair', 'kids-with-parents', 98.1, 96, 'Separate Ages 7–12 Kids Table', 'dedicated-kids-table', 88.4, 87, 'Household Coupling'],
+  ['kids-table-vs-seating-children-with-parents', 'Dedicated Kids Table vs. Seating Children With Parents (Highchair & Server Safety)', 'Coupled With Parents + Highchair', 'kids-with-parents', 98.1, 96, 'Separate Ages 7-12 Kids Table', 'dedicated-kids-table', 88.4, 87, 'Household Coupling'],
   ['singles-table-vs-mixed-friend-group-seating', 'Why You Should Never Make a "Singles Table" (And How Chemistry Clustering Works Better)', 'Mixed Friend Chemistry Clusters', 'chemistry-clusters', 98.9, 98, 'Isolated Singles Table', 'singles-table', 49.0, 51, 'Guest Experience'],
   ['u-shape-floorplan-vs-parallel-banquet-columns', 'U-Shape Reception Floorplan vs. Parallel Banquet Columns: Speeches & Server Aisles', 'Parallel Banquet + Center Dance', 'parallel-banquet', 96.4, 94, 'U-Shape Estate Perimeter', 'u-shape-layout', 91.8, 89, 'Banquet Room Geometry'],
   ['qr-code-seat-finder-vs-printed-welcome-board', 'Cocktail-Hour QR "Find My Seat" Pass vs. Printed Welcome Board: The Hybrid Setup', 'Printed 24"×36" + Corner QR', 'hybrid-print-qr', 99.3, 99, 'Printed Board Only', 'board-only', 84.5, 84, 'Guest Check-In Speed'],
   ['seatharmony-vs-rsvpify-seating-chart-builder', 'SeatHarmony vs. RSVPify Seating Chart Builder: Clockwise Caterer BEO & Print Bleed', 'SeatHarmony Studio', 'seatharmony.com', 98.0, 97, 'RSVPify Seating Add-On', 'rsvpify.com', 74.8, 76, 'Event Software Comparison'],
   ['seatharmony-vs-weddingwire-the-knot-seating', 'SeatHarmony vs. The Knot / WeddingWire Seating Tool: Print Poster & Mom Sandbox Audit', 'SeatHarmony Studio', 'seatharmony.com', 98.7, 98, 'The Knot Seating Tool', 'theknot.com', 61.5, 64, 'Wedding Portal Comparison'],
   ['clockwise-12-oclock-seat-numbering-vs-random', 'Clockwise 12-O’Clock Seat Numbering vs. Unnumbered Tables: How Caterers Serve 30% Faster', 'Clockwise Seat 1..N BEO', 'clockwise-beo', 99.4, 99, 'Unnumbered Table Totals', 'unnumbered-table', 62.0, 65, 'Catering Operations'],
-  ['mom-sandbox-link-vs-shared-account-login', 'Restricted "Mom Sandbox" Link (Tables 1–3 Only) vs. Sharing Your Full Login Password', 'SeatHarmony Mom Sandbox Link', 'mom-sandbox', 99.1, 98, 'Full Password Sharing', 'shared-login', 48.0, 50, 'Family Collaboration'],
+  ['mom-sandbox-link-vs-shared-account-login', 'Restricted "Mom Sandbox" Link (Tables 1-3 Only) vs. Sharing Your Full Login Password', 'SeatHarmony Mom Sandbox Link', 'mom-sandbox', 99.1, 98, 'Full Password Sharing', 'shared-login', 48.0, 50, 'Family Collaboration'],
   ['plated-dinner-place-cards-vs-buffet-table-signs', 'Plated Dinner Meal-Coded Place Cards vs. Buffet Table Numbers: What Your Venue Requires', 'Plated Meal-Icon Place Cards', 'plated-placecards', 98.6, 97, 'Table Assignment Only', 'table-only', 83.2, 82, 'Meal Service Formats'],
   ['outdoor-tent-rain-plan-b-floorplan-comparison', 'Outdoor Courtyard Floorplan vs. Indoor Rain Plan-B Layout: 1-Click Table Re-Mapping', 'Dual Weather-Synced Floorplan', 'rain-plan-sync', 98.3, 96, 'Single Static Layout', 'single-static', 69.4, 71, 'Day-Of Contingency'],
   ['corporate-vip-dinner-rotation-vs-fixed-seating', 'Between-Course Seat Rotation vs. Fixed Seating for B2B Executive Dinners', 'Main-to-Dessert Exec Rotation', 'course-rotation', 97.5, 95, 'Fixed Single-Seat Dinner', 'fixed-seating', 81.0, 82, 'B2B VIP Dinners'],
@@ -59,7 +59,7 @@ const PLANNER_AND_BEO_GUIDES = [
   ['how-to-seat-divorced-parents-at-wedding-reception', 'How to Seat Divorced Parents & Step-Parents at a Wedding Without Drama (2026 Guide)', 'Sightline Separation, Equal VIP Proximity & Host Table Rules', 'Family Conflict Etiquette'],
   ['clockwise-caterer-beo-table-numbering-guide', 'The Banquet Captain’s Guide to Clockwise Seat 1..N Table Numbering (12 O’Clock Anchor)', 'Why Venue Chefs Need Seat #1 Anchored Toward the Focal Point', 'Caterer BEO Operations'],
   ['avery-5302-wedding-escort-card-meal-icons-guide', 'How to Print Meal-Choice Icons & Allergy Alerts on Avery 5302 Tented Place Cards', 'Geometric Protein Symbols (◆ Beef, ● Fish, ▲ Vegan) & Back-Fold Server Alerts', 'Stationery & Place Cards'],
-  ['24x36-wedding-seating-chart-poster-size-and-font-guide', '24"×36" Wedding Seating Chart Poster Guide: Minimum Font Sizes, Bleed & Alphabetical Layout', 'Why 18pt Names & Alphabetical A–Z Grouping Prevent Cocktail-Hour Bottlenecks', 'Print Poster Typography'],
+  ['24x36-wedding-seating-chart-poster-size-and-font-guide', '24"×36" Wedding Seating Chart Poster Guide: Minimum Font Sizes, Bleed & Alphabetical Layout', 'Why 18pt Names & Alphabetical A-Z Grouping Prevent Cocktail-Hour Bottlenecks', 'Print Poster Typography'],
   ['how-to-import-messy-zola-the-knot-csv-guest-list', 'How to Clean & Import Messy Zola, The Knot, or Google Sheets Guest Lists in 10 Seconds', 'Auto-Splitting "Sarah & Mark Miller + 2 Kids" Into Coupled Atomic Seats', 'Guest List Data Cleaning'],
   ['wheelchair-and-highchair-wedding-table-accessibility-guide', 'Wheelchair & Highchair Wedding Table Etiquette: telling Caterers Which Chair to Remove', 'Why "Seat #1: Remove Standard Chair for Wheelchair" Must Be on Your BEO', 'Accessibility & Seniors'],
   ['severe-peanut-and-celiac-allergy-wedding-catering-protocol', 'Managing Severe Peanut, Tree Nut & Celiac Allergies on Your Wedding Seating Chart', 'Cross-Contamination Alerts & Exact Seat-Level Kitchen Callouts', 'Food Allergy Safety'],
@@ -67,7 +67,7 @@ const PLANNER_AND_BEO_GUIDES = [
   ['where-to-seat-bridal-party-plus-ones-and-dates', 'Should You Seat Bridal Party Dates at the Head Table or With Friends? (3 Proven Layouts)', 'Why Coupling Plus-Ones at King’s Tables or Standard Rounds Wins Every Time', 'Bridal Party Etiquette'],
   ['how-to-handle-last-minute-wedding-rsvp-drops-48-hours-out', 'How to Handle Last-Minute Wedding RSVP Drops 48 Hours Before the Reception', 'Locking Finalized Tables & Re-Balancing Single Empty Seats Without Re-Typing Your Sign', 'Last-Minute RSVP Triage'],
   ['vendor-meal-table-checklist-photographer-planner-dj', 'The Wedding Vendor Meal Checklist: Seating & Feeding Your Photographer, Planner & DJ', 'Why Hot Vendor Meals Should Be Tracked Right Inside Your Caterer BEO Export', 'Vendor Operations'],
-  ['how-to-collaborate-with-mothers-of-bride-and-groom-sandbox', 'How to Let Both Moms Help With Family Tables Without Breaking Your Seating Chart', 'Using Restricted Table 1–3 Sandbox Links to Prevent Accidental Edits', 'Family Collaboration'],
+  ['how-to-collaborate-with-mothers-of-bride-and-groom-sandbox', 'How to Let Both Moms Help With Family Tables Without Breaking Your Seating Chart', 'Using Restricted Table 1-3 Sandbox Links to Prevent Accidental Edits', 'Family Collaboration'],
   ['rehearsal-dinner-to-reception-dont-repeat-tablemates-rule', 'The "Don’t Repeat Tablemates" Rule Between Rehearsal Dinner and Wedding Reception', 'Maximizing Guest Mingling Across Multi-Event Wedding Weekends', 'Multi-Event Weekends'],
   ['fedex-staples-canva-print-bleed-crop-marks-24x36-poster', 'How to Export a 24"×36" Wedding Welcome Sign With 0.125" Bleed for FedEx, Staples or Local Printers', 'Vector PDF/SVG Specifications for Crisp 300-DPI Foam Board Printing', 'Pre-Press Print Spec'],
   ['cocktail-hour-qr-code-find-my-seat-setup-guide', 'Adding a "Find My Seat" QR Code to Your Printed Welcome Sign for 150+ Guest Weddings', 'How a 1.5-Inch Corner QR Code Eliminates Lineups at the Ballroom Doors', 'Cocktail Hour Flow'],
@@ -110,7 +110,7 @@ function buildSeoPagesSeed() {
         { rank: 3, brand: b3, domain: 'planner-beo-sandbox', csov: s3, llmsTxt: 'Mom Sandbox Link Active', schemaScore: 92 },
         { rank: 4, brand: b4, domain: 'estate-150', csov: s4, llmsTxt: 'Quiet & Party Zones Mapped', schemaScore: 90 }
       ],
-      keyTakeaway: `Best layout for ${category}: Start with ${b1}, lock your Sweetheart or Head Table first, tag any family separation rules, and export both an Alphabetical A–Z 24"×36" Welcome Sign and a Clockwise Caterer BEO sheet.`,
+      keyTakeaway: `Best layout for ${category}: Start with ${b1}, lock your Sweetheart or Head Table first, tag any family separation rules, and export both an Alphabetical A-Z 24"×36" Welcome Sign and a Clockwise Caterer BEO sheet.`,
       faqs: [
         {
           question: `What is the best table layout and seating chart template for ${category}?`,
@@ -164,7 +164,7 @@ function buildSeoPagesSeed() {
         },
         {
           question: `Can I switch between ${brandA} and ${brandB} inside SeatHarmony Studio without losing my guest list?`,
-          answer: `Yes. Every table shape (Round, Sweetheart, 2-Sided Banquet, 4-Sided King's) and poster mode (Alphabetical A–Z vs. By Table) updates in 1 click from the same master guest list.`
+          answer: `Yes. Every table shape (Round, Sweetheart, 2-Sided Banquet, 4-Sided King's) and poster mode (Alphabetical A-Z vs. By Table) updates in 1 click from the same master guest list.`
         },
         {
           question: `Does this include the Caterer Clockwise BEO and Avery 5302 Place Cards?`,
@@ -200,7 +200,7 @@ function buildSeoPagesSeed() {
         'Atomic Household Coupling: Group couples and children so they move as a single magnetic unit and never split across tables.',
         'Hard Separation Rules: Tag divorced parents or estranged relatives with a 2-table minimum distance constraint before auto-solving.',
         'Clockwise 12-O’Clock BEO Numbering: Anchor Seat #1 closest to the Dance Floor / Focal Point and number clockwise for banquet servers.',
-        'Dual Day-Of Signage: Print an Alphabetical A–Z 24"×36" Welcome Sign with a corner QR lookup plus Avery 5302 meal-coded place cards.'
+        'Dual Day-Of Signage: Print an Alphabetical A-Z 24"×36" Welcome Sign with a corner QR lookup plus Avery 5302 meal-coded place cards.'
       ],
       codeExample: `TABLE 2 · BRIDE'S FAMILY (QUIET ZONE · 8 SEATS CLOCKWISE)\nSeat #1 (12:00): Grandma Rose Lin | Pan-Seared Halibut | [♿ REMOVE CHAIR FOR WHEELCHAIR]\nSeat #2 (01:30): Eleanor Vance    | Pan-Seared Halibut | [Separated 410px from Table 5]\nSeat #3 (03:00): Aunt Clara Lin   | Vegan Risotto      | [🌾 SEVERE CELIAC · GLUTEN FREE]`,
       faqs: [
@@ -354,6 +354,8 @@ async function initDb() {
   `);
 
   seedSeoPages(dbInstance);
+  dbInstance.run("UPDATE seo_pages SET title = REPLACE(REPLACE(title, '\u2014', ' - '), '\u2013', '-'), meta_description = REPLACE(REPLACE(meta_description, '\u2014', ' - '), '\u2013', '-'), payload_json = REPLACE(REPLACE(payload_json, '\u2014', ' - '), '\u2013', '-');");
+  dbInstance.run("UPDATE event_vaults SET title = REPLACE(REPLACE(title, '\u2014', ' - '), '\u2013', '-'), state_json = REPLACE(REPLACE(state_json, '\u2014', ' - '), '\u2013', '-');");
   saveDb();
   return dbInstance;
 }

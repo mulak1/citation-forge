@@ -185,7 +185,7 @@ function renderInteractiveScript(initialPlan) {
   window.shMorphSelectedTable = function(newShape) {
     const tbl = window.__SH_STATE.tables[window.__SH_SELECTED_TABLE_IDX];
     if (!tbl) return;
-    if (window.__SH_SANDBOX_MOM && window.__SH_SELECTED_TABLE_IDX >= 3) { shToast('🔒 Mom Sandbox Active: Tables 4–8 are locked by the couple.'); return; }
+    if (window.__SH_SANDBOX_MOM && window.__SH_SELECTED_TABLE_IDX >= 3) { shToast('🔒 Mom Sandbox Active: Tables 4-8 are locked by the couple.'); return; }
     tbl.shape = shNormalizeShape(newShape); shRecomputeGeometry(tbl);
     shToast('✓ Morphed ' + tbl.name + ' to ' + shFriendlyShape(tbl.shape) + ' (12:00 Seat #1 preserved).');
     shRenderAll();
@@ -208,7 +208,7 @@ function renderInteractiveScript(initialPlan) {
 
   window.shSeatClick = function(tIdx, sIdx, ev) {
     if (ev) ev.stopPropagation();
-    if (window.__SH_SANDBOX_MOM && tIdx >= 3) { shToast('🔒 Mom Sandbox Mode: Only Tables 1–3 (Family Tables) are editable.'); return; }
+    if (window.__SH_SANDBOX_MOM && tIdx >= 3) { shToast('🔒 Mom Sandbox Mode: Only Tables 1-3 (Family Tables) are editable.'); return; }
     window.__SH_SELECTED_TABLE_IDX = tIdx;
     if (!window.__SH_SWAP_SOURCE) {
       window.__SH_SWAP_SOURCE = { tableIdx: tIdx, seatIdx: sIdx };
@@ -218,7 +218,7 @@ function renderInteractiveScript(initialPlan) {
     }
     const src = window.__SH_SWAP_SOURCE; window.__SH_SWAP_SOURCE = null;
     if (src.tableIdx === tIdx && src.seatIdx === sIdx) { shRenderAll(); return; }
-    if (window.__SH_SANDBOX_MOM && src.tableIdx >= 3) { shToast('🔒 Mom Sandbox Mode: Cannot move guests from locked Tables 4–8.'); shRenderAll(); return; }
+    if (window.__SH_SANDBOX_MOM && src.tableIdx >= 3) { shToast('🔒 Mom Sandbox Mode: Cannot move guests from locked Tables 4-8.'); shRenderAll(); return; }
     const tA = window.__SH_STATE.tables[src.tableIdx], tB = window.__SH_STATE.tables[tIdx];
     const tmp = tA.guests[src.seatIdx]; tA.guests[src.seatIdx] = tB.guests[sIdx]; tB.guests[sIdx] = tmp;
     shToast('✓ Swapped ' + (tmp ? tmp.name : 'Seat') + ' ↔ ' + (tA.guests[src.seatIdx] ? tA.guests[src.seatIdx].name : 'Seat') + ' · BEO & 24"×36" Sign synced!');
@@ -255,8 +255,8 @@ function renderInteractiveScript(initialPlan) {
   window.shToggleMomSandbox = function() {
     window.__SH_SANDBOX_MOM = !window.__SH_SANDBOX_MOM;
     const badge = document.getElementById('sh-mom-sandbox-badge');
-    if (badge) { badge.textContent = window.__SH_SANDBOX_MOM ? '👵 Mom Sandbox: ON (Tables 1–3 Only)' : '👵 Mom Sandbox: OFF (Full Edit)'; badge.className = window.__SH_SANDBOX_MOM ? 'badge badge-amber' : 'badge badge-cyan'; }
-    shToast(window.__SH_SANDBOX_MOM ? '👵 Mom Sandbox Active: Tables 1–3 Editable; Groom Tables 4–8 Locked!' : 'Full Edit Mode Restored: All tables unlocked.');
+    if (badge) { badge.textContent = window.__SH_SANDBOX_MOM ? '👵 Mom Sandbox: ON (Tables 1-3 Only)' : '👵 Mom Sandbox: OFF (Full Edit)'; badge.className = window.__SH_SANDBOX_MOM ? 'badge badge-amber' : 'badge badge-cyan'; }
+    shToast(window.__SH_SANDBOX_MOM ? '👵 Mom Sandbox Active: Tables 1-3 Editable; Groom Tables 4-8 Locked!' : 'Full Edit Mode Restored: All tables unlocked.');
     shRenderAll();
   };
 
@@ -421,7 +421,7 @@ function renderInteractiveScript(initialPlan) {
     const url = window.location.origin + '/?preset=planner-beo-sandbox&sandbox=mom_tables_1_3#studio';
     if (navigator.clipboard && navigator.clipboard.writeText) { navigator.clipboard.writeText(url).catch(function(){}); }
     if (!window.__SH_SANDBOX_MOM) window.shToggleMomSandbox();
-    shToast('✓ Copied "Mom Sandbox" Link (Tables 1–3 Editable, Groom’s Side Read-Only)!');
+    shToast('✓ Copied "Mom Sandbox" Link (Tables 1-3 Editable, Groom’s Side Read-Only)!');
   };
 
   function shToast(msg) {
@@ -770,7 +770,7 @@ function renderInteractiveScript(initialPlan) {
     document.querySelectorAll('[data-poster-sort], #sh-card5-sort-pills [data-sort]').forEach(function(b) { b.classList.toggle('active', (b.getAttribute('data-poster-sort') || b.getAttribute('data-sort')) === window.__SH_POSTER_MODE); });
     document.querySelectorAll('[data-poster-theme], #sh-card5-theme-pills [data-theme]').forEach(function(b) { b.classList.toggle('active', (b.getAttribute('data-poster-theme') || b.getAttribute('data-theme')) === window.__SH_POSTER_THEME); });
     const sum5 = document.getElementById('sh-wizard-summary-5');
-    if (sum5) sum5.textContent = (window.__SH_POSTER_THEME || 'alabaster').toUpperCase() + ' • ' + (window.__SH_POSTER_MODE === 'by_table' ? 'By Table' : 'A–Z');
+    if (sum5) sum5.textContent = (window.__SH_POSTER_THEME || 'alabaster').toUpperCase() + ' • ' + (window.__SH_POSTER_MODE === 'by_table' ? 'By Table' : 'A-Z');
     shRenderPosterView();
   };
 

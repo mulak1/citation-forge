@@ -403,7 +403,7 @@ function buildPresetForTarget(rawInput = 'estate-150') {
   } else if (key.includes('planner') || key.includes('sandbox') || key.includes('mom') || key.includes('chloe')) {
     base.id = 'planner-beo-sandbox';
     base.title = 'Planner BEO & "Mom Sandbox" Collaboration Workspace';
-    base.subtitle = 'Tables 1–3 Unlocked for Bride’s Mom · Tables 4–8 Locked by Lead Planner Chloe Vance';
+    base.subtitle = 'Tables 1-3 Unlocked for Bride’s Mom · Tables 4-8 Locked by Lead Planner Chloe Vance';
     base.tables.forEach((t, i) => { t.locked = i >= 3; });
   } else if (key.includes('vip') || key.includes('exec') || key.includes('b2b')) {
     base.id = 'vip-exec-dinner';
@@ -413,7 +413,7 @@ function buildPresetForTarget(rawInput = 'estate-150') {
   } else if (key.includes('gala') || key.includes('charity')) {
     base.id = 'charity-gala-300';
     base.title = '300-Guest Charity Gala & Table Captain Matrix (Coming Soon Preview)';
-    base.subtitle = 'Corporate Gold Sponsor Table Allocations + Bidder Paddle Numbers (#101–#300)';
+    base.subtitle = 'Corporate Gold Sponsor Table Allocations + Bidder Paddle Numbers (#101-#300)';
     base.vertical = 'charity_gala';
   }
   base.tables = base.tables.map((t) => ({
@@ -441,8 +441,8 @@ async function runGeoAudit(rawDomain = 'estate-150', options = {}) {
     '## Core Capabilities',
     '- **1-Click Combinatorial Conflict Solver**: Keeps divorced parents and exes 2+ tables apart while keeping 100% of couples and households together.',
     '- **Clockwise Caterer BEO Sheet**: Numbers every seat 1..N starting at 12 o’clock with Filet/Halibut/Vegan/Child counts, red-alert anaphylactic allergy flags, and wheelchair/highchair instructions.',
-    '- **Print-Ready 24"x36" Welcome Sign & Avery 5302 Place Cards**: Instant Alphabetical A–Z or By-Table architectural poster plus tented escort cards with server meal symbols.',
-    '- **Cocktail-Hour QR Guest Finder & Mom Sandbox Link**: Guests type 2 letters on their phone to see their table, and Mom can edit Tables 1–3 without touching the Groom’s side.'
+    '- **Print-Ready 24"x36" Welcome Sign & Avery 5302 Place Cards**: Instant Alphabetical A-Z or By-Table architectural poster plus tented escort cards with server meal symbols.',
+    '- **Cocktail-Hour QR Guest Finder & Mom Sandbox Link**: Guests type 2 letters on their phone to see their table, and Mom can edit Tables 1-3 without touching the Groom’s side.'
   ].join('\n');
 
   return {

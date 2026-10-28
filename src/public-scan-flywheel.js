@@ -39,10 +39,10 @@ const FLYWHEEL_SEED = {
     inputPlaceholder: 'estate-150, tuscan-banquet-80, or venue name...',
     entities: [
       { target: 'estate-150', grade: 'A+', score: 98, status: 'HALL_OF_FAME', kpi1: '98/100 Room Harmony', kpi2: '24"×36" Poster + BEO Ready', cnnReadout: '0 Family Sightline Conflicts • 26/26 Households Coupled', issue: 'Divorced Parents Separated 410px • Clockwise BEO Ready' },
-      { target: 'tuscan-banquet-80', grade: 'A+', score: 99, status: 'HALL_OF_FAME', kpi1: '99/100 Room Harmony', kpi2: '2-Sided Banquet + King’s', cnnReadout: '100% Coupled Households • Courtyard String-Light Geometry', issue: 'Alphabetical A–Z 24"×36" Welcome Sign Ready' },
-      { target: 'planner-beo-sandbox', grade: 'A+', score: 98, status: 'HALL_OF_FAME', kpi1: 'Mom Sandbox Active', kpi2: 'Clockwise Seat 1..N BEO', cnnReadout: 'Tables 1–3 Unlocked for Mom • Tables 4–8 Planner Locked', issue: '4 Severe Allergies & 2 Wheelchair/Highchair Mods Indexed' },
+      { target: 'tuscan-banquet-80', grade: 'A+', score: 99, status: 'HALL_OF_FAME', kpi1: '99/100 Room Harmony', kpi2: '2-Sided Banquet + King’s', cnnReadout: '100% Coupled Households • Courtyard String-Light Geometry', issue: 'Alphabetical A-Z 24"×36" Welcome Sign Ready' },
+      { target: 'planner-beo-sandbox', grade: 'A+', score: 98, status: 'HALL_OF_FAME', kpi1: 'Mom Sandbox Active', kpi2: 'Clockwise Seat 1..N BEO', cnnReadout: 'Tables 1-3 Unlocked for Mom • Tables 4-8 Planner Locked', issue: '4 Severe Allergies & 2 Wheelchair/Highchair Mods Indexed' },
       { target: 'vip-exec-dinner', grade: 'A', score: 97, status: 'HALL_OF_FAME', kpi1: '1 AE + 5 Buyers/Table', kpi2: '0 Competitors Together', cnnReadout: '97.4% Executive Networking Chemistry', issue: 'Between-Course Seat Rotation Enabled' },
-      { target: 'charity-gala-300', grade: 'A', score: 96, status: 'HALL_OF_FAME', kpi1: '30 Sponsor Captains', kpi2: 'Paddles #101–#300', cnnReadout: '96.2% Check-In Kiosk & QR Lookup Speed', issue: 'VIP Board Host Seats Assigned' },
+      { target: 'charity-gala-300', grade: 'A', score: 96, status: 'HALL_OF_FAME', kpi1: '30 Sponsor Captains', kpi2: 'Paddles #101-#300', cnnReadout: '96.2% Check-In Kiosk & QR Lookup Speed', issue: 'VIP Board Host Seats Assigned' },
       { target: 'zola-manual-chart', grade: 'C', score: 64, status: 'WALL_OF_SHAME', kpi1: 'Manual Drag Only', kpi2: 'No 24"×36" Print Sign', cnnReadout: '58.2% Risk of Splitting Households or Sightline Clashes', issue: 'Requires 5 Hours of Manual Canva Re-Typing' },
       { target: 'google-sheets-seating', grade: 'D', score: 44, status: 'WALL_OF_SHAME', kpi1: '3 Family Conflicts', kpi2: 'No Clockwise Seat BEO', cnnReadout: '41.0% Unnumbered Seats Confuse Banquet Servers', issue: 'Switch to SeatHarmony Visual Table Rings & BEO' }
     ]
@@ -70,7 +70,7 @@ const FLYWHEEL_SEED = {
     entities: [
       { target: 'VitC-AM-Peptides-PM', grade: 'A+', score: 98, status: 'HALL_OF_FAME', kpi1: '98/100 Safety Score', kpi2: 'Safe AM/PM Split', cnnReadout: 'Calms Skin Redness • Protects Moisture Barrier', issue: 'Zero Conflict • Vitamin C in AM, Peptides in PM' },
       { target: 'Ceramide-Tretinoin-Buffer', grade: 'A+', score: 95, status: 'HALL_OF_FAME', kpi1: '95/100 Safety Score', kpi2: 'pH 5.6 Balanced', cnnReadout: '96.4% Smooth Barrier • Gentle Retinoid Absorption', issue: '64% Less Peeling with Moisturizer Buffer' },
-      { target: 'Azelaic15-Niacinamide5', grade: 'A', score: 92, status: 'HALL_OF_FAME', kpi1: '92/100 Safety Score', kpi2: 'pH 4.9–5.5 Matched', cnnReadout: '94.1% Redness & Blemish Calming', issue: 'Fungal-Acne Safe & Sensitive-Skin Friendly' },
+      { target: 'Azelaic15-Niacinamide5', grade: 'A', score: 92, status: 'HALL_OF_FAME', kpi1: '92/100 Safety Score', kpi2: 'pH 4.9-5.5 Matched', cnnReadout: '94.1% Redness & Blemish Calming', issue: 'Fungal-Acne Safe & Sensitive-Skin Friendly' },
       { target: 'BHA2-SnailMucin-Stack', grade: 'A', score: 89, status: 'HALL_OF_FAME', kpi1: '89/100 Safety Score', kpi2: '15m Wait Step', cnnReadout: '90.5% Pore Clearing Without Dryness', issue: 'Safe 2x/Week Exfoliation Schedule' },
       { target: 'VitC+Cu', grade: 'C', score: 52, status: 'WALL_OF_SHAME', kpi1: '52/100 Conflict', kpi2: 'pH Clash (2.8 Gap)', cnnReadout: 'Copper & Vitamin C Cancel Out (78% Potency Lost)', issue: 'Split Vitamin C to Morning & Copper Peptides to Night ($182/yr Saved)' },
       { target: 'Tret+BPO', grade: 'D', score: 38, status: 'WALL_OF_SHAME', kpi1: '38/100 High Irritation', kpi2: 'Ingredients Deactivate', cnnReadout: 'High Redness Risk • Benzoyl Peroxide Deactivates Tretinoin', issue: 'Never Layer Same-Night: Move Benzoyl Peroxide to AM Wash' },
@@ -186,7 +186,7 @@ function getVerticalScanCopy(cfg, scan) {
     return {
       goalText: `See ${tgt}'s verified sponsorship spend (${kpi1}) and renewal streak (${kpi2}) so you can benchmark fair ad rates, sponsor the same high-converting shows at -18% floor rates, or pitch their media buyer directly.`,
       sourceProvenance: 'Tracked directly from podcast RSS feeds, YouTube ad-read transcripts, newsletter archives & active /promo links (IAB v2.1 calibrated).',
-      dataFreshness: 'Updated today (Q4 2026 rolling 90-day ledger • <24h–7d air-date lag).',
+      dataFreshness: 'Updated today (Q4 2026 rolling 90-day ledger • <24h-7d air-date lag).',
       updateCadence: 'Scanned every 24 hours • All 88 buyer & booking rep emails verified weekly (<1.4% bounce).',
       card2Title: 'Verified Spend & Renewal Streak',
       card2SubPrefix: 'Renewal Signal:',

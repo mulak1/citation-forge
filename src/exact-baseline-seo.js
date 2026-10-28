@@ -627,7 +627,7 @@ function attachUniversalSeoAndAiRoutes(app, cfg, store, classifyTrafficRequest, 
       iteration: 15,
       module_id: cfg.moduleId,
       github_repos: [
-        'Hotwired/Turbo (★ 28,900+) & alpinejs/alpine (★ 28,800+): First-Screen Hero-Lead-Adjacent Deliverable Curtain Placement (y = 480px–760px on / and /seo/:slug) + Instant In-Place Live KPI Readout (#eb-quick-live-readout)',
+        'Hotwired/Turbo (★ 28,900+) & alpinejs/alpine (★ 28,800+): First-Screen Hero-Lead-Adjacent Deliverable Curtain Placement (y = 480px-760px on / and /seo/:slug) + Instant In-Place Live KPI Readout (#eb-quick-live-readout)',
         'github/auto-complete-element (★ 4,600+) & LeaVerou/awesomplete (★ 9,900+): Zero-Typing Mobile/Desktop Native <datalist> Instant Benchmark Selector (#eb-entity-datalist)'
       ],
       features: {
@@ -713,7 +713,7 @@ function attachUniversalSeoAndAiRoutes(app, cfg, store, classifyTrafficRequest, 
       module_id: cfg.moduleId,
       github_repos: [
         'floating-ui/floating-ui (★ 32,754): Interactive Floating Frosted-Glass Telemetry Pill (#eb-hero-sparkline-pill) + Dynamic Dossier File-Format Loupe Badge (#eb-dossier-format-pill)',
-        'recharts/recharts (★ 27,636) & tremorlabs/tremor (★ 3,667): Inline SVG Bezier Sparkline Micro-Visualization with 1-Tap Scenario Simulation & Unblurred Table Row 1–3 Live Benchmark Trigger (tr[data-eb-live-row])'
+        'recharts/recharts (★ 27,636) & tremorlabs/tremor (★ 3,667): Inline SVG Bezier Sparkline Micro-Visualization with 1-Tap Scenario Simulation & Unblurred Table Row 1-3 Live Benchmark Trigger (tr[data-eb-live-row])'
       ],
       features: {
         floating_svg_sparkline_pill: true,

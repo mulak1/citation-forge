@@ -243,7 +243,7 @@ function renderZone3InteractiveStudio(plan) {
       <!-- Live Status Toast + Mobile Quick-Jump to Live Canvas -->
       <div style="display:flex;flex-wrap:wrap;align-items:center;justify-content:space-between;gap:8px;margin-bottom:6px;">
         <div id="sh-live-toast" style="background:#181412;color:#FDE68A;border:1px solid #C8A96E;padding:8px 14px;border-radius:999px;font-size:0.76rem;font-weight:700;display:inline-flex;align-items:center;gap:8px;max-width:100%;">
-          &#10022; Live Reception Studio Ready: Click any 2 seats on the floorplan to swap, or customize Cards 1&ndash;5
+          &#10022; Live Reception Studio Ready: Click any 2 seats on the floorplan to swap, or customize Cards 1-5
         </div>
         <div style="display:flex;gap:6px;flex-wrap:wrap;">
           <button type="button" onclick="window.shOpenVaultModal()" class="studio-tap-chip" style="border-color:#C8A96E;background:#FAF3E3;color:#78350F;font-weight:800;">&#128190; Save / Login to My Event (#<span id="sh-btn-vault-id">${vId}</span>)</button>
@@ -327,7 +327,7 @@ function renderZone3InteractiveStudio(plan) {
                   <button type="button" class="studio-tap-chip" onclick="window.shQuickFillHousehold('Dr. &amp; Mrs. James Chen (Halibut)')">+ Dr. &amp; Mrs. James Chen (Halibut)</button>
                   <button type="button" class="studio-tap-chip" onclick="window.shQuickFillHousehold('Lucas &amp; Chloe Martin + 2 Kids (GF)')">+ Martin Family + 2 Kids (GF)</button>
                   <button type="button" class="studio-tap-chip" onclick="window.shQuickFillHousehold('Aunt Patricia + Guest (Wheelchair, Vegan)')">+ Aunt Patricia (♿ Wheelchair)</button>
-                  <button type="button" id="sh-toggle-bulk-csv-btn" class="studio-tap-chip" style="border-color:#065F46;background:#ECFDF5;color:#065F46;font-weight:800;" onclick="window.shToggleBulkCsvDrawer()">&#128203; Bulk Paste Spreadsheet / Upload CSV (10&ndash;250 Guests)</button>
+                  <button type="button" id="sh-toggle-bulk-csv-btn" class="studio-tap-chip" style="border-color:#065F46;background:#ECFDF5;color:#065F46;font-weight:800;" onclick="window.shToggleBulkCsvDrawer()">&#128203; Bulk Paste Spreadsheet / Upload CSV (10-250 Guests)</button>
                 </div>
               </div>
               <!-- 2C. Bulk Spreadsheet / CSV Paste & File Upload Drawer -->
@@ -422,7 +422,7 @@ David &amp; Elena Rostova (Filet, Peanut Allergy)</textarea>
                 <div style="display:flex;gap:6px;flex-wrap:wrap;">
                   <button id="sh-ring-harmony" type="button" class="studio-tap-chip active" onclick="window.shSetRingMode('harmony')">&#128994; Harmony &amp; Allergy Rings</button>
                   <button id="sh-ring-meal" type="button" class="studio-tap-chip" onclick="window.shSetRingMode('meal')">&#129385; Caterer Entr&eacute;e Symbols (&#9670;&#9679;&#9650;&#9733;)</button>
-                  <button type="button" class="studio-tap-chip" onclick="window.shCopyMomSandboxLink()">&#128117; Copy &ldquo;Mom Sandbox&rdquo; Link (Tables 1&ndash;3 Only)</button>
+                  <button type="button" class="studio-tap-chip" onclick="window.shCopyMomSandboxLink()">&#128117; Copy &ldquo;Mom Sandbox&rdquo; Link (Tables 1-3 Only)</button>
                 </div>
               </div>
               <div style="display:flex;flex-wrap:wrap;justify-content:space-between;align-items:center;gap:8px;">
@@ -436,7 +436,7 @@ David &amp; Elena Rostova (Filet, Peanut Allergy)</textarea>
           <div class="studio-wizard-step" id="sh-wizard-step-5" data-step="5">
             <button type="button" class="studio-wizard-header" onclick="window.scrollToShCard(5)">
               <span class="studio-wizard-step-title"><span style="color:#8C2D19;">&#9679; Step 5 of 5:</span><span>24&Prime;&times;36&Prime; Welcome Poster Theme, Avery 5302 &amp; Export</span></span>
-              <span class="studio-wizard-step-summary" id="sh-wizard-summary-5">ALABASTER &bull; A&ndash;Z</span>
+              <span class="studio-wizard-step-summary" id="sh-wizard-summary-5">ALABASTER &bull; A-Z</span>
             </button>
             <div class="studio-wizard-body">
               <div style="margin-bottom:8px;">
@@ -450,7 +450,7 @@ David &amp; Elena Rostova (Filet, Peanut Allergy)</textarea>
               <div style="margin-bottom:10px;">
                 <span class="studio-field-label">5B. Poster Guest Sort, Print Preview Studios &amp; BEO Export:</span>
                 <div class="studio-chip-group" id="sh-card5-sort-pills">
-                  <button type="button" class="studio-tap-chip active" data-sort="alphabetical" onclick="window.shSetActiveTab('poster');window.shSetPosterMode('alphabetical',null)">Sort A&ndash;Z by Last Name</button>
+                  <button type="button" class="studio-tap-chip active" data-sort="alphabetical" onclick="window.shSetActiveTab('poster');window.shSetPosterMode('alphabetical',null)">Sort A-Z by Last Name</button>
                   <button type="button" class="studio-tap-chip" data-sort="by_table" onclick="window.shSetActiveTab('poster');window.shSetPosterMode('by_table',null)">Sort by Table Number</button>
                   <button type="button" class="studio-tap-chip" onclick="window.shExportBeoCsv()">&#11015; Free Caterer BEO (.CSV)</button>
                   <a id="sh-card5-poster-studio-link" href="/print/poster/${vId}" target="_blank" class="studio-tap-chip" style="text-decoration:none;font-weight:800;color:#78350F;border-color:#C8A96E;">&#129703; 24&Prime;&times;36&Prime; Print Studio &nearr;</a>
@@ -588,7 +588,7 @@ David &amp; Elena Rostova (Filet, Peanut Allergy)</textarea>
               <div id="sh-pane-poster" style="display:none;">
                 <div style="display:flex;flex-wrap:wrap;align-items:center;justify-content:space-between;gap:8px;margin-bottom:10px;">
                   <div style="display:flex;gap:5px;flex-wrap:wrap;">
-                    <button type="button" class="studio-tap-chip active" data-poster-sort="alphabetical" onclick="window.shSetPosterMode('alphabetical',null)">Sort A&ndash;Z (Last Name)</button>
+                    <button type="button" class="studio-tap-chip active" data-poster-sort="alphabetical" onclick="window.shSetPosterMode('alphabetical',null)">Sort A-Z (Last Name)</button>
                     <button type="button" class="studio-tap-chip" data-poster-sort="by_table" onclick="window.shSetPosterMode('by_table',null)">Sort by Table</button>
                     <button type="button" class="studio-tap-chip active" data-poster-theme="alabaster" onclick="window.shSetPosterMode(null,'alabaster')">Alabaster</button>
                     <button type="button" class="studio-tap-chip" data-poster-theme="obsidian" onclick="window.shSetPosterMode(null,'obsidian')">Obsidian</button>
@@ -635,7 +635,7 @@ David &amp; Elena Rostova (Filet, Peanut Allergy)</textarea>
 
             <!-- Stage Footer -->
             <div style="display:flex;justify-content:space-between;align-items:center;gap:8px;flex-wrap:wrap;font-size:0.68rem;color:#D6CFC2;">
-              <span>&#10022; Click Tabs 1&ndash;4 above or open full print views (<a id="sh-footer-vault-link" href="/vault/${vId}" style="color:#6EE7B7;font-weight:800;">Command Center /vault/${vId} &nearr;</a>)</span>
+              <span>&#10022; Click Tabs 1-4 above or open full print views (<a id="sh-footer-vault-link" href="/vault/${vId}" style="color:#6EE7B7;font-weight:800;">Command Center /vault/${vId} &nearr;</a>)</span>
               <a href="/directory" style="color:#FDE68A;text-decoration:underline;font-weight:700;">Browse 60+ Venue Floorplans &nearr;</a>
             </div>
           </div>
@@ -724,7 +724,7 @@ function renderZone4ProofStackAndPricing() {
           <div>
             <div style="display:flex;justify-content:space-between;align-items:center;gap:8px;margin-bottom:10px;"><span class="badge badge-emerald">SCENARIO B &middot; LUXURY PLANNER</span><span style="font-size:0.78rem;font-weight:800;color:#065F46;">0 Meal Mix-Ups</span></div>
             <h3 class="serif-display" style="font-size:1.35rem;margin-bottom:6px;">Clockwise 12:00 BEO + Mom Sandbox</h3>
-            <p style="font-size:0.84rem;color:#44403C;line-height:1.48;">Coordinator Chloe sent the Mother of the Bride a restricted sandbox link for Tables 1&ndash;3 while locking the Groom&rsquo;s side, then handed the banquet chef a Clockwise 12-o&rsquo;clock BEO with 4 anaphylactic allergy flags.</p>
+            <p style="font-size:0.84rem;color:#44403C;line-height:1.48;">Coordinator Chloe sent the Mother of the Bride a restricted sandbox link for Tables 1-3 while locking the Groom&rsquo;s side, then handed the banquet chef a Clockwise 12-o&rsquo;clock BEO with 4 anaphylactic allergy flags.</p>
           </div>
           <div style="padding-top:10px;border-top:1px solid #EFEAE1;font-size:0.75rem;font-weight:800;color:#78350F;">&#10022; Plan Used: Planner Pro Studio ($39/mo &bull; 14 Weddings)</div>
         </div>
@@ -732,7 +732,7 @@ function renderZone4ProofStackAndPricing() {
           <div>
             <div style="display:flex;justify-content:space-between;align-items:center;gap:8px;margin-bottom:10px;"><span class="badge badge-cyan">SCENARIO C &middot; 300-GUEST GALA</span><span style="font-size:0.78rem;font-weight:800;color:#065F46;">0 Foyer Line</span></div>
             <h3 class="serif-display" style="font-size:1.35rem;margin-bottom:6px;">VIP Sponsor Tables + QR Lookup</h3>
-            <p style="font-size:0.84rem;color:#44403C;line-height:1.48;">Gala Director Elena seated 30 tables of 10 with Gold Sponsors anchored closest to the podium, printed two 24&Prime;&times;36&Prime; A&ndash;Z easel signs, and let 300 guests look up their seat via QR code during cocktail hour.</p>
+            <p style="font-size:0.84rem;color:#44403C;line-height:1.48;">Gala Director Elena seated 30 tables of 10 with Gold Sponsors anchored closest to the podium, printed two 24&Prime;&times;36&Prime; A-Z easel signs, and let 300 guests look up their seat via QR code during cocktail hour.</p>
           </div>
           <div style="padding-top:10px;border-top:1px solid #EFEAE1;font-size:0.75rem;font-weight:800;color:#181412;">&#10022; Plan Used: Planner Pro Studio ($39/mo)</div>
         </div>
@@ -762,7 +762,7 @@ function renderZone4ProofStackAndPricing() {
         <div class="studio-review-card"><p style="font-size:0.84rem;color:#181412;font-style:italic;">&ldquo;We had 3 last-minute RSVP drops 48 hours before our reception. Instead of re-aligning 150 names in Canva, we clicked export and sent the updated 24&Prime;&times;36&Prime; PDF straight to FedEx.&rdquo;</p><div style="font-size:0.75rem;font-weight:800;color:#78350F;">&#9733;&#9733;&#9733;&#9733;&#9733; &middot; Hannah &amp; Devon R., 165-Guest Reception (Napa, CA)</div></div>
         <div class="studio-review-card"><p style="font-size:0.84rem;color:#181412;font-style:italic;">&ldquo;Our venue caterer literally hugged our coordinator when she handed him the Clockwise 12-o&rsquo;clock BEO sheet with Seat #1 marked and the severe peanut allergy highlighted in red.&rdquo;</p><div style="font-size:0.75rem;font-weight:800;color:#78350F;">&#9733;&#9733;&#9733;&#9733;&#9733; &middot; Claire M., Bride, 140 Guests (Chicago, IL)</div></div>
         <div class="studio-review-card"><p style="font-size:0.84rem;color:#181412;font-style:italic;">&ldquo;The Avery 5302 place card PDF put a tiny diamond for Filet and circle for Halibut on the front and printed the celiac warning upside-down on the back tent fold. Genius.&rdquo;</p><div style="font-size:0.75rem;font-weight:800;color:#78350F;">&#9733;&#9733;&#9733;&#9733;&#9733; &middot; Lauren K., Lead Wedding Planner (Charleston, SC)</div></div>
-        <div class="studio-review-card"><p style="font-size:0.84rem;color:#181412;font-style:italic;">&ldquo;My wife wanted to rearrange our extended family tables at midnight without touching our daughter&rsquo;s friends. The Mom Sandbox link locked Tables 4&ndash;8 and saved our weekend.&rdquo;</p><div style="font-size:0.75rem;font-weight:800;color:#78350F;">&#9733;&#9733;&#9733;&#9733;&#9733; &middot; Robert T., Father of the Bride (Boston, MA)</div></div>
+        <div class="studio-review-card"><p style="font-size:0.84rem;color:#181412;font-style:italic;">&ldquo;My wife wanted to rearrange our extended family tables at midnight without touching our daughter&rsquo;s friends. The Mom Sandbox link locked Tables 4-8 and saved our weekend.&rdquo;</p><div style="font-size:0.75rem;font-weight:800;color:#78350F;">&#9733;&#9733;&#9733;&#9733;&#9733; &middot; Robert T., Father of the Bride (Boston, MA)</div></div>
         <div class="studio-review-card"><p style="font-size:0.84rem;color:#181412;font-style:italic;">&ldquo;We used the VIP Exec Dinner preset to pair 8 AE reps with 16 enterprise prospects while keeping two rival CTOs at opposite ends of the private dining room.&rdquo;</p><div style="font-size:0.75rem;font-weight:800;color:#78350F;">&#9733;&#9733;&#9733;&#9733;&#9733; &middot; Marcus V., VP Field Marketing (San Francisco, CA)</div></div>
         <div class="studio-review-card"><p style="font-size:0.84rem;color:#181412;font-style:italic;">&ldquo;For our 300-guest hospital gala, guests scanned the QR sign at cocktail hour, typed 3 letters of their last name, and walked straight to their table. Zero foyer bottleneck.&rdquo;</p><div style="font-size:0.75rem;font-weight:800;color:#78350F;">&#9733;&#9733;&#9733;&#9733;&#9733; &middot; Elena S., Charity Gala Director (New York, NY)</div></div>
       </div>
@@ -850,7 +850,7 @@ function renderZone5FaqAndZone6Close(sampleSeoPages = []) {
         <details class="studio-faq-item">
           <summary><span>2. Can I send the chart to my Mom or Mother-in-Law without her messing up our friends&rsquo; tables?</span><span>&#9662;</span></summary>
           <div style="padding-top:10px;font-size:0.86rem;color:#44403C;line-height:1.55;">
-            Yes! Click <strong>&ldquo;Copy Mom Sandbox Link&rdquo;</strong> in Card 4 of the studio. It generates a restricted link where Mom can freely swap seats at <strong>Tables 1&ndash;3 (Family Tables)</strong> while <strong>Tables 4&ndash;8 remain 100% locked and read-only</strong>.
+            Yes! Click <strong>&ldquo;Copy Mom Sandbox Link&rdquo;</strong> in Card 4 of the studio. It generates a restricted link where Mom can freely swap seats at <strong>Tables 1-3 (Family Tables)</strong> while <strong>Tables 4-8 remain 100% locked and read-only</strong>.
           </div>
         </details>
         <details class="studio-faq-item">

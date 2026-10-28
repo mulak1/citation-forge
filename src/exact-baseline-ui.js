@@ -525,7 +525,7 @@ function buildClientRuntimeScript(cfg) {
     var h1Node = document.getElementById('eb-scan-h1') || document.querySelector('main h1, article h1, h1');
     if (h1Node && !window.__ebActiveEntity && (isPseoOrDir || (pName !== '/' && !isHubOrDir))) {
       var explicitEnt = h1Node.getAttribute('data-entity-name') || '';
-      var rawH1 = explicitEnt || (h1Node.textContent || '').replace(/\\s+/g, ' ').trim().split(/\\s*[–|:?]\\s*/)[0].replace(/^Can You (?:Mix|Layer|Use)\\s+/i, '').replace(/\\s+(?:Sponsorship Spend|Verified Sponsors|Podcast|Newsletter|Sponsors, Ad Rates).*$/i, '');
+      var rawH1 = explicitEnt || (h1Node.textContent || '').replace(/\\s+/g, ' ').trim().split(/\\s*[-|:?]\\s*/)[0].replace(/^Can You (?:Mix|Layer|Use)\\s+/i, '').replace(/\\s+(?:Sponsorship Spend|Verified Sponsors|Podcast|Newsletter|Sponsors, Ad Rates).*$/i, '');
       if (rawH1.length > 48) rawH1 = rawH1.slice(0, 48).replace(/\\s+\\S*$/, '');
       var cleanedH1 = rawH1.replace(/[,;:\\s]+$/, '');
       window.__ebActiveEntity = (pName === '/directory' || /Directory|Playbooks/i.test(cleanedH1)) ? ((CFG.presets && CFG.presets[0] && CFG.presets[0].label) || CFG.brandName) : cleanedH1;

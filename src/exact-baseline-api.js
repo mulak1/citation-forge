@@ -55,16 +55,16 @@ const VERTICAL_CONFIGS = {
     tier1Tag: 'SINGLE-SHEET BEO EXPRESS PASS',
     tier1Desc: 'Instantly downloads your Clockwise Seat 1..N Caterer BEO (.CSV) with entrée counts and allergy flags.',
     tier2Tag: 'COMPLETE WEDDING PRINT & CATERER PACK ($14.99)',
-    tier2Desc: 'Unlocks your 300-DPI 24"×36" Welcome Sign (Alphabetical A–Z & By Table), Avery 5302 Place Cards, Clockwise Caterer BEO, and Live QR Lookup.',
+    tier2Desc: 'Unlocks your 300-DPI 24"×36" Welcome Sign (Alphabetical A-Z & By Table), Avery 5302 Place Cards, Clockwise Caterer BEO, and Live QR Lookup.',
     tier3Tag: 'PLANNER & VENUE PRO STUDIO ($39/MO)',
-    tier3Desc: 'Unlimited active client weddings, restricted Mom Sandbox links (Tables 1–3 only), and white-label Caterer BEO exports.',
+    tier3Desc: 'Unlimited active client weddings, restricted Mom Sandbox links (Tables 1-3 only), and white-label Caterer BEO exports.',
     battlecard: {
       heading: 'Why Couples & Planners Choose SeatHarmony Over Spreadsheets, Zola & Manual Canva',
       colLegacy: 'Zola / Free Portals',
       colManual: 'Sheets + Manual Canva',
       rows: [
         ['Family Conflict & Sightline Solver', '1-Click 35ms Solver keeps divorced parents 2+ tables apart', 'Manual drag-and-drop only', 'Late-night row shuffling'],
-        ['24"×36" Print Welcome Sign', 'Live Vector Poster (A–Z or By Table) with 0.125" Bleed', 'Prints tiny utilitarian table sheet', '5–6 hours re-typing 150 names'],
+        ['24"×36" Print Welcome Sign', 'Live Vector Poster (A-Z or By Table) with 0.125" Bleed', 'Prints tiny utilitarian table sheet', '5-6 hours re-typing 150 names'],
         ['Clockwise Seat 1..N Caterer BEO', '12-O’Clock Seat #1 Map + Allergy & Wheelchair Callouts', 'Basic meal totals without seat numbers', 'Requires separate BEO spreadsheet']
       ]
     },
@@ -82,7 +82,7 @@ const VERTICAL_CONFIGS = {
       { label: 'Room Harmony Score', val: '98/100', sub: '0 Family Conflicts' },
       { label: 'Coupled Households', val: '26/26', sub: 'Zero Split Couples' },
       { label: 'Clockwise Caterer BEO', val: '100%', sub: '12:00 Seat #1 Indexed' },
-      { label: '24"×36" Print Poster', val: '300 DPI', sub: 'A–Z & By Table Ready' }
+      { label: '24"×36" Print Poster', val: '300 DPI', sub: 'A-Z & By Table Ready' }
     ],
     presetKpis: {
       'estate-150': ['98/100', '26/26', '100%', '300 DPI'],
@@ -101,7 +101,7 @@ const VERTICAL_CONFIGS = {
     coMarketingPills: [
       { key: 'perplexity', label: 'Divorced Parents Guard', rowText: 'Sightline Rule: Eleanor (Table 2) and Richard (Table 5) are separated by 410px across the Dance Floor.' },
       { key: 'chatgpt', label: 'Clockwise Caterer BEO', rowText: 'Banquet Rule: Seat #1 is anchored at 12 O’Clock with 4 anaphylactic allergies and 2 chair mods flagged.' },
-      { key: 'gemini', label: '24"×36" Print Poster', rowText: 'Pre-Press Spec: Alphabetical A–Z & By-Table vector layouts with 0.125" bleed for FedEx/Staples.' }
+      { key: 'gemini', label: '24"×36" Print Poster', rowText: 'Pre-Press Spec: Alphabetical A-Z & By-Table vector layouts with 0.125" bleed for FedEx/Staples.' }
     ],
     affiliates: [
       { title: 'FedEx Office 24"×36" Mounted Foam Board Poster', badge: 'Same-Day Pickup', cpa: 'Print 24"×36" Sign', url: 'https://www.office.fedex.com/' },
@@ -116,7 +116,7 @@ const VERTICAL_CONFIGS = {
       summary: 'Combines Union-Find atomic household clustering, Kempe-chain swaps, polar seat geometry, and vector PDF imposition.'
     },
     deliverableFiles: [
-      { file: '24x36-welcome-poster.pdf', label: '24"×36" Welcome Sign (PDF & SVG)', size: '1.8 MB', schema: '300-DPI Alphabetical A–Z & By-Table Welcome Poster with 0.125" bleed and corner QR code', status: 'VALID' },
+      { file: '24x36-welcome-poster.pdf', label: '24"×36" Welcome Sign (PDF & SVG)', size: '1.8 MB', schema: '300-DPI Alphabetical A-Z & By-Table Welcome Poster with 0.125" bleed and corner QR code', status: 'VALID' },
       { file: 'clockwise-caterer-beo.csv', label: 'Clockwise Caterer BEO (.CSV & PDF)', size: '42 KB', schema: '12-o’clock Seat 1..N server map with Filet/Halibut/Vegan/Kids counts, allergies & chair mods', status: 'VALID' },
       { file: 'avery-5302-placecards.pdf', label: 'Avery 5302 Tented Place Cards (.PDF)', size: '640 KB', schema: '2-up tented escort cards with geometric server meal icons (◆/●/▲/★) & back-fold allergy alerts', status: 'VALID' }
     ],
@@ -158,8 +158,8 @@ const VERTICAL_CONFIGS = {
       colLegacy: '25%-Fee Ad Networks', colManual: 'Guessing from Media Kits',
       rows: [
         ['Proof That Ads Actually Convert', 'Tracks 96+ placements that renewed 3 to 18 times on the same show', 'Pushes untested 1-time ad slots (68% churn)', 'No way to know if a sponsor lost money'],
-        ['Rate-Card Floor & Direct Contacts', '88 verified buyer/show emails + -18% 3-flight floor counter-offer script', 'Takes 20%–30% middleman commission cut', 'Paying inflated rack rates or cold-emailing info@'],
-        ['Simple Pricing & Expense Receipt', '$1.99 One-Time 3-File Pass or $49–$199/mo Team Feed', 'Takes thousands in agency retainer fees', 'Weeks of manual transcript & promo tracking']
+        ['Rate-Card Floor & Direct Contacts', '88 verified buyer/show emails + -18% 3-flight floor counter-offer script', 'Takes 20%-30% middleman commission cut', 'Paying inflated rack rates or cold-emailing info@'],
+        ['Simple Pricing & Expense Receipt', '$1.99 One-Time 3-File Pass or $49-$199/mo Team Feed', 'Takes thousands in agency retainer fees', 'Weeks of manual transcript & promo tracking']
       ]
     },
     exportActions: [
@@ -192,7 +192,7 @@ const VERTICAL_CONFIGS = {
     coMarketingPills: [
       { key: 'spotify', label: 'Podcasts', rowText: 'Podcast Buyer & Creator Signal: 68% of 1-off test ads churn; 3-flight mid-roll commitments clear at -18% below published rack.' },
       { key: 'youtube', label: 'YouTube Creators', rowText: 'YouTube Integration Signal: Track which sponsors book 3+ consecutive creator integrations and compare implied CPCs.' },
-      { key: 'beehiiv', label: 'Newsletters', rowText: 'Newsletter Rate Signal: Compare primary sponsorship blocks ($26–$42 CPM) and multi-issue discount tiers.' }
+      { key: 'beehiiv', label: 'Newsletters', rowText: 'Newsletter Rate Signal: Compare primary sponsorship blocks ($26-$42 CPM) and multi-issue discount tiers.' }
     ],
     affiliates: [
       { title: 'Riverside.fm 4K Podcast & Video Studio', badge: 'Creator Studio Pick', cpa: 'Explore Creator Studio', url: 'https://riverside.fm/' },
@@ -339,9 +339,9 @@ const VERTICAL_CONFIGS = {
       heading: 'Why Stripe & Shopify Founders Switch to AbandonAlpha',
       colLegacy: '15%-Commission Recovery Apps', colManual: 'Generic 10%-Off Popups',
       rows: [
-        ['Abandoned Checkout Recovery', 'Matches the right offer to why the shopper is leaving (shipping, price, trust)', 'Charges 10%–15% commission on recovered sales', 'Trains every customer to leave just to get a coupon'],
+        ['Abandoned Checkout Recovery', 'Matches the right offer to why the shopper is leaving (shipping, price, trust)', 'Charges 10%-15% commission on recovered sales', 'Trains every customer to leave just to get a coupon'],
         ['Failed Stripe Card Recovery', 'Retries cards on bank-liquidity windows when balances replenish', 'Blind daily retries that trigger bank fraud blocks', 'Generic "card declined" emails buyers ignore'],
-        ['Flat, Predictable Pricing', '$1.99 Single-Store Pass or $49/mo flat (0% commission)', '$500–$2,500+/mo in revenue-share fees', '$15k–$75k/mo in lost sales']
+        ['Flat, Predictable Pricing', '$1.99 Single-Store Pass or $49/mo flat (0% commission)', '$500-$2,500+/mo in revenue-share fees', '$15k-$75k/mo in lost sales']
       ]
     },
     exportActions: [
@@ -356,7 +356,7 @@ const VERTICAL_CONFIGS = {
     ],
     kpis: [
       { label: 'Recoverable MRR/Mo', val: '$56,722', sub: '24.6% Net Lift' },
-      { label: 'Exit-Intent Capture', val: '$49,076', sub: 'C1–C6 Bandit Arms' },
+      { label: 'Exit-Intent Capture', val: '$49,076', sub: 'C1-C6 Bandit Arms' },
       { label: 'Smart Dunning Lift', val: '$7,646', sub: 'Issuer Window Retry' },
       { label: 'Pre-Exit Hesitation', val: '< 12.0s', sub: 'Cursor Velocity Vector' }
     ],
@@ -384,7 +384,7 @@ const VERTICAL_CONFIGS = {
     githubRepo: {
       name: 'carlsednaoui/ouibounce + PostHog/posthog + colinhacks/zod',
       stars: '171,369 Combined Stars', url: 'https://github.com/PostHog/posthog',
-      badge: 'Beta-Bernoulli C1–C6 Bandit + Stripe Decline-Code Retry Engine',
+      badge: 'Beta-Bernoulli C1-C6 Bandit + Stripe Decline-Code Retry Engine',
       title: 'Autonomous Exit-Intent Bandit & Issuer-Window Dunning Worker',
       summary: 'Replaces naive 24h card retries and static popups with decline-code aware scheduling and Thompson Sampling.'
     },

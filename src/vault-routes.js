@@ -1,5 +1,5 @@
 /**
- * SeatHarmony (#2) — Persistent Event Vault, Passwordless Login & Inside-the-Paywall Print / Fulfillment Engine
+ * SeatHarmony (#2): Persistent Event Vault, Passwordless Login & Inside-the-Paywall Print / Fulfillment Engine
  * Powers:
  *   1. Event Saving & Resume Login: POST /api/vault/save, GET /api/vault/:vaultId, POST /api/vault/lookup
  *   2. Inside-the-Paywall Command Center: GET /vault/:vaultId (and /?checkout=success redirect/fulfillment)
@@ -151,7 +151,7 @@ function renderTopPrintBar({ vault, activeRoute, baseUrl }) {
   const urls = buildVaultUrls(baseUrl, vault.vaultId);
   const unlockBadge = vault.isUnlocked
     ? `<span style="background:#065F46;color:#D1FAE5;border:1px solid #34D399;padding:4px 10px;border-radius:999px;font-size:0.70rem;font-weight:800;">&#10003; UNLOCKED PRINT PACK &bull; ZERO WATERMARK</span>`
-    : `<a href="/buy/complete_dossier?target=${encodeURIComponent(vault.vaultId)}&vault=${encodeURIComponent(vault.vaultId)}" style="background:linear-gradient(135deg,#FDE68A,#C8A96E);color:#181412;padding:5px 12px;border-radius:999px;font-size:0.72rem;font-weight:800;text-decoration:none;">&#128274; Preview Mode &mdash; Unlock 300-DPI Print Pack ($14.99) &rarr;</a>`;
+    : `<a href="/buy/complete_dossier?target=${encodeURIComponent(vault.vaultId)}&vault=${encodeURIComponent(vault.vaultId)}" style="background:linear-gradient(135deg,#FDE68A,#C8A96E);color:#181412;padding:5px 12px;border-radius:999px;font-size:0.72rem;font-weight:800;text-decoration:none;">&#128274; Preview Mode: Unlock 300-DPI Print Pack ($14.99) &rarr;</a>`;
 
   return `
   <header class="no-print" style="position:sticky;top:0;z-index:100;background:#181412;color:#FAF8F5;border-bottom:2px solid #C8A96E;padding:10px 20px;">
@@ -313,7 +313,7 @@ function attachVaultAndPaywallRoutes(app, publicUrl) {
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>${escapeHtml(vault.title)} — Reception Print &amp; Caterer BEO Command Center | SeatHarmony</title>
+  <title>${escapeHtml(vault.title)} | Reception Print &amp; Caterer BEO Command Center | SeatHarmony</title>
   <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,600;0,700;1,600&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=JetBrains+Mono:wght@500;600;700&display=swap" rel="stylesheet" />
   <style>
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
@@ -347,8 +347,8 @@ function attachVaultAndPaywallRoutes(app, publicUrl) {
             <h1 class="serif" style="font-size:2.1rem;color:#181412;line-height:1.1;">${escapeHtml(vault.title)}</h1>
             <div style="font-size:0.84rem;color:#44403C;margin-top:2px;">
               ${vault.isUnlocked
-                ? '&#10003; <strong>Complete Wedding Print &amp; Caterer Pack Unlocked</strong> &mdash; Unlimited 30-day re-exports active.'
-                : '&#128190; <strong>Saved Event Vault Active</strong> &mdash; Preview all 4 deliverables below or unlock watermark-free 300-DPI print files ($14.99 once).'}
+                ? '&#10003; <strong>Complete Wedding Print &amp; Caterer Pack Unlocked:</strong> Unlimited 30-day re-exports active.'
+                : '&#128190; <strong>Saved Event Vault Active:</strong> Preview all 4 deliverables below or unlock watermark-free 300-DPI print files ($14.99 once).'}
             </div>
           </div>
         </div>
@@ -370,7 +370,7 @@ function attachVaultAndPaywallRoutes(app, publicUrl) {
           </div>
           <h2 class="serif" style="font-size:1.5rem;margin-bottom:6px;">Print-Ready 24&Prime;&times;36&Prime; Welcome Poster</h2>
           <p style="font-size:0.84rem;color:#44403C;">
-            Full-scale vector poster formatted for FedEx Office, Staples, or local foam-board printers. Switch between <strong>Alphabetical A&ndash;Z</strong> and <strong>By-Table</strong> layouts, toggle crop marks, and save as a 300-DPI PDF.
+            Full-scale vector poster formatted for FedEx Office, Staples, or local foam-board printers. Switch between <strong>Alphabetical A-Z</strong> and <strong>By-Table</strong> layouts, toggle crop marks, and save as a 300-DPI PDF.
           </p>
         </div>
         <div style="display:flex;gap:8px;flex-wrap:wrap;">
@@ -421,7 +421,7 @@ function attachVaultAndPaywallRoutes(app, publicUrl) {
             <span class="mono" style="font-size:0.68rem;font-weight:800;color:#78350F;background:#FAF3E3;border:1px solid #C8A96E;padding:2px 8px;border-radius:999px;">DELIVERABLE 4 &middot; LIVE QR &amp; MOM SANDBOX</span>
             <h2 class="serif" style="font-size:1.4rem;margin:4px 0;">Cocktail-Hour QR App &amp; Mom Link</h2>
             <p style="font-size:0.81rem;color:#44403C;">
-              Scan the QR code with your phone camera right now to test the standalone mobile guest lookup page, or copy your restricted Mom Sandbox link (Tables 1&ndash;3 only).
+              Scan the QR code with your phone camera right now to test the standalone mobile guest lookup page, or copy your restricted Mom Sandbox link (Tables 1 to 3 only).
             </p>
           </div>
         </div>
@@ -494,7 +494,7 @@ function attachVaultAndPaywallRoutes(app, publicUrl) {
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>24"×36" Arch D Welcome Sign — ${escapeHtml(vault.title)}</title>
+  <title>24"×36" Arch D Welcome Sign | ${escapeHtml(vault.title)}</title>
   <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,600;0,700;1,600&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=JetBrains+Mono:wght@500;600;700&display=swap" rel="stylesheet" />
   <style>
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
@@ -519,7 +519,7 @@ function attachVaultAndPaywallRoutes(app, publicUrl) {
   ${renderTopPrintBar({ vault, activeRoute: 'poster', baseUrl })}
   <div class="no-print" style="max-width:960px;margin:16px auto 0;padding:0 16px;display:flex;justify-content:space-between;align-items:center;gap:10px;flex-wrap:wrap;color:#FAF8F5;">
     <div style="display:flex;gap:6px;flex-wrap:wrap;">
-      <a href="${urls.print_poster}?sort=alphabetical&theme=${encodeURIComponent(theme)}" style="padding:6px 12px;border-radius:999px;font-size:0.75rem;font-weight:800;text-decoration:none;${sortMode !== 'by_table' ? 'background:#FDE68A;color:#181412;' : 'background:rgba(255,255,255,0.12);color:#FAF8F5;'}">Sort A&ndash;Z (Last Name)</a>
+      <a href="${urls.print_poster}?sort=alphabetical&theme=${encodeURIComponent(theme)}" style="padding:6px 12px;border-radius:999px;font-size:0.75rem;font-weight:800;text-decoration:none;${sortMode !== 'by_table' ? 'background:#FDE68A;color:#181412;' : 'background:rgba(255,255,255,0.12);color:#FAF8F5;'}">Sort A-Z (Last Name)</a>
       <a href="${urls.print_poster}?sort=by_table&theme=${encodeURIComponent(theme)}" style="padding:6px 12px;border-radius:999px;font-size:0.75rem;font-weight:800;text-decoration:none;${sortMode === 'by_table' ? 'background:#FDE68A;color:#181412;' : 'background:rgba(255,255,255,0.12);color:#FAF8F5;'}">Sort By Table (1..${tables.length})</a>
       <a href="${urls.print_poster}?sort=${encodeURIComponent(sortMode)}&theme=alabaster" style="padding:6px 12px;border-radius:999px;font-size:0.75rem;font-weight:800;text-decoration:none;${theme === 'alabaster' ? 'border:2px solid #FDE68A;color:#FDE68A;' : 'color:#D6CFC2;'}">Alabaster</a>
       <a href="${urls.print_poster}?sort=${encodeURIComponent(sortMode)}&theme=obsidian" style="padding:6px 12px;border-radius:999px;font-size:0.75rem;font-weight:800;text-decoration:none;${theme === 'obsidian' ? 'border:2px solid #FDE68A;color:#FDE68A;' : 'color:#D6CFC2;'}">Obsidian</a>
@@ -603,7 +603,7 @@ function attachVaultAndPaywallRoutes(app, publicUrl) {
             ${hasChairMod ? `<div style="font-size:0.68rem;font-weight:800;color:#78350F;margin-top:2px;">&#9855; CHAIR MOD: ${escapeHtml(g.accessibility)}</div>` : ''}
           </div>
           <!-- FOLD SCORE LINE -->
-          <div class="tent-fold-line"><span>&mdash; FOLD ALONG SCORE LINE (AVERY 5302 / 5011) &mdash;</span></div>
+          <div class="tent-fold-line"><span>&#10022; FOLD ALONG SCORE LINE (AVERY 5302 / 5011) &#10022;</span></div>
           <!-- FRONT FOLD (Guest-Facing Escort / Place Card) -->
           <div class="tent-front">
             <div style="display:flex;justify-content:space-between;align-items:center;">
@@ -624,7 +624,7 @@ function attachVaultAndPaywallRoutes(app, publicUrl) {
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Avery 5302 Place Cards (${guests.length} Guests) — ${escapeHtml(vault.title)}</title>
+  <title>Avery 5302 Place Cards (${guests.length} Guests) | ${escapeHtml(vault.title)}</title>
   <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,600;0,700;1,600&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=JetBrains+Mono:wght@500;600;700&display=swap" rel="stylesheet" />
   <style>
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
@@ -720,7 +720,7 @@ function attachVaultAndPaywallRoutes(app, publicUrl) {
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Clockwise 12:00 Caterer BEO — ${escapeHtml(vault.title)}</title>
+  <title>Clockwise 12:00 Caterer BEO | ${escapeHtml(vault.title)}</title>
   <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,600;0,700;1,600&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=JetBrains+Mono:wght@500;600;700&display=swap" rel="stylesheet" />
   <style>
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
@@ -736,7 +736,7 @@ function attachVaultAndPaywallRoutes(app, publicUrl) {
     <div style="background:#181412;color:#FAF8F5;border:2px solid #C8A96E;border-radius:16px;padding:20px 24px;margin-bottom:20px;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:12px;">
       <div>
         <div class="mono" style="font-size:0.70rem;color:#FDE68A;font-weight:800;">OFFICIAL BANQUET EVENT ORDER (BEO) &bull; VAULT #${escapeHtml(vault.vaultId)}</div>
-        <h1 class="serif" style="font-size:2rem;color:#FFFFFF;">${escapeHtml(vault.title)} &mdash; Clockwise 12:00 Server Manifest</h1>
+        <h1 class="serif" style="font-size:2rem;color:#FFFFFF;">${escapeHtml(vault.title)} &bull; Clockwise 12:00 Server Manifest</h1>
         <div style="font-size:0.82rem;color:#D6CFC2;">${escapeHtml(vault.venueName)} &bull; ${tables.length} Tables &bull; ${guests.length} Seated Guests &bull; ${allergies.length} Severe Allergy Flags &bull; ${chairMods.length} Chair Mods</div>
       </div>
       <button class="no-print" type="button" onclick="window.print()" style="background:linear-gradient(135deg,#FDE68A,#C8A96E);color:#181412;border:none;border-radius:10px;padding:10px 18px;font-weight:800;font-size:0.82rem;cursor:pointer;">
@@ -766,7 +766,7 @@ function attachVaultAndPaywallRoutes(app, publicUrl) {
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Find Your Seat — ${escapeHtml(vault.title)}</title>
+  <title>Find Your Seat | ${escapeHtml(vault.title)}</title>
   <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,600;0,700;1,600&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=JetBrains+Mono:wght@500;600;700&display=swap" rel="stylesheet" />
   <style>
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
