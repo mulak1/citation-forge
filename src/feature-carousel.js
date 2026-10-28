@@ -197,14 +197,14 @@ function renderFeatureShowcaseCarousel(vId = 'SH-4819') {
     <div class="studio-feature-slide${idx === 0 ? ' active' : ''}" data-slide-idx="${idx}">
       <!-- Slide Header -->
       <div style="display:flex;flex-wrap:wrap;justify-content:space-between;align-items:flex-end;gap:16px;margin-bottom:20px;padding-bottom:16px;border-bottom:1px solid #EFEAE1;">
-        <div style="max-width:740px;">
+        <div style="max-width:62ch;">
           <div style="display:inline-flex;align-items:center;gap:6px;font-size:0.78rem;font-weight:800;text-transform:uppercase;letter-spacing:0.08em;color:#8C2D19;background:#FDF2EE;border:1px solid #F5C2B8;padding:4px 12px;border-radius:999px;margin-bottom:10px;">
             &#128274; ${escapeHtml(s.badge)}
           </div>
           <h3 class="serif-display" style="font-size:clamp(1.65rem, 2.5vw, 2.15rem);color:#181412;line-height:1.15;margin-bottom:8px;">
             ${escapeHtml(s.title)}
           </h3>
-          <p style="font-size:1.02rem;color:#44403C;line-height:1.6;">
+          <p style="font-size:1.02rem;color:#44403C;line-height:1.6;max-width:60ch;">
             ${escapeHtml(s.desc)}
           </p>
         </div>
@@ -270,7 +270,7 @@ function renderFeatureShowcaseCarousel(vId = 'SH-4819') {
         <h3 class="serif-display" style="font-size:clamp(1.85rem, 3vw, 2.45rem);color:#181412;line-height:1.12;">
           See the Exact Print &amp; Catering Tools You Unlock
         </h3>
-        <p style="font-size:1.05rem;color:#57534E;max-width:720px;margin-top:6px;line-height:1.55;">
+        <p style="font-size:1.05rem;color:#57534E;max-width:60ch;margin-top:6px;line-height:1.55;">
           Click through all 5 production tools below. Every screen is a real, interactive SeatHarmony deliverable generated from your reception floorplan (and you can click <strong>Open Live Demo &nearr;</strong> on any slide to test it right now).
         </p>
       </div>

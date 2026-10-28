@@ -179,7 +179,7 @@ function renderHead({
     .bs-ba-card.after { background: #ECFDF5; border-color: #6EE7B7; }
     .studio-ba-table-wrap { margin-top: 32px; background: #FFFFFF; border: 1.5px solid #C8A96E; border-radius: 18px; overflow-x: auto; box-shadow: 0 12px 30px rgba(24, 20, 18, 0.06); }
     .ba-table { width: 100%; border-collapse: collapse; text-align: left; }
-    .ba-table th, .ba-table td { padding: 15px 20px; border-bottom: 1px solid #EFEAE1; font-size: 0.96rem; line-height: 1.5; }
+    .ba-table th, .ba-table td { padding: 15px 20px; border-bottom: 1px solid #EFEAE1; font-size: 1rem; line-height: 1.55; }
     .studio-reviews-grid { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 22px; margin-top: 20px; }
     .studio-review-card { background: #FFFFFF; border: 1.5px solid var(--border-warm); border-radius: 18px; padding: 24px 26px; display: flex; flex-direction: column; justify-content: space-between; gap: 14px; font-size: 1.02rem; line-height: 1.6; box-shadow: 0 8px 24px rgba(24, 20, 18, 0.04); }
     .studio-feature-slide { display: none; animation: studioSlideFadeIn 0.25s ease-out; }
@@ -212,7 +212,7 @@ function renderHead({
     .studio-faq-item { background: #FFFFFF; border: 1.5px solid var(--border-warm); border-radius: 16px; padding: 20px 24px; }
     .studio-faq-item summary { cursor: pointer; font-weight: 800; font-size: 1.08rem; color: #181412; display: flex; align-items: center; justify-content: space-between; gap: 12px; list-style: none; }
     .studio-faq-item summary::-webkit-details-marker { display: none; }
-    .mobile-subnav { display: none; overflow-x: auto; white-space: nowrap; gap: 14px; padding: 8px 16px; background: #F4EFE6; border-bottom: 1px solid var(--border-warm); font-size: 0.78rem; font-weight: 700; }
+    .mobile-subnav { display: none; flex-wrap: wrap; justify-content: center; gap: 6px 14px; padding: 8px 14px; background: #F4EFE6; border-bottom: 1px solid var(--border-warm); font-size: 0.78rem; font-weight: 700; }
     .mobile-subnav a { color: var(--text-secondary); text-decoration: none; }
     .footer { background: #F4EFE6; border-top: 1px solid var(--border-warm); padding: 56px 0 40px; font-size: 0.90rem; color: var(--text-secondary); }
     @media (max-width: 1120px) { .hide-1024 { display: none !important; } }
