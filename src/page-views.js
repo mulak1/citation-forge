@@ -2,7 +2,7 @@
  * SeatHarmony (#2) - 6-Zone High-Conviction Landing Page (ExactBaseline Sunlit Champagne Architecture)
  */
 const { escapeHtml, renderHead, renderNavbar, renderFooter, renderInteractiveScript } = require('./templates');
-const { renderFeatureShowcaseCarousel } = require('./feature-carousel');
+const { renderZone4ProofStackAndPricing } = require('./feature-carousel');
 
 function renderZone1Hero(plan) {
   const vId = escapeHtml(plan.vaultId || 'SH-4819');
@@ -131,35 +131,36 @@ function renderZone2Walkthrough() {
   <!-- ZONE 2: "HOW IT WORKS" - 4-STEP SKIMMER WALKTHROUGH + POST-HOW-IT-WORKS MINI CTA (FOLD 2) -->
   <section class="studio-zone-section" id="studio-zone2-how-it-works">
     <div class="container">
-      <div style="text-align:center;">
-        <div class="studio-eyebrow-kicker">HOW SEATHARMONY WORKS</div>
-        <h2 class="studio-zone-title">From RSVP list to print-ready reception <em>in four steps.</em></h2>
+      <div class="bs-section-header">
+        <div class="bs-section-eyebrow">HOW SEATHARMONY WORKS</div>
+        <h2 class="bs-section-h2">From RSVP list to print-ready reception <em>in four steps.</em></h2>
+        <p class="bs-section-sub">We replace late-night spreadsheet guesswork and manual Canva re-typing with conflict-free household seating, clockwise caterer meal sheets, and print-shop-ready signage.</p>
       </div>
       <div class="studio-how-grid">
         <div class="studio-how-card" style="cursor:pointer;" onclick="window.scrollToShCard(2)">
-          <div style="display:flex;align-items:center;justify-content:space-between;"><span class="studio-how-num">&#9312;</span><span class="mono" style="font-size:0.76rem;font-weight:800;color:#78350F;background:#FAF3E3;padding:4px 10px;border-radius:999px;">15-Sec Import</span></div>
-          <h3 style="font-size:1.18rem;font-weight:800;color:#181412;margin:0;">1. Paste Your Guest List</h3>
-          <p style="font-size:1.0rem;color:#44403C;line-height:1.55;margin:0;">Paste from Zola, The Knot, or Excel. Couples, plus-ones, and children stay seated together.</p>
+          <div style="display:flex;align-items:center;justify-content:space-between;"><span class="studio-how-num">01</span><span class="mono" style="font-size:0.82rem;font-weight:800;color:#78350F;background:#FAF3E3;padding:5px 11px;border-radius:999px;">15-Sec Import</span></div>
+          <h3 style="font-size:1.22rem;font-weight:800;color:#181412;margin:0;line-height:1.28;">1. Paste Your Guest List</h3>
+          <p style="font-size:1.02rem;color:#44403C;line-height:1.58;margin:0;">Paste from Zola, The Knot, or Excel. Couples, plus-ones, and children stay seated together automatically.</p>
         </div>
         <div class="studio-how-card" style="cursor:pointer;" onclick="window.scrollToShCard(3)">
-          <div style="display:flex;align-items:center;justify-content:space-between;"><span class="studio-how-num">&#9313;</span><span class="mono" style="font-size:0.76rem;font-weight:800;color:#065F46;background:#ECFDF5;padding:4px 10px;border-radius:999px;">1-Click Peace</span></div>
-          <h3 style="font-size:1.18rem;font-weight:800;color:#181412;margin:0;">2. Keep Family Peace</h3>
-          <p style="font-size:1.0rem;color:#44403C;line-height:1.55;margin:0;">Seat divorced parents across the dance floor and place grandparents away from the DJ speakers.</p>
+          <div style="display:flex;align-items:center;justify-content:space-between;"><span class="studio-how-num">02</span><span class="mono" style="font-size:0.82rem;font-weight:800;color:#065F46;background:#ECFDF5;padding:5px 11px;border-radius:999px;">1-Click Peace</span></div>
+          <h3 style="font-size:1.22rem;font-weight:800;color:#181412;margin:0;line-height:1.28;">2. Keep Family Peace</h3>
+          <p style="font-size:1.02rem;color:#44403C;line-height:1.58;margin:0;">Seat divorced parents across the dance floor and place grandparents away from the DJ speakers.</p>
         </div>
         <div class="studio-how-card" style="cursor:pointer;" onclick="if(window.shSetActiveTab){window.shSetActiveTab('beo');}document.getElementById('studio-bespoke-artifact-stage').scrollIntoView({behavior:'smooth'});">
-          <div style="display:flex;align-items:center;justify-content:space-between;"><span class="studio-how-num">&#9314;</span><span class="mono" style="font-size:0.76rem;font-weight:800;color:#8C2D19;background:#FDF2EE;padding:4px 10px;border-radius:999px;">12:00 = Seat #1</span></div>
-          <h3 style="font-size:1.18rem;font-weight:800;color:#181412;margin:0;">3. Caterer Meal Sheet (BEO)</h3>
-          <p style="font-size:1.0rem;color:#44403C;line-height:1.55;margin:0;">Numbers every chair clockwise from 12 o&rsquo;clock with entrée icons and red allergy alerts for servers.</p>
+          <div style="display:flex;align-items:center;justify-content:space-between;"><span class="studio-how-num">03</span><span class="mono" style="font-size:0.82rem;font-weight:800;color:#8C2D19;background:#FDF2EE;padding:5px 11px;border-radius:999px;">12:00 = Seat #1</span></div>
+          <h3 style="font-size:1.22rem;font-weight:800;color:#181412;margin:0;line-height:1.28;">3. Caterer Meal Sheet (BEO)</h3>
+          <p style="font-size:1.02rem;color:#44403C;line-height:1.58;margin:0;">Numbers every chair clockwise from 12 o&rsquo;clock with entrée icons and red allergy alerts for servers.</p>
         </div>
         <div class="studio-how-card" style="cursor:pointer;" onclick="if(window.shSetActiveTab){window.shSetActiveTab('poster');}document.getElementById('studio-bespoke-artifact-stage').scrollIntoView({behavior:'smooth'});">
-          <div style="display:flex;align-items:center;justify-content:space-between;"><span class="studio-how-num">&#9315;</span><span class="mono" style="font-size:0.76rem;font-weight:800;color:#78350F;background:#FAF3E3;padding:4px 10px;border-radius:999px;">6 Sign Styles</span></div>
-          <h3 style="font-size:1.18rem;font-weight:800;color:#181412;margin:0;">4. Print 24&Prime;&times;36&Prime; Sign &amp; Cards</h3>
-          <p style="font-size:1.0rem;color:#44403C;line-height:1.55;margin:0;">Download your FedEx/Staples easel poster PDF, Avery 5302 place cards, and cocktail-hour QR code.</p>
+          <div style="display:flex;align-items:center;justify-content:space-between;"><span class="studio-how-num">04</span><span class="mono" style="font-size:0.82rem;font-weight:800;color:#78350F;background:#FAF3E3;padding:5px 11px;border-radius:999px;">6 Sign Styles</span></div>
+          <h3 style="font-size:1.22rem;font-weight:800;color:#181412;margin:0;line-height:1.28;">4. Print 24&Prime;&times;36&Prime; Sign &amp; Cards</h3>
+          <p style="font-size:1.02rem;color:#44403C;line-height:1.58;margin:0;">Download your FedEx/Staples easel poster PDF, Avery 5302 place cards, and cocktail-hour QR code.</p>
         </div>
       </div>
-      <div style="text-align:center;margin-top:28px;">
-        <a href="#studio" class="btn btn-primary" style="padding:13px 26px;font-size:0.95rem;border-radius:999px;">Build Your Reception Floorplan Free &darr;</a>
-        <div style="font-size:0.86rem;color:#57534E;margin-top:8px;font-weight:600;">No account required to start &bull; Free Caterer Meal Sheet (.CSV) &bull; Live 6-Design Sign Preview</div>
+      <div style="text-align:center;margin-top:36px;">
+        <a href="#studio" class="btn btn-primary" style="padding:14px 28px;font-size:0.98rem;border-radius:999px;">Build Your Reception Floorplan Free &darr;</a>
+        <div style="font-size:0.92rem;color:#57534E;margin-top:10px;font-weight:600;">No account required to start &bull; Free Caterer Meal Sheet (.CSV) &bull; Live 6-Design Sign Preview</div>
       </div>
     </div>
   </section>`;
@@ -678,152 +679,48 @@ David &amp; Elena Rostova (Filet, Peanut Allergy)</textarea>
   </section>`;
 }
 
-function renderZone4ProofStackAndPricing() {
-  return `
-  <!-- ZONE 3: THE "SELL" - 3-LAYER CONTEXTUAL PROOF STACK (BEFORE INTERACTIVE STUDIO) -->
-  <section class="studio-zone-section" id="beo-proof" style="background:linear-gradient(180deg, #FFFDF9 0%, #FAF3E6 100%);border-top:1px solid #E5D9C5;border-bottom:1px solid #E5D9C5;">
-    <div class="container">
-      <div style="text-align:center;">
-        <div class="studio-eyebrow-kicker">PROVEN AT 18,420+ RECEPTIONS</div>
-        <h2 class="studio-zone-title">How couples &amp; planners skip <em>2 AM spreadsheet chaos.</em></h2>
-      </div>
-
-      <!-- ROW 1: 3 Case Study Cards with Itemized Receipt-Math Boxes -->
-      <div class="studio-proof-cases-grid">
-        <div class="studio-proof-case-card">
-          <div>
-            <div style="display:flex;justify-content:space-between;align-items:center;gap:8px;margin-bottom:10px;"><span class="badge badge-amber">150-GUEST BRIDE</span><span style="font-size:0.86rem;font-weight:800;color:#065F46;">6.5 Hrs Saved</span></div>
-            <h3 class="serif-display" style="font-size:1.42rem;margin-bottom:6px;">Divorced Parents + 28 Plus-Ones</h3>
-            <p style="font-size:1.0rem;color:#44403C;line-height:1.55;">Imported 150 Zola guests, separated Tables 2 and 5 across the dance floor, and exported a 24&Prime;&times;36&Prime; FedEx sign in 40 seconds.</p>
-          </div>
-          <div class="bs-case-math-box">152 guests &times; $0 Canva re-types = <strong>$220 Etsy Sign Saved</strong></div>
-        </div>
-        <div class="studio-proof-case-card" style="border-color:#C8A96E;">
-          <div>
-            <div style="display:flex;justify-content:space-between;align-items:center;gap:8px;margin-bottom:10px;"><span class="badge badge-emerald">LUXURY PLANNER</span><span style="font-size:0.86rem;font-weight:800;color:#065F46;">0 Meal Mix-Ups</span></div>
-            <h3 class="serif-display" style="font-size:1.42rem;margin-bottom:6px;">12:00 Meal Sheet + Family Link</h3>
-            <p style="font-size:1.0rem;color:#44403C;line-height:1.55;">Sent Mom a restricted link for Tables 1-3, locked the Groom&rsquo;s side, and handed the chef a Clockwise 12:00 Meal Sheet (BEO) with 4 allergy flags.</p>
-          </div>
-          <div class="bs-case-math-box">16 tables &times; Clockwise Seat #1 = <strong>0 Server Plate Errors</strong></div>
-        </div>
-        <div class="studio-proof-case-card">
-          <div>
-            <div style="display:flex;justify-content:space-between;align-items:center;gap:8px;margin-bottom:10px;"><span class="badge badge-cyan">300-GUEST GALA</span><span style="font-size:0.86rem;font-weight:800;color:#065F46;">0 Foyer Line</span></div>
-            <h3 class="serif-display" style="font-size:1.42rem;margin-bottom:6px;">VIP Tables + QR Lookup</h3>
-            <p style="font-size:1.0rem;color:#44403C;line-height:1.55;">Seated 30 tables of 10 with sponsors near the stage, printed two 24&Prime;&times;36&Prime; signs, and let 300 guests scan QR codes at the bar.</p>
-          </div>
-          <div class="bs-case-math-box">300 guests &times; 3 sec QR lookup = <strong>18 Min Foyer Jam Eliminated</strong></div>
-        </div>
-      </div>
-
-      <!-- ROW 2A: Side-by-Side Before & After Cards -->
-      <div class="bs-ba-grid">
-        <div class="bs-ba-card before">
-          <div style="font-size:0.82rem;font-weight:800;letter-spacing:0.08em;text-transform:uppercase;color:#B45309;margin-bottom:12px;">&#10005; BEFORE SEATHARMONY (2 AM SPREADSHEETS &amp; CANVA)</div>
-          <ul style="list-style:none;display:flex;flex-direction:column;gap:11px;font-size:1.0rem;color:#57534E;line-height:1.55;">
-            <li>&#10005; <strong>Plus-Ones Split Up:</strong> Manual drag-and-drop separates couples across tables when one guest drops out.</li>
-            <li>&#10005; <strong>Divorced-Parent Sightline Clashes:</strong> Unnoticed back-to-back chairs across adjacent tables.</li>
-            <li>&#10005; <strong>Canva Re-Typing Nightmare:</strong> Re-aligning 150 alphabetical names by hand 48 hours before the wedding.</li>
-            <li>&#10005; <strong>Confused Banquet Servers:</strong> Waitstaff auctioning off Filet Mignon and missing nut allergies.</li>
-          </ul>
-        </div>
-        <div class="bs-ba-card after">
-          <div style="font-size:0.82rem;font-weight:800;letter-spacing:0.08em;text-transform:uppercase;color:#047857;margin-bottom:12px;">&#10003; WITH SEATHARMONY STUDIO (30-SECOND SEATING &amp; PRINT PACK)</div>
-          <ul style="list-style:none;display:flex;flex-direction:column;gap:11px;font-size:1.0rem;color:#181412;line-height:1.55;">
-            <li>&#10003; <strong>Couples Kept Together:</strong> Every partner, plus-one, and child stays seated together automatically.</li>
-            <li>&#10003; <strong>1-Click Family Peace:</strong> Places divorced parents or exes on opposite sides of the dance floor.</li>
-            <li>&#10003; <strong>6 Luxury 24&Prime;&times;36&Prime; Signs + Avery 5302:</strong> Instant 300-DPI FedEx/Staples PDF with <code>0.125&Prime;</code> bleed.</li>
-            <li>&#10003; <strong>Clockwise 12:00 Caterer Meal Sheet (BEO):</strong> Servers set every plate and allergy dish at the exact chair.</li>
-          </ul>
-        </div>
-      </div>
-
-      <!-- ROW 2B: 3-Column Honest Comparison Table -->
-      <div class="studio-ba-table-wrap">
-        <table class="ba-table">
-          <thead>
-            <tr style="background:#FAF3E6;color:#181412;border-bottom:2px solid #E2D9C8;">
-              <th style="width:24%;color:#78350F;">The Honest Comparison</th>
-              <th style="width:28%;color:#065F46;background:#ECFDF5;">&#10022; SeatHarmony Studio ($14.99 once)</th>
-              <th style="width:24%;color:#57534E;">Event Seating SaaS ($150+/yr)</th>
-              <th style="width:24%;color:#78716C;">Excel + Canva By Hand</th>
-            </tr>
-          </thead>
-          <tbody>
-            <tr><td><strong>Pricing Model</strong></td><td style="font-weight:800;color:#065F46;background:#F8FEFB;">$14.99 One-Time (Zero Subscription)</td><td style="color:#57534E;">$39-$99/mo recurring trap</td><td style="color:#57534E;">Free + $45 Etsy template</td></tr>
-            <tr><td><strong>Family Peace Seating</strong></td><td style="font-weight:700;color:#181412;background:#F8FEFB;">&#10003; Keeps Couples Together + Separates Exes</td><td style="color:#57534E;">Manual drag-and-drop only</td><td style="color:#57534E;">Manual copy-paste errors</td></tr>
-            <tr><td><strong>Caterer Meal Sheet (BEO)</strong></td><td style="font-weight:700;color:#181412;background:#F8FEFB;">&#10003; <code>12:00 = Seat #1</code> + Allergy Alerts</td><td style="color:#57534E;">Generic table list only</td><td style="color:#57534E;">None (servers guess seats)</td></tr>
-            <tr><td><strong>24&Prime;&times;36&Prime; Sign &amp; Place Cards</strong></td><td style="font-weight:700;color:#181412;background:#F8FEFB;">&#10003; 6 Welcome Signs + Avery 5302 PDF</td><td style="color:#57534E;">No poster typography</td><td style="color:#57534E;">5+ hours re-typing names</td></tr>
-          </tbody>
-        </table>
-      </div>
-
-      <!-- ROW 3: Verified Rating Header + 3 Written Reviews -->
-      <div style="text-align:center;margin-top:36px;margin-bottom:16px;">
-        <span style="display:inline-flex;align-items:center;gap:6px;padding:7px 16px;border-radius:999px;background:#FFFDF9;border:1px solid #DEC9A4;font-size:0.86rem;font-weight:800;color:#78350F;letter-spacing:0.06em;">&#9733;&#9733;&#9733;&#9733;&#9733; 4.9 / 5 FROM 18,420+ WEDDINGS &amp; GALAS</span>
-      </div>
-      <div class="studio-reviews-grid" style="margin-bottom:32px;">
-        <div class="studio-review-card"><p style="font-size:1.02rem;color:#181412;font-style:italic;line-height:1.6;">&ldquo;3 guests dropped out 48 hours before our wedding. We deleted them on the canvas and sent the updated 24&Prime;&times;36&Prime; PDF straight to FedEx.&rdquo;</p><div style="font-size:0.88rem;font-weight:800;color:#78350F;">&#9733;&#9733;&#9733;&#9733;&#9733; &middot; Hannah &amp; Devon R., 165 Guests (Napa, CA)</div></div>
-        <div class="studio-review-card"><p style="font-size:1.02rem;color:#181412;font-style:italic;line-height:1.6;">&ldquo;Our caterer hugged our coordinator when she handed him the Clockwise 12:00 Meal Sheet with Seat #1 marked and the peanut allergy in red.&rdquo;</p><div style="font-size:0.88rem;font-weight:800;color:#78350F;">&#9733;&#9733;&#9733;&#9733;&#9733; &middot; Claire M., Bride, 140 Guests (Chicago, IL)</div></div>
-        <div class="studio-review-card"><p style="font-size:1.02rem;color:#181412;font-style:italic;line-height:1.6;">&ldquo;The Family Share link let my wife rearrange Tables 1-3 at midnight while keeping our daughter&rsquo;s friends on Tables 4-8 safely locked.&rdquo;</p><div style="font-size:0.88rem;font-weight:800;color:#78350F;">&#9733;&#9733;&#9733;&#9733;&#9733; &middot; Robert T., Father of the Bride (Boston, MA)</div></div>
-      </div>
-
-      ${renderFeatureShowcaseCarousel('SH-4819')}
-
-      <!-- TRANSITION BRIDGE BANNER INTO INTERACTIVE STUDIO -->
-      <div id="bs-zone3-anchor" style="margin-top:32px;background:linear-gradient(135deg,#FFFDF9 0%,#F5ECE0 100%);border:2px solid #D8C29D;border-radius:18px;padding:24px 28px;display:flex;flex-wrap:wrap;align-items:center;justify-content:space-between;gap:16px;">
-        <div>
-          <div style="font-size:0.78rem;font-weight:800;letter-spacing:0.10em;text-transform:uppercase;color:#8C2D19;margin-bottom:4px;">YOUR TURN &middot; THE 5-STEP RECEPTION FLOORPLAN &amp; 24&Prime;&times;36&Prime; SIGN STUDIO</div>
-          <div class="serif-display" style="font-size:1.55rem;color:#181412;">Test a 150-guest reception below or paste your own Zola / Knot RSVP list.</div>
-        </div>
-        <a href="#studio" class="btn btn-primary" style="padding:13px 24px;font-size:0.95rem;">Jump Into Interactive Studio &darr;</a>
-      </div>
-    </div>
-  </section>`;
-}
-
 function renderZone5FaqAndZone6Close(sampleSeoPages = []) {
   const seoLinks = sampleSeoPages.slice(0, 12).map(p =>
-    `<a href="/seo/${escapeHtml(p.slug)}" style="font-size:0.78rem;color:#44403C;text-decoration:none;padding:6px 10px;border-radius:8px;background:#FFFFFF;border:1px solid #E2D9C8;">${escapeHtml(p.title)}</a>`
+    `<a href="/seo/${escapeHtml(p.slug)}" style="font-size:0.86rem;color:#44403C;text-decoration:none;padding:7px 12px;border-radius:8px;background:#FFFFFF;border:1px solid #E2D9C8;font-weight:600;">${escapeHtml(p.title)}</a>`
   ).join('');
 
   return `
   <!-- ZONE 5: 5-QUESTION FAQ -->
   <section class="studio-zone-section" id="faq" style="border-top:1px solid #E5D9C5;">
     <div class="container">
-      <div style="text-align:center;">
-        <div class="studio-eyebrow-kicker">COMMON QUESTIONS</div>
-        <h2 class="studio-zone-title">Five quick answers <em>before you print.</em></h2>
+      <div class="bs-section-header">
+        <div class="bs-section-eyebrow">COMMON QUESTIONS</div>
+        <h2 class="bs-section-h2">Five quick answers <em>before you print.</em></h2>
       </div>
 
       <div class="studio-faq-stack">
         <details class="studio-faq-item" open>
           <summary><span>1. What if guests drop out 48 hours before the wedding?</span><span>&#9662;</span></summary>
-          <div style="padding-top:10px;font-size:1.0rem;color:#44403C;line-height:1.6;max-width:60ch;">
+          <div style="padding-top:12px;font-size:1.05rem;color:#44403C;line-height:1.65;max-width:64ch;">
             Delete or swap them on the floorplan in 2 clicks. Your <strong>12:00 Caterer Meal Sheet (BEO)</strong>, <strong>24&Prime;&times;36&Prime; Welcome Sign</strong>, <strong>Avery 5302 Place Cards</strong>, and <strong>QR Lookup</strong> update automatically, with unlimited free re-exports for 30 days.
           </div>
         </details>
         <details class="studio-faq-item">
           <summary><span>2. Can Mom edit family tables without touching our friends&rsquo; tables?</span><span>&#9662;</span></summary>
-          <div style="padding-top:10px;font-size:1.0rem;color:#44403C;line-height:1.6;max-width:60ch;">
+          <div style="padding-top:12px;font-size:1.05rem;color:#44403C;line-height:1.65;max-width:64ch;">
             Yes. Click <strong>&ldquo;Copy Family Link (Tables 1-3)&rdquo;</strong> in Step 4 to share a link where Tables 1-3 are editable and Tables 4-8 are safely locked.
           </div>
         </details>
         <details class="studio-faq-item">
           <summary><span>3. Will the 24&Prime;&times;36&Prime; poster print cleanly at FedEx Office or Staples?</span><span>&#9662;</span></summary>
-          <div style="padding-top:10px;font-size:1.0rem;color:#44403C;line-height:1.6;max-width:60ch;">
+          <div style="padding-top:12px;font-size:1.05rem;color:#44403C;line-height:1.65;max-width:64ch;">
             Yes. Every poster is a 300-DPI vector PDF sized to <strong>Arch D (24&Prime;&times;36&Prime;)</strong> with <code>0.125&Prime;</code> bleed and crop marks, plus <strong>Avery 5302</strong> tent card sheets.
           </div>
         </details>
         <details class="studio-faq-item">
           <summary><span>4. How does the Clockwise 12:00 Caterer Meal Sheet (BEO) work?</span><span>&#9662;</span></summary>
-          <div style="padding-top:10px;font-size:1.0rem;color:#44403C;line-height:1.6;max-width:60ch;">
+          <div style="padding-top:12px;font-size:1.05rem;color:#44403C;line-height:1.65;max-width:64ch;">
             Seat #1 is anchored at <strong>12 o&rsquo;clock (red dot)</strong> and numbered clockwise so servers set down Filet, Halibut, Vegan, and Allergy plates without asking guests.
           </div>
         </details>
         <details class="studio-faq-item">
           <summary><span>5. Is $14.99 really a one-time payment?</span><span>&#9662;</span></summary>
-          <div style="padding-top:10px;font-size:1.0rem;color:#44403C;line-height:1.6;max-width:60ch;">
+          <div style="padding-top:12px;font-size:1.05rem;color:#44403C;line-height:1.65;max-width:64ch;">
             100% yes. Pay <strong>$14.99 once</strong> with zero recurring fees, 30 days of free edits, and an instant 30-day refund guarantee.
           </div>
         </details>
@@ -834,70 +731,70 @@ function renderZone5FaqAndZone6Close(sampleSeoPages = []) {
   <!-- ZONE 6: PRICING & FINAL CLOSING AT BOTTOM OF LANDING PAGE -->
   <section class="studio-zone-section" id="pricing" style="background:linear-gradient(180deg, #FAF3E6 0%, #FFFDF9 100%);border-top:1px solid #E5D9C5;">
     <div class="container">
-      <div style="text-align:center;max-width:680px;margin:0 auto 24px;">
-        <div class="studio-eyebrow-kicker">PAY ONCE OR PLANNER PRO &middot; ZERO WATERMARK</div>
-        <h2 class="studio-zone-title">Design free. Unlock print &amp; caterer files <em>when ready.</em></h2>
+      <div class="bs-section-header">
+        <div class="bs-section-eyebrow">PAY ONCE OR PLANNER PRO &middot; ZERO WATERMARK</div>
+        <h2 class="bs-section-h2">Design free. Unlock print &amp; caterer files <em>when ready.</em></h2>
       </div>
-      <div class="pricing-grid" style="margin-bottom:36px;">
-        <div class="panel" style="padding:26px 24px;display:flex;flex-direction:column;justify-content:space-between;gap:16px;">
+      <div class="pricing-grid" style="margin-bottom:44px;">
+        <div class="panel" style="padding:30px 26px;display:flex;flex-direction:column;justify-content:space-between;gap:18px;">
           <div>
-            <span class="badge badge-cyan" style="margin-bottom:8px;">CATERER &amp; QR PASS</span>
-            <h4 class="serif-display" style="font-size:1.50rem;">Caterer Meal Sheet &amp; QR Lookup</h4>
-            <div class="tabular" style="font-size:2.2rem;font-weight:800;margin:6px 0;">$1.99 <span style="font-size:0.90rem;font-weight:600;color:#78716C;">once</span></div>
-            <ul style="list-style:none;font-size:0.95rem;color:#44403C;display:flex;flex-direction:column;gap:9px;margin-top:10px;line-height:1.5;">
+            <span class="badge badge-cyan" style="margin-bottom:10px;">CATERER &amp; QR PASS</span>
+            <h4 class="serif-display" style="font-size:1.65rem;">Caterer Meal Sheet &amp; QR Lookup</h4>
+            <div class="tabular" style="font-size:2.35rem;font-weight:800;margin:8px 0;">$1.99 <span style="font-size:0.95rem;font-weight:600;color:#78716C;">once</span></div>
+            <ul style="list-style:none;font-size:1.0rem;color:#44403C;display:flex;flex-direction:column;gap:11px;margin-top:12px;line-height:1.55;">
               <li>&#10003; Clockwise <code>Seat 1..N</code> Caterer Meal Sheet (BEO)</li>
               <li>&#10003; Allergy &amp; High-Chair Kitchen Manifest</li>
               <li>&#10003; Live Mobile QR Guest Seat Lookup</li>
             </ul>
           </div>
-          <a href="/buy/flash_pass?target=estate-150" class="btn btn-secondary" style="width:100%;padding:12px 18px;font-size:0.92rem;">Get Caterer &amp; QR Pass ($1.99)</a>
+          <a href="/buy/flash_pass?target=estate-150" class="btn btn-secondary" style="width:100%;padding:14px 20px;font-size:0.96rem;">Get Caterer &amp; QR Pass ($1.99)</a>
         </div>
-        <div class="panel" style="padding:26px 24px;border:2px solid #8C2D19;display:flex;flex-direction:column;justify-content:space-between;gap:16px;position:relative;">
+        <div class="panel" style="padding:30px 26px;border:2px solid #8C2D19;display:flex;flex-direction:column;justify-content:space-between;gap:18px;position:relative;">
           <span class="badge badge-rose" style="position:absolute;top:-12px;right:18px;background:#8C2D19;color:#FFF;">MOST POPULAR</span>
           <div>
-            <span class="badge badge-amber" style="margin-bottom:8px;">ONE-TIME WEDDING PACK</span>
-            <h4 class="serif-display" style="font-size:1.50rem;">Complete Print &amp; Caterer Pack</h4>
-            <div class="tabular" style="font-size:2.2rem;font-weight:800;margin:6px 0;color:#8C2D19;">$14.99 <span style="font-size:0.90rem;font-weight:600;color:#78716C;">once</span></div>
-            <ul style="list-style:none;font-size:0.95rem;color:#181412;display:flex;flex-direction:column;gap:9px;font-weight:600;margin-top:10px;line-height:1.5;">
+            <span class="badge badge-amber" style="margin-bottom:10px;">ONE-TIME WEDDING PACK</span>
+            <h4 class="serif-display" style="font-size:1.65rem;">Complete Print &amp; Caterer Pack</h4>
+            <div class="tabular" style="font-size:2.35rem;font-weight:800;margin:8px 0;color:#8C2D19;">$14.99 <span style="font-size:0.95rem;font-weight:600;color:#78716C;">once</span></div>
+            <ul style="list-style:none;font-size:1.0rem;color:#181412;display:flex;flex-direction:column;gap:11px;font-weight:600;margin-top:12px;line-height:1.55;">
               <li>&#10003; 24&Prime;&times;36&Prime; Easel Welcome Sign PDF (<code>0.125&Prime;</code> Bleed)</li>
               <li>&#10003; Avery 5302 Place Cards PDF (Meal Icons)</li>
               <li>&#10003; Clockwise 12:00 Caterer Meal Sheet (BEO)</li>
               <li>&#10003; Family Share Link + QR Lookup (30-Day Edits)</li>
             </ul>
           </div>
-          <a href="/buy/complete_dossier?target=estate-150" class="btn btn-primary" style="width:100%;padding:12px 18px;font-size:0.92rem;">Get Wedding Print Pack ($14.99) &rarr;</a>
+          <a href="/buy/complete_dossier?target=estate-150" class="btn btn-primary" style="width:100%;padding:14px 20px;font-size:0.96rem;">Get Wedding Print Pack ($14.99) &rarr;</a>
         </div>
-        <div class="panel" style="padding:26px 24px;display:flex;flex-direction:column;justify-content:space-between;gap:16px;">
+        <div class="panel" style="padding:30px 26px;display:flex;flex-direction:column;justify-content:space-between;gap:18px;">
           <div>
-            <span class="badge badge-emerald" style="margin-bottom:8px;">PLANNERS &amp; VENUES</span>
-            <h4 class="serif-display" style="font-size:1.50rem;">Planner Pro Studio</h4>
-            <div class="tabular" style="font-size:2.2rem;font-weight:800;margin:6px 0;">$39 <span style="font-size:0.90rem;font-weight:600;color:#78716C;">/ month</span></div>
-            <ul style="list-style:none;font-size:0.95rem;color:#44403C;display:flex;flex-direction:column;gap:9px;margin-top:10px;line-height:1.5;">
+            <span class="badge badge-emerald" style="margin-bottom:10px;">PLANNERS &amp; VENUES</span>
+            <h4 class="serif-display" style="font-size:1.65rem;">Planner Pro Studio</h4>
+            <div class="tabular" style="font-size:2.35rem;font-weight:800;margin:8px 0;">$39 <span style="font-size:0.95rem;font-weight:600;color:#78716C;">/ month</span></div>
+            <ul style="list-style:none;font-size:1.0rem;color:#44403C;display:flex;flex-direction:column;gap:11px;margin-top:12px;line-height:1.55;">
               <li>&#10003; Unlimited Receptions &amp; 300-Guest Galas</li>
               <li>&#10003; Custom Planner Crest on All Meal Sheets</li>
               <li>&#10003; Unlimited Client &amp; Family Share Links</li>
             </ul>
           </div>
-          <a href="/buy/pro_b2b?target=estate-150" class="btn btn-secondary" style="width:100%;padding:12px 18px;font-size:0.92rem;">Start Planner Pro ($39/mo) &rarr;</a>
+          <a href="/buy/pro_b2b?target=estate-150" class="btn btn-secondary" style="width:100%;padding:14px 20px;font-size:0.96rem;">Start Planner Pro ($39/mo) &rarr;</a>
         </div>
       </div>
 
       ${seoLinks ? `
-      <div style="margin-bottom:28px;padding-top:18px;border-top:1px solid #E5D9C5;">
-        <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:8px;flex-wrap:wrap;gap:8px;">
-          <span style="font-size:0.72rem;font-weight:800;text-transform:uppercase;letter-spacing:0.08em;color:#78716C;">POPULAR VENUE FLOORPLAN TEMPLATES</span>
-          <a href="/directory" style="font-size:0.78rem;font-weight:700;color:#8C2D19;text-decoration:none;">Browse All 60+ Templates &rarr;</a>
+      <div style="margin-bottom:32px;padding-top:22px;border-top:1px solid #E5D9C5;">
+        <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:12px;flex-wrap:wrap;gap:8px;">
+          <span style="font-size:0.82rem;font-weight:800;text-transform:uppercase;letter-spacing:0.08em;color:#78716C;">POPULAR VENUE FLOORPLAN TEMPLATES</span>
+          <a href="/directory" style="font-size:0.88rem;font-weight:700;color:#8C2D19;text-decoration:none;">Browse All 60+ Templates &rarr;</a>
         </div>
         <div style="display:flex;flex-wrap:wrap;gap:8px;">${seoLinks}</div>
       </div>` : ''}
 
-      <div style="background:linear-gradient(135deg,#FFFDF9 0%,#F5ECE0 100%);color:#181412;border:2px solid #C8A96E;border-radius:22px;padding:30px 26px;text-align:center;box-shadow:0 16px 38px rgba(120,83,40,0.10);">
+      <div style="background:linear-gradient(135deg,#FFFDF9 0%,#F5ECE0 100%);color:#181412;border:2px solid #C8A96E;border-radius:22px;padding:36px 30px;text-align:center;box-shadow:0 16px 38px rgba(120,83,40,0.10);">
         <div class="studio-eyebrow-kicker">READY FOR A DRAMA-FREE RECEPTION?</div>
-        <h2 class="serif-display" style="font-size:clamp(1.75rem, 2.8vw, 2.2rem);color:#181412;max-width:740px;margin:0 auto 8px;line-height:1.15;">Every Table Solved in 30 Seconds.</h2>
-        <p style="font-size:0.95rem;color:#57534E;max-width:620px;margin:0 auto 14px;">Every couple together, both moms happy, and your 24&Prime;&times;36&Prime; welcome sign ready for FedEx.</p>
-        <div style="display:flex;flex-wrap:wrap;justify-content:center;gap:12px;margin-top:14px;">
-          <a href="#studio" class="btn btn-primary" style="padding:12px 24px;font-size:0.90rem;">&uarr; Open Interactive Studio</a>
-          <a href="/buy/complete_dossier?target=estate-150" class="btn btn-secondary" style="padding:12px 22px;font-size:0.88rem;">&#10022; Unlock Print &amp; BEO Pack ($14.99) &rarr;</a>
+        <h2 class="serif-display" style="font-size:clamp(1.9rem, 3vw, 2.4rem);color:#181412;max-width:740px;margin:0 auto 10px;line-height:1.15;">Every Table Solved in 30 Seconds.</h2>
+        <p style="font-size:1.05rem;color:#57534E;max-width:620px;margin:0 auto 18px;">Every couple together, both moms happy, and your 24&Prime;&times;36&Prime; welcome sign ready for FedEx.</p>
+        <div style="display:flex;flex-wrap:wrap;justify-content:center;gap:14px;margin-top:16px;">
+          <a href="#studio" class="btn btn-primary" style="padding:14px 26px;font-size:0.96rem;">&uarr; Open Interactive Studio</a>
+          <a href="/buy/complete_dossier?target=estate-150" class="btn btn-secondary" style="padding:14px 24px;font-size:0.94rem;">&#10022; Unlock Print &amp; BEO Pack ($14.99) &rarr;</a>
         </div>
       </div>
     </div>
