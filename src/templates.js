@@ -109,15 +109,18 @@ function renderHead({
     .studio-how-card { background: #FFFFFF; border: 1.5px solid var(--border-warm); border-radius: 18px; padding: 22px 20px; display: flex; flex-direction: column; gap: 10px; box-shadow: 0 8px 24px rgba(24, 20, 18, 0.04); transition: transform 0.2s ease, border-color 0.2s ease; }
     .studio-how-card:hover { transform: translateY(-2px); border-color: #C8A96E; }
     .studio-how-num { width: 34px; height: 34px; border-radius: 10px; background: #181412; color: #FDE68A; border: 1px solid #C8A96E; font-family: var(--font-mono); font-size: 0.85rem; font-weight: 800; display: inline-flex; align-items: center; justify-content: center; }
-    .studio-scroll-builder-grid { display: grid; grid-template-columns: minmax(0, 0.94fr) minmax(0, 1.06fr); gap: 26px; align-items: start; margin-top: 24px; }
-    .studio-sticky-right-col { position: sticky; top: 80px; display: flex; flex-direction: column; gap: 12px; z-index: 15; min-width: 0; max-width: 100%; }
-    .studio-hybrid-wizard { display: flex; flex-direction: column; gap: 20px; margin-bottom: 18px; min-width: 0; max-width: 100%; }
-    .studio-wizard-step { background: #FFFFFF; border: 1.5px solid var(--border-warm); border-radius: 18px; overflow: hidden; padding: 6px 6px 8px; box-shadow: 0 8px 24px rgba(24, 20, 18, 0.04); scroll-margin-top: 90px; transition: border-color 0.2s ease, box-shadow 0.2s ease; min-width: 0; max-width: 100%; }
-    .studio-wizard-step.active { border: 2px solid #C8A96E; box-shadow: 0 14px 34px rgba(24, 20, 18, 0.08); }
-    .studio-wizard-header { width: 100%; padding: 12px 14px; background: transparent; border: none; display: flex; align-items: center; justify-content: space-between; gap: 8px; cursor: pointer; text-align: left; }
-    .studio-wizard-step-title { font-size: 0.86rem; font-weight: 800; color: #181412; display: flex; align-items: center; gap: 8px; min-width: 0; }
-    .studio-wizard-step-summary { font-size: 0.68rem; font-weight: 700; color: #065F46; background: #ECFDF5; border: 1px solid #A7F3D0; padding: 3px 10px; border-radius: 999px; white-space: nowrap; flex-shrink: 0; }
-    .studio-wizard-body { display: block !important; padding: 12px 14px 14px; border-top: 1px solid #EFEAE1; }
+    .studio-scroll-builder-grid { display: grid; grid-template-columns: minmax(300px, 0.54fr) minmax(0, 1.46fr); gap: 22px; align-items: start; margin-top: 18px; transition: all 0.2s ease; }
+    .studio-scroll-builder-grid.full-stage { grid-template-columns: minmax(0, 1fr); }
+    .studio-scroll-builder-grid.full-stage .studio-hybrid-wizard { display: none; }
+    .studio-sticky-right-col { position: sticky; top: 76px; display: flex; flex-direction: column; gap: 10px; z-index: 15; min-width: 0; max-width: 100%; }
+    .studio-hybrid-wizard { display: flex; flex-direction: column; gap: 10px; margin-bottom: 14px; min-width: 0; max-width: 100%; }
+    .studio-wizard-step { background: #FFFFFF; border: 1.5px solid var(--border-warm); border-radius: 14px; overflow: hidden; padding: 4px 6px; box-shadow: 0 6px 18px rgba(24, 20, 18, 0.04); scroll-margin-top: 90px; transition: border-color 0.2s ease, box-shadow 0.2s ease; min-width: 0; max-width: 100%; }
+    .studio-wizard-step.active { border: 2px solid #C8A96E; box-shadow: 0 12px 28px rgba(24, 20, 18, 0.08); }
+    .studio-wizard-header { width: 100%; padding: 9px 10px; background: transparent; border: none; display: flex; align-items: center; justify-content: space-between; gap: 8px; cursor: pointer; text-align: left; }
+    .studio-wizard-step-title { font-size: 0.82rem; font-weight: 800; color: #181412; display: flex; align-items: center; gap: 6px; min-width: 0; }
+    .studio-wizard-step-summary { font-size: 0.66rem; font-weight: 700; color: #065F46; background: #ECFDF5; border: 1px solid #A7F3D0; padding: 2px 8px; border-radius: 999px; white-space: nowrap; flex-shrink: 0; }
+    .studio-wizard-body { display: none; padding: 10px 10px 12px; border-top: 1px solid #EFEAE1; }
+    .studio-wizard-step.active .studio-wizard-body { display: block; }
     .studio-field-label { display: block; font-size: 0.68rem; font-weight: 800; text-transform: uppercase; letter-spacing: 0.06em; color: #57534E; margin-bottom: 5px; }
     .studio-chip-group { display: flex; flex-wrap: wrap; gap: 6px; }
     .studio-tap-chip { font-size: 0.72rem; font-weight: 700; padding: 6px 11px; border-radius: 999px; border: 1px solid #D6CFC2; background: #FAF8F5; color: #181412; cursor: pointer; transition: all 0.14s ease; max-width: 100%; }
