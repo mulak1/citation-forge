@@ -114,10 +114,10 @@ function renderHead({
     .sh-vsl-scene-p { font-size: 15px; font-weight: 400; line-height: 1.62; color: #44403C; margin: 0; }
     .sh-vsl-caption-pill { display: inline-flex; align-items: center; gap: 10px; margin-top: 14px; background: #FAF3E4; border: 1px solid #E6D5B8; border-left: 3.5px solid #B45309; color: #3F3831; padding: 10px 14px; border-radius: 10px; font-size: 13.8px; line-height: 1.45; box-shadow: 0 3px 10px rgba(180, 135, 40, 0.08); }
     .sh-vsl-caption-good { background: #ECFDF5; border: 1px solid #A7F3D0; border-left: 3.5px solid #047857; color: #065F46; }
-    .sh-vsl-overlap-collage { position: relative; min-height: 262px; padding: 4px 4px 44px 4px; display: flex; align-items: flex-start; justify-content: center; }
+    .sh-vsl-overlap-collage { position: relative; display: flex; flex-direction: column; gap: 10px; padding: 2px; }
     .sh-vsl-main-photo-frame { position: relative; width: 100%; border-radius: 16px; overflow: hidden; border: 3px solid #FFFFFF; box-shadow: 0 14px 28px -10px rgba(28, 25, 23, 0.2); z-index: 1; }
-    .sh-vsl-main-photo { width: 100%; height: 218px; object-fit: cover; display: block; }
-    .sh-vsl-overlap-card { position: absolute; bottom: 2px; right: 14px; left: 14px; border-radius: 13px; padding: 12px 15px; box-shadow: 0 12px 24px -6px rgba(28, 25, 23, 0.16); z-index: 4; display: flex; flex-direction: column; gap: 4px; font-variant-numeric: tabular-nums; }
+    .sh-vsl-main-photo { width: 100%; height: 256px; object-fit: cover; object-position: center 22%; display: block; }
+    .sh-vsl-overlap-card { position: relative; margin: 0; border-radius: 12px; padding: 10px 14px; box-shadow: 0 6px 16px -4px rgba(28, 25, 23, 0.10); z-index: 2; display: flex; flex-direction: column; gap: 3px; font-variant-numeric: tabular-nums; }
     .sh-vsl-overlap-bad { background: #FFF5F5; border: 1.5px solid #FCA5A5; }
     .sh-vsl-overlap-warn { background: #FFFBEB; border: 1.5px solid #FCD34D; }
     .sh-vsl-overlap-good { background: #ECFDF5; border: 1.5px solid #6EE7B7; }
@@ -197,8 +197,9 @@ function renderHead({
     .studio-showcase-url-pill { background: rgba(255, 255, 255, 0.08); border: 1px solid rgba(200, 169, 110, 0.35); border-radius: 8px; padding: 5px 14px; font-family: var(--font-mono); font-size: 0.80rem; color: #FDE68A; font-weight: 700; display: inline-flex; align-items: center; gap: 6px; }
     .studio-showcase-img-wrap { position: relative; background: #181412; line-height: 0; max-height: 620px; overflow: hidden; }
     .studio-showcase-img-wrap img { width: 100%; height: auto; display: block; object-fit: cover; object-position: top center; }
-    .studio-showcase-pin { position: absolute; z-index: 4; display: inline-flex; align-items: center; gap: 8px; background: rgba(24, 20, 18, 0.94); color: #FAF8F5; padding: 7px 13px 7px 8px; border-radius: 999px; font-size: 0.80rem; font-weight: 800; box-shadow: 0 10px 24px rgba(0, 0, 0, 0.40); border: 1.5px solid #FDE68A; backdrop-filter: blur(8px); pointer-events: none; white-space: nowrap; }
-    .studio-showcase-pin-num { width: 22px; height: 22px; border-radius: 50%; background: linear-gradient(135deg, #FDE68A 0%, #C8A96E 100%); color: #181412; font-size: 0.74rem; font-weight: 900; display: inline-flex; align-items: center; justify-content: center; flex-shrink: 0; }
+    .studio-showcase-pin { position: absolute; z-index: 4; display: inline-flex; align-items: center; justify-content: center; width: 30px; height: 30px; background: rgba(24, 20, 18, 0.92); color: #FAF8F5; padding: 0; border-radius: 50%; font-size: 0.82rem; font-weight: 900; box-shadow: 0 6px 16px rgba(0, 0, 0, 0.38); border: 2px solid #FDE68A; pointer-events: none; }
+    .studio-showcase-pin-num { width: 22px; height: 22px; border-radius: 50%; background: linear-gradient(135deg, #FDE68A 0%, #C8A96E 100%); color: #181412; font-size: 0.76rem; font-weight: 900; display: inline-flex; align-items: center; justify-content: center; flex-shrink: 0; }
+    .studio-showcase-pin-label { display: none; }
     .pricing-grid { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 22px; margin-top: 32px; }
     .panel { background: #FFFFFF; border: 1.5px solid var(--border-warm); border-radius: 18px; box-shadow: 0 8px 24px rgba(24,20,18,0.04); }
     .badge { display: inline-flex; align-items: center; gap: 5px; padding: 4px 11px; border-radius: 999px; font-size: 0.74rem; font-weight: 800; letter-spacing: 0.04em; text-transform: uppercase; max-width: 100%; }

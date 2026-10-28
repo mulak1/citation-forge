@@ -172,7 +172,7 @@ const SHOWCASE_SLIDES = [
     imgAlt: 'SeatHarmony Inside-the-Paywall Event Vault Command Center and Mom Sandbox Hub',
     pins: [
       { num: '1', text: 'Permanent Event Crest & Unlimited 30-Day Re-Exports', style: 'top: 17%; right: 24%;' },
-      { num: '2', text: 'Direct Launchpad for Poster, Avery 5302 & Caterer BEO', style: 'top: 56%; left: 26%;' },
+      { num: '2', text: 'Direct Launchpad for Poster, Avery 5302 & Caterer BEO', style: 'top: 49%; left: 45%;' },
       { num: '3', text: '1-Click Restricted Mom Sandbox Link (Tables 1-3 Only)', style: 'bottom: 6%; right: 5%;' }
     ]
   }
@@ -249,9 +249,9 @@ function renderFeatureShowcaseCarousel(vId = 'SH-4819') {
         <div class="studio-showcase-img-wrap">
           <img src="${s.imgSrc}" alt="${escapeHtml(s.imgAlt)}" width="1280" height="780" loading="${idx === 0 ? 'eager' : 'lazy'}" />
           ${s.pins.map(pin => `
-            <div class="studio-showcase-pin" style="${pin.style}">
+            <div class="studio-showcase-pin" style="${pin.style}" title="${escapeHtml(pin.text)}">
               <span class="studio-showcase-pin-num">${escapeHtml(pin.num)}</span>
-              <span>${escapeHtml(pin.text)}</span>
+              <span class="studio-showcase-pin-label">${escapeHtml(pin.text)}</span>
             </div>
           `).join('')}
         </div>
