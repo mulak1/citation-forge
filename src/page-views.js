@@ -25,7 +25,7 @@ function renderZone1Hero(plan) {
       </div>
 
       <div style="display:flex;align-items:center;justify-content:space-between;gap:10px;flex-wrap:wrap;margin-bottom:12px;">
-        <div class="studio-eyebrow-kicker" style="margin-bottom:0;"><span>&#10022; WEDDING &amp; EVENT SEATING STUDIO &middot; 30-SECOND SOLVER</span></div>
+        <div class="studio-eyebrow-kicker" style="margin-bottom:0;"><span>&#10022; WEDDING &amp; RECEPTION SEATING STUDIO &middot; FOR COUPLES &amp; PLANNERS</span></div>
         <div style="display:flex;align-items:center;gap:8px;flex-wrap:wrap;">
           <div style="display:inline-flex;align-items:center;gap:6px;font-size:0.70rem;font-weight:800;color:#065F46;background:#ECFDF5;border:1px solid #10B981;border-radius:999px;padding:4px 12px;"><span>&#10022; 18,420+ Receptions</span></div>
           <button type="button" id="hero-vault-pill-btn" onclick="window.shOpenVaultModal()" style="cursor:pointer;display:inline-flex;align-items:center;gap:6px;font-size:0.70rem;font-weight:800;color:#78350F;background:#FAF3E3;border:1px solid #C8A96E;border-radius:999px;padding:4px 12px;" title="Save or Resume Your Event Vault"><span>&#128190; Vault <strong id="hero-vault-code-label">#${vId}</strong> &bull; Save / Login &nearr;</span></button>
@@ -34,10 +34,10 @@ function renderZone1Hero(plan) {
 
       <div style="text-align:center;max-width:900px;margin:0 auto;">
         <h1 id="score-brand-title" class="studio-zone-title" style="font-size:clamp(2.05rem, 3.4vw, 2.75rem);line-height:1.08;margin-bottom:8px;">Seat 150 Guests in 30 Seconds.<br/><em>Zero Family Drama.</em></h1>
-        <p class="studio-zone-sub" style="font-size:0.96rem;color:#44403C;max-width:680px;margin:0 auto 14px;">Paste your RSVP list, auto-separate divorced parents, and export your <strong>24&Prime;&times;36&Prime; Welcome Poster</strong>, <strong>Clockwise Caterer BEO</strong>, and <strong>Avery 5302 Place Cards</strong>.</p>
+        <p class="studio-zone-sub" style="font-size:0.96rem;color:#44403C;max-width:720px;margin:0 auto 14px;">Paste your Zola or The Knot guest list, keep divorced parents on opposite sides of the dance floor, and print your <strong>24&Prime;&times;36&Prime; Welcome Sign</strong>, <strong>Clockwise Caterer Meal Sheet (BEO)</strong>, and <strong>Avery 5302 Place Cards</strong>.</p>
         <div style="display:flex;align-items:center;justify-content:center;gap:12px;flex-wrap:wrap;">
-          <a href="#studio" class="btn btn-primary" style="padding:12px 24px;font-size:0.90rem;border-radius:12px;"><span>Open Interactive Floorplan Studio &darr;</span></a>
-          <a id="hero-buy-btn" href="/buy/complete_dossier?target=estate-150&amp;vault=${vId}" class="btn btn-secondary" style="padding:12px 18px;font-size:0.85rem;border-radius:12px;"><span>&#9889; Unlock Print Pack ($14.99) &rarr;</span></a>
+          <a href="#studio" class="btn btn-primary" style="padding:12px 24px;font-size:0.90rem;border-radius:12px;"><span>Build Your Reception Floorplan Free &darr;</span></a>
+          <a id="hero-buy-btn" href="/buy/complete_dossier?target=estate-150&amp;vault=${vId}" class="btn btn-secondary" style="padding:12px 18px;font-size:0.85rem;border-radius:12px;"><span>&#9889; Get Complete Wedding Print Pack ($14.99) &rarr;</span></a>
         </div>
       </div>
 
@@ -51,37 +51,37 @@ function renderZone1Hero(plan) {
           <div style="display:flex;gap:6px;flex-wrap:wrap;" id="sh-vsl-scene-pills">
             <button type="button" id="vsl-scene-btn-0" class="vsl-scene-pill active" onclick="window.selectShVslScene(0)">01 &middot; 150-Guest Estate</button>
             <button type="button" id="vsl-scene-btn-1" class="vsl-scene-pill" onclick="window.selectShVslScene(1)">02 &middot; Tuscan Banquet</button>
-            <button type="button" id="vsl-scene-btn-2" class="vsl-scene-pill" onclick="window.selectShVslScene(2)">03 &middot; 12:00 Caterer BEO</button>
+            <button type="button" id="vsl-scene-btn-2" class="vsl-scene-pill" onclick="window.selectShVslScene(2)">03 &middot; Caterer Meal Sheet</button>
             <button type="button" id="vsl-scene-btn-3" class="vsl-scene-pill" onclick="window.selectShVslScene(3)">04 &middot; 24&Prime;&times;36&Prime; Sign &amp; QR</button>
           </div>
         </div>
 
         <div class="studio-vsl-split-grid">
-          <div class="studio-vsl-divider-badge" id="vsl-center-delta-badge">98.4/100 HARMONY &middot; 560PX SIGHTLINE BUFFER</div>
+          <div class="studio-vsl-divider-badge" id="vsl-center-delta-badge">98.4/100 HARMONY &middot; OPPOSITE SIDES OF DANCE FLOOR</div>
           <div class="studio-vsl-half trap-before">
-            <img id="vsl-img-left" class="vsl-portrait-bg" src="/public/editorial-hero.jpg" alt="2 AM Spreadsheet and Canva Seating Chaos" width="620" height="430" />
+            <img id="vsl-img-left" class="vsl-portrait-bg" src="/public/editorial-hero.jpg" alt="Late-Night Spreadsheet and Canva Seating Stress" width="620" height="430" />
             <div style="position:relative;z-index:4;display:flex;justify-content:space-between;align-items:center;gap:8px;flex-wrap:wrap;">
-              <span style="background:#991B1B;color:#FFFFFF;border:1px solid #FCA5A5;padding:5px 12px;border-radius:999px;font-size:0.72rem;font-weight:800;letter-spacing:0.04em;">&#10005; BEFORE &middot; SPREADSHEET TRAP</span>
-              <span id="vsl-trap-tag" class="mono" style="background:#FAF3E4;color:#991B1B;border:1px solid #E6D5B8;padding:4px 10px;border-radius:999px;font-size:0.70rem;font-weight:800;">2 Clashes + 5 Hrs Canva</span>
+              <span style="background:#991B1B;color:#FFFFFF;border:1px solid #FCA5A5;padding:5px 12px;border-radius:999px;font-size:0.72rem;font-weight:800;letter-spacing:0.04em;">&#10005; BEFORE &middot; THE 2 AM SPREADSHEET</span>
+              <span id="vsl-trap-tag" class="mono" style="background:#FAF3E4;color:#991B1B;border:1px solid #E6D5B8;padding:4px 10px;border-radius:999px;font-size:0.70rem;font-weight:800;">2 Family Clashes + 5 Hrs in Canva</span>
             </div>
             <div class="bs-vsl-caption-pill">
-              <div style="font-size:0.72rem;font-weight:800;color:#991B1B;text-transform:uppercase;letter-spacing:0.05em;" id="vsl-left-title">2 AM Spreadsheet &amp; Canva Chaos</div>
-              <div style="font-size:0.79rem;color:#3F3831;margin-top:2px;line-height:1.38;" id="vsl-left-desc">Divorced parents in direct sightline; 5 hours re-typing 150 names into Canva after RSVP drops.</div>
+              <div style="font-size:0.72rem;font-weight:800;color:#991B1B;text-transform:uppercase;letter-spacing:0.05em;" id="vsl-left-title">2 AM Spreadsheet &amp; Canva Stress</div>
+              <div style="font-size:0.79rem;color:#3F3831;margin-top:2px;line-height:1.38;" id="vsl-left-desc">Divorced parents seated at adjacent tables, plus 5 hours re-typing 150 names into Canva when 3 guests cancel.</div>
             </div>
           </div>
 
           <div class="studio-vsl-half harmony-after" style="border-left:2px solid #C8A96E;">
-            <img id="vsl-img-right" class="vsl-portrait-bg" src="/public/editorial-segment-1.jpg" alt="SeatHarmony Conflict-Free Reception Floorplan and 24x36 Sign" width="620" height="430" />
+            <img id="vsl-img-right" class="vsl-portrait-bg" src="/public/editorial-segment-1.jpg" alt="SeatHarmony Reception Floorplan and 24x36 Welcome Sign" width="620" height="430" />
             <div style="position:relative;z-index:4;display:flex;justify-content:space-between;align-items:center;gap:8px;flex-wrap:wrap;">
-              <span style="background:#065F46;color:#FFFFFF;border:1px solid #6EE7B7;padding:5px 12px;border-radius:999px;font-size:0.72rem;font-weight:800;letter-spacing:0.04em;">&#10022; AFTER &middot; SEATHARMONY 30S SOLVE</span>
+              <span style="background:#065F46;color:#FFFFFF;border:1px solid #6EE7B7;padding:5px 12px;border-radius:999px;font-size:0.72rem;font-weight:800;letter-spacing:0.04em;">&#10022; AFTER &middot; SEATHARMONY IN 30 SECONDS</span>
               <span id="vsl-right-season-pill" style="background:#FFFDF9;color:#78350F;border:1px solid #C8A96E;padding:4px 10px;border-radius:999px;font-size:0.71rem;font-weight:800;">98/100 Harmony</span>
             </div>
             <div class="bs-vsl-caption-pill bs-vsl-caption-good" style="display:flex;flex-direction:column;gap:4px;">
               <div style="display:flex;justify-content:space-between;align-items:center;gap:8px;flex-wrap:wrap;">
-                <span style="font-size:0.72rem;font-weight:800;color:#065F46;text-transform:uppercase;letter-spacing:0.05em;" id="vsl-right-rx-title">&#10003; Tables 2 &amp; 5 Separated 560px</span>
-                <button type="button" onclick="window.shLoadVslSceneIntoStudio()" style="cursor:pointer;border:1px solid #047857;font-size:0.68rem;font-weight:800;color:#FFFFFF;background:#047857;padding:3px 9px;border-radius:999px;" id="vsl-right-ticket-pill">Load in Studio &darr;</button>
+                <span style="font-size:0.72rem;font-weight:800;color:#065F46;text-transform:uppercase;letter-spacing:0.05em;" id="vsl-right-rx-title">&#10003; Tables 2 &amp; 5 Separated Across the Dance Floor</span>
+                <button type="button" onclick="window.shLoadVslSceneIntoStudio()" style="cursor:pointer;border:1px solid #047857;font-size:0.68rem;font-weight:800;color:#FFFFFF;background:#047857;padding:3px 9px;border-radius:999px;" id="vsl-right-ticket-pill">Try This Layout &darr;</button>
               </div>
-              <div style="font-size:0.78rem;color:#064E3B;line-height:1.38;" id="vsl-right-desc">Couples Locked &bull; Clockwise 12:00 BEO &bull; 24&Prime;&times;36&Prime; Sign + Avery 5302 Cards.</div>
+              <div style="font-size:0.78rem;color:#064E3B;line-height:1.38;" id="vsl-right-desc">Couples Seated Together &bull; Clockwise 12:00 Meal Sheet (BEO) &bull; 24&Prime;&times;36&Prime; Sign + Avery 5302 Cards.</div>
             </div>
           </div>
         </div>
@@ -89,14 +89,14 @@ function renderZone1Hero(plan) {
         <div class="bs-vsl-controls">
           <button type="button" id="sh-vsl-play-btn" class="studio-tap-chip" onclick="window.shToggleVslAutoPlay()" style="padding:5px 12px;font-size:0.74rem;font-weight:800;"><span id="sh-vsl-play-icon">&#9654;</span> <span id="sh-vsl-play-label">Auto-Play Story</span></button>
           <div style="flex:1;height:6px;background:#E6D5B8;border-radius:999px;overflow:hidden;cursor:pointer;" onclick="window.shNextVslScene()"><div id="sh-vsl-progress-bar" style="width:25%;height:100%;background:linear-gradient(90deg,#B45309,#047857);transition:width 0.25s ease;"></div></div>
-          <button type="button" class="studio-tap-chip" onclick="window.shNextVslScene()" style="padding:5px 12px;font-size:0.74rem;font-weight:800;color:#78350F;border-color:#C8A96E;">Next &rarr;</button>
+          <button type="button" class="studio-tap-chip" onclick="window.shNextVslScene()" style="padding:5px 12px;font-size:0.74rem;font-weight:800;color:#78350F;border-color:#C8A96E;">Next Scene &rarr;</button>
         </div>
       </div>
 
       <div class="studio-vsl-crease-bar" id="studio-crease-proof-bar">
-        <div style="display:flex;align-items:center;gap:12px;"><span class="serif-display tabular" style="font-size:1.75rem;color:#8C2D19;white-space:nowrap;flex-shrink:0;">18,420+</span><div style="font-size:0.82rem;color:#44403C;line-height:1.35;"><strong style="color:#181412;">Verified Receptions</strong><br/>Zero split couples</div></div>
-        <div style="display:flex;align-items:center;gap:12px;"><span class="serif-display tabular" style="font-size:1.75rem;color:#065F46;white-space:nowrap;flex-shrink:0;">6.5 Hrs</span><div style="font-size:0.82rem;color:#44403C;line-height:1.35;"><strong style="color:#181412;">Saved Wedding Week</strong><br/>No Canva re-typing</div></div>
-        <div style="display:flex;align-items:center;gap:12px;"><span class="serif-display tabular" style="font-size:1.75rem;color:#78350F;white-space:nowrap;flex-shrink:0;">4-in-1</span><div style="font-size:0.82rem;color:#44403C;line-height:1.35;"><strong style="color:#181412;">Complete Print Pack</strong><br/>Map + BEO + Poster + QR</div></div>
+        <div style="display:flex;align-items:center;gap:12px;"><span class="serif-display tabular" style="font-size:1.75rem;color:#8C2D19;white-space:nowrap;flex-shrink:0;">18,420+</span><div style="font-size:0.82rem;color:#44403C;line-height:1.35;"><strong style="color:#181412;">Weddings &amp; Galas Seated</strong><br/>Every couple kept together</div></div>
+        <div style="display:flex;align-items:center;gap:12px;"><span class="serif-display tabular" style="font-size:1.75rem;color:#065F46;white-space:nowrap;flex-shrink:0;">6.5 Hrs</span><div style="font-size:0.82rem;color:#44403C;line-height:1.35;"><strong style="color:#181412;">Saved Wedding Week</strong><br/>Skip late-night Canva edits</div></div>
+        <div style="display:flex;align-items:center;gap:12px;"><span class="serif-display tabular" style="font-size:1.75rem;color:#78350F;white-space:nowrap;flex-shrink:0;">4-in-1</span><div style="font-size:0.82rem;color:#44403C;line-height:1.35;"><strong style="color:#181412;">Reception Print Pack</strong><br/>Floorplan + Meal Sheet + Sign + QR</div></div>
       </div>
     </section>
   </div>`;
@@ -109,33 +109,33 @@ function renderZone2Walkthrough() {
     <div class="container">
       <div style="text-align:center;">
         <div class="studio-eyebrow-kicker">HOW SEATHARMONY WORKS</div>
-        <h2 class="studio-zone-title">Four steps. <em>One reception pass.</em></h2>
+        <h2 class="studio-zone-title">From RSVP list to print-ready reception <em>in four steps.</em></h2>
       </div>
       <div class="studio-how-grid" style="margin-top:18px;">
         <div class="studio-how-card" style="cursor:pointer;padding:16px;" onclick="window.scrollToShCard(2)">
-          <div style="display:flex;align-items:center;justify-content:space-between;"><span class="studio-how-num">&#9312;</span><span class="mono" style="font-size:0.68rem;font-weight:800;color:#78350F;background:#FAF3E3;padding:2px 8px;border-radius:999px;">15s Input</span></div>
-          <h3 style="font-size:0.98rem;font-weight:800;color:#181412;margin:0;">1. Paste Guest List</h3>
-          <p style="font-size:0.80rem;color:#44403C;line-height:1.4;margin:0;">Paste Zola/Knot CSV rows. Couples and kids lock together automatically.</p>
+          <div style="display:flex;align-items:center;justify-content:space-between;"><span class="studio-how-num">&#9312;</span><span class="mono" style="font-size:0.68rem;font-weight:800;color:#78350F;background:#FAF3E3;padding:2px 8px;border-radius:999px;">15-Sec Import</span></div>
+          <h3 style="font-size:0.98rem;font-weight:800;color:#181412;margin:0;">1. Paste Your Guest List</h3>
+          <p style="font-size:0.80rem;color:#44403C;line-height:1.4;margin:0;">Paste from Zola, The Knot, or Excel. Couples, plus-ones, and children stay seated together.</p>
         </div>
         <div class="studio-how-card" style="cursor:pointer;padding:16px;" onclick="window.scrollToShCard(3)">
-          <div style="display:flex;align-items:center;justify-content:space-between;"><span class="studio-how-num">&#9313;</span><span class="mono" style="font-size:0.68rem;font-weight:800;color:#065F46;background:#ECFDF5;padding:2px 8px;border-radius:999px;">35ms Solve</span></div>
-          <h3 style="font-size:0.98rem;font-weight:800;color:#181412;margin:0;">2. Auto-Solve Drama</h3>
-          <p style="font-size:0.80rem;color:#44403C;line-height:1.4;margin:0;">Separates divorced parents across the dance floor and keeps seniors in quiet zones.</p>
+          <div style="display:flex;align-items:center;justify-content:space-between;"><span class="studio-how-num">&#9313;</span><span class="mono" style="font-size:0.68rem;font-weight:800;color:#065F46;background:#ECFDF5;padding:2px 8px;border-radius:999px;">1-Click Peace</span></div>
+          <h3 style="font-size:0.98rem;font-weight:800;color:#181412;margin:0;">2. Keep Family Peace</h3>
+          <p style="font-size:0.80rem;color:#44403C;line-height:1.4;margin:0;">Seat divorced parents across the dance floor and place grandparents away from the DJ speakers.</p>
         </div>
         <div class="studio-how-card" style="cursor:pointer;padding:16px;" onclick="if(window.shSetActiveTab){window.shSetActiveTab('beo');}document.getElementById('studio-bespoke-artifact-stage').scrollIntoView({behavior:'smooth'});">
           <div style="display:flex;align-items:center;justify-content:space-between;"><span class="studio-how-num">&#9314;</span><span class="mono" style="font-size:0.68rem;font-weight:800;color:#8C2D19;background:#FDF2EE;padding:2px 8px;border-radius:999px;">12:00 = Seat #1</span></div>
-          <h3 style="font-size:0.98rem;font-weight:800;color:#181412;margin:0;">3. Clockwise BEO</h3>
-          <p style="font-size:0.80rem;color:#44403C;line-height:1.4;margin:0;">Numbers seats clockwise from 12:00 with entrée icons and red allergy flags.</p>
+          <h3 style="font-size:0.98rem;font-weight:800;color:#181412;margin:0;">3. Caterer Meal Sheet (BEO)</h3>
+          <p style="font-size:0.80rem;color:#44403C;line-height:1.4;margin:0;">Numbers every chair clockwise from 12 o&rsquo;clock with entrée icons and red allergy alerts for servers.</p>
         </div>
         <div class="studio-how-card" style="cursor:pointer;padding:16px;" onclick="if(window.shSetActiveTab){window.shSetActiveTab('poster');}document.getElementById('studio-bespoke-artifact-stage').scrollIntoView({behavior:'smooth'});">
-          <div style="display:flex;align-items:center;justify-content:space-between;"><span class="studio-how-num">&#9315;</span><span class="mono" style="font-size:0.68rem;font-weight:800;color:#78350F;background:#FAF3E3;padding:2px 8px;border-radius:999px;">6 Sign Designs</span></div>
-          <h3 style="font-size:0.98rem;font-weight:800;color:#181412;margin:0;">4. 24&Prime;&times;36&Prime; Sign &amp; QR</h3>
-          <p style="font-size:0.80rem;color:#44403C;line-height:1.4;margin:0;">Export 6 luxury Arch D sign styles, Avery 5302 tent cards, and QR lookup.</p>
+          <div style="display:flex;align-items:center;justify-content:space-between;"><span class="studio-how-num">&#9315;</span><span class="mono" style="font-size:0.68rem;font-weight:800;color:#78350F;background:#FAF3E3;padding:2px 8px;border-radius:999px;">6 Sign Styles</span></div>
+          <h3 style="font-size:0.98rem;font-weight:800;color:#181412;margin:0;">4. Print 24&Prime;&times;36&Prime; Sign &amp; Cards</h3>
+          <p style="font-size:0.80rem;color:#44403C;line-height:1.4;margin:0;">Download your FedEx/Staples easel poster PDF, Avery 5302 place cards, and cocktail-hour QR code.</p>
         </div>
       </div>
       <div style="text-align:center;margin-top:20px;">
         <a href="#studio" class="btn btn-primary" style="padding:11px 22px;font-size:0.88rem;border-radius:999px;">Build Your Reception Floorplan Free &darr;</a>
-        <div style="font-size:0.75rem;color:#57534E;margin-top:6px;font-weight:600;">No credit card required &bull; Free Clockwise 12:00 BEO (.CSV) &bull; Instant 6-Design Sign Preview</div>
+        <div style="font-size:0.75rem;color:#57534E;margin-top:6px;font-weight:600;">No account required to start &bull; Free Caterer Meal Sheet (.CSV) &bull; Live 6-Design Sign Preview</div>
       </div>
     </div>
   </section>`;
@@ -159,11 +159,11 @@ function renderZone3InteractiveStudio(plan) {
     <div class="container">
       <div style="display:flex;align-items:flex-end;justify-content:space-between;gap:14px;flex-wrap:wrap;margin-bottom:8px;">
         <div>
-          <div class="studio-eyebrow-kicker">LIVE RECEPTION STUDIO &middot; VAULT #<span id="sh-studio-vault-code">${vId}</span></div>
-          <h2 class="studio-zone-title" style="margin-bottom:2px;">Drag tables, swap seats &amp; <em>preview all 4 deliverables live.</em></h2>
+          <div class="studio-eyebrow-kicker">LIVE WEDDING &amp; RECEPTION STUDIO &middot; EVENT #<span id="sh-studio-vault-code">${vId}</span></div>
+          <h2 class="studio-zone-title" style="margin-bottom:2px;">Arrange tables, swap seats &amp; <em>preview all 4 reception files live.</em></h2>
         </div>
         <div style="display:inline-flex;align-items:center;gap:8px;font-size:0.74rem;font-weight:800;color:#065F46;background:#ECFDF5;border:1px solid #A7F3D0;padding:5px 12px;border-radius:999px;">
-          <span id="sh-endowed-progress-label">64% Assembled (Step 1 of 5)</span>
+          <span id="sh-endowed-progress-label">Reception Plan: Step 1 of 5</span>
           <span style="width:82px;height:7px;background:#E6E0D6;border-radius:999px;overflow:hidden;display:inline-block;"><span id="sh-endowed-progress-fill" style="display:block;width:64%;height:100%;background:linear-gradient(90deg,#C8A96E,#10B981);transition:width 0.25s ease;"></span></span>
         </div>
       </div>
@@ -282,16 +282,16 @@ David &amp; Elena Rostova (Filet, Peanut Allergy)</textarea>
             </div>
           </div>
 
-          <!-- CARD 3 OF 5: Family Diplomacy, Sightline Buffers & 35ms Auto-Solver -->
+          <!-- CARD 3 OF 5: Family Diplomacy, Sightline Buffers & 1-Click Auto-Seating -->
           <div class="studio-wizard-step" id="sh-wizard-step-3" data-step="3">
             <button type="button" class="studio-wizard-header" onclick="window.scrollToShCard(3)">
-              <span class="studio-wizard-step-title"><span style="color:#8C2D19;">&#9679; Step 3:</span><span>Conflict Rules &amp; Solver</span></span>
+              <span class="studio-wizard-step-title"><span style="color:#8C2D19;">&#9679; Step 3:</span><span>Family Peace Rules</span></span>
               <span class="studio-wizard-step-summary" id="sh-wizard-summary-3">${activeRules.length || 5} Rules &bull; 0 Clashes</span>
             </button>
             <div class="studio-wizard-body">
               <div id="sh-rules-list" style="display:flex;flex-direction:column;gap:5px;margin-bottom:8px;">${rulesHtml}</div>
               <div style="background:#FAF6EE;border:1px solid #E2D9C8;border-radius:10px;padding:8px;margin-bottom:8px;">
-                <label for="sh-custom-rule-input" class="studio-field-label">Add Separation or Quiet Zone Rule:</label>
+                <label for="sh-custom-rule-input" class="studio-field-label">Add Family Buffer or Quiet Table Rule:</label>
                 <div style="display:flex;flex-wrap:wrap;gap:5px;">
                   <input id="sh-custom-rule-input" type="text" class="grader-input" style="flex:1 1 150px;font-size:0.74rem;" value="Keep Uncle Bob &amp; Aunt Linda 2+ tables apart" />
                   <select id="sh-custom-rule-type" class="grader-input" style="flex:0 1 140px;font-size:0.73rem;" aria-label="Rule Type">
@@ -302,7 +302,7 @@ David &amp; Elena Rostova (Filet, Peanut Allergy)</textarea>
                   <button type="button" class="studio-tap-chip active" onclick="window.shAddCustomRule()">+ Add Rule</button>
                 </div>
               </div>
-              <button id="sh-solve-btn" type="button" class="btn btn-primary" style="width:100%;padding:9px 12px;font-size:0.78rem;margin-bottom:8px;" onclick="window.shRunSimulatedAnnealingSolver()">&#9889; Auto-Solve All Tables (35ms)</button>
+              <button id="sh-solve-btn" type="button" class="btn btn-primary" style="width:100%;padding:9px 12px;font-size:0.78rem;margin-bottom:8px;" onclick="window.shRunSimulatedAnnealingSolver()">&#10024; Auto-Arrange All Tables (1 Click)</button>
               <div style="display:flex;justify-content:space-between;align-items:center;gap:6px;">
                 <button type="button" onclick="window.scrollToShCard(2)" style="background:transparent;color:#57534E;border:1px solid #D6CFC2;border-radius:7px;padding:4px 9px;font-size:0.68rem;font-weight:700;cursor:pointer;">&uarr; Step 2</button>
                 <button type="button" onclick="window.scrollToShCard(4)" style="background:#181412;color:#FDE68A;border:1px solid #C8A96E;border-radius:7px;padding:5px 10px;font-size:0.70rem;font-weight:800;cursor:pointer;">Step 4: Tables &darr;</button>
@@ -310,10 +310,10 @@ David &amp; Elena Rostova (Filet, Peanut Allergy)</textarea>
             </div>
           </div>
 
-          <!-- CARD 4 OF 5: Table Shape Morphing, Clockwise 12:00 Seat #1 & Mom Sandbox -->
+          <!-- CARD 4 OF 5: Table Shape Morphing, Clockwise 12:00 Seat #1 & Family Share Mode -->
           <div class="studio-wizard-step" id="sh-wizard-step-4" data-step="4">
             <button type="button" class="studio-wizard-header" onclick="window.scrollToShCard(4)">
-              <span class="studio-wizard-step-title"><span style="color:#8C2D19;">&#9679; Step 4:</span><span>Table Shapes &amp; Mom Link</span></span>
+              <span class="studio-wizard-step-title"><span style="color:#8C2D19;">&#9679; Step 4:</span><span>Table Shapes &amp; Family Link</span></span>
               <span class="studio-wizard-step-summary" id="sh-wizard-summary-4">Table 2 &bull; ROUND</span>
             </button>
             <div class="studio-wizard-body">
@@ -346,7 +346,7 @@ David &amp; Elena Rostova (Filet, Peanut Allergy)</textarea>
                 <div style="display:flex;gap:5px;flex-wrap:wrap;">
                   <button id="sh-ring-harmony" type="button" class="studio-tap-chip active" onclick="window.shSetRingMode('harmony')">&#128994; Harmony Rings</button>
                   <button id="sh-ring-meal" type="button" class="studio-tap-chip" onclick="window.shSetRingMode('meal')">&#129385; Meal Icons</button>
-                  <button type="button" class="studio-tap-chip" onclick="window.shCopyMomSandboxLink()">&#128117; Copy Mom Link</button>
+                  <button type="button" class="studio-tap-chip" onclick="window.shCopyMomSandboxLink()">&#128117; Copy Family Link (Tables 1-3)</button>
                 </div>
               </div>
               <div style="display:flex;justify-content:space-between;align-items:center;gap:6px;">
@@ -456,16 +456,16 @@ David &amp; Elena Rostova (Filet, Peanut Allergy)</textarea>
               </span>
               <div style="display:flex;align-items:center;gap:6px;flex-wrap:wrap;">
                 <button type="button" id="sh-stage-expand-btn" onclick="window.shToggleFullWidthStage()" style="font-size:0.68rem;font-weight:800;color:#181412;background:#FDE68A;border:1px solid #C8A96E;padding:4px 10px;border-radius:999px;cursor:pointer;">&#9974; Full-Width Stage</button>
-                <span id="sh-mom-sandbox-badge" class="badge badge-cyan" style="font-size:0.66rem;cursor:pointer;" onclick="window.shToggleMomSandbox()">&#128117; Mom Sandbox: OFF</span>
+                <span id="sh-mom-sandbox-badge" class="badge badge-cyan" style="font-size:0.66rem;cursor:pointer;" onclick="window.shToggleMomSandbox()">&#128117; Family Share Mode: OFF</span>
               </div>
             </div>
 
             <!-- 4-Tab Switcher (All 4 Tabs Free to Preview Live!) -->
             <div class="studio-stage-tabs" role="tablist" aria-label="SeatHarmony 4-Tab Operational Kit">
               <button id="sh-tab-floorplan" type="button" class="studio-stage-tab-btn tab-btn active" data-tab="llmsTxt" onclick="window.shSetActiveTab('floorplan')">&#127919; 1. Floorplan</button>
-              <button id="sh-tab-beo" type="button" class="studio-stage-tab-btn tab-btn" data-tab="jsonLd" onclick="window.shSetActiveTab('beo')">&#127869; 2. Caterer BEO</button>
-              <button id="sh-tab-poster" type="button" class="studio-stage-tab-btn" onclick="window.shSetActiveTab('poster')">&#129703; 3. 24&Prime;&times;36&Prime; Sign</button>
-              <button id="sh-tab-qr" type="button" class="studio-stage-tab-btn" onclick="window.shSetActiveTab('qr')">&#128241; 4. QR Lookup</button>
+              <button id="sh-tab-beo" type="button" class="studio-stage-tab-btn tab-btn" data-tab="jsonLd" onclick="window.shSetActiveTab('beo')">&#127869; 2. Caterer Meal Sheet (BEO)</button>
+              <button id="sh-tab-poster" type="button" class="studio-stage-tab-btn" onclick="window.shSetActiveTab('poster')">&#129703; 3. 24&Prime;&times;36&Prime; Welcome Sign</button>
+              <button id="sh-tab-qr" type="button" class="studio-stage-tab-btn" onclick="window.shSetActiveTab('qr')">&#128241; 4. Guest QR Lookup</button>
             </div>
 
             <!-- Foreground Specimen Card -->
@@ -568,8 +568,8 @@ David &amp; Elena Rostova (Filet, Peanut Allergy)</textarea>
                     <h3 class="serif-display" style="font-size:1.35rem;">Cocktail-Hour QR Bar Sign &amp; Instant Guest Lookup</h3>
                   </div>
                   <div style="display:flex;gap:6px;flex-wrap:wrap;">
-                    <a id="sh-open-qr-app-link" href="/qr/${vId}" target="_blank" class="btn btn-primary" style="padding:6px 11px;font-size:0.73rem;">&#128241; Open Standalone Guest Mobile App &nearr;</a>
-                    <button type="button" class="btn btn-secondary" style="padding:6px 11px;font-size:0.73rem;" onclick="window.shCopyMomSandboxLink()">&#128117; Copy Mom Sandbox Link</button>
+                    <a id="sh-open-qr-app-link" href="/qr/${vId}" target="_blank" class="btn btn-primary" style="padding:6px 11px;font-size:0.73rem;">&#128241; Open Guest Mobile Lookup &nearr;</a>
+                    <button type="button" class="btn btn-secondary" style="padding:6px 11px;font-size:0.73rem;" onclick="window.shCopyMomSandboxLink()">&#128117; Copy Family Share Link</button>
                   </div>
                 </div>
                 <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:12px;margin-bottom:10px;">
@@ -580,7 +580,7 @@ David &amp; Elena Rostova (Filet, Peanut Allergy)</textarea>
                     <div style="font-size:0.70rem;color:#57534E;">Guests scan with phone camera &rarr; opens <a id="sh-qr-short-url" href="/qr/${vId}" target="_blank" style="color:#8C2D19;font-weight:800;">/qr/${vId}</a></div>
                   </div>
                   <div style="display:flex;flex-direction:column;gap:8px;">
-                    <label for="sh-qr-search" class="studio-field-label" style="margin-bottom:0;">Test Live Guest Phone Search (Sub-5ms Fuzzy Match):</label>
+                    <label for="sh-qr-search" class="studio-field-label" style="margin-bottom:0;">Test What Guests See on Their Phones at Cocktail Hour:</label>
                     <input id="sh-qr-search" type="text" class="grader-input" placeholder="Type guest name or table (e.g. Eleanor, Chen, Miller, Table 2)..." oninput="window.shFilterQrLookup()" aria-label="Search guest name" />
                     <div id="sh-qr-results" style="display:flex;flex-direction:column;gap:6px;max-height:245px;overflow-y:auto;"></div>
                   </div>
@@ -676,8 +676,8 @@ function renderZone4ProofStackAndPricing() {
         <div class="studio-proof-case-card" style="border-color:#C8A96E;">
           <div>
             <div style="display:flex;justify-content:space-between;align-items:center;gap:8px;margin-bottom:8px;"><span class="badge badge-emerald">LUXURY PLANNER</span><span style="font-size:0.76rem;font-weight:800;color:#065F46;">0 Meal Mix-Ups</span></div>
-            <h3 class="serif-display" style="font-size:1.25rem;margin-bottom:4px;">12:00 BEO + Mom Sandbox</h3>
-            <p style="font-size:0.80rem;color:#44403C;line-height:1.45;">Sent Mom a restricted link for Tables 1-3, locked the Groom&rsquo;s side, and handed the chef a Clockwise 12:00 BEO with 4 allergy flags.</p>
+            <h3 class="serif-display" style="font-size:1.25rem;margin-bottom:4px;">12:00 Meal Sheet + Family Link</h3>
+            <p style="font-size:0.80rem;color:#44403C;line-height:1.45;">Sent Mom a restricted link for Tables 1-3, locked the Groom&rsquo;s side, and handed the chef a Clockwise 12:00 Meal Sheet (BEO) with 4 allergy flags.</p>
           </div>
           <div class="bs-case-math-box">16 tables &times; Clockwise Seat #1 = <strong>0 Server Plate Errors</strong></div>
         </div>
@@ -703,12 +703,12 @@ function renderZone4ProofStackAndPricing() {
           </ul>
         </div>
         <div class="bs-ba-card after">
-          <div style="font-size:0.70rem;font-weight:800;letter-spacing:0.08em;text-transform:uppercase;color:#047857;margin-bottom:8px;">&#10003; WITH SEATHARMONY STUDIO (30-SECOND SOLVE &amp; PRINT PACK)</div>
+          <div style="font-size:0.70rem;font-weight:800;letter-spacing:0.08em;text-transform:uppercase;color:#047857;margin-bottom:8px;">&#10003; WITH SEATHARMONY STUDIO (30-SECOND SEATING &amp; PRINT PACK)</div>
           <ul style="list-style:none;display:flex;flex-direction:column;gap:7px;font-size:0.82rem;color:#181412;">
-            <li>&#10003; <strong>Households Auto-Locked:</strong> Every couple, plus-one, and child stays seated together automatically.</li>
-            <li>&#10003; <strong>35ms Conflict Buffer:</strong> Enforces a 2+ table separation between divorced parents or exes.</li>
-            <li>&#10003; <strong>6 Editorial 24&Prime;&times;36&Prime; Signs + Avery 5302:</strong> Instant 300-DPI FedEx/Staples PDF with <code>0.125&Prime;</code> bleed.</li>
-            <li>&#10003; <strong>Clockwise 12:00 = Seat #1 BEO:</strong> Servers drop every plate and allergy dish at the exact chair.</li>
+            <li>&#10003; <strong>Couples Kept Together:</strong> Every partner, plus-one, and child stays seated together automatically.</li>
+            <li>&#10003; <strong>1-Click Family Peace:</strong> Places divorced parents or exes on opposite sides of the dance floor.</li>
+            <li>&#10003; <strong>6 Luxury 24&Prime;&times;36&Prime; Signs + Avery 5302:</strong> Instant 300-DPI FedEx/Staples PDF with <code>0.125&Prime;</code> bleed.</li>
+            <li>&#10003; <strong>Clockwise 12:00 Caterer Meal Sheet (BEO):</strong> Servers set every plate and allergy dish at the exact chair.</li>
           </ul>
         </div>
       </div>
@@ -726,9 +726,9 @@ function renderZone4ProofStackAndPricing() {
           </thead>
           <tbody>
             <tr><td><strong>Pricing Model</strong></td><td style="font-weight:800;color:#065F46;background:#F8FEFB;">$14.99 One-Time (Zero Subscription)</td><td style="color:#57534E;">$39-$99/mo recurring trap</td><td style="color:#57534E;">Free + $45 Etsy template</td></tr>
-            <tr><td><strong>Conflict-Free Solver</strong></td><td style="font-weight:700;color:#181412;background:#F8FEFB;">&#10003; 35ms Household + Divorce Buffer</td><td style="color:#57534E;">Manual drag-and-drop only</td><td style="color:#57534E;">Manual copy-paste errors</td></tr>
-            <tr><td><strong>Clockwise 12:00 BEO</strong></td><td style="font-weight:700;color:#181412;background:#F8FEFB;">&#10003; <code>12:00 = Seat #1</code> + Allergy Alerts</td><td style="color:#57534E;">Generic table list only</td><td style="color:#57534E;">None (servers guess seats)</td></tr>
-            <tr><td><strong>24&Prime;&times;36&Prime; Sign &amp; Avery</strong></td><td style="font-weight:700;color:#181412;background:#F8FEFB;">&#10003; 6 Sign Designs + Avery 5302 PDF</td><td style="color:#57534E;">No poster typography</td><td style="color:#57534E;">5+ hours re-typing names</td></tr>
+            <tr><td><strong>Family Peace Seating</strong></td><td style="font-weight:700;color:#181412;background:#F8FEFB;">&#10003; Keeps Couples Together + Separates Exes</td><td style="color:#57534E;">Manual drag-and-drop only</td><td style="color:#57534E;">Manual copy-paste errors</td></tr>
+            <tr><td><strong>Caterer Meal Sheet (BEO)</strong></td><td style="font-weight:700;color:#181412;background:#F8FEFB;">&#10003; <code>12:00 = Seat #1</code> + Allergy Alerts</td><td style="color:#57534E;">Generic table list only</td><td style="color:#57534E;">None (servers guess seats)</td></tr>
+            <tr><td><strong>24&Prime;&times;36&Prime; Sign &amp; Place Cards</strong></td><td style="font-weight:700;color:#181412;background:#F8FEFB;">&#10003; 6 Welcome Signs + Avery 5302 PDF</td><td style="color:#57534E;">No poster typography</td><td style="color:#57534E;">5+ hours re-typing names</td></tr>
           </tbody>
         </table>
       </div>
@@ -814,16 +814,16 @@ function renderZone5FaqAndZone6Close(sampleSeoPages = []) {
       <div class="pricing-grid" style="margin-bottom:28px;">
         <div class="panel" style="padding:20px;display:flex;flex-direction:column;justify-content:space-between;gap:12px;">
           <div>
-            <span class="badge badge-cyan" style="margin-bottom:6px;">SINGLE BEO PASS</span>
-            <h4 class="serif-display" style="font-size:1.35rem;">Caterer BEO &amp; QR Lookup</h4>
+            <span class="badge badge-cyan" style="margin-bottom:6px;">CATERER &amp; QR PASS</span>
+            <h4 class="serif-display" style="font-size:1.35rem;">Caterer Meal Sheet &amp; QR Lookup</h4>
             <div class="tabular" style="font-size:2.0rem;font-weight:800;margin:4px 0;">$1.99 <span style="font-size:0.80rem;font-weight:600;color:#78716C;">once</span></div>
             <ul style="list-style:none;font-size:0.80rem;color:#44403C;display:flex;flex-direction:column;gap:5px;margin-top:8px;">
-              <li>&#10003; Clockwise <code>Seat 1..N</code> Caterer BEO (CSV + PDF)</li>
-              <li>&#10003; Allergy &amp; High-Chair Manifest</li>
-              <li>&#10003; Live Mobile QR Guest Lookup</li>
+              <li>&#10003; Clockwise <code>Seat 1..N</code> Caterer Meal Sheet (BEO)</li>
+              <li>&#10003; Allergy &amp; High-Chair Kitchen Manifest</li>
+              <li>&#10003; Live Mobile QR Guest Seat Lookup</li>
             </ul>
           </div>
-          <a href="/buy/flash_pass?target=estate-150" class="btn btn-secondary" style="width:100%;">Unlock Single BEO ($1.99)</a>
+          <a href="/buy/flash_pass?target=estate-150" class="btn btn-secondary" style="width:100%;">Get Caterer &amp; QR Pass ($1.99)</a>
         </div>
         <div class="panel" style="padding:20px;border:2px solid #8C2D19;display:flex;flex-direction:column;justify-content:space-between;gap:12px;position:relative;">
           <span class="badge badge-rose" style="position:absolute;top:-12px;right:18px;background:#8C2D19;color:#FFF;">MOST POPULAR</span>
@@ -832,13 +832,13 @@ function renderZone5FaqAndZone6Close(sampleSeoPages = []) {
             <h4 class="serif-display" style="font-size:1.35rem;">Complete Print &amp; Caterer Pack</h4>
             <div class="tabular" style="font-size:2.0rem;font-weight:800;margin:4px 0;color:#8C2D19;">$14.99 <span style="font-size:0.80rem;font-weight:600;color:#78716C;">once</span></div>
             <ul style="list-style:none;font-size:0.80rem;color:#181412;display:flex;flex-direction:column;gap:5px;font-weight:600;margin-top:8px;">
-              <li>&#10003; 24&Prime;&times;36&Prime; Arch D Poster PDF (<code>0.125&Prime;</code> Bleed)</li>
+              <li>&#10003; 24&Prime;&times;36&Prime; Easel Welcome Sign PDF (<code>0.125&Prime;</code> Bleed)</li>
               <li>&#10003; Avery 5302 Place Cards PDF (Meal Icons)</li>
-              <li>&#10003; Clockwise 12:00 Caterer BEO (CSV + PDF)</li>
-              <li>&#10003; Mom Sandbox Link + QR Lookup (30-Day Edits)</li>
+              <li>&#10003; Clockwise 12:00 Caterer Meal Sheet (BEO)</li>
+              <li>&#10003; Family Share Link + QR Lookup (30-Day Edits)</li>
             </ul>
           </div>
-          <a href="/buy/complete_dossier?target=estate-150" class="btn btn-primary" style="width:100%;">Unlock Wedding Pack ($14.99) &rarr;</a>
+          <a href="/buy/complete_dossier?target=estate-150" class="btn btn-primary" style="width:100%;">Get Wedding Print Pack ($14.99) &rarr;</a>
         </div>
         <div class="panel" style="padding:20px;display:flex;flex-direction:column;justify-content:space-between;gap:12px;">
           <div>
@@ -847,8 +847,8 @@ function renderZone5FaqAndZone6Close(sampleSeoPages = []) {
             <div class="tabular" style="font-size:2.0rem;font-weight:800;margin:4px 0;">$39 <span style="font-size:0.80rem;font-weight:600;color:#78716C;">/ month</span></div>
             <ul style="list-style:none;font-size:0.80rem;color:#44403C;display:flex;flex-direction:column;gap:5px;margin-top:8px;">
               <li>&#10003; Unlimited Receptions &amp; 300-Guest Galas</li>
-              <li>&#10003; White-Label Planner Crest on All BEOs</li>
-              <li>&#10003; Unlimited Client &amp; Mom Sandbox Links</li>
+              <li>&#10003; Custom Planner Crest on All Meal Sheets</li>
+              <li>&#10003; Unlimited Client &amp; Family Share Links</li>
             </ul>
           </div>
           <a href="/buy/pro_b2b?target=estate-150" class="btn btn-secondary" style="width:100%;">Start Planner Pro ($39/mo) &rarr;</a>
