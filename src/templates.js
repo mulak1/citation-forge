@@ -1,5 +1,5 @@
 /**
- * SeatHarmony (#2) — Editorial Design System & 6-Zone ExactBaseline CSS
+ * SeatHarmony (#2) - Editorial Design System & 6-Zone ExactBaseline CSS
  * Matches the exact 6-Zone Dante Brunelli + UseMolty sequence from ExactBaseline:
  *   Zone 1: Centered Headline + Subheader + CTA -> Full-Width Split-Screen Visual VSL (3 Scenes) -> 3-Stat Crease Bar
  *   Zone 2: 4-Step Skimmer Walkthrough (68px vertical pacing)
@@ -20,7 +20,7 @@ function renderBrandLogoSvg(size = 30) {
 }
 
 function renderHead({
-  title = 'SeatHarmony — Wedding Floorplan, Conflict-Free Seating Solver & 24"×36" Poster Studio',
+  title = 'SeatHarmony: Wedding Floorplan, Conflict-Free Seating Solver & 24"×36" Poster Studio',
   description = 'Seat 150 wedding guests in 30 seconds without family drama. Auto-solve divorced parent table buffers, generate clockwise caterer BEO meal sheets, and export print-ready 24"×36" welcome signs & Avery 5302 place cards.',
   canonicalPath = '/',
   jsonLd = null,

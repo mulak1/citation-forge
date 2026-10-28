@@ -189,7 +189,7 @@ function buildSeoPagesSeed() {
   PLANNER_AND_BEO_GUIDES.forEach(([slug, title, subtitle, category], idx) => {
     const rawMeta = `${title}: ${subtitle}. Free interactive wedding floorplan, conflict solver, caterer BEO & 24"×36" poster guide.`;
     const metaDesc = trimMetaDescription(rawMeta, 158);
-    const summary = `${title} — Complete operational blueprint for ${subtitle}. Learn how couples, luxury wedding planners, and venue banquet directors eliminate seating drama and print 24"×36" signage in under 3 minutes.`;
+    const summary = `${title}: Complete operational blueprint for ${subtitle}. Learn how couples, luxury wedding planners, and venue banquet directors eliminate seating drama and print 24"×36" signage in under 3 minutes.`;
     const payload = {
       type: 'guide',
       category,
@@ -202,7 +202,7 @@ function buildSeoPagesSeed() {
         'Clockwise 12-O’Clock BEO Numbering: Anchor Seat #1 closest to the Dance Floor / Focal Point and number clockwise for banquet servers.',
         'Dual Day-Of Signage: Print an Alphabetical A–Z 24"×36" Welcome Sign with a corner QR lookup plus Avery 5302 meal-coded place cards.'
       ],
-      codeExample: `TABLE 2 · BRIDE'S FAMILY (QUIET ZONE · 8 SEATS CLOCKWISE)\nSeat #1 (12:00): Grandma Rose Lin | Pan-Seared Halibut | [♿ REMOVE CHAIR FOR WHEELCHAIR]\nSeat #2 (01:30): Eleanor Vance    | Pan-Seared Halibut | [Separated 410px from Table 5]\nSeat #3 (03:00): Aunt Clara Lin   | Vegan Risotto      | [🌾 SEVERE CELIAC — GLUTEN FREE]`,
+      codeExample: `TABLE 2 · BRIDE'S FAMILY (QUIET ZONE · 8 SEATS CLOCKWISE)\nSeat #1 (12:00): Grandma Rose Lin | Pan-Seared Halibut | [♿ REMOVE CHAIR FOR WHEELCHAIR]\nSeat #2 (01:30): Eleanor Vance    | Pan-Seared Halibut | [Separated 410px from Table 5]\nSeat #3 (03:00): Aunt Clara Lin   | Vegan Risotto      | [🌾 SEVERE CELIAC · GLUTEN FREE]`,
       faqs: [
         {
           question: `What is the #1 rule for ${subtitle} (${category})?`,

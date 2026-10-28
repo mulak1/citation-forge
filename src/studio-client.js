@@ -1,5 +1,5 @@
 /**
- * SeatHarmony (#2) — Interactive 60fps Client Engine (`renderInteractiveScript`)
+ * SeatHarmony (#2) - Interactive 60fps Client Engine (`renderInteractiveScript`)
  * Includes ExactBaseline learnings:
  *   - Per-scene VSL `objectPosition` (`center 28%`, `center 24%`, `center 34%`) & lowered delta badge
  *   - 54px × 54px Left Monogram / Planner Crest Badge (`#specimen-logo-badge`) on Live Studio Specimen Card
@@ -41,7 +41,7 @@ function renderInteractiveScript(initialPlan) {
       objectPosition: 'center 24%',
       trapTag: '4 Split Couples on Long Tables',
       leftTitle: 'Manual Drag-and-Drop Splits Plus-Ones',
-      leftDesc: 'Switching from 60" Round tables to Tuscan Banquet tables in generic tools scrambles perimeter seats—splitting married couples across table ends and putting High-Chairs in narrow aisles.',
+      leftDesc: 'Switching from 60" Round tables to Tuscan Banquet tables in generic tools scrambles perimeter seats, splitting married couples across table ends and putting High-Chairs in narrow aisles.',
       rightPill: 'Tuscan 80 • Perimeter Ring Math',
       rightRxTitle: '✓ 1-Click Round ↔ Banquet ↔ King\\'s Table Morphing',
       rightTicket: '0 Split Couples',
@@ -277,7 +277,7 @@ function renderInteractiveScript(initialPlan) {
     if (!window.__SH_SWAP_SOURCE) {
       window.__SH_SWAP_SOURCE = { tableIdx: tIdx, seatIdx: sIdx };
       const g = window.__SH_STATE.tables[tIdx].guests[sIdx];
-      shToast('Selected ' + (g ? g.name : ('Seat #' + (sIdx + 1))) + ' — click any other seat to swap!');
+      shToast('Selected ' + (g ? g.name : ('Seat #' + (sIdx + 1))) + ' · click any other seat to swap!');
       shRenderAll();
       return;
     }
@@ -599,7 +599,7 @@ function renderInteractiveScript(initialPlan) {
           }
         }
         parts.push('<g style="cursor:pointer;" onclick="window.shSeatClick(' + tIdx + ',' + sIdx + ',event)">');
-        parts.push('<title>Seat #' + s.seatNumber + ' (' + shEsc(s.clockPosition) + '): ' + (g ? (shEsc(g.name) + ' · ' + shEsc(g.meal) + (g.allergy ? ' · ' + shEsc(g.allergy) : '') + (g.accessibility ? ' · ' + shEsc(g.accessibility) : '')) : 'Empty') + ' — Click to swap</title>');
+        parts.push('<title>Seat #' + s.seatNumber + ' (' + shEsc(s.clockPosition) + '): ' + (g ? (shEsc(g.name) + ' · ' + shEsc(g.meal) + (g.allergy ? ' · ' + shEsc(g.allergy) : '') + (g.accessibility ? ' · ' + shEsc(g.accessibility) : '')) : 'Empty') + ' · Click to swap</title>');
         parts.push('<circle cx="' + s.x + '" cy="' + s.y + '" r="13.5" fill="' + seatFill + '" stroke="' + seatStroke + '" stroke-width="' + (isSwapSrc ? '2.5' : '1.5') + '"/>');
         parts.push('<text x="' + s.x + '" y="' + (s.y + 3.5) + '" text-anchor="middle" fill="' + txtFill + '" font-size="9" font-weight="800">' + shEsc(labelTxt) + '</text>');
         if (sIdx === 0) parts.push('<circle cx="' + s.x + '" cy="' + (s.y - 14) + '" r="4.5" fill="#8C2D19"/>');
@@ -804,7 +804,7 @@ function renderInteractiveScript(initialPlan) {
           '</div>' +
           '<div style="background:#FFF1F2;border:1.5px dashed #E11D48;border-radius:8px;padding:10px 12px;">' +
             '<div style="display:flex;justify-content:space-between;align-items:center;font-size:0.62rem;font-weight:800;color:#9F1239;text-transform:uppercase;letter-spacing:0.08em;margin-bottom:4px;"><span>SERVER BACK FOLD (UPSIDE-DOWN)</span><span class="badge badge-emerald" style="font-size:0.58rem;padding:1px 6px;">2&Prime;&times;3.5&Prime; Die-Cut</span></div>' +
-            '<div style="font-size:0.76rem;font-weight:800;color:#9F1239;">⚠️ ' + shEsc(sampleGuest.allergy || 'No Dietary Allergy — Standard Service') + '</div>' +
+            '<div style="font-size:0.76rem;font-weight:800;color:#9F1239;">⚠️ ' + shEsc(sampleGuest.allergy || 'No Dietary Allergy · Standard Service') + '</div>' +
             '<div style="font-size:0.69rem;color:#57534E;margin-top:2px;">Entrée: <strong>' + shEsc(sampleGuest.meal) + '</strong> &middot; Server Key: <code>◆ Beef · ● Fish · ▲ Vegan · ★ Kid</code></div>' +
           '</div>' +
         '</div>';

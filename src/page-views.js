@@ -1,5 +1,5 @@
 /**
- * SeatHarmony (#2) — 6-Zone Dante Brunelli + UseMolty High-Conviction Landing Page
+ * SeatHarmony (#2) - 6-Zone Dante Brunelli + UseMolty High-Conviction Landing Page
  * Matches the exact visual hierarchy, vertical rhythm, and 6-Zone sequence from ExactBaseline:
  *   Zone 1: Centered Headline + Subheader + CTA -> Full-Width Split-Screen Visual VSL (3 Scenes) -> 3-Stat Crease Bar
  *   Zone 2: 4-Step Skimmer Walkthrough (68px vertical pacing)
@@ -20,7 +20,7 @@ const {
 function renderZone1Hero(plan) {
   return `
   <!-- =======================================================================
-       ZONE 1: ABOVE THE FOLD — MESSAGE MATCH + VISUAL "VSL" SHOWCASE + CREASE PROOF BAR
+       ZONE 1: ABOVE THE FOLD - MESSAGE MATCH + VISUAL "VSL" SHOWCASE + CREASE PROOF BAR
        ======================================================================= -->
   <div class="container">
     <section class="studio-zone1-hero" id="grader">
@@ -52,7 +52,7 @@ function renderZone1Hero(plan) {
         </p>
         <div style="display:flex;align-items:center;justify-content:center;gap:12px;flex-wrap:wrap;">
           <a href="#studio" class="btn btn-primary" style="padding:12px 24px;font-size:0.90rem;border-radius:12px;">
-            <span>Build Your Reception Floorplan Free &mdash; Takes 30s &darr;</span>
+            <span>Build Your Reception Floorplan Free &middot; Takes 30s &darr;</span>
           </a>
           <a href="/buy/complete_dossier?target=estate-150" class="btn btn-secondary" style="padding:12px 18px;font-size:0.85rem;border-radius:12px;">
             <span>&#9889; Unlock Print &amp; Caterer Pack ($14.99) &rarr;</span>
@@ -158,7 +158,7 @@ function renderZone1Hero(plan) {
 function renderZone2Walkthrough() {
   return `
   <!-- =======================================================================
-       ZONE 2: "HOW FLOORPLAN STUDIO WORKS" — THE 4-STEP SKIMMER WALKTHROUGH (FOLD 2)
+       ZONE 2: "HOW FLOORPLAN STUDIO WORKS" - THE 4-STEP SKIMMER WALKTHROUGH (FOLD 2)
        ======================================================================= -->
   <section class="studio-zone-section" id="studio-zone2-how-it-works">
     <div class="container">
@@ -166,7 +166,7 @@ function renderZone2Walkthrough() {
         <div class="studio-eyebrow-kicker">HOW FLOORPLAN STUDIO WORKS &middot; 1 PASS INCLUDES ALL 4</div>
         <h2 class="studio-zone-title">Four connected steps. <em>One reception pass.</em></h2>
         <p class="studio-zone-sub">
-          Start in <strong>1. Floorplan Studio</strong>&mdash;every household, table shape, and family rule you set automatically updates your <strong>2. Clockwise Caterer BEO</strong>, <strong>3. 24&Prime;&times;36&Prime; Welcome Sign &amp; Avery 5302 Cards</strong>, and <strong>4. Bonus Mom Sandbox &amp; QR Lookup</strong>.
+          Start in <strong>1. Floorplan Studio</strong>: every household, table shape, and family rule you set automatically updates your <strong>2. Clockwise Caterer BEO</strong>, <strong>3. 24&Prime;&times;36&Prime; Welcome Sign &amp; Avery 5302 Cards</strong>, and <strong>4. Bonus Mom Sandbox &amp; QR Lookup</strong>.
         </p>
       </div>
 
@@ -242,7 +242,7 @@ function renderZone3InteractiveStudio(plan) {
 
   return `
   <!-- =======================================================================
-       ZONE 3: "CHAT IS THE FRONT DOOR. THIS IS THE HOUSE." — SCROLL-PACED 5-CARD BUILDER + STICKY LIVE STAGE (FOLD 3)
+       ZONE 3: "CHAT IS THE FRONT DOOR. THIS IS THE HOUSE." - SCROLL-PACED 5-CARD BUILDER + STICKY LIVE STAGE (FOLD 3)
        ======================================================================= -->
   <section class="studio-zone-section" id="studio" style="padding-top:24px;">
     <div class="container">
@@ -667,7 +667,7 @@ function renderZone3InteractiveStudio(plan) {
 function renderZone4ProofStackAndPricing() {
   return `
   <!-- =======================================================================
-       ZONE 4: THE "SELL" — 3-LAYER CONTEXTUAL PROOF STACK + PRICING (FOLD 4)
+       ZONE 4: THE "SELL" - 3-LAYER CONTEXTUAL PROOF STACK + PRICING (FOLD 4)
        ======================================================================= -->
   <section class="studio-zone-section" id="beo-proof" style="background:#F4EFE6;border-top:1px solid var(--border-warm);border-bottom:1px solid var(--border-warm);">
     <div class="container">
@@ -767,12 +767,12 @@ function renderZone4ProofStackAndPricing() {
 
       <!-- ROW 3: 6 Specific Written Reviews -->
       <div class="studio-reviews-grid">
-        <div class="studio-review-card"><p style="font-size:0.84rem;color:#181412;font-style:italic;">&ldquo;We had 3 last-minute RSVP drops 48 hours before our reception. Instead of re-aligning 150 names in Canva, we clicked export and sent the updated 24&Prime;&times;36&Prime; PDF straight to FedEx.&rdquo;</p><div style="font-size:0.75rem;font-weight:800;color:#78350F;">&#9733;&#9733;&#9733;&#9733;&#9733; &mdash; Hannah &amp; Devon R., 165-Guest Reception (Napa, CA)</div></div>
-        <div class="studio-review-card"><p style="font-size:0.84rem;color:#181412;font-style:italic;">&ldquo;Our venue caterer literally hugged our coordinator when she handed him the Clockwise 12-o&rsquo;clock BEO sheet with Seat #1 marked and the severe peanut allergy highlighted in red.&rdquo;</p><div style="font-size:0.75rem;font-weight:800;color:#78350F;">&#9733;&#9733;&#9733;&#9733;&#9733; &mdash; Claire M., Bride, 140 Guests (Chicago, IL)</div></div>
-        <div class="studio-review-card"><p style="font-size:0.84rem;color:#181412;font-style:italic;">&ldquo;The Avery 5302 place card PDF put a tiny diamond for Filet and circle for Halibut on the front and printed the celiac warning upside-down on the back tent fold. Genius.&rdquo;</p><div style="font-size:0.75rem;font-weight:800;color:#78350F;">&#9733;&#9733;&#9733;&#9733;&#9733; &mdash; Lauren K., Lead Wedding Planner (Charleston, SC)</div></div>
-        <div class="studio-review-card"><p style="font-size:0.84rem;color:#181412;font-style:italic;">&ldquo;My wife wanted to rearrange our extended family tables at midnight without touching our daughter&rsquo;s friends. The Mom Sandbox link locked Tables 4&ndash;8 and saved our weekend.&rdquo;</p><div style="font-size:0.75rem;font-weight:800;color:#78350F;">&#9733;&#9733;&#9733;&#9733;&#9733; &mdash; Robert T., Father of the Bride (Boston, MA)</div></div>
-        <div class="studio-review-card"><p style="font-size:0.84rem;color:#181412;font-style:italic;">&ldquo;We used the VIP Exec Dinner preset to pair 8 AE reps with 16 enterprise prospects while keeping two rival CTOs at opposite ends of the private dining room.&rdquo;</p><div style="font-size:0.75rem;font-weight:800;color:#78350F;">&#9733;&#9733;&#9733;&#9733;&#9733; &mdash; Marcus V., VP Field Marketing (San Francisco, CA)</div></div>
-        <div class="studio-review-card"><p style="font-size:0.84rem;color:#181412;font-style:italic;">&ldquo;For our 300-guest hospital gala, guests scanned the QR sign at cocktail hour, typed 3 letters of their last name, and walked straight to their table. Zero foyer bottleneck.&rdquo;</p><div style="font-size:0.75rem;font-weight:800;color:#78350F;">&#9733;&#9733;&#9733;&#9733;&#9733; &mdash; Elena S., Charity Gala Director (New York, NY)</div></div>
+        <div class="studio-review-card"><p style="font-size:0.84rem;color:#181412;font-style:italic;">&ldquo;We had 3 last-minute RSVP drops 48 hours before our reception. Instead of re-aligning 150 names in Canva, we clicked export and sent the updated 24&Prime;&times;36&Prime; PDF straight to FedEx.&rdquo;</p><div style="font-size:0.75rem;font-weight:800;color:#78350F;">&#9733;&#9733;&#9733;&#9733;&#9733; &middot; Hannah &amp; Devon R., 165-Guest Reception (Napa, CA)</div></div>
+        <div class="studio-review-card"><p style="font-size:0.84rem;color:#181412;font-style:italic;">&ldquo;Our venue caterer literally hugged our coordinator when she handed him the Clockwise 12-o&rsquo;clock BEO sheet with Seat #1 marked and the severe peanut allergy highlighted in red.&rdquo;</p><div style="font-size:0.75rem;font-weight:800;color:#78350F;">&#9733;&#9733;&#9733;&#9733;&#9733; &middot; Claire M., Bride, 140 Guests (Chicago, IL)</div></div>
+        <div class="studio-review-card"><p style="font-size:0.84rem;color:#181412;font-style:italic;">&ldquo;The Avery 5302 place card PDF put a tiny diamond for Filet and circle for Halibut on the front and printed the celiac warning upside-down on the back tent fold. Genius.&rdquo;</p><div style="font-size:0.75rem;font-weight:800;color:#78350F;">&#9733;&#9733;&#9733;&#9733;&#9733; &middot; Lauren K., Lead Wedding Planner (Charleston, SC)</div></div>
+        <div class="studio-review-card"><p style="font-size:0.84rem;color:#181412;font-style:italic;">&ldquo;My wife wanted to rearrange our extended family tables at midnight without touching our daughter&rsquo;s friends. The Mom Sandbox link locked Tables 4&ndash;8 and saved our weekend.&rdquo;</p><div style="font-size:0.75rem;font-weight:800;color:#78350F;">&#9733;&#9733;&#9733;&#9733;&#9733; &middot; Robert T., Father of the Bride (Boston, MA)</div></div>
+        <div class="studio-review-card"><p style="font-size:0.84rem;color:#181412;font-style:italic;">&ldquo;We used the VIP Exec Dinner preset to pair 8 AE reps with 16 enterprise prospects while keeping two rival CTOs at opposite ends of the private dining room.&rdquo;</p><div style="font-size:0.75rem;font-weight:800;color:#78350F;">&#9733;&#9733;&#9733;&#9733;&#9733; &middot; Marcus V., VP Field Marketing (San Francisco, CA)</div></div>
+        <div class="studio-review-card"><p style="font-size:0.84rem;color:#181412;font-style:italic;">&ldquo;For our 300-guest hospital gala, guests scanned the QR sign at cocktail hour, typed 3 letters of their last name, and walked straight to their table. Zero foyer bottleneck.&rdquo;</p><div style="font-size:0.75rem;font-weight:800;color:#78350F;">&#9733;&#9733;&#9733;&#9733;&#9733; &middot; Elena S., Charity Gala Director (New York, NY)</div></div>
       </div>
 
       <!-- PRICING / CHECKOUT CARDS -->
@@ -804,7 +804,7 @@ function renderZone4ProofStackAndPricing() {
               <span class="badge badge-amber" style="margin-bottom:8px;">ONE-TIME WEDDING PACK &middot; NO SUBSCRIPTION</span>
               <h4 class="serif-display" style="font-size:1.45rem;">Complete Wedding Print &amp; Caterer Pack</h4>
               <div class="tabular" style="font-size:2.1rem;font-weight:800;margin:6px 0;color:#8C2D19;">$14.99 <span style="font-size:0.82rem;font-weight:600;color:#78716C;">once</span></div>
-              <p style="font-size:0.84rem;color:#44403C;margin-bottom:12px;">Everything you need for your printer, venue coordinator, and banquet kitchen&mdash;with 30 days of unlimited re-exports.</p>
+              <p style="font-size:0.84rem;color:#44403C;margin-bottom:12px;">Everything you need for your printer, venue coordinator, and banquet kitchen, with 30 days of unlimited re-exports.</p>
               <ul style="list-style:none;font-size:0.82rem;color:#181412;display:flex;flex-direction:column;gap:6px;font-weight:600;">
                 <li>&#10003; Print-Ready 24&Prime;&times;36&Prime; Arch D Welcome Poster (<code>0.125&Prime;</code> Bleed)</li>
                 <li>&#10003; Avery 5302 Place Cards PDF (Front Entr&eacute;e Icons + Back Allergy Alert)</li>
@@ -842,7 +842,7 @@ function renderZone5FaqAndZone6Close(sampleSeoPages = []) {
 
   return `
   <!-- =======================================================================
-       ZONE 5: "YOU'RE PROBABLY WONDERING..." — 5-QUESTION OBJECTION-KILLER FAQ (FOLD 5)
+       ZONE 5: "YOU'RE PROBABLY WONDERING..." - 5-QUESTION OBJECTION-KILLER FAQ (FOLD 5)
        ======================================================================= -->
   <section class="studio-zone-section" id="faq">
     <div class="container">
@@ -934,7 +934,7 @@ function renderHomePage(initialAudit, sampleSeoPages = []) {
     ]
   };
   return [
-    renderHead({ title: 'SeatHarmony — Wedding Floorplan, Conflict-Free Seating Solver & 24"×36" Poster Studio', description: 'Seat 150 wedding guests in 30 seconds without family drama. Auto-solve divorced parent table buffers, generate clockwise caterer BEO meal sheets, and export print-ready 24"×36" welcome signs & Avery 5302 place cards.', canonicalPath: '/', jsonLd, ogSlug: 'home' }),
+    renderHead({ title: 'SeatHarmony: Wedding Floorplan, Conflict-Free Seating Solver & 24"×36" Poster Studio', description: 'Seat 150 wedding guests in 30 seconds without family drama. Auto-solve divorced parent table buffers, generate clockwise caterer BEO meal sheets, and export print-ready 24"×36" welcome signs & Avery 5302 place cards.', canonicalPath: '/', jsonLd, ogSlug: 'home' }),
     '<body>', renderNavbar(), '<main id="main-content">',
     renderZone1Hero(plan), renderZone2Walkthrough(), renderZone3InteractiveStudio(plan), renderZone4ProofStackAndPricing(), renderZone5FaqAndZone6Close(sampleSeoPages),
     '</main>', renderFooter(), renderInteractiveScript(plan), '</body></html>'

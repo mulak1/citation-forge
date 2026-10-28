@@ -381,7 +381,7 @@ function buildCatererBeoReport(preset = SEATING_PRESETS['estate-150']) {
     chairMods,
     vendorMeals: [
       { role: 'Lead Photographer & Second Shooter (2)', meal: '2× Filet Mignon (Hot Vendor Box)', table: 'Vendor Green Room' },
-      { role: 'Lead Wedding Planner — Chloe Vance (1)', meal: '1× Pan-Seared Halibut (Gluten-Free)', table: 'Vendor Green Room' },
+      { role: 'Lead Wedding Planner: Chloe Vance (1)', meal: '1× Pan-Seared Halibut (Gluten-Free)', table: 'Vendor Green Room' },
       { role: 'DJ & Sound Engineer (1)', meal: '1× Filet Mignon', table: 'DJ Booth' }
     ],
     tableSheets
@@ -435,7 +435,7 @@ async function runGeoAudit(rawDomain = 'estate-150', options = {}) {
   const domain = String(rawDomain || 'estate-150').replace(/^https?:\/\//i, '').replace(/\/.*$/, '') || 'estate-150';
 
   const llmsTxt = [
-    `# SeatHarmony Studio (${domain}) — Conflict-Free Wedding & Event Seating Solver`,
+    `# SeatHarmony Studio (${domain}): Conflict-Free Wedding & Event Seating Solver`,
     `> ${plan.title}: ${plan.subtitle}. Harmony Score: ${plan.harmonyScore}/100 with ${plan.conflictsResolved} family conflicts automatically resolved and 100% Clockwise Caterer BEO accuracy.`,
     '',
     '## Core Capabilities',
