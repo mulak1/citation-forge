@@ -42,10 +42,10 @@ function renderZone1Hero(plan) {
       </div>
 
       <!-- Centered 2-Line High-Contrast Headline + Crisp 1-Sentence Sub-Header + Primary CTA -->
-      <div style="text-align:center;max-width:880px;margin:0 auto;">
+      <div style="text-align:center;max-width:960px;margin:0 auto;">
         <h1 class="studio-zone-title" style="font-size:2.55rem;line-height:1.1;margin-bottom:8px;">
           Stop 2 AM Spreadsheets From Ruining Your Reception.<br/>
-          <em>Solve Family Drama, Caterer BEOs &amp; 24&Prime;&times;36&Prime; Welcome Signs in 30s.</em>
+          <em>Solve Family Drama, Caterer BEOs &amp; 24&Prime;&times;36&Prime; Signs in 30s.</em>
         </h1>
         <p class="studio-zone-sub" style="font-size:0.95rem;color:#44403C;max-width:700px;margin:0 auto 14px;">
           Eliminate divorced-parent sightline clashes and 5 hours of Canva text-box re-typing&mdash;one pass powers your conflict-free floorplan, clockwise caterer meal sheet, and print-ready 24&Prime;&times;36&Prime; welcome poster.
@@ -823,8 +823,8 @@ function renderZone5FaqAndZone6Close(sampleSeoPages = []) {
     <div class="container">
       <div style="background:#181412;color:#FAF8F5;border:2px solid #C8A96E;border-radius:24px;padding:44px 32px;text-align:center;box-shadow:0 24px 54px rgba(24,20,18,0.22);">
         <div class="studio-eyebrow-kicker" style="background:rgba(253,230,138,0.12);color:#FDE68A;border-color:#C8A96E;">READY FOR A DRAMA-FREE RECEPTION?</div>
-        <h2 class="serif-display" style="font-size:2.4rem;color:#FFFFFF;max-width:740px;margin:0 auto 12px;">
-          Every couple stayed together. Both moms are happy. The caterer knows where Seat #3&rsquo;s peanut allergy is sitting.
+        <h2 class="serif-display" style="font-size:2.4rem;color:#FFFFFF;max-width:860px;margin:0 auto 12px;">
+          Every couple stayed together. Both moms are happy.<br/><em style="color:#FDE68A;">And your 24&Prime;&times;36&Prime; welcome sign is ready for FedEx.</em>
         </h2>
         <p style="font-size:0.96rem;color:#D6CFC2;max-width:620px;margin:0 auto 22px;">
           Test your guest list in the 5-card interactive studio above for free, or unlock your print-ready 24&Prime;&times;36&Prime; Welcome Poster, Avery 5302 Place Cards, and Clockwise BEO Pack for $14.99 once.
