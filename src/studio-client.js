@@ -21,58 +21,34 @@ function renderInteractiveScript(initialPlan) {
   window.__SH_CREST_LOGO_URL = '';
 
   var SH_VSL_SCENES = [
-    {
-      badge: '98.4/100 HARMONY · 410PX SIGHTLINE BUFFER',
-      leftImg: '/public/editorial-hero.jpg',
-      rightImg: '/public/editorial-segment-1.jpg',
-      objectPosition: 'center 28%',
-      trapTag: '2 Family Clashes + 5 Hrs Canva',
-      leftTitle: '2 AM Spreadsheet & Canva Text-Box Chaos',
-      leftDesc: 'Divorced parents (Eleanor & Richard) accidentally placed in direct sightline across the dance floor. 5 hours spent manually re-typing 150 names into Canva after 3 last-minute RSVP drops.',
-      rightPill: 'Estate Reception • 98/100 Harmony',
-      rightRxTitle: '✓ Eleanor (Table 2) & Richard (Table 5) Separated 410px',
-      rightTicket: '$14.99 Print & BEO Pack',
-      rightDesc: 'All Couples & Kids Locked Together • Clockwise 12:00 Seat #1 Caterer BEO • Print-Ready 24"×36" Arch D Welcome Sign + Avery 5302 Place Cards.'
-    },
-    {
-      badge: '100% COUPLED HOUSEHOLDS · KING\\'S & BANQUET TABLES',
-      leftImg: '/public/editorial-hero.jpg',
-      rightImg: '/public/editorial-segment-2.jpg',
-      objectPosition: 'center 24%',
-      trapTag: '4 Split Couples on Long Tables',
-      leftTitle: 'Manual Drag-and-Drop Splits Plus-Ones',
-      leftDesc: 'Switching from 60" Round tables to Tuscan Banquet tables in generic tools scrambles perimeter seats, splitting married couples across table ends and putting High-Chairs in narrow aisles.',
-      rightPill: 'Tuscan 80 • Perimeter Ring Math',
-      rightRxTitle: '✓ 1-Click Round ↔ Banquet ↔ King\\'s Table Morphing',
-      rightTicket: '0 Split Couples',
-      rightDesc: 'Perimeter seat geometry automatically places couples side-by-side and faces across 96"×40" Tuscan tables while keeping High-Chairs on outer corners.'
-    },
-    {
-      badge: '100% CLOCKWISE 12:00 SEAT #1 CATERER BEO',
-      leftImg: '/public/editorial-segment-1.jpg',
-      rightImg: '/public/editorial-segment-3.jpg',
-      objectPosition: 'center 34%',
-      trapTag: '6 Unmarked Severe Allergies',
-      leftTitle: 'Servers Guessing Who Ordered Filet vs. Peanut Allergy',
-      leftDesc: 'Giving the banquet captain a flat alphabetical spreadsheet means servers interrupt toasts asking who ordered Halibut and miss Seat #1\\'s severe anaphylactic peanut allergy.',
-      rightPill: 'Clockwise 12:00 Anchor • Avery 5302',
-      rightRxTitle: '✓ Red 12 O\\'Clock Dot = Seat #1 (Clockwise 1..N Roster)',
-      rightTicket: 'Instant BEO .CSV + Tent PDF',
-      rightDesc: 'Every table numbers seats 1..N clockwise from the Dance Floor. Avery 5302 tents print entrée symbols (◆●▲★) on front and red allergy alerts upside-down on back.'
-    }
+    { badge: '98.4/100 HARMONY · 410PX SIGHTLINE BUFFER', leftImg: '/public/editorial-hero.jpg', rightImg: '/public/editorial-segment-1.jpg', objectPosition: 'center 28%', trapTag: '2 Family Clashes + 5 Hrs Canva', leftTitle: '2 AM Spreadsheet & Canva Text-Box Chaos', leftDesc: 'Divorced parents (Eleanor & Richard) accidentally placed in direct sightline across the dance floor. 5 hours spent manually re-typing 150 names into Canva after 3 last-minute RSVP drops.', rightPill: 'Estate Reception • 98/100 Harmony', rightRxTitle: '✓ Eleanor (Table 2) & Richard (Table 5) Separated 410px', rightTicket: '$14.99 Print & BEO Pack', rightDesc: 'All Couples & Kids Locked Together • Clockwise 12:00 Seat #1 Caterer BEO • Print-Ready 24"×36" Arch D Welcome Sign + Avery 5302 Place Cards.' },
+    { badge: '100% COUPLED HOUSEHOLDS · KING\\\'S & BANQUET TABLES', leftImg: '/public/editorial-hero.jpg', rightImg: '/public/editorial-segment-2.jpg', objectPosition: 'center 24%', trapTag: '4 Split Couples on Long Tables', leftTitle: 'Manual Drag-and-Drop Splits Plus-Ones', leftDesc: 'Switching from 60" Round tables to Tuscan Banquet tables in generic tools scrambles perimeter seats, splitting married couples across table ends and putting High-Chairs in narrow aisles.', rightPill: 'Tuscan 80 • Perimeter Ring Math', rightRxTitle: '✓ 1-Click Round ↔ Banquet ↔ King\\\'s Table Morphing', rightTicket: '0 Split Couples', rightDesc: 'Perimeter seat geometry automatically places couples side-by-side and faces across 96"×40" Tuscan tables while keeping High-Chairs on outer corners.' },
+    { badge: '100% CLOCKWISE 12:00 SEAT #1 CATERER BEO', leftImg: '/public/editorial-segment-1.jpg', rightImg: '/public/editorial-segment-3.jpg', objectPosition: 'center 34%', trapTag: '6 Unmarked Severe Allergies', leftTitle: 'Servers Guessing Who Ordered Filet vs. Peanut Allergy', leftDesc: 'Giving the banquet captain a flat alphabetical spreadsheet means servers interrupt toasts asking who ordered Halibut and miss Seat #1\\\'s severe anaphylactic peanut allergy.', rightPill: 'Clockwise 12:00 Anchor • Avery 5302', rightRxTitle: '✓ Red 12 O\\\'Clock Dot = Seat #1 (Clockwise 1..N Roster)', rightTicket: 'Instant BEO .CSV + Tent PDF', rightDesc: 'Every table numbers seats 1..N clockwise from the Dance Floor. Avery 5302 tents print entrée symbols (◆●▲★) on front and red allergy alerts upside-down on back.' }
   ];
 
   window.selectShVslScene = function(idx) {
+    window.__SH_ACTIVE_VSL_SCENE = idx;
     var s = SH_VSL_SCENES[idx] || SH_VSL_SCENES[0];
     document.querySelectorAll('#sh-vsl-scene-pills .vsl-scene-pill').forEach(function(b, i) { b.classList.toggle('active', i === idx); });
     var setTxt = function(id, val) { var el = document.getElementById(id); if (el) el.textContent = val; };
     setTxt('vsl-center-delta-badge', s.badge); setTxt('vsl-trap-tag', s.trapTag);
     setTxt('vsl-left-title', s.leftTitle); setTxt('vsl-left-desc', s.leftDesc);
     setTxt('vsl-right-season-pill', s.rightPill); setTxt('vsl-right-rx-title', s.rightRxTitle);
-    setTxt('vsl-right-ticket-pill', s.rightTicket); setTxt('vsl-right-desc', s.rightDesc);
+    setTxt('vsl-right-ticket-pill', 'Load Scene in Studio ↓'); setTxt('vsl-right-desc', s.rightDesc);
     var imgL = document.getElementById('vsl-img-left'), imgR = document.getElementById('vsl-img-right');
     if (imgL) { imgL.src = s.leftImg; imgL.style.objectPosition = s.objectPosition || 'center 28%'; }
     if (imgR) { imgR.src = s.rightImg; imgR.style.objectPosition = s.objectPosition || 'center 28%'; }
+  };
+
+  window.shLoadVslSceneIntoStudio = function() {
+    var idx = window.__SH_ACTIVE_VSL_SCENE || 0;
+    var presetMap = ['estate-150', 'tuscan-banquet-80', 'planner-beo-sandbox'];
+    var preset = presetMap[idx] || 'estate-150';
+    var chip = document.querySelector('[data-preset="' + preset + '"]');
+    window.loadPresetScenario(preset, chip);
+    if (idx === 2) window.shSetActiveTab('beo');
+    var st = document.getElementById('studio');
+    if (st) st.scrollIntoView({ behavior: 'smooth' });
   };
 
   window.scrollToShCard = function(stepNum) {
@@ -102,37 +78,25 @@ function renderInteractiveScript(initialPlan) {
 
   function shSyncSpecimenCrestHeader() {
     if (!window.__SH_STATE) return;
-    var title = window.__SH_STATE.title || "Maya & Liam's Estate Reception";
-    var venue = window.__SH_STATE.venueName || 'Rosewood Conservatory';
-    var initials = shComputeCoupleMonogram(title);
-    var logoUrl = window.__SH_CREST_LOGO_URL || '';
-
+    var title = window.__SH_STATE.title || "Maya & Liam's Estate Reception", venue = window.__SH_STATE.venueName || 'Rosewood Conservatory';
+    var initials = shComputeCoupleMonogram(title), logoUrl = window.__SH_CREST_LOGO_URL || '';
     var initialsEl = document.getElementById('specimen-logo-monogram-initials') || document.getElementById('specimen-logo-initials');
-    var logoImgEl = document.getElementById('specimen-logo-img');
-    var logoMonogramEl = document.getElementById('specimen-logo-monogram');
-    var crestEl = document.getElementById('specimen-salon-crest');
-    var headlineEl = document.getElementById('specimen-client-headline');
-    var metaSubEl = document.getElementById('specimen-meta-sub');
-    var harmPillEl = document.getElementById('specimen-harmony-pill');
-
+    var logoImgEl = document.getElementById('specimen-logo-img'), logoMonogramEl = document.getElementById('specimen-logo-monogram');
+    var crestEl = document.getElementById('specimen-salon-crest'), headlineEl = document.getElementById('specimen-client-headline');
+    var metaSubEl = document.getElementById('specimen-meta-sub'), harmPillEl = document.getElementById('specimen-harmony-pill');
     if (initialsEl) initialsEl.textContent = initials;
     if (harmPillEl) harmPillEl.textContent = '✦ ' + (window.__SH_STATE.harmonyScore || 98) + '/100 HARMONY';
     if (logoImgEl) {
-      if (logoUrl) {
-        logoImgEl.src = logoUrl;
-        logoImgEl.style.display = 'block';
-        if (logoMonogramEl) logoMonogramEl.style.display = 'none';
-      } else {
-        logoImgEl.style.display = 'none';
-        if (logoMonogramEl) logoMonogramEl.style.display = 'flex';
-      }
+      logoImgEl.src = logoUrl || '';
+      logoImgEl.style.display = logoUrl ? 'block' : 'none';
+      if (logoMonogramEl) logoMonogramEl.style.display = logoUrl ? 'none' : 'flex';
     }
     if (crestEl) crestEl.textContent = '✦ ' + venue.toUpperCase() + ' × SEATHARMONY STUDIO';
     if (headlineEl) headlineEl.textContent = title;
     if (metaSubEl && window.__SH_STATE.tables) {
       var totalGuests = 0;
       window.__SH_STATE.tables.forEach(function(t) { totalGuests += (t.guests ? t.guests.length : 0); });
-      metaSubEl.textContent = (window.__SH_STATE.harmonyScore || 98) + '/100 Harmony • ' + totalGuests + ' Guests (' + window.__SH_STATE.tables.length + ' Tbls) • 12:00 Seat #1 BEO • Vault #SH-4819';
+      metaSubEl.textContent = (window.__SH_STATE.harmonyScore || 98) + '/100 Harmony • ' + totalGuests + ' Guests (' + window.__SH_STATE.tables.length + ' Tbls) • 12:00 Seat #1 BEO • Vault #' + (window.__SH_STATE.vaultId || 'SH-4819');
     }
   }
 
@@ -140,8 +104,7 @@ function renderInteractiveScript(initialPlan) {
     window.__SH_CREST_LOGO_URL = String(val || '').trim();
     var inp = document.getElementById('sh-crest-logo-input');
     if (inp && inp.value !== window.__SH_CREST_LOGO_URL) inp.value = window.__SH_CREST_LOGO_URL;
-    shSyncSpecimenCrestHeader();
-    shRenderPosterView();
+    shSyncSpecimenCrestHeader(); shRenderPosterView();
     shToast(window.__SH_CREST_LOGO_URL ? '✓ Applied Custom Crest Logo to 54px Studio Specimen & 24"×36" Sign!' : '✓ Restored Dynamic Gold Monogram Crest (' + shComputeCoupleMonogram(window.__SH_STATE && window.__SH_STATE.title) + ')!');
   };
 
@@ -155,51 +118,36 @@ function renderInteractiveScript(initialPlan) {
 
   function shNormalizeShape(rawShape) {
     const s = String(rawShape || 'round').toLowerCase();
-    if (s.includes('sweetheart') || s.includes('head')) return 'sweetheart';
-    if (s.includes('king')) return 'kings_4sided';
-    if (s.includes('banquet')) return 'banquet_2sided';
-    return 'round';
+    return (s.includes('sweetheart') || s.includes('head')) ? 'sweetheart' : (s.includes('king') ? 'kings_4sided' : (s.includes('banquet') ? 'banquet_2sided' : 'round'));
   }
 
   function shFriendlyShape(rawShape) {
     const s = shNormalizeShape(rawShape);
-    if (s === 'sweetheart') return 'Sweetheart (1-Sided)';
-    if (s === 'kings_4sided') return "King's Table (4-Sided)";
-    if (s === 'banquet_2sided') return 'Banquet (2-Sided)';
-    return '60" Round';
+    return s === 'sweetheart' ? 'Sweetheart (1-Sided)' : (s === 'kings_4sided' ? "King's Table (4-Sided)" : (s === 'banquet_2sided' ? 'Banquet (2-Sided)' : '60" Round'));
   }
 
   function shRecomputeGeometry(table) {
-    const shape = shNormalizeShape(table.shape);
-    const cap = table.capacity || Math.max(2, table.guests.length);
-    const x = table.x || 250, y = table.y || 200;
-    const seats = [];
+    const shape = shNormalizeShape(table.shape), cap = table.capacity || Math.max(2, table.guests.length), x = table.x || 250, y = table.y || 200, seats = [];
     if (shape === 'round') {
       const r = cap <= 8 ? 50 : 58, orbit = r + 22;
       for (let i = 0; i < cap; i++) {
-        const angle = -Math.PI / 2 + (2 * Math.PI * i) / cap;
-        const clockNum = i === 0 ? 12 : Math.max(1, Math.min(11, Math.round((i / cap) * 12)));
+        const angle = -Math.PI / 2 + (2 * Math.PI * i) / cap, clockNum = i === 0 ? 12 : Math.max(1, Math.min(11, Math.round((i / cap) * 12)));
         seats.push({ seatNumber: i + 1, clockPosition: clockNum + ':00', x: Math.round(x + orbit * Math.cos(angle)), y: Math.round(y + orbit * Math.sin(angle)), isAnchorTwelveOClock: i === 0 });
       }
-      table.geometry = { shape, tableWidth: r * 2, tableHeight: r * 2, seats };
-      return;
+      table.geometry = { shape, tableWidth: r * 2, tableHeight: r * 2, seats }; return;
     }
-    const topCnt = shape === 'sweetheart' ? cap : Math.ceil(cap / 2);
-    const botCnt = shape === 'sweetheart' ? 0 : (cap - topCnt);
+    const topCnt = shape === 'sweetheart' ? cap : Math.ceil(cap / 2), botCnt = shape === 'sweetheart' ? 0 : (cap - topCnt);
     const w = shape === 'sweetheart' ? Math.max(128, topCnt * 28 + 16) : (shape === 'kings_4sided' ? Math.max(156, topCnt * 28 + 20) : Math.max(140, topCnt * 28 + 16));
-    const h = shape === 'sweetheart' ? 46 : (shape === 'kings_4sided' ? 66 : 52);
-    const cx = Math.max(w / 2 + 24, Math.min(916 - w / 2, x));
+    const h = shape === 'sweetheart' ? 46 : (shape === 'kings_4sided' ? 66 : 52), cx = Math.max(w / 2 + 24, Math.min(916 - w / 2, x));
     table.x = cx;
     const rot = ((table.rotation || 0) * Math.PI) / 180;
-    const rotPt = function(dx, dy) {
-      return { x: Math.round(cx + dx * Math.cos(rot) - dy * Math.sin(rot)), y: Math.round(y + dx * Math.sin(rot) + dy * Math.cos(rot)) };
-    };
+    const rotPt = function(dx, dy) { return { x: Math.round(cx + dx * Math.cos(rot) - dy * Math.sin(rot)), y: Math.round(y + dx * Math.sin(rot) + dy * Math.cos(rot)) }; };
     for (let i = 0; i < topCnt; i++) {
-      const dx = -w / 2 + (w / (topCnt + 1)) * (i + 1), dy = -(h / 2 + 19), pt = rotPt(dx, dy);
+      const pt = rotPt(-w / 2 + (w / (topCnt + 1)) * (i + 1), -(h / 2 + 19));
       seats.push({ seatNumber: seats.length + 1, clockPosition: seats.length === 0 ? '12:00 (N)' : 'North-' + (i + 1), x: pt.x, y: pt.y, isAnchorTwelveOClock: seats.length === 0 });
     }
     for (let j = botCnt - 1; j >= 0; j--) {
-      const dx = -w / 2 + (w / (botCnt + 1)) * (j + 1), dy = h / 2 + 19, pt = rotPt(dx, dy);
+      const pt = rotPt(-w / 2 + (w / (botCnt + 1)) * (j + 1), h / 2 + 19);
       seats.push({ seatNumber: seats.length + 1, clockPosition: 'South-' + (botCnt - j), x: pt.x, y: pt.y, isAnchorTwelveOClock: false });
     }
     table.geometry = { shape, tableWidth: w, tableHeight: h, seats };
@@ -214,9 +162,7 @@ function renderInteractiveScript(initialPlan) {
     });
     const codeOut = document.getElementById('compiler-code-output');
     if (codeOut) {
-      codeOut.textContent = view === 'beo'
-        ? JSON.stringify({ '@context': 'https://schema.org', '@graph': [{ '@type': 'Event', name: (window.__SH_STATE && window.__SH_STATE.title) || 'Supabase Reception' }] })
-        : '# Supabase ' + ((window.__SH_STATE && window.__SH_STATE.title) || 'SeatHarmony Manifest');
+      codeOut.textContent = view === 'beo' ? JSON.stringify({ '@context': 'https://schema.org', '@graph': [{ '@type': 'Event', name: (window.__SH_STATE && window.__SH_STATE.title) || 'Supabase Reception' }] }) : '# Supabase ' + ((window.__SH_STATE && window.__SH_STATE.title) || 'SeatHarmony Manifest');
     }
     shRenderAll();
   };
@@ -239,12 +185,8 @@ function renderInteractiveScript(initialPlan) {
   window.shMorphSelectedTable = function(newShape) {
     const tbl = window.__SH_STATE.tables[window.__SH_SELECTED_TABLE_IDX];
     if (!tbl) return;
-    if (window.__SH_SANDBOX_MOM && window.__SH_SELECTED_TABLE_IDX >= 3) {
-      shToast('🔒 Mom Sandbox Active: Tables 4–8 are locked by the couple.');
-      return;
-    }
-    tbl.shape = shNormalizeShape(newShape);
-    shRecomputeGeometry(tbl);
+    if (window.__SH_SANDBOX_MOM && window.__SH_SELECTED_TABLE_IDX >= 3) { shToast('🔒 Mom Sandbox Active: Tables 4–8 are locked by the couple.'); return; }
+    tbl.shape = shNormalizeShape(newShape); shRecomputeGeometry(tbl);
     shToast('✓ Morphed ' + tbl.name + ' to ' + shFriendlyShape(tbl.shape) + ' (12:00 Seat #1 preserved).');
     shRenderAll();
   };
@@ -254,45 +196,31 @@ function renderInteractiveScript(initialPlan) {
     if (!tbl) return;
     tbl.rotation = ((tbl.rotation || 0) + 45) % 360;
     if (shNormalizeShape(tbl.shape) === 'round') tbl.shape = 'banquet_2sided';
-    shRecomputeGeometry(tbl);
-    shToast('↻ Rotated ' + tbl.name + ' to ' + tbl.rotation + '°.');
-    shRenderAll();
+    shRecomputeGeometry(tbl); shToast('↻ Rotated ' + tbl.name + ' to ' + tbl.rotation + '°.'); shRenderAll();
   };
 
   window.shToggleLockSelectedTable = function() {
     const tbl = window.__SH_STATE.tables[window.__SH_SELECTED_TABLE_IDX];
     if (!tbl) return;
     tbl.locked = !tbl.locked;
-    shToast((tbl.locked ? '🔒 Locked ' : '🔓 Unlocked ') + tbl.name + ' for auto-solver.');
-    shRenderAll();
+    shToast((tbl.locked ? '🔒 Locked ' : '🔓 Unlocked ') + tbl.name + ' for auto-solver.'); shRenderAll();
   };
 
   window.shSeatClick = function(tIdx, sIdx, ev) {
     if (ev) ev.stopPropagation();
-    if (window.__SH_SANDBOX_MOM && tIdx >= 3) {
-      shToast('🔒 Mom Sandbox Mode: Only Tables 1–3 (Family Tables) are editable.');
-      return;
-    }
+    if (window.__SH_SANDBOX_MOM && tIdx >= 3) { shToast('🔒 Mom Sandbox Mode: Only Tables 1–3 (Family Tables) are editable.'); return; }
     window.__SH_SELECTED_TABLE_IDX = tIdx;
     if (!window.__SH_SWAP_SOURCE) {
       window.__SH_SWAP_SOURCE = { tableIdx: tIdx, seatIdx: sIdx };
       const g = window.__SH_STATE.tables[tIdx].guests[sIdx];
       shToast('Selected ' + (g ? g.name : ('Seat #' + (sIdx + 1))) + ' · click any other seat to swap!');
-      shRenderAll();
-      return;
+      shRenderAll(); return;
     }
-    const src = window.__SH_SWAP_SOURCE;
-    window.__SH_SWAP_SOURCE = null;
+    const src = window.__SH_SWAP_SOURCE; window.__SH_SWAP_SOURCE = null;
     if (src.tableIdx === tIdx && src.seatIdx === sIdx) { shRenderAll(); return; }
-    if (window.__SH_SANDBOX_MOM && src.tableIdx >= 3) {
-      shToast('🔒 Mom Sandbox Mode: Cannot move guests from locked Tables 4–8.');
-      shRenderAll();
-      return;
-    }
+    if (window.__SH_SANDBOX_MOM && src.tableIdx >= 3) { shToast('🔒 Mom Sandbox Mode: Cannot move guests from locked Tables 4–8.'); shRenderAll(); return; }
     const tA = window.__SH_STATE.tables[src.tableIdx], tB = window.__SH_STATE.tables[tIdx];
-    const tmp = tA.guests[src.seatIdx];
-    tA.guests[src.seatIdx] = tB.guests[sIdx];
-    tB.guests[sIdx] = tmp;
+    const tmp = tA.guests[src.seatIdx]; tA.guests[src.seatIdx] = tB.guests[sIdx]; tB.guests[sIdx] = tmp;
     shToast('✓ Swapped ' + (tmp ? tmp.name : 'Seat') + ' ↔ ' + (tA.guests[src.seatIdx] ? tA.guests[src.seatIdx].name : 'Seat') + ' · BEO & 24"×36" Sign synced!');
     shRenderAll();
   };
@@ -302,12 +230,8 @@ function renderInteractiveScript(initialPlan) {
     if (btn) btn.textContent = '⚡ Solving 2,400 Swaps...';
     setTimeout(function() {
       window.__SH_STATE.tables.forEach(function(t, idx) {
-        if (t.locked || idx === 0) return;
-        if (window.__SH_SANDBOX_MOM && idx >= 3) return;
-        if (t.guests.length > 3) {
-          const firstTwo = t.guests.splice(0, 2);
-          t.guests.push(firstTwo[0], firstTwo[1]);
-        }
+        if (t.locked || idx === 0 || (window.__SH_SANDBOX_MOM && idx >= 3)) return;
+        if (t.guests.length > 3) { const firstTwo = t.guests.splice(0, 2); t.guests.push(firstTwo[0], firstTwo[1]); }
         shRecomputeGeometry(t);
       });
       window.__SH_STATE.harmonyScore = 99;
@@ -318,32 +242,20 @@ function renderInteractiveScript(initialPlan) {
   };
 
   window.shAddCustomRule = function() {
-    const inp = document.getElementById('sh-custom-rule-input');
-    const sel = document.getElementById('sh-custom-rule-type');
-    const txt = inp ? inp.value.trim() : '';
+    const inp = document.getElementById('sh-custom-rule-input'), sel = document.getElementById('sh-custom-rule-type'), txt = inp ? inp.value.trim() : '';
     if (!txt || !window.__SH_STATE) return;
     const rType = sel ? sel.value : 'must_keep_apart';
     if (!Array.isArray(window.__SH_STATE.rules)) window.__SH_STATE.rules = [];
-    window.__SH_STATE.rules.unshift({
-      id: 'rule_custom_' + Date.now(),
-      type: rType,
-      label: txt,
-      detail: rType === 'zone_quiet' ? 'Acoustic Buffer: Seated >30ft from DJ Booth' : (rType === 'must_sit_together' ? 'Coupled Household Lock: Seated Together' : 'Sightline Separation: Minimum 2 tables apart'),
-      status: 'RESOLVED (35ms)'
-    });
+    window.__SH_STATE.rules.unshift({ id: 'rule_custom_' + Date.now(), type: rType, label: txt, detail: rType === 'zone_quiet' ? 'Acoustic Buffer: Seated >30ft from DJ Booth' : (rType === 'must_sit_together' ? 'Coupled Household Lock: Seated Together' : 'Sightline Separation: Minimum 2 tables apart'), status: 'RESOLVED (35ms)' });
     window.__SH_STATE.harmonyScore = 99;
     if (inp) inp.value = '';
-    shToast('✓ Added Family Rule "' + txt + '" & Verified 0 Clashes!');
-    shRenderAll();
+    shToast('✓ Added Family Rule "' + txt + '" & Verified 0 Clashes!'); shRenderAll();
   };
 
   window.shToggleMomSandbox = function() {
     window.__SH_SANDBOX_MOM = !window.__SH_SANDBOX_MOM;
     const badge = document.getElementById('sh-mom-sandbox-badge');
-    if (badge) {
-      badge.textContent = window.__SH_SANDBOX_MOM ? '👵 Mom Sandbox: ON (Tables 1–3 Only)' : '👵 Mom Sandbox: OFF (Full Edit)';
-      badge.className = window.__SH_SANDBOX_MOM ? 'badge badge-amber' : 'badge badge-cyan';
-    }
+    if (badge) { badge.textContent = window.__SH_SANDBOX_MOM ? '👵 Mom Sandbox: ON (Tables 1–3 Only)' : '👵 Mom Sandbox: OFF (Full Edit)'; badge.className = window.__SH_SANDBOX_MOM ? 'badge badge-amber' : 'badge badge-cyan'; }
     shToast(window.__SH_SANDBOX_MOM ? '👵 Mom Sandbox Active: Tables 1–3 Editable; Groom Tables 4–8 Locked!' : 'Full Edit Mode Restored: All tables unlocked.');
     shRenderAll();
   };
@@ -610,6 +522,146 @@ function renderInteractiveScript(initialPlan) {
     svgEl.innerHTML = parts.join('');
   }
 
+  window.shCycleGuestMeal = function(tIdx, gIdx, ev) {
+    if (ev) ev.stopPropagation();
+    const tbl = window.__SH_STATE && window.__SH_STATE.tables && window.__SH_STATE.tables[tIdx];
+    const g = tbl && tbl.guests && tbl.guests[gIdx];
+    if (!g) return;
+    const meals = ['Filet Mignon', 'Pan-Seared Halibut', 'Vegan Risotto', 'Kids Chicken Tenders'];
+    const cur = meals.findIndex(function(m) { return g.meal && g.meal.toLowerCase().indexOf(m.split(' ')[0].toLowerCase()) !== -1; });
+    g.meal = meals[(cur + 1) % meals.length];
+    shToast('✓ Updated ' + g.name + ' Entrée → ' + g.meal + ' (Synced to BEO & Avery 5302 Card)');
+    shRenderAll();
+  };
+
+  window.shCycleGuestAllergy = function(tIdx, gIdx, ev) {
+    if (ev) ev.stopPropagation();
+    const tbl = window.__SH_STATE && window.__SH_STATE.tables && window.__SH_STATE.tables[tIdx];
+    const g = tbl && tbl.guests && tbl.guests[gIdx];
+    if (!g) return;
+    const states = [
+      { allergy: '', accessibility: '' },
+      { allergy: '🥜 SEVERE PEANUT ALLERGY', accessibility: '' },
+      { allergy: '🌾 SEVERE CELIAC (GF)', accessibility: '' },
+      { allergy: '', accessibility: '♿ REMOVE CHAIR FOR WHEELCHAIR' },
+      { allergy: '', accessibility: '👶 ADD HIGHCHAIR' }
+    ];
+    let cur = 0;
+    if (g.allergy && g.allergy.indexOf('PEANUT') !== -1) cur = 1;
+    else if (g.allergy) cur = 2;
+    else if (g.accessibility && g.accessibility.indexOf('WHEELCHAIR') !== -1) cur = 3;
+    else if (g.accessibility) cur = 4;
+    const next = states[(cur + 1) % states.length];
+    g.allergy = next.allergy; g.accessibility = next.accessibility;
+    shToast('✓ Updated ' + g.name + ' Tag → ' + (next.allergy || next.accessibility || 'Standard Chair / No Allergy'));
+    shRenderAll();
+  };
+
+  window.shRemoveGuest = function(tIdx, gIdx, ev) {
+    if (ev) ev.stopPropagation();
+    const tbl = window.__SH_STATE && window.__SH_STATE.tables && window.__SH_STATE.tables[tIdx];
+    if (!tbl || !tbl.guests || !tbl.guests[gIdx]) return;
+    const removed = tbl.guests.splice(gIdx, 1)[0];
+    shRecomputeGeometry(tbl);
+    shToast('✓ Removed RSVP Drop "' + removed.name + '" from ' + tbl.name + ' · 24"×36" Poster & BEO re-numbered!');
+    shRenderAll();
+  };
+
+  function shSyncTableSelectAndPills() {
+    if (!window.__SH_STATE || !window.__SH_STATE.tables) return;
+    const sel = document.getElementById('sh-target-table-select');
+    if (sel) {
+      const curVal = sel.value;
+      sel.innerHTML = '<option value="auto">Auto (Selected / Open)</option>' + window.__SH_STATE.tables.map(function(t, idx) {
+        return '<option value="' + idx + '">' + shEsc(t.name) + '</option>';
+      }).join('');
+      sel.value = curVal;
+    }
+    const pills = document.getElementById('sh-card4-table-pills');
+    if (pills) {
+      pills.innerHTML = window.__SH_STATE.tables.map(function(t, idx) {
+        const active = idx === window.__SH_SELECTED_TABLE_IDX ? ' active' : '';
+        return '<button type="button" class="studio-tap-chip' + active + '" onclick="window.shSelectTable(' + idx + ')">Tbl ' + t.number + '</button>';
+      }).join('');
+    }
+  }
+
+  window.shAddNewTable = function() {
+    if (!window.__SH_STATE || !window.__SH_STATE.tables) return;
+    const num = window.__SH_STATE.tables.length + 1;
+    const col = (num - 1) % 4, row = Math.floor((num - 1) / 4);
+    const newTbl = {
+      id: 'table-' + num, number: num, name: 'Table ' + num + ' (Added Guests)', shape: 'round', capacity: 8,
+      x: 170 + col * 200, y: Math.min(490, 210 + row * 145), rotation: 0, locked: false, guests: []
+    };
+    shRecomputeGeometry(newTbl);
+    window.__SH_STATE.tables.push(newTbl);
+    window.__SH_SELECTED_TABLE_IDX = window.__SH_STATE.tables.length - 1;
+    shSyncTableSelectAndPills();
+    shToast('✓ Added ' + newTbl.name + ' (60" Round · 8 Seats) to Floorplan!');
+    shRenderAll();
+  };
+
+  window.shStartBlankList = function() {
+    if (!window.__SH_STATE || !window.__SH_STATE.tables) return;
+    window.__SH_STATE.tables.forEach(function(t, idx) {
+      t.guests = idx === 0 ? [
+        { name: 'Bride / Host 1', initials: 'H1', role: 'Host', meal: 'Filet Mignon', allergy: '', accessibility: '' },
+        { name: 'Groom / Host 2', initials: 'H2', role: 'Host', meal: 'Pan-Seared Halibut', allergy: '', accessibility: '' }
+      ] : [];
+      shRecomputeGeometry(t);
+    });
+    window.__SH_STATE.householdsCoupled = 1;
+    window.__SH_SELECTED_TABLE_IDX = 1;
+    const drawer = document.getElementById('sh-bulk-csv-drawer');
+    if (drawer) drawer.style.display = 'block';
+    shToast('✨ Cleared demo guests! Paste your spreadsheet in Card 2C or add households one by one.');
+    window.scrollToShCard(2);
+    shRenderAll();
+  };
+
+  window.shToggleBulkCsvDrawer = function() {
+    const d = document.getElementById('sh-bulk-csv-drawer');
+    if (d) d.style.display = d.style.display === 'none' ? 'block' : 'none';
+  };
+
+  window.shHandleCsvFileUpload = function(inputEl) {
+    const f = inputEl && inputEl.files && inputEl.files[0];
+    if (!f) return;
+    const reader = new FileReader();
+    reader.onload = function(ev) {
+      const ta = document.getElementById('sh-bulk-csv-textarea');
+      if (ta) ta.value = String(ev.target.result || '').trim();
+      window.shProcessBulkCsv(false);
+    };
+    reader.readAsText(f);
+  };
+
+  window.shProcessBulkCsv = function(replaceAll) {
+    const ta = document.getElementById('sh-bulk-csv-textarea');
+    const rawText = ta ? ta.value.trim() : '';
+    if (!rawText || !window.__SH_STATE) return;
+    const lines = rawText.split(/\\r?\\n/).map(function(l) { return l.trim(); }).filter(function(l) {
+      return l && !/^(name|guest|household|table)[,\\t]/i.test(l);
+    });
+    if (!lines.length) return;
+    if (replaceAll) {
+      window.__SH_STATE.tables.forEach(function(t, idx) { if (idx > 0) t.guests = []; });
+      window.__SH_STATE.householdsCoupled = 1;
+    }
+    const inp = document.getElementById('domain-input');
+    const sel = document.getElementById('sh-target-table-select');
+    if (sel) sel.value = 'auto';
+    lines.forEach(function(line) {
+      const openTbl = window.__SH_STATE.tables.findIndex(function(t, i) { return i > 0 && !t.locked && t.guests.length < t.capacity; });
+      if (openTbl === -1) window.shAddNewTable();
+      if (inp) inp.value = line.replace(/,/g, ' ');
+      window.shAddMessyHousehold();
+    });
+    shToast('✓ Bulk Imported & Coupled ' + lines.length + ' Household Rows Across Tables!');
+    shRenderAll();
+  };
+
   function shRenderSelectedTableInspector() {
     const box = document.getElementById('sh-selected-table-box');
     if (!box || !window.__SH_STATE || !window.__SH_STATE.tables) return;
@@ -618,7 +670,7 @@ function renderInteractiveScript(initialPlan) {
     if (!t.geometry) shRecomputeGeometry(t);
     const normShape = shNormalizeShape(t.shape);
 
-    document.querySelectorAll('#sh-card4-table-pills button').forEach(function(b, i) { b.classList.toggle('active', i === tIdx); });
+    shSyncTableSelectAndPills();
     document.querySelectorAll('#sh-card4-shape-pills button[data-shape]').forEach(function(b) { b.classList.toggle('active', b.getAttribute('data-shape') === normShape); });
     const lockBtn = document.getElementById('sh-lock-table-btn');
     if (lockBtn) {
@@ -628,39 +680,40 @@ function renderInteractiveScript(initialPlan) {
     const sum4 = document.getElementById('sh-wizard-summary-4');
     if (sum4) sum4.textContent = 'Table ' + t.number + ' • ' + shFriendlyShape(t.shape);
 
-    const seatRows = t.guests.map(function(g, idx) {
+    const seatRows = t.guests.length ? t.guests.map(function(g, idx) {
       const seat = t.geometry.seats[idx] || { seatNumber: idx + 1, clockPosition: '12:00' };
       const mb = shMealBadge(g.meal);
       const cleanAllergy = g.allergy ? String(g.allergy).replace(/^[⚠️🥜🌾🐚🥛]+\\s*/, '') : '';
       const cleanAccess = g.accessibility ? String(g.accessibility).replace(/^[♿👶]+\\s*/, '') : '';
-      const allergyBadge = cleanAllergy ? '<span class="badge badge-rose" style="font-size:0.63rem;padding:2px 6px;">⚠️ ' + shEsc(cleanAllergy) + '</span>' : '';
-      const accessBadge = cleanAccess ? '<span class="badge badge-amber" style="font-size:0.63rem;padding:2px 6px;">♿ ' + shEsc(cleanAccess) + '</span>' : '';
-      return '<div onclick="window.shSeatClick(' + tIdx + ',' + idx + ',event)" style="cursor:pointer;display:flex;flex-wrap:wrap;align-items:center;justify-content:space-between;gap:6px;padding:6px 8px;border-radius:8px;background:#FFFFFF;border:1px solid #EAE2D3;font-size:0.78rem;min-width:0;">' +
-        '<div style="display:flex;align-items:center;gap:6px;min-width:0;flex:1 1 130px;">' +
-          '<span class="mono" style="font-size:0.68rem;font-weight:800;padding:2px 6px;border-radius:5px;flex-shrink:0;background:' + (idx === 0 ? '#8C2D19' : '#F3EDE3') + ';color:' + (idx === 0 ? '#FFF' : '#1C1917') + ';">#' + seat.seatNumber + '</span>' +
+      const tagLabel = cleanAllergy ? ('⚠️ ' + shEsc(cleanAllergy)) : (cleanAccess ? ('♿ ' + shEsc(cleanAccess)) : '+ Tag');
+      const tagStyle = cleanAllergy ? 'background:#FFF1F2;color:#9F1239;border:1px solid #FECDD3;' : (cleanAccess ? 'background:#FEF3C7;color:#92400E;border:1px solid #FDE68A;' : 'background:#F5F5F4;color:#57534E;border:1px solid #D6D3D1;');
+      return '<div onclick="window.shSeatClick(' + tIdx + ',' + idx + ',event)" style="cursor:pointer;display:flex;flex-wrap:wrap;align-items:center;justify-content:space-between;gap:5px;padding:6px 8px;border-radius:8px;background:#FFFFFF;border:1px solid #EAE2D3;font-size:0.76rem;min-width:0;">' +
+        '<div style="display:flex;align-items:center;gap:5px;min-width:0;flex:1 1 115px;">' +
+          '<span class="mono" style="font-size:0.66rem;font-weight:800;padding:2px 5px;border-radius:5px;flex-shrink:0;background:' + (idx === 0 ? '#8C2D19' : '#F3EDE3') + ';color:' + (idx === 0 ? '#FFF' : '#1C1917') + ';">#' + seat.seatNumber + '</span>' +
           '<strong style="color:#1C1917;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;">' + shEsc(g.name) + '</strong>' +
         '</div>' +
         '<div style="display:flex;flex-wrap:wrap;align-items:center;gap:4px;">' +
-          '<span style="font-size:0.68rem;font-weight:700;padding:2px 6px;border-radius:5px;background:' + mb.bg + ';color:' + mb.color + ';">' + mb.icon + ' ' + mb.short + '</span>' +
-          allergyBadge + accessBadge +
+          '<button type="button" title="Click to cycle Entrée (Filet / Halibut / Vegan / Kids)" onclick="window.shCycleGuestMeal(' + tIdx + ',' + idx + ',event)" style="cursor:pointer;border:1px solid ' + mb.color + ';font-size:0.65rem;font-weight:800;padding:2px 6px;border-radius:5px;background:' + mb.bg + ';color:' + mb.color + ';">' + mb.code + ' ' + mb.short + '</button>' +
+          '<button type="button" title="Click to cycle Allergy / Wheelchair / High-Chair" onclick="window.shCycleGuestAllergy(' + tIdx + ',' + idx + ',event)" style="cursor:pointer;font-size:0.63rem;font-weight:800;padding:2px 6px;border-radius:5px;' + tagStyle + '">' + tagLabel + '</button>' +
+          '<button type="button" title="Remove guest (RSVP drop)" onclick="window.shRemoveGuest(' + tIdx + ',' + idx + ',event)" style="cursor:pointer;border:1px solid #FECDD3;background:#FFF1F2;color:#9F1239;font-size:0.64rem;font-weight:800;padding:2px 5px;border-radius:5px;">✕</button>' +
         '</div></div>';
-    }).join('');
+    }).join('') : '<div style="padding:10px;font-size:0.78rem;color:#57534E;">No guests seated at ' + shEsc(t.name) + ' yet. Use Card 2A or 2C Bulk CSV to add guests.</div>';
 
     box.innerHTML =
       '<div style="display:flex;flex-wrap:wrap;align-items:center;justify-content:space-between;gap:8px;margin-bottom:8px;">' +
         '<div style="min-width:0;">' +
-          '<div style="font-size:0.66rem;font-weight:800;text-transform:uppercase;letter-spacing:0.07em;color:#8C2D19;">SELECTED TABLE INSPECTOR (12:00 = SEAT #1)</div>' +
+          '<div style="font-size:0.65rem;font-weight:800;text-transform:uppercase;letter-spacing:0.06em;color:#8C2D19;">SELECTED TABLE INSPECTOR (CLICK MEAL, TAG OR ✕ DROP)</div>' +
           '<div class="serif-display" style="font-size:1.12rem;color:#181412;">' + shEsc(t.name) + ' &middot; ' + shEsc(shFriendlyShape(t.shape)) + '</div>' +
         '</div>' +
         '<div style="display:flex;flex-wrap:wrap;gap:5px;">' +
-          '<button type="button" onclick="window.shMorphSelectedTable(\\'round\\')" class="studio-tap-chip' + (normShape === 'round' ? ' active' : '') + '">● Round</button>' +
-          '<button type="button" onclick="window.shMorphSelectedTable(\\'sweetheart\\')" class="studio-tap-chip' + (normShape === 'sweetheart' ? ' active' : '') + '">💕 Sweetheart</button>' +
-          '<button type="button" onclick="window.shMorphSelectedTable(\\'banquet_2sided\\')" class="studio-tap-chip' + (normShape === 'banquet_2sided' ? ' active' : '') + '">▬ Banquet</button>' +
-          '<button type="button" onclick="window.shMorphSelectedTable(\\'kings_4sided\\')" class="studio-tap-chip' + (normShape === 'kings_4sided' ? ' active' : '') + '">⊞ King\\'s</button>' +
+          '<button type="button" onclick="window.shMorphSelectedTable(\\\'round\\\')" class="studio-tap-chip' + (normShape === 'round' ? ' active' : '') + '">● Round</button>' +
+          '<button type="button" onclick="window.shMorphSelectedTable(\\\'sweetheart\\\')" class="studio-tap-chip' + (normShape === 'sweetheart' ? ' active' : '') + '">💕 Sweetheart</button>' +
+          '<button type="button" onclick="window.shMorphSelectedTable(\\\'banquet_2sided\\\')" class="studio-tap-chip' + (normShape === 'banquet_2sided' ? ' active' : '') + '">▬ Banquet</button>' +
+          '<button type="button" onclick="window.shMorphSelectedTable(\\\'kings_4sided\\\')" class="studio-tap-chip' + (normShape === 'kings_4sided' ? ' active' : '') + '">⊞ King\\\'s</button>' +
           '<button type="button" onclick="window.shRotateSelectedTable()" class="studio-tap-chip">↻ 45°</button>' +
         '</div>' +
       '</div>' +
-      '<div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(205px,1fr));gap:6px;">' + seatRows + '</div>';
+      '<div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(225px,1fr));gap:6px;">' + seatRows + '</div>';
   }
 
   function shRenderBeoView() {
@@ -704,28 +757,18 @@ function renderInteractiveScript(initialPlan) {
   }
 
   function shFormatPosterName(rawName) {
-    const str = String(rawName || '').trim();
-    const parenMatch = str.match(/\\s*(\\([^)]+\\))\\s*$/);
-    const suffix = parenMatch ? (' ' + parenMatch[1]) : '';
-    const base = str.replace(/\\s*\\([^)]+\\)\\s*$/, '').trim();
-    const parts = base.split(/\\s+/).filter(Boolean);
+    const str = String(rawName || '').trim(), parenMatch = str.match(/\\s*(\\([^)]+\\))\\s*$/), suffix = parenMatch ? (' ' + parenMatch[1]) : '';
+    const base = str.replace(/\\s*\\([^)]+\\)\\s*$/, '').trim(), parts = base.split(/\\s+/).filter(Boolean);
     if (parts.length <= 1) return { sortKey: base.toLowerCase(), display: base + suffix };
-    const last = parts[parts.length - 1];
-    const first = parts.slice(0, -1).join(' ');
+    const last = parts[parts.length - 1], first = parts.slice(0, -1).join(' ');
     return { sortKey: (last + ', ' + first).toLowerCase(), display: last + ', ' + first + suffix };
   }
 
   window.shSetPosterMode = function(mode, theme) {
     if (mode) window.__SH_POSTER_MODE = mode;
     if (theme) window.__SH_POSTER_THEME = theme;
-    document.querySelectorAll('[data-poster-sort], #sh-card5-sort-pills [data-sort]').forEach(function(b) {
-      const v = b.getAttribute('data-poster-sort') || b.getAttribute('data-sort');
-      b.classList.toggle('active', v === window.__SH_POSTER_MODE);
-    });
-    document.querySelectorAll('[data-poster-theme], #sh-card5-theme-pills [data-theme]').forEach(function(b) {
-      const v = b.getAttribute('data-poster-theme') || b.getAttribute('data-theme');
-      b.classList.toggle('active', v === window.__SH_POSTER_THEME);
-    });
+    document.querySelectorAll('[data-poster-sort], #sh-card5-sort-pills [data-sort]').forEach(function(b) { b.classList.toggle('active', (b.getAttribute('data-poster-sort') || b.getAttribute('data-sort')) === window.__SH_POSTER_MODE); });
+    document.querySelectorAll('[data-poster-theme], #sh-card5-theme-pills [data-theme]').forEach(function(b) { b.classList.toggle('active', (b.getAttribute('data-poster-theme') || b.getAttribute('data-theme')) === window.__SH_POSTER_THEME); });
     const sum5 = document.getElementById('sh-wizard-summary-5');
     if (sum5) sum5.textContent = (window.__SH_POSTER_THEME || 'alabaster').toUpperCase() + ' • ' + (window.__SH_POSTER_MODE === 'by_table' ? 'By Table' : 'A–Z');
     shRenderPosterView();
@@ -734,62 +777,32 @@ function renderInteractiveScript(initialPlan) {
   function shRenderPosterView() {
     const posterEl = document.getElementById('sh-poster-preview');
     if (!posterEl || !window.__SH_STATE) return;
-    const theme = window.__SH_POSTER_THEME || 'alabaster';
-    const bg = theme === 'obsidian' ? '#181412' : (theme === 'sage' ? '#EFF5F1' : '#FAF7F2');
-    const fg = theme === 'obsidian' ? '#FAF7F2' : '#181412';
-    const sub = theme === 'obsidian' ? '#D6CBB8' : '#57534E';
-    const borderCol = theme === 'obsidian' ? '#C8A96E' : '#C8B9A6';
-    const initials = shComputeCoupleMonogram(window.__SH_STATE.title);
-    const logoUrl = window.__SH_CREST_LOGO_URL || '';
-
+    const theme = window.__SH_POSTER_THEME || 'alabaster', bg = theme === 'obsidian' ? '#181412' : (theme === 'sage' ? '#EFF5F1' : '#FAF7F2');
+    const fg = theme === 'obsidian' ? '#FAF7F2' : '#181412', sub = theme === 'obsidian' ? '#D6CBB8' : '#57534E', borderCol = theme === 'obsidian' ? '#C8A96E' : '#C8B9A6';
+    const initials = shComputeCoupleMonogram(window.__SH_STATE.title), logoUrl = window.__SH_CREST_LOGO_URL || '';
     let bodyHtml = '';
     if (window.__SH_POSTER_MODE === 'by_table') {
       bodyHtml = '<div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(175px,1fr));gap:12px;text-align:left;">' +
         (window.__SH_STATE.tables || []).map(function(t) {
-          return '<div style="border-top:1px solid ' + borderCol + ';padding-top:6px;">' +
-            '<div class="serif-display" style="font-size:0.95rem;color:' + fg + ';margin-bottom:4px;">Table ' + t.number + '</div>' +
-            t.guests.map(function(g) { return '<div style="font-size:0.74rem;color:' + sub + ';">' + shEsc(g.name) + '</div>'; }).join('') +
-          '</div>';
+          return '<div style="border-top:1px solid ' + borderCol + ';padding-top:6px;"><div class="serif-display" style="font-size:0.95rem;color:' + fg + ';margin-bottom:4px;">Table ' + t.number + '</div>' +
+            t.guests.map(function(g) { return '<div style="font-size:0.74rem;color:' + sub + ';">' + shEsc(g.name) + '</div>'; }).join('') + '</div>';
         }).join('') + '</div>';
     } else {
       const all = [];
-      (window.__SH_STATE.tables || []).forEach(function(t) {
-        t.guests.forEach(function(g, idx) {
-          const parsed = shFormatPosterName(g.name);
-          all.push({ sortKey: parsed.sortKey, display: parsed.display, tableNum: t.number, seatNum: idx + 1 });
-        });
-      });
+      (window.__SH_STATE.tables || []).forEach(function(t) { t.guests.forEach(function(g, idx) { const parsed = shFormatPosterName(g.name); all.push({ sortKey: parsed.sortKey, display: parsed.display, tableNum: t.number, seatNum: idx + 1 }); }); });
       all.sort(function(a, b) { return a.sortKey.localeCompare(b.sortKey); });
       bodyHtml = '<div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(185px,1fr));gap:6px 16px;text-align:left;">' +
-        all.map(function(g) {
-          return '<div style="display:flex;justify-content:space-between;gap:8px;font-size:0.74rem;border-bottom:1px dotted ' + borderCol + ';padding:2px 0;color:' + fg + ';">' +
-            '<span style="overflow:hidden;text-overflow:ellipsis;white-space:nowrap;">' + shEsc(g.display) + '</span>' +
-            '<strong class="mono" style="font-size:0.70rem;flex-shrink:0;">Tbl ' + g.tableNum + '</strong></div>';
-        }).join('') + '</div>';
+        all.map(function(g) { return '<div style="display:flex;justify-content:space-between;gap:8px;font-size:0.74rem;border-bottom:1px dotted ' + borderCol + ';padding:2px 0;color:' + fg + ';"><span style="overflow:hidden;text-overflow:ellipsis;white-space:nowrap;">' + shEsc(g.display) + '</span><strong class="mono" style="font-size:0.70rem;flex-shrink:0;">Tbl ' + g.tableNum + '</strong></div>'; }).join('') + '</div>';
     }
-
     const posterCrestHtml = logoUrl
       ? '<img src="' + shEsc(logoUrl) + '" alt="Couple Crest" style="width:100%;height:100%;object-fit:contain;background:#FFFFFF;padding:4px;" />'
-      : '<div style="display:flex;flex-direction:column;align-items:center;justify-content:center;line-height:1;">' +
-          '<span class="serif-display" style="font-size:1.24rem;font-weight:800;color:#FDE68A;letter-spacing:0.04em;">' + shEsc(initials) + '</span>' +
-          '<span class="mono" style="font-size:0.44rem;font-weight:800;color:#D6CFC2;letter-spacing:0.12em;margin-top:2px;">EST. 2026</span>' +
-        '</div>';
-
+      : '<div style="display:flex;flex-direction:column;align-items:center;justify-content:center;line-height:1;"><span class="serif-display" style="font-size:1.24rem;font-weight:800;color:#FDE68A;letter-spacing:0.04em;">' + shEsc(initials) + '</span><span class="mono" style="font-size:0.44rem;font-weight:800;color:#D6CFC2;letter-spacing:0.12em;margin-top:2px;">EST. 2026</span></div>';
     posterEl.innerHTML =
       '<div style="background:' + bg + ';color:' + fg + ';border:2px double ' + borderCol + ';border-radius:14px;padding:20px 18px;box-shadow:0 16px 36px rgba(24,20,18,0.12);">' +
         '<div style="display:flex;align-items:center;gap:14px;text-align:left;border-bottom:1.5px double ' + borderCol + ';padding-bottom:12px;margin-bottom:14px;">' +
-          '<div id="poster-logo-badge" style="width:58px;height:58px;border-radius:14px;border:2px solid #C8A96E;background:linear-gradient(135deg,#181412 0%,#2B231D 100%);display:flex;align-items:center;justify-content:center;flex-shrink:0;box-shadow:0 6px 14px rgba(24,20,18,0.18);overflow:hidden;">' +
-            posterCrestHtml +
-          '</div>' +
-          '<div style="min-width:0;flex:1;">' +
-            '<div style="font-size:0.62rem;letter-spacing:0.14em;text-transform:uppercase;color:' + sub + ';font-weight:800;">24&Prime; &times; 36&Prime; ARCH D FOYER EASEL SIGN &middot; 0.125&Prime; PRINT BLEED READY</div>' +
-            '<h3 class="serif-display" style="font-size:1.68rem;color:' + fg + ';margin:1px 0;">Please Find Your Seat</h3>' +
-            '<div style="font-size:0.80rem;color:' + sub + ';font-style:italic;">' + shEsc(window.__SH_STATE.title) + ' &middot; ' + shEsc(window.__SH_STATE.venueName || 'Rosewood Conservatory') + '</div>' +
-          '</div>' +
-        '</div>' +
-        bodyHtml +
-      '</div>';
-
+          '<div id="poster-logo-badge" style="width:58px;height:58px;border-radius:14px;border:2px solid #C8A96E;background:linear-gradient(135deg,#181412 0%,#2B231D 100%);display:flex;align-items:center;justify-content:center;flex-shrink:0;box-shadow:0 6px 14px rgba(24,20,18,0.18);overflow:hidden;">' + posterCrestHtml + '</div>' +
+          '<div style="min-width:0;flex:1;"><div style="font-size:0.62rem;letter-spacing:0.14em;text-transform:uppercase;color:' + sub + ';font-weight:800;">24&Prime; &times; 36&Prime; ARCH D FOYER EASEL SIGN &middot; 0.125&Prime; PRINT BLEED READY</div><h3 class="serif-display" style="font-size:1.68rem;color:' + fg + ';margin:1px 0;">Please Find Your Seat</h3><div style="font-size:0.80rem;color:' + sub + ';font-style:italic;">' + shEsc(window.__SH_STATE.title) + ' &middot; ' + shEsc(window.__SH_STATE.venueName || 'Rosewood Conservatory') + '</div></div>' +
+        '</div>' + bodyHtml + '</div>';
     const averyEl = document.getElementById('sh-avery-preview');
     if (averyEl) {
       const selTbl = window.__SH_STATE.tables[window.__SH_SELECTED_TABLE_IDX || 1] || window.__SH_STATE.tables[0];
@@ -797,16 +810,8 @@ function renderInteractiveScript(initialPlan) {
       const mb = shMealBadge(sampleGuest.meal);
       averyEl.innerHTML =
         '<div style="padding:10px 12px;border-radius:10px;background:#FAF7F2;border:1px solid #E2D9C8;display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:10px;align-items:center;">' +
-          '<div style="background:#FFFFFF;border:1.5px solid #C8A96E;border-radius:8px;padding:10px 12px;box-shadow:0 4px 12px rgba(24,20,18,0.06);">' +
-            '<div style="display:flex;justify-content:space-between;align-items:center;font-size:0.62rem;font-weight:800;color:#78716C;text-transform:uppercase;letter-spacing:0.08em;margin-bottom:4px;"><span>AVERY 5302 TENT (FRONT)</span><span style="color:' + mb.color + ';font-size:0.80rem;" title="Server Entree Key">' + mb.code + ' ' + mb.short + '</span></div>' +
-            '<div class="serif-display" style="font-size:1.12rem;color:#181412;">' + shEsc(sampleGuest.name) + '</div>' +
-            '<div class="mono" style="font-size:0.70rem;font-weight:700;color:#8C2D19;margin-top:2px;">Table ' + (selTbl ? selTbl.number : 2) + ' &middot; Clockwise Seat #1 (12:00)</div>' +
-          '</div>' +
-          '<div style="background:#FFF1F2;border:1.5px dashed #E11D48;border-radius:8px;padding:10px 12px;">' +
-            '<div style="display:flex;justify-content:space-between;align-items:center;font-size:0.62rem;font-weight:800;color:#9F1239;text-transform:uppercase;letter-spacing:0.08em;margin-bottom:4px;"><span>SERVER BACK FOLD (UPSIDE-DOWN)</span><span class="badge badge-emerald" style="font-size:0.58rem;padding:1px 6px;">2&Prime;&times;3.5&Prime; Die-Cut</span></div>' +
-            '<div style="font-size:0.76rem;font-weight:800;color:#9F1239;">⚠️ ' + shEsc(sampleGuest.allergy || 'No Dietary Allergy · Standard Service') + '</div>' +
-            '<div style="font-size:0.69rem;color:#57534E;margin-top:2px;">Entrée: <strong>' + shEsc(sampleGuest.meal) + '</strong> &middot; Server Key: <code>◆ Beef · ● Fish · ▲ Vegan · ★ Kid</code></div>' +
-          '</div>' +
+          '<div style="background:#FFFFFF;border:1.5px solid #C8A96E;border-radius:8px;padding:10px 12px;box-shadow:0 4px 12px rgba(24,20,18,0.06);"><div style="display:flex;justify-content:space-between;align-items:center;font-size:0.62rem;font-weight:800;color:#78716C;text-transform:uppercase;letter-spacing:0.08em;margin-bottom:4px;"><span>AVERY 5302 TENT (FRONT)</span><span style="color:' + mb.color + ';font-size:0.80rem;">' + mb.code + ' ' + mb.short + '</span></div><div class="serif-display" style="font-size:1.12rem;color:#181412;">' + shEsc(sampleGuest.name) + '</div><div class="mono" style="font-size:0.70rem;font-weight:700;color:#8C2D19;margin-top:2px;">Table ' + (selTbl ? selTbl.number : 2) + ' &middot; Clockwise Seat #1 (12:00)</div></div>' +
+          '<div style="background:#FFF1F2;border:1.5px dashed #E11D48;border-radius:8px;padding:10px 12px;"><div style="display:flex;justify-content:space-between;align-items:center;font-size:0.62rem;font-weight:800;color:#9F1239;text-transform:uppercase;letter-spacing:0.08em;margin-bottom:4px;"><span>SERVER BACK FOLD (UPSIDE-DOWN)</span><span class="badge badge-emerald" style="font-size:0.58rem;padding:1px 6px;">2&Prime;&times;3.5&Prime; Die-Cut</span></div><div style="font-size:0.76rem;font-weight:800;color:#9F1239;">⚠️ ' + shEsc(sampleGuest.allergy || 'No Dietary Allergy · Standard Service') + '</div><div style="font-size:0.69rem;color:#57534E;margin-top:2px;">Entrée: <strong>' + shEsc(sampleGuest.meal) + '</strong> &middot; Server Key: <code>◆ Beef · ● Fish · ▲ Vegan · ★ Kid</code></div></div>' +
         '</div>';
     }
   }
@@ -832,6 +837,106 @@ function renderInteractiveScript(initialPlan) {
     }).join('');
   };
 
+  function shSyncVaultIdLinks(vId) {
+    const id = String(vId || (window.__SH_STATE && window.__SH_STATE.vaultId) || 'SH-4819');
+    if (window.__SH_STATE) window.__SH_STATE.vaultId = id;
+    const setTxt = function(elId, txt) { const el = document.getElementById(elId); if (el) el.textContent = txt; };
+    setTxt('hero-vault-code-label', '#' + id); setTxt('sh-studio-vault-code', id);
+    setTxt('sh-btn-vault-id', id); setTxt('sh-modal-vault-code', '#' + id);
+    setTxt('sh-modal-links-vault-id', id); setTxt('sh-unlocked-vault-id', id);
+    setTxt('sh-qr-short-url', '/qr/' + id);
+    const setHref = function(elId, url) { const el = document.getElementById(elId); if (el) el.href = url; };
+    setHref('sh-cmd-vault-link', '/vault/' + id); setHref('sh-cmd-poster-link', '/print/poster/' + id);
+    setHref('sh-cmd-avery-link', '/print/avery-5302/' + id); setHref('sh-cmd-beo-link', '/print/beo/' + id);
+    setHref('sh-cmd-qr-link', '/qr/' + id); setHref('sh-open-beo-studio-link', '/print/beo/' + id);
+    setHref('sh-open-poster-studio-link', '/print/poster/' + id); setHref('sh-open-avery-studio-link', '/print/avery-5302/' + id);
+    setHref('sh-open-qr-app-link', '/qr/' + id); setHref('sh-qr-short-url', '/qr/' + id);
+    setHref('sh-card5-poster-studio-link', '/print/poster/' + id); setHref('sh-card5-avery-studio-link', '/print/avery-5302/' + id);
+    setHref('sh-footer-vault-link', '/vault/' + id);
+    setHref('sh-modal-link-vault', '/vault/' + id); setHref('sh-modal-link-poster', '/print/poster/' + id);
+    setHref('sh-modal-link-avery', '/print/avery-5302/' + id); setHref('sh-modal-link-beo', '/print/beo/' + id);
+    setHref('sh-modal-link-qr', '/qr/' + id);
+    setHref('hero-buy-btn', '/buy/complete_dossier?target=estate-150&vault=' + id);
+    setHref('sh-card5-buy-btn', '/buy/complete_dossier?target=estate-150&vault=' + id);
+    setHref('sh-vault-buy-pack-btn', '/buy/complete_dossier?target=estate-150&vault=' + id);
+    setHref('sh-vault-buy-pro-btn', '/buy/pro_b2b?target=estate-150&vault=' + id);
+    setHref('sh-pane-beo-buy-link', '/buy/flash_pass?target=estate-150&vault=' + id);
+    setHref('sh-pane-poster-buy-link', '/buy/complete_dossier?target=estate-150&vault=' + id);
+    const qrImg = document.getElementById('sh-live-qr-img');
+    if (qrImg) qrImg.src = 'https://api.qrserver.com/v1/create-qr-code/?size=160x160&color=181412&bgcolor=FFFFFF&data=' + encodeURIComponent(window.location.origin + '/qr/' + id);
+    const unlBar = document.getElementById('sh-unlocked-command-bar');
+    if (unlBar && window.__SH_STATE && window.__SH_STATE.isUnlocked) unlBar.style.display = 'flex';
+  }
+
+  function shAutoPersistVault() {
+    if (!window.__SH_STATE) return;
+    try { localStorage.setItem('sh_saved_vault_v1', JSON.stringify(window.__SH_STATE)); } catch (_) {}
+    clearTimeout(window.__shPersistTimer);
+    window.__shPersistTimer = setTimeout(function() {
+      fetch('/api/vault/save', {
+        method: 'POST', headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ vaultId: window.__SH_STATE.vaultId || 'SH-4819', ownerEmail: window.__SH_STATE.ownerEmail || '', state: window.__SH_STATE })
+      }).catch(function() {});
+    }, 650);
+  }
+
+  window.shOpenVaultModal = function() {
+    const m = document.getElementById('sh-vault-modal');
+    if (m) m.style.display = 'flex';
+  };
+  window.shCloseVaultModal = function() {
+    const m = document.getElementById('sh-vault-modal');
+    if (m) m.style.display = 'none';
+  };
+
+  window.shSaveVaultToServer = async function() {
+    const emailEl = document.getElementById('sh-vault-email-input');
+    const pinEl = document.getElementById('sh-vault-pin-input');
+    const btn = document.getElementById('sh-vault-save-submit-btn');
+    const email = emailEl ? emailEl.value.trim() : '';
+    const pin = pinEl ? pinEl.value.trim() : '2026';
+    if (btn) btn.textContent = '💾 Saving to Cloud Vault...';
+    try {
+      if (window.__SH_STATE) window.__SH_STATE.ownerEmail = email;
+      const res = await fetch('/api/vault/save', {
+        method: 'POST', headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ vaultId: (window.__SH_STATE && window.__SH_STATE.vaultId) || 'SH-4819', ownerEmail: email, pinCode: pin, state: window.__SH_STATE })
+      });
+      const data = await res.json();
+      const vid = data && (data.vaultId || data.vault_id);
+      if (data && data.ok && vid) {
+        shSyncVaultIdLinks(vid);
+        if (btn) btn.textContent = '✓ Saved Vault #' + vid + ' (' + (email || 'Cloud Link Ready') + ')';
+        shToast('✓ Saved Reception Vault #' + vid + '! All 5 print & QR links updated.');
+      }
+    } catch (e) { if (btn) btn.textContent = '💾 Save My Event & Generate Magic Links'; }
+  };
+
+  window.shLookupSavedVault = async function() {
+    const inp = document.getElementById('sh-vault-lookup-input');
+    const st = document.getElementById('sh-vault-lookup-status');
+    const q = inp ? inp.value.trim() : '';
+    if (!q) return;
+    if (st) st.textContent = 'Searching saved vaults...';
+    try {
+      const res = await fetch('/api/vault/lookup', {
+        method: 'POST', headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ emailOrVaultId: q, query: q })
+      });
+      const data = await res.json();
+      const vid = data && (data.vault_id || data.vaultId);
+      if (data && data.ok && vid && data.state) {
+        window.__SH_STATE = data.state;
+        window.__SH_STATE.vaultId = vid;
+        window.__SH_STATE.isUnlocked = Boolean(data.is_unlocked);
+        shSyncVaultIdLinks(vid);
+        shRenderAll();
+        if (st) st.innerHTML = '<strong style="color:#065F46;">✓ Loaded "' + shEsc(data.title || 'Saved Reception') + '" (#' + shEsc(vid) + ')!</strong> <a href="/vault/' + shEsc(vid) + '" style="color:#8C2D19;font-weight:800;">Open Command Center ↗</a>';
+        shToast('✓ Restored Saved Event "' + (data.title || vid) + '" (Vault #' + vid + ')!');
+      } else if (st) { st.innerHTML = '<span style="color:#9F1239;">No vault found for "' + shEsc(q) + '". Try SH-4819.</span>'; }
+    } catch (e) { if (st) st.textContent = 'Could not look up vault.'; }
+  };
+
   function shRenderAll() {
     if (!window.__SH_STATE) return;
     const csovEl = document.getElementById('score-csov');
@@ -849,6 +954,7 @@ function renderInteractiveScript(initialPlan) {
       const alSub = document.getElementById('sh-stat-allergies-sub');
       if (alSub) alSub.textContent = '✓ ' + allergyAndChairCount + ' Alerts + Avery 5302';
     }
+    shSyncVaultIdLinks(window.__SH_STATE.vaultId || 'SH-4819');
     shSyncSpecimenCrestHeader();
     shRenderRulesList();
     shRenderFloorplanSvg();
@@ -856,12 +962,16 @@ function renderInteractiveScript(initialPlan) {
     shRenderBeoView();
     shRenderPosterView();
     window.shFilterQrLookup();
+    shAutoPersistVault();
   }
 
   document.addEventListener('DOMContentLoaded', function() {
     try {
       const sp = new URLSearchParams(window.location.search);
       if (sp.get('sandbox') === 'mom_tables_1_3' && !window.__SH_SANDBOX_MOM) { window.shToggleMomSandbox(); }
+      if (sp.get('checkout') === 'success' || sp.get('unlocked') === '1') {
+        if (window.__SH_STATE) window.__SH_STATE.isUnlocked = true;
+      }
     } catch (_) {}
     shRenderAll();
   });

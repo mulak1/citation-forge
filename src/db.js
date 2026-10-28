@@ -337,6 +337,20 @@ async function initDb() {
       utm_campaign TEXT DEFAULT '',
       created_at TEXT DEFAULT (datetime('now'))
     );
+
+    CREATE TABLE IF NOT EXISTS event_vaults (
+      vault_id TEXT PRIMARY KEY,
+      owner_email TEXT DEFAULT '',
+      pin_code TEXT DEFAULT '',
+      title TEXT DEFAULT '',
+      venue_name TEXT DEFAULT '',
+      plan_tier TEXT DEFAULT 'free',
+      is_unlocked INTEGER DEFAULT 0,
+      stripe_session_id TEXT DEFAULT '',
+      state_json TEXT NOT NULL,
+      updated_at TEXT DEFAULT (datetime('now')),
+      created_at TEXT DEFAULT (datetime('now'))
+    );
   `);
 
   seedSeoPages(dbInstance);

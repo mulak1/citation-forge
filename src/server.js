@@ -13,6 +13,7 @@ const {
 } = require('./page-views');
 
 const { attachExactBaselinePack } = require('./exact-baseline-api');
+const { attachVaultAndPaywallRoutes, resolveVaultRecord } = require('./vault-routes');
 
 const PORT = Number(process.env.PORT || 4101);
 const HOST = process.env.HOST || '0.0.0.0';
@@ -37,6 +38,7 @@ app.use((req, res, next) => {
 });
 
 attachExactBaselinePack(app, { verticalId: 'citation_forge' });
+attachVaultAndPaywallRoutes(app, PUBLIC_URL);
 
 // In-memory rate limiter for public API routes (Pre-Launch Checklist Checkpoint #18)
 const rateLimitStore = new Map();
@@ -87,11 +89,25 @@ app.get('/manifest.webmanifest', (req, res) => {
 // 1. Home Page (`GET /`)
 app.get('/', async (req, res) => {
   try {
-    const targetDomain = req.query.preset || req.query.domain || req.query.q || req.query.target || 'estate-150';
-    const category = req.query.category || undefined;
-    const rawAudit = await runGeoAudit(targetDomain, { category });
-    const isUnlocked = req.query.unlocked === '1' || req.query.checkout === 'success';
-    const initialAudit = isUnlocked ? rawAudit : redactAuditForPublicPreview(rawAudit);
+    const requestedVault = req.query.vault || (req.query.target && String(req.query.target).toUpperCase().startsWith('SH-') ? req.query.target : '');
+    const isUnlockedQuery = req.query.unlocked === '1' || req.query.checkout === 'success';
+    let initialAudit = null;
+    if (requestedVault) {
+      const vaultRec = await resolveVaultRecord(requestedVault, req.query);
+      initialAudit = { ...vaultRec.state, vaultId: vaultRec.vaultId, isUnlocked: vaultRec.isUnlocked || isUnlockedQuery };
+    } else {
+      const targetDomain = req.query.preset || req.query.domain || req.query.q || req.query.target || 'estate-150';
+      const category = req.query.category || undefined;
+      const rawAudit = await runGeoAudit(targetDomain, { category });
+      initialAudit = isUnlockedQuery ? rawAudit : redactAuditForPublicPreview(rawAudit);
+      if (initialAudit && initialAudit.seatingPlan) {
+        initialAudit.seatingPlan.isUnlocked = isUnlockedQuery;
+        initialAudit.seatingPlan.vaultId = 'SH-4819';
+      } else if (initialAudit) {
+        initialAudit.isUnlocked = isUnlockedQuery;
+        initialAudit.vaultId = 'SH-4819';
+      }
+    }
     const sampleSeoPages = queryAll('SELECT slug, page_type, title, meta_description, category, csov_score FROM seo_pages ORDER BY id ASC');
     res.status(200).type('html').send(renderHomePage(initialAudit, sampleSeoPages));
   } catch (err) {
