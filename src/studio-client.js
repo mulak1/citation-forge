@@ -16,36 +16,26 @@ function renderInteractiveScript(initialPlan) {
   window.__SH_SANDBOX_MOM = false; window.__SH_CREST_LOGO_URL = ''; window.__SH_SIGN_KICKER = 'Please Find Your Seat';
   window.__SH_SIGN_MONOGRAM = 'M&L · EST. 2026'; window.__SH_CANVAS_ZOOM = 'room'; window.__SH_DRAG_STATE = null; window.__SH_VSL_TIMER = null;
 
-  var SH_VSL_SCENES = [
-    { badge: '98.4/100 HARMONY · OPPOSITE SIDES OF DANCE FLOOR', leftImg: '/public/editorial-hero.jpg', rightImg: '/public/editorial-segment-1.jpg', objectPosition: 'center 28%', trapTag: '2 Clashes + 5 Hrs Canva', leftTitle: '2 AM Spreadsheet & Canva Chaos', leftDesc: 'Divorced parents in direct sightline; 5 hours re-typing 150 names into Canva after RSVP drops.', rightPill: '98/100 Harmony', rightRxTitle: '✓ Tables 2 & 5 Separated Across the Dance Floor', rightTicket: 'Load in Studio ↓', rightDesc: 'Couples Kept Together • Clockwise 12:00 Meal Sheet • 24"×36" Sign + Avery 5302 Cards.' },
-    { badge: "100% COUPLED HOUSEHOLDS · KING'S & BANQUET TABLES", leftImg: '/public/editorial-hero.jpg', rightImg: '/public/editorial-segment-2.jpg', objectPosition: 'center 24%', trapTag: '4 Split Couples on Long Tables', leftTitle: 'Manual Dragging Splits Plus-Ones', leftDesc: 'Switching from Round to Banquet tables in generic tools scrambles seats and splits married couples.', rightPill: 'Tuscan 80 • Side-by-Side Couples', rightRxTitle: "✓ 1-Click Round ↔ Banquet ↔ King's Table Switch", rightTicket: 'Load in Studio ↓', rightDesc: 'Smart table layout keeps couples side-by-side and places High-Chairs on outer corners.' },
-    { badge: '100% CLOCKWISE 12:00 SEAT #1 CATERER MEAL SHEET', leftImg: '/public/editorial-segment-1.jpg', rightImg: '/public/editorial-segment-3.jpg', objectPosition: 'center 34%', trapTag: '6 Unmarked Severe Allergies', leftTitle: 'Servers Guessing Entrées & Allergies', leftDesc: 'Flat spreadsheets force servers to ask guests who ordered Halibut and miss severe peanut allergies.', rightPill: 'Clockwise 12:00 Anchor', rightRxTitle: "✓ Red 12 O'Clock Dot = Seat #1 (Clockwise 1..N)", rightTicket: 'Load in Studio ↓', rightDesc: 'Seats number 1..N clockwise from the Dance Floor with meal symbols (◆●▲★) and allergy flags.' },
-    { badge: '6 WELCOME SIGN DESIGNS · AVERY 5302 + LIVE QR', leftImg: '/public/editorial-segment-2.jpg', rightImg: '/public/editorial-segment-1.jpg', objectPosition: 'center 26%', trapTag: '$220 Etsy Sign + Foyer Jam', leftTitle: '48-Hour RSVP Drops Ruin Printed Signs', leftDesc: 'Three last-minute guest changes force a full Canva re-layout and cause a 15-minute foyer line.', rightPill: '6 Luxury Sign Styles + QR', rightRxTitle: '✓ 300-DPI 24"×36" PDF + Instant Phone QR Lookup', rightTicket: 'Preview 6 Signs ↓', rightDesc: 'Switch between Parisian Gold, Botanical Ivory, Editorial Noir, Tuscan Sage, Blush Rosewater & Terracotta.' }
-  ];
-
   window.selectShVslScene = function(idx) {
-    var total = SH_VSL_SCENES.length, cleanIdx = ((idx % total) + total) % total, s = SH_VSL_SCENES[cleanIdx] || SH_VSL_SCENES[0];
+    var scenes = document.querySelectorAll('#studio-editorial-vsl-stage .sh-vsl-scene');
+    var total = scenes.length || 4, cleanIdx = ((idx % total) + total) % total;
     window.__SH_ACTIVE_VSL_SCENE = cleanIdx;
-    document.querySelectorAll('#sh-vsl-scene-pills .vsl-scene-pill').forEach(function(b, i) { b.classList.toggle('active', i === cleanIdx); });
-    var setTxt = function(id, val) { var el = document.getElementById(id); if (el) el.textContent = val; };
-    setTxt('vsl-center-delta-badge', s.badge); setTxt('vsl-trap-tag', s.trapTag); setTxt('vsl-left-title', s.leftTitle); setTxt('vsl-left-desc', s.leftDesc);
-    setTxt('vsl-right-season-pill', s.rightPill); setTxt('vsl-right-rx-title', s.rightRxTitle); setTxt('vsl-right-ticket-pill', s.rightTicket || 'Load in Studio ↓'); setTxt('vsl-right-desc', s.rightDesc);
+    for (var i = 0; i < scenes.length; i++) {
+      var active = (i === cleanIdx);
+      scenes[i].style.display = active ? 'block' : 'none';
+      scenes[i].classList.toggle('active', active);
+    }
     var prog = document.getElementById('sh-vsl-progress-bar'); if (prog) prog.style.width = (((cleanIdx + 1) / total) * 100) + '%';
-    var imgL = document.getElementById('vsl-img-left'), imgR = document.getElementById('vsl-img-right');
-    if (imgL) { imgL.src = s.leftImg; imgL.style.objectPosition = s.objectPosition || 'center 28%'; }
-    if (imgR) { imgR.src = s.rightImg; imgR.style.objectPosition = s.objectPosition || 'center 28%'; }
   };
   window.shNextVslScene = function() { window.selectShVslScene((window.__SH_ACTIVE_VSL_SCENE || 0) + 1); };
   window.shToggleVslAutoPlay = function() {
     var iconEl = document.getElementById('sh-vsl-play-icon'), lblEl = document.getElementById('sh-vsl-play-label');
-    if (window.__SH_VSL_TIMER) { clearInterval(window.__SH_VSL_TIMER); window.__SH_VSL_TIMER = null; if (iconEl) iconEl.textContent = '▶'; if (lblEl) lblEl.textContent = 'Auto-Play Story'; return; }
-    if (iconEl) iconEl.textContent = '⏸'; if (lblEl) lblEl.textContent = 'Playing Story';
-    window.shNextVslScene(); window.__SH_VSL_TIMER = setInterval(function() { window.shNextVslScene(); }, 3400);
+    if (window.__SH_VSL_TIMER) { clearInterval(window.__SH_VSL_TIMER); window.__SH_VSL_TIMER = null; if (iconEl) iconEl.innerHTML = '&#9654;'; if (lblEl) lblEl.textContent = 'Auto-Play Story'; return; }
+    if (iconEl) iconEl.innerHTML = '&#10074;&#10074;'; if (lblEl) lblEl.textContent = 'Playing Story...';
+    window.__SH_VSL_TIMER = setInterval(function() { window.shNextVslScene(); }, 3800);
   };
   window.shLoadVslSceneIntoStudio = function() {
-    var idx = window.__SH_ACTIVE_VSL_SCENE || 0, preset = ['estate-150', 'tuscan-banquet-80', 'planner-beo-sandbox', 'estate-150'][idx] || 'estate-150';
-    window.loadPresetScenario(preset, document.querySelector('[data-preset="' + preset + '"]'));
-    if (idx === 2) window.shSetActiveTab('beo'); if (idx === 3) window.shSetActiveTab('poster');
+    window.loadPresetScenario('estate-150', document.querySelector('[data-preset="estate-150"]'));
     var st = document.getElementById('studio'); if (st) st.scrollIntoView({ behavior: 'smooth' });
   };
   window.scrollToShCard = function(stepNum) {

@@ -7,10 +7,10 @@ function renderZone1Hero(plan) {
   const vId = escapeHtml(plan.vaultId || 'SH-4819');
   const isUnl = Boolean(plan.isUnlocked);
   return `
-  <!-- ZONE 1: ABOVE THE FOLD - MESSAGE MATCH + VISUAL "VSL" SHOWCASE + CREASE PROOF BAR -->
-  <div class="container">
-    <section class="studio-zone1-hero" id="grader">
-      <div id="sh-unlocked-command-bar" style="display:${isUnl ? 'flex' : 'none'};background:linear-gradient(135deg,#064E3B 0%,#181412 100%);border:2px solid #10B981;border-radius:14px;padding:12px 16px;margin-bottom:14px;color:#FAF8F5;align-items:center;justify-content:space-between;gap:12px;flex-wrap:wrap;box-shadow:0 12px 28px rgba(6,95,70,0.22);">
+  <!-- ZONE 1: ABOVE THE FOLD (CENTERED HEADER + SUB-HEADER + 4-SCENE STORY VSL PLAYER UNDERNEATH + SURER NEXT STEP CTA + CREASE PROOF BAR) -->
+  <section class="studio-zone1-hero" id="grader">
+    <div class="container">
+      <div id="sh-unlocked-command-bar" style="display:${isUnl ? 'flex' : 'none'};max-width:960px;margin:0 auto 20px;background:linear-gradient(135deg,#064E3B 0%,#181412 100%);border:2px solid #10B981;border-radius:14px;padding:12px 16px;color:#FAF8F5;align-items:center;justify-content:space-between;gap:12px;flex-wrap:wrap;box-shadow:0 12px 28px rgba(6,95,70,0.22);">
         <div>
           <div style="font-size:0.70rem;font-weight:800;letter-spacing:0.08em;text-transform:uppercase;color:#6EE7B7;">&#10003; UNLOCKED PRO / WEDDING PACK ACTIVE &middot; VAULT #<span id="sh-unlocked-vault-id">${vId}</span></div>
           <div style="font-size:0.86rem;font-weight:700;color:#FFFFFF;">Your Print-Ready 24&Prime;&times;36&Prime; Arch D Poster, Avery 5302 Tent Cards, Signed Clockwise BEO &amp; Live QR App are unlocked:</div>
@@ -24,82 +24,105 @@ function renderZone1Hero(plan) {
         </div>
       </div>
 
-      <div style="display:flex;align-items:center;justify-content:space-between;gap:10px;flex-wrap:wrap;margin-bottom:12px;">
-        <div class="studio-eyebrow-kicker" style="margin-bottom:0;"><span>&#10022; WEDDING &amp; RECEPTION SEATING STUDIO &middot; FOR COUPLES &amp; PLANNERS</span></div>
-        <div style="display:flex;align-items:center;gap:8px;flex-wrap:wrap;">
-          <div style="display:inline-flex;align-items:center;gap:6px;font-size:0.70rem;font-weight:800;color:#065F46;background:#ECFDF5;border:1px solid #10B981;border-radius:999px;padding:4px 12px;"><span>&#10022; 18,420+ Receptions</span></div>
-          <button type="button" id="hero-vault-pill-btn" onclick="window.shOpenVaultModal()" style="cursor:pointer;display:inline-flex;align-items:center;gap:6px;font-size:0.70rem;font-weight:800;color:#78350F;background:#FAF3E3;border:1px solid #C8A96E;border-radius:999px;padding:4px 12px;" title="Save or Resume Your Event Vault"><span>&#128190; Vault <strong id="hero-vault-code-label">#${vId}</strong> &bull; Save / Login &nearr;</span></button>
-        </div>
-      </div>
-
-      <div style="text-align:center;max-width:900px;margin:0 auto;">
-        <h1 id="score-brand-title" class="studio-zone-title" style="font-size:clamp(2.25rem, 3.6vw, 3.05rem);line-height:1.08;margin-bottom:12px;">Seat 150 Guests in 30 Seconds.<br/><em>Zero Family Drama.</em></h1>
-        <p class="studio-zone-sub" style="font-size:1.08rem;color:#44403C;max-width:760px;margin:0 auto 18px;line-height:1.58;">Paste your Zola or The Knot guest list, keep divorced parents on opposite sides of the dance floor, and print your <strong>24&Prime;&times;36&Prime; Welcome Sign</strong>, <strong>Clockwise Caterer Meal Sheet (BEO)</strong>, and <strong>Avery 5302 Place Cards</strong>.</p>
-        <div style="display:flex;align-items:center;justify-content:center;gap:14px;flex-wrap:wrap;">
-          <a href="#studio" class="btn btn-primary" style="padding:13px 26px;font-size:0.95rem;border-radius:12px;"><span>Build Your Reception Floorplan Free &darr;</span></a>
-          <a id="hero-buy-btn" href="/buy/complete_dossier?target=estate-150&amp;vault=${vId}" class="btn btn-secondary" style="padding:13px 20px;font-size:0.92rem;border-radius:12px;"><span>&#9889; Get Complete Wedding Print Pack ($14.99) &rarr;</span></a>
-        </div>
-      </div>
-
-      <!-- THE VISUAL "VSL": Full-Width Split-Screen Editorial Reception Showcase (Warm Sunlit Champagne) -->
-      <div class="studio-vsl-showcase-frame" id="studio-editorial-vsl-stage">
-        <div style="background:#FAF3E6;border-bottom:1px solid #E6D5B8;padding:10px 18px;display:flex;align-items:center;justify-content:space-between;gap:10px;flex-wrap:wrap;">
-          <div style="display:flex;align-items:center;gap:8px;">
-            <span style="width:9px;height:9px;border-radius:50%;background:#10B981;display:inline-block;"></span>
-            <span class="mono" style="font-size:0.74rem;font-weight:800;letter-spacing:0.06em;color:#78350F;text-transform:uppercase;">60-SECOND RECEPTION STORY &middot; MAYA &amp; LIAM&rsquo;S 150-GUEST WEDDING</span>
+      <div class="sh-zone1-stack">
+        <div class="sh-zone1-header-block">
+          <div style="display:flex;align-items:center;justify-content:center;gap:10px;flex-wrap:wrap;">
+            <div class="sh-eyebrow-pill"><span class="sh-eyebrow-dot"></span><span>WEDDING SEATING &amp; FLOORPLAN SOLVER &bull; 24&times;36&Prime; SIGN STUDIO</span></div>
+            <button type="button" id="hero-vault-pill-btn" onclick="window.shOpenVaultModal()" style="cursor:pointer;display:inline-flex;align-items:center;gap:6px;font-size:12.5px;font-weight:700;color:#78350F;background:#FAF3E3;border:1px solid #D6CBB9;border-radius:999px;padding:6px 13px;" title="Save or Resume Your Event Vault"><span>&#128190; Vault <strong id="hero-vault-code-label">#${vId}</strong> &bull; Save / Login &nearr;</span></button>
           </div>
-          <div style="display:flex;gap:6px;flex-wrap:wrap;" id="sh-vsl-scene-pills">
-            <button type="button" id="vsl-scene-btn-0" class="vsl-scene-pill active" onclick="window.selectShVslScene(0)">01 &middot; 150-Guest Estate</button>
-            <button type="button" id="vsl-scene-btn-1" class="vsl-scene-pill" onclick="window.selectShVslScene(1)">02 &middot; Tuscan Banquet</button>
-            <button type="button" id="vsl-scene-btn-2" class="vsl-scene-pill" onclick="window.selectShVslScene(2)">03 &middot; Caterer Meal Sheet</button>
-            <button type="button" id="vsl-scene-btn-3" class="vsl-scene-pill" onclick="window.selectShVslScene(3)">04 &middot; 24&Prime;&times;36&Prime; Sign &amp; QR</button>
-          </div>
+          <h1 id="score-brand-title" class="sh-display-h1">The 6-Hour Seating Chart.<br/><span class="sh-h1-accent">Solved in 60 Seconds, Drama-Free.</span></h1>
+          <p class="sh-lead-sub">Paste your Zola, The Knot, or Excel guest list to automatically separate divorced relatives across the dance floor, keep every couple side-by-side, and print your caterer&rsquo;s Clockwise Seat 1&ndash;10 meal sheet and framed 24&times;36&Prime; welcome sign.</p>
         </div>
 
-        <div class="studio-vsl-split-grid">
-          <div class="studio-vsl-divider-badge" id="vsl-center-delta-badge">98.4/100 HARMONY &middot; OPPOSITE SIDES OF DANCE FLOOR</div>
-          <div class="studio-vsl-half trap-before">
-            <img id="vsl-img-left" class="vsl-portrait-bg" src="/public/editorial-hero.jpg" alt="Late-Night Spreadsheet and Canva Seating Stress" width="620" height="430" />
-            <div style="position:relative;z-index:4;display:flex;justify-content:space-between;align-items:center;gap:8px;flex-wrap:wrap;">
-              <span style="background:#991B1B;color:#FFFFFF;border:1px solid #FCA5A5;padding:5px 12px;border-radius:999px;font-size:0.72rem;font-weight:800;letter-spacing:0.04em;">&#10005; BEFORE &middot; THE 2 AM SPREADSHEET</span>
-              <span id="vsl-trap-tag" class="mono" style="background:#FAF3E4;color:#991B1B;border:1px solid #E6D5B8;padding:4px 10px;border-radius:999px;font-size:0.70rem;font-weight:800;">2 Family Clashes + 5 Hrs in Canva</span>
-            </div>
-            <div class="bs-vsl-caption-pill">
-              <div style="font-size:0.72rem;font-weight:800;color:#991B1B;text-transform:uppercase;letter-spacing:0.05em;" id="vsl-left-title">2 AM Spreadsheet &amp; Canva Stress</div>
-              <div style="font-size:0.79rem;color:#3F3831;margin-top:2px;line-height:1.38;" id="vsl-left-desc">Divorced parents seated at adjacent tables, plus 5 hours re-typing 150 names into Canva when 3 guests cancel.</div>
-            </div>
+        <div class="sh-vsl-player-shell" id="studio-editorial-vsl-stage">
+          <div class="sh-vsl-garland-frieze" aria-hidden="true">
+            <svg viewBox="0 0 960 44" preserveAspectRatio="none" style="width:100%;height:42px;display:block;">
+              <defs><radialGradient id="fairyGlow" cx="50%" cy="50%" r="50%"><stop offset="0%" stop-color="#fffbeb" stop-opacity="1"/><stop offset="45%" stop-color="#fcd34d" stop-opacity="0.85"/><stop offset="100%" stop-color="#f59e0b" stop-opacity="0"/></radialGradient></defs>
+              <path d="M0,4 Q160,34 320,6 Q480,36 640,6 Q800,34 960,4" fill="none" stroke="#b49a67" stroke-width="1.2" opacity="0.65"/><path d="M0,10 Q240,38 480,10 Q720,38 960,10" fill="none" stroke="#6b8e78" stroke-width="1.6" stroke-dasharray="6 4" opacity="0.55"/>
+              <g fill="#5f7d6b" opacity="0.65"><ellipse cx="75" cy="17" rx="9" ry="4" transform="rotate(-18 75 17)"/><ellipse cx="92" cy="20" rx="8" ry="3.5" transform="rotate(15 92 20)"/><ellipse cx="235" cy="19" rx="9" ry="4" transform="rotate(14 235 19)"/><ellipse cx="395" cy="18" rx="9" ry="4" transform="rotate(-16 395 18)"/><ellipse cx="555" cy="19" rx="9" ry="4" transform="rotate(16 555 19)"/><ellipse cx="715" cy="18" rx="9" ry="4" transform="rotate(-14 715 18)"/><ellipse cx="875" cy="17" rx="9" ry="4" transform="rotate(15 875 17)"/></g>
+              <g fill="#fffdf9" stroke="#d6cbb9" stroke-width="1"><circle cx="160" cy="20" r="5.5"/><circle cx="160" cy="20" r="2.5" fill="#fef3c7"/><circle cx="320" cy="10" r="5.5"/><circle cx="320" cy="10" r="2.5" fill="#fef3c7"/><circle cx="480" cy="21" r="6"/><circle cx="480" cy="21" r="2.8" fill="#fef3c7"/><circle cx="640" cy="10" r="5.5"/><circle cx="640" cy="10" r="2.5" fill="#fef3c7"/><circle cx="800" cy="20" r="5.5"/><circle cx="800" cy="20" r="2.5" fill="#fef3c7"/></g>
+              <g><circle cx="60" cy="14" r="13" fill="url(#fairyGlow)"/><circle cx="60" cy="14" r="3.2" fill="#fffbeb"/><circle cx="160" cy="21" r="15" fill="url(#fairyGlow)"/><circle cx="160" cy="21" r="3.5" fill="#fffbeb"/><circle cx="260" cy="15" r="13" fill="url(#fairyGlow)"/><circle cx="260" cy="15" r="3.2" fill="#fffbeb"/><circle cx="375" cy="18" r="14" fill="url(#fairyGlow)"/><circle cx="375" cy="18" r="3.4" fill="#fffbeb"/><circle cx="480" cy="22" r="16" fill="url(#fairyGlow)"/><circle cx="480" cy="22" r="3.8" fill="#fffbeb"/><circle cx="585" cy="18" r="14" fill="url(#fairyGlow)"/><circle cx="585" cy="18" r="3.4" fill="#fffbeb"/><circle cx="700" cy="15" r="13" fill="url(#fairyGlow)"/><circle cx="700" cy="15" r="3.2" fill="#fffbeb"/><circle cx="800" cy="21" r="15" fill="url(#fairyGlow)"/><circle cx="800" cy="21" r="3.5" fill="#fffbeb"/><circle cx="900" cy="14" r="13" fill="url(#fairyGlow)"/><circle cx="900" cy="14" r="3.2" fill="#fffbeb"/></g>
+            </svg>
           </div>
 
-          <div class="studio-vsl-half harmony-after" style="border-left:2px solid #C8A96E;">
-            <img id="vsl-img-right" class="vsl-portrait-bg" src="/public/editorial-segment-1.jpg" alt="SeatHarmony Reception Floorplan and 24x36 Welcome Sign" width="620" height="430" />
-            <div style="position:relative;z-index:4;display:flex;justify-content:space-between;align-items:center;gap:8px;flex-wrap:wrap;">
-              <span style="background:#065F46;color:#FFFFFF;border:1px solid #6EE7B7;padding:5px 12px;border-radius:999px;font-size:0.72rem;font-weight:800;letter-spacing:0.04em;">&#10022; AFTER &middot; SEATHARMONY IN 30 SECONDS</span>
-              <span id="vsl-right-season-pill" style="background:#FFFDF9;color:#78350F;border:1px solid #C8A96E;padding:4px 10px;border-radius:999px;font-size:0.71rem;font-weight:800;">98/100 Harmony</span>
-            </div>
-            <div class="bs-vsl-caption-pill bs-vsl-caption-good" style="display:flex;flex-direction:column;gap:4px;">
-              <div style="display:flex;justify-content:space-between;align-items:center;gap:8px;flex-wrap:wrap;">
-                <span style="font-size:0.72rem;font-weight:800;color:#065F46;text-transform:uppercase;letter-spacing:0.05em;" id="vsl-right-rx-title">&#10003; Tables 2 &amp; 5 Separated Across the Dance Floor</span>
-                <button type="button" onclick="window.shLoadVslSceneIntoStudio()" style="cursor:pointer;border:1px solid #047857;font-size:0.68rem;font-weight:800;color:#FFFFFF;background:#047857;padding:3px 9px;border-radius:999px;" id="vsl-right-ticket-pill">Try This Layout &darr;</button>
+          <div class="sh-vsl-stage" id="sh-vsl-stage">
+            <!-- Scene 0: The 2 AM Seating Chart & Canva Collapse -->
+            <div class="sh-vsl-scene active" data-scene="0">
+              <div class="sh-vsl-scene-grid">
+                <div class="sh-vsl-scene-copy">
+                  <div class="sh-vsl-speaker-row"><img src="/public/avatar-couple.jpg" alt="Maya and Liam" class="sh-vsl-speaker-avatar" loading="eager" /><div class="sh-vsl-speaker-meta"><span class="sh-vsl-speaker-name">Maya &amp; Liam &bull; 150-Guest Estate Wedding</span><span class="sh-vsl-scene-kicker">THE 2 AM SPREADSHEET SPIRAL</span></div></div>
+                  <h3 class="sh-vsl-scene-h3">&ldquo;Three days before our 150-guest wedding, four guests canceled and our entire seating chart collapsed.&rdquo;</h3>
+                  <p class="sh-vsl-scene-p">Every time we moved one person to fill an empty chair in Excel, it triggered a chain reaction: divorced parents ended up in direct sightline, married couples got split across table corners, and we had to re-type 150 names into our Canva welcome sign.</p>
+                  <div class="sh-vsl-caption-pill"><span>&ldquo;Moving four guests at 1:30 AM broke five tables and ruined our $220 printed foam-board sign.&rdquo;</span></div>
+                </div>
+                <div class="sh-vsl-scene-visual"><div class="sh-vsl-overlap-collage"><div class="sh-vsl-main-photo-frame"><img src="/public/vsl-scene0-laptop.jpg" alt="Couple stressed over wedding seating chart spreadsheet late at night" class="sh-vsl-main-photo" loading="eager" /></div><div class="sh-vsl-overlap-card sh-vsl-overlap-bad"><div class="sh-vsl-overlap-kicker">MANUAL EXCEL + CANVA SPIRAL (150 GUESTS)</div><div class="sh-vsl-overlap-big-num"><span>6.5 Hours</span> <small>3 Redos</small></div><div class="sh-vsl-overlap-sub">2 Family Clashes &bull; 4 Split Couples &bull; $220 Sign Redo</div></div></div></div>
               </div>
-              <div style="font-size:0.78rem;color:#064E3B;line-height:1.38;" id="vsl-right-desc">Couples Seated Together &bull; Clockwise 12:00 Meal Sheet (BEO) &bull; 24&Prime;&times;36&Prime; Sign + Avery 5302 Cards.</div>
             </div>
+
+            <!-- Scene 1: The Free Registry Drag-and-Drop Trap -->
+            <div class="sh-vsl-scene" data-scene="1" style="display:none;">
+              <div class="sh-vsl-scene-grid">
+                <div class="sh-vsl-scene-copy">
+                  <div class="sh-vsl-speaker-row"><img src="/public/avatar-couple.jpg" alt="Maya and Liam" class="sh-vsl-speaker-avatar" loading="lazy" /><div class="sh-vsl-speaker-meta"><span class="sh-vsl-speaker-name">Maya &amp; Liam &bull; 150-Guest Estate Wedding</span><span class="sh-vsl-scene-kicker">THE DRAG-AND-DROP TRAP</span></div></div>
+                  <h3 class="sh-vsl-scene-h3">&ldquo;So we tried free registry seating tools, and spent hours dragging tiny dots around by hand.&rdquo;</h3>
+                  <p class="sh-vsl-scene-p">Generic registry tools are just blank canvases with no brain. They don&rsquo;t know which relatives must stay apart, they scramble households when you switch from Round to Banquet tables, and they can&rsquo;t format a 24&times;36&Prime; welcome poster.</p>
+                  <div class="sh-vsl-caption-pill"><span>&ldquo;Free registry tools force you to play human Sudoku with 150 relatives and still leave you stuck in Canva.&rdquo;</span></div>
+                </div>
+                <div class="sh-vsl-scene-visual"><div class="sh-vsl-overlap-collage"><div class="sh-vsl-main-photo-frame"><img src="/public/vsl-scene1-notes.jpg" alt="Late night handwritten wedding table notes and coffee" class="sh-vsl-main-photo" loading="lazy" /></div><div class="sh-vsl-overlap-card sh-vsl-overlap-warn"><div class="sh-vsl-overlap-kicker">WHY FREE REGISTRY SEATING TOOLS FAIL</div><div class="sh-vsl-overlap-list"><div>&#10005; Zero sightline buffer for divorced parents or exes</div><div>&#10005; Switching Round to Banquet splits married couples</div><div>&#10005; Zero 24&times;36&Prime; sign or Avery 5302 place card export</div></div></div></div></div>
+              </div>
+            </div>
+
+            <!-- Scene 2: The Caterer BEO & Foyer Bottleneck Trap -->
+            <div class="sh-vsl-scene" data-scene="2" style="display:none;">
+              <div class="sh-vsl-scene-grid">
+                <div class="sh-vsl-scene-copy">
+                  <div class="sh-vsl-speaker-row"><img src="/public/avatar-planner.jpg" alt="Venue Catering Coordinator" class="sh-vsl-speaker-avatar" loading="lazy" /><div class="sh-vsl-speaker-meta"><span class="sh-vsl-speaker-name">Venue Catering Coordinator &bull; 72 Hours Out</span><span class="sh-vsl-scene-kicker">THE CATERER &amp; FOYER TRAP</span></div></div>
+                  <h3 class="sh-vsl-scene-h3">&ldquo;Wait... if seats aren&rsquo;t numbered clockwise from 12 o&rsquo;clock, dinner service stalls and allergies get missed?&rdquo;</h3>
+                  <p class="sh-vsl-scene-p">Our catering captain warned us: banquet servers cannot read flat spreadsheets. Without a Clockwise Seat 1&ndash;10 meal sheet anchored to the dance floor, servers have to auction off plates at every table while 150 guests jam the doorway around one easel.</p>
+                  <div class="sh-vsl-caption-pill"><span>&ldquo;One unnumbered table sheet delays entrée service by 25 minutes and risks severe allergy mix-ups.&rdquo;</span></div>
+                </div>
+                <div class="sh-vsl-scene-visual"><div class="sh-vsl-overlap-collage"><div class="sh-vsl-main-photo-frame"><img src="/public/editorial-segment-3.jpg" alt="Wedding coordinator reviewing ballroom floorplan and caterer meal sheet" class="sh-vsl-main-photo" loading="lazy" /></div><div class="sh-vsl-overlap-card sh-vsl-overlap-bad"><div class="sh-vsl-overlap-kicker">THE 2 RECEPTION NIGHT TRAPS</div><div class="sh-vsl-overlap-list"><div>1. Service Stall: Unnumbered chairs = servers auctioning meals</div><div>2. Foyer Jam: 150 guests crowding 1 easel = 20-min doorway line</div></div></div></div></div>
+              </div>
+            </div>
+
+            <!-- Scene 3: Where SeatHarmony Comes In -->
+            <div class="sh-vsl-scene" data-scene="3" style="display:none;">
+              <div class="sh-vsl-scene-grid">
+                <div class="sh-vsl-scene-copy">
+                  <div class="sh-vsl-speaker-row"><img src="/public/avatar-couple.jpg" alt="Maya and Liam" class="sh-vsl-speaker-avatar" loading="lazy" /><div class="sh-vsl-speaker-meta"><span class="sh-vsl-speaker-name">Maya &amp; Liam &bull; Reception Night</span><span class="sh-vsl-scene-kicker" style="color:#047857;">HOW SEATHARMONY SOLVED IT</span></div></div>
+                  <h3 class="sh-vsl-scene-h3">&ldquo;That&rsquo;s where SeatHarmony came in. In 60 seconds, every conflict, meal sheet, and sign was solved.&rdquo;</h3>
+                  <p class="sh-vsl-scene-p">It placed our divorced parents on opposite sides of the dance floor, kept every couple side-by-side, generated our caterer&rsquo;s Clockwise Seat 1&ndash;10 meal sheet with allergy alerts, and formatted our framed 24&times;36&Prime; welcome sign, Avery 5302 place cards, and live Guest QR finder.</p>
+                  <div class="sh-vsl-caption-pill sh-vsl-caption-good"><span>&ldquo;Zero family drama, 8-minute dinner service, our framed 24&times;36&Prime; welcome sign, and $220 saved.&rdquo;</span></div>
+                  <div style="padding-top:10px;"><button type="button" onclick="window.shLoadVslSceneIntoStudio && window.shLoadVslSceneIntoStudio()" style="display:inline-flex;align-items:center;gap:8px;padding:10px 18px;border-radius:10px;background:#047857;color:#ffffff;font-weight:700;font-size:14px;border:none;cursor:pointer;box-shadow:0 4px 12px rgba(4,120,87,0.28);"><span>&#9889; Load Maya &amp; Liam&rsquo;s 150-Guest Reception in Studio &darr;</span></button></div>
+                </div>
+                <div class="sh-vsl-scene-visual"><div class="sh-vsl-overlap-collage"><div class="sh-vsl-main-photo-frame"><img src="/public/editorial-segment-1.jpg" alt="Framed 24x36 Find Your Seat wedding welcome sign on gold easel at reception" class="sh-vsl-main-photo" loading="lazy" /></div><div class="sh-vsl-overlap-card sh-vsl-overlap-good"><div class="sh-vsl-overlap-kicker">SEATHARMONY 60-SECOND RECEPTION RESCUE</div><div class="sh-vsl-overlap-big-num"><span style="color:#047857;">98/100 Harmony</span> <small style="background:#dcfce7;color:#065f46;">Saved 6.5 Hrs + $220</small></div><div class="sh-vsl-overlap-sub">0 Family Clashes &bull; Clockwise 1&ndash;10 BEO &bull; 24&times;36&Prime; Sign + QR</div></div></div></div>
+              </div>
+            </div>
+          </div>
+
+          <div class="sh-vsl-controls">
+            <button type="button" class="sh-vsl-play-btn" id="sh-vsl-play-btn" onclick="window.shToggleVslAutoPlay && window.shToggleVslAutoPlay()"><span id="sh-vsl-play-icon">&#9654;</span><span id="sh-vsl-play-label">Auto-Play Story</span></button>
+            <div class="sh-vsl-progress-wrap" onclick="window.shNextVslScene && window.shNextVslScene()"><div class="sh-vsl-progress-bar" id="sh-vsl-progress-bar" style="width:25%;"></div></div>
+            <button type="button" class="sh-vsl-next-scene-btn" onclick="window.shNextVslScene && window.shNextVslScene()">Next &rarr;</button>
           </div>
         </div>
 
-        <div class="bs-vsl-controls">
-          <button type="button" id="sh-vsl-play-btn" class="studio-tap-chip" onclick="window.shToggleVslAutoPlay()" style="padding:5px 12px;font-size:0.74rem;font-weight:800;"><span id="sh-vsl-play-icon">&#9654;</span> <span id="sh-vsl-play-label">Auto-Play Story</span></button>
-          <div style="flex:1;height:6px;background:#E6D5B8;border-radius:999px;overflow:hidden;cursor:pointer;" onclick="window.shNextVslScene()"><div id="sh-vsl-progress-bar" style="width:25%;height:100%;background:linear-gradient(90deg,#B45309,#047857);transition:width 0.25s ease;"></div></div>
-          <button type="button" class="studio-tap-chip" onclick="window.shNextVslScene()" style="padding:5px 12px;font-size:0.74rem;font-weight:800;color:#78350F;border-color:#C8A96E;">Next Scene &rarr;</button>
+        <div class="sh-zone1-cta-block">
+          <div class="sh-surer-cta-row">
+            <a href="#studio" class="sh-btn-primary"><span>Open the 5-Step Floorplan &amp; Sign Studio &darr;</span></a>
+            <a id="hero-buy-btn" href="#beo-proof" class="sh-btn-secondary"><span>See the 6.5 Hours vs. 60 Seconds Before &amp; After &darr;</span></a>
+          </div>
+          <div class="sh-opener-micro-trust"><span>Interactive Floorplan &amp; 6-Template Sign Studio</span><span>&bull;</span><span>Clockwise 12:00 Caterer Meal Sheet</span><span>&bull;</span><span>Avery 5302 Place Cards &amp; Guest QR</span></div>
         </div>
       </div>
 
-      <div class="studio-vsl-crease-bar" id="studio-crease-proof-bar">
-        <div style="display:flex;align-items:center;gap:14px;"><span class="serif-display tabular" style="font-size:1.95rem;color:#8C2D19;white-space:nowrap;flex-shrink:0;">18,420+</span><div style="font-size:0.92rem;color:#44403C;line-height:1.42;"><strong style="color:#181412;">Weddings &amp; Galas Seated</strong><br/>Every couple kept together</div></div>
-        <div style="display:flex;align-items:center;gap:14px;"><span class="serif-display tabular" style="font-size:1.95rem;color:#065F46;white-space:nowrap;flex-shrink:0;">6.5 Hrs</span><div style="font-size:0.92rem;color:#44403C;line-height:1.42;"><strong style="color:#181412;">Saved Wedding Week</strong><br/>Skip late-night Canva edits</div></div>
-        <div style="display:flex;align-items:center;gap:14px;"><span class="serif-display tabular" style="font-size:1.95rem;color:#78350F;white-space:nowrap;flex-shrink:0;">4-in-1</span><div style="font-size:0.92rem;color:#44403C;line-height:1.42;"><strong style="color:#181412;">Reception Print Pack</strong><br/>Floorplan + Meal Sheet + Sign + QR</div></div>
+      <div class="sh-crease-proof-bar" id="studio-crease-proof-bar">
+        <div class="sh-crease-item"><div class="sh-crease-val">6.5 Hrs + $220 Saved</div><div class="sh-crease-lbl">ON A 150-GUEST RECEPTION (60-SECOND AUTO-SOLVER + 24&times;36&Prime; SIGN VS. EXCEL &amp; ETSY TEMPLATES)</div></div>
+        <div class="sh-crease-item"><div class="sh-crease-val">Clockwise Seat 1&ndash;10</div><div class="sh-crease-lbl">ANCHORED TO THE DANCE FLOOR AT 12 O&rsquo;CLOCK WITH ENTREE ICONS &amp; ALLERGY ALERTS FOR SERVERS</div></div>
+        <div class="sh-crease-item"><div class="sh-crease-val">6 Framed Sign Styles + QR</div><div class="sh-crease-lbl">300-DPI 24&times;36&Prime; ARCH D POSTERS, AVERY 5302 TENT CARDS &amp; LIVE GUEST PHONE LOOKUP INCLUDED</div></div>
       </div>
-    </section>
-  </div>`;
+    </div>
+  </section>`;
 }
 
 function renderZone2Walkthrough() {
