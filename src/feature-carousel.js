@@ -316,7 +316,7 @@ function renderZone4ProofStackAndPricing() {
         <article class="bs-case-card studio-proof-case-card bs-case-featured">
           <div>
             <div class="bs-case-top-bar">
-              <span class="bs-case-badge">SCENARIO 01 &bull; 150-GUEST BRIDE</span>
+              <span class="bs-case-badge">SCENARIO 01 &bull; 150 GUESTS</span>
               <span class="bs-case-state-tag">6.5 Hrs + $220 Saved</span>
             </div>
             <h3 class="bs-case-title">Divorced Parents + 28 Plus-Ones</h3>

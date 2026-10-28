@@ -177,9 +177,9 @@ function renderHead({
     .bs-case-studies-grid, .studio-proof-cases-grid { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 28px; margin-top: 0; }
     .bs-case-card, .studio-proof-case-card { background: #FFFFFF; border: 1.5px solid #E7DFD3; border-radius: 18px; padding: 30px 26px; display: flex; flex-direction: column; justify-content: space-between; gap: 18px; box-shadow: 0 8px 24px -6px rgba(28, 25, 23, 0.06); }
     .bs-case-featured { border: 2px solid #1C1917; background: linear-gradient(180deg, #FFFDF9 0%, #FFFFFF 100%); box-shadow: 0 16px 34px -10px rgba(28, 25, 23, 0.12); }
-    .bs-case-top-bar { display: flex; justify-content: space-between; align-items: center; flex-wrap: nowrap; gap: 8px; margin-bottom: 12px; }
-    .bs-case-badge { font-size: 11.8px; font-weight: 800; letter-spacing: 0.04em; text-transform: uppercase; color: #B45309; background: #FEF3C7; padding: 4px 9px; border-radius: 6px; white-space: nowrap; }
-    .bs-case-state-tag { font-size: 13px; font-weight: 700; color: #065F46; white-space: nowrap; }
+    .bs-case-top-bar { display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 6px; margin-bottom: 12px; }
+    .bs-case-badge { font-size: 11.8px; font-weight: 800; letter-spacing: 0.04em; text-transform: uppercase; color: #B45309; background: #FEF3C7; padding: 4px 9px; border-radius: 6px; }
+    .bs-case-state-tag { font-size: 13px; font-weight: 700; color: #065F46; }
     .bs-case-title { font-family: var(--font-serif); font-size: 22px; font-weight: 700; color: #1C1917; line-height: 1.24; margin: 0 0 8px 0; }
     .bs-case-context { font-size: 15.5px; font-weight: 400; line-height: 1.6; color: #44403C; margin: 0; }
     .bs-case-math-box { background: #FAF7F2; border: 1.5px solid #E7DFD3; border-radius: 12px; padding: 15px 16px; display: flex; flex-direction: column; gap: 8px; font-variant-numeric: tabular-nums; font-family: var(--font-sans); }
