@@ -266,7 +266,7 @@ function renderZone3InteractiveStudio(plan) {
         <div id="sh-live-toast" style="background:#181412;color:#FDE68A;border:1px solid #C8A96E;padding:8px 14px;border-radius:999px;font-size:0.76rem;font-weight:700;display:inline-flex;align-items:center;gap:8px;max-width:100%;">
           &#10022; Live Reception Studio Ready: Click any 2 seats on the floorplan to swap, or customize Cards 1&ndash;5
         </div>
-        <a href="#studio-bespoke-artifact-stage" class="mobile-jump-canvas-btn" style="font-size:0.74rem;font-weight:800;color:#181412;background:#FAF3E3;border:1.5px solid #C8A96E;padding:6px 12px;border-radius:999px;text-decoration:none;">
+        <a href="#studio-bespoke-artifact-stage" onclick="var el=document.getElementById('sh-stat-harmony')||document.getElementById('studio-bespoke-artifact-stage');if(el){window.scrollTo({top:el.getBoundingClientRect().top+window.pageYOffset-110,behavior:'auto'});}return false;" class="mobile-jump-canvas-btn" style="font-size:0.74rem;font-weight:800;color:#181412;background:#FAF3E3;border:1.5px solid #C8A96E;padding:6px 12px;border-radius:999px;text-decoration:none;">
           &#128065; Jump to Live Floorplan &amp; Poster Stage &darr;
         </a>
       </div>
@@ -538,17 +538,17 @@ function renderZone3InteractiveStudio(plan) {
 
             <!-- 4-Tab Switcher (All 4 Tabs Free to Preview Live!) -->
             <div class="studio-stage-tabs" role="tablist" aria-label="SeatHarmony 4-Tab Operational Kit">
-              <button id="sh-tab-floorplan" type="button" class="studio-stage-tab-btn tab-btn active" data-tab="llmsTxt" onclick="window.shSetActiveTab('floorplan')">&#127919; 1. Floorplan &amp; Rings</button>
+              <button id="sh-tab-floorplan" type="button" class="studio-stage-tab-btn tab-btn active" data-tab="llmsTxt" onclick="window.shSetActiveTab('floorplan')">&#127919; 1. Floorplan</button>
               <button id="sh-tab-beo" type="button" class="studio-stage-tab-btn tab-btn" data-tab="jsonLd" onclick="window.shSetActiveTab('beo')">&#127869; 2. Caterer BEO</button>
-              <button id="sh-tab-poster" type="button" class="studio-stage-tab-btn" onclick="window.shSetActiveTab('poster')">&#128444; 3. 24&Prime;&times;36&Prime; Sign &amp; Tent</button>
-              <button id="sh-tab-qr" type="button" class="studio-stage-tab-btn" onclick="window.shSetActiveTab('qr')">&#128241; 4. QR Seat Lookup</button>
+              <button id="sh-tab-poster" type="button" class="studio-stage-tab-btn" onclick="window.shSetActiveTab('poster')">&#129703; 3. 24&Prime;&times;36&Prime; Sign</button>
+              <button id="sh-tab-qr" type="button" class="studio-stage-tab-btn" onclick="window.shSetActiveTab('qr')">&#128241; 4. QR Lookup</button>
             </div>
 
             <!-- Foreground Specimen Card -->
             <div class="studio-foreground-specimen" id="studio-foreground-specimen">
               <!-- Prominent 54px × 54px Left Monogram / Planner Crest Header Block (Learning #3 from ExactBaseline) -->
-              <div id="specimen-header-block" style="display:flex;align-items:center;justify-content:space-between;gap:12px;flex-wrap:wrap;padding:8px 10px 10px;margin-bottom:10px;border-bottom:1.5px solid #EAE2D3;background:linear-gradient(180deg,#FAF8F5 0%,#FFFFFF 100%);border-radius:10px;">
-                <div style="display:flex;align-items:center;gap:11px;min-width:0;flex:1 1 240px;">
+              <div id="specimen-header-block" style="display:flex;align-items:center;justify-content:space-between;gap:10px;padding:8px 10px;margin-bottom:10px;border-bottom:1.5px solid #EAE2D3;background:linear-gradient(180deg,#FAF8F5 0%,#FFFFFF 100%);border-radius:10px;">
+                <div style="display:flex;align-items:center;gap:11px;min-width:0;flex:1;">
                   <div id="specimen-logo-badge" title="Couple Monogram / Planner Crest Badge" style="width:54px;height:54px;border-radius:13px;background:linear-gradient(135deg,#181412 0%,#2E241E 100%);border:2px solid #C8A96E;color:#FDE68A;display:flex;flex-direction:column;align-items:center;justify-content:center;flex-shrink:0;box-shadow:0 6px 16px rgba(24,20,18,0.16);overflow:hidden;position:relative;padding:2px;">
                     <span id="specimen-logo-monogram" style="display:flex;flex-direction:column;align-items:center;justify-content:center;line-height:1;">
                       <span id="specimen-logo-monogram-initials" style="font-family:var(--font-serif);font-size:1.18rem;font-weight:700;letter-spacing:0.03em;color:#FDE68A;">M&amp;L</span>
@@ -557,14 +557,14 @@ function renderZone3InteractiveStudio(plan) {
                     <img id="specimen-logo-img" src="" alt="Planner or Couple Crest Logo" style="display:none;width:100%;height:100%;object-fit:contain;background:#FFFFFF;padding:3px;border-radius:9px;" />
                   </div>
                   <div style="min-width:0;flex:1;">
-                    <div id="specimen-salon-crest" style="font-size:0.65rem;font-weight:800;letter-spacing:0.10em;text-transform:uppercase;color:#8C2D19;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;">&#10022; ${escapeHtml((plan.venueName || 'Rosewood Conservatory').toUpperCase())}</div>
-                    <div id="specimen-client-headline" class="serif-display" style="font-size:1.15rem;color:#181412;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;">${escapeHtml(plan.title || "Maya & Liam's Estate Reception")}</div>
-                    <div id="specimen-tagline-sub" style="font-size:0.68rem;color:#57534E;font-weight:600;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;">1. Floorplan &bull; 2. Clockwise 12:00 BEO &bull; 3. 24&Prime;&times;36&Prime; Arch D Sign</div>
+                    <div style="display:flex;align-items:center;justify-content:space-between;gap:6px;">
+                      <div id="specimen-salon-crest" style="font-size:0.64rem;font-weight:800;letter-spacing:0.09em;text-transform:uppercase;color:#8C2D19;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;">&#10022; ${escapeHtml((plan.venueName || 'Rosewood Conservatory').toUpperCase())}</div>
+                      <span id="specimen-harmony-pill" class="badge badge-emerald" style="font-size:0.62rem;padding:2px 8px;flex-shrink:0;">&#10022; ${plan.harmonyScore || 98}/100 HARMONY</span>
+                    </div>
+                    <div id="specimen-client-headline" class="serif-display" style="font-size:1.14rem;color:#181412;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;">${escapeHtml(plan.title || "Maya & Liam's Estate Reception")}</div>
+                    <div id="specimen-tagline-sub" style="display:none;"></div>
+                    <div id="specimen-meta-sub" class="mono" style="font-size:0.62rem;color:#57534E;font-weight:700;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;">98/100 Harmony &bull; 62 Guests (8 Tbls) &bull; 12:00 Seat #1 BEO</div>
                   </div>
-                </div>
-                <div style="display:flex;flex-direction:column;align-items:flex-end;gap:3px;flex-shrink:0;">
-                  <span id="specimen-harmony-pill" class="badge badge-emerald" style="font-size:0.66rem;">&#10022; ${plan.harmonyScore || 98}/100 HARMONY</span>
-                  <span id="specimen-meta-sub" class="mono" style="font-size:0.62rem;color:#78716C;font-weight:700;">8 Tbls &bull; 26 Coupled &bull; 12:00 Seat #1</span>
                 </div>
               </div>
               <!-- PANE 1: Interactive Floorplan & Selected Table Inspector -->

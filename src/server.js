@@ -134,6 +134,9 @@ app.get('/seo/:slug', (req, res) => {
         if (score > bestScore && score >= 4) { bestScore = score; matched = r; }
       }
     }
+    if (!matched && allSlugs.length > 0 && (slug.includes('citation') || slug.includes('llms-txt') || slug.includes('ai-search'))) {
+      matched = allSlugs[0];
+    }
     if (matched) return res.redirect(301, `/seo/${matched.slug}`);
     res.setHeader('X-Robots-Tag', 'noindex');
     return res.status(404).type('html').send(render404Page(req.originalUrl));

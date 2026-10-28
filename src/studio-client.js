@@ -107,14 +107,16 @@ function renderInteractiveScript(initialPlan) {
     var initials = shComputeCoupleMonogram(title);
     var logoUrl = window.__SH_CREST_LOGO_URL || '';
 
-    var initialsEl = document.getElementById('specimen-logo-initials');
+    var initialsEl = document.getElementById('specimen-logo-monogram-initials') || document.getElementById('specimen-logo-initials');
     var logoImgEl = document.getElementById('specimen-logo-img');
     var logoMonogramEl = document.getElementById('specimen-logo-monogram');
     var crestEl = document.getElementById('specimen-salon-crest');
     var headlineEl = document.getElementById('specimen-client-headline');
     var metaSubEl = document.getElementById('specimen-meta-sub');
+    var harmPillEl = document.getElementById('specimen-harmony-pill');
 
     if (initialsEl) initialsEl.textContent = initials;
+    if (harmPillEl) harmPillEl.textContent = '✦ ' + (window.__SH_STATE.harmonyScore || 98) + '/100 HARMONY';
     if (logoImgEl) {
       if (logoUrl) {
         logoImgEl.src = logoUrl;
@@ -182,13 +184,15 @@ function renderInteractiveScript(initialPlan) {
       table.geometry = { shape, tableWidth: r * 2, tableHeight: r * 2, seats };
       return;
     }
-    const w = shape === 'sweetheart' ? 128 : (shape === 'kings_4sided' ? 156 : 140);
-    const h = shape === 'sweetheart' ? 46 : (shape === 'kings_4sided' ? 66 : 52);
     const topCnt = shape === 'sweetheart' ? cap : Math.ceil(cap / 2);
     const botCnt = shape === 'sweetheart' ? 0 : (cap - topCnt);
+    const w = shape === 'sweetheart' ? Math.max(128, topCnt * 28 + 16) : (shape === 'kings_4sided' ? Math.max(156, topCnt * 28 + 20) : Math.max(140, topCnt * 28 + 16));
+    const h = shape === 'sweetheart' ? 46 : (shape === 'kings_4sided' ? 66 : 52);
+    const cx = Math.max(w / 2 + 24, Math.min(916 - w / 2, x));
+    table.x = cx;
     const rot = ((table.rotation || 0) * Math.PI) / 180;
     const rotPt = function(dx, dy) {
-      return { x: Math.round(x + dx * Math.cos(rot) - dy * Math.sin(rot)), y: Math.round(y + dx * Math.sin(rot) + dy * Math.cos(rot)) };
+      return { x: Math.round(cx + dx * Math.cos(rot) - dy * Math.sin(rot)), y: Math.round(y + dx * Math.sin(rot) + dy * Math.cos(rot)) };
     };
     for (let i = 0; i < topCnt; i++) {
       const dx = -w / 2 + (w / (topCnt + 1)) * (i + 1), dy = -(h / 2 + 19), pt = rotPt(dx, dy);
