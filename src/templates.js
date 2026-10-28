@@ -67,8 +67,8 @@ function renderHead({
       --font-mono: 'JetBrains Mono', monospace;
     }
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-    html { scroll-behavior: smooth; }
-    body { max-width: 100%; overflow-x: clip; background: var(--bg-primary); color: var(--text-primary); font-family: var(--font-sans); line-height: 1.55; -webkit-font-smoothing: antialiased; }
+    html { overflow-x: clip; }
+    body { max-width: 100%; background: var(--bg-primary); color: var(--text-primary); font-family: var(--font-sans); line-height: 1.55; -webkit-font-smoothing: antialiased; }
     .container { max-width: 1280px; margin: 0 auto; padding: 0 24px; }
     .serif-display { font-family: var(--font-serif); font-weight: 700; letter-spacing: -0.015em; line-height: 1.12; }
     .mono { font-family: var(--font-mono); }

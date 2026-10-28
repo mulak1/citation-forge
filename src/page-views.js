@@ -531,9 +531,12 @@ function renderZone3InteractiveStudio(plan) {
               <span class="mono" style="font-size:0.66rem;font-weight:800;letter-spacing:0.08em;text-transform:uppercase;color:#FDE68A;">
                 &#10022; LIVE 4-TAB RECEPTION STAGE &middot; <span id="sh-stage-venue-label">${escapeHtml(plan.venueName || 'Rosewood Conservatory')}</span>
               </span>
-              <span id="sh-mom-sandbox-badge" class="badge badge-cyan" style="font-size:0.64rem;cursor:pointer;" onclick="window.shToggleMomSandbox()">
-                &#128117; Mom Sandbox: OFF (Full Edit)
-              </span>
+              <div style="display:flex;align-items:center;gap:6px;flex-wrap:wrap;">
+                <a href="#studio" onclick="var el=document.getElementById('studio');if(el){window.scrollTo({top:el.getBoundingClientRect().top+window.pageYOffset-110,behavior:'auto'});}return false;" class="mobile-jump-canvas-btn" style="font-size:0.64rem;font-weight:800;color:#181412;background:#FDE68A;border:1px solid #C8A96E;padding:3px 9px;border-radius:999px;text-decoration:none;">&uarr; Back to 5-Card Builder</a>
+                <span id="sh-mom-sandbox-badge" class="badge badge-cyan" style="font-size:0.64rem;cursor:pointer;" onclick="window.shToggleMomSandbox()">
+                  &#128117; Mom Sandbox: OFF (Full Edit)
+                </span>
+              </div>
             </div>
 
             <!-- 4-Tab Switcher (All 4 Tabs Free to Preview Live!) -->
