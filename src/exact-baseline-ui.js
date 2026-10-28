@@ -14,7 +14,7 @@ function getTheme(cfg) {
 function buildExactBaselineStyles(cfg) {
   const t = getTheme(cfg);
   return `<style id="exact-baseline-cumulative-css">
-  html, body { max-width: 100vw !important; overflow-x: hidden !important; }
+  html, body { max-width: 100vw !important; overflow-x: clip !important; }
   *, *::before, *::after { box-sizing: border-box; }
   button, input, select, textarea, svg text { font-family: inherit !important; }
   main p, article p, section p, p { max-width: 65ch !important; }
