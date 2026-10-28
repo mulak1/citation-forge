@@ -161,7 +161,7 @@ function renderHead({
     .footer { background: #F4EFE6; border-top: 1px solid var(--border-warm); padding: 44px 0 32px; font-size: 0.84rem; color: var(--text-secondary); }
     @media (max-width: 1120px) { .hide-1024 { display: none !important; } }
     @media (max-width: 960px) {
-      .container { padding: 0 14px; }
+      .container { padding: 0 22px; }
       .btn { white-space: normal; text-align: center; max-width: 100%; line-height: 1.3; }
       .navbar .btn-primary { padding: 7px 11px !important; font-size: 0.74rem !important; white-space: nowrap !important; }
       .studio-vsl-split-grid, .studio-how-grid, .studio-scroll-builder-grid, .studio-proof-cases-grid, .studio-reviews-grid, .pricing-grid, .studio-vsl-crease-bar { grid-template-columns: minmax(0, 1fr); }

@@ -56,12 +56,12 @@ function renderZone1Hero(plan) {
 
       <!-- Centered 2-Line High-Contrast Headline + Crisp 1-Sentence Sub-Header + Primary CTA -->
       <div style="text-align:center;max-width:900px;margin:0 auto;">
-        <h1 id="score-brand-title" class="studio-zone-title" style="font-size:2.55rem;line-height:1.1;margin-bottom:8px;">
+        <h1 id="score-brand-title" class="studio-zone-title" style="font-size:clamp(2.05rem, 3.4vw, 2.75rem);line-height:1.08;margin-bottom:8px;">
           Seat 150 Guests in 30 Seconds.<br/>
-          <em>Zero Family Drama. Print-Ready 24&Prime;&times;36&Prime; Signs.</em>
+          <em>Zero Family Drama.</em>
         </h1>
-        <p class="studio-zone-sub" style="font-size:0.95rem;color:#44403C;max-width:680px;margin:0 auto 14px;">
-          Paste your RSVP list, auto-separate divorced parents, and export your <strong>Clockwise Caterer BEO</strong>, <strong>24&Prime;&times;36&Prime; Welcome Poster</strong>, and <strong>Avery 5302 Place Cards</strong>.
+        <p class="studio-zone-sub" style="font-size:0.96rem;color:#44403C;max-width:680px;margin:0 auto 14px;">
+          Paste your RSVP list, auto-separate divorced parents, and export your <strong>24&Prime;&times;36&Prime; Welcome Poster</strong>, <strong>Clockwise Caterer BEO</strong>, and <strong>Avery 5302 Place Cards</strong>.
         </p>
         <div style="display:flex;align-items:center;justify-content:center;gap:12px;flex-wrap:wrap;">
           <a href="#studio" class="btn btn-primary" style="padding:12px 24px;font-size:0.90rem;border-radius:12px;">
@@ -548,7 +548,7 @@ David &amp; Elena Rostova (Filet, Peanut Allergy)</textarea>
                 <div id="sh-active-swap-banner" style="display:none;margin-bottom:8px;padding:7px 12px;border-radius:9px;background:#FEF3C7;border:1.5px solid #D97706;color:#78350F;font-size:0.75rem;font-weight:800;align-items:center;justify-content:space-between;gap:8px;"></div>
 
                 <div style="width:100%;overflow:hidden;border-radius:12px;border:1.5px solid #DFD5C3;background:#FAF7F2;margin-bottom:10px;position:relative;">
-                  <svg id="sh-floorplan-svg" viewBox="0 0 960 600" style="width:100%;height:auto;min-height:460px;display:block;touch-action:none;user-select:none;" role="img" aria-label="Interactive Wedding & Event Floorplan Canvas"></svg>
+                  <svg id="sh-floorplan-svg" viewBox="0 0 1120 680" style="width:100%;height:auto;min-height:480px;display:block;touch-action:none;user-select:none;" role="img" aria-label="Interactive Wedding & Event Floorplan Canvas"></svg>
                 </div>
                 <div id="sh-selected-table-box" style="padding:12px;border-radius:10px;background:#FAF7F2;border:1px solid #E2D9C8;"></div>
               </div>
@@ -865,9 +865,10 @@ function renderZone5FaqAndZone6Close(sampleSeoPages = []) {
     <div class="container">
       <div style="background:#181412;color:#FAF8F5;border:2px solid #C8A96E;border-radius:22px;padding:34px 28px;text-align:center;box-shadow:0 20px 48px rgba(24,20,18,0.20);">
         <div class="studio-eyebrow-kicker" style="background:rgba(253,230,138,0.12);color:#FDE68A;border-color:#C8A96E;">READY FOR A DRAMA-FREE RECEPTION?</div>
-        <h2 class="serif-display" style="font-size:2.15rem;color:#FFFFFF;max-width:780px;margin:0 auto 10px;">
-          Every couple together. Both moms happy.<br/><em style="color:#FDE68A;">Your 24&Prime;&times;36&Prime; welcome sign ready for FedEx.</em>
+        <h2 class="serif-display" style="font-size:clamp(1.75rem, 2.8vw, 2.2rem);color:#FFFFFF;max-width:740px;margin:0 auto 8px;line-height:1.15;">
+          Every Table Solved in 30 Seconds.
         </h2>
+        <p style="font-size:0.95rem;color:#E6E0D6;max-width:620px;margin:0 auto 14px;">Every couple together, both moms happy, and your 24&Prime;&times;36&Prime; welcome sign ready for FedEx.</p>
         <div style="display:flex;flex-wrap:wrap;justify-content:center;gap:12px;margin-top:16px;">
           <a href="#studio" class="btn btn-primary" style="background:linear-gradient(135deg,#FDE68A 0%,#C8A96E 100%);color:#181412;border:none;padding:12px 24px;font-size:0.90rem;">
             &uarr; Open Interactive Studio

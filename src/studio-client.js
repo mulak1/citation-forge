@@ -131,7 +131,7 @@ function renderInteractiveScript(initialPlan) {
   function shRecomputeGeometry(table) {
     const shape = shNormalizeShape(table.shape), cap = Math.max(2, table.capacity || 8, (table.guests || []).length), x = table.x || 250, y = table.y || 200, seats = [];
     if (shape === 'round') {
-      const r = cap <= 8 ? 50 : 58, orbit = r + 28;
+      const r = cap <= 8 ? 50 : 58, orbit = r + 30;
       for (let i = 0; i < cap; i++) {
         const angle = -Math.PI / 2 + (2 * Math.PI * i) / cap, clockNum = i === 0 ? 12 : Math.max(1, Math.min(11, Math.round((i / cap) * 12)));
         seats.push({ seatNumber: i + 1, clockPosition: clockNum + ':00', x: Math.round(x + orbit * Math.cos(angle)), y: Math.round(y + orbit * Math.sin(angle)), isAnchorTwelveOClock: i === 0 });
@@ -139,17 +139,17 @@ function renderInteractiveScript(initialPlan) {
       table.geometry = { shape, tableWidth: r * 2, tableHeight: r * 2, seats }; return;
     }
     const topCnt = shape === 'sweetheart' ? cap : Math.ceil(cap / 2), botCnt = shape === 'sweetheart' ? 0 : (cap - topCnt);
-    const w = shape === 'sweetheart' ? Math.max(136, topCnt * 36 + 18) : (shape === 'kings_4sided' ? Math.max(168, topCnt * 36 + 24) : Math.max(150, topCnt * 36 + 20));
-    const h = shape === 'sweetheart' ? 48 : (shape === 'kings_4sided' ? 68 : 54), cx = Math.max(w / 2 + 28, Math.min(932 - w / 2, x));
+    const w = shape === 'sweetheart' ? Math.max(150, topCnt * 44 + 22) : (shape === 'kings_4sided' ? Math.max(180, topCnt * 44 + 28) : Math.max(168, topCnt * 44 + 24));
+    const h = shape === 'sweetheart' ? 48 : (shape === 'kings_4sided' ? 68 : 56), cx = Math.max(w / 2 + 28, Math.min(1092 - w / 2, x));
     table.x = cx;
     const rot = ((table.rotation || 0) * Math.PI) / 180;
     const rotPt = function(dx, dy) { return { x: Math.round(cx + dx * Math.cos(rot) - dy * Math.sin(rot)), y: Math.round(y + dx * Math.sin(rot) + dy * Math.cos(rot)) }; };
     for (let i = 0; i < topCnt; i++) {
-      const pt = rotPt(-w / 2 + (w / (topCnt + 1)) * (i + 1), -(h / 2 + 24));
+      const pt = rotPt(-w / 2 + (w / (topCnt + 1)) * (i + 1), -(h / 2 + 26));
       seats.push({ seatNumber: seats.length + 1, clockPosition: seats.length === 0 ? '12:00 (N)' : 'North-' + (i + 1), x: pt.x, y: pt.y, isAnchorTwelveOClock: seats.length === 0 });
     }
     for (let j = botCnt - 1; j >= 0; j--) {
-      const pt = rotPt(-w / 2 + (w / (botCnt + 1)) * (j + 1), h / 2 + 24);
+      const pt = rotPt(-w / 2 + (w / (botCnt + 1)) * (j + 1), h / 2 + 26);
       seats.push({ seatNumber: seats.length + 1, clockPosition: 'South-' + (botCnt - j), x: pt.x, y: pt.y, isAnchorTwelveOClock: false });
     }
     table.geometry = { shape, tableWidth: w, tableHeight: h, seats };
@@ -180,8 +180,8 @@ function renderInteractiveScript(initialPlan) {
     const tbl = window.__SH_STATE && window.__SH_STATE.tables && window.__SH_STATE.tables[tIdx];
     if (!tbl) return;
     if (window.__SH_SANDBOX_MOM && tIdx >= 3) { shToast('🔒 Mom Sandbox Active: Tables 4-8 are locked.'); return; }
-    tbl.x = Math.max(95, Math.min(865, Math.round((tbl.x || 250) + dx)));
-    tbl.y = Math.max(95, Math.min(515, Math.round((tbl.y || 200) + dy)));
+    tbl.x = Math.max(95, Math.min(1025, Math.round((tbl.x || 250) + dx)));
+    tbl.y = Math.max(72, Math.min(605, Math.round((tbl.y || 200) + dy)));
     shRecomputeGeometry(tbl);
     shToast('✓ Moved ' + tbl.name + ' to (' + tbl.x + ', ' + tbl.y + ')');
     shRenderAll();
@@ -189,7 +189,7 @@ function renderInteractiveScript(initialPlan) {
 
   function shSvgCoord(ev) {
     const svg = document.getElementById('sh-floorplan-svg');
-    if (!svg) return { x: 480, y: 300 };
+    if (!svg) return { x: 560, y: 340 };
     const pt = svg.createSVGPoint();
     const touch = (ev.touches && ev.touches[0]) || (ev.changedTouches && ev.changedTouches[0]) || ev;
     pt.x = touch.clientX || 0; pt.y = touch.clientY || 0;
@@ -197,7 +197,7 @@ function renderInteractiveScript(initialPlan) {
       const ctm = svg.getScreenCTM();
       if (ctm) { const p = pt.matrixTransform(ctm.inverse()); return { x: Math.round(p.x), y: Math.round(p.y) }; }
     } catch (_) {}
-    return { x: 480, y: 300 };
+    return { x: 560, y: 340 };
   }
 
   window.shStartTableDrag = function(tIdx, ev) {
@@ -216,8 +216,8 @@ function renderInteractiveScript(initialPlan) {
       if (Math.abs(dx) > 3 || Math.abs(dy) > 3) moved = true;
       if (!moved) return;
       if (moveEv.cancelable) moveEv.preventDefault();
-      tbl.x = Math.max(95, Math.min(865, origX + dx));
-      tbl.y = Math.max(95, Math.min(515, origY + dy));
+      tbl.x = Math.max(95, Math.min(1025, origX + dx));
+      tbl.y = Math.max(72, Math.min(605, origY + dy));
       shRecomputeGeometry(tbl);
       shRenderFloorplanSvg();
     };
@@ -567,59 +567,59 @@ function renderInteractiveScript(initialPlan) {
     const plan = window.__SH_STATE, selTbl = plan.tables[window.__SH_SELECTED_TABLE_IDX || 0] || plan.tables[0];
     const zMode = window.__SH_CANVAS_ZOOM || 'room';
     if (zMode === 'table' && selTbl) {
-      const vx = Math.max(0, Math.min(580, Math.round((selTbl.x || 250) - 190))), vy = Math.max(0, Math.min(340, Math.round((selTbl.y || 200) - 130)));
-      svgEl.setAttribute('viewBox', vx + ' ' + vy + ' 380 260');
+      const vx = Math.max(0, Math.min(730, Math.round((selTbl.x || 250) - 195))), vy = Math.max(0, Math.min(430, Math.round((selTbl.y || 200) - 125)));
+      svgEl.setAttribute('viewBox', vx + ' ' + vy + ' 390 250');
     } else if (zMode === 'zoom15' && selTbl) {
-      const vx = Math.max(0, Math.min(320, Math.round((selTbl.x || 250) - 320))), vy = Math.max(0, Math.min(180, Math.round((selTbl.y || 200) - 210)));
-      svgEl.setAttribute('viewBox', vx + ' ' + vy + ' 640 420');
+      const vx = Math.max(0, Math.min(400, Math.round((selTbl.x || 250) - 360))), vy = Math.max(0, Math.min(240, Math.round((selTbl.y || 200) - 220)));
+      svgEl.setAttribute('viewBox', vx + ' ' + vy + ' 720 440');
     } else {
-      svgEl.setAttribute('viewBox', '0 0 960 600');
+      svgEl.setAttribute('viewBox', '0 0 1120 680');
     }
     const swapBanner = document.getElementById('sh-active-swap-banner');
     if (swapBanner) {
       if (window.__SH_SWAP_SOURCE) {
         const sTbl = plan.tables[window.__SH_SWAP_SOURCE.tableIdx], sG = sTbl && sTbl.guests[window.__SH_SWAP_SOURCE.seatIdx];
         swapBanner.style.display = 'flex';
-        swapBanner.innerHTML = '<span>&#8644; Moving <strong>' + shEsc(sG ? sG.name : 'Selected Seat') + '</strong> (' + shEsc(sTbl ? sTbl.name : '') + ') &middot; Click any other seat or table to swap/move</span><button type="button" onclick="window.shCancelSwap()" style="background:#FFFFFF;border:1px solid #D97706;border-radius:6px;padding:3px 9px;font-size:0.70rem;font-weight:800;cursor:pointer;color:#78350F;">Cancel</button>';
+        swapBanner.innerHTML = '<span>&#8644; Moving <strong>' + shEsc(sG ? sG.name : 'Selected Seat') + '</strong> (' + shEsc(sTbl ? sTbl.name : '') + ') &middot; Click any other seat or table to swap/move</span><button type="button" onclick="window.shCancelSwap()" style="background:#FFFFFF;border:1px solid #D97706;border-radius:6px;padding:3px 9px;font-size:0.74rem;font-weight:800;cursor:pointer;color:#78350F;">Cancel</button>';
       } else { swapBanner.style.display = 'none'; }
     }
     const parts = [
       '<defs><pattern id="sh-grid" width="40" height="40" patternUnits="userSpaceOnUse"><path d="M 40 0 L 0 0 0 40" fill="none" stroke="#EAE2D3" stroke-width="0.8"/></pattern></defs>',
-      '<rect width="960" height="600" rx="12" fill="#FAF7F2" stroke="#D6CBB8" stroke-width="1.5"/>',
-      '<rect width="960" height="600" rx="12" fill="url(#sh-grid)"/>'
+      '<rect width="1120" height="680" rx="12" fill="#FAF7F2" stroke="#D6CBB8" stroke-width="1.5"/>',
+      '<rect width="1120" height="680" rx="12" fill="url(#sh-grid)"/>'
     ];
     (plan.landmarks || []).forEach(function(lm) {
       const isLoud = lm.zone === 'loud', isQuiet = lm.zone === 'quiet';
       const fill = isLoud ? '#FFF1F2' : (isQuiet ? '#ECFDF5' : '#F3EDE3'), stroke = isLoud ? '#FECDD3' : (isQuiet ? '#A7F3D0' : '#D6CBB8'), textCol = isLoud ? '#9F1239' : (isQuiet ? '#065F46' : '#57534E');
-      parts.push('<g transform="translate(' + lm.x + ',' + lm.y + ')"><rect x="' + (-lm.w / 2) + '" y="' + (-lm.h / 2) + '" width="' + lm.w + '" height="' + lm.h + '" rx="8" fill="' + fill + '" stroke="' + stroke + '" stroke-width="1.5" stroke-dasharray="4 3"/><text x="0" y="4" text-anchor="middle" fill="' + textCol + '" font-size="10.5" font-weight="800" letter-spacing="0.06em">' + shEsc(lm.label) + '</text></g>');
+      parts.push('<g transform="translate(' + lm.x + ',' + lm.y + ')"><rect x="' + (-lm.w / 2) + '" y="' + (-lm.h / 2) + '" width="' + lm.w + '" height="' + lm.h + '" rx="8" fill="' + fill + '" stroke="' + stroke + '" stroke-width="1.5" stroke-dasharray="4 3"/><text x="0" y="4" text-anchor="middle" fill="' + textCol + '" font-size="11" font-weight="800" letter-spacing="0.06em">' + shEsc(lm.label) + '</text></g>');
     });
     const t2 = plan.tables[1], t5 = plan.tables[4];
     if (t2 && t5) {
       const distPx = Math.round(Math.hypot((t2.x || 0) - (t5.x || 0), (t2.y || 0) - (t5.y || 0)));
-      const mx = Math.round((t2.x + t5.x) / 2) - 24, my = Math.round((t2.y + t5.y) / 2) - 34;
-      parts.push('<line x1="' + t2.x + '" y1="' + t2.y + '" x2="' + t5.x + '" y2="' + t5.y + '" stroke="#065F46" stroke-width="1.5" stroke-dasharray="5 5" opacity="0.65"/><rect x="' + (mx - 88) + '" y="' + (my - 11) + '" width="176" height="22" rx="11" fill="#ECFDF5" stroke="#065F46" stroke-width="1"/><text x="' + mx + '" y="' + (my + 4) + '" text-anchor="middle" fill="#065F46" font-size="10" font-weight="800">✓ ' + distPx + 'px Sightline Buffer</text>');
+      const mx = Math.round((t2.x + t5.x) / 2), my = Math.round((t2.y + t5.y) / 2) - 22;
+      parts.push('<line x1="' + t2.x + '" y1="' + t2.y + '" x2="' + t5.x + '" y2="' + t5.y + '" stroke="#065F46" stroke-width="1.5" stroke-dasharray="5 5" opacity="0.65"/><rect x="' + (mx - 90) + '" y="' + (my - 12) + '" width="180" height="24" rx="12" fill="#ECFDF5" stroke="#065F46" stroke-width="1"/><text x="' + mx + '" y="' + (my + 4) + '" text-anchor="middle" fill="#065F46" font-size="10.5" font-weight="800">✓ ' + distPx + 'px Sightline Buffer</text>');
     }
     plan.tables.forEach(function(t, tIdx) {
-      if (!t.geometry) shRecomputeGeometry(t);
+      shRecomputeGeometry(t);
       const geom = t.geometry, isSelected = tIdx === window.__SH_SELECTED_TABLE_IDX, isMomLocked = window.__SH_SANDBOX_MOM && tIdx >= 3;
       const strokeCol = isSelected ? '#8C2D19' : (t.locked ? '#A16207' : '#A89F91'), strokeW = isSelected ? 2.8 : 1.6, tblFill = isMomLocked ? '#EFECE6' : '#FFFFFF';
       parts.push('<g><g style="cursor:grab;" onmousedown="window.shStartTableDrag(' + tIdx + ',event)" ontouchstart="window.shStartTableDrag(' + tIdx + ',event)" onclick="if(window.__SH_SWAP_SOURCE && window.__SH_SWAP_SOURCE.tableIdx!==' + tIdx + '){window.shMoveGuestToTable(window.__SH_SWAP_SOURCE.tableIdx,window.__SH_SWAP_SOURCE.seatIdx,' + tIdx + ');window.__SH_SWAP_SOURCE=null;}else{window.shSelectTable(' + tIdx + ');}">');
       parts.push('<title>Drag ' + shEsc(t.name) + ' anywhere in the room, or click to inspect seats</title>');
       if (shNormalizeShape(t.shape) === 'round') {
         const r = Math.round(geom.tableWidth / 2);
-        if (isSelected) parts.push('<circle cx="' + t.x + '" cy="' + t.y + '" r="' + (r + 44) + '" fill="none" stroke="#8C2D19" stroke-width="1.2" stroke-dasharray="4 3" opacity="0.55"/>');
+        if (isSelected) parts.push('<circle cx="' + t.x + '" cy="' + t.y + '" r="' + (r + 50) + '" fill="none" stroke="#8C2D19" stroke-width="1.4" stroke-dasharray="4 3" opacity="0.65"/>');
         parts.push('<circle cx="' + t.x + '" cy="' + t.y + '" r="' + r + '" fill="' + tblFill + '" stroke="' + strokeCol + '" stroke-width="' + strokeW + '"/>');
       } else {
         const hw = Math.round(geom.tableWidth / 2), hh = Math.round(geom.tableHeight / 2);
         parts.push('<g transform="translate(' + t.x + ',' + t.y + ') rotate(' + (t.rotation || 0) + ')"><rect x="' + (-hw) + '" y="' + (-hh) + '" width="' + geom.tableWidth + '" height="' + geom.tableHeight + '" rx="10" fill="' + tblFill + '" stroke="' + strokeCol + '" stroke-width="' + strokeW + '"/></g>');
       }
-      parts.push('<text x="' + t.x + '" y="' + (t.y - 4) + '" text-anchor="middle" fill="#1C1917" font-size="12" font-weight="800">' + (t.locked ? '🔒 ' : '') + 'Table ' + t.number + '</text><text x="' + t.x + '" y="' + (t.y + 11) + '" text-anchor="middle" fill="#78716C" font-size="9.5" font-weight="700">' + t.guests.length + '/' + t.capacity + ' · Drag</text></g>');
+      parts.push('<text x="' + t.x + '" y="' + (t.y - 4) + '" text-anchor="middle" fill="#1C1917" font-size="12.5" font-weight="800">' + (t.locked ? '🔒 ' : '') + 'Table ' + t.number + '</text><text x="' + t.x + '" y="' + (t.y + 11) + '" text-anchor="middle" fill="#78716C" font-size="9.8" font-weight="700">' + t.guests.length + '/' + t.capacity + ' · Drag</text></g>');
       geom.seats.forEach(function(s, sIdx) {
         const g = t.guests[sIdx], isSwapSrc = window.__SH_SWAP_SOURCE && window.__SH_SWAP_SOURCE.tableIdx === tIdx && window.__SH_SWAP_SOURCE.seatIdx === sIdx;
-        let seatFill = '#FFFFFF', seatStroke = '#A89F91', txtFill = '#1C1917', labelTxt = g ? g.initials : ('S' + s.seatNumber);
+        let seatFill = '#FFFFFF', seatStroke = '#A89F91', txtFill = '#1C1917', topTxt = '#' + s.seatNumber;
         if (g) {
           if (window.__SH_RING_MODE === 'meal') {
-            const mb = shMealBadge(g.meal); seatFill = mb.bg; seatStroke = mb.color; txtFill = mb.color; labelTxt = s.seatNumber + mb.code;
+            const mb = shMealBadge(g.meal); seatFill = mb.bg; seatStroke = mb.color; txtFill = mb.color; topTxt = '#' + s.seatNumber + mb.code;
           } else {
             const hasAllergy = Boolean(g.allergy), hasAccess = Boolean(g.accessibility);
             seatFill = isSwapSrc ? '#8C2D19' : (hasAllergy ? '#FFF1F2' : (hasAccess ? '#FEF3C7' : '#ECFDF5'));
@@ -627,12 +627,13 @@ function renderInteractiveScript(initialPlan) {
             txtFill = isSwapSrc ? '#FFFFFF' : '#1C1917';
           }
         }
-        const firstName = g ? String(g.name || '').replace(/^(Dr|Mr|Mrs|Ms|Prof|Aunt|Uncle)\\.?\\s+/i, '').split(/\\s+/)[0].slice(0, 8) : '';
+        const firstName = g ? String(g.name || '').replace(/^(Dr|Mr|Mrs|Ms|Prof|Aunt|Uncle|Cousin)\\.?\\s+/i, '').split(/\\s+/)[0].slice(0, 7) : 'Open';
         parts.push('<g data-seat-target="' + tIdx + ':' + sIdx + '" style="cursor:grab;" onmousedown="window.shStartSeatDrag(' + tIdx + ',' + sIdx + ',event)" ontouchstart="window.shStartSeatDrag(' + tIdx + ',' + sIdx + ',event)">');
         parts.push('<title>Seat #' + s.seatNumber + ' (' + shEsc(s.clockPosition) + '): ' + (g ? (shEsc(g.name) + ' · ' + shEsc(g.meal)) : 'Empty') + ' · Drag or click to swap</title>');
-        parts.push('<circle cx="' + s.x + '" cy="' + s.y + '" r="18" fill="' + seatFill + '" stroke="' + seatStroke + '" stroke-width="' + (isSwapSrc ? '3' : '1.8') + '"/><text x="' + s.x + '" y="' + (s.y + 3.5) + '" text-anchor="middle" fill="' + txtFill + '" font-size="10.2" font-weight="800">' + shEsc(labelTxt) + '</text>');
-        if (firstName) parts.push('<rect x="' + (s.x - 21) + '" y="' + (s.y + 13) + '" width="42" height="12" rx="4" fill="#181412" opacity="0.88"/><text x="' + s.x + '" y="' + (s.y + 21.5) + '" text-anchor="middle" fill="#FAF8F5" font-size="7.6" font-weight="700">' + shEsc(firstName) + '</text>');
-        if (sIdx === 0) parts.push('<circle cx="' + s.x + '" cy="' + (s.y - 18) + '" r="5" fill="#8C2D19" stroke="#FFFFFF" stroke-width="1"/>');
+        parts.push('<circle cx="' + s.x + '" cy="' + s.y + '" r="19" fill="' + seatFill + '" stroke="' + seatStroke + '" stroke-width="' + (isSwapSrc ? '3' : '1.8') + '"/>');
+        parts.push('<text x="' + s.x + '" y="' + (s.y - 3) + '" text-anchor="middle" fill="' + txtFill + '" font-size="8.5" font-weight="800">' + shEsc(topTxt) + '</text>');
+        parts.push('<text x="' + s.x + '" y="' + (s.y + 7.2) + '" text-anchor="middle" fill="' + txtFill + '" font-size="7.6" font-weight="700">' + shEsc(firstName) + '</text>');
+        if (sIdx === 0) parts.push('<circle cx="' + s.x + '" cy="' + (s.y - 19) + '" r="4.8" fill="#8C2D19" stroke="#FFFFFF" stroke-width="1"/>');
         parts.push('</g>');
       });
       parts.push('</g>');

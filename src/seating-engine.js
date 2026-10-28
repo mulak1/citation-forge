@@ -26,8 +26,8 @@ function computeTableSeatGeometry(table) {
   let tableHeight = 116;
 
   if (shape === 'round') {
-    const tableRadius = Math.max(40, 26 + capacity * 2.2);
-    const orbitRadius = tableRadius + 22;
+    const tableRadius = capRadius(capacity);
+    const orbitRadius = tableRadius + 30;
     tableWidth = tableRadius * 2;
     tableHeight = tableRadius * 2;
     for (let i = 0; i < capacity; i++) {
@@ -42,17 +42,18 @@ function computeTableSeatGeometry(table) {
         y: pt.y,
         localX: Math.round(localX),
         localY: Math.round(localY),
-        clockPosition: i === 0 ? '12:00 (Anchor)' : `Seat #${i + 1} CW`
+        clockPosition: i === 0 ? '12:00 (Anchor)' : `Seat #${i + 1} CW`,
+        isAnchorTwelveOClock: i === 0
       });
     }
   } else if (shape === 'sweetheart' || shape === 'head_1sided') {
-    const spacing = 36;
-    tableWidth = Math.max(96, capacity * spacing + 16);
-    tableHeight = 46;
+    const spacing = 44;
+    tableWidth = Math.max(140, capacity * spacing + 22);
+    tableHeight = 48;
     const startX = -((capacity - 1) * spacing) / 2;
     for (let i = 0; i < capacity; i++) {
       const localX = startX + i * spacing;
-      const localY = -(tableHeight / 2 + 20);
+      const localY = -(tableHeight / 2 + 26);
       const pt = rotatePoint(localX, localY);
       seats.push({
         seatNumber: i + 1,
@@ -60,19 +61,20 @@ function computeTableSeatGeometry(table) {
         y: pt.y,
         localX: Math.round(localX),
         localY: Math.round(localY),
-        clockPosition: `North Row #${i + 1}`
+        clockPosition: `North Row #${i + 1}`,
+        isAnchorTwelveOClock: i === 0
       });
     }
   } else if (shape === 'banquet_2sided') {
     const topCount = Math.ceil(capacity / 2);
     const bottomCount = Math.floor(capacity / 2);
-    const spacing = 34;
-    tableWidth = Math.max(124, topCount * spacing + 22);
-    tableHeight = 54;
+    const spacing = 44;
+    tableWidth = Math.max(168, topCount * spacing + 28);
+    tableHeight = 56;
     const topStart = -((topCount - 1) * spacing) / 2;
     for (let i = 0; i < topCount; i++) {
       const lx = topStart + i * spacing;
-      const ly = -(tableHeight / 2 + 20);
+      const ly = -(tableHeight / 2 + 26);
       const pt = rotatePoint(lx, ly);
       seats.push({
         seatNumber: seats.length + 1,
@@ -80,13 +82,14 @@ function computeTableSeatGeometry(table) {
         y: pt.y,
         localX: Math.round(lx),
         localY: Math.round(ly),
-        clockPosition: `North Side #${i + 1}`
+        clockPosition: `North Side #${i + 1}`,
+        isAnchorTwelveOClock: i === 0
       });
     }
     const botStart = ((bottomCount - 1) * spacing) / 2;
     for (let i = 0; i < bottomCount; i++) {
       const lx = botStart - i * spacing;
-      const ly = tableHeight / 2 + 20;
+      const ly = tableHeight / 2 + 26;
       const pt = rotatePoint(lx, ly);
       seats.push({
         seatNumber: seats.length + 1,
@@ -94,7 +97,8 @@ function computeTableSeatGeometry(table) {
         y: pt.y,
         localX: Math.round(lx),
         localY: Math.round(ly),
-        clockPosition: `South Side #${i + 1}`
+        clockPosition: `South Side #${i + 1}`,
+        isAnchorTwelveOClock: false
       });
     }
   } else if (shape === 'kings_4sided') {
@@ -102,36 +106,40 @@ function computeTableSeatGeometry(table) {
     const sidePool = capacity - endSeats * 2;
     const topCount = Math.ceil(sidePool / 2);
     const bottomCount = Math.floor(sidePool / 2);
-    const spacing = 32;
-    tableWidth = Math.max(132, topCount * spacing + 28);
+    const spacing = 44;
+    tableWidth = Math.max(176, topCount * spacing + 32);
     tableHeight = 68;
     const topStart = -((topCount - 1) * spacing) / 2;
     for (let i = 0; i < topCount; i++) {
       const lx = topStart + i * spacing;
-      const ly = -(tableHeight / 2 + 20);
+      const ly = -(tableHeight / 2 + 26);
       const pt = rotatePoint(lx, ly);
-      seats.push({ seatNumber: seats.length + 1, x: pt.x, y: pt.y, localX: Math.round(lx), localY: Math.round(ly), clockPosition: `North #${i + 1}` });
+      seats.push({ seatNumber: seats.length + 1, x: pt.x, y: pt.y, localX: Math.round(lx), localY: Math.round(ly), clockPosition: `North #${i + 1}`, isAnchorTwelveOClock: i === 0 });
     }
     if (endSeats > 0) {
-      const lx = tableWidth / 2 + 20;
+      const lx = tableWidth / 2 + 26;
       const pt = rotatePoint(lx, 0);
-      seats.push({ seatNumber: seats.length + 1, x: pt.x, y: pt.y, localX: Math.round(lx), localY: 0, clockPosition: 'East Head' });
+      seats.push({ seatNumber: seats.length + 1, x: pt.x, y: pt.y, localX: Math.round(lx), localY: 0, clockPosition: 'East Head', isAnchorTwelveOClock: false });
     }
     const botStart = ((bottomCount - 1) * spacing) / 2;
     for (let i = 0; i < bottomCount; i++) {
       const lx = botStart - i * spacing;
-      const ly = tableHeight / 2 + 20;
+      const ly = tableHeight / 2 + 26;
       const pt = rotatePoint(lx, ly);
-      seats.push({ seatNumber: seats.length + 1, x: pt.x, y: pt.y, localX: Math.round(lx), localY: Math.round(ly), clockPosition: `South #${i + 1}` });
+      seats.push({ seatNumber: seats.length + 1, x: pt.x, y: pt.y, localX: Math.round(lx), localY: Math.round(ly), clockPosition: `South #${i + 1}`, isAnchorTwelveOClock: false });
     }
     if (endSeats > 0) {
-      const lx = -(tableWidth / 2 + 20);
+      const lx = -(tableWidth / 2 + 26);
       const pt = rotatePoint(lx, 0);
-      seats.push({ seatNumber: seats.length + 1, x: pt.x, y: pt.y, localX: Math.round(lx), localY: 0, clockPosition: 'West Head' });
+      seats.push({ seatNumber: seats.length + 1, x: pt.x, y: pt.y, localX: Math.round(lx), localY: 0, clockPosition: 'West Head', isAnchorTwelveOClock: false });
     }
   }
 
-  return { tableWidth: Math.round(tableWidth), tableHeight: Math.round(tableHeight), seats };
+  return { shape, tableWidth: Math.round(tableWidth), tableHeight: Math.round(tableHeight), seats };
+}
+
+function capRadius(capacity) {
+  return capacity <= 8 ? 50 : 58;
 }
 
 function parseMessyGuestRow(rawLine, index = 1) {
@@ -218,13 +226,13 @@ const SEATING_PRESETS = {
     conflictsResolved: 3,
     householdsCoupled: 26,
     landmarks: [
-      { id: 'lm_dance', label: 'DANCE FLOOR (24ft × 24ft)', x: 470, y: 175, w: 185, h: 110, zone: 'party' },
-      { id: 'lm_dj', label: 'DJ & SUBWOOFER BOOTH', x: 745, y: 48, w: 155, h: 40, zone: 'loud' },
-      { id: 'lm_bar', label: 'CHAMPAGNE & COCKTAIL BAR', x: 848, y: 318, w: 132, h: 54, zone: 'party' },
-      { id: 'lm_exit', label: 'QUIET GARDEN TERRACE & ACCESSIBLE EXIT', x: 175, y: 556, w: 235, h: 40, zone: 'quiet' }
+      { id: 'lm_dance', label: 'DANCE FLOOR (24ft × 24ft)', x: 560, y: 215, w: 220, h: 110, zone: 'party' },
+      { id: 'lm_dj', label: 'DJ & SUBWOOFER BOOTH', x: 880, y: 52, w: 170, h: 38, zone: 'loud' },
+      { id: 'lm_bar', label: 'CHAMPAGNE & COCKTAIL BAR', x: 995, y: 365, w: 145, h: 52, zone: 'party' },
+      { id: 'lm_exit', label: 'QUIET GARDEN TERRACE & ACCESSIBLE EXIT', x: 195, y: 642, w: 255, h: 36, zone: 'quiet' }
     ],
     rules: [
-      { id: 'rule_1', type: 'must_keep_apart', label: 'Eleanor Vance (Mom) ↔ Richard Vance (Dad)', detail: 'Divorced Parents: Minimum 2 tables apart & out of direct sightline', g1: 'Eleanor Vance', g2: 'Richard Vance', status: 'RESOLVED (Tables 2 & 5 · 410px apart)' },
+      { id: 'rule_1', type: 'must_keep_apart', label: 'Eleanor Vance (Mom) ↔ Richard Vance (Dad)', detail: 'Divorced Parents: Minimum 2 tables apart & out of direct sightline', g1: 'Eleanor Vance', g2: 'Richard Vance', status: 'RESOLVED (Tables 2 & 5 · 565px apart)' },
       { id: 'rule_2', type: 'must_keep_apart', label: 'Ethan Brooks ↔ Rachel Kim', detail: 'Recent Exes: Keep on opposite sides of Dance Floor', g1: 'Ethan Brooks', g2: 'Rachel Kim', status: 'RESOLVED (Tables 3 & 7)' },
       { id: 'rule_3', type: 'must_keep_apart', label: 'Uncle Arthur ↔ Cousin Leo', detail: 'Family Politics: Never seat at the same table', g1: 'Uncle Arthur', g2: 'Cousin Leo', status: 'RESOLVED (Tables 2 & 5)' },
       { id: 'rule_4', type: 'zone_quiet', label: 'Grandma Rose (84yo · ♿ Wheelchair)', detail: 'Quiet Zone: >30ft from DJ Booth & adjacent to Accessible Terrace Exit', g1: 'Grandma Rose', g2: 'Quiet Zone', status: 'RESOLVED (Table 2, Seat #1)' },
@@ -232,7 +240,7 @@ const SEATING_PRESETS = {
     ],
     tables: [
       {
-        id: 'tbl_1', number: 1, name: 'Table 1 · Sweetheart & VIP Head', shape: 'sweetheart', capacity: 6, x: 470, y: 68, rotation: 0, zone: 'vip', locked: true,
+        id: 'tbl_1', number: 1, name: 'Table 1 · Sweetheart & VIP Head', shape: 'sweetheart', capacity: 6, x: 560, y: 76, rotation: 0, zone: 'vip', locked: true,
         guests: [
           { id: 'g_1', name: 'Maya Lin-Vance', initials: 'ML', partyId: 'p_couple', group: 'Bride & Groom', meal: 'Pan-Seared Halibut', allergy: '', accessibility: '', role: 'Bride' },
           { id: 'g_2', name: 'Liam O’Connor', initials: 'LO', partyId: 'p_couple', group: 'Bride & Groom', meal: 'Filet Mignon', allergy: '', accessibility: '', role: 'Groom' },
@@ -243,7 +251,7 @@ const SEATING_PRESETS = {
         ]
       },
       {
-        id: 'tbl_2', number: 2, name: "Table 2 · Bride's Family (Eleanor)", shape: 'round', capacity: 8, x: 175, y: 195, rotation: 0, zone: 'quiet', locked: false,
+        id: 'tbl_2', number: 2, name: "Table 2 · Bride's Family (Eleanor)", shape: 'round', capacity: 8, x: 195, y: 215, rotation: 0, zone: 'quiet', locked: false,
         guests: [
           { id: 'g_7', name: 'Grandma Rose Lin', initials: 'GR', partyId: 'p_gma', group: "Bride's Family", meal: 'Pan-Seared Halibut', allergy: 'LOW SODIUM', accessibility: '♿ REMOVE CHAIR FOR WHEELCHAIR', role: 'Grandmother' },
           { id: 'g_8', name: 'Eleanor Vance', initials: 'EV', partyId: 'p_gma', group: "Bride's Family", meal: 'Pan-Seared Halibut', allergy: '', accessibility: '', role: 'Mother of Bride', conflictNote: 'Separated from Richard (Table 5)' },
@@ -256,7 +264,7 @@ const SEATING_PRESETS = {
         ]
       },
       {
-        id: 'tbl_3', number: 3, name: 'Table 3 · College Crew (Dance Floor)', shape: 'round', capacity: 8, x: 730, y: 175, rotation: 0, zone: 'party', locked: false,
+        id: 'tbl_3', number: 3, name: 'Table 3 · College Crew (Dance Floor)', shape: 'round', capacity: 8, x: 910, y: 205, rotation: 0, zone: 'party', locked: false,
         guests: [
           { id: 'g_15', name: 'Ethan Brooks', initials: 'EB', partyId: 'p_ethan', group: 'College Crew', meal: 'Filet Mignon', allergy: '🥜 SEVERE PEANUT ALLERGY', accessibility: '', role: 'College Roommate', conflictNote: 'Separated from Rachel (Table 7)' },
           { id: 'g_16', name: 'Hannah Brooks', initials: 'HB', partyId: 'p_ethan', group: 'College Crew', meal: 'Vegan Risotto', allergy: '', accessibility: '', role: 'Spouse' },
@@ -269,7 +277,7 @@ const SEATING_PRESETS = {
         ]
       },
       {
-        id: 'tbl_4', number: 4, name: "Table 4 · Groom's Family (O’Connors)", shape: 'round', capacity: 8, x: 350, y: 345, rotation: 0, zone: 'vip', locked: false,
+        id: 'tbl_4', number: 4, name: "Table 4 · Groom's Family (O’Connors)", shape: 'round', capacity: 8, x: 385, y: 395, rotation: 0, zone: 'vip', locked: false,
         guests: [
           { id: 'g_23', name: 'Helen O’Connor', initials: 'HO', partyId: 'p_groom_p', group: "Groom's Family", meal: 'Pan-Seared Halibut', allergy: '', accessibility: '', role: 'Mother of Groom' },
           { id: 'g_24', name: 'David O’Connor', initials: 'DO', partyId: 'p_groom_p', group: "Groom's Family", meal: 'Filet Mignon', allergy: '', accessibility: '', role: 'Father of Groom' },
@@ -282,7 +290,7 @@ const SEATING_PRESETS = {
         ]
       },
       {
-        id: 'tbl_5', number: 5, name: "Table 5 · Father of Bride (Richard's Side)", shape: 'round', capacity: 8, x: 585, y: 345, rotation: 0, zone: 'vip', locked: false,
+        id: 'tbl_5', number: 5, name: "Table 5 · Father of Bride (Richard's Side)", shape: 'round', capacity: 8, x: 725, y: 395, rotation: 0, zone: 'vip', locked: false,
         guests: [
           { id: 'g_31', name: 'Richard Vance', initials: 'RV', partyId: 'p_dad', group: "Bride's Dad Side", meal: 'Filet Mignon', allergy: '', accessibility: '', role: 'Father of Bride', conflictNote: 'Separated from Eleanor (Table 2)' },
           { id: 'g_32', name: 'Vanessa Vance', initials: 'VV', partyId: 'p_dad', group: "Bride's Dad Side", meal: 'Pan-Seared Halibut', allergy: '', accessibility: '', role: 'Stepmother' },
@@ -295,7 +303,7 @@ const SEATING_PRESETS = {
         ]
       },
       {
-        id: 'tbl_6', number: 6, name: 'Table 6 · SF Founders & Work Friends', shape: 'banquet_2sided', capacity: 8, x: 470, y: 495, rotation: 0, zone: 'standard', locked: false,
+        id: 'tbl_6', number: 6, name: 'Table 6 · SF Founders & Work Friends', shape: 'banquet_2sided', capacity: 8, x: 560, y: 575, rotation: 0, zone: 'standard', locked: false,
         guests: [
           { id: 'g_39', name: 'Elena Rostova', initials: 'ER', partyId: 'p_elena', group: 'SF Work & Founders', meal: 'Pan-Seared Halibut', allergy: '', accessibility: '', role: 'VP Design' },
           { id: 'g_40', name: 'Julian Rostov', initials: 'JR', partyId: 'p_elena', group: 'SF Work & Founders', meal: 'Filet Mignon', allergy: '', accessibility: '', role: 'Spouse' },
@@ -308,7 +316,7 @@ const SEATING_PRESETS = {
         ]
       },
       {
-        id: 'tbl_7', number: 7, name: 'Table 7 · High School & Bridal Friends', shape: 'round', capacity: 8, x: 775, y: 455, rotation: 0, zone: 'party', locked: false,
+        id: 'tbl_7', number: 7, name: 'Table 7 · High School & Bridal Friends', shape: 'round', capacity: 8, x: 945, y: 530, rotation: 0, zone: 'party', locked: false,
         guests: [
           { id: 'g_47', name: 'Rachel Kim', initials: 'RK', partyId: 'p_rachel', group: 'High School Crew', meal: 'Pan-Seared Halibut', allergy: '', accessibility: '', role: 'Childhood Friend', conflictNote: 'Separated from Ethan (Table 3)' },
           { id: 'g_48', name: 'Jordan Hayes', initials: 'JH', partyId: 'p_rachel', group: 'High School Crew', meal: 'Filet Mignon', allergy: '', accessibility: '', role: 'Partner' },
@@ -321,7 +329,7 @@ const SEATING_PRESETS = {
         ]
       },
       {
-        id: 'tbl_8', number: 8, name: 'Table 8 · Out-of-Town Family & Seniors', shape: 'round', capacity: 8, x: 175, y: 420, rotation: 0, zone: 'quiet', locked: false,
+        id: 'tbl_8', number: 8, name: 'Table 8 · Out-of-Town Family & Seniors', shape: 'round', capacity: 8, x: 170, y: 515, rotation: 0, zone: 'quiet', locked: false,
         guests: [
           { id: 'g_55', name: 'Dr. Anand Gupta', initials: 'AG', partyId: 'p_gupta', group: 'Family Friends', meal: 'Vegan Risotto', allergy: '🥜 TREE NUT ALLERGY', accessibility: '', role: 'Family Physician' },
           { id: 'g_56', name: 'Sunita Gupta', initials: 'SG', partyId: 'p_gupta', group: 'Family Friends', meal: 'Vegan Risotto', allergy: '', accessibility: '', role: 'Spouse' },
