@@ -913,6 +913,25 @@ function renderInteractiveScript(initialPlan) {
   }
   window.shOpenVaultModal = function() { const m = document.getElementById('sh-vault-modal'); if (m) m.style.display = 'flex'; };
   window.shCloseVaultModal = function() { const m = document.getElementById('sh-vault-modal'); if (m) m.style.display = 'none'; };
+  window.__shCarouselSlide = 0;
+  window.selectStudioFeatureSlide = function(idx) {
+    const slides = document.querySelectorAll('.studio-feature-slide');
+    const tabs = document.querySelectorAll('#studio-carousel-tabs .studio-carousel-tab');
+    if (!slides.length) return;
+    const total = slides.length;
+    const nextIdx = ((Number(idx) % total) + total) % total;
+    window.__shCarouselSlide = nextIdx;
+    slides.forEach(function(el, i) { el.classList.toggle('active', i === nextIdx); });
+    tabs.forEach(function(btn, i) {
+      btn.classList.toggle('active', i === nextIdx);
+      btn.setAttribute('aria-selected', i === nextIdx ? 'true' : 'false');
+    });
+    const counterEl = document.getElementById('studio-carousel-counter');
+    if (counterEl) counterEl.textContent = 'Tool ' + (nextIdx + 1) + ' of ' + total;
+  };
+  window.stepStudioFeatureSlide = function(delta) {
+    window.selectStudioFeatureSlide((window.__shCarouselSlide || 0) + Number(delta || 1));
+  };
   window.shSaveVaultToServer = async function() {
     const emailEl = document.getElementById('sh-vault-email-input'), pinEl = document.getElementById('sh-vault-pin-input'), btn = document.getElementById('sh-vault-save-submit-btn');
     const email = emailEl ? emailEl.value.trim() : '', pin = pinEl ? pinEl.value.trim() : '2026';

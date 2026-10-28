@@ -2,6 +2,7 @@
  * SeatHarmony (#2) - 6-Zone High-Conviction Landing Page (ExactBaseline Sunlit Champagne Architecture)
  */
 const { escapeHtml, renderHead, renderNavbar, renderFooter, renderInteractiveScript } = require('./templates');
+const { renderFeatureShowcaseCarousel } = require('./feature-carousel');
 
 function renderZone1Hero(plan) {
   const vId = escapeHtml(plan.vaultId || 'SH-4819');
@@ -767,8 +768,10 @@ function renderZone4ProofStackAndPricing() {
         <div class="studio-review-card"><p style="font-size:1.02rem;color:#181412;font-style:italic;line-height:1.6;">&ldquo;The Family Share link let my wife rearrange Tables 1-3 at midnight while keeping our daughter&rsquo;s friends on Tables 4-8 safely locked.&rdquo;</p><div style="font-size:0.88rem;font-weight:800;color:#78350F;">&#9733;&#9733;&#9733;&#9733;&#9733; &middot; Robert T., Father of the Bride (Boston, MA)</div></div>
       </div>
 
+      ${renderFeatureShowcaseCarousel('SH-4819')}
+
       <!-- TRANSITION BRIDGE BANNER INTO INTERACTIVE STUDIO -->
-      <div id="bs-zone3-anchor" style="background:linear-gradient(135deg,#FFFDF9 0%,#F5ECE0 100%);border:2px solid #D8C29D;border-radius:18px;padding:24px 28px;display:flex;flex-wrap:wrap;align-items:center;justify-content:space-between;gap:16px;">
+      <div id="bs-zone3-anchor" style="margin-top:32px;background:linear-gradient(135deg,#FFFDF9 0%,#F5ECE0 100%);border:2px solid #D8C29D;border-radius:18px;padding:24px 28px;display:flex;flex-wrap:wrap;align-items:center;justify-content:space-between;gap:16px;">
         <div>
           <div style="font-size:0.78rem;font-weight:800;letter-spacing:0.10em;text-transform:uppercase;color:#8C2D19;margin-bottom:4px;">YOUR TURN &middot; THE 5-STEP RECEPTION FLOORPLAN &amp; 24&Prime;&times;36&Prime; SIGN STUDIO</div>
           <div class="serif-display" style="font-size:1.55rem;color:#181412;">Test a 150-guest reception below or paste your own Zola / Knot RSVP list.</div>

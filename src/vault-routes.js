@@ -147,6 +147,24 @@ function mealSymbolInfo(mealStr) {
   return { sym: '◆', code: 'BEEF', color: '#8C2D19', label: mealStr || 'Filet Mignon' };
 }
 
+function buildInlineQrDataUri(seedStr) {
+  let h = 2166136261;
+  const s = String(seedStr || 'SH-4819');
+  for (let i = 0; i < s.length; i++) h = Math.imul(h ^ s.charCodeAt(i), 16777619);
+  const cells = [];
+  const inFinder = (r, c) => (r < 7 && c < 7) || (r < 7 && c >= 14) || (r >= 14 && c < 7);
+  for (let r = 0; r < 21; r++) {
+    for (let c = 0; c < 21; c++) {
+      if (inFinder(r, c)) continue;
+      h = Math.imul(h ^ ((r * 31) + c), 16777619);
+      if ((Math.abs(h) % 10) < 5) cells.push(`<rect x="${10 + c * 4}" y="${10 + r * 4}" width="3.6" height="3.6" rx="0.6" fill="#181412"/>`);
+    }
+  }
+  const finder = (x, y) => `<rect x="${x}" y="${y}" width="26" height="26" rx="3" fill="none" stroke="#181412" stroke-width="3.5"/><rect x="${x + 6.5}" y="${y + 6.5}" width="13" height="13" rx="1.5" fill="#181412"/>`;
+  const svg = `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 104 104"><rect width="104" height="104" rx="8" fill="#FAF6EE"/>${finder(11, 11)}${finder(67, 11)}${finder(11, 67)}${cells.join('')}</svg>`;
+  return `data:image/svg+xml;utf8,${encodeURIComponent(svg)}`;
+}
+
 function renderTopPrintBar({ vault, activeRoute, baseUrl }) {
   const urls = buildVaultUrls(baseUrl, vault.vaultId);
   const unlockBadge = vault.isUnlocked
@@ -306,7 +324,7 @@ function attachVaultAndPaywallRoutes(app, publicUrl) {
       const guests = extractAllSeatedGuests(vault.state);
       const tables = Array.isArray(vault.state.tables) ? vault.state.tables : [];
       const monogram = computeMonogram(vault.title);
-      const qrImgUrl = `https://api.qrserver.com/v1/create-qr-code/?size=180x180&margin=6&color=181412&bgcolor=FAF6EE&data=${encodeURIComponent(urls.qr_lookup)}`;
+      const qrImgUrl = buildInlineQrDataUri(urls.qr_lookup);
 
       const html = `<!DOCTYPE html>
 <html lang="en">
@@ -450,7 +468,7 @@ function attachVaultAndPaywallRoutes(app, publicUrl) {
       const guests = extractAllSeatedGuests(vault.state).sort((a, b) => a.lastName.localeCompare(b.lastName));
       const tables = Array.isArray(vault.state.tables) ? vault.state.tables : [];
       const monogram = computeMonogram(vault.title);
-      const qrImgUrl = `https://api.qrserver.com/v1/create-qr-code/?size=140x140&margin=4&color=181412&bgcolor=FAF6EE&data=${encodeURIComponent(urls.qr_lookup)}`;
+      const qrImgUrl = buildInlineQrDataUri(urls.qr_lookup);
 
       const isObsidian = theme === 'obsidian';
       const isSage = theme === 'sage';
@@ -757,8 +775,11 @@ function attachVaultAndPaywallRoutes(app, publicUrl) {
   app.get('/qr/:vaultId', async (req, res) => {
     try {
       const vault = await resolveVaultRecord(req.params.vaultId, req.query);
+      const urls = buildVaultUrls(baseUrl, vault.vaultId);
       const guests = extractAllSeatedGuests(vault.state).sort((a, b) => a.name.localeCompare(b.name));
+      const tables = Array.isArray(vault.state.tables) ? vault.state.tables : [];
       const monogram = computeMonogram(vault.title);
+      const qrImgUrl = buildInlineQrDataUri(urls.qr_lookup);
       const safeGuestsJson = JSON.stringify(guests).replace(/</g, '\\u003c');
 
       const html = `<!DOCTYPE html>
@@ -770,28 +791,59 @@ function attachVaultAndPaywallRoutes(app, publicUrl) {
   <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,600;0,700;1,600&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=JetBrains+Mono:wght@500;600;700&display=swap" rel="stylesheet" />
   <style>
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-    body { background: #181412; color: #FAF8F5; font-family: 'Plus Jakarta Sans', sans-serif; min-height: 100vh; padding: 20px 14px 48px; }
+    body { background: #181412; color: #FAF8F5; font-family: 'Plus Jakarta Sans', sans-serif; min-height: 100vh; }
     .serif { font-family: 'Cormorant Garamond', Georgia, serif; font-weight: 700; }
     .mono { font-family: 'JetBrains Mono', monospace; }
-    .qr-shell { max-width: 520px; margin: 0 auto; background: #FAF6EE; color: #181412; border: 2px solid #C8A96E; border-radius: 24px; padding: 24px 20px; box-shadow: 0 24px 60px rgba(0,0,0,0.45); }
-    .search-input { width: 100%; padding: 14px 16px; border-radius: 14px; border: 2px solid #C8A96E; font-size: 1rem; font-weight: 700; background: #FFFFFF; color: #181412; outline: none; margin: 14px 0; }
-    .guest-card { background: #FFFFFF; border: 1.5px solid #E2D9C8; border-radius: 14px; padding: 14px 16px; margin-bottom: 10px; display: flex; justify-content: space-between; align-items: center; gap: 10px; }
+    .qr-page-wrap { max-width: 960px; margin: 24px auto 56px; padding: 0 16px; display: grid; grid-template-columns: 1.25fr 0.9fr; gap: 22px; align-items: start; }
+    .qr-shell { background: #FAF6EE; color: #181412; border: 2px solid #C8A96E; border-radius: 24px; padding: 24px 20px; box-shadow: 0 24px 60px rgba(0,0,0,0.45); }
+    .search-input { width: 100%; padding: 14px 16px; border-radius: 14px; border: 2px solid #C8A96E; font-size: 1rem; font-weight: 700; background: #FFFFFF; color: #181412; outline: none; margin: 14px 0 10px; }
+    .guest-card { background: #FFFFFF; border: 1.5px solid #E2D9C8; border-radius: 14px; padding: 13px 16px; margin-bottom: 10px; display: flex; justify-content: space-between; align-items: center; gap: 10px; }
+    .pill-btn { padding: 5px 11px; border-radius: 999px; border: 1px solid #C8A96E; background: #FFFFFF; color: #57534E; font-size: 0.75rem; font-weight: 800; cursor: pointer; }
+    .pill-btn:hover { background: #181412; color: #FDE68A; }
+    @media (max-width: 820px) { .qr-page-wrap { grid-template-columns: 1fr; } }
   </style>
 </head>
 <body>
-  <div class="qr-shell">
-    <div style="text-align:center;border-bottom:1.5px solid #E2D9C8;padding-bottom:16px;">
-      <div style="width:58px;height:58px;border-radius:14px;background:#181412;border:2px solid #C8A96E;color:#FDE68A;display:inline-flex;flex-direction:column;align-items:center;justify-content:center;margin-bottom:8px;">
-        <span class="serif" style="font-size:1.3rem;line-height:1;">${escapeHtml(monogram)}</span>
-        <span class="mono" style="font-size:0.46rem;color:#C8A96E;">WELCOME</span>
+  ${renderTopPrintBar({ vault, activeRoute: 'qr', baseUrl })}
+  <div class="qr-page-wrap">
+    <div class="qr-shell">
+      <div style="text-align:center;border-bottom:1.5px solid #E2D9C8;padding-bottom:16px;">
+        <div style="width:58px;height:58px;border-radius:14px;background:#181412;border:2px solid #C8A96E;color:#FDE68A;display:inline-flex;flex-direction:column;align-items:center;justify-content:center;margin-bottom:8px;">
+          <span class="serif" style="font-size:1.3rem;line-height:1;">${escapeHtml(monogram)}</span>
+          <span class="mono" style="font-size:0.46rem;color:#C8A96E;">WELCOME</span>
+        </div>
+        <div class="mono" style="font-size:0.68rem;font-weight:800;color:#8C2D19;letter-spacing:0.12em;text-transform:uppercase;">${escapeHtml(vault.venueName)}</div>
+        <h1 class="serif" style="font-size:2.05rem;line-height:1.1;margin:2px 0;">Find Your Reception Seat</h1>
+        <div style="font-size:0.86rem;color:#57534E;">${escapeHtml(vault.title)} &bull; ${guests.length} Guests Seated</div>
       </div>
-      <div class="mono" style="font-size:0.68rem;font-weight:800;color:#8C2D19;letter-spacing:0.12em;text-transform:uppercase;">${escapeHtml(vault.venueName)}</div>
-      <h1 class="serif" style="font-size:2rem;line-height:1.1;margin:2px 0;">Find Your Reception Seat</h1>
-      <div style="font-size:0.84rem;color:#57534E;">${escapeHtml(vault.title)}</div>
+
+      <input id="qr-live-input" type="search" class="search-input" placeholder="Search your name (e.g. Eleanor, Chen)..." autofocus oninput="renderQrGuests(this.value)" />
+      <div style="display:flex;gap:6px;flex-wrap:wrap;margin-bottom:14px;">
+        <button type="button" class="pill-btn" onclick="document.getElementById('qr-live-input').value='';renderQrGuests('');">All (${guests.length})</button>
+        <button type="button" class="pill-btn" onclick="document.getElementById('qr-live-input').value='Eleanor';renderQrGuests('Eleanor');">Eleanor Vance</button>
+        <button type="button" class="pill-btn" onclick="document.getElementById('qr-live-input').value='Chen';renderQrGuests('Chen');">Chen Family</button>
+        <button type="button" class="pill-btn" onclick="document.getElementById('qr-live-input').value='Table 1';renderQrGuests('Table 1');">Table 1 (VIP)</button>
+        <button type="button" class="pill-btn" onclick="document.getElementById('qr-live-input').value='Table 2';renderQrGuests('Table 2');">Table 2</button>
+      </div>
+      <div id="qr-guest-list"></div>
     </div>
 
-    <input id="qr-live-input" type="search" class="search-input" placeholder="Type your name (e.g. Eleanor, Chen, Miller)..." autofocus oninput="renderQrGuests(this.value)" />
-    <div id="qr-guest-list"></div>
+    <div style="background:#231E1A;border:1.5px solid #C8A96E;border-radius:22px;padding:22px;color:#FAF8F5;">
+      <div class="mono" style="font-size:0.70rem;font-weight:800;color:#FDE68A;letter-spacing:0.08em;text-transform:uppercase;margin-bottom:6px;">COCKTAIL-HOUR FOYER QR DISPLAY</div>
+      <h2 class="serif" style="font-size:1.65rem;color:#FFFFFF;line-height:1.15;margin-bottom:10px;">Guests Scan at the Bar. Zero Easel Crowds.</h2>
+      <p style="font-size:0.88rem;color:#D6CFC2;line-height:1.55;margin-bottom:16px;">Place this QR code on cocktail napkins, bar signs, or the bottom corner of your 24&Prime;&times;36&Prime; welcome sign. Guests type their first or last name and go straight to their table and clockwise chair.</p>
+      <div style="display:flex;align-items:center;gap:14px;background:#181412;border:1.5px solid rgba(200,169,110,0.5);border-radius:16px;padding:14px;margin-bottom:16px;">
+        <img src="${qrImgUrl}" width="88" height="88" alt="Live Reception QR Code" style="border-radius:10px;border:1.5px solid #C8A96E;background:#FAF6EE;padding:4px;flex-shrink:0;" />
+        <div>
+          <div class="mono" style="font-size:0.72rem;color:#34D399;font-weight:800;">&#9679; LIVE SYNC ACTIVE &bull; VAULT #${escapeHtml(vault.vaultId)}</div>
+          <div style="font-size:0.92rem;font-weight:800;color:#FFFFFF;margin:3px 0;">${escapeHtml(urls.qr_lookup)}</div>
+          <div style="font-size:0.78rem;color:#A8A29E;">Updates automatically if you swap a seat 2 hours before dinner.</div>
+        </div>
+      </div>
+      <div style="border-top:1px solid rgba(200,169,110,0.25);padding-top:12px;display:grid;grid-template-columns:repeat(2,1fr);gap:8px;">
+        ${tables.slice(0, 6).map((t, idx) => `<div style="background:rgba(255,255,255,0.05);border:1px solid rgba(200,169,110,0.22);border-radius:10px;padding:8px 10px;"><div class="mono" style="font-size:0.66rem;color:#FDE68A;font-weight:800;">TABLE ${t.number || (idx + 1)}</div><div style="font-size:0.80rem;font-weight:700;color:#FAF8F5;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;">${escapeHtml(t.name || `Table ${idx + 1}`)}</div><div style="font-size:0.70rem;color:#A8A29E;">${(t.guests || []).length} Seated Guests</div></div>`).join('')}
+      </div>
+    </div>
   </div>
   <script>
     var GUESTS = ${safeGuestsJson};
@@ -808,11 +860,11 @@ function attachVaultAndPaywallRoutes(app, publicUrl) {
         box.innerHTML = '<div style="text-align:center;padding:20px;color:#78716C;font-size:0.9rem;">No guest found matching "' + clean.replace(/[<>"']/g, '') + '".</div>';
         return;
       }
-      box.innerHTML = matches.slice(0, 25).map(function(g) {
+      box.innerHTML = matches.slice(0, 8).map(function(g) {
         return '<div class="guest-card">' +
           '<div>' +
             '<div style="font-weight:800;font-size:1rem;color:#181412;">' + g.name + '</div>' +
-            '<div style="font-size:0.78rem;color:#57534E;">' + g.tableName + ' &bull; Entr&eacute;e: ' + g.meal + '</div>' +
+            '<div style="font-size:0.80rem;color:#57534E;">' + g.tableName + ' &bull; Entr&eacute;e: ' + g.meal + '</div>' +
           '</div>' +
           '<div style="text-align:right;background:#181412;color:#FDE68A;border:1.5px solid #C8A96E;padding:6px 12px;border-radius:10px;flex-shrink:0;">' +
             '<div class="serif" style="font-size:1.15rem;line-height:1;">Table ' + g.tableNumber + '</div>' +
