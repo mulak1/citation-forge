@@ -123,22 +123,13 @@ function renderFeatureShowcaseCarousel(vId = 'SH-4819') {
   `).join('');
 
   const slidesHtml = SHOWCASE_SLIDES.map((s, idx) => {
-    const liveHref = s.routeHref(vId || 'SH-4819');
     return `
     <div class="studio-feature-slide${idx === 0 ? ' active' : ''}" data-slide-idx="${idx}">
-      <!-- Compact Slide Title + Badge + Direct Live Tool Button (No Browser URL Header) -->
-      <div style="display:flex;flex-wrap:wrap;justify-content:space-between;align-items:center;gap:12px;margin-bottom:14px;">
-        <div style="display:flex;flex-wrap:wrap;align-items:center;gap:10px;">
-          <h3 class="serif-display" style="font-size:clamp(1.5rem, 2.2vw, 1.85rem);color:#181412;line-height:1.2;margin:0;">
-            ${escapeHtml(s.title)}
-          </h3>
-          <span style="font-size:0.82rem;font-weight:800;text-transform:uppercase;letter-spacing:0.06em;color:#065F46;background:#ECFDF5;border:1px solid #A7F3D0;padding:5px 12px;border-radius:999px;white-space:nowrap;">
-            &#10003; ${escapeHtml(s.badge)}
-          </span>
-        </div>
-        <a href="${liveHref}" target="_blank" style="background:linear-gradient(135deg,#FDE68A 0%,#C8A96E 100%);color:#181412;border:1.5px solid #B89352;padding:8px 16px;border-radius:10px;font-size:0.86rem;font-weight:800;text-decoration:none;white-space:nowrap;">
-          ${escapeHtml(s.ctaText)}
-        </a>
+      <!-- Centered Slide Title -->
+      <div style="display:flex;justify-content:center;align-items:center;margin-bottom:14px;text-align:center;">
+        <h3 class="serif-display" style="font-size:clamp(1.5rem, 2.2vw, 1.85rem);color:#181412;line-height:1.2;margin:0;text-align:center;">
+          ${escapeHtml(s.title)}
+        </h3>
       </div>
 
       <!-- 3 Compact One-Line Annotation Labels ("You get this, and this, and this!") -->
