@@ -63,7 +63,7 @@ function renderSeatEditorClientScript() {
     var g = window.__SH_STATE.tables[tIdx].guests[sIdx], dst = window.__SH_STATE.tables[toIdx]; if (!g || !dst) return;
     window.shMoveGuestToTable(tIdx, sIdx, toIdx);
     window.__SH_SWAP_SOURCE = null; window.__SH_OPEN_GUEST = null; window.__SH_SELECTED_TABLE_IDX = tIdx;
-    shToast('\\u2713 Moved ' + g.name + ' to ' + shEdTableLabel(dst)); shRenderAll();
+    shToast('Moved ' + g.name + ' to ' + shEdTableLabel(dst)); shRenderAll();
   };
   window.shEdMeal = function(tIdx, sIdx, meal) { var g = window.__SH_STATE.tables[tIdx].guests[sIdx]; if (!g) return; window.shSnapshot(); g.meal = meal; shRenderAll(); };
   window.shEdNote = function(tIdx, sIdx, key) {
