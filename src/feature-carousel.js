@@ -372,7 +372,7 @@ function renderZone4ProofStackAndPricing() {
       <!-- THE HONEST COMPARISON TABLE (SEPARATED BELOW BEFORE/AFTER FOR SCROLL BREATHING ROOM) -->
       <div class="bs-honest-table-wrap studio-ba-table-wrap">
         <div class="bs-honest-title">The Honest Comparison (150 Guests)</div>
-        <div style="overflow-x:auto;">
+        <div style="overflow-x:visible;">
           <table class="bs-honest-table ba-table">
             <thead>
               <tr>

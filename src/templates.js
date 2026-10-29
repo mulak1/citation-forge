@@ -208,11 +208,11 @@ function renderHead({
     .bs-ba-icon { flex-shrink: 0; width: 22px; height: 22px; border-radius: 50%; display: inline-flex; align-items: center; justify-content: center; font-size: 13.5px; font-weight: 800; margin-top: 2px; }
     .bs-ba-icon-bad { background: #DC2626; color: #FFFFFF; }
     .bs-ba-icon-good { background: #047857; color: #FFFFFF; }
-    .bs-honest-table-wrap, .studio-ba-table-wrap { max-width: 1040px; margin: 68px auto 0; background: #FFFFFF; border: 1.5px solid #DFD6C7; border-radius: 22px; padding: 36px 36px; overflow-x: auto; box-shadow: 0 12px 32px -10px rgba(28, 25, 23, 0.07); }
+    .bs-honest-table-wrap, .studio-ba-table-wrap { max-width: 1040px; margin: 68px auto 0; background: #FFFFFF; border: 1.5px solid #DFD6C7; border-radius: 22px; padding: 32px 28px; overflow-x: visible; box-shadow: 0 12px 32px -10px rgba(28, 25, 23, 0.07); }
     .bs-honest-title { font-family: var(--font-serif); font-size: 24px; font-weight: 700; color: #1C1917; margin-bottom: 22px; text-align: center; text-wrap: balance; }
-    .bs-honest-table, .ba-table { width: 100%; border-collapse: collapse; text-align: left; font-size: 16px; font-variant-numeric: tabular-nums; }
-    .bs-honest-table th, .bs-honest-table td, .ba-table th, .ba-table td { padding: 14px 16px; border-bottom: 1px solid #E7DFD3; font-size: 16px; line-height: 1.45; white-space: nowrap; }
-    .bs-honest-table th, .ba-table th { font-size: 13.5px; font-weight: 800; text-transform: uppercase; letter-spacing: 0.04em; color: #57534E; background: #FAF7F2; white-space: nowrap; }
+    .bs-honest-table, .ba-table { width: 100%; table-layout: fixed; border-collapse: collapse; text-align: left; font-size: 16px; font-variant-numeric: tabular-nums; }
+    .bs-honest-table th, .bs-honest-table td, .ba-table th, .ba-table td { padding: 13px 12px; border-bottom: 1px solid #E7DFD3; font-size: 15px; line-height: 1.4; white-space: normal; overflow-wrap: anywhere; vertical-align: middle; }
+    .bs-honest-table th, .ba-table th { font-size: 13.5px; font-weight: 800; text-transform: uppercase; letter-spacing: 0.04em; color: #57534E; background: #FAF7F2; white-space: normal; font-size: 12.5px; }
     .bs-honest-table .bs-col-highlight { background: #ECFDF5; color: #065F46; font-weight: 700; }
     .bs-written-testimonials-section { padding: 92px 0 88px; background: linear-gradient(180deg, #FFFDF9 0%, #FAF3E6 100%); border-bottom: 1.5px solid #E5D9C5; }
     .bs-written-proof-grid, .studio-reviews-grid { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 28px; margin-bottom: 76px; }
