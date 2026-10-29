@@ -194,10 +194,10 @@ function renderSetupWizardClientScript() {
     var S = window.__SH_SETUP, couple = String((shwEl('shw-couple') || {}).value || '').trim(), venue = String((shwEl('shw-venue') || {}).value || '').trim();
     var lines = shwHouseholds(), people = shwPersonCount(lines), tbl = S.guests && S.table ? Math.ceil(S.guests / shwPerTable()) : 0;
     if (S.sample && window.__SH_STATE && window.__SH_STATE.tables) {
-      var pl = window.__SH_STATE, g = pl.tables.reduce(function(a, t) { return a + t.guests.length; }, 0);
+      var pl = window.__SH_STATE, g = pl.tables.reduce(function(a, t) { return a + t.guests.length; }, 0), tg = pl.targetGuests || g;
       return {
-        sign: { ok: true, d: String(pl.title || 'Sample wedding') }, plan: { ok: true, d: g + ' guests \u00b7 ' + pl.tables.length + ' tables' },
-        cards: { ok: true, d: g + ' names, ready to print' }, beo: { ok: true, d: 'Meals and allergies listed' }, qr: { ok: true, d: 'Live seat lookup ready' }
+        sign: { ok: true, d: String(pl.title || 'Sample wedding') }, plan: { ok: true, d: tg + ' guests \u00b7 ' + Math.max(0, pl.tables.length - 1) + ' tables' },
+        cards: { ok: g > 0, d: g > 0 ? g + ' names, ready to print' : 'Add your guest list' }, beo: { ok: g > 0, d: g > 0 ? 'Meals and allergies listed' : 'Add your guest list' }, qr: { ok: true, d: 'Live seat lookup ready' }
       };
     }
     return {
@@ -351,6 +351,26 @@ function renderSetupWizardClientScript() {
   };
   window.shwRemoveApart = function(i) { window.__SH_SETUP.apart.splice(i, 1); shwPaint(); };
 
+  /* ---- Venue layouts from the directory: build a room sized to the layout's guest count ---- */
+  window.shwBuildFromLayout = function(slug) {
+    var key = String(slug || '').toLowerCase(), m = key.match(/^(\\d{2,3})-(?:guest|person)/);
+    if (!m) return false;
+    var n = Number(m[1]), rest = key.replace(/^\\d+-(?:guest|person)-?/, '').replace(/-+/g, ' ').replace(/\\b\\w/g, function(c) { return c.toUpperCase(); }).trim();
+    var kind = /banquet|farm|harvest|winery|barn|king|tuscan|long/.test(key) ? 'banquet12' : (n >= 120 ? 'round10' : 'round8');
+    var per = kind === 'round10' ? 10 : (kind === 'banquet12' ? 12 : 8), lay = shwLayoutTables(Math.max(1, Math.ceil(n / per)), kind);
+    var tables = [{ id: 'table-1', number: 1, name: 'Sweetheart Table', shape: 'sweetheart', capacity: 2, x: 560, y: 80, rotation: 0, locked: true, guests: [] }];
+    lay.pts.forEach(function(pt, i) { tables.push({ id: 'table-' + (i + 2), number: i + 2, name: 'Table ' + (i + 2), shape: lay.shape, capacity: lay.per, x: pt.x, y: pt.y, rotation: 0, locked: false, guests: [] }); });
+    var vaultId = (window.__SH_STATE && window.__SH_STATE.vaultId) || 'SH-4819';
+    window.__SH_STATE = { vaultId: vaultId, isWizardBuilt: true, title: n + '-Guest ' + rest, venueName: rest, harmonyScore: 98, householdsCoupled: 0, roomHeight: lay.roomHeight, targetGuests: n, tables: tables,
+      landmarks: [{ id: 'lm-dance', label: 'DANCE FLOOR', x: 560, y: 230, w: 210, h: 130, zone: 'loud' }], rules: [] };
+    tables.forEach(function(t) { shRecomputeGeometry(t); });
+    window.__SH_SELECTED_TABLE_IDX = tables.length > 1 ? 1 : 0;
+    window.__SH_SETUP.sample = true;
+    window.shFinishSetupWizard();
+    shToast('Room ready for ' + n + ' guests: ' + (tables.length - 1) + ' tables of ' + per + '. Tap a table to add guests, or use Edit setup to paste your list.');
+    return true;
+  };
+
   function shwLayoutTables(count, kind) {
     var per = kind === 'round10' ? 10 : (kind === 'banquet12' ? 12 : 8);
     var isBanquet = kind === 'banquet12', extentX = isBanquet ? 160 : (per === 10 ? 108 : 100), extentY = isBanquet ? 75 : extentX;
@@ -453,7 +473,8 @@ function renderSetupWizardClientScript() {
     shwPaint();
     try {
       var sp = new URLSearchParams(window.location.search);
-      if (sp.get('sandbox') || sp.get('preset') || sp.get('checkout') || sp.get('unlocked')) window.shFinishSetupWizard();
+      if (sp.get('preset') && window.shwBuildFromLayout(sp.get('preset'))) { /* sized layout built */ }
+      else if (sp.get('sandbox') || sp.get('preset') || sp.get('checkout') || sp.get('unlocked')) window.shFinishSetupWizard();
     } catch (_) {}
   });`;
 }
