@@ -176,7 +176,7 @@ function renderZone3InteractiveStudio(plan) {
   <section class="studio-zone-section" id="studio">
     <div class="container">
       <div class="bs-section-header" style="margin-bottom:18px;text-align:center;display:flex;flex-direction:column;align-items:center;">
-        <div class="bs-section-eyebrow" style="margin-left:auto;margin-right:auto;">LIVE WEDDING &amp; RECEPTION STUDIO &middot; EVENT #<span id="sh-studio-vault-code">${vId}</span></div>
+        <span id="sh-studio-vault-code" style="display:none;">${vId}</span>
         <h2 class="bs-section-h2" style="text-align:center;margin-left:auto;margin-right:auto;margin-bottom:8px;">Build your reception in <em>4 guided steps.</em></h2>
         <p class="bs-section-sub" style="text-align:center;margin:0 auto;">Set your venue &amp; tables first, add your guests, apply family rules, then fine-tune seats &amp; print.</p>
         <div style="display:none;"><span id="sh-endowed-progress-label">Step 1 of 4</span><span id="sh-endowed-progress-fill"></span><span id="sh-btn-vault-id">${vId}</span></div>
