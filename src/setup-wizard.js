@@ -23,6 +23,7 @@ function renderSetupWizardHtml() {
           <p class="bs-section-sub" style="text-align:center;margin:0 auto;">5 quick questions. We build the room and seat everyone.</p>
         </div>
 
+        <div class="shw-layout">
         <div class="shw-card">
           <div class="shw-top">
             <button type="button" class="shw-back" id="shw-back-btn" onclick="window.shwGo(-1)">&larr; Back</button>
@@ -34,9 +35,9 @@ function renderSetupWizardHtml() {
           <div class="shw-step active" data-shw="1">
             <h3 class="shw-q">Whose wedding is it?</h3>
             <label class="shw-label" for="shw-couple">Couple</label>
-            <input id="shw-couple" class="shw-input" type="text" placeholder="Maya &amp; Liam" autocomplete="off" onkeydown="if(event.key==='Enter')window.shwGo(1)" />
+            <input id="shw-couple" class="shw-input" type="text" placeholder="Maya &amp; Liam" autocomplete="off" oninput="window.shwPaintKit()" onkeydown="if(event.key==='Enter')window.shwGo(1)" />
             <label class="shw-label" for="shw-venue">Venue <span class="shw-opt">(optional)</span></label>
-            <input id="shw-venue" class="shw-input" type="text" placeholder="Rosewood Estate" autocomplete="off" onkeydown="if(event.key==='Enter')window.shwGo(1)" />
+            <input id="shw-venue" class="shw-input" type="text" placeholder="Rosewood Estate" autocomplete="off" oninput="window.shwPaintKit()" onkeydown="if(event.key==='Enter')window.shwGo(1)" />
             <button type="button" class="shw-primary" onclick="window.shwGo(1)">Continue &rarr;</button>
             <div class="shw-alt">Just looking? <button type="button" class="shw-link preset-chip" data-preset="estate-150" data-domain="supabase.com" onclick="window.loadPresetScenario('estate-150', this)">See a sample wedding &rarr;</button></div>
           </div>
@@ -92,12 +93,29 @@ function renderSetupWizardHtml() {
             <button type="button" class="shw-primary" id="shw-build-btn" onclick="window.shwBuild()">&#10024; Seat my guests</button>
           </div>
         </div>
+
+        <aside class="shw-kit" id="shw-kit" aria-label="Your reception kit">
+          <div class="shw-kit-head">
+            <span class="shw-kit-ico" aria-hidden="true">&#127873;</span>
+            <div class="shw-kit-titles"><div class="shw-kit-title">Your reception kit</div><div class="shw-kit-sub" id="shw-kit-sub">0 of 5 ready</div></div>
+          </div>
+          <div class="shw-kit-bar"><div class="shw-kit-bar-fill" id="shw-kit-bar-fill"></div></div>
+          <ul class="shw-kit-list">
+            <li><button type="button" class="shw-kit-item" data-kit="sign" onclick="window.shwJump(1)"><span class="shw-kit-dot"></span><span class="shw-kit-emoji" aria-hidden="true">&#128444;&#65039;</span><span class="shw-kit-text"><b>Welcome sign</b><small id="shw-kit-d-sign">Needs your names</small></span></button></li>
+            <li><button type="button" class="shw-kit-item" data-kit="plan" onclick="window.shwJump(2)"><span class="shw-kit-dot"></span><span class="shw-kit-emoji" aria-hidden="true">&#128506;&#65039;</span><span class="shw-kit-text"><b>Seating chart</b><small id="shw-kit-d-plan">Needs guests and tables</small></span></button></li>
+            <li><button type="button" class="shw-kit-item" data-kit="cards" onclick="window.shwJump(4)"><span class="shw-kit-dot"></span><span class="shw-kit-emoji" aria-hidden="true">&#128140;</span><span class="shw-kit-text"><b>Place cards</b><small id="shw-kit-d-cards">Needs your guest list</small></span></button></li>
+            <li><button type="button" class="shw-kit-item" data-kit="beo" onclick="window.shwJump(4)"><span class="shw-kit-dot"></span><span class="shw-kit-emoji" aria-hidden="true">&#127869;&#65039;</span><span class="shw-kit-text"><b>Caterer sheet</b><small id="shw-kit-d-beo">Needs your guest list</small></span></button></li>
+            <li><button type="button" class="shw-kit-item" data-kit="qr" onclick="window.shwJump(5)"><span class="shw-kit-dot"></span><span class="shw-kit-emoji" aria-hidden="true">&#128241;</span><span class="shw-kit-text"><b>Guest QR lookup</b><small id="shw-kit-d-qr">Ready when you seat guests</small></span></button></li>
+          </ul>
+          <div class="shw-kit-foot" id="shw-kit-foot">Fills up as you answer.</div>
+        </aside>
+        </div>
       </div>`;
 }
 
 function renderSetupWizardClientScript() {
   return `
-  window.__SH_SETUP = { step: 1, guests: 0, table: '', apart: [] };
+  window.__SH_SETUP = { step: 1, maxStep: 1, guests: 0, table: '', apart: [], kitDone: {} };
   function shwEl(id) { return document.getElementById(id); }
   function shwHouseholds() { return String((shwEl('shw-guests') || {}).value || '').split(/\\r?\\n/).map(function(l) { return l.trim(); }).filter(function(l) { return l && !/^(name|guest|household|table)[,\\t]/i.test(l); }); }
   function shwPersonCount(lines) {
@@ -113,6 +131,7 @@ function renderSetupWizardClientScript() {
   function shwPerTable() { var t = window.__SH_SETUP.table; return t === 'round10' ? 10 : (t === 'banquet12' ? 12 : 8); }
   function shwPaint() {
     var s = window.__SH_SETUP.step;
+    window.shwPaintKit();
     document.querySelectorAll('#sh-setup-wizard .shw-step').forEach(function(el) { el.classList.toggle('active', Number(el.getAttribute('data-shw')) === s); });
     var c = shwEl('shw-count'); if (c) c.textContent = 'Step ' + s + ' of 5';
     var f = shwEl('shw-bar-fill'); if (f) f.style.width = (s / 5 * 100) + '%';
@@ -141,7 +160,33 @@ function renderSetupWizardClientScript() {
     if (delta > 0 && s === 3 && !window.__SH_SETUP.table) return;
     window.__SH_SETUP.userStarted = true;
     window.__SH_SETUP.step = Math.max(1, Math.min(5, s + delta));
+    window.__SH_SETUP.maxStep = Math.max(window.__SH_SETUP.maxStep, window.__SH_SETUP.step);
     shwPaint();
+  };
+  window.shwJump = function(n) { if (n <= window.__SH_SETUP.maxStep) { window.__SH_SETUP.userStarted = true; window.__SH_SETUP.step = n; shwPaint(); } };
+  window.shwPaintKit = function() {
+    var S = window.__SH_SETUP, couple = String((shwEl('shw-couple') || {}).value || '').trim(), venue = String((shwEl('shw-venue') || {}).value || '').trim();
+    var lines = shwHouseholds(), people = shwPersonCount(lines);
+    var tbl = S.guests && S.table ? Math.ceil(S.guests / shwPerTable()) : 0;
+    var st = {
+      sign: { ok: Boolean(couple), d: couple ? (couple + (venue ? ' \u00b7 ' + venue : '')) : 'Needs your names' },
+      plan: { ok: Boolean(S.guests && S.table), d: tbl ? (S.guests + ' guests \u00b7 ' + tbl + ' tables of ' + shwPerTable()) : (S.guests ? 'Pick your table type' : 'Needs guests and tables') },
+      cards: { ok: lines.length > 0, d: lines.length ? (people + ' name' + (people === 1 ? '' : 's') + ', ready to print') : 'Needs your guest list' },
+      beo: { ok: lines.length > 0, d: lines.length ? 'Meals and allergies listed' : 'Needs your guest list' },
+      qr: { ok: false, d: 'Unlocks when we seat guests' }
+    };
+    var done = 0, newly = [];
+    Object.keys(st).forEach(function(k) {
+      var li = document.querySelector('#shw-kit .shw-kit-item[data-kit="' + k + '"]'), d = shwEl('shw-kit-d-' + k);
+      if (st[k].ok) done++;
+      if (li) { li.classList.toggle('done', st[k].ok); if (st[k].ok && !S.kitDone[k]) { li.classList.remove('pop'); void li.offsetWidth; li.classList.add('pop'); } }
+      if (d) d.textContent = st[k].d;
+      S.kitDone[k] = st[k].ok;
+    });
+    var sub = shwEl('shw-kit-sub'); if (sub) sub.textContent = done + ' of 5 ready';
+    var bar = shwEl('shw-kit-bar-fill'); if (bar) bar.style.width = (done / 5 * 100) + '%';
+    var foot = shwEl('shw-kit-foot');
+    if (foot) foot.textContent = done >= 4 ? 'Last step: seat your guests to finish your kit.' : (done ? 'Nice. Keep going to fill your kit.' : 'Fills up as you answer.');
   };
   window.shwPickGuests = function(n) {
     var v = Math.max(2, Math.min(600, Math.round(Number(n) || 0)));
@@ -152,6 +197,7 @@ function renderSetupWizardClientScript() {
   window.shwPickTable = function(key) { window.__SH_SETUP.table = key; shwPaint(); setTimeout(function() { window.shwGo(1); }, 160); };
   window.shwCountGuests = function() {
     var lines = shwHouseholds(), people = shwPersonCount(lines), el = shwEl('shw-guest-tally');
+    window.shwPaintKit();
     if (el) el.textContent = lines.length + ' household' + (lines.length === 1 ? '' : 's') + (people ? ' \\u00b7 ' + people + ' guests' : '');
   };
   window.shwUploadCsv = function(inp) {
