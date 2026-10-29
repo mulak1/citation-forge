@@ -162,6 +162,8 @@ function renderHead({
     .studio-scroll-builder-grid { display: grid; grid-template-columns: minmax(340px, 390px) minmax(0, 1fr); gap: 20px; align-items: start; margin-top: 14px; transition: all 0.2s ease; width: 100%; max-width: 100%; }
     .studio-scroll-builder-grid.full-stage { grid-template-columns: minmax(0, 1fr); }
     .sh-ed-ghost { font-size: 0.88rem; font-weight: 700; color: #44403C; background: #FFFFFF; border: 1.5px solid #DCD3C3; padding: 7px 13px; border-radius: 10px; cursor: pointer; white-space: nowrap; transition: border-color 0.15s ease, background 0.15s ease; }
+    .sh-venue-cta { display: inline-flex; align-items: center; padding: 10px 18px; font-size: 0.94rem; font-weight: 800; color: #3B2A12; background: linear-gradient(135deg, #FDE68A 0%, #E8C77D 100%); border: 1.5px solid #C8A96E; border-radius: 999px; text-decoration: none; box-shadow: 0 8px 18px -10px rgba(180,135,40,0.55); }
+    .sh-venue-cta:hover { box-shadow: 0 10px 22px -8px rgba(180,135,40,0.7); }
     .sh-ed-ghost:hover { border-color: #C8A96E; background: #FFF8E8; }
     .sh-ed-bar { display: flex; align-items: center; gap: 10px; margin-bottom: 12px; }
     .sh-ed-hint { flex: 1; min-width: 0; font-size: 0.94rem; font-weight: 600; color: #57534E; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
@@ -208,7 +210,7 @@ function renderHead({
     .shw-kit { position: sticky; top: 96px; background: #FFFDF9; border: 1px solid #E8DCC4; border-radius: 16px; padding: 20px 20px 16px; box-shadow: 0 1px 2px rgba(120, 85, 30, 0.04), 0 18px 40px -26px rgba(120, 85, 30, 0.28); }
     .shw-kit-titles { display: flex; align-items: baseline; justify-content: space-between; gap: 10px; }
     .shw-kit-title { font-family: var(--font-sans); font-size: 0.70rem; font-weight: 700; letter-spacing: 0.17em; text-transform: uppercase; color: #8A6A2E; }
-    .shw-kit-sub { font-family: var(--font-serif); font-size: 1.15rem; font-weight: 600; color: #181412; font-variant-numeric: tabular-nums; }
+    .shw-kit-sub { font-family: var(--font-serif); font-size: 1.15rem; font-weight: 600; color: #181412; font-variant-numeric: lining-nums tabular-nums; font-feature-settings: "lnum" 1; }
     .shw-kit-bar { height: 2px; background: #EFE6D4; border-radius: 999px; overflow: hidden; margin: 12px 0 8px; }
     .shw-kit-bar-fill { height: 100%; width: 0; background: #B89352; transition: width 0.5s ease; }
     .shw-kit-list { list-style: none; margin: 0; padding: 0; }

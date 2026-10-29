@@ -4,6 +4,7 @@
 const { escapeHtml, renderHead, renderNavbar, renderFooter, renderInteractiveScript } = require('./templates');
 const { renderZone4ProofStackAndPricing } = require('./feature-carousel');
 const { renderSetupWizardHtml } = require('./setup-wizard');
+const { renderDirectoryPage } = require('./directory-view');
 
 function renderZone1Hero(plan) {
   const vId = escapeHtml(plan.vaultId || 'SH-4819');
@@ -339,6 +340,7 @@ function renderZone3InteractiveStudio(plan) {
               <div style="display:flex;align-items:center;gap:8px;flex-shrink:0;">
                 <span id="sh-mom-sandbox-badge" style="display:none;"></span>
                 <button type="button" class="sh-ed-ghost" onclick="window.shOpenSetupWizard()">&larr; Edit setup</button>
+                <a href="/directory" class="sh-ed-ghost" style="text-decoration:none;">Venue layouts</a>
                 <button type="button" class="sh-ed-ghost" onclick="window.shOpenVaultModal()">&#128190; Save</button>
               </div>
             </div>
@@ -444,7 +446,7 @@ function renderZone3InteractiveStudio(plan) {
             <!-- Stage Footer -->
             <div style="display:flex;justify-content:space-between;align-items:center;gap:8px;flex-wrap:wrap;font-size:0.78rem;color:#78716C;padding:2px 4px 0;">
               <a id="sh-footer-vault-link" href="/vault/${vId}" style="color:#065F46;font-weight:700;text-decoration:none;">Print Command Center (/vault/${vId}) &nearr;</a>
-              <a href="/directory" style="color:#78350F;font-weight:700;text-decoration:none;">60+ Venue Floorplans &nearr;</a>
+              <a href="/directory" class="sh-venue-cta">Browse venue layouts by guests &amp; room size &rarr;</a>
             </div>
           </div>
         </div>
@@ -656,26 +658,16 @@ function renderHomePage(initialAudit, sampleSeoPages = []) {
 
 function renderLandingPage(initialAudit) { return renderHomePage(initialAudit, []); }
 
-function renderDirectoryPage(seoPages = []) {
-  const cards = seoPages.map(p => `<a href="/seo/${escapeHtml(p.slug)}" class="panel" style="padding:20px;text-decoration:none;color:inherit;display:flex;flex-direction:column;justify-content:space-between;gap:12px;"><div><div style="display:flex;justify-content:space-between;align-items:center;gap:6px;margin-bottom:8px;"><span class="badge badge-cyan" style="font-size:0.68rem;padding:3px 8px;">${escapeHtml(p.category || 'Wedding Floorplan')}</span><span class="badge badge-emerald tabular" style="font-size:0.68rem;padding:3px 8px;">${escapeHtml(String(p.csov_score || 98))}% Harmony</span></div><h3 class="serif-display" style="font-size:1.22rem;color:#181412;margin-bottom:6px;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden;">${escapeHtml(p.title)}</h3><p style="font-size:0.84rem;color:#44403C;line-height:1.48;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden;">${escapeHtml(p.meta_description)}</p></div><div style="font-size:0.80rem;font-weight:800;color:#8C2D19;">Open Floorplan &amp; BEO Template &rarr;</div></a>`).join('');
-  return [
-    renderHead({ title: '60+ Wedding & Event Seating Chart Floorplan Templates | SeatHarmony Directory', description: 'Browse 60+ verified wedding reception, rehearsal dinner, Tuscan banquet, and charity gala floorplan templates with clockwise caterer BEOs and 24"×36" welcome signs.', canonicalPath: '/directory', ogSlug: 'directory' }),
-    '<body>', renderNavbar(),
-    `<main class="container" style="padding:48px 24px 72px;"><div style="max-width:740px;margin:0 auto 36px;text-align:center;"><div class="studio-eyebrow-kicker" style="margin-left:auto;margin-right:auto;">PROGRAMMATIC FLOORPLAN &amp; BEO DIRECTORY</div><h1 class="studio-zone-title" style="text-align:center;">60+ Verified Wedding &amp; Event Floorplan Templates</h1><p style="font-size:0.98rem;color:#44403C;line-height:1.55;margin:0 auto;">Select any guest count, table geometry (60&Prime; Round, 8ft Banquet, Sweetheart, or King&rsquo;s Table), or family seating scenario to launch in the interactive studio.</p></div><div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(320px,1fr));gap:18px;">${cards}</div></main>`,
-    renderFooter(), '</body></html>'
-  ].join('\n');
-}
-
 function renderSeoDetailPage(pageRow, relatedPages = []) {
   let payload = {};
   try { payload = JSON.parse(pageRow.payload_json || '{}'); } catch (_) {}
   const faqs = Array.isArray(payload.faqs) ? payload.faqs : [];
   const faqHtml = faqs.map(f => `<details class="studio-faq-item" open><summary><span>${escapeHtml(f.question)}</span><span>&#9662;</span></summary><div style="padding-top:8px;font-size:0.92rem;color:#44403C;line-height:1.55;">${escapeHtml(f.answer)}</div></details>`).join('');
-  const relHtml = relatedPages.map(r => `<a href="/seo/${escapeHtml(r.slug)}" class="panel" style="padding:14px;text-decoration:none;color:inherit;"><div style="font-size:0.72rem;font-weight:800;color:#8C2D19;margin-bottom:4px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;">${escapeHtml(r.category)} &middot; ${escapeHtml(String(r.csov_score))}% Harmony</div><div style="font-weight:700;font-size:0.90rem;color:#181412;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden;">${escapeHtml(r.title)}</div></a>`).join('');
+  const relHtml = relatedPages.map(r => `<a href="/seo/${escapeHtml(r.slug)}" class="panel" style="padding:14px;text-decoration:none;color:inherit;"><div style="font-size:0.72rem;font-weight:800;color:#8C2D19;margin-bottom:4px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;">${escapeHtml(r.category)}</div><div style="font-weight:700;font-size:0.90rem;color:#181412;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden;">${escapeHtml(r.title)}</div></a>`).join('');
   return [
     renderHead({ title: `${pageRow.title} | SeatHarmony Studio`, description: pageRow.meta_description, canonicalPath: `/seo/${pageRow.slug}`, ogSlug: pageRow.slug }),
     '<body>', renderNavbar(),
-    `<main class="container" style="padding:48px 24px 72px;"><div style="max-width:860px;margin:0 auto;"><div style="display:flex;gap:8px;align-items:center;margin-bottom:12px;flex-wrap:wrap;"><a href="/directory" style="font-size:0.82rem;font-weight:700;color:#8C2D19;text-decoration:none;">&larr; All 60+ Floorplans</a><span class="badge badge-emerald">${escapeHtml(pageRow.category)} &middot; ${escapeHtml(String(pageRow.csov_score))}% Harmony</span></div><h1 class="studio-zone-title" style="margin-bottom:12px;">${escapeHtml(pageRow.title)}</h1><p style="font-size:1.02rem;color:#44403C;line-height:1.58;margin-bottom:24px;max-width:65ch;">${escapeHtml(payload.summary || pageRow.meta_description)}</p><div class="panel" style="padding:24px;margin-bottom:28px;background:#FAF6EE;border-color:#C8A96E;"><h2 class="serif-display" style="font-size:1.5rem;margin-bottom:6px;">Customize This Floorplan Live in Studio</h2><p style="font-size:0.92rem;color:#44403C;line-height:1.5;margin-bottom:16px;max-width:62ch;">Load this table geometry, run the 1-click family conflict solver, and export your Clockwise 12:00 Caterer BEO and 24&Prime;&times;36&Prime; Welcome Sign.</p><div style="display:flex;gap:12px;flex-wrap:wrap;"><a href="/?preset=${encodeURIComponent(pageRow.slug)}#studio" class="btn btn-primary">Load Template in Interactive Studio &rarr;</a><a href="/buy/complete_dossier?target=${encodeURIComponent(pageRow.slug)}" class="btn btn-secondary">Unlock Print &amp; BEO Pack ($14.99)</a></div></div>${faqHtml ? `<h2 class="serif-display" style="font-size:1.6rem;margin-bottom:12px;">Layout &amp; Catering Specifications</h2><div style="display:flex;flex-direction:column;gap:10px;margin-bottom:32px;">${faqHtml}</div>` : ''}<h3 class="serif-display" style="font-size:1.4rem;margin-bottom:12px;">Related Reception &amp; Event Floorplans</h3><div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(240px,1fr));gap:12px;">${relHtml}</div></div></main>`,
+    `<main class="container" style="padding:48px 24px 72px;"><div style="max-width:860px;margin:0 auto;"><div style="display:flex;gap:8px;align-items:center;margin-bottom:12px;flex-wrap:wrap;"><a href="/directory" style="font-size:0.82rem;font-weight:700;color:#8C2D19;text-decoration:none;">&larr; All 60+ Floorplans</a><span class="badge badge-emerald">${escapeHtml(pageRow.category)}</span></div><h1 class="studio-zone-title" style="margin-bottom:12px;">${escapeHtml(pageRow.title)}</h1><p style="font-size:1.02rem;color:#44403C;line-height:1.58;margin-bottom:24px;max-width:65ch;">${escapeHtml(payload.summary || pageRow.meta_description)}</p><div class="panel" style="padding:24px;margin-bottom:28px;background:#FAF6EE;border-color:#C8A96E;"><h2 class="serif-display" style="font-size:1.5rem;margin-bottom:6px;">Customize This Floorplan Live in Studio</h2><p style="font-size:0.92rem;color:#44403C;line-height:1.5;margin-bottom:16px;max-width:62ch;">Load this table geometry, run the 1-click family conflict solver, and export your Clockwise 12:00 Caterer BEO and 24&Prime;&times;36&Prime; Welcome Sign.</p><div style="display:flex;gap:12px;flex-wrap:wrap;"><a href="/?preset=${encodeURIComponent(pageRow.slug)}#studio" class="btn btn-primary">Load Template in Interactive Studio &rarr;</a><a href="/buy/complete_dossier?target=${encodeURIComponent(pageRow.slug)}" class="btn btn-secondary">Unlock Print &amp; BEO Pack ($14.99)</a></div></div>${faqHtml ? `<h2 class="serif-display" style="font-size:1.6rem;margin-bottom:12px;">Layout &amp; Catering Specifications</h2><div style="display:flex;flex-direction:column;gap:10px;margin-bottom:32px;">${faqHtml}</div>` : ''}<h3 class="serif-display" style="font-size:1.4rem;margin-bottom:12px;">Related Reception &amp; Event Floorplans</h3><div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(240px,1fr));gap:12px;">${relHtml}</div></div></main>`,
     renderFooter(), '</body></html>'
   ].join('\n');
 }
