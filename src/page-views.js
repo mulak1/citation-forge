@@ -610,12 +610,15 @@ function renderZone5FaqAndZone6Close(sampleSeoPages = []) {
       </div>
 
       ${seoLinks ? `
-      <div style="margin-top:72px;margin-bottom:32px;padding-top:40px;border-top:1px solid #E5D9C5;">
-        <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:12px;flex-wrap:wrap;gap:8px;">
-          <span style="font-size:0.82rem;font-weight:800;text-transform:uppercase;letter-spacing:0.08em;color:#78716C;">POPULAR VENUE FLOORPLAN TEMPLATES</span>
-          <a href="/directory" style="font-size:0.88rem;font-weight:700;color:#8C2D19;text-decoration:none;">Browse All 60+ Templates &rarr;</a>
+      <div style="margin-top:112px;margin-bottom:112px;padding-top:96px;border-top:1px solid #E5D9C5;">
+        <div class="bs-section-header" style="margin-bottom:36px;">
+          <h2 class="bs-section-h2" style="margin-bottom:10px;">Start from a <em>real venue layout.</em></h2>
+          <p class="bs-section-sub">Popular floorplans for ballrooms, barns, tents and vineyards. Open one and swap in your own guests.</p>
         </div>
-        <div style="display:flex;flex-wrap:wrap;gap:8px;">${seoLinks}</div>
+        <div style="display:flex;flex-wrap:wrap;justify-content:center;gap:10px;">${seoLinks}</div>
+        <div style="text-align:center;margin-top:28px;">
+          <a href="/directory" style="font-size:0.98rem;font-weight:800;color:#8C2D19;text-decoration:none;">Browse all 60+ templates &rarr;</a>
+        </div>
       </div>` : ''}
 
       <div style="background:linear-gradient(135deg,#FFFDF9 0%,#F5ECE0 100%);color:#181412;border:2px solid #C8A96E;border-radius:22px;padding:36px 30px;text-align:center;box-shadow:0 16px 38px rgba(120,83,40,0.10);">
