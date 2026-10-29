@@ -131,7 +131,7 @@ function renderSeatGroupsClientScript() {
     return h.join('');
   };
   var SH_TABLE_KINDS = { round8: { shape: 'round', cap: 8 }, round10: { shape: 'round', cap: 10 }, banquet12: { shape: 'banquet_2sided', cap: 12 }, kings8: { shape: 'kings_4sided', cap: 8 } };
-  window.shToggleAddMenu = function(ev) { if (ev) ev.stopPropagation(); var m = document.getElementById('sh-add-menu'); if (m) m.style.display = m.style.display === 'none' ? 'block' : 'none'; };
+  window.shToggleAddMenu = function(ev) { if (ev) ev.stopPropagation(); var el = document.getElementById('sh-el-menu'); if (el) el.style.display = 'none'; var m = document.getElementById('sh-add-menu'); if (m) m.style.display = m.style.display === 'none' ? 'block' : 'none'; };
   window.shAddTableType = function(kind) {
     var k = SH_TABLE_KINDS[kind] || SH_TABLE_KINDS.round8, m = document.getElementById('sh-add-menu'); if (m) m.style.display = 'none';
     window.shSnapshot(); window.shFindAndAddNonOverlappingTable({ shape: k.shape, capacity: k.cap });

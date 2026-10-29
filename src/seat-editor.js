@@ -25,7 +25,7 @@ function renderSeatEditorClientScript() {
   function shEdTableLabel(t) { return shNormalizeShape(t.shape) === 'sweetheart' ? 'Sweetheart' : ('Table ' + t.number); }
 
   /* ---- Undo ---- */
-  function shEdState() { return JSON.stringify({ tables: window.__SH_STATE.tables, roomHeight: window.__SH_STATE.roomHeight, rules: window.__SH_STATE.rules }); }
+  function shEdState() { return JSON.stringify({ tables: window.__SH_STATE.tables, roomHeight: window.__SH_STATE.roomHeight, rules: window.__SH_STATE.rules, landmarks: window.__SH_STATE.landmarks }); }
   window.shSnapshot = function() {
     if (!window.__SH_STATE || window.__SH_SUPPRESS_RENDER) return;
     var snap = shEdState(), st = window.__SH_UNDO;
@@ -37,13 +37,13 @@ function renderSeatEditorClientScript() {
     while (st.length && st[st.length - 1] === cur) st.pop();
     if (!st.length) return;
     var prev = JSON.parse(st.pop());
-    window.__SH_STATE.tables = prev.tables; window.__SH_STATE.roomHeight = prev.roomHeight; if (prev.rules) window.__SH_STATE.rules = prev.rules;
+    window.__SH_STATE.tables = prev.tables; window.__SH_STATE.roomHeight = prev.roomHeight; if (prev.rules) window.__SH_STATE.rules = prev.rules; if (prev.landmarks) window.__SH_STATE.landmarks = prev.landmarks; window.__SH_SELECTED_LANDMARK_IDX = null;
     window.__SH_STATE.tables.forEach(function(t) { shRecomputeGeometry(t); });
     window.__SH_OPEN_GUEST = null; window.__SH_SWAP_SOURCE = null;
     window.__SH_SELECTED_TABLE_IDX = Math.min(window.__SH_SELECTED_TABLE_IDX || 0, window.__SH_STATE.tables.length - 1);
     shSyncTableSelectAndPills(); shToast('\\u21b6 Undone'); shRenderAll();
   };
-  ['shMoveGuestToTable', 'shAddNewTable', 'shDeleteSelectedTable', 'shStartTableDrag', 'shChangeTableCapacity', 'shRemoveGuest', 'shQuickAddGuestToTable'].forEach(function(fn) {
+  ['shMoveGuestToTable', 'shAddNewTable', 'shDeleteSelectedTable', 'shStartTableDrag', 'shChangeTableCapacity', 'shRemoveGuest', 'shQuickAddGuestToTable', 'shStartLandmarkDrag'].forEach(function(fn) {
     var orig = window[fn]; if (typeof orig !== 'function') return;
     window[fn] = function() { window.shSnapshot(); return orig.apply(this, arguments); };
   });
@@ -89,6 +89,7 @@ function renderSeatEditorClientScript() {
     var box = document.getElementById('sh-selected-table-box'); if (!box || !window.__SH_STATE || !window.__SH_STATE.tables) return;
     shSyncTableSelectAndPills(); if (window.shRenderLegend) window.shRenderLegend();
     var undoBtn = document.getElementById('sh-undo-btn'); if (undoBtn) undoBtn.style.display = window.__SH_UNDO.length ? '' : 'none';
+    if (window.shElementPanelHtml && window.__SH_SELECTED_LANDMARK_IDX != null && window.__SH_STATE.landmarks && window.__SH_STATE.landmarks[window.__SH_SELECTED_LANDMARK_IDX]) { box.innerHTML = window.shElementPanelHtml(); return; }
     var tables = window.__SH_STATE.tables, tIdx = window.__SH_SELECTED_TABLE_IDX, t = tables[tIdx];
     if (!t) { box.innerHTML = '<div class="sh-ed-empty">Tap any table on the floorplan to see who&rsquo;s sitting there.</div>'; return; }
     if (!t.geometry) shRecomputeGeometry(t);

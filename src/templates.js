@@ -187,6 +187,8 @@ function renderHead({
     .sh-ed-menu-wrap { position: relative; display: inline-block; }
     .sh-ed-menu { position: absolute; right: 0; top: calc(100% + 6px); z-index: 30; min-width: 210px; background: #FFFFFF; border: 1px solid #E2D3B5; border-radius: 12px; padding: 6px; box-shadow: 0 18px 40px -18px rgba(60,40,10,0.4); }
     .sh-ed-menu button { display: flex; justify-content: space-between; align-items: baseline; gap: 10px; width: 100%; padding: 10px 12px; font-size: 14px; font-weight: 700; color: #181412; background: transparent; border: none; border-radius: 8px; cursor: pointer; text-align: left; font-family: inherit; } .sh-ed-menu button:hover { background: #FFF8E8; } .sh-ed-menu small { font-size: 12.5px; color: #78716C; font-weight: 600; }
+    .sh-el-row { display: flex; align-items: center; justify-content: space-between; gap: 10px; padding: 6px 0; font-size: 14.5px; font-weight: 600; color: #44403C; }
+    .sh-ed-menu { max-height: 70vh; overflow-y: auto; }
     .sh-ed-ghost:hover { border-color: #C8A96E; background: #FFF8E8; }
     .sh-ed-bar { display: flex; align-items: center; gap: 10px; margin-bottom: 12px; }
     .sh-ed-hint { flex: 1; min-width: 0; font-size: 0.94rem; font-weight: 600; color: #57534E; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
