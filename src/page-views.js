@@ -46,7 +46,7 @@ function renderZone1Hero(plan) {
             </div>
 
             <!-- Scene 1: The Free Registry Drag-and-Drop Trap -->
-            <div class="sh-vsl-scene" data-scene="1" style="display:none;">
+            <div class="sh-vsl-scene" data-scene="1">
               <div class="sh-vsl-scene-grid">
                 <div class="sh-vsl-scene-copy">
                   <div class="sh-vsl-speaker-row"><img src="/public/avatar-couple.jpg" alt="Maya and Liam" class="sh-vsl-speaker-avatar" loading="lazy" /><div class="sh-vsl-speaker-meta"><span class="sh-vsl-speaker-name">Maya &amp; Liam &bull; 150-Guest Estate Wedding</span><span class="sh-vsl-scene-kicker">THE DRAG-AND-DROP TRAP</span></div></div>
@@ -59,7 +59,7 @@ function renderZone1Hero(plan) {
             </div>
 
             <!-- Scene 2: The Caterer BEO & Foyer Bottleneck Trap -->
-            <div class="sh-vsl-scene" data-scene="2" style="display:none;">
+            <div class="sh-vsl-scene" data-scene="2">
               <div class="sh-vsl-scene-grid">
                 <div class="sh-vsl-scene-copy">
                   <div class="sh-vsl-speaker-row"><img src="/public/avatar-planner.jpg" alt="Venue Catering Coordinator" class="sh-vsl-speaker-avatar" loading="lazy" /><div class="sh-vsl-speaker-meta"><span class="sh-vsl-speaker-name">Venue Catering Coordinator &bull; 72 Hours Out</span><span class="sh-vsl-scene-kicker">THE CATERER &amp; FOYER TRAP</span></div></div>
@@ -72,7 +72,7 @@ function renderZone1Hero(plan) {
             </div>
 
             <!-- Scene 3: Where SeatHarmony Comes In -->
-            <div class="sh-vsl-scene" data-scene="3" style="display:none;">
+            <div class="sh-vsl-scene" data-scene="3">
               <div class="sh-vsl-scene-grid">
                 <div class="sh-vsl-scene-copy">
                   <div class="sh-vsl-speaker-row"><img src="/public/avatar-couple.jpg" alt="Maya and Liam" class="sh-vsl-speaker-avatar" loading="lazy" /><div class="sh-vsl-speaker-meta"><span class="sh-vsl-speaker-name">Maya &amp; Liam &bull; Reception Night</span><span class="sh-vsl-scene-kicker" style="color:#047857;">HOW SEATHARMONY SOLVED IT</span></div></div>

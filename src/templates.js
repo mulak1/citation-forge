@@ -104,8 +104,9 @@ function renderHead({
     .sh-lead-sub { font-size: 1.08rem; line-height: 1.56; color: #44403C; margin: 0; max-width: 58ch; text-wrap: pretty; }
     .sh-vsl-player-shell { width: 100%; background: linear-gradient(180deg, #FFFDF9 0%, #FAF5EB 100%); color: #2C2520; border: 1.5px solid #D4AF37; border-radius: 20px; overflow: hidden; box-shadow: 0 24px 52px -14px rgba(180, 135, 40, 0.18), 0 0 0 4px rgba(212, 175, 55, 0.08); }
     .sh-vsl-garland-frieze { background: linear-gradient(90deg, #F7EFE0 0%, #FFFBEB 50%, #F7EFE0 100%); border-bottom: 1px solid #EADCC5; padding: 2px 0 0; }
-    .sh-vsl-stage { padding: 26px 28px; min-height: 268px; display: flex; align-items: center; background-image: linear-gradient(105deg, rgba(255, 253, 249, 0.94) 0%, rgba(251, 246, 236, 0.91) 58%, rgba(250, 244, 232, 0.86) 100%), url('/public/editorial-hero.jpg'); background-size: cover; background-position: center; }
-    .sh-vsl-scene { width: 100%; }
+    .sh-vsl-stage { padding: 26px 28px; display: grid; align-items: center; background-image: linear-gradient(105deg, rgba(255, 253, 249, 0.94) 0%, rgba(251, 246, 236, 0.91) 58%, rgba(250, 244, 232, 0.86) 100%), url('/public/editorial-hero.jpg'); background-size: cover; background-position: center; }
+    .sh-vsl-scene { width: 100%; grid-area: 1 / 1; visibility: hidden; }
+    .sh-vsl-scene.active { visibility: visible; }
     .sh-vsl-scene-grid { display: grid; grid-template-columns: 1.04fr 0.96fr; gap: 26px; align-items: center; }
     .sh-vsl-speaker-row { display: flex; align-items: center; gap: 11px; margin-bottom: 12px; }
     .sh-vsl-speaker-avatar { width: 46px; height: 46px; border-radius: 50%; object-fit: cover; border: 2px solid #D4AF37; box-shadow: 0 4px 10px rgba(28, 25, 23, 0.14); flex-shrink: 0; }

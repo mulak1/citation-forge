@@ -21,7 +21,7 @@ function renderInteractiveScript(initialPlan) {
     window.__SH_ACTIVE_VSL_SCENE = cleanIdx;
     for (var i = 0; i < scenes.length; i++) {
       var active = (i === cleanIdx);
-      scenes[i].style.display = active ? 'block' : 'none';
+      scenes[i].style.visibility = active ? 'visible' : 'hidden'; scenes[i].setAttribute('aria-hidden', active ? 'false' : 'true');
       scenes[i].classList.toggle('active', active);
     }
     var prog = document.getElementById('sh-vsl-progress-bar'); if (prog) prog.style.width = (((cleanIdx + 1) / total) * 100) + '%';
