@@ -342,7 +342,7 @@ function renderZone3InteractiveStudio(plan) {
                 <span id="sh-mom-sandbox-badge" style="display:none;"></span>
                 <button type="button" class="sh-ed-ghost" onclick="window.shOpenSetupWizard()">&larr; Edit setup</button>
                 <a href="/directory" class="sh-ed-ghost" style="text-decoration:none;">Venue layouts</a>
-                <button type="button" class="sh-ed-ghost" onclick="window.shOpenVaultModal()">&#128190; Save</button>
+                <span id="sh-save-status" class="sh-save-status" aria-live="polite" title="Your seating saves automatically on this device">Auto-saved</span><button type="button" class="sh-ed-ghost" onclick="window.shOpenVaultModal()" title="Get a link or email so you can open this plan on any device">Save online</button>
               </div>
             </div>
 

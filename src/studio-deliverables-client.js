@@ -440,6 +440,7 @@ function renderDeliverablesClientScript() {
   function shAutoPersistVault() {
     if (!window.__SH_STATE) return;
     try { localStorage.setItem('sh_saved_vault_v1', JSON.stringify(window.__SH_STATE)); } catch (_) {}
+    if (window.shwSaveSession) window.shwSaveSession();
     clearTimeout(window.__shPersistTimer);
     window.__shPersistTimer = setTimeout(function() {
       fetch('/api/vault/save', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ vaultId: window.__SH_STATE.vaultId || 'SH-4819', ownerEmail: window.__SH_STATE.ownerEmail || '', state: window.__SH_STATE }) }).catch(function() {});

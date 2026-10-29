@@ -225,7 +225,7 @@ function renderSetupWizardClientScript() {
     var sub = shwEl('shw-kit-sub'); if (sub) sub.textContent = done + ' of 5';
     var bar = shwEl('shw-kit-bar-fill'); if (bar) bar.style.width = (done / 5 * 100) + '%';
     var foot = shwEl('shw-kit-foot'); if (foot) foot.textContent = done >= 4 ? 'One last step: we seat your guests.' : 'Each answer fills a page of your binder.';
-    S.kitCount = done; S.kitSt = st;
+    S.kitCount = done; S.kitSt = st; if (window.shwSaveSession) window.shwSaveSession();
     var kr = shwEl('shw-kit'); if (kr) { var rr = kr.getBoundingClientRect(); S.kitInView = rr.height > 0 && rr.bottom > 70 && rr.top < window.innerHeight - 40; }
     var clr = { 1: (shwEl('shw-couple') || {}).value || (shwEl('shw-venue') || {}).value, 2: S.guests, 3: S.table, 4: shwHouseholds().length, 5: S.apart.length };
     for (var n = 1; n <= 5; n++) { var c = shwEl('shw-clear-' + n); if (c) c.hidden = !clr[n]; }
@@ -316,7 +316,7 @@ function renderSetupWizardClientScript() {
     var S = window.__SH_SETUP;
     ['sign', 'plan', 'cards', 'apart'].forEach(shwResetField);
     S.step = 1; S.maxStep = 1; S.built = false; S.sample = false; S.engaged = false; S.kitDone = {}; S.confirmClear = false;
-    try { localStorage.removeItem('sh_binder_engaged'); } catch (_) {}
+    try { localStorage.removeItem('sh_binder_engaged'); localStorage.removeItem('sh_session_v1'); } catch (_) {}
     var pop = shwEl('shw-pop'); if (pop) pop.style.display = 'none';
     var w = shwEl('sh-setup-wizard'), g = shwEl('sh-builder-grid'); if (g) g.style.display = 'none'; if (w) w.style.display = '';
     shwPaint();
@@ -464,6 +464,45 @@ function renderSetupWizardClientScript() {
       window.shFinishSetupWizard();
     };
   })();
+  /* ---- Auto-save on this device + restore when you come back (e.g. after visiting the Command Center) ---- */
+  var SHW_SESSION_KEY = 'sh_session_v1', shwSaveTimer = null;
+  function shwStatus(text, warn) { var el = shwEl('sh-save-status'); if (el) { el.textContent = text; el.style.color = warn ? '#9F1239' : ''; } }
+  window.shwSaveSession = function() {
+    clearTimeout(shwSaveTimer);
+    shwSaveTimer = setTimeout(function() {
+      var S = window.__SH_SETUP, g = shwEl('sh-builder-grid'), editorOn = Boolean(g && g.style.display !== 'none');
+      var f = { couple: (shwEl('shw-couple') || {}).value || '', venue: (shwEl('shw-venue') || {}).value || '', list: (shwEl('shw-guests') || {}).value || '', guests: S.guests, table: S.table, apart: S.apart };
+      if (!(editorOn || f.couple || f.venue || f.list || f.guests || f.table || f.apart.length)) return;
+      try {
+        localStorage.setItem(SHW_SESSION_KEY, JSON.stringify({ v: 1, ts: Date.now(), editor: editorOn, built: S.built, sample: S.sample, step: S.step, fields: f, state: editorOn ? window.__SH_STATE : null }));
+        shwStatus('Saved just now'); setTimeout(function() { shwStatus('Auto-saved'); }, 4000);
+      } catch (_) { shwStatus('Could not save on this device', true); }
+    }, 450);
+  };
+  window.shwDismissNote = function() { var n = shwEl('sh-restore-note'); if (n) n.remove(); };
+  function shwAgo(ts) { var m = Math.round((Date.now() - ts) / 60000); return m < 1 ? 'just now' : (m < 60 ? m + ' min ago' : (m < 1440 ? Math.round(m / 60) + ' hr ago' : Math.round(m / 1440) + ' days ago')); }
+  function shwRestoreSession() {
+    var raw = null; try { raw = JSON.parse(localStorage.getItem(SHW_SESSION_KEY) || 'null'); } catch (_) { return false; }
+    if (!raw || raw.v !== 1) return false;
+    var S = window.__SH_SETUP, f = raw.fields || {};
+    shwEl('shw-couple').value = f.couple || ''; shwEl('shw-venue').value = f.venue || ''; shwEl('shw-guests').value = f.list || '';
+    S.guests = f.guests || 0; S.table = f.table || ''; S.apart = f.apart || []; S.engaged = true; S.userStarted = false;
+    window.shwCountGuests();
+    if (raw.editor && raw.state && raw.state.tables) {
+      window.__SH_STATE = raw.state; S.built = Boolean(raw.built); S.sample = Boolean(raw.sample);
+      window.__SH_STATE.tables.forEach(function(t) { shRecomputeGeometry(t); });
+      window.__SH_SELECTED_TABLE_IDX = Math.min(1, window.__SH_STATE.tables.length - 1);
+      window.shFinishSetupWizard();
+      var grid = shwEl('sh-builder-grid');
+      if (grid && !shwEl('sh-restore-note')) {
+        var n = document.createElement('div'); n.id = 'sh-restore-note'; n.className = 'sh-restore-note';
+        n.innerHTML = '<span>Welcome back. Your seating was restored from this device (saved ' + shwAgo(raw.ts) + ').</span><span><button type="button" onclick="window.shwDoClearAll()">Start over</button><button type="button" aria-label="Dismiss" onclick="window.shwDismissNote()">&times;</button></span>';
+        grid.parentNode.insertBefore(n, grid);
+      }
+    } else { S.step = Math.max(1, Math.min(5, raw.step || 1)); S.maxStep = S.step; shwPaint(); }
+    return true;
+  }
+
   document.addEventListener('DOMContentLoaded', function() {
     var kitEl = shwEl('shw-kit');
     var ticking = false;
@@ -473,6 +512,7 @@ function renderSetupWizardClientScript() {
     shwPaint();
     try {
       var sp = new URLSearchParams(window.location.search);
+      if (!(sp.get('preset') || sp.get('sandbox') || sp.get('checkout') || sp.get('unlocked') || sp.get('vault') || sp.get('target'))) shwRestoreSession();
       if (sp.get('preset') && window.shwBuildFromLayout(sp.get('preset'))) { /* sized layout built */ }
       else if (sp.get('sandbox') || sp.get('preset') || sp.get('checkout') || sp.get('unlocked')) window.shFinishSetupWizard();
     } catch (_) {}
