@@ -211,7 +211,7 @@ function renderZone3InteractiveStudio(plan) {
           <!-- CARD 1 OF 5: Couple / Event Names, Reception Venue & Preset Scenario -->
           <div class="studio-wizard-step active" id="sh-wizard-step-1" data-step="1">
             <button type="button" class="studio-wizard-header" onclick="window.scrollToShCard(1)">
-              <span class="studio-wizard-step-title"><span style="color:#8C2D19;white-space:nowrap;">&#9679; Step 1:</span> Event Title &amp; Preset</span>
+              <span class="studio-wizard-step-title"><span style="color:#8C2D19;white-space:nowrap;">&#9679; Step 1:</span> Event &amp; Preset</span>
               <span class="studio-wizard-step-summary" id="sh-wizard-summary-1">${escapeHtml(plan.title || "Maya & Liam's Estate Reception")}</span>
             </button>
             <div class="studio-wizard-body">
@@ -487,9 +487,9 @@ David &amp; Elena Rostova (Filet, Peanut Allergy)</textarea>
             <!-- 4-Tab Switcher (All 4 Tabs Free to Preview Live!) -->
             <div class="studio-stage-tabs" role="tablist" aria-label="SeatHarmony 4-Tab Operational Kit">
               <button id="sh-tab-floorplan" type="button" class="studio-stage-tab-btn tab-btn active" data-tab="llmsTxt" onclick="window.shSetActiveTab('floorplan')">&#127919; 1. Floorplan</button>
-              <button id="sh-tab-beo" type="button" class="studio-stage-tab-btn tab-btn" data-tab="jsonLd" onclick="window.shSetActiveTab('beo')">&#127869; 2. Caterer Meal Sheet (BEO)</button>
-              <button id="sh-tab-poster" type="button" class="studio-stage-tab-btn" onclick="window.shSetActiveTab('poster')">&#129703; 3. 24&Prime;&times;36&Prime; Welcome Sign</button>
-              <button id="sh-tab-qr" type="button" class="studio-stage-tab-btn" onclick="window.shSetActiveTab('qr')">&#128241; 4. Guest QR Lookup</button>
+              <button id="sh-tab-beo" type="button" class="studio-stage-tab-btn tab-btn" data-tab="jsonLd" onclick="window.shSetActiveTab('beo')">&#127869; 2. Caterer BEO</button>
+              <button id="sh-tab-poster" type="button" class="studio-stage-tab-btn" onclick="window.shSetActiveTab('poster')">&#129703; 3. 24&Prime;&times;36&Prime; Sign</button>
+              <button id="sh-tab-qr" type="button" class="studio-stage-tab-btn" onclick="window.shSetActiveTab('qr')">&#128241; 4. Guest QR</button>
             </div>
 
             <!-- Foreground Specimen Card -->
