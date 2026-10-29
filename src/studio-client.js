@@ -4,6 +4,7 @@
  */
 
 const { renderDeliverablesClientScript } = require('./studio-deliverables-client');
+const { renderSetupWizardClientScript } = require('./setup-wizard');
 
 function renderInteractiveScript(initialPlan) {
   const safeInitialJson = JSON.stringify(initialPlan || {}).replace(/</g, '\\u003c');
@@ -659,7 +660,8 @@ function renderInteractiveScript(initialPlan) {
       if (openIdx !== -1) tIdx = openIdx;
     }
     window.__SH_SELECTED_TABLE_IDX = tIdx;
-    const tbl = window.__SH_STATE.tables[tIdx]; if (!tbl) return;
+    let tbl = window.__SH_STATE.tables[tIdx]; if (!tbl) return;
+    const startLen = tbl.guests.length, startCap = tbl.capacity || 8;
     const lower = raw.toLowerCase();
     const meal = (lower.includes('halibut') || lower.includes('fish') || lower.includes('salmon')) ? 'Pan-Seared Halibut' : ((lower.includes('vegan') || lower.includes('risotto') || lower.includes('veg')) ? 'Vegan Risotto' : 'Filet Mignon');
     const allergy = (lower.includes('peanut') || lower.includes('nut')) ? '🥜 SEVERE PEANUT ALLERGY' : ((lower.includes('gf') || lower.includes('celiac') || lower.includes('gluten')) ? '🌾 SEVERE CELIAC (GF)' : (lower.includes('dairy') ? 'DAIRY-FREE' : ''));
@@ -684,9 +686,16 @@ function renderInteractiveScript(initialPlan) {
       addedNames.push(guestName);
     }
     for (let k = 1; k <= numKids; k++) {
-      const kidName = 'Leo ' + surname + ' (Child ' + k + ')';
+      const kidName = 'Kid ' + k + ' ' + surname;
       tbl.guests.push({ name: kidName, initials: ('C' + k), role: 'Child (Locked)', meal: 'Kids Chicken Tenders', allergy: allergy, accessibility: k === 1 ? '👶 ADD HIGHCHAIR' : '' });
       addedNames.push(kidName);
+    }
+    if (selVal === 'auto' && tbl.guests.length > startCap) {
+      const n = tbl.guests.length - startLen, moved = tbl.guests.splice(startLen, n);
+      let j = window.__SH_STATE.tables.findIndex(function(t, i) { return i > 0 && !t.locked && t.guests.length + n <= (t.capacity || 8); });
+      if (j === -1) { window.shAddNewTable(); j = window.__SH_STATE.tables.length - 1; }
+      shRecomputeGeometry(tbl); tbl = window.__SH_STATE.tables[j]; window.__SH_SELECTED_TABLE_IDX = j;
+      moved.forEach(function(g) { tbl.guests.push(g); });
     }
     tbl.capacity = Math.max(tbl.capacity, tbl.guests.length);
     window.__SH_STATE.householdsCoupled = (window.__SH_STATE.householdsCoupled || 26) + 1;
@@ -810,7 +819,7 @@ function renderInteractiveScript(initialPlan) {
       parts.push('<g style="cursor:grab;" transform="translate(' + lm.x + ',' + lm.y + ')" onmousedown="window.shStartLandmarkDrag(' + lmIdx + ',event)" ontouchstart="window.shStartLandmarkDrag(' + lmIdx + ',event)" onclick="if((window.__SH_WIZARD_STEP||1)>=4)window.shSelectLandmark(' + lmIdx + ',event)"><title>Drag ' + shEsc(lm.label) + '</title><rect x="' + (-lm.w / 2) + '" y="' + (-lm.h / 2) + '" width="' + lm.w + '" height="' + lm.h + '" rx="8" fill="' + fill + '" stroke="' + stroke + '" stroke-width="' + (isSelLm ? '2.5' : '1.5') + '" stroke-dasharray="4 3"/><text x="0" y="4" text-anchor="middle" fill="' + textCol + '" font-size="11" font-weight="800" letter-spacing="0.06em">' + shEsc(lm.label) + '</text></g>');
     });
     const t2 = plan.tables[1], t5 = plan.tables[4];
-    if (t2 && t5 && (t2.guests.length > 0 || t5.guests.length > 0)) {
+    if (t2 && t5 && !plan.isWizardBuilt && (t2.guests.length > 0 || t5.guests.length > 0)) {
       const mx = Math.round((t2.x + t5.x) / 2), my = Math.round((t2.y + t5.y) / 2) - 22;
       parts.push('<line x1="' + t2.x + '" y1="' + t2.y + '" x2="' + t5.x + '" y2="' + t5.y + '" stroke="#065F46" stroke-width="1.5" stroke-dasharray="5 5" opacity="0.65"/><rect x="' + (mx - 98) + '" y="' + (my - 12) + '" width="196" height="24" rx="12" fill="#ECFDF5" stroke="#065F46" stroke-width="1"/><text x="' + mx + '" y="' + (my + 4) + '" text-anchor="middle" fill="#065F46" font-size="10.2" font-weight="800">✓ Opposite Sides of Dance Floor</text>');
     }
@@ -828,7 +837,7 @@ function renderInteractiveScript(initialPlan) {
         const hw = Math.round(geom.tableWidth / 2), hh = Math.round(geom.tableHeight / 2);
         parts.push('<g transform="translate(' + t.x + ',' + t.y + ') rotate(' + (t.rotation || 0) + ')"><rect x="' + (-hw) + '" y="' + (-hh) + '" width="' + geom.tableWidth + '" height="' + geom.tableHeight + '" rx="10" fill="' + tblFill + '" stroke="' + strokeCol + '" stroke-width="' + strokeW + '"/></g>');
       }
-      parts.push('<text x="' + t.x + '" y="' + (t.y - 4) + '" text-anchor="middle" fill="#1C1917" font-size="12.5" font-weight="800">' + (t.locked ? '🔒 ' : '') + 'Table ' + t.number + '</text><text x="' + t.x + '" y="' + (t.y + 11) + '" text-anchor="middle" fill="#78716C" font-size="9.8" font-weight="700">' + t.guests.length + '/' + t.capacity + ' Seats</text></g>');
+      parts.push('<text x="' + t.x + '" y="' + (t.y - 4) + '" text-anchor="middle" fill="#1C1917" font-size="12.5" font-weight="800">' + (shNormalizeShape(t.shape) === 'sweetheart' ? 'Sweetheart' : ((t.locked ? '🔒 ' : '') + 'Table ' + t.number)) + '</text><text x="' + t.x + '" y="' + (t.y + 11) + '" text-anchor="middle" fill="#78716C" font-size="9.8" font-weight="700">' + t.guests.length + '/' + t.capacity + ' Seats</text></g>');
       geom.seats.forEach(function(s, sIdx) {
         const g = t.guests[sIdx];
         if (!g && !isFineTune) {
@@ -935,8 +944,10 @@ function renderInteractiveScript(initialPlan) {
 
   ${renderDeliverablesClientScript()}
 
+  ${renderSetupWizardClientScript()}
+
   function shRenderAll() {
-    if (!window.__SH_STATE) return;
+    if (!window.__SH_STATE || window.__SH_SUPPRESS_RENDER) return;
     if (typeof window.shSyncWizardStepStage === 'function') window.shSyncWizardStepStage();
     const csovEl = document.getElementById('score-csov'); if (csovEl) csovEl.textContent = String(window.__SH_STATE.harmonyScore || 98);
     if (window.__SH_STATE.tables) {
