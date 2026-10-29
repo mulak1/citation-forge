@@ -183,24 +183,22 @@ function renderZone3InteractiveStudio(plan) {
   <!-- ZONE 3: SCROLL-PACED 5-CARD BUILDER + STICKY LIVE STAGE (FOLD 3) -->
   <section class="studio-zone-section" id="studio">
     <div class="container">
-      <div style="display:flex;align-items:flex-end;justify-content:space-between;gap:14px;flex-wrap:wrap;margin-bottom:8px;">
-        <div>
-          <div class="studio-eyebrow-kicker">LIVE WEDDING &amp; RECEPTION STUDIO &middot; EVENT #<span id="sh-studio-vault-code">${vId}</span></div>
-          <h2 class="studio-zone-title" style="margin-bottom:2px;">Arrange tables, swap seats &amp; <em>preview all 4 reception files live.</em></h2>
-        </div>
-        <div style="display:inline-flex;align-items:center;gap:8px;font-size:0.82rem;font-weight:800;color:#065F46;background:#ECFDF5;border:1px solid #A7F3D0;padding:5px 12px;border-radius:999px;">
+      <div class="bs-section-header" style="margin-bottom:18px;text-align:center;display:flex;flex-direction:column;align-items:center;">
+        <div class="bs-section-eyebrow" style="margin-left:auto;margin-right:auto;">LIVE WEDDING &amp; RECEPTION STUDIO &middot; EVENT #<span id="sh-studio-vault-code">${vId}</span></div>
+        <h2 class="bs-section-h2" style="text-align:center;margin-left:auto;margin-right:auto;">Arrange tables, swap seats &amp; <em>preview all 4 reception files live.</em></h2>
+        <div style="display:inline-flex;align-items:center;gap:8px;font-size:0.82rem;font-weight:800;color:#065F46;background:#ECFDF5;border:1px solid #A7F3D0;padding:5px 12px;border-radius:999px;margin-top:10px;">
           <span id="sh-endowed-progress-label">Reception Plan: Step 1 of 5</span>
           <span style="width:82px;height:7px;background:#E6E0D6;border-radius:999px;overflow:hidden;display:inline-block;"><span id="sh-endowed-progress-fill" style="display:block;width:64%;height:100%;background:linear-gradient(90deg,#C8A96E,#10B981);transition:width 0.25s ease;"></span></span>
         </div>
       </div>
 
-      <!-- Live Status Toast + Mobile Quick-Jump to Live Canvas -->
-      <div style="display:flex;flex-wrap:wrap;align-items:center;justify-content:space-between;gap:8px;margin-bottom:8px;">
-        <div id="sh-live-toast" style="background:#181412;color:#FDE68A;border:1px solid #C8A96E;padding:7px 13px;border-radius:999px;font-size:0.82rem;font-weight:700;display:inline-flex;align-items:center;gap:8px;max-width:100%;">
+      <!-- Live Status Toast + Mobile Quick-Jump to Live Canvas (Centered) -->
+      <div style="display:flex;flex-wrap:wrap;align-items:center;justify-content:center;gap:10px;margin-bottom:18px;text-align:center;">
+        <div id="sh-live-toast" style="background:#FAF3E3;color:#78350F;border:1.5px solid #C8A96E;padding:7px 14px;border-radius:999px;font-size:0.84rem;font-weight:700;display:inline-flex;align-items:center;gap:8px;max-width:100%;">
           &#10022; Ready: Drag any table or seat on the floorplan, or use Focus Table (2.4&times;) to zoom in
         </div>
-        <div style="display:flex;gap:6px;flex-wrap:wrap;">
-          <button type="button" id="sh-expand-stage-top-btn" onclick="window.shToggleFullWidthStage()" class="studio-tap-chip" style="border-color:#181412;background:#FFFFFF;color:#181412;font-weight:800;">&#9974; Full-Width Floorplan</button>
+        <div style="display:flex;gap:6px;flex-wrap:wrap;justify-content:center;">
+          <button type="button" id="sh-expand-stage-top-btn" onclick="window.shToggleFullWidthStage()" class="studio-tap-chip" style="border-color:#C8A96E;background:#FFFFFF;color:#181412;font-weight:800;">&#9974; Full-Width Floorplan</button>
           <button type="button" onclick="window.shOpenVaultModal()" class="studio-tap-chip" style="border-color:#C8A96E;background:#FAF3E3;color:#78350F;font-weight:800;">&#128190; Save / Login (#<span id="sh-btn-vault-id">${vId}</span>)</button>
           <a href="#studio-bespoke-artifact-stage" onclick="var el=document.getElementById('sh-stat-harmony')||document.getElementById('studio-bespoke-artifact-stage');if(el){window.scrollTo({top:el.getBoundingClientRect().top+window.pageYOffset-110,behavior:'auto'});}return false;" class="mobile-jump-canvas-btn" style="font-size:0.82rem;font-weight:800;color:#181412;background:#FAF3E3;border:1.5px solid #C8A96E;padding:6px 12px;border-radius:999px;text-decoration:none;">&#128065; Jump to Stage &darr;</a>
         </div>
@@ -836,7 +834,7 @@ function renderDirectoryPage(seoPages = []) {
   return [
     renderHead({ title: '60+ Wedding & Event Seating Chart Floorplan Templates | SeatHarmony Directory', description: 'Browse 60+ verified wedding reception, rehearsal dinner, Tuscan banquet, and charity gala floorplan templates with clockwise caterer BEOs and 24"×36" welcome signs.', canonicalPath: '/directory', ogSlug: 'directory' }),
     '<body>', renderNavbar(),
-    `<main class="container" style="padding:48px 24px 72px;"><div style="max-width:720px;margin-bottom:32px;"><div class="studio-eyebrow-kicker">PROGRAMMATIC FLOORPLAN &amp; BEO DIRECTORY</div><h1 class="studio-zone-title">60+ Verified Wedding &amp; Event Floorplan Templates</h1><p style="font-size:0.98rem;color:#44403C;line-height:1.55;">Select any guest count, table geometry (60&Prime; Round, 8ft Banquet, Sweetheart, or King&rsquo;s Table), or family seating scenario to launch in the interactive studio.</p></div><div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(320px,1fr));gap:18px;">${cards}</div></main>`,
+    `<main class="container" style="padding:48px 24px 72px;"><div style="max-width:740px;margin:0 auto 36px;text-align:center;"><div class="studio-eyebrow-kicker" style="margin-left:auto;margin-right:auto;">PROGRAMMATIC FLOORPLAN &amp; BEO DIRECTORY</div><h1 class="studio-zone-title" style="text-align:center;">60+ Verified Wedding &amp; Event Floorplan Templates</h1><p style="font-size:0.98rem;color:#44403C;line-height:1.55;margin:0 auto;">Select any guest count, table geometry (60&Prime; Round, 8ft Banquet, Sweetheart, or King&rsquo;s Table), or family seating scenario to launch in the interactive studio.</p></div><div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(320px,1fr));gap:18px;">${cards}</div></main>`,
     renderFooter(), '</body></html>'
   ].join('\n');
 }
