@@ -88,8 +88,15 @@ function renderZone1Hero(plan) {
 
           <div class="sh-vsl-controls">
             <button type="button" class="sh-vsl-play-btn" id="sh-vsl-play-btn" onclick="window.shToggleVslAutoPlay && window.shToggleVslAutoPlay()"><span id="sh-vsl-play-icon">&#9654;</span><span id="sh-vsl-play-label">Auto-Play Story</span></button>
-            <div class="sh-vsl-progress-wrap" onclick="window.shNextVslScene && window.shNextVslScene()"><div class="sh-vsl-progress-bar" id="sh-vsl-progress-bar" style="width:25%;"></div></div>
-            <button type="button" class="sh-vsl-next-scene-btn" onclick="window.shNextVslScene && window.shNextVslScene()">Next &rarr;</button>
+            <button type="button" class="sh-vsl-next-scene-btn" id="sh-vsl-prev-btn" aria-label="Previous slide" onclick="window.shGoVslStep && window.shGoVslStep(-1)">&larr;</button>
+            <div class="sh-vsl-steps" role="tablist" aria-label="Story slides">
+              <button type="button" class="sh-vsl-step" role="tab" aria-label="Slide 1: The Collapse" onclick="window.shJumpVslStep(0)"><span class="sh-vsl-step-track"><span class="sh-vsl-step-fill"></span></span><span class="sh-vsl-step-label">1. Collapse</span></button>
+              <button type="button" class="sh-vsl-step" role="tab" aria-label="Slide 2: The Trap" onclick="window.shJumpVslStep(1)"><span class="sh-vsl-step-track"><span class="sh-vsl-step-fill"></span></span><span class="sh-vsl-step-label">2. The Trap</span></button>
+              <button type="button" class="sh-vsl-step" role="tab" aria-label="Slide 3: The Caterer" onclick="window.shJumpVslStep(2)"><span class="sh-vsl-step-track"><span class="sh-vsl-step-fill"></span></span><span class="sh-vsl-step-label">3. Caterer</span></button>
+              <button type="button" class="sh-vsl-step" role="tab" aria-label="Slide 4: The Fix" onclick="window.shJumpVslStep(3)"><span class="sh-vsl-step-track"><span class="sh-vsl-step-fill"></span></span><span class="sh-vsl-step-label">4. The Fix</span></button>
+            </div>
+            <span id="sh-vsl-progress-bar" style="display:none;"></span>
+            <button type="button" class="sh-vsl-next-scene-btn" id="sh-vsl-next-btn" onclick="window.shGoVslStep && window.shGoVslStep(1)">Next &rarr;</button>
           </div>
         </div>
 

@@ -16,24 +16,6 @@ function renderInteractiveScript(initialPlan) {
   window.__SH_SIGN_MONOGRAM = 'M&L · EST. 2026'; window.__SH_CANVAS_ZOOM = 'room'; window.__SH_DRAG_STATE = null; window.__SH_VSL_TIMER = null;
   window.__SH_WIZARD_STEP = 1;
 
-  window.selectShVslScene = function(idx) {
-    var scenes = document.querySelectorAll('#studio-editorial-vsl-stage .sh-vsl-scene');
-    var total = scenes.length || 4, cleanIdx = ((idx % total) + total) % total;
-    window.__SH_ACTIVE_VSL_SCENE = cleanIdx;
-    for (var i = 0; i < scenes.length; i++) {
-      var active = (i === cleanIdx);
-      scenes[i].style.visibility = active ? 'visible' : 'hidden'; scenes[i].setAttribute('aria-hidden', active ? 'false' : 'true');
-      scenes[i].classList.toggle('active', active);
-    }
-    var prog = document.getElementById('sh-vsl-progress-bar'); if (prog) prog.style.width = (((cleanIdx + 1) / total) * 100) + '%';
-  };
-  window.shNextVslScene = function() { window.selectShVslScene((window.__SH_ACTIVE_VSL_SCENE || 0) + 1); };
-  window.shToggleVslAutoPlay = function() {
-    var iconEl = document.getElementById('sh-vsl-play-icon'), lblEl = document.getElementById('sh-vsl-play-label');
-    if (window.__SH_VSL_TIMER) { clearInterval(window.__SH_VSL_TIMER); window.__SH_VSL_TIMER = null; if (iconEl) iconEl.innerHTML = '&#9654;'; if (lblEl) lblEl.textContent = 'Auto-Play Story'; return; }
-    if (iconEl) iconEl.innerHTML = '&#10074;&#10074;'; if (lblEl) lblEl.textContent = 'Playing Story...';
-    window.__SH_VSL_TIMER = setInterval(function() { window.shNextVslScene(); }, 3800);
-  };
   window.shLoadVslSceneIntoStudio = function() {
     window.loadPresetScenario('estate-150', document.querySelector('[data-preset="estate-150"]'));
     var st = document.getElementById('studio'); if (st) st.scrollIntoView({ behavior: 'smooth' });

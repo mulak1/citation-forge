@@ -134,6 +134,14 @@ function renderHead({
     .sh-vsl-play-btn { display: inline-flex; align-items: center; gap: 7px; background: linear-gradient(135deg, #B45309 0%, #92400E 100%); color: #FFFFFF; border: 1px solid #78350F; border-radius: 9px; padding: 8px 15px; font-size: 13.5px; font-weight: 800; cursor: pointer; flex-shrink: 0; box-shadow: 0 4px 12px rgba(180, 83, 9, 0.22); }
     .sh-vsl-progress-wrap { flex: 1; height: 8px; background: #E7DAC3; border-radius: 999px; overflow: hidden; cursor: pointer; }
     .sh-vsl-progress-bar { height: 100%; background: linear-gradient(90deg, #D97706, #059669); transition: width 0.25s ease; }
+    .sh-vsl-steps { flex: 1; display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 8px; min-width: 0; }
+    .sh-vsl-step { display: flex; flex-direction: column; align-items: stretch; gap: 5px; background: transparent; border: none; padding: 4px 0; cursor: pointer; text-align: left; min-width: 0; }
+    .sh-vsl-step-track { display: block; height: 6px; background: #E7DAC3; border-radius: 999px; overflow: hidden; }
+    .sh-vsl-step-fill { display: block; height: 100%; width: 0; background: linear-gradient(90deg, #D97706, #059669); border-radius: 999px; }
+    .sh-vsl-step-label { font-size: 12px; font-weight: 600; color: #8A7A66; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; line-height: 1.2; }
+    .sh-vsl-step.active .sh-vsl-step-label, .sh-vsl-step:hover .sh-vsl-step-label { color: #78350F; font-weight: 800; }
+    .sh-vsl-step:focus-visible { outline: 2px solid #B45309; outline-offset: 2px; border-radius: 6px; }
+    .sh-vsl-next-scene-btn:disabled { opacity: 0.4; cursor: default; }
     .sh-vsl-next-scene-btn { background: #FFFFFF; color: #44403C; border: 1px solid #D6CBB9; border-radius: 9px; padding: 7px 14px; font-size: 13.5px; font-weight: 700; cursor: pointer; flex-shrink: 0; }
     .sh-zone1-cta-block { display: flex; flex-direction: column; align-items: center; gap: 10px; }
     .sh-surer-cta-row { display: flex; flex-wrap: wrap; justify-content: center; gap: 12px; }
@@ -277,6 +285,10 @@ function renderHead({
       .studio-sticky-right-col { position: static; }
       .studio-zone1-hero { padding: 20px 0 44px; }
       .sh-vsl-stage { padding: 18px 16px; }
+      .sh-vsl-controls { flex-wrap: wrap; gap: 8px; padding: 10px 12px; }
+      .sh-vsl-steps { order: -1; flex: 0 0 100%; width: 100%; }
+      .sh-vsl-step-label { font-size: 10.5px; }
+      .sh-vsl-play-btn { flex: 1 1 0%; justify-content: center; }
       .sh-crease-item { border-right: none; border-bottom: 1px solid #F0EBE1; padding-right: 0; padding-bottom: 14px; }
       .sh-crease-item:last-child { border-bottom: none; padding-bottom: 0; }
       .sh-h1-line1 { white-space: normal !important; }

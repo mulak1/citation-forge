@@ -5,6 +5,57 @@
 
 function renderDeliverablesClientScript() {
   return `
+  // Story player: ~10s/slide, plays once and stops on "The Fix" with Replay; manual nav pauses autoplay.
+  var SH_VSL_STEP_MS = 10000;
+  function shPaintVslSteps() {
+    var cur = window.__SH_ACTIVE_VSL_SCENE || 0, playing = Boolean(window.__SH_VSL_TIMER);
+    var segs = document.querySelectorAll('#studio-editorial-vsl-stage .sh-vsl-step');
+    for (var k = 0; k < segs.length; k++) {
+      var fill = segs[k].querySelector('.sh-vsl-step-fill');
+      segs[k].classList.toggle('active', k === cur); segs[k].setAttribute('aria-selected', k === cur ? 'true' : 'false');
+      if (!fill) continue;
+      fill.style.transition = 'none';
+      if (k < cur) fill.style.width = '100%';
+      else if (k > cur) fill.style.width = '0%';
+      else if (playing) { fill.style.width = '0%'; void fill.offsetWidth; fill.style.transition = 'width ' + SH_VSL_STEP_MS + 'ms linear'; fill.style.width = '100%'; }
+      else fill.style.width = '100%';
+    }
+    var prev = document.getElementById('sh-vsl-prev-btn'), next = document.getElementById('sh-vsl-next-btn');
+    if (prev) prev.disabled = cur === 0; if (next) next.disabled = cur === segs.length - 1;
+  }
+  window.selectShVslScene = function(idx) {
+    var scenes = document.querySelectorAll('#studio-editorial-vsl-stage .sh-vsl-scene');
+    var total = scenes.length || 4, cleanIdx = Math.max(0, Math.min(total - 1, Number(idx) || 0));
+    window.__SH_ACTIVE_VSL_SCENE = cleanIdx;
+    for (var i = 0; i < scenes.length; i++) {
+      var active = (i === cleanIdx);
+      scenes[i].style.visibility = active ? 'visible' : 'hidden'; scenes[i].setAttribute('aria-hidden', active ? 'false' : 'true');
+      scenes[i].classList.toggle('active', active);
+    }
+    shPaintVslSteps();
+  };
+  window.shStopVslPlay = function(label) {
+    var iconEl = document.getElementById('sh-vsl-play-icon'), lblEl = document.getElementById('sh-vsl-play-label');
+    if (window.__SH_VSL_TIMER) { clearInterval(window.__SH_VSL_TIMER); window.__SH_VSL_TIMER = null; }
+    if (iconEl) iconEl.innerHTML = label ? '&#8635;' : '&#9654;'; if (lblEl) lblEl.textContent = label || 'Auto-Play Story';
+    shPaintVslSteps();
+  };
+  window.shJumpVslStep = function(idx) { if (window.__SH_VSL_TIMER) window.shStopVslPlay(); window.selectShVslScene(idx); };
+  window.shGoVslStep = function(delta) { window.shJumpVslStep((window.__SH_ACTIVE_VSL_SCENE || 0) + delta); };
+  window.shNextVslScene = function() { window.shGoVslStep(1); };
+  window.shToggleVslAutoPlay = function() {
+    var iconEl = document.getElementById('sh-vsl-play-icon'), lblEl = document.getElementById('sh-vsl-play-label');
+    if (window.__SH_VSL_TIMER) { window.shStopVslPlay(); return; }
+    var last = (document.querySelectorAll('#studio-editorial-vsl-stage .sh-vsl-scene').length || 4) - 1;
+    if ((window.__SH_ACTIVE_VSL_SCENE || 0) === last) window.__SH_ACTIVE_VSL_SCENE = 0;
+    if (iconEl) iconEl.innerHTML = '&#10074;&#10074;'; if (lblEl) lblEl.textContent = 'Pause Story';
+    window.__SH_VSL_TIMER = setInterval(function() {
+      window.selectShVslScene((window.__SH_ACTIVE_VSL_SCENE || 0) + 1);
+      if (window.__SH_ACTIVE_VSL_SCENE === last) window.shStopVslPlay('Replay Story');
+    }, SH_VSL_STEP_MS);
+    window.selectShVslScene(window.__SH_ACTIVE_VSL_SCENE || 0);
+  };
+  document.addEventListener('DOMContentLoaded', function() { window.selectShVslScene(0); });
   window.shSyncWizardStepStage = function() {
     var s = Math.max(1, Math.min(4, Number(window.__SH_WIZARD_STEP) || 1));
     var stepBanner = document.getElementById('sh-canvas-step-banner');
