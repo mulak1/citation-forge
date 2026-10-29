@@ -52,7 +52,7 @@ function renderZone1Hero(plan) {
               <div class="sh-vsl-scene-grid">
                 <div class="sh-vsl-scene-copy">
                   <div class="sh-vsl-speaker-row"><img src="/public/avatar-couple.jpg" alt="Maya and Liam" class="sh-vsl-speaker-avatar" loading="eager" /><div class="sh-vsl-speaker-meta"><span class="sh-vsl-speaker-name">Maya &amp; Liam &bull; 150-Guest Estate Wedding</span><span class="sh-vsl-scene-kicker">THE 2 AM SPREADSHEET SPIRAL</span></div></div>
-                  <h3 class="sh-vsl-scene-h3">&ldquo;Three days before our wedding, four guests canceled and our seating chart collapsed.&rdquo;</h3>
+                  <h3 class="sh-vsl-scene-h3">&ldquo;Four guests canceled 72 hours out and our chart collapsed.&rdquo;</h3>
                   <p class="sh-vsl-scene-p">Moving one person in Excel set off a chain reaction: divorced parents ended up in direct sightline, couples got split up, and we had to re-type 150 names into our Canva sign.</p>
                   <div class="sh-vsl-caption-pill"><span>&ldquo;Four RSVP drops at 1:30 AM broke five tables and ruined our $220 printed sign.&rdquo;</span></div>
                 </div>

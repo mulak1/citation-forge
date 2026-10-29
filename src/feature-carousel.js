@@ -384,7 +384,7 @@ function renderZone4ProofStackAndPricing() {
 
       <!-- THE HONEST COMPARISON TABLE (SEPARATED BELOW BEFORE/AFTER FOR SCROLL BREATHING ROOM) -->
       <div class="bs-honest-table-wrap studio-ba-table-wrap">
-        <div class="bs-honest-title">The honest comparison (150 Guests &bull; Reception Seating &amp; Print Pack)</div>
+        <div class="bs-honest-title">The Honest Comparison (150 Guests)</div>
         <div style="overflow-x:auto;">
           <table class="bs-honest-table ba-table">
             <thead>
@@ -438,7 +438,7 @@ function renderZone4ProofStackAndPricing() {
     <div class="container">
       <div class="bs-section-header">
         <div class="bs-section-eyebrow">&#9733;&#9733;&#9733;&#9733;&#9733; 4.9 / 5 FROM 18,420+ WEDDINGS &amp; GALAS</div>
-        <h2 class="bs-section-h2">What couples, parents &amp; coordinators say <em>Monday morning.</em></h2>
+        <h2 class="bs-section-h2">What couples &amp; coordinators say <em>Monday morning.</em></h2>
         <p class="bs-section-sub">
           From 48-hour RSVP drop-out rescues to clockwise 12:00 caterer meal sheets and framed 24&Prime;&times;36&Prime; welcome signs.
         </p>
@@ -511,7 +511,7 @@ function renderZone4ProofStackAndPricing() {
       <div id="bs-zone3-anchor" style="margin-top:68px;background:linear-gradient(135deg,#FFFDF9 0%,#FAF6EE 100%);border:2px solid #D8C29D;border-radius:20px;padding:34px 36px;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;gap:16px;">
         <div style="text-align:center;">
           <div style="font-size:0.84rem;font-weight:800;letter-spacing:0.10em;text-transform:uppercase;color:#8C2D19;margin-bottom:8px;">YOUR TURN &bull; THE 5-STEP RECEPTION FLOORPLAN &amp; 24&Prime;&times;36&Prime; SIGN STUDIO</div>
-          <div class="serif-display" style="font-size:clamp(1.55rem, 2.4vw, 1.95rem);color:#181412;">Test a 150-guest reception below or paste your own Zola / Knot RSVP list.</div>
+          <div class="serif-display" style="font-size:clamp(1.25rem, 2.2vw, 1.85rem);color:#181412;">Test a 150-guest reception below or paste your RSVP list.</div>
         </div>
         <a href="#studio" class="btn btn-primary" style="padding:14px 28px;font-size:0.98rem;align-self:center;margin:0 auto;">Jump Into Interactive Studio &darr;</a>
       </div>

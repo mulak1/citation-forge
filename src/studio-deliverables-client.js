@@ -151,7 +151,7 @@ function renderDeliverablesClientScript() {
     box.innerHTML =
       '<div style="display:flex;flex-wrap:wrap;align-items:center;justify-content:space-between;gap:8px;margin-bottom:10px;">' +
         '<div style="min-width:0;flex:1 1 240px;">' +
-          '<div style="font-size:0.78rem;font-weight:800;text-transform:uppercase;letter-spacing:0.06em;color:#8C2D19;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;">SELECTED TABLE &amp; SEATS &middot; CLICK OR DRAG ANY ELEMENT</div>' +
+          '<div style="font-size:0.84rem;font-weight:800;text-transform:uppercase;letter-spacing:0.06em;color:#8C2D19;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;">SELECTED TABLE &amp; SEATS &middot; CLICK OR DRAG ANY ELEMENT</div>' +
           '<div style="display:flex;align-items:center;gap:6px;flex-wrap:wrap;margin-top:3px;">' +
             '<input type="text" value="' + shEsc(t.name) + '" onchange="window.shRenameTable(' + tIdx + ',this.value)" aria-label="Rename Selected Table" class="serif-display" style="font-size:1.06rem;font-weight:700;color:#181412;background:#FFFFFF;border:1px solid #D6CBB8;border-radius:6px;padding:3px 8px;width:230px;" />' +
             '<span class="mono" style="font-size:0.82rem;color:#57534E;font-weight:800;">' + t.guests.length + '/' + t.capacity + ' Chairs</span>' +
