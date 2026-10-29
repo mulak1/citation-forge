@@ -3,7 +3,7 @@
  */
 const { escapeHtml, renderHead, renderNavbar, renderFooter, renderInteractiveScript } = require('./templates');
 const { renderZone4ProofStackAndPricing } = require('./feature-carousel');
-const { renderSetupWizardHtml } = require('./setup-wizard');
+const { renderSetupWizardHtml, renderBinderDockHtml } = require('./setup-wizard');
 const { renderDirectoryPage } = require('./directory-view');
 
 function renderZone1Hero(plan) {
@@ -181,6 +181,7 @@ function renderZone3InteractiveStudio(plan) {
       <div style="display:none;"><span id="sh-endowed-progress-label">Setup</span><span id="sh-endowed-progress-fill"></span><span id="sh-btn-vault-id">${vId}</span></div>
 
       ${renderSetupWizardHtml(plan)}
+      ${renderBinderDockHtml()}
 
       <!-- Hidden legacy inputs used by the import/seat engine -->
       <div style="display:none;" aria-hidden="true">

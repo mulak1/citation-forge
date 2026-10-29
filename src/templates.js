@@ -244,6 +244,41 @@ function renderHead({
       .shw-kit-dot { display: none; }
       .shw-kit-item.done::after { content: ""; position: absolute; left: 22%; right: 22%; bottom: 0; height: 2px; border-radius: 2px; background: #B89352; }
     }
+    .shw-step { position: relative; }
+    .shw-clear { position: absolute; top: -4px; right: 0; background: none; border: none; font-size: 0.84rem; font-weight: 700; color: #A8A29E; cursor: pointer; text-decoration: underline; text-underline-offset: 3px; padding: 2px 4px; font-family: inherit; }
+    .shw-clear:hover { color: #8C2D19; } .shw-clear[hidden] { display: none; }
+    .nav-binder { display: inline-flex; align-items: center; gap: 7px; padding: 6px 12px; font-size: 0.86rem; font-weight: 800; color: #78350F; background: #FFFDF9; border: 1px solid #E2D3B5; border-radius: 999px; cursor: pointer; font-family: inherit; font-variant-numeric: tabular-nums; }
+    .nav-binder:hover { border-color: #C8A96E; background: #FFF8E8; } .nav-binder.full { background: #B89352; color: #FFFFFF; border-color: #B89352; }
+    .shw-dock { position: fixed; right: 14px; top: 50%; transform: translateY(-50%); z-index: 80; width: 66px; display: flex; flex-direction: column; align-items: center; gap: 4px; padding: 11px 6px 10px; background: #FFFDF9; border: 1px solid #E2D3B5; border-radius: 18px; box-shadow: 0 1px 2px rgba(120,85,30,0.06), 0 18px 38px -16px rgba(120,85,30,0.38); cursor: pointer; color: #B89352; font-family: inherit; animation: shwDockIn 0.4s ease; transition: box-shadow 0.2s ease, border-color 0.2s ease; }
+    .shw-dock:hover { border-color: #C8A96E; box-shadow: 0 1px 2px rgba(120,85,30,0.06), 0 22px 44px -14px rgba(120,85,30,0.5); }
+    @keyframes shwDockIn { from { opacity: 0; transform: translate(10px, -50%); } to { opacity: 1; transform: translate(0, -50%); } }
+    .shw-dock-ico { display: inline-flex; } .shw-dock-count { font-family: var(--font-serif); font-size: 1.05rem; color: #181412; font-variant-numeric: lining-nums tabular-nums; font-feature-settings: "lnum" 1; line-height: 1; } .shw-dock-count b { font-weight: 700; font-size: 1.25rem; }
+    .shw-dock-ticks { display: flex; flex-direction: column; gap: 3px; margin-top: 2px; } .shw-dock-ticks i { display: block; width: 26px; height: 3px; border-radius: 2px; background: #EADFC9; transition: background 0.3s ease; } .shw-dock-ticks i.on { background: #B89352; }
+    .shw-dock.full { border-color: #B89352; }
+    .shw-pop { position: fixed; right: 92px; top: 50%; transform: translateY(-50%); z-index: 85; width: 340px; max-height: 84vh; overflow-y: auto; background: #FFFDF9; border: 1px solid #E2D3B5; border-radius: 18px; padding: 18px 18px 14px; box-shadow: 0 30px 70px -24px rgba(60,40,10,0.45); animation: shwPopIn 0.2s ease; }
+    @keyframes shwPopIn { from { opacity: 0; transform: translate(8px, -50%); } to { opacity: 1; transform: translate(0, -50%); } }
+    .shw-pop-head { display: flex; justify-content: space-between; align-items: flex-start; gap: 10px; }
+    .shw-pop-title { font-family: var(--font-serif); font-size: 1.45rem; font-weight: 600; color: #181412; line-height: 1.15; margin-top: 4px; }
+    .shw-pop-x { width: 30px; height: 30px; border-radius: 999px; border: 1px solid #E2D9C8; background: #FFFFFF; font-size: 1.2rem; line-height: 1; color: #57534E; cursor: pointer; flex-shrink: 0; }
+    .shw-pop-list { list-style: none; margin: 4px 0 0; padding: 0; }
+    .shw-pop-row { display: flex; align-items: center; gap: 12px; padding: 11px 0; border-top: 1px solid #F3EBDB; }
+    .shw-pop-row:first-child { border-top: none; }
+    .shw-pop-glyph { color: #CFC4B0; display: inline-flex; flex-shrink: 0; } .shw-pop-row.done .shw-pop-glyph { color: #B89352; }
+    .shw-pop-text { display: flex; flex-direction: column; min-width: 0; flex: 1; } .shw-pop-text b { font-size: 0.92rem; font-weight: 600; color: #A39B8D; } .shw-pop-row.done .shw-pop-text b { color: #181412; }
+    .shw-pop-text small { font-size: 0.76rem; color: #B5AD9F; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; } .shw-pop-row.done .shw-pop-text small { color: #78716C; }
+    .shw-pop-actions { display: flex; gap: 10px; flex-shrink: 0; }
+    .shw-pop-link { background: none; border: none; padding: 4px 2px; font-size: 0.84rem; font-weight: 700; color: #8C2D19; cursor: pointer; font-family: inherit; text-decoration: underline; text-underline-offset: 3px; } .shw-pop-link.muted, .shw-link.muted { color: #A8A29E; }
+    .shw-pop-cta { margin-top: 12px; padding: 13px 16px; font-size: 0.98rem; }
+    .shw-pop-foot { text-align: center; margin-top: 12px; font-size: 0.86rem; color: #78716C; } .shw-confirm { display: block; margin-bottom: 6px; }
+    @media (max-width: 820px) {
+      #nav-binder-btn { display: none !important; }
+      .shw-dock { right: 12px; top: auto; bottom: 18px; transform: none; width: 60px; height: 60px; padding: 6px; border-radius: 999px; gap: 1px; justify-content: center; animation: shwDockInM 0.4s ease; }
+      @keyframes shwDockInM { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: none; } }
+      .shw-dock-ticks { display: none; } .shw-dock-ico svg { width: 20px; height: 20px; } .shw-dock-count { font-size: 0.9rem; } .shw-dock-count b { font-size: 1.05rem; }
+      .shw-pop { right: 0; left: 0; top: auto; bottom: 0; transform: none; width: auto; max-height: 80vh; border-radius: 20px 20px 0 0; padding-bottom: 22px; animation: shwSheet 0.25s ease; }
+      @keyframes shwSheet { from { transform: translateY(30px); opacity: 0; } to { transform: none; opacity: 1; } }
+    }
+    @media (prefers-reduced-motion: reduce) { .shw-dock, .shw-pop { animation: none; } }
     @media (prefers-reduced-motion: reduce) { .shw-kit-item.pop .shw-kit-glyph { animation: none; } .shw-kit-bar-fill { transition: none; } }
     .shw-intro { text-align: center; margin-bottom: 22px; }
     .shw-card { background: #FFFFFF; border: 1.5px solid #E2D3B5; border-radius: 22px; padding: 22px 32px 30px; box-shadow: 0 20px 48px -18px rgba(120, 85, 30, 0.22); }
@@ -438,6 +473,9 @@ function renderHead({
       .mobile-jump-canvas-btn { display: inline-flex; align-items: center; gap: 4px; }
     }
     @media (max-width: 520px) { .sh-display-h1 { font-size: 1.56rem; } }
+    @media (max-width: 1200px) { #nav-binder-btn { display: none !important; } }
+    @media (max-width: 1400px) { .nav-links .nav-link:nth-child(5) { display: none; } }
+    @media (max-width: 1500px) { #nav-vault-label { font-size: 0; } #nav-vault-label::after { content: 'Save'; font-size: 0.82rem; } .nav-links { gap: 9px; } }
     @media (max-width: 820px) { .nav-links { display: none; } .mobile-subnav { display: flex; } .hide-mobile-text { display: none; } }
   </style>
   ${jsonLd ? `<script type="application/ld+json">${typeof jsonLd === 'string' ? JSON.stringify(JSON.parse(jsonLd)).replace(/</g, '\\u003c') : JSON.stringify(jsonLd).replace(/</g, '\\u003c')}</script>` : ''}
@@ -445,7 +483,7 @@ function renderHead({
 }
 
 function renderNavbar() {
-  return `<header class="navbar" role="banner"><div class="container nav-inner"><a href="/" id="nav-brand-logo-link" class="nav-brand" aria-label="SeatHarmony Home">${renderBrandLogoSvg(28)}<span>SeatHarmony</span></a><nav class="nav-links" aria-label="Primary Navigation"><a href="/#studio" class="nav-link" style="color:var(--accent-primary);font-weight:800;">1. Floorplan Studio</a><a href="/#studio" onclick="if(window.shSetActiveTab){window.shSetActiveTab('beo');}" class="nav-link">2. Caterer Meal Sheet (BEO)</a><a href="/#studio" onclick="if(window.shSetActiveTab){window.shSetActiveTab('poster');}" class="nav-link">3. 24&Prime;&times;36&Prime; Sign &amp; QR</a><a href="/#studio-zone2-how-it-works" class="nav-link">How It Works</a><a href="/directory" class="nav-link hide-1024">60+ Venue Layouts</a><a href="/#pricing" class="nav-link">Pricing</a></nav><div style="display:flex;align-items:center;gap:6px;flex-shrink:0;"><button type="button" id="nav-vault-btn" onclick="if(window.shOpenVaultModal){window.shOpenVaultModal();}" class="btn btn-secondary hide-1024" style="padding:7px 11px;font-size:0.82rem;" title="Save or Resume Your Reception Plan">&#128190; <span id="nav-vault-label">Save / My Event</span></button><a href="/buy/complete_dossier?target=estate-150" id="nav-primary-buy-cta" class="btn btn-primary" style="padding:7px 12px;font-size:0.82rem;"><span>Get <span class="hide-mobile-text">Wedding Print </span>Pack ($14.99)</span><span aria-hidden="true">&#8599;</span></a></div></div><div class="mobile-subnav" aria-label="Mobile Quick Navigation"><a href="/#studio" style="color:#8C2D19;font-weight:800;">1. Floorplan Studio</a><a href="/#studio" onclick="if(window.shSetActiveTab){window.shSetActiveTab('beo');}">2. Caterer Meal Sheet</a><a href="/#studio" onclick="if(window.shSetActiveTab){window.shSetActiveTab('poster');}">3. 24&Prime;&times;36&Prime; Sign</a><a href="#studio" onclick="if(window.shOpenVaultModal){window.shOpenVaultModal();return false;}">&#128190; Save / Login</a><a href="/#pricing">Pricing ($14.99)</a></div></header>`;
+  return `<header class="navbar" role="banner"><div class="container nav-inner"><a href="/" id="nav-brand-logo-link" class="nav-brand" aria-label="SeatHarmony Home">${renderBrandLogoSvg(28)}<span>SeatHarmony</span></a><nav class="nav-links" aria-label="Primary Navigation"><a href="/#studio" class="nav-link" style="color:var(--accent-primary);font-weight:800;">1. Floorplan Studio</a><a href="/#studio" onclick="if(window.shSetActiveTab){window.shSetActiveTab('beo');}" class="nav-link">2. Caterer Meal Sheet (BEO)</a><a href="/#studio" onclick="if(window.shSetActiveTab){window.shSetActiveTab('poster');}" class="nav-link">3. 24&Prime;&times;36&Prime; Sign &amp; QR</a><a href="/#studio-zone2-how-it-works" class="nav-link">How It Works</a><a href="/directory" class="nav-link hide-1024">60+ Venue Layouts</a><a href="/#pricing" class="nav-link">Pricing</a></nav><div style="display:flex;align-items:center;gap:6px;flex-shrink:0;"><button type="button" id="nav-binder-btn" class="nav-binder" onclick="if(window.shwToggleBinder){window.shwToggleBinder();}" aria-label="Open your wedding binder" style="display:none;"><svg viewBox="0 0 24 24" width="17" height="17" fill="none" stroke="currentColor" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="6.5" y="3.5" width="13" height="17" rx="1.6"/><path d="M6.5 8h-2.2M6.5 12h-2.2M6.5 16h-2.2M10.5 8.5h5M10.5 12h5"/></svg><span id="nav-binder-n">0/5</span></button><button type="button" id="nav-vault-btn" onclick="if(window.shOpenVaultModal){window.shOpenVaultModal();}" class="btn btn-secondary hide-1024" style="padding:7px 11px;font-size:0.82rem;" title="Save or Resume Your Reception Plan">&#128190; <span id="nav-vault-label">Save / My Event</span></button><a href="/buy/complete_dossier?target=estate-150" id="nav-primary-buy-cta" class="btn btn-primary" style="padding:7px 12px;font-size:0.82rem;"><span>Get <span class="hide-mobile-text">Wedding Print </span>Pack ($14.99)</span><span aria-hidden="true">&#8599;</span></a></div></div><div class="mobile-subnav" aria-label="Mobile Quick Navigation"><a href="/#studio" style="color:#8C2D19;font-weight:800;">1. Floorplan Studio</a><a href="/#studio" onclick="if(window.shSetActiveTab){window.shSetActiveTab('beo');}">2. Caterer Meal Sheet</a><a href="/#studio" onclick="if(window.shSetActiveTab){window.shSetActiveTab('poster');}">3. 24&Prime;&times;36&Prime; Sign</a><a href="#studio" onclick="if(window.shOpenVaultModal){window.shOpenVaultModal();return false;}">&#128190; Save / Login</a><a href="/#pricing">Pricing ($14.99)</a></div></header>`;
 }
 
 function renderFooter() {

@@ -33,6 +33,7 @@ function renderSetupWizardHtml() {
 
           <!-- Q1: Couple & venue -->
           <div class="shw-step active" data-shw="1">
+            <button type="button" class="shw-clear" id="shw-clear-1" onclick="window.shwClearStep(1)" hidden>Clear</button>
             <h3 class="shw-q">Whose wedding is it?</h3>
             <label class="shw-label" for="shw-couple">Couple</label>
             <input id="shw-couple" class="shw-input" type="text" placeholder="Maya &amp; Liam" autocomplete="off" oninput="window.shwPaintKit()" onkeydown="if(event.key==='Enter')window.shwGo(1)" />
@@ -44,6 +45,7 @@ function renderSetupWizardHtml() {
 
           <!-- Q2: Guest count -->
           <div class="shw-step" data-shw="2">
+            <button type="button" class="shw-clear" id="shw-clear-2" onclick="window.shwClearStep(2)" hidden>Clear</button>
             <h3 class="shw-q">About how many guests?</h3>
             <p class="shw-hint">A rough number is fine. You can change it later.</p>
             <div class="shw-tiles">${[50, 75, 100, 150, 200, 250].map(tile).join('')}</div>
@@ -55,6 +57,7 @@ function renderSetupWizardHtml() {
 
           <!-- Q3: Table type -->
           <div class="shw-step" data-shw="3">
+            <button type="button" class="shw-clear" id="shw-clear-3" onclick="window.shwClearStep(3)" hidden>Clear</button>
             <h3 class="shw-q">What tables does your venue use?</h3>
             <p class="shw-hint">Not sure? Most venues use round tables of 8 or 10.</p>
             <div class="shw-table-grid">
@@ -67,6 +70,7 @@ function renderSetupWizardHtml() {
 
           <!-- Q4: Guest list -->
           <div class="shw-step" data-shw="4">
+            <button type="button" class="shw-clear" id="shw-clear-4" onclick="window.shwClearStep(4)" hidden>Clear</button>
             <h3 class="shw-q">Paste your guest list</h3>
             <p class="shw-hint">One household per line. Couples and kids stay together.</p>
             <textarea id="shw-guests" class="shw-input shw-textarea" rows="7" placeholder="Sarah &amp; Mark Miller + 2 kids&#10;Aunt Patricia + guest&#10;Dr. &amp; Mrs. James Chen&#10;Grandma Rose (wheelchair)" oninput="window.shwCountGuests()"></textarea>
@@ -80,6 +84,7 @@ function renderSetupWizardHtml() {
 
           <!-- Q5: Keep apart -->
           <div class="shw-step" data-shw="5">
+            <button type="button" class="shw-clear" id="shw-clear-5" onclick="window.shwClearStep(5)" hidden>Clear</button>
             <h3 class="shw-q">Anyone who shouldn&rsquo;t sit together?</h3>
             <p class="shw-hint">Exes, divorced parents, feuding relatives. Optional.</p>
             <div class="shw-apart-row">
@@ -94,9 +99,9 @@ function renderSetupWizardHtml() {
           </div>
         </div>
 
-        <aside class="shw-kit" id="shw-kit" aria-label="Your reception kit">
+        <aside class="shw-kit" id="shw-kit" aria-label="Your wedding binder">
           <div class="shw-kit-head">
-            <div class="shw-kit-titles"><div class="shw-kit-title">Your reception kit</div><div class="shw-kit-sub" id="shw-kit-sub">0 of 5</div></div>
+            <div class="shw-kit-titles"><div class="shw-kit-title">Your wedding binder</div><div class="shw-kit-sub" id="shw-kit-sub">0 of 5</div></div>
           </div>
           <div class="shw-kit-bar"><div class="shw-kit-bar-fill" id="shw-kit-bar-fill"></div></div>
           <ul class="shw-kit-list">
@@ -106,15 +111,37 @@ function renderSetupWizardHtml() {
             <li><button type="button" class="shw-kit-item" data-kit="beo" onclick="window.shwJump(4)"><span class="shw-kit-dot"></span><span class="shw-kit-glyph" aria-hidden="true"><svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="1.15" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="4.6"/><circle cx="12" cy="12" r="2.2"/><path d="M3.5 4.5v5a1.6 1.6 0 003.2 0v-5M5.1 11v8.5M20.5 4.5c-1.9 1.2-2.6 3.4-2.6 6.2H20.5V19.5"/></svg></span><span class="shw-kit-text"><b>Caterer sheet</b><small id="shw-kit-d-beo">Needs your guest list</small></span></button></li>
             <li><button type="button" class="shw-kit-item" data-kit="qr" onclick="window.shwJump(5)"><span class="shw-kit-dot"></span><span class="shw-kit-glyph" aria-hidden="true"><svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="1.15" stroke-linecap="round" stroke-linejoin="round"><rect x="4" y="4" width="6" height="6" rx="1"/><rect x="14" y="4" width="6" height="6" rx="1"/><rect x="4" y="14" width="6" height="6" rx="1"/><path d="M14 14h2.6v2.6H14zM19 14v2M17.5 19H20M14 19.5v.5"/></svg></span><span class="shw-kit-text"><b>Guest QR lookup</b><small id="shw-kit-d-qr">Ready when you seat guests</small></span></button></li>
           </ul>
-          <div class="shw-kit-foot" id="shw-kit-foot">Each answer completes a piece of your kit.</div>
+          <div class="shw-kit-foot" id="shw-kit-foot">Each answer fills a page of your binder.</div>
         </aside>
         </div>
       </div>`;
 }
 
+
+function renderBinderDockHtml() {
+  const icon = (w) => `<svg viewBox="0 0 24 24" width="${w}" height="${w}" fill="none" stroke="currentColor" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="6.5" y="3.5" width="13" height="17" rx="1.6"/><path d="M6.5 8h-2.2M6.5 12h-2.2M6.5 16h-2.2M10.5 8.5h5M10.5 12h5"/></svg>`;
+  return `
+      <button type="button" id="shw-dock" class="shw-dock" aria-label="Open your wedding binder" aria-haspopup="dialog" onclick="window.shwToggleBinder()" style="display:none;">
+        <span class="shw-dock-ico">${icon(24)}</span>
+        <span class="shw-dock-count"><b id="shw-dock-n">0</b>/5</span>
+        <span class="shw-dock-ticks" aria-hidden="true"><i></i><i></i><i></i><i></i><i></i></span>
+      </button>
+      <div id="shw-pop" class="shw-pop" role="dialog" aria-label="Your wedding binder" style="display:none;">
+        <div class="shw-pop-head">
+          <div><div class="shw-kit-title">Your wedding binder</div><div class="shw-pop-title" id="shw-pop-title">0 of 5 pages ready</div></div>
+          <button type="button" class="shw-pop-x" aria-label="Close" onclick="window.shwToggleBinder(false)">&times;</button>
+        </div>
+        <div class="shw-kit-bar"><div class="shw-kit-bar-fill" id="shw-pop-bar"></div></div>
+        <ul class="shw-pop-list" id="shw-pop-list"></ul>
+        <button type="button" class="shw-primary shw-pop-cta" id="shw-pop-cta" onclick="window.shwPopCta()">Continue setup</button>
+        <div class="shw-pop-foot" id="shw-pop-foot"><button type="button" class="shw-link" onclick="window.shwAskClearAll()">Clear everything</button></div>
+      </div>`;
+}
+
 function renderSetupWizardClientScript() {
   return `
-  window.__SH_SETUP = { step: 1, maxStep: 1, guests: 0, table: '', apart: [], kitDone: {} };
+  window.__SH_SETUP = { step: 1, maxStep: 1, guests: 0, table: '', apart: [], kitDone: {}, built: false, sample: false, engaged: false, kitInView: false };
+  try { if (localStorage.getItem('sh_binder_engaged') === '1') window.__SH_SETUP.engaged = true; } catch (_) {}
   function shwEl(id) { return document.getElementById(id); }
   function shwHouseholds() { return String((shwEl('shw-guests') || {}).value || '').split(/\\r?\\n/).map(function(l) { return l.trim(); }).filter(function(l) { return l && !/^(name|guest|household|table)[,\\t]/i.test(l); }); }
   function shwPersonCount(lines) {
@@ -163,18 +190,30 @@ function renderSetupWizardClientScript() {
     shwPaint();
   };
   window.shwJump = function(n) { if (n <= window.__SH_SETUP.maxStep) { window.__SH_SETUP.userStarted = true; window.__SH_SETUP.step = n; shwPaint(); } };
-  window.shwPaintKit = function() {
+  function shwKitState() {
     var S = window.__SH_SETUP, couple = String((shwEl('shw-couple') || {}).value || '').trim(), venue = String((shwEl('shw-venue') || {}).value || '').trim();
-    var lines = shwHouseholds(), people = shwPersonCount(lines);
-    var tbl = S.guests && S.table ? Math.ceil(S.guests / shwPerTable()) : 0;
-    var st = {
+    var lines = shwHouseholds(), people = shwPersonCount(lines), tbl = S.guests && S.table ? Math.ceil(S.guests / shwPerTable()) : 0;
+    if (S.sample && window.__SH_STATE && window.__SH_STATE.tables) {
+      var pl = window.__SH_STATE, g = pl.tables.reduce(function(a, t) { return a + t.guests.length; }, 0);
+      return {
+        sign: { ok: true, d: String(pl.title || 'Sample wedding') }, plan: { ok: true, d: g + ' guests \u00b7 ' + pl.tables.length + ' tables' },
+        cards: { ok: true, d: g + ' names, ready to print' }, beo: { ok: true, d: 'Meals and allergies listed' }, qr: { ok: true, d: 'Live seat lookup ready' }
+      };
+    }
+    return {
       sign: { ok: Boolean(couple), d: couple ? (couple + (venue ? ' \u00b7 ' + venue : '')) : 'Needs your names' },
       plan: { ok: Boolean(S.guests && S.table), d: tbl ? (S.guests + ' guests \u00b7 ' + tbl + ' tables of ' + shwPerTable()) : (S.guests ? 'Pick your table type' : 'Needs guests and tables') },
       cards: { ok: lines.length > 0, d: lines.length ? (people + ' name' + (people === 1 ? '' : 's') + ', ready to print') : 'Needs your guest list' },
       beo: { ok: lines.length > 0, d: lines.length ? 'Meals and allergies listed' : 'Needs your guest list' },
-      qr: { ok: false, d: 'Unlocks when we seat guests' }
+      qr: { ok: Boolean(S.built), d: S.built ? 'Live seat lookup ready' : 'Unlocks when we seat guests' }
     };
-    var done = 0, newly = [];
+  }
+  var SHW_KIT_NAMES = { sign: 'Welcome sign', plan: 'Seating chart', cards: 'Place cards', beo: 'Caterer sheet', qr: 'Guest QR lookup' };
+  var SHW_KIT_STEP = { sign: 1, plan: 2, cards: 4, beo: 4, qr: 5 };
+  var SHW_ICONS = { sign: '<rect x="5" y="3.5" width="14" height="10.5" rx="1"/><path d="M12 14v6M8 20.5l4-6.5 4 6.5M8.5 7.5h7M8.5 10.5h4"/>', plan: '<circle cx="12" cy="12" r="3.4"/><circle cx="12" cy="4.6" r="1.3"/><circle cx="12" cy="19.4" r="1.3"/><circle cx="4.6" cy="12" r="1.3"/><circle cx="19.4" cy="12" r="1.3"/>', cards: '<path d="M3.5 18.5L6.5 7.5h11l3 11z"/><path d="M9.5 13h5"/>', beo: '<circle cx="12" cy="12" r="4.6"/><circle cx="12" cy="12" r="2.2"/><path d="M3.5 4.5v5a1.6 1.6 0 003.2 0v-5M5.1 11v8.5M20.5 4.5c-1.9 1.2-2.6 3.4-2.6 6.2H20.5V19.5"/>', qr: '<rect x="4" y="4" width="6" height="6" rx="1"/><rect x="14" y="4" width="6" height="6" rx="1"/><rect x="4" y="14" width="6" height="6" rx="1"/><path d="M14 14h2.6v2.6H14zM19 14v2M17.5 19H20M14 19.5v.5"/>' };
+  function shwNextStep(st) { return !st.sign.ok ? 1 : (!st.plan.ok ? (window.__SH_SETUP.guests ? 3 : 2) : (!st.cards.ok ? 4 : 5)); }
+  window.shwPaintKit = function() {
+    var S = window.__SH_SETUP, st = shwKitState(), done = 0;
     Object.keys(st).forEach(function(k) {
       var li = document.querySelector('#shw-kit .shw-kit-item[data-kit="' + k + '"]'), d = shwEl('shw-kit-d-' + k);
       if (st[k].ok) done++;
@@ -182,11 +221,110 @@ function renderSetupWizardClientScript() {
       if (d) d.textContent = st[k].d;
       S.kitDone[k] = st[k].ok;
     });
+    if (done > 0 && !S.engaged) { S.engaged = true; try { localStorage.setItem('sh_binder_engaged', '1'); } catch (_) {} }
     var sub = shwEl('shw-kit-sub'); if (sub) sub.textContent = done + ' of 5';
     var bar = shwEl('shw-kit-bar-fill'); if (bar) bar.style.width = (done / 5 * 100) + '%';
-    var foot = shwEl('shw-kit-foot');
-    if (foot) foot.textContent = done >= 4 ? 'One last step: we seat your guests.' : 'Each answer completes a piece of your kit.';
+    var foot = shwEl('shw-kit-foot'); if (foot) foot.textContent = done >= 4 ? 'One last step: we seat your guests.' : 'Each answer fills a page of your binder.';
+    S.kitCount = done; S.kitSt = st;
+    var kr = shwEl('shw-kit'); if (kr) { var rr = kr.getBoundingClientRect(); S.kitInView = rr.height > 0 && rr.bottom > 70 && rr.top < window.innerHeight - 40; }
+    var clr = { 1: (shwEl('shw-couple') || {}).value || (shwEl('shw-venue') || {}).value, 2: S.guests, 3: S.table, 4: shwHouseholds().length, 5: S.apart.length };
+    for (var n = 1; n <= 5; n++) { var c = shwEl('shw-clear-' + n); if (c) c.hidden = !clr[n]; }
+    shwSyncDock();
   };
+
+  /* ---- Binder dock (always available after first interaction), header chip and popover ---- */
+  function shwCheckKitView() {
+    var k = shwEl('shw-kit'), r = k && k.getBoundingClientRect(), inView = false;
+    if (r && r.height > 0 && r.width > 0) inView = r.bottom > 70 && r.top < window.innerHeight - 40;
+    window.__SH_SETUP.kitInView = inView; shwSyncDock();
+  }
+  function shwSyncDock() {
+    var S = window.__SH_SETUP, dock = shwEl('shw-dock'), pop = shwEl('shw-pop'), n = S.kitCount || 0, chip = shwEl('nav-binder-btn');
+    var open = pop && pop.style.display !== 'none';
+    var show = S.engaged && (!S.kitInView || open);
+    if (dock) { dock.style.display = show ? '' : 'none'; dock.classList.toggle('full', n === 5); }
+    var dn = shwEl('shw-dock-n'); if (dn) dn.textContent = n;
+    document.querySelectorAll('#shw-dock .shw-dock-ticks i').forEach(function(t, i) { t.classList.toggle('on', i < n); });
+    if (chip) { chip.style.display = S.engaged ? '' : 'none'; var cn = shwEl('nav-binder-n'); if (cn) cn.textContent = n + '/5'; chip.classList.toggle('full', n === 5); }
+    if (open) shwRenderPop();
+  }
+  function shwRenderPop() {
+    var S = window.__SH_SETUP, st = S.kitSt || shwKitState(), list = shwEl('shw-pop-list'); if (!list) return;
+    var n = S.kitCount || 0;
+    shwEl('shw-pop-title').textContent = n === 5 ? 'Binder complete' : (n + ' of 5 pages ready');
+    shwEl('shw-pop-bar').style.width = (n / 5 * 100) + '%';
+    list.innerHTML = Object.keys(st).map(function(k) {
+      var ok = st[k].ok;
+      return '<li class="shw-pop-row' + (ok ? ' done' : '') + '"><span class="shw-pop-glyph"><svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="1.15" stroke-linecap="round" stroke-linejoin="round">' + SHW_ICONS[k] + '</svg></span>'
+        + '<span class="shw-pop-text"><b>' + SHW_KIT_NAMES[k] + '</b><small>' + shEsc(st[k].d) + '</small></span>'
+        + '<span class="shw-pop-actions">' + (ok && k !== 'qr' ? '<button type="button" class="shw-pop-link" onclick="window.shwPopEdit(\\'' + k + '\\')">Edit</button><button type="button" class="shw-pop-link muted" onclick="window.shwClear(\\'' + k + '\\')">Clear</button>' : (k === 'qr' && ok ? '<button type="button" class="shw-pop-link" onclick="window.shwPopEdit(\\'qr\\')">View</button>' : '<button type="button" class="shw-pop-link" onclick="window.shwPopEdit(\\'' + k + '\\')">Add</button>')) + '</span></li>';
+    }).join('');
+    var cta = shwEl('shw-pop-cta'); cta.textContent = n === 5 ? 'Open my seating plan' : 'Continue setup';
+    var foot = shwEl('shw-pop-foot'); if (foot && !S.confirmClear) foot.innerHTML = '<button type="button" class="shw-link" onclick="window.shwAskClearAll()">Clear everything</button>';
+  }
+  window.shwToggleBinder = function(force) {
+    var pop = shwEl('shw-pop'); if (!pop) return;
+    var open = typeof force === 'boolean' ? force : pop.style.display === 'none';
+    window.__SH_SETUP.confirmClear = false;
+    pop.style.display = open ? '' : 'none';
+    if (open) { shwRenderPop(); var x = pop.querySelector('.shw-pop-x'); if (x) x.focus(); }
+    shwSyncDock();
+  };
+  document.addEventListener('keydown', function(e) { if (e.key === 'Escape') window.shwToggleBinder(false); });
+  document.addEventListener('click', function(e) {
+    var pop = shwEl('shw-pop'); if (!pop || pop.style.display === 'none') return;
+    if (!e.target.isConnected || pop.contains(e.target) || (e.target.closest && (e.target.closest('#shw-dock') || e.target.closest('#nav-binder-btn')))) return;
+    window.shwToggleBinder(false);
+  });
+  function shwScrollStudio() { var st = shwEl('studio'); if (st) window.scrollTo({ top: st.getBoundingClientRect().top + window.pageYOffset - 70, behavior: 'smooth' }); }
+  window.shwPopEdit = function(k) {
+    window.shwToggleBinder(false);
+    if (k === 'qr' && window.__SH_SETUP.built) { shwScrollStudio(); setTimeout(function() { window.shSetActiveTab('qr'); }, 250); return; }
+    window.shOpenSetupWizard(SHW_KIT_STEP[k]);
+  };
+  window.shwPopCta = function() {
+    var S = window.__SH_SETUP; window.shwToggleBinder(false);
+    if (S.kitCount === 5) { var g = shwEl('sh-builder-grid'); if (g && g.style.display !== 'none') { shwScrollStudio(); return; } if (S.built || S.sample) { window.shFinishSetupWizard(); return; } window.shOpenSetupWizard(5); return; }
+    window.shOpenSetupWizard(shwNextStep(S.kitSt || shwKitState()));
+  };
+
+  /* ---- Clear: every answer can be removed, so the binder never stays full ---- */
+  function shwResetField(k) {
+    var S = window.__SH_SETUP;
+    if (k === 'sign') { shwEl('shw-couple').value = ''; shwEl('shw-venue').value = ''; }
+    if (k === 'plan') { S.guests = 0; S.table = ''; var o = shwEl('shw-guest-other'); if (o) o.value = ''; }
+    if (k === 'guests') { S.guests = 0; var o2 = shwEl('shw-guest-other'); if (o2) o2.value = ''; }
+    if (k === 'table') { S.table = ''; }
+    if (k === 'cards' || k === 'beo') { shwEl('shw-guests').value = ''; window.shwCountGuests(); }
+    if (k === 'apart') { S.apart = []; shwEl('shw-apart-a').value = ''; shwEl('shw-apart-b').value = ''; }
+  }
+  function shwAfterClear(step) {
+    var S = window.__SH_SETUP;
+    if (S.sample) { shwResetAll(); return; }
+    S.built = false;
+    var grid = shwEl('sh-builder-grid');
+    if (grid && grid.style.display !== 'none') { window.shOpenSetupWizard(step); return; }
+    shwPaint();
+  }
+  window.shwClear = function(k) { shwResetField(k); shwAfterClear(SHW_KIT_STEP[k] || 1); };
+  window.shwClearStep = function(n) {
+    var map = { 1: 'sign', 2: 'guests', 3: 'table', 4: 'cards', 5: 'apart' };
+    shwResetField(map[n]); window.__SH_SETUP.built = false; shwPaint();
+  };
+  function shwResetAll() {
+    var S = window.__SH_SETUP;
+    ['sign', 'plan', 'cards', 'apart'].forEach(shwResetField);
+    S.step = 1; S.maxStep = 1; S.built = false; S.sample = false; S.engaged = false; S.kitDone = {}; S.confirmClear = false;
+    try { localStorage.removeItem('sh_binder_engaged'); } catch (_) {}
+    var pop = shwEl('shw-pop'); if (pop) pop.style.display = 'none';
+    var w = shwEl('sh-setup-wizard'), g = shwEl('sh-builder-grid'); if (g) g.style.display = 'none'; if (w) w.style.display = '';
+    shwPaint();
+  }
+  window.shwAskClearAll = function() {
+    var foot = shwEl('shw-pop-foot'); if (!foot) return; window.__SH_SETUP.confirmClear = true;
+    foot.innerHTML = '<span class="shw-confirm">Clear every answer and start over?</span> <button type="button" class="shw-link" onclick="window.shwDoClearAll()">Yes, clear</button> <button type="button" class="shw-link muted" onclick="window.__SH_SETUP.confirmClear=false;window.shwToggleBinder(true)">Keep</button>';
+  };
+  window.shwDoClearAll = function() { shwResetAll(); shwScrollStudio(); };
   window.shwPickGuests = function(n) {
     var v = Math.max(2, Math.min(600, Math.round(Number(n) || 0)));
     if (!Number(n)) return;
@@ -272,11 +410,13 @@ function renderSetupWizardClientScript() {
     var ti = shwEl('sh-couple-title-input'); if (ti) ti.value = window.__SH_STATE.title;
     var vi = shwEl('sh-venue-name-input'); if (vi) vi.value = venue;
     window.__SH_SELECTED_TABLE_IDX = window.__SH_STATE.tables.length > 1 ? 1 : 0;
+    S.built = true; S.sample = false; S.engaged = true; try { localStorage.setItem('sh_binder_engaged', '1'); } catch (_) {}
     window.shFinishSetupWizard();
     shToast('\\u2713 Seated ' + (people + hosts.length) + ' guests at ' + (window.__SH_STATE.tables.length - 1) + ' tables' + (S.apart.length ? ' \\u00b7 ' + S.apart.length + ' conflict' + (S.apart.length === 1 ? '' : 's') + ' kept apart' : '') + '. Click any seat to adjust.');
   };
 
   window.shFinishSetupWizard = function() {
+    setTimeout(function() { window.shwPaintKit(); }, 0);
     var w = shwEl('sh-setup-wizard'), g = shwEl('sh-builder-grid');
     if (w) w.style.display = 'none';
     if (g) g.style.display = '';
@@ -284,11 +424,11 @@ function renderSetupWizardClientScript() {
     shSyncTableSelectAndPills(); shRenderAll();
     var st = shwEl('studio'); if (st && window.__SH_SETUP.userStarted) window.scrollTo({ top: st.getBoundingClientRect().top + window.pageYOffset - 70, behavior: 'smooth' });
   };
-  window.shOpenSetupWizard = function() {
-    var w = shwEl('sh-setup-wizard'), g = shwEl('sh-builder-grid');
+  window.shOpenSetupWizard = function(step) {
+    var w = shwEl('sh-setup-wizard'), g = shwEl('sh-builder-grid'), n = Math.max(1, Math.min(5, Number(step) || 1));
     if (g) g.style.display = 'none';
     if (w) w.style.display = '';
-    window.__SH_SETUP.step = 1; window.__SH_SETUP.userStarted = true; shwPaint();
+    window.__SH_SETUP.step = n; window.__SH_SETUP.maxStep = Math.max(window.__SH_SETUP.maxStep, n); window.__SH_SETUP.userStarted = true; shwPaint();
     var st = shwEl('studio'); if (st) window.scrollTo({ top: st.getBoundingClientRect().top + window.pageYOffset - 70, behavior: 'smooth' });
   };
   window.scrollToShCard = function(n) { if (Number(n) < 4) window.shOpenSetupWizard(); };
@@ -298,10 +438,16 @@ function renderSetupWizardClientScript() {
     window.loadPresetScenario = async function(key, btn) {
       window.__SH_SETUP.userStarted = true;
       await origLoad(key, btn);
+      window.__SH_SETUP.sample = true; window.__SH_SETUP.engaged = true; try { localStorage.setItem('sh_binder_engaged', '1'); } catch (_) {}
       window.shFinishSetupWizard();
     };
   })();
   document.addEventListener('DOMContentLoaded', function() {
+    var kitEl = shwEl('shw-kit');
+    var ticking = false;
+    var onScroll = function() { if (ticking) return; ticking = true; requestAnimationFrame(function() { ticking = false; shwCheckKitView(); }); };
+    window.addEventListener('scroll', onScroll, { passive: true }); window.addEventListener('resize', onScroll);
+    shwCheckKitView();
     shwPaint();
     try {
       var sp = new URLSearchParams(window.location.search);
@@ -310,4 +456,4 @@ function renderSetupWizardClientScript() {
   });`;
 }
 
-module.exports = { renderSetupWizardHtml, renderSetupWizardClientScript };
+module.exports = { renderSetupWizardHtml, renderBinderDockHtml, renderSetupWizardClientScript };
