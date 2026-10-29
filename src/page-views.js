@@ -169,11 +169,14 @@ function renderZone2Walkthrough() {
 function renderZone3InteractiveStudio(plan) {
   const vId = escapeHtml(plan.vaultId || 'SH-4819');
   const activeRules = plan.rules || plan.conflictRules || [];
-  const rulesHtml = activeRules.map(r => `
+  const rulesHtml = activeRules.map((r, rIdx) => `
     <div style="padding:10px 12px;border-radius:10px;background:#FAF8F5;border:1px solid #E2D9C8;font-size:0.84rem;display:flex;flex-direction:column;align-items:flex-start;gap:5px;">
-      <div style="font-weight:800;color:#181412;line-height:1.35;width:100%;">${(r.type === 'keep_apart' || r.type === 'must_keep_apart') ? '🔴 ' : (r.type === 'zone_quiet' ? '🔇 ' : '🟢 ')}${escapeHtml(r.label)}</div>
+      <div style="display:flex;align-items:flex-start;justify-content:space-between;gap:8px;width:100%;">
+        <div style="font-weight:800;color:#181412;line-height:1.35;flex:1;">${(r.type === 'keep_apart' || r.type === 'must_keep_apart') ? '🔴 ' : (r.type === 'zone_quiet' ? '🔇 ' : '🟢 ')}${escapeHtml(r.label)}</div>
+        <button type="button" title="Delete Rule" onclick="window.shRemoveRule(${rIdx},event)" style="cursor:pointer;border:1px solid #FECDD3;background:#FFF1F2;color:#9F1239;font-size:0.78rem;font-weight:800;padding:1px 6px;border-radius:5px;flex-shrink:0;">✕</button>
+      </div>
       <div style="font-size:0.82rem;color:#57534E;line-height:1.42;width:100%;">${escapeHtml(r.detail)}</div>
-      <span class="badge badge-emerald" style="font-size:0.82rem;padding:3px 9px;align-self:flex-start;">&#10003; ${escapeHtml(r.status)}</span>
+      <button type="button" title="Click to cycle rule type" onclick="window.shCycleRuleType(${rIdx},event)" class="badge badge-emerald" style="cursor:pointer;border:1px solid #A7F3D0;font-size:0.82rem;padding:3px 9px;align-self:flex-start;">&#10003; ${escapeHtml(r.status)} &middot; Cycle Type</button>
     </div>`).join('');
 
   return `
@@ -523,16 +526,19 @@ David &amp; Elena Rostova (Filet, Peanut Allergy)</textarea>
                     <span style="font-size:0.82rem;font-weight:800;color:#181412;margin-right:2px;">VIEW:</span>
                     <button type="button" id="sh-zoom-room-btn" class="studio-tap-chip active" style="padding:4px 9px;font-size:0.82rem;" onclick="window.shSetCanvasZoom('room')">&#128506; Full Room (1&times;)</button>
                     <button type="button" id="sh-zoom-15-btn" class="studio-tap-chip" style="padding:4px 9px;font-size:0.82rem;" onclick="window.shSetCanvasZoom('zoom15')">&#128269; Zoom 1.5&times;</button>
-                    <button type="button" id="sh-zoom-table-btn" class="studio-tap-chip" style="padding:4px 10px;font-size:0.82rem;border-color:#8C2D19;color:#8C2D19;font-weight:800;" onclick="window.shSetCanvasZoom('table')">&#127919; Focus Selected Table (2.4&times;)</button>
-                    <button type="button" id="sh-toolbar-add-table-btn" class="studio-tap-chip" style="padding:4px 10px;font-size:0.82rem;border-color:#065F46;background:#ECFDF5;color:#065F46;font-weight:800;" onclick="window.shAddNewTable()">+ Add Table</button>
+                    <button type="button" id="sh-zoom-table-btn" class="studio-tap-chip" style="padding:4px 10px;font-size:0.82rem;border-color:#8C2D19;color:#8C2D19;font-weight:800;" onclick="window.shSetCanvasZoom('table')">&#127919; Focus Table (2.4&times;)</button>
+                    <button type="button" id="sh-toolbar-add-table-btn" class="studio-tap-chip" style="padding:4px 10px;font-size:0.82rem;border-color:#065F46;background:#ECFDF5;color:#065F46;font-weight:800;" onclick="window.shAddNewTable()">+ Table</button>
+                    <button type="button" id="sh-toolbar-add-landmark-btn" class="studio-tap-chip" style="padding:4px 10px;font-size:0.82rem;border-color:#C8A96E;background:#FAF3E3;color:#78350F;font-weight:800;" onclick="window.shAddLandmark()">+ Bar / Stage</button>
                   </div>
                   <div style="display:flex;align-items:center;gap:4px;flex-wrap:wrap;">
-                    <span style="font-size:0.82rem;font-weight:800;color:#57534E;margin-right:2px;">MOVE TABLE:</span>
-                    <button type="button" class="studio-tap-chip" style="padding:3px 8px;font-size:0.82rem;" title="Move Selected Table Left" onclick="window.shNudgeSelectedTable(-32,0)">&larr;</button>
-                    <button type="button" class="studio-tap-chip" style="padding:3px 8px;font-size:0.82rem;" title="Move Selected Table Up" onclick="window.shNudgeSelectedTable(0,-28)">&uarr;</button>
-                    <button type="button" class="studio-tap-chip" style="padding:3px 8px;font-size:0.82rem;" title="Move Selected Table Down" onclick="window.shNudgeSelectedTable(0,28)">&darr;</button>
-                    <button type="button" class="studio-tap-chip" style="padding:3px 8px;font-size:0.82rem;" title="Move Selected Table Right" onclick="window.shNudgeSelectedTable(32,0)">&rarr;</button>
-                    <span style="font-size:0.82rem;color:#78716C;margin-left:4px;">or drag any table / seat directly</span>
+                    <span style="font-size:0.82rem;font-weight:800;color:#57534E;margin-right:2px;">TABLE / CHAIRS:</span>
+                    <button type="button" class="studio-tap-chip" style="padding:3px 7px;font-size:0.82rem;" title="Remove 1 Chair from Selected Table" onclick="window.shChangeTableCapacity(window.__SH_SELECTED_TABLE_IDX||0,-1,event)">- Chair</button>
+                    <button type="button" class="studio-tap-chip" style="padding:3px 7px;font-size:0.82rem;" title="Add 1 Chair to Selected Table" onclick="window.shChangeTableCapacity(window.__SH_SELECTED_TABLE_IDX||0,1,event)">+ Chair</button>
+                    <button type="button" class="studio-tap-chip" style="padding:3px 7px;font-size:0.82rem;" title="Move Selected Table Left" onclick="window.shNudgeSelectedTable(-32,0)">&larr;</button>
+                    <button type="button" class="studio-tap-chip" style="padding:3px 7px;font-size:0.82rem;" title="Move Selected Table Up" onclick="window.shNudgeSelectedTable(0,-28)">&uarr;</button>
+                    <button type="button" class="studio-tap-chip" style="padding:3px 7px;font-size:0.82rem;" title="Move Selected Table Down" onclick="window.shNudgeSelectedTable(0,28)">&darr;</button>
+                    <button type="button" class="studio-tap-chip" style="padding:3px 7px;font-size:0.82rem;" title="Move Selected Table Right" onclick="window.shNudgeSelectedTable(32,0)">&rarr;</button>
+                    <button type="button" class="studio-tap-chip" style="padding:3px 8px;font-size:0.82rem;border-color:#FECDD3;background:#FFF1F2;color:#9F1239;" title="Delete Selected Table" onclick="window.shDeleteSelectedTable()">✕ Table</button>
                   </div>
                 </div>
 

@@ -1,11 +1,9 @@
 /**
  * SeatHarmony (#2) - Interactive 60fps Client Engine (`renderInteractiveScript`)
- * Includes ExactBaseline learnings:
- *   - Per-scene VSL `objectPosition` (`center 28%`, `center 24%`, `center 34%`) & lowered delta badge
- *   - 54px × 54px Left Monogram / Planner Crest Badge (`#specimen-logo-badge`) on Live Studio Specimen Card
- *   - 58px × 58px Left Monogram / Planner Crest Badge (`#poster-logo-badge`) on 24"×36" Arch D Welcome Sign
- *   - 5-Card Scroll-Paced Co-Creation Builder + 35ms Simulated Annealing Solver + Mom Sandbox
+ * Full 1-Click CRUD for Tables, Seats/Chairs, Guests, Room Landmarks & Family Rules.
  */
+
+const { renderDeliverablesClientScript } = require('./studio-deliverables-client');
 
 function renderInteractiveScript(initialPlan) {
   const safeInitialJson = JSON.stringify(initialPlan || {}).replace(/</g, '\\u003c');
@@ -13,6 +11,7 @@ function renderInteractiveScript(initialPlan) {
   window.__SH_STATE = ${safeInitialJson};
   window.__SH_SELECTED_TABLE_IDX = 1; window.__SH_RING_MODE = 'harmony'; window.__SH_ACTIVE_VIEW = 'floorplan';
   window.__SH_POSTER_MODE = 'alphabetical'; window.__SH_POSTER_THEME = 'alabaster'; window.__SH_SWAP_SOURCE = null;
+  window.__SH_SELECTED_LANDMARK_IDX = null;
   window.__SH_SANDBOX_MOM = false; window.__SH_CREST_LOGO_URL = ''; window.__SH_SIGN_KICKER = 'Please Find Your Seat';
   window.__SH_SIGN_MONOGRAM = 'M&L · EST. 2026'; window.__SH_CANVAS_ZOOM = 'room'; window.__SH_DRAG_STATE = null; window.__SH_VSL_TIMER = null;
 
@@ -110,6 +109,7 @@ function renderInteractiveScript(initialPlan) {
 
   function shRecomputeGeometry(table) {
     const shape = shNormalizeShape(table.shape), cap = Math.max(2, table.capacity || 8, (table.guests || []).length), x = table.x || 250, y = table.y || 200, seats = [];
+    table.capacity = cap;
     if (shape === 'round') {
       const r = cap <= 8 ? 50 : 58, orbit = r + 30;
       for (let i = 0; i < cap; i++) {
@@ -142,7 +142,7 @@ function renderInteractiveScript(initialPlan) {
       if (b) b.classList.toggle('active', m === window.__SH_CANVAS_ZOOM);
     });
     shRenderFloorplanSvg();
-    shToast(mode === 'table' ? '🎯 Focused 2.4× on Selected Table · Drag seats or click ◀/▶ to rotate!' : (mode === 'zoom15' ? '🔍 Zoomed 1.5× around Selected Table' : '🗺️ Full Room Floorplan (1×)'));
+    shToast(mode === 'table' ? '🎯 Focused 2.4× on Selected Table · Click any seat to edit, move or remove!' : (mode === 'zoom15' ? '🔍 Zoomed 1.5× around Selected Table' : '🗺️ Full Room Floorplan (1×)'));
   };
 
   window.shToggleFullWidthStage = function() {
@@ -181,11 +181,103 @@ function renderInteractiveScript(initialPlan) {
     return { x: 560, y: 340 };
   }
 
+  /* ---- LANDMARK CRUD (Drag, Add, Rename, Resize, Delete) ---- */
+  window.shSelectLandmark = function(lmIdx, ev) {
+    if (ev) ev.stopPropagation();
+    window.__SH_SWAP_SOURCE = null;
+    window.__SH_SELECTED_LANDMARK_IDX = lmIdx;
+    shRenderAll();
+  };
+
+  window.shStartLandmarkDrag = function(lmIdx, ev) {
+    if (ev && ev.button && ev.button !== 0) return;
+    if (ev) { ev.stopPropagation(); if (ev.type === 'mousedown' && ev.preventDefault) ev.preventDefault(); }
+    const lm = window.__SH_STATE && window.__SH_STATE.landmarks && window.__SH_STATE.landmarks[lmIdx];
+    if (!lm) return;
+    window.__SH_SWAP_SOURCE = null;
+    window.__SH_SELECTED_LANDMARK_IDX = lmIdx;
+    const startPt = shSvgCoord(ev), origX = lm.x || 560, origY = lm.y || 340;
+    let moved = false;
+    const onMove = function(moveEv) {
+      const cur = shSvgCoord(moveEv);
+      const dx = cur.x - startPt.x, dy = cur.y - startPt.y;
+      if (Math.abs(dx) > 2 || Math.abs(dy) > 2) moved = true;
+      if (!moved) return;
+      if (moveEv.cancelable) moveEv.preventDefault();
+      lm.x = Math.max(60, Math.min(1060, origX + dx));
+      lm.y = Math.max(35, Math.min(645, origY + dy));
+      shRenderFloorplanSvg();
+    };
+    const onUp = function() {
+      window.removeEventListener('mousemove', onMove);
+      window.removeEventListener('mouseup', onUp);
+      window.removeEventListener('touchmove', onMove);
+      window.removeEventListener('touchend', onUp);
+      if (moved) shToast('✓ Moved "' + lm.label + '" to (' + lm.x + ', ' + lm.y + ')');
+      shRenderAll();
+    };
+    window.addEventListener('mousemove', onMove);
+    window.addEventListener('mouseup', onUp);
+    window.addEventListener('touchmove', onMove, { passive: false });
+    window.addEventListener('touchend', onUp);
+  };
+
+  window.shAddLandmark = function() {
+    if (!window.__SH_STATE) return;
+    if (!Array.isArray(window.__SH_STATE.landmarks)) window.__SH_STATE.landmarks = [];
+    const presets = [
+      { label: 'COCKTAIL BAR', w: 150, h: 42, zone: 'neutral', x: 185, y: 85 },
+      { label: 'CAKE & DESSERT TABLE', w: 155, h: 40, zone: 'quiet', x: 925, y: 85 },
+      { label: 'PHOTO BOOTH', w: 140, h: 42, zone: 'loud', x: 185, y: 605 },
+      { label: 'STRING QUARTET / STAGE', w: 170, h: 44, zone: 'loud', x: 925, y: 605 }
+    ];
+    const pick = presets[window.__SH_STATE.landmarks.length % presets.length];
+    window.__SH_STATE.landmarks.push({ id: 'lm-' + Date.now(), label: pick.label, x: pick.x, y: pick.y, w: pick.w, h: pick.h, zone: pick.zone });
+    window.__SH_SELECTED_LANDMARK_IDX = window.__SH_STATE.landmarks.length - 1;
+    window.__SH_SWAP_SOURCE = null;
+    shToast('✓ Added "' + pick.label + '" · Drag it anywhere or rename/remove in the bar above!');
+    shRenderAll();
+  };
+
+  window.shRenameLandmark = function(lmIdx, newLabel) {
+    const lm = window.__SH_STATE && window.__SH_STATE.landmarks && window.__SH_STATE.landmarks[lmIdx];
+    if (!lm) return;
+    lm.label = String(newLabel || lm.label).trim().toUpperCase() || 'ROOM ELEMENT';
+    shToast('✓ Renamed room element to "' + lm.label + '"');
+    shRenderAll();
+  };
+
+  window.shResizeLandmark = function(lmIdx, dw, dh) {
+    const lm = window.__SH_STATE && window.__SH_STATE.landmarks && window.__SH_STATE.landmarks[lmIdx];
+    if (!lm) return;
+    lm.w = Math.max(80, Math.min(420, (lm.w || 140) + dw));
+    lm.h = Math.max(28, Math.min(260, (lm.h || 42) + dh));
+    shRenderAll();
+  };
+
+  window.shCycleLandmarkZone = function(lmIdx) {
+    const lm = window.__SH_STATE && window.__SH_STATE.landmarks && window.__SH_STATE.landmarks[lmIdx];
+    if (!lm) return;
+    const zones = ['neutral', 'quiet', 'loud'];
+    lm.zone = zones[(zones.indexOf(lm.zone || 'neutral') + 1) % zones.length];
+    shRenderAll();
+  };
+
+  window.shDeleteLandmark = function(lmIdx) {
+    if (!window.__SH_STATE || !Array.isArray(window.__SH_STATE.landmarks) || !window.__SH_STATE.landmarks[lmIdx]) return;
+    const removed = window.__SH_STATE.landmarks.splice(lmIdx, 1)[0];
+    window.__SH_SELECTED_LANDMARK_IDX = null;
+    shToast('✓ Removed "' + (removed ? removed.label : 'Room Element') + '"');
+    shRenderAll();
+  };
+
+  /* ---- TABLE DRAG & CRUD ---- */
   window.shStartTableDrag = function(tIdx, ev) {
     if (ev && ev.button && ev.button !== 0) return;
     if (ev) { ev.stopPropagation(); if (ev.type === 'mousedown' && ev.preventDefault) ev.preventDefault(); }
     const tbl = window.__SH_STATE && window.__SH_STATE.tables && window.__SH_STATE.tables[tIdx];
     if (!tbl) return;
+    window.__SH_SELECTED_LANDMARK_IDX = null;
     window.__SH_SELECTED_TABLE_IDX = tIdx;
     if (window.__SH_SANDBOX_MOM && tIdx >= 3 && !tbl.isUserAdded) { shToast('🔒 Family Share Mode: Tables 4-8 are locked.'); shRenderAll(); return; }
     const svgEl = document.getElementById('sh-floorplan-svg');
@@ -212,9 +304,12 @@ function renderInteractiveScript(initialPlan) {
       window.__SH_DRAG_VIEWBOX = null;
       if (moved) shToast('✓ Moved ' + tbl.name + ' to (' + tbl.x + ', ' + tbl.y + ')!');
       else if (window.__SH_SWAP_SOURCE && window.__SH_SWAP_SOURCE.tableIdx !== tIdx) {
-        window.shMoveGuestToTable(window.__SH_SWAP_SOURCE.tableIdx, window.__SH_SWAP_SOURCE.seatIdx, tIdx);
-        window.__SH_SWAP_SOURCE = null;
-        return;
+        const srcTbl = window.__SH_STATE.tables[window.__SH_SWAP_SOURCE.tableIdx];
+        if (srcTbl && srcTbl.guests[window.__SH_SWAP_SOURCE.seatIdx]) {
+          window.shMoveGuestToTable(window.__SH_SWAP_SOURCE.tableIdx, window.__SH_SWAP_SOURCE.seatIdx, tIdx);
+          window.__SH_SWAP_SOURCE = null;
+          return;
+        }
       }
       shRenderAll();
     };
@@ -224,16 +319,18 @@ function renderInteractiveScript(initialPlan) {
     window.addEventListener('touchend', onUp);
   };
 
+  /* ---- SEAT DRAG & CLICK CRUD ---- */
   window.shStartSeatDrag = function(tIdx, sIdx, ev) {
     if (ev && ev.button && ev.button !== 0) return;
+    if (ev) { ev.stopPropagation(); if (ev.type === 'mousedown' && ev.preventDefault) ev.preventDefault(); }
     const tbl = window.__SH_STATE && window.__SH_STATE.tables && window.__SH_STATE.tables[tIdx];
-    const guest = tbl && tbl.guests && tbl.guests[sIdx];
+    if (!tbl) return;
+    window.__SH_SELECTED_LANDMARK_IDX = null;
+    const guest = tbl.guests && tbl.guests[sIdx];
     if (!guest) {
-      if (window.__SH_SWAP_SOURCE) { if (ev) ev.stopPropagation(); window.shSeatClick(tIdx, sIdx, ev); return; }
-      window.shStartTableDrag(tIdx, ev);
+      window.shSeatClick(tIdx, sIdx, ev);
       return;
     }
-    if (ev) { ev.stopPropagation(); if (ev.type === 'mousedown' && ev.preventDefault) ev.preventDefault(); }
     if (window.__SH_SANDBOX_MOM && tIdx >= 3 && !tbl.isUserAdded) { shToast('🔒 Family Share Mode: Only Tables 1-3 are editable.'); return; }
     const startPt = shSvgCoord(ev);
     let moved = false;
@@ -253,7 +350,7 @@ function renderInteractiveScript(initialPlan) {
       window.__SH_DRAG_STATE = null;
       if (!moved) { window.shSeatClick(tIdx, sIdx, upEv); return; }
       const dropPt = shSvgCoord(upEv);
-      let bestSeat = null, bestDist = 34;
+      let bestSeat = null, bestDist = 36;
       (window.__SH_STATE.tables || []).forEach(function(candTbl, cTIdx) {
         if (!candTbl.geometry) shRecomputeGeometry(candTbl);
         (candTbl.geometry.seats || []).forEach(function(s, cSIdx) {
@@ -285,6 +382,7 @@ function renderInteractiveScript(initialPlan) {
 
   window.shCancelSwap = function() {
     window.__SH_SWAP_SOURCE = null;
+    window.__SH_SELECTED_LANDMARK_IDX = null;
     shRenderAll();
   };
 
@@ -294,6 +392,9 @@ function renderInteractiveScript(initialPlan) {
     if (!tbl || !tbl.guests || tbl.guests.length < 2) return;
     const len = tbl.guests.length, targetIdx = (gIdx + delta + len) % len;
     const tmp = tbl.guests[gIdx]; tbl.guests[gIdx] = tbl.guests[targetIdx]; tbl.guests[targetIdx] = tmp;
+    if (window.__SH_SWAP_SOURCE && window.__SH_SWAP_SOURCE.tableIdx === tIdx && window.__SH_SWAP_SOURCE.seatIdx === gIdx) {
+      window.__SH_SWAP_SOURCE.seatIdx = targetIdx;
+    }
     shToast('✓ Shifted ' + (tmp ? tmp.name : 'Guest') + ' to Seat #' + (targetIdx + 1) + ' at ' + tbl.name);
     shRenderAll();
   };
@@ -310,7 +411,69 @@ function renderInteractiveScript(initialPlan) {
     dstTbl.capacity = Math.max(dstTbl.capacity || 8, dstTbl.guests.length);
     shRecomputeGeometry(srcTbl); shRecomputeGeometry(dstTbl);
     window.__SH_SELECTED_TABLE_IDX = targetIdx;
+    window.__SH_SWAP_SOURCE = { tableIdx: targetIdx, seatIdx: dstTbl.guests.length - 1 };
     shToast('✓ Moved ' + movedGuest.name + ' → ' + dstTbl.name + ' (Seat #' + dstTbl.guests.length + ')!');
+    shRenderAll();
+  };
+
+  window.shRenameGuest = function(tIdx, gIdx, newName, ev) {
+    if (ev) ev.stopPropagation();
+    const tbl = window.__SH_STATE && window.__SH_STATE.tables && window.__SH_STATE.tables[tIdx];
+    const g = tbl && tbl.guests && tbl.guests[gIdx];
+    const clean = String(newName || '').trim();
+    if (!g || !clean) return;
+    g.name = clean;
+    const words = clean.replace(/^(Dr|Mr|Mrs|Ms|Prof)\\.?\\s+/i, '').split(/\\s+/);
+    g.initials = ((words[0] ? words[0][0] : 'G') + (words[words.length - 1] ? words[words.length - 1][0] : '')).toUpperCase();
+    shToast('✓ Updated guest name to "' + clean + '"');
+    shRenderAll();
+  };
+
+  window.shQuickAddGuestToTable = function(tIdx, rawNameInputId) {
+    const tbl = window.__SH_STATE && window.__SH_STATE.tables && window.__SH_STATE.tables[tIdx];
+    if (!tbl) return;
+    const inp = document.getElementById(rawNameInputId || 'sh-quick-seat-name-input') || document.getElementById('sh-inspector-add-guest-input');
+    const raw = inp ? inp.value.trim() : '';
+    const fullName = raw || ('Guest #' + (tbl.guests.length + 1));
+    const words = fullName.replace(/^(Dr|Mr|Mrs|Ms|Prof)\\.?\\s+/i, '').split(/\\s+/);
+    const initials = ((words[0] ? words[0][0] : 'G') + (words[words.length - 1] ? words[words.length - 1][0] : '')).toUpperCase();
+    tbl.guests.push({ name: fullName, initials: initials, role: 'Guest', meal: 'Filet Mignon', allergy: '', accessibility: '' });
+    tbl.capacity = Math.max(tbl.capacity || 8, tbl.guests.length);
+    shRecomputeGeometry(tbl);
+    window.__SH_SELECTED_TABLE_IDX = tIdx;
+    window.__SH_SWAP_SOURCE = { tableIdx: tIdx, seatIdx: tbl.guests.length - 1 };
+    if (inp) inp.value = '';
+    shToast('✓ Seated "' + fullName + '" at ' + tbl.name + ' (Seat #' + tbl.guests.length + ')!');
+    shRenderAll();
+  };
+
+  window.shChangeTableCapacity = function(tIdx, delta, ev) {
+    if (ev) ev.stopPropagation();
+    const tbl = window.__SH_STATE && window.__SH_STATE.tables && window.__SH_STATE.tables[tIdx];
+    if (!tbl) return;
+    const curCap = Math.max(2, tbl.capacity || 8, tbl.guests.length);
+    const nextCap = Math.max(2, Math.min(16, curCap + Number(delta || 0)));
+    if (nextCap < tbl.guests.length) {
+      const removed = tbl.guests.pop();
+      shToast('✓ Removed chair & unseated "' + (removed ? removed.name : 'Guest') + '" (' + nextCap + ' chairs at ' + tbl.name + ')');
+    } else {
+      shToast('✓ Updated ' + tbl.name + ' to ' + nextCap + ' chairs');
+    }
+    tbl.capacity = nextCap;
+    if (window.__SH_SWAP_SOURCE && window.__SH_SWAP_SOURCE.tableIdx === tIdx && window.__SH_SWAP_SOURCE.seatIdx >= nextCap) {
+      window.__SH_SWAP_SOURCE = null;
+    }
+    shRecomputeGeometry(tbl);
+    shRenderAll();
+  };
+
+  window.shRenameTable = function(tIdx, newName) {
+    const tbl = window.__SH_STATE && window.__SH_STATE.tables && window.__SH_STATE.tables[tIdx];
+    const clean = String(newName || '').trim();
+    if (!tbl || !clean) return;
+    tbl.name = clean;
+    shSyncTableSelectAndPills();
+    shToast('✓ Renamed table to "' + clean + '"');
     shRenderAll();
   };
 
@@ -338,6 +501,7 @@ function renderInteractiveScript(initialPlan) {
 
   window.shSelectTable = function(idx) {
     window.__SH_SELECTED_TABLE_IDX = idx;
+    window.__SH_SELECTED_LANDMARK_IDX = null;
     const sel = document.getElementById('sh-target-table-select');
     if (sel) sel.value = String(idx);
     shRenderAll();
@@ -371,25 +535,51 @@ function renderInteractiveScript(initialPlan) {
     if (ev) ev.stopPropagation();
     const dstTbl = window.__SH_STATE && window.__SH_STATE.tables && window.__SH_STATE.tables[tIdx];
     if (!dstTbl) return;
+    window.__SH_SELECTED_LANDMARK_IDX = null;
     if (window.__SH_SANDBOX_MOM && tIdx >= 3 && !dstTbl.isUserAdded) { shToast('🔒 Family Share Mode: Only Tables 1-3 are editable.'); return; }
     window.__SH_SELECTED_TABLE_IDX = tIdx;
-    if (!window.__SH_SWAP_SOURCE) {
-      const g = dstTbl.guests && dstTbl.guests[sIdx];
-      if (!g) { shToast('Selected ' + dstTbl.name + ' · Drag table to move it, or click a seated guest first to move them here.'); shRenderAll(); return; }
+
+    const src = window.__SH_SWAP_SOURCE;
+    const srcTbl = src && window.__SH_STATE.tables[src.tableIdx];
+    const srcGuest = srcTbl && srcTbl.guests && srcTbl.guests[src.seatIdx];
+
+    // If no active occupied source seat, select the clicked seat (occupied OR open) for CRUD!
+    if (!src || !srcGuest) {
       window.__SH_SWAP_SOURCE = { tableIdx: tIdx, seatIdx: sIdx };
-      shToast('Selected ' + g.name + ' · click any other seat or table to swap/move!');
-      shRenderAll(); return;
+      const g = dstTbl.guests && dstTbl.guests[sIdx];
+      if (g) {
+        shToast('Selected Seat #' + (sIdx + 1) + ' (' + g.name + ') · Click another seat/table to swap, or edit/delete in the bar above!');
+      } else {
+        shToast('Selected Open Seat #' + (sIdx + 1) + ' at ' + dstTbl.name + ' · Add a guest or remove this empty chair above!');
+      }
+      shRenderAll();
+      return;
     }
-    const src = window.__SH_SWAP_SOURCE; window.__SH_SWAP_SOURCE = null;
-    if (src.tableIdx === tIdx && src.seatIdx === sIdx) { shRenderAll(); return; }
-    const tA = window.__SH_STATE.tables[src.tableIdx], tB = dstTbl;
-    if (!tA || !tB || !tA.guests[src.seatIdx]) { shRenderAll(); return; }
-    if (!tB.guests[sIdx]) {
+
+    // Clicking the same seat again deselects it
+    if (src.tableIdx === tIdx && src.seatIdx === sIdx) {
+      window.__SH_SWAP_SOURCE = null;
+      shRenderAll();
+      return;
+    }
+
+    // Active occupied source guest -> clicked another seat (occupied OR open)
+    window.__SH_SWAP_SOURCE = null;
+    if (!dstTbl.guests[sIdx]) {
+      if (src.tableIdx === tIdx) {
+        const moved = srcTbl.guests.splice(src.seatIdx, 1)[0];
+        srcTbl.guests.push(moved);
+        shToast('✓ Moved ' + moved.name + ' to Seat #' + srcTbl.guests.length + ' at ' + dstTbl.name);
+        shRenderAll();
+        return;
+      }
       window.shMoveGuestToTable(src.tableIdx, src.seatIdx, tIdx);
       return;
     }
-    const tmp = tA.guests[src.seatIdx]; tA.guests[src.seatIdx] = tB.guests[sIdx]; tB.guests[sIdx] = tmp;
-    shToast('✓ Swapped ' + (tmp ? tmp.name : 'Seat') + ' ↔ ' + (tA.guests[src.seatIdx] ? tA.guests[src.seatIdx].name : 'Seat') + ' · Meal Sheet & 24"×36" Sign synced!');
+    const tmp = srcTbl.guests[src.seatIdx];
+    srcTbl.guests[src.seatIdx] = dstTbl.guests[sIdx];
+    dstTbl.guests[sIdx] = tmp;
+    shToast('✓ Swapped ' + (tmp ? tmp.name : 'Seat') + ' ↔ ' + (srcTbl.guests[src.seatIdx] ? srcTbl.guests[src.seatIdx].name : 'Seat') + ' · Meal Sheet & 24"×36" Sign synced!');
     shRenderAll();
   };
 
@@ -409,15 +599,40 @@ function renderInteractiveScript(initialPlan) {
     }, 160);
   };
 
+  /* ---- RULES CRUD ---- */
   window.shAddCustomRule = function() {
     const inp = document.getElementById('sh-custom-rule-input'), sel = document.getElementById('sh-custom-rule-type'), txt = inp ? inp.value.trim() : '';
     if (!txt || !window.__SH_STATE) return;
     const rType = sel ? sel.value : 'must_keep_apart';
-    if (!Array.isArray(window.__SH_STATE.rules)) window.__SH_STATE.rules = [];
+    if (!Array.isArray(window.__SH_STATE.rules)) window.__SH_STATE.rules = window.__SH_STATE.conflictRules || [];
     window.__SH_STATE.rules.unshift({ id: 'rule_custom_' + Date.now(), type: rType, label: txt, detail: rType === 'zone_quiet' ? 'Quiet Zone: Seated 30+ ft from DJ Speakers' : (rType === 'must_sit_together' ? 'Seated Together at the Same Table' : 'Separated Across the Room (2+ Tables Apart)'), status: 'VERIFIED' });
     window.__SH_STATE.harmonyScore = 99;
     if (inp) inp.value = '';
     shToast('✓ Added Family Rule "' + txt + '" & Verified 0 Clashes!'); shRenderAll();
+  };
+
+  window.shRemoveRule = function(rIdx, ev) {
+    if (ev) ev.stopPropagation();
+    if (!window.__SH_STATE) return;
+    const arr = window.__SH_STATE.rules || window.__SH_STATE.conflictRules;
+    if (!Array.isArray(arr) || !arr[rIdx]) return;
+    const rem = arr.splice(rIdx, 1)[0];
+    shToast('✓ Removed Rule "' + (rem ? rem.label : 'Rule') + '"');
+    shRenderAll();
+  };
+
+  window.shCycleRuleType = function(rIdx, ev) {
+    if (ev) ev.stopPropagation();
+    const arr = window.__SH_STATE && (window.__SH_STATE.rules || window.__SH_STATE.conflictRules);
+    const r = arr && arr[rIdx];
+    if (!r) return;
+    const types = ['must_keep_apart', 'zone_quiet', 'must_sit_together'];
+    const cur = (r.type === 'keep_apart' || r.type === 'must_keep_apart') ? 0 : (r.type === 'zone_quiet' ? 1 : 2);
+    const next = types[(cur + 1) % types.length];
+    r.type = next;
+    r.detail = next === 'zone_quiet' ? 'Quiet Zone: Seated 30+ ft from DJ Speakers' : (next === 'must_sit_together' ? 'Seated Together at the Same Table' : 'Separated Across the Room (2+ Tables Apart)');
+    shToast('✓ Updated rule type for "' + r.label + '"');
+    shRenderAll();
   };
 
   window.shToggleMomSandbox = function() {
@@ -509,6 +724,7 @@ function renderInteractiveScript(initialPlan) {
       if (data && data.ok && data.audit && data.audit.seatingPlan) {
         window.__SH_STATE = data.audit.seatingPlan;
         window.__SH_SELECTED_TABLE_IDX = Math.min(1, window.__SH_STATE.tables.length - 1);
+        window.__SH_SWAP_SOURCE = null; window.__SH_SELECTED_LANDMARK_IDX = null;
         window.__SH_SANDBOX_MOM = (presetKey === 'planner-beo-sandbox');
         const titleIn = document.getElementById('sh-couple-title-input'); if (titleIn) titleIn.value = window.__SH_STATE.title || '';
         const venueIn = document.getElementById('sh-venue-name-input'); if (venueIn) venueIn.value = window.__SH_STATE.venueName || 'Rosewood Conservatory';
@@ -555,11 +771,12 @@ function renderInteractiveScript(initialPlan) {
 
   function shRenderRulesList() {
     const listEl = document.getElementById('sh-rules-list'); if (!listEl || !window.__SH_STATE) return;
-    const rules = window.__SH_STATE.rules || window.__SH_STATE.conflictRules || [];
+    if (!Array.isArray(window.__SH_STATE.rules)) window.__SH_STATE.rules = window.__SH_STATE.conflictRules || [];
+    const rules = window.__SH_STATE.rules;
     const sum3 = document.getElementById('sh-wizard-summary-3'); if (sum3) sum3.textContent = rules.length + ' Rules • 0 Clashes';
-    listEl.innerHTML = rules.map(function(r) {
+    listEl.innerHTML = rules.map(function(r, rIdx) {
       const icon = (r.type === 'keep_apart' || r.type === 'must_keep_apart') ? '🔴 ' : (r.type === 'zone_quiet' ? '🔇 ' : '🟢 ');
-      return '<div style="padding:10px 12px;border-radius:10px;background:#FAF8F5;border:1px solid #E2D9C8;font-size:0.84rem;display:flex;flex-direction:column;align-items:flex-start;gap:5px;"><div style="font-weight:800;color:#181412;line-height:1.35;width:100%;">' + icon + shEsc(r.label) + '</div><div style="font-size:0.82rem;color:#57534E;line-height:1.42;width:100%;">' + shEsc(r.detail) + '</div><span class="badge badge-emerald" style="font-size:0.82rem;padding:3px 9px;align-self:flex-start;">✓ ' + shEsc(r.status) + '</span></div>';
+      return '<div style="padding:10px 12px;border-radius:10px;background:#FAF8F5;border:1px solid #E2D9C8;font-size:0.84rem;display:flex;flex-direction:column;align-items:flex-start;gap:5px;"><div style="display:flex;align-items:flex-start;justify-content:space-between;gap:8px;width:100%;"><div style="font-weight:800;color:#181412;line-height:1.35;flex:1;">' + icon + shEsc(r.label) + '</div><button type="button" title="Delete Rule" onclick="window.shRemoveRule(' + rIdx + ',event)" style="cursor:pointer;border:1px solid #FECDD3;background:#FFF1F2;color:#9F1239;font-size:0.78rem;font-weight:800;padding:1px 6px;border-radius:5px;flex-shrink:0;">✕</button></div><div style="font-size:0.82rem;color:#57534E;line-height:1.42;width:100%;">' + shEsc(r.detail) + '</div><button type="button" title="Click to cycle rule type" onclick="window.shCycleRuleType(' + rIdx + ',event)" class="badge badge-emerald" style="cursor:pointer;border:1px solid #A7F3D0;font-size:0.82rem;padding:3px 9px;align-self:flex-start;">✓ ' + shEsc(r.status) + ' · Cycle Type</button></div>';
     }).join('');
   }
 
@@ -579,23 +796,16 @@ function renderInteractiveScript(initialPlan) {
     } else {
       svgEl.setAttribute('viewBox', '0 0 1120 680');
     }
-    const swapBanner = document.getElementById('sh-active-swap-banner');
-    if (swapBanner) {
-      if (window.__SH_SWAP_SOURCE) {
-        const sTbl = plan.tables[window.__SH_SWAP_SOURCE.tableIdx], sG = sTbl && sTbl.guests[window.__SH_SWAP_SOURCE.seatIdx];
-        swapBanner.style.display = 'flex';
-        swapBanner.innerHTML = '<span>&#8644; Moving <strong>' + shEsc(sG ? sG.name : 'Selected Seat') + '</strong> (' + shEsc(sTbl ? sTbl.name : '') + ') &middot; Click any other seat or table to swap/move</span><button type="button" onclick="window.shCancelSwap()" style="background:#FFFFFF;border:1px solid #D97706;border-radius:6px;padding:3px 9px;font-size:0.74rem;font-weight:800;cursor:pointer;color:#78350F;">Cancel</button>';
-      } else { swapBanner.style.display = 'none'; }
-    }
+    shRenderActiveCrudBanner(plan);
     const parts = [
       '<defs><pattern id="sh-grid" width="40" height="40" patternUnits="userSpaceOnUse"><path d="M 40 0 L 0 0 0 40" fill="none" stroke="#EAE2D3" stroke-width="0.8"/></pattern></defs>',
       '<rect width="1120" height="680" rx="12" fill="#FAF7F2" stroke="#D6CBB8" stroke-width="1.5"/>',
       '<rect width="1120" height="680" rx="12" fill="url(#sh-grid)"/>'
     ];
-    (plan.landmarks || []).forEach(function(lm) {
-      const isLoud = lm.zone === 'loud', isQuiet = lm.zone === 'quiet';
-      const fill = isLoud ? '#FFF1F2' : (isQuiet ? '#ECFDF5' : '#F3EDE3'), stroke = isLoud ? '#FECDD3' : (isQuiet ? '#A7F3D0' : '#D6CBB8'), textCol = isLoud ? '#9F1239' : (isQuiet ? '#065F46' : '#57534E');
-      parts.push('<g transform="translate(' + lm.x + ',' + lm.y + ')"><rect x="' + (-lm.w / 2) + '" y="' + (-lm.h / 2) + '" width="' + lm.w + '" height="' + lm.h + '" rx="8" fill="' + fill + '" stroke="' + stroke + '" stroke-width="1.5" stroke-dasharray="4 3"/><text x="0" y="4" text-anchor="middle" fill="' + textCol + '" font-size="11" font-weight="800" letter-spacing="0.06em">' + shEsc(lm.label) + '</text></g>');
+    (plan.landmarks || []).forEach(function(lm, lmIdx) {
+      const isLoud = lm.zone === 'loud', isQuiet = lm.zone === 'quiet', isSelLm = window.__SH_SELECTED_LANDMARK_IDX === lmIdx;
+      const fill = isLoud ? '#FFF1F2' : (isQuiet ? '#ECFDF5' : '#F3EDE3'), stroke = isSelLm ? '#8C2D19' : (isLoud ? '#FECDD3' : (isQuiet ? '#A7F3D0' : '#D6CBB8')), textCol = isLoud ? '#9F1239' : (isQuiet ? '#065F46' : '#57534E');
+      parts.push('<g style="cursor:grab;" transform="translate(' + lm.x + ',' + lm.y + ')" onmousedown="window.shStartLandmarkDrag(' + lmIdx + ',event)" ontouchstart="window.shStartLandmarkDrag(' + lmIdx + ',event)" onclick="window.shSelectLandmark(' + lmIdx + ',event)"><title>Drag ' + shEsc(lm.label) + ' or click to rename/resize/remove</title><rect x="' + (-lm.w / 2) + '" y="' + (-lm.h / 2) + '" width="' + lm.w + '" height="' + lm.h + '" rx="8" fill="' + fill + '" stroke="' + stroke + '" stroke-width="' + (isSelLm ? '2.5' : '1.5') + '" stroke-dasharray="4 3"/><text x="0" y="4" text-anchor="middle" fill="' + textCol + '" font-size="11" font-weight="800" letter-spacing="0.06em">' + shEsc(lm.label) + '</text></g>');
     });
     const t2 = plan.tables[1], t5 = plan.tables[4];
     if (t2 && t5) {
@@ -619,7 +829,7 @@ function renderInteractiveScript(initialPlan) {
       parts.push('<text x="' + t.x + '" y="' + (t.y - 4) + '" text-anchor="middle" fill="#1C1917" font-size="12.5" font-weight="800">' + (t.locked ? '🔒 ' : '') + 'Table ' + t.number + '</text><text x="' + t.x + '" y="' + (t.y + 11) + '" text-anchor="middle" fill="#78716C" font-size="9.8" font-weight="700">' + t.guests.length + '/' + t.capacity + ' · Drag</text></g>');
       geom.seats.forEach(function(s, sIdx) {
         const g = t.guests[sIdx], isSwapSrc = window.__SH_SWAP_SOURCE && window.__SH_SWAP_SOURCE.tableIdx === tIdx && window.__SH_SWAP_SOURCE.seatIdx === sIdx;
-        let seatFill = '#FFFFFF', seatStroke = '#A89F91', txtFill = '#1C1917', topTxt = '#' + s.seatNumber;
+        let seatFill = isSwapSrc ? '#FEF3C7' : '#FFFFFF', seatStroke = isSwapSrc ? '#D97706' : '#A89F91', txtFill = '#1C1917', topTxt = '#' + s.seatNumber;
         if (g) {
           if (window.__SH_RING_MODE === 'meal') {
             const mb = shMealBadge(g.meal); seatFill = mb.bg; seatStroke = mb.color; txtFill = mb.color; topTxt = '#' + s.seatNumber + mb.code;
@@ -630,13 +840,17 @@ function renderInteractiveScript(initialPlan) {
             txtFill = isSwapSrc ? '#FFFFFF' : '#1C1917';
           }
         }
-        const firstName = g ? String(g.name || '').replace(/^(Dr|Mr|Mrs|Ms|Prof|Aunt|Uncle|Cousin)\\.?\\s+/i, '').split(/\\s+/)[0].slice(0, 7) : 'Open';
-        parts.push('<g data-seat-target="' + tIdx + ':' + sIdx + '" style="cursor:grab;" onmousedown="window.shStartSeatDrag(' + tIdx + ',' + sIdx + ',event)" ontouchstart="window.shStartSeatDrag(' + tIdx + ',' + sIdx + ',event)">');
-        parts.push('<title>Seat #' + s.seatNumber + ' (' + shEsc(s.clockPosition) + '): ' + (g ? (shEsc(g.name) + ' · ' + shEsc(g.meal)) : 'Empty') + ' · Drag or click to swap</title>');
-        parts.push('<circle cx="' + s.x + '" cy="' + s.y + '" r="19" fill="' + seatFill + '" stroke="' + seatStroke + '" stroke-width="' + (isSwapSrc ? '3' : '1.8') + '"/>');
+        const firstName = g ? String(g.name || '').replace(/^(Dr|Mr|Mrs|Ms|Prof|Aunt|Uncle|Cousin)\\.?\\s+/i, '').split(/\\s+/)[0].slice(0, 7) : '+Open';
+        parts.push('<g data-seat-target="' + tIdx + ':' + sIdx + '" style="cursor:pointer;" onmousedown="window.shStartSeatDrag(' + tIdx + ',' + sIdx + ',event)" ontouchstart="window.shStartSeatDrag(' + tIdx + ',' + sIdx + ',event)">');
+        parts.push('<title>Seat #' + s.seatNumber + ' (' + shEsc(s.clockPosition) + '): ' + (g ? (shEsc(g.name) + ' · ' + shEsc(g.meal) + ' · Drag or click to move/edit/remove') : 'Open Chair · Click to seat a guest or remove chair') + '</title>');
+        parts.push('<circle cx="' + s.x + '" cy="' + s.y + '" r="19" fill="' + seatFill + '" stroke="' + seatStroke + '" stroke-width="' + (isSwapSrc ? '3' : '1.8') + '"' + (g ? '' : ' stroke-dasharray="3 2"') + '/>');
         parts.push('<text x="' + s.x + '" y="' + (s.y - 3) + '" text-anchor="middle" fill="' + txtFill + '" font-size="8.5" font-weight="800">' + shEsc(topTxt) + '</text>');
-        parts.push('<text x="' + s.x + '" y="' + (s.y + 7.2) + '" text-anchor="middle" fill="' + txtFill + '" font-size="7.6" font-weight="700">' + shEsc(firstName) + '</text>');
+        parts.push('<text x="' + s.x + '" y="' + (s.y + 7.2) + '" text-anchor="middle" fill="' + (g ? txtFill : '#78716C') + '" font-size="7.6" font-weight="700">' + shEsc(firstName) + '</text>');
         if (sIdx === 0) parts.push('<circle cx="' + s.x + '" cy="' + (s.y - 19) + '" r="4.8" fill="#8C2D19" stroke="#FFFFFF" stroke-width="1"/>');
+        if (isSwapSrc) {
+          const delAction = g ? ('window.shRemoveGuest(' + tIdx + ',' + sIdx + ',event);window.__SH_SWAP_SOURCE=null;shRenderAll();') : ('window.shChangeTableCapacity(' + tIdx + ',-1,event)');
+          parts.push('<g style="cursor:pointer;" onmousedown="event.stopPropagation();" onclick="event.stopPropagation();' + delAction + '"><title>' + (g ? 'Remove ' + shEsc(g.name) : 'Remove empty chair') + '</title><circle cx="' + (s.x + 15) + '" cy="' + (s.y - 15) + '" r="8" fill="#E11D48" stroke="#FFFFFF" stroke-width="1.5"/><text x="' + (s.x + 15) + '" y="' + (s.y - 12) + '" text-anchor="middle" fill="#FFFFFF" font-size="9" font-weight="900">✕</text></g>');
+        }
         parts.push('</g>');
       });
       parts.push('</g>');
@@ -679,7 +893,7 @@ function renderInteractiveScript(initialPlan) {
     if (!tbl || !tbl.guests || !tbl.guests[gIdx]) return;
     const removed = tbl.guests.splice(gIdx, 1)[0];
     shRecomputeGeometry(tbl);
-    shToast('✓ Removed RSVP Drop "' + removed.name + '" from ' + tbl.name); shRenderAll();
+    shToast('✓ Removed "' + removed.name + '" from ' + tbl.name); shRenderAll();
   };
 
   function shSyncTableSelectAndPills() {
@@ -712,252 +926,19 @@ function renderInteractiveScript(initialPlan) {
     const newTbl = { id: 'table-' + num, number: num, name: 'Table ' + num + ' (Added Guests)', shape: 'round', capacity: 8, x: bestPt.x, y: bestPt.y, rotation: 0, locked: false, isUserAdded: true, guests: [] };
     shRecomputeGeometry(newTbl); window.__SH_STATE.tables.push(newTbl); window.__SH_SELECTED_TABLE_IDX = window.__SH_STATE.tables.length - 1;
     if (window.__SH_CANVAS_ZOOM === 'table') window.shSetCanvasZoom('room');
-    shSyncTableSelectAndPills(); shToast('✓ Added ' + newTbl.name + ' at (' + bestPt.x + ', ' + bestPt.y + ') · Drag table or use ← ↑ ↓ → to move!'); shRenderAll();
+    shSyncTableSelectAndPills(); shToast('✓ Added ' + newTbl.name + ' at (' + bestPt.x + ', ' + bestPt.y + ') · Add guests or adjust chairs below!'); shRenderAll();
   };
   window.shDeleteSelectedTable = function() {
     if (!window.__SH_STATE || !window.__SH_STATE.tables || window.__SH_STATE.tables.length <= 1) return;
     const tIdx = window.__SH_SELECTED_TABLE_IDX || 0, removed = window.__SH_STATE.tables.splice(tIdx, 1)[0];
     window.__SH_STATE.tables.forEach(function(t, i) { t.number = i + 1; });
     window.__SH_SELECTED_TABLE_IDX = Math.max(0, Math.min(tIdx, window.__SH_STATE.tables.length - 1));
+    window.__SH_SWAP_SOURCE = null;
     shSyncTableSelectAndPills(); shToast('✓ Removed ' + (removed ? removed.name : 'Table')); shRenderAll();
   };
-  window.shStartBlankList = function() {
-    if (!window.__SH_STATE || !window.__SH_STATE.tables) return;
-    window.__SH_STATE.tables.forEach(function(t, idx) {
-      t.guests = idx === 0 ? [{ name: 'Bride / Host 1', initials: 'H1', role: 'Host', meal: 'Filet Mignon', allergy: '', accessibility: '' }, { name: 'Groom / Host 2', initials: 'H2', role: 'Host', meal: 'Pan-Seared Halibut', allergy: '', accessibility: '' }] : [];
-      shRecomputeGeometry(t);
-    });
-    window.__SH_STATE.householdsCoupled = 1; window.__SH_SELECTED_TABLE_IDX = 1;
-    const drawer = document.getElementById('sh-bulk-csv-drawer'); if (drawer) drawer.style.display = 'block';
-    shToast('✨ Cleared demo guests! Paste your spreadsheet in Step 2 or add households.'); window.scrollToShCard(2); shRenderAll();
-  };
-  window.shToggleBulkCsvDrawer = function() { const d = document.getElementById('sh-bulk-csv-drawer'); if (d) d.style.display = d.style.display === 'none' ? 'block' : 'none'; };
-  window.shHandleCsvFileUpload = function(inputEl) {
-    const f = inputEl && inputEl.files && inputEl.files[0]; if (!f) return;
-    const reader = new FileReader();
-    reader.onload = function(ev) { const ta = document.getElementById('sh-bulk-csv-textarea'); if (ta) ta.value = String(ev.target.result || '').trim(); window.shProcessBulkCsv(false); };
-    reader.readAsText(f);
-  };
-  window.shProcessBulkCsv = function(replaceAll) {
-    const ta = document.getElementById('sh-bulk-csv-textarea'), rawText = ta ? ta.value.trim() : '';
-    if (!rawText || !window.__SH_STATE) return;
-    const lines = rawText.split(/\\r?\\n/).map(function(l) { return l.trim(); }).filter(function(l) { return l && !/^(name|guest|household|table)[,\\t]/i.test(l); });
-    if (!lines.length) return;
-    if (replaceAll) { window.__SH_STATE.tables.forEach(function(t, idx) { if (idx > 0) t.guests = []; }); window.__SH_STATE.householdsCoupled = 1; }
-    const inp = document.getElementById('domain-input'), sel = document.getElementById('sh-target-table-select');
-    if (sel) sel.value = 'auto';
-    lines.forEach(function(line) {
-      const openTbl = window.__SH_STATE.tables.findIndex(function(t, i) { return i > 0 && !t.locked && t.guests.length < t.capacity; });
-      if (openTbl === -1) window.shAddNewTable();
-      if (inp) inp.value = line.replace(/,/g, ' ');
-      window.shAddMessyHousehold();
-    });
-    shToast('✓ Bulk Imported & Coupled ' + lines.length + ' Household Rows!'); shRenderAll();
-  };
 
-  function shRenderSelectedTableInspector() {
-    const box = document.getElementById('sh-selected-table-box');
-    if (!box || !window.__SH_STATE || !window.__SH_STATE.tables) return;
-    const tIdx = window.__SH_SELECTED_TABLE_IDX || 0, t = window.__SH_STATE.tables[tIdx] || window.__SH_STATE.tables[0];
-    if (!t.geometry) shRecomputeGeometry(t);
-    const normShape = shNormalizeShape(t.shape);
-    shSyncTableSelectAndPills();
-    document.querySelectorAll('#sh-card4-shape-pills button[data-shape]').forEach(function(b) { b.classList.toggle('active', b.getAttribute('data-shape') === normShape); });
-    const lockBtn = document.getElementById('sh-lock-table-btn');
-    if (lockBtn) { lockBtn.classList.toggle('active', Boolean(t.locked)); lockBtn.textContent = t.locked ? '🔒 Locked' : '🔓 Lock'; }
-    const sum4 = document.getElementById('sh-wizard-summary-4');
-    if (sum4) sum4.textContent = 'Table ' + t.number + ' • ' + shFriendlyShape(t.shape);
+  ${renderDeliverablesClientScript()}
 
-    const tableMoveOpts = (window.__SH_STATE.tables || []).map(function(cand, cIdx) {
-      return '<option value="' + cIdx + '"' + (cIdx === tIdx ? ' selected' : '') + '>⇄ Tbl ' + cand.number + '</option>';
-    }).join('');
-
-    const seatRows = t.guests.length ? t.guests.map(function(g, idx) {
-      const seat = t.geometry.seats[idx] || { seatNumber: idx + 1, clockPosition: '12:00' }, mb = shMealBadge(g.meal);
-      const cleanAllergy = g.allergy ? String(g.allergy).replace(/^[⚠️🥜🌾🐚🥛]+\\s*/, '') : '', cleanAccess = g.accessibility ? String(g.accessibility).replace(/^[♿👶]+\\s*/, '') : '';
-      const tagLabel = cleanAllergy ? ('⚠️ ' + shEsc(cleanAllergy)) : (cleanAccess ? ('♿ ' + shEsc(cleanAccess)) : '+ Tag');
-      const tagStyle = cleanAllergy ? 'background:#FFF1F2;color:#9F1239;border:1px solid #FECDD3;' : (cleanAccess ? 'background:#FEF3C7;color:#92400E;border:1px solid #FDE68A;' : 'background:#F5F5F4;color:#57534E;border:1px solid #D6D3D1;');
-      return '<div onclick="window.shSeatClick(' + tIdx + ',' + idx + ',event)" style="cursor:pointer;display:flex;flex-direction:column;gap:6px;padding:9px 11px;border-radius:10px;background:#FFFFFF;border:1px solid #EAE2D3;font-size:0.84rem;min-width:0;max-width:100%;"><div style="display:flex;align-items:center;justify-content:space-between;gap:6px;width:100%;min-width:0;"><div style="display:flex;align-items:center;gap:6px;min-width:0;flex:1;"><span class="mono" style="font-size:0.82rem;font-weight:800;padding:2px 6px;border-radius:5px;flex-shrink:0;background:' + (idx === 0 ? '#8C2D19' : '#F3EDE3') + ';color:' + (idx === 0 ? '#FFF' : '#1C1917') + ';">#' + seat.seatNumber + '</span><strong style="color:#1C1917;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;">' + shEsc(g.name) + '</strong></div><button type="button" title="Remove guest" onclick="window.shRemoveGuest(' + tIdx + ',' + idx + ',event)" style="cursor:pointer;border:1px solid #FECDD3;background:#FFF1F2;color:#9F1239;font-size:0.82rem;font-weight:800;padding:2px 6px;border-radius:5px;flex-shrink:0;">✕</button></div><div style="display:flex;flex-wrap:wrap;align-items:center;gap:4px;width:100%;" onclick="event.stopPropagation()"><button type="button" title="Move Seat Counter-Clockwise" onclick="window.shMoveGuestSeatOffset(' + tIdx + ',' + idx + ',-1,event)" style="cursor:pointer;border:1px solid #D6CFC2;background:#FAF7F2;color:#181412;font-size:0.82rem;font-weight:800;padding:2px 6px;border-radius:5px;">&#9664;</button><button type="button" title="Move Seat Clockwise" onclick="window.shMoveGuestSeatOffset(' + tIdx + ',' + idx + ',1,event)" style="cursor:pointer;border:1px solid #D6CFC2;background:#FAF7F2;color:#181412;font-size:0.82rem;font-weight:800;padding:2px 6px;border-radius:5px;">&#9654;</button><select aria-label="Move guest to another table" onchange="window.shMoveGuestToTable(' + tIdx + ',' + idx + ',this.value,event)" style="cursor:pointer;border:1px solid #C8A96E;background:#FAF3E3;color:#78350F;font-size:0.82rem;font-weight:800;padding:2px 5px;border-radius:5px;">' + tableMoveOpts + '</select><button type="button" title="Cycle Entrée" onclick="window.shCycleGuestMeal(' + tIdx + ',' + idx + ',event)" style="cursor:pointer;border:1px solid ' + mb.color + ';font-size:0.82rem;font-weight:800;padding:2px 6px;border-radius:5px;background:' + mb.bg + ';color:' + mb.color + ';">' + mb.code + ' ' + mb.short + '</button><button type="button" title="Cycle Allergy / Chair" onclick="window.shCycleGuestAllergy(' + tIdx + ',' + idx + ',event)" style="cursor:pointer;font-size:0.82rem;font-weight:800;padding:2px 6px;border-radius:5px;max-width:100%;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;' + tagStyle + '">' + tagLabel + '</button></div></div>';
-    }).join('') : '<div style="padding:10px;font-size:0.84rem;color:#57534E;">No guests seated at ' + shEsc(t.name) + ' yet. Use Step 2 to add guests.</div>';
-
-    box.innerHTML = '<div style="display:flex;flex-wrap:wrap;align-items:center;justify-content:space-between;gap:8px;margin-bottom:10px;"><div style="min-width:0;flex:1 1 240px;"><div style="font-size:0.82rem;font-weight:800;text-transform:uppercase;letter-spacing:0.06em;color:#8C2D19;">TABLE SEATING &amp; ENTR&Eacute;E ARRANGEMENT (&#9664;/&#9654; SWAP SEAT &middot; &#8644; CHANGE TABLE &middot; MEAL &middot; ALLERGY)</div><div class="serif-display" style="font-size:1.10rem;color:#181412;">' + shEsc(t.name) + ' &middot; ' + shEsc(shFriendlyShape(t.shape)) + ' <span class="mono" style="font-size:0.82rem;color:#78716C;">(' + t.x + ', ' + t.y + ')</span></div></div><div style="display:flex;flex-wrap:wrap;gap:4px;align-items:center;"><button type="button" title="Move Table Left" onclick="window.shNudgeSelectedTable(-32,0)" class="studio-tap-chip" style="padding:3px 7px;">&larr;</button><button type="button" title="Move Table Up" onclick="window.shNudgeSelectedTable(0,-28)" class="studio-tap-chip" style="padding:3px 7px;">&uarr;</button><button type="button" title="Move Table Down" onclick="window.shNudgeSelectedTable(0,28)" class="studio-tap-chip" style="padding:3px 7px;">&darr;</button><button type="button" title="Move Table Right" onclick="window.shNudgeSelectedTable(32,0)" class="studio-tap-chip" style="padding:3px 7px;">&rarr;</button><button type="button" onclick="window.shMorphSelectedTable(\\\'round\\\')" class="studio-tap-chip' + (normShape === 'round' ? ' active' : '') + '">● Round</button><button type="button" onclick="window.shMorphSelectedTable(\\\'sweetheart\\\')" class="studio-tap-chip' + (normShape === 'sweetheart' ? ' active' : '') + '">💕 Sweetheart</button><button type="button" onclick="window.shMorphSelectedTable(\\\'banquet_2sided\\\')" class="studio-tap-chip' + (normShape === 'banquet_2sided' ? ' active' : '') + '">▬ Banquet</button><button type="button" onclick="window.shMorphSelectedTable(\\\'kings_4sided\\\')" class="studio-tap-chip' + (normShape === 'kings_4sided' ? ' active' : '') + '">⊞ King\\\'s</button><button type="button" onclick="window.shRotateSelectedTable()" class="studio-tap-chip">↻ 45°</button>' + (window.__SH_STATE.tables.length > 1 ? '<button type="button" title="Delete Selected Table" onclick="window.shDeleteSelectedTable()" class="studio-tap-chip" style="border-color:#FECDD3;background:#FFF1F2;color:#9F1239;">✕ Table</button>' : '') + '</div></div><div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(255px,1fr));gap:8px;">' + seatRows + '</div>';
-  }
-
-  function shRenderBeoView() {
-    const container = document.getElementById('sh-beo-container');
-    if (!container || !window.__SH_STATE) return;
-    let totalFilet = 0, totalHalibut = 0, totalVegan = 0, totalKids = 0, totalAllergies = 0;
-    const tableCards = (window.__SH_STATE.tables || []).map(function(t) {
-      if (!t.geometry) shRecomputeGeometry(t);
-      const rows = t.guests.map(function(g, idx) {
-        const s = t.geometry.seats[idx] || { seatNumber: idx + 1, clockPosition: '12:00' }, mb = shMealBadge(g.meal);
-        if (mb.short === 'Filet') totalFilet++; else if (mb.short === 'Halibut') totalHalibut++; else if (mb.short === 'Vegan') totalVegan++; else totalKids++;
-        if (g.allergy) totalAllergies++;
-        const cleanAllergy = g.allergy ? String(g.allergy).replace(/^[⚠️]+\\s*/, '') : '', cleanAccess = g.accessibility ? String(g.accessibility).replace(/^[♿👶]+\\s*/, '') : '';
-        return '<tr><td class="mono" style="font-weight:800;color:' + (idx === 0 ? '#8C2D19' : '#1C1917') + ';">Seat #' + s.seatNumber + (idx === 0 ? ' ★12:00' : '') + '</td><td style="font-weight:700;">' + shEsc(g.name) + '</td><td><span style="padding:2px 8px;border-radius:6px;font-weight:700;font-size:0.74rem;background:' + mb.bg + ';color:' + mb.color + ';">' + mb.code + ' ' + shEsc(g.meal) + '</span></td><td>' + (cleanAllergy ? '<strong style="color:#9F1239;">⚠️ ' + shEsc(cleanAllergy) + '</strong>' : '<span style="color:#78716C;">None</span>') + '</td><td>' + (cleanAccess ? '<strong style="color:#92400E;">♿ ' + shEsc(cleanAccess) + '</strong>' : '<span style="color:#78716C;">Standard</span>') + '</td></tr>';
-      }).join('');
-      return '<div style="background:#FFFFFF;border:1px solid #E2D9C8;border-radius:12px;padding:12px;margin-bottom:10px;"><div style="display:flex;flex-wrap:wrap;justify-content:space-between;align-items:center;gap:6px;margin-bottom:6px;"><strong style="font-size:0.90rem;color:#181412;">' + shEsc(t.name) + ' (' + t.guests.length + ' Covers)</strong><span class="badge badge-emerald">Seat #1 = 12 O\\'Clock Anchor</span></div><div style="overflow-x:auto;"><table class="ba-table" style="font-size:0.76rem;"><thead><tr><th>Clockwise Seat</th><th>Guest Name</th><th>Entrée</th><th>Allergy Alert</th><th>Chair Spec</th></tr></thead><tbody>' + rows + '</tbody></table></div></div>';
-    }).join('');
-    container.innerHTML = '<div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(85px,1fr));gap:8px;margin-bottom:12px;"><div style="background:#FDF2EE;border:1px solid #F5D0C5;padding:8px;border-radius:10px;text-align:center;"><div style="font-size:0.65rem;font-weight:800;color:#8C2D19;">◆ FILET</div><div style="font-size:1.15rem;font-weight:800;color:#181412;">' + totalFilet + '</div></div><div style="background:#F0F9FF;border:1px solid #BAE6FD;padding:8px;border-radius:10px;text-align:center;"><div style="font-size:0.65rem;font-weight:800;color:#0369A1;">● HALIBUT</div><div style="font-size:1.15rem;font-weight:800;color:#181412;">' + totalHalibut + '</div></div><div style="background:#ECFDF5;border:1px solid #A7F3D0;padding:8px;border-radius:10px;text-align:center;"><div style="font-size:0.65rem;font-weight:800;color:#065F46;">▲ VEGAN</div><div style="font-size:1.15rem;font-weight:800;color:#181412;">' + totalVegan + '</div></div><div style="background:#FFFBEB;border:1px solid #FDE68A;padding:8px;border-radius:10px;text-align:center;"><div style="font-size:0.65rem;font-weight:800;color:#A16207;">★ KIDS</div><div style="font-size:1.15rem;font-weight:800;color:#181412;">' + totalKids + '</div></div><div style="background:#FFF1F2;border:1px solid #FECDD3;padding:8px;border-radius:10px;text-align:center;"><div style="font-size:0.65rem;font-weight:800;color:#9F1239;">⚠️ ALLERGIES</div><div style="font-size:1.15rem;font-weight:800;color:#9F1239;">' + totalAllergies + '</div></div></div>' + tableCards;
-  }
-
-  function shFormatPosterName(rawName) {
-    const str = String(rawName || '').trim(), parenMatch = str.match(/\\s*(\\([^)]+\\))\\s*$/), suffix = parenMatch ? (' ' + parenMatch[1]) : '';
-    const base = str.replace(/\\s*\\([^)]+\\)\\s*$/, '').trim(), parts = base.split(/\\s+/).filter(Boolean);
-    if (parts.length <= 1) return { sortKey: base.toLowerCase(), display: base + suffix };
-    const last = parts[parts.length - 1], first = parts.slice(0, -1).join(' ');
-    return { sortKey: (last + ', ' + first).toLowerCase(), display: last + ', ' + first + suffix };
-  }
-
-  var SH_POSTER_THEMES = {
-    alabaster: { label: 'Parisian Gold', bg: '#FAF7F2', fg: '#181412', sub: '#57534E', borderCol: '#C8A96E', badgeBg: '#181412', badgeFg: '#FDE68A', motif: '✦', fontStyle: 'normal' },
-    ivory: { label: 'Botanical Ivory', bg: '#FCFBF7', fg: '#1F291E', sub: '#4B5D48', borderCol: '#7D8C6D', badgeBg: '#2C3E2B', badgeFg: '#D9F99D', motif: '🌿', fontStyle: 'italic' },
-    obsidian: { label: 'Editorial Noir', bg: '#181412', fg: '#FAF7F2', sub: '#D6CBB8', borderCol: '#C8A96E', badgeBg: '#2B231D', badgeFg: '#FDE68A', motif: '◆', fontStyle: 'normal' },
-    sage: { label: 'Tuscan Sage', bg: '#EFF5F1', fg: '#14291E', sub: '#3E5C4A', borderCol: '#4D7C5D', badgeBg: '#064E3B', badgeFg: '#A7F3D0', motif: '✦', fontStyle: 'italic' },
-    rosewater: { label: 'Blush Rosewater', bg: '#FDF4F5', fg: '#3B1821', sub: '#7D4250', borderCol: '#D48C96', badgeBg: '#6B2134', badgeFg: '#FECDD3', motif: '🌸', fontStyle: 'italic' },
-    terracotta: { label: 'Villa Terracotta', bg: '#FDF6F0', fg: '#2E160B', sub: '#7C4327', borderCol: '#B45309', badgeBg: '#7C2D12', badgeFg: '#FDE68A', motif: '☀', fontStyle: 'normal' }
-  };
-
-  window.shUpdateSignKicker = function(val) {
-    window.__SH_SIGN_KICKER = String(val || 'Please Find Your Seat').trim();
-    shRenderPosterView();
-    shToast('✓ Updated 24"×36" Sign Header → "' + window.__SH_SIGN_KICKER + '"');
-  };
-
-  window.shUpdateSignMonogram = function(val) {
-    window.__SH_SIGN_MONOGRAM = String(val || '').trim();
-    shRenderPosterView();
-    shToast('✓ Updated 24"×36" Sign Crest Monogram → "' + (window.__SH_SIGN_MONOGRAM || shComputeCoupleMonogram(window.__SH_STATE && window.__SH_STATE.title)) + '"');
-  };
-
-  window.shSetPosterMode = function(mode, theme) {
-    if (mode) window.__SH_POSTER_MODE = mode;
-    if (theme) window.__SH_POSTER_THEME = theme;
-    document.querySelectorAll('[data-poster-sort], #sh-card5-sort-pills [data-sort]').forEach(function(b) { b.classList.toggle('active', (b.getAttribute('data-poster-sort') || b.getAttribute('data-sort')) === window.__SH_POSTER_MODE); });
-    document.querySelectorAll('[data-poster-theme], #sh-card5-theme-pills [data-theme]').forEach(function(b) { b.classList.toggle('active', (b.getAttribute('data-poster-theme') || b.getAttribute('data-theme')) === window.__SH_POSTER_THEME); });
-    const tSpec = SH_POSTER_THEMES[window.__SH_POSTER_THEME || 'alabaster'] || SH_POSTER_THEMES.alabaster;
-    const sum5 = document.getElementById('sh-wizard-summary-5');
-    if (sum5) sum5.textContent = tSpec.label + ' • ' + (window.__SH_POSTER_MODE === 'by_table' ? 'By Table' : 'A-Z');
-    shRenderPosterView();
-  };
-
-  function shRenderPosterView() {
-    const posterEl = document.getElementById('sh-poster-preview');
-    if (!posterEl || !window.__SH_STATE) return;
-    const themeKey = window.__SH_POSTER_THEME || 'alabaster', tSpec = SH_POSTER_THEMES[themeKey] || SH_POSTER_THEMES.alabaster;
-    const bg = tSpec.bg, fg = tSpec.fg, sub = tSpec.sub, borderCol = tSpec.borderCol;
-    const rawMono = String(window.__SH_SIGN_MONOGRAM || '').trim(), partsMono = rawMono.split('·');
-    const initials = (partsMono[0] && partsMono[0].trim()) || shComputeCoupleMonogram(window.__SH_STATE.title);
-    const monoSub = (partsMono[1] && partsMono[1].trim()) || 'EST. 2026';
-    const kickerText = window.__SH_SIGN_KICKER || 'Please Find Your Seat';
-    const logoUrl = window.__SH_CREST_LOGO_URL || '';
-    let bodyHtml = '';
-    if (window.__SH_POSTER_MODE === 'by_table') {
-      bodyHtml = '<div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(175px,1fr));gap:12px;text-align:left;">' +
-        (window.__SH_STATE.tables || []).map(function(t) { return '<div style="border-top:1px solid ' + borderCol + ';padding-top:6px;"><div class="serif-display" style="font-size:0.95rem;color:' + fg + ';margin-bottom:4px;">' + tSpec.motif + ' Table ' + t.number + '</div>' + t.guests.map(function(g) { return '<div style="font-size:0.74rem;color:' + sub + ';">' + shEsc(g.name) + '</div>'; }).join('') + '</div>'; }).join('') + '</div>';
-    } else {
-      const all = [];
-      (window.__SH_STATE.tables || []).forEach(function(t) { t.guests.forEach(function(g, idx) { const parsed = shFormatPosterName(g.name); all.push({ sortKey: parsed.sortKey, display: parsed.display, tableNum: t.number, seatNum: idx + 1 }); }); });
-      all.sort(function(a, b) { return a.sortKey.localeCompare(b.sortKey); });
-      bodyHtml = '<div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(185px,1fr));gap:6px 16px;text-align:left;">' + all.map(function(g) { return '<div style="display:flex;justify-content:space-between;gap:8px;font-size:0.74rem;border-bottom:1px dotted ' + borderCol + ';padding:2px 0;color:' + fg + ';"><span style="overflow:hidden;text-overflow:ellipsis;white-space:nowrap;">' + shEsc(g.display) + '</span><strong class="mono" style="font-size:0.70rem;flex-shrink:0;">Tbl ' + g.tableNum + '</strong></div>'; }).join('') + '</div>';
-    }
-    const posterCrestHtml = logoUrl
-      ? '<img src="' + shEsc(logoUrl) + '" alt="Couple Crest" style="width:100%;height:100%;object-fit:contain;background:#FFFFFF;padding:4px;" />'
-      : '<div id="sh-live-sign-monogram" style="display:flex;flex-direction:column;align-items:center;justify-content:center;line-height:1;"><span class="serif-display" style="font-size:1.22rem;font-weight:800;color:' + tSpec.badgeFg + ';letter-spacing:0.04em;">' + shEsc(initials) + '</span><span class="mono" style="font-size:0.44rem;font-weight:800;color:' + tSpec.badgeFg + ';opacity:0.85;letter-spacing:0.10em;margin-top:2px;">' + shEsc(monoSub) + '</span></div>';
-    posterEl.innerHTML =
-      '<div style="background:' + bg + ';color:' + fg + ';border:3px double ' + borderCol + ';border-radius:14px;padding:20px 18px;box-shadow:0 16px 36px rgba(24,20,18,0.12);"><div style="display:flex;align-items:center;gap:14px;text-align:left;border-bottom:1.5px double ' + borderCol + ';padding-bottom:12px;margin-bottom:14px;"><div id="poster-logo-badge" style="width:58px;height:58px;border-radius:14px;border:2px solid ' + borderCol + ';background:' + tSpec.badgeBg + ';display:flex;align-items:center;justify-content:center;flex-shrink:0;box-shadow:0 6px 14px rgba(24,20,18,0.18);overflow:hidden;">' + posterCrestHtml + '</div><div style="min-width:0;flex:1;"><div style="font-size:0.62rem;letter-spacing:0.14em;text-transform:uppercase;color:' + sub + ';font-weight:800;">' + tSpec.motif + ' 24&Prime; &times; 36&Prime; FOYER EASEL WELCOME SIGN &middot; ' + tSpec.label.toUpperCase() + ' &middot; 0.125&Prime; BLEED</div><h3 id="sh-live-sign-kicker" class="serif-display" style="font-size:1.68rem;color:' + fg + ';font-style:' + tSpec.fontStyle + ';margin:1px 0;">' + shEsc(kickerText) + '</h3><div style="font-size:0.80rem;color:' + sub + ';font-style:italic;">' + shEsc(window.__SH_STATE.title) + ' &middot; ' + shEsc(window.__SH_STATE.venueName || 'Rosewood Conservatory') + '</div></div></div>' + bodyHtml + '</div>';
-    const averyEl = document.getElementById('sh-avery-preview');
-    if (averyEl) {
-      const vid = shEsc((window.__SH_STATE && window.__SH_STATE.vaultId) || 'SH-4819');
-      averyEl.innerHTML = '<div style="padding:11px 14px;border-radius:12px;background:linear-gradient(135deg,#FAF3E6 0%,#F5ECE0 100%);border:1.5px solid #D8C29D;display:flex;flex-wrap:wrap;align-items:center;justify-content:space-between;gap:10px;"><div style="display:flex;align-items:center;gap:10px;min-width:0;"><span style="font-size:1.25rem;">🔒</span><div><div style="font-size:0.66rem;font-weight:800;letter-spacing:0.08em;text-transform:uppercase;color:#78350F;">PRINT-READY 300-DPI WELCOME SIGN + AVERY 5302 TENT PLACE CARDS</div><div style="font-size:0.78rem;color:#44403C;">Includes 2&Prime;&times;3.5&Prime; Avery 5302 sheets with server meal icons (<code>◆ Beef · ● Fish · ▲ Vegan · ★ Kid</code>) &amp; upside-down allergy alerts.</div></div></div><div style="display:flex;gap:6px;flex-wrap:wrap;"><a href="/print/avery-5302/' + vid + '" target="_blank" class="btn btn-secondary" style="padding:6px 11px;font-size:0.73rem;">🎫 Preview Avery 5302 Sheet ↗</a><a href="/buy/complete_dossier?target=estate-150&vault=' + vid + '" class="btn btn-primary" style="padding:6px 12px;font-size:0.73rem;">Get Wedding Print Pack ($14.99) →</a></div></div>';
-    }
-  }
-
-  window.shFilterQrLookup = function() {
-    const qInput = document.getElementById('sh-qr-search'), out = document.getElementById('sh-qr-results');
-    if (!out || !window.__SH_STATE) return;
-    const q = (qInput ? qInput.value : '').trim().toLowerCase(), matches = [];
-    (window.__SH_STATE.tables || []).forEach(function(t) { t.guests.forEach(function(g, idx) { if (!q || g.name.toLowerCase().indexOf(q) !== -1 || t.name.toLowerCase().indexOf(q) !== -1) matches.push({ guest: g, table: t, seatNumber: idx + 1 }); }); });
-    out.innerHTML = matches.slice(0, 8).map(function(m) {
-      const mb = shMealBadge(m.guest.meal);
-      return '<div style="display:flex;flex-wrap:wrap;align-items:center;justify-content:space-between;gap:6px;padding:8px 10px;border-radius:10px;background:#FFFFFF;border:1px solid #EAE2D3;"><div style="min-width:0;"><div style="font-weight:800;color:#181412;font-size:0.82rem;">' + shEsc(m.guest.name) + '</div><div style="font-size:0.71rem;color:#78716C;">' + shEsc(m.table.name) + ' &middot; ' + mb.icon + ' ' + shEsc(m.guest.meal) + '</div></div><span class="badge badge-emerald tabular" style="font-size:0.72rem;">Table ' + m.table.number + ' &middot; Seat #' + m.seatNumber + '</span></div>';
-    }).join('');
-  };
-
-  function shSyncVaultIdLinks(vId) {
-    const id = String(vId || (window.__SH_STATE && window.__SH_STATE.vaultId) || 'SH-4819');
-    if (window.__SH_STATE) window.__SH_STATE.vaultId = id;
-    const setTxt = function(elId, txt) { const el = document.getElementById(elId); if (el) el.textContent = txt; };
-    setTxt('hero-vault-code-label', '#' + id); setTxt('sh-studio-vault-code', id); setTxt('sh-btn-vault-id', id); setTxt('sh-modal-vault-code', '#' + id);
-    setTxt('sh-modal-links-vault-id', id); setTxt('sh-unlocked-vault-id', id); setTxt('sh-qr-short-url', '/qr/' + id);
-    const setHref = function(elId, url) { const el = document.getElementById(elId); if (el) el.href = url; };
-    ['sh-cmd-vault-link', 'sh-footer-vault-link', 'sh-modal-link-vault'].forEach(function(k) { setHref(k, '/vault/' + id); });
-    ['sh-cmd-poster-link', 'sh-open-poster-studio-link', 'sh-card5-poster-studio-link', 'sh-modal-link-poster'].forEach(function(k) { setHref(k, '/print/poster/' + id); });
-    ['sh-cmd-avery-link', 'sh-open-avery-studio-link', 'sh-card5-avery-studio-link', 'sh-modal-link-avery'].forEach(function(k) { setHref(k, '/print/avery-5302/' + id); });
-    ['sh-cmd-beo-link', 'sh-open-beo-studio-link', 'sh-modal-link-beo'].forEach(function(k) { setHref(k, '/print/beo/' + id); });
-    ['sh-cmd-qr-link', 'sh-open-qr-app-link', 'sh-qr-short-url', 'sh-modal-link-qr'].forEach(function(k) { setHref(k, '/qr/' + id); });
-    ['hero-buy-btn', 'sh-card5-buy-btn', 'sh-vault-buy-pack-btn', 'sh-pane-poster-buy-link'].forEach(function(k) { setHref(k, '/buy/complete_dossier?target=estate-150&vault=' + id); });
-    setHref('sh-vault-buy-pro-btn', '/buy/pro_b2b?target=estate-150&vault=' + id); setHref('sh-pane-beo-buy-link', '/buy/flash_pass?target=estate-150&vault=' + id);
-    const qrImg = document.getElementById('sh-live-qr-img');
-    if (qrImg) qrImg.src = 'https://api.qrserver.com/v1/create-qr-code/?size=160x160&color=181412&bgcolor=FFFFFF&data=' + encodeURIComponent(window.location.origin + '/qr/' + id);
-    const unlBar = document.getElementById('sh-unlocked-command-bar');
-    if (unlBar && window.__SH_STATE && window.__SH_STATE.isUnlocked) unlBar.style.display = 'flex';
-  }
-  function shAutoPersistVault() {
-    if (!window.__SH_STATE) return;
-    try { localStorage.setItem('sh_saved_vault_v1', JSON.stringify(window.__SH_STATE)); } catch (_) {}
-    clearTimeout(window.__shPersistTimer);
-    window.__shPersistTimer = setTimeout(function() {
-      fetch('/api/vault/save', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ vaultId: window.__SH_STATE.vaultId || 'SH-4819', ownerEmail: window.__SH_STATE.ownerEmail || '', state: window.__SH_STATE }) }).catch(function() {});
-    }, 650);
-  }
-  window.shOpenVaultModal = function() { const m = document.getElementById('sh-vault-modal'); if (m) m.style.display = 'flex'; };
-  window.shCloseVaultModal = function() { const m = document.getElementById('sh-vault-modal'); if (m) m.style.display = 'none'; };
-  window.__shCarouselSlide = 0;
-  window.selectStudioFeatureSlide = function(idx) {
-    const slides = document.querySelectorAll('.studio-feature-slide');
-    const tabs = document.querySelectorAll('#studio-carousel-tabs .studio-carousel-tab');
-    if (!slides.length) return;
-    const total = slides.length;
-    const nextIdx = ((Number(idx) % total) + total) % total;
-    window.__shCarouselSlide = nextIdx;
-    slides.forEach(function(el, i) { el.classList.toggle('active', i === nextIdx); });
-    tabs.forEach(function(btn, i) {
-      btn.classList.toggle('active', i === nextIdx);
-      btn.setAttribute('aria-selected', i === nextIdx ? 'true' : 'false');
-    });
-    const counterEl = document.getElementById('studio-carousel-counter');
-    if (counterEl) counterEl.textContent = 'Tool ' + (nextIdx + 1) + ' of ' + total;
-  };
-  window.stepStudioFeatureSlide = function(delta) {
-    window.selectStudioFeatureSlide((window.__shCarouselSlide || 0) + Number(delta || 1));
-  };
-  window.shSaveVaultToServer = async function() {
-    const emailEl = document.getElementById('sh-vault-email-input'), pinEl = document.getElementById('sh-vault-pin-input'), btn = document.getElementById('sh-vault-save-submit-btn');
-    const email = emailEl ? emailEl.value.trim() : '', pin = pinEl ? pinEl.value.trim() : '2026';
-    if (btn) btn.textContent = '💾 Saving to Cloud Vault...';
-    try {
-      if (window.__SH_STATE) window.__SH_STATE.ownerEmail = email;
-      const res = await fetch('/api/vault/save', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ vaultId: (window.__SH_STATE && window.__SH_STATE.vaultId) || 'SH-4819', ownerEmail: email, pinCode: pin, state: window.__SH_STATE }) });
-      const data = await res.json(), vid = data && (data.vaultId || data.vault_id);
-      if (data && data.ok && vid) { shSyncVaultIdLinks(vid); if (btn) btn.textContent = '✓ Saved Vault #' + vid + ' (' + (email || 'Cloud Link Ready') + ')'; shToast('✓ Saved Reception Vault #' + vid + '! All 5 print & QR links updated.'); }
-    } catch (e) { if (btn) btn.textContent = '💾 Save My Event & Generate Magic Links'; }
-  };
-  window.shLookupSavedVault = async function() {
-    const inp = document.getElementById('sh-vault-lookup-input'), st = document.getElementById('sh-vault-lookup-status'), q = inp ? inp.value.trim() : '';
-    if (!q) return;
-    if (st) st.textContent = 'Searching saved vaults...';
-    try {
-      const res = await fetch('/api/vault/lookup', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ emailOrVaultId: q, query: q }) });
-      const data = await res.json(), vid = data && (data.vault_id || data.vaultId);
-      if (data && data.ok && vid && data.state) {
-        window.__SH_STATE = data.state; window.__SH_STATE.vaultId = vid; window.__SH_STATE.isUnlocked = Boolean(data.is_unlocked);
-        shSyncVaultIdLinks(vid); shRenderAll();
-        if (st) st.innerHTML = '<strong style="color:#065F46;">✓ Loaded "' + shEsc(data.title || 'Saved Reception') + '" (#' + shEsc(vid) + ')!</strong> <a href="/vault/' + shEsc(vid) + '" style="color:#8C2D19;font-weight:800;">Open Command Center ↗</a>';
-        shToast('✓ Restored Saved Event "' + (data.title || vid) + '" (Vault #' + vid + ')!');
-      } else if (st) { st.innerHTML = '<span style="color:#9F1239;">No vault found for "' + shEsc(q) + '". Try SH-4819.</span>'; }
-    } catch (e) { if (st) st.textContent = 'Could not look up vault.'; }
-  };
   function shRenderAll() {
     if (!window.__SH_STATE) return;
     const csovEl = document.getElementById('score-csov'); if (csovEl) csovEl.textContent = String(window.__SH_STATE.harmonyScore || 98);
