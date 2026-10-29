@@ -210,7 +210,7 @@ function renderZone3InteractiveStudio(plan) {
               <input id="sh-crest-logo-input" type="hidden" value="" />
               <div style="display:flex;justify-content:space-between;align-items:center;gap:6px;padding-top:6px;border-top:1px solid #EFEAE1;">
                 <button type="button" id="sh-clear-demo-btn" class="studio-tap-chip" style="border-color:#D6CFC2;color:#57534E;" onclick="window.shStartBlankList()">Start Blank</button>
-                <button type="button" onclick="window.scrollToShCard(2)" style="background:#181412;color:#FDE68A;border:1px solid #C8A96E;border-radius:8px;padding:6px 12px;font-size:0.82rem;font-weight:800;cursor:pointer;">Next: Guests &rarr;</button>
+                <button type="button" onclick="window.scrollToShCard(2)" style="background:linear-gradient(135deg,#FDE68A,#E8C77D);color:#3B2A12;border:1px solid #C8A96E;border-radius:8px;padding:6px 12px;font-size:0.82rem;font-weight:800;cursor:pointer;">Next: Guests &rarr;</button>
               </div>
             </div>
           </div>
@@ -264,7 +264,7 @@ David &amp; Elena Rostova (Filet, Peanut Allergy)</textarea>
                 </div>
               </div>
               <div style="display:flex;justify-content:flex-end;padding-top:6px;border-top:1px solid #EFEAE1;">
-                <button type="button" onclick="window.scrollToShCard(3)" style="background:#181412;color:#FDE68A;border:1px solid #C8A96E;border-radius:8px;padding:6px 12px;font-size:0.82rem;font-weight:800;cursor:pointer;">Next: Rules &rarr;</button>
+                <button type="button" onclick="window.scrollToShCard(3)" style="background:linear-gradient(135deg,#FDE68A,#E8C77D);color:#3B2A12;border:1px solid #C8A96E;border-radius:8px;padding:6px 12px;font-size:0.82rem;font-weight:800;cursor:pointer;">Next: Rules &rarr;</button>
               </div>
             </div>
           </div>
@@ -382,7 +382,7 @@ David &amp; Elena Rostova (Filet, Peanut Allergy)</textarea>
               <button type="button" onclick="window.shOpenVaultModal()" style="cursor:pointer;background:#FFFFFF;color:#78350F;border:1px solid #C8A96E;border-radius:7px;padding:4px 9px;font-size:0.78rem;font-weight:800;">Save / Load</button>
             </div>
             <div style="display:flex;gap:6px;">
-              <a id="sh-vault-buy-pack-btn" href="/buy/complete_dossier?target=estate-150&amp;vault=${vId}" style="flex:1;text-align:center;background:#181412;color:#FDE68A;border:1px solid #C8A96E;border-radius:8px;padding:8px 10px;font-size:0.82rem;font-weight:800;text-decoration:none;white-space:nowrap;">
+              <a id="sh-vault-buy-pack-btn" href="/buy/complete_dossier?target=estate-150&amp;vault=${vId}" style="flex:1;text-align:center;background:linear-gradient(135deg,#FDE68A,#E8C77D);color:#3B2A12;border:1px solid #C8A96E;border-radius:8px;padding:8px 10px;font-size:0.82rem;font-weight:800;text-decoration:none;white-space:nowrap;">
                 Unlock Print Pack ($14.99) &rarr;
               </a>
               <a id="sh-vault-buy-pro-btn" href="/buy/pro_b2b?target=estate-150&amp;vault=${vId}" style="background:#FFFFFF;color:#181412;border:1px solid #D6CFC2;border-radius:8px;padding:8px 10px;font-size:0.80rem;font-weight:700;text-decoration:none;white-space:nowrap;">

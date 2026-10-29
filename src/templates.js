@@ -82,8 +82,8 @@ function renderHead({
     .nav-link:hover { color: var(--accent-primary); }
     .nav-badge-soon { font-size: 0.82rem; font-weight: 800; text-transform: uppercase; padding: 2px 6px; border-radius: 999px; background: #FAF3E3; color: #78350F; border: 1px solid #C8A96E; margin-left: 3px; }
     .btn { display: inline-flex; align-items: center; justify-content: center; gap: 7px; padding: 11px 20px; border-radius: 10px; font-weight: 800; font-size: 0.92rem; cursor: pointer; border: 1px solid transparent; text-decoration: none; white-space: nowrap; transition: all 0.16s ease; }
-    .btn-primary { background: #181412; color: #FDE68A; border: 1.5px solid #C8A96E; box-shadow: 0 10px 24px rgba(24, 20, 18, 0.16); }
-    .btn-primary:hover { background: #29221E; transform: translateY(-1px); }
+    .btn-primary { background: linear-gradient(135deg, #FDE68A 0%, #E8C77D 100%); color: #3B2A12; border-color: #C8A96E; border: 1.5px solid #C8A96E; box-shadow: 0 8px 20px rgba(180, 135, 40, 0.22); }
+    .btn-primary:hover { background: linear-gradient(135deg, #FEF0B0 0%, #EDD08C 100%); transform: translateY(-1px); }
     .btn-secondary { background: #FFFFFF; color: #78350F; border: 1.5px solid #C8A96E; }
     .btn-secondary:hover { background: #FAF3E3; }
     .studio-zone-section, #studio, #studio-zone2-how-it-works, #beo-proof, #bs-before-after-section, #bs-written-testimonials-section, #pricing, #faq { padding: 92px 0; width: 100%; box-sizing: border-box; scroll-margin-top: 84px; }
@@ -166,7 +166,7 @@ function renderHead({
     .studio-chip-group { display: flex; flex-wrap: wrap; gap: 6px; }
     .studio-tap-chip { font-size: 0.88rem; font-weight: 700; padding: 7px 12px; border-radius: 999px; border: 1px solid #D6CFC2; background: #FAF8F5; color: #181412; cursor: pointer; transition: all 0.14s ease; max-width: 100%; white-space: nowrap; }
     .studio-tap-chip:hover { border-color: #C8A96E; background: #FAF3E3; }
-    .studio-tap-chip.active { background: #181412; color: #FDE68A; border-color: #C8A96E; font-weight: 800; }
+    .studio-tap-chip.active { background: linear-gradient(135deg, #FDE68A 0%, #E8C77D 100%); color: #3B2A12; border-color: #C8A96E; font-weight: 800; }
     .studio-baseline-kpi-grid { display: none !important; }
     .studio-bespoke-stage { background: linear-gradient(180deg, #FFFDF9 0%, #FAF3E6 100%); border: 2px solid #C8A96E; border-radius: 20px; padding: 16px; color: #181412; box-shadow: 0 18px 42px rgba(180, 135, 40, 0.14); display: flex; flex-direction: column; gap: 10px; min-width: 0; max-width: 100%; }
     .studio-stage-tabs { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 6px; background: #F5ECE0; padding: 5px; border-radius: 12px; border: 1px solid #E2D9C8; }
@@ -227,14 +227,16 @@ function renderHead({
     .studio-feature-slide.active { display: block; }
     @keyframes studioSlideFadeIn { from { opacity: 0; transform: translateY(4px); } to { opacity: 1; transform: translateY(0); } }
     .studio-carousel-tab { padding: 11px 18px; border-radius: 999px; font-size: 0.92rem; font-weight: 800; cursor: pointer; transition: all 0.18s ease; border: 1.5px solid #D6CFC2; background: #FFFFFF; color: #44403C; white-space: nowrap; }
-    .studio-carousel-tab.active { border: 2px solid #8C2D19; background: #181412; color: #FDE68A; box-shadow: 0 6px 18px rgba(24, 20, 18, 0.16); }
+    .studio-carousel-tab.active { border: 2px solid #C8A96E; background: linear-gradient(135deg, #FDE68A 0%, #E8C77D 100%); color: #3B2A12; border-color: #C8A96E; box-shadow: 0 6px 18px rgba(180, 135, 40, 0.20); }
+    .btn-gold-soft { background: linear-gradient(135deg, #FDE68A 0%, #E8C77D 100%); color: #3B2A12; border-color: #C8A96E; border: 1.5px solid #C8A96E; box-shadow: 0 8px 20px rgba(180, 135, 40, 0.20); }
+    .btn-gold-soft:hover { background: linear-gradient(135deg, #FEF0B0 0%, #EDD08C 100%); transform: translateY(-1px); }
     .studio-showcase-annotation-grid { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 18px; margin-bottom: 20px; }
     .studio-showcase-annotation-card { background: #FAF6EE; border: 1.5px solid #E2D9C8; border-radius: 14px; padding: 14px 16px; display: flex; gap: 11px; align-items: center; }
-    .studio-showcase-num-badge { width: 28px; height: 28px; border-radius: 50%; background: #181412; color: #FDE68A; border: 1.5px solid #C8A96E; font-size: 0.84rem; font-weight: 800; display: inline-flex; align-items: center; justify-content: center; flex-shrink: 0; box-shadow: 0 3px 8px rgba(24, 20, 18, 0.18); }
+    .studio-showcase-num-badge { width: 28px; height: 28px; border-radius: 50%; background: linear-gradient(135deg, #FDE68A 0%, #E8C77D 100%); color: #3B2A12; border: 1.5px solid #C8A96E; font-size: 0.84rem; font-weight: 800; display: inline-flex; align-items: center; justify-content: center; flex-shrink: 0; box-shadow: 0 3px 8px rgba(24, 20, 18, 0.18); }
     .studio-showcase-device-frame { position: relative; border-radius: 18px; overflow: hidden; border: 2px solid #D8C29D; background: #FAF6EE; box-shadow: 0 18px 42px rgba(24, 20, 18, 0.08); }
     .studio-showcase-img-wrap { position: relative; background: #FAF6EE; line-height: 0; max-height: 640px; overflow: hidden; }
     .studio-showcase-img-wrap img { width: 100%; height: auto; display: block; object-fit: cover; object-position: top center; }
-    .studio-showcase-pin { position: absolute; z-index: 4; display: inline-flex; align-items: center; justify-content: center; width: 30px; height: 30px; background: rgba(24, 20, 18, 0.92); color: #FAF8F5; padding: 0; border-radius: 50%; font-size: 0.82rem; font-weight: 900; box-shadow: 0 6px 16px rgba(0, 0, 0, 0.38); border: 2px solid #FDE68A; pointer-events: none; }
+    .studio-showcase-pin { position: absolute; z-index: 4; display: inline-flex; align-items: center; justify-content: center; width: 30px; height: 30px; background: linear-gradient(135deg, #FDE68A 0%, #E8C77D 100%); color: #3B2A12; padding: 0; border-radius: 50%; font-size: 0.82rem; font-weight: 900; box-shadow: 0 4px 12px rgba(180, 135, 40, 0.35); border: 2px solid #FFFFFF; pointer-events: none; }
     .studio-showcase-pin-num { width: 22px; height: 22px; border-radius: 50%; background: linear-gradient(135deg, #FDE68A 0%, #C8A96E 100%); color: #181412; font-size: 0.82rem; font-weight: 900; display: inline-flex; align-items: center; justify-content: center; flex-shrink: 0; }
     .studio-showcase-pin-label { display: none; }
     .pricing-grid { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 24px; margin-top: 36px; }

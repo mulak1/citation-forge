@@ -14,7 +14,7 @@ const SHOWCASE_SLIDES = [
     urlText: 'citationforge.io/print/poster/SH-4819?theme=alabaster',
     routeHref: (vId) => `/print/poster/${encodeURIComponent(vId)}?theme=alabaster`,
     ctaText: 'Open Live 24"×36" Studio ↗',
-    imgSrc: '/public/showcase-poster-24x36.png',
+    imgSrc: '/public/showcase-poster-24x36.png?v=light3',
     imgAlt: 'SeatHarmony 24x36 Arch D Reception Welcome Sign Studio in Parisian Gold & Alabaster theme',
     pins: [
       { num: '1', text: '1-Click A-Z / By-Table & Theme Switcher', style: 'top: 6%; left: 4%;' },
@@ -35,7 +35,7 @@ const SHOWCASE_SLIDES = [
     urlText: 'citationforge.io/print/beo/SH-4819',
     routeHref: (vId) => `/print/beo/${encodeURIComponent(vId)}`,
     ctaText: 'Open Live Caterer BEO ↗',
-    imgSrc: '/public/showcase-signed-beo.png',
+    imgSrc: '/public/showcase-signed-beo.png?v=light3',
     imgAlt: 'SeatHarmony Clockwise 12:00 Caterer Banquet Event Order (BEO) Manifest',
     pins: [
       { num: '1', text: 'Seat #1 = 12:00 (Facing Dance Floor) Anchor', style: 'top: 39%; right: 5%;' },
@@ -56,7 +56,7 @@ const SHOWCASE_SLIDES = [
     urlText: 'citationforge.io/print/avery-5302/SH-4819',
     routeHref: (vId) => `/print/avery-5302/${encodeURIComponent(vId)}`,
     ctaText: 'Open Live Avery 5302 Sheet ↗',
-    imgSrc: '/public/showcase-avery-5302.png',
+    imgSrc: '/public/showcase-avery-5302.png?v=light3',
     imgAlt: 'SeatHarmony Avery 5302 Folded Tent Place Cards Print Sheet with 180-degree rotated server allergy back fold',
     pins: [
       { num: '1', text: '180° Rotated Server Back-Fold (Allergy & Seat #)', style: 'top: 25%; right: 5%;' },
@@ -77,7 +77,7 @@ const SHOWCASE_SLIDES = [
     urlText: 'citationforge.io/qr/SH-4819',
     routeHref: (vId) => `/qr/${encodeURIComponent(vId)}`,
     ctaText: 'Test Live Mobile QR App ↗',
-    imgSrc: '/public/showcase-mobile-qr.png',
+    imgSrc: '/public/showcase-mobile-qr.png?v=light3',
     imgAlt: 'SeatHarmony Cocktail-Hour Mobile Guest QR Seat Lookup Web App',
     pins: [
       { num: '1', text: '1-Second Guest Name & Table Search', style: 'top: 41%; left: 3%;' },
@@ -98,7 +98,7 @@ const SHOWCASE_SLIDES = [
     urlText: 'citationforge.io/vault/SH-4819?unlocked=1',
     routeHref: (vId) => `/vault/${encodeURIComponent(vId)}?unlocked=1`,
     ctaText: 'Open Vault Command Center ↗',
-    imgSrc: '/public/showcase-vault-command.png',
+    imgSrc: '/public/showcase-vault-command.png?v=light3',
     imgAlt: 'SeatHarmony Inside-the-Paywall Event Vault Command Center and Mom Sandbox Hub',
     pins: [
       { num: '1', text: 'Permanent Event Crest & Unlimited 30-Day Re-Exports', style: 'top: 17%; right: 24%;' },
@@ -193,7 +193,7 @@ function renderFeatureShowcaseCarousel(vId = 'SH-4819') {
         </div>
         <div style="display:flex;align-items:center;gap:12px;flex-wrap:wrap;">
           <a href="#studio" class="btn btn-secondary" style="padding:11px 20px;font-size:0.92rem;">&#9998; Jump to Interactive Studio &darr;</a>
-          <a href="/buy/complete_dossier?target=estate-150&vault=${safeVid}" id="sh-carousel-unlock-cta" class="btn btn-primary" style="padding:12px 24px;font-size:0.95rem;">
+          <a href="/buy/complete_dossier?target=estate-150&vault=${safeVid}" id="sh-carousel-unlock-cta" class="btn btn-gold-soft" style="padding:12px 24px;font-size:0.95rem;">
             &#128275; Unlock All 5 Print &amp; Caterer Tools ($14.99) &rarr;
           </a>
         </div>
