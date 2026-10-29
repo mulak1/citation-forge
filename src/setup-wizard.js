@@ -96,18 +96,17 @@ function renderSetupWizardHtml() {
 
         <aside class="shw-kit" id="shw-kit" aria-label="Your reception kit">
           <div class="shw-kit-head">
-            <span class="shw-kit-ico" aria-hidden="true">&#127873;</span>
-            <div class="shw-kit-titles"><div class="shw-kit-title">Your reception kit</div><div class="shw-kit-sub" id="shw-kit-sub">0 of 5 ready</div></div>
+            <div class="shw-kit-titles"><div class="shw-kit-title">Your reception kit</div><div class="shw-kit-sub" id="shw-kit-sub">0 of 5</div></div>
           </div>
           <div class="shw-kit-bar"><div class="shw-kit-bar-fill" id="shw-kit-bar-fill"></div></div>
           <ul class="shw-kit-list">
-            <li><button type="button" class="shw-kit-item" data-kit="sign" onclick="window.shwJump(1)"><span class="shw-kit-dot"></span><span class="shw-kit-emoji" aria-hidden="true">&#128444;&#65039;</span><span class="shw-kit-text"><b>Welcome sign</b><small id="shw-kit-d-sign">Needs your names</small></span></button></li>
-            <li><button type="button" class="shw-kit-item" data-kit="plan" onclick="window.shwJump(2)"><span class="shw-kit-dot"></span><span class="shw-kit-emoji" aria-hidden="true">&#128506;&#65039;</span><span class="shw-kit-text"><b>Seating chart</b><small id="shw-kit-d-plan">Needs guests and tables</small></span></button></li>
-            <li><button type="button" class="shw-kit-item" data-kit="cards" onclick="window.shwJump(4)"><span class="shw-kit-dot"></span><span class="shw-kit-emoji" aria-hidden="true">&#128140;</span><span class="shw-kit-text"><b>Place cards</b><small id="shw-kit-d-cards">Needs your guest list</small></span></button></li>
-            <li><button type="button" class="shw-kit-item" data-kit="beo" onclick="window.shwJump(4)"><span class="shw-kit-dot"></span><span class="shw-kit-emoji" aria-hidden="true">&#127869;&#65039;</span><span class="shw-kit-text"><b>Caterer sheet</b><small id="shw-kit-d-beo">Needs your guest list</small></span></button></li>
-            <li><button type="button" class="shw-kit-item" data-kit="qr" onclick="window.shwJump(5)"><span class="shw-kit-dot"></span><span class="shw-kit-emoji" aria-hidden="true">&#128241;</span><span class="shw-kit-text"><b>Guest QR lookup</b><small id="shw-kit-d-qr">Ready when you seat guests</small></span></button></li>
+            <li><button type="button" class="shw-kit-item" data-kit="sign" onclick="window.shwJump(1)"><span class="shw-kit-dot"></span><span class="shw-kit-glyph" aria-hidden="true"><svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="1.15" stroke-linecap="round" stroke-linejoin="round"><rect x="5" y="3.5" width="14" height="10.5" rx="1"/><path d="M12 14v6M8 20.5l4-6.5 4 6.5M8.5 7.5h7M8.5 10.5h4"/></svg></span><span class="shw-kit-text"><b>Welcome sign</b><small id="shw-kit-d-sign">Needs your names</small></span></button></li>
+            <li><button type="button" class="shw-kit-item" data-kit="plan" onclick="window.shwJump(2)"><span class="shw-kit-dot"></span><span class="shw-kit-glyph" aria-hidden="true"><svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="1.15" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="3.4"/><circle cx="12" cy="4.6" r="1.3"/><circle cx="12" cy="19.4" r="1.3"/><circle cx="4.6" cy="12" r="1.3"/><circle cx="19.4" cy="12" r="1.3"/><circle cx="6.8" cy="6.8" r="1.1"/><circle cx="17.2" cy="17.2" r="1.1"/><circle cx="17.2" cy="6.8" r="1.1"/><circle cx="6.8" cy="17.2" r="1.1"/></svg></span><span class="shw-kit-text"><b>Seating chart</b><small id="shw-kit-d-plan">Needs guests and tables</small></span></button></li>
+            <li><button type="button" class="shw-kit-item" data-kit="cards" onclick="window.shwJump(4)"><span class="shw-kit-dot"></span><span class="shw-kit-glyph" aria-hidden="true"><svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="1.15" stroke-linecap="round" stroke-linejoin="round"><path d="M3.5 18.5L6.5 7.5h11l3 11z"/><path d="M9.5 13h5"/><path d="M6.5 7.5l5.5 4 5.5-4" opacity=".55"/></svg></span><span class="shw-kit-text"><b>Place cards</b><small id="shw-kit-d-cards">Needs your guest list</small></span></button></li>
+            <li><button type="button" class="shw-kit-item" data-kit="beo" onclick="window.shwJump(4)"><span class="shw-kit-dot"></span><span class="shw-kit-glyph" aria-hidden="true"><svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="1.15" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="4.6"/><circle cx="12" cy="12" r="2.2"/><path d="M3.5 4.5v5a1.6 1.6 0 003.2 0v-5M5.1 11v8.5M20.5 4.5c-1.9 1.2-2.6 3.4-2.6 6.2H20.5V19.5"/></svg></span><span class="shw-kit-text"><b>Caterer sheet</b><small id="shw-kit-d-beo">Needs your guest list</small></span></button></li>
+            <li><button type="button" class="shw-kit-item" data-kit="qr" onclick="window.shwJump(5)"><span class="shw-kit-dot"></span><span class="shw-kit-glyph" aria-hidden="true"><svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="1.15" stroke-linecap="round" stroke-linejoin="round"><rect x="4" y="4" width="6" height="6" rx="1"/><rect x="14" y="4" width="6" height="6" rx="1"/><rect x="4" y="14" width="6" height="6" rx="1"/><path d="M14 14h2.6v2.6H14zM19 14v2M17.5 19H20M14 19.5v.5"/></svg></span><span class="shw-kit-text"><b>Guest QR lookup</b><small id="shw-kit-d-qr">Ready when you seat guests</small></span></button></li>
           </ul>
-          <div class="shw-kit-foot" id="shw-kit-foot">Fills up as you answer.</div>
+          <div class="shw-kit-foot" id="shw-kit-foot">Each answer completes a piece of your kit.</div>
         </aside>
         </div>
       </div>`;
@@ -183,10 +182,10 @@ function renderSetupWizardClientScript() {
       if (d) d.textContent = st[k].d;
       S.kitDone[k] = st[k].ok;
     });
-    var sub = shwEl('shw-kit-sub'); if (sub) sub.textContent = done + ' of 5 ready';
+    var sub = shwEl('shw-kit-sub'); if (sub) sub.textContent = done + ' of 5';
     var bar = shwEl('shw-kit-bar-fill'); if (bar) bar.style.width = (done / 5 * 100) + '%';
     var foot = shwEl('shw-kit-foot');
-    if (foot) foot.textContent = done >= 4 ? 'Last step: seat your guests to finish your kit.' : (done ? 'Nice. Keep going to fill your kit.' : 'Fills up as you answer.');
+    if (foot) foot.textContent = done >= 4 ? 'One last step: we seat your guests.' : 'Each answer completes a piece of your kit.';
   };
   window.shwPickGuests = function(n) {
     var v = Math.max(2, Math.min(600, Math.round(Number(n) || 0)));
