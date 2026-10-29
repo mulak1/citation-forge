@@ -4,26 +4,12 @@ const SHOWCASE_SLIDES = [
   {
     idx: 0,
     tabLabel: '1. 24"×36" Welcome Sign Studio',
-    badge: 'DELIVERABLE 1 OF 5 · INCLUDED IN $14.99 WEDDING PRINT PACK',
+    badge: 'DELIVERABLE 1 OF 5 · 300-DPI ARCH D PRINT FILE',
     title: '24"×36" Arch D Reception Welcome Sign Studio',
-    desc: 'Stop paying $180+ for static Etsy templates or re-typing 150 guest names in Canva at 1 AM. SeatHarmony builds your print-ready 24"×36" poster directly from your live floorplan with 0.125" bleed and crop marks.',
-    pills: ['✓ FedEx, Staples & Local Print-Shop Ready', '✓ Alphabetical (A-Z) or By-Table Modes'],
     annotations: [
-      {
-        num: '1',
-        title: '1-Click Sort & Luxury Themes',
-        body: 'Switch between Alphabetical (Last Name A-Z) for 150+ guest receptions or Table-by-Table cards in Obsidian Black-Tie, Alabaster Ivory, or Botanical Sage.'
-      },
-      {
-        num: '2',
-        title: 'Custom Monogram & Scannable QR Crest',
-        body: 'Automatically embeds your couple monogram crest and a live cocktail-hour QR code in the top header so guests can also search from their phones.'
-      },
-      {
-        num: '3',
-        title: 'Couples & Families Grouped Naturally',
-        body: 'No awkward single-line spreadsheet dumps. Households and plus-ones are formatted with clean serif typography and dotted gold table leaders.'
-      }
+      { num: '1', title: '6 Luxury Print-Shop Themes (0.125" Bleed & Crop Marks)' },
+      { num: '2', title: '1-Click Alphabetical (A–Z) or Table-by-Table Sort' },
+      { num: '3', title: 'Embedded Couple Monogram & Scannable Bar QR Crest' }
     ],
     urlText: 'citationforge.io/print/poster/SH-4819?theme=obsidian',
     routeHref: (vId) => `/print/poster/${encodeURIComponent(vId)}?theme=obsidian`,
@@ -39,26 +25,12 @@ const SHOWCASE_SLIDES = [
   {
     idx: 1,
     tabLabel: '2. Clockwise 12:00 Caterer BEO',
-    badge: 'DELIVERABLE 2 OF 5 · BUILT FOR BANQUET CAPTAINS & CHEFS',
+    badge: 'DELIVERABLE 2 OF 5 · BANQUET CAPTAIN & KITCHEN SHEET',
     title: 'Clockwise 12:00 Server Meal & Allergy Manifest (BEO)',
-    desc: 'Caterers do not read pretty floorplan circles. They need a seat-by-seat Banquet Event Order (BEO) anchored with Seat #1 at 12 O\'Clock (facing the dance floor) so servers set every Filet, Halibut, and allergy plate in front of the right guest without asking.',
-    pills: ['✓ Seat #1 = 12:00 Dance-Floor Anchor', '✓ Red Kitchen Anaphylaxis & Wheelchair Alerts'],
     annotations: [
-      {
-        num: '1',
-        title: 'Seat #1 = 12:00 Clockwise Numbering',
-        body: 'Every round and rectangular table is indexed clockwise from 12 O\'Clock facing the dance floor or stage, matching hotel and estate banquet standards.'
-      },
-      {
-        num: '2',
-        title: 'Color-Coded Entrée & Protein Counts',
-        body: 'Clearly marks Filet Mignon (◆), Pan-Seared Halibut (●), Vegan Risotto (▲), and Kids Meals (★) with exact table and kitchen prep totals.'
-      },
-      {
-        num: '3',
-        title: 'Highlighted Red Allergy & Chair Alerts',
-        body: 'Flags Celiac, Nut, Dairy-Free, and Low-Sodium rows in rose-red alongside Wheelchair Space and High-Chair setup instructions for the setup crew.'
-      }
+      { num: '1', title: 'Seat #1 = 12:00 Clockwise Numbering (Facing Dance Floor)' },
+      { num: '2', title: 'Color-Coded Entrée & Protein Prep Totals per Table' },
+      { num: '3', title: 'Highlighted Red Kitchen Allergy & Wheelchair Alerts' }
     ],
     urlText: 'citationforge.io/print/beo/SH-4819',
     routeHref: (vId) => `/print/beo/${encodeURIComponent(vId)}`,
@@ -76,24 +48,10 @@ const SHOWCASE_SLIDES = [
     tabLabel: '3. Avery 5302 Place Cards',
     badge: 'DELIVERABLE 3 OF 5 · PRE-ALIGNED FOLDED TENT CARDS',
     title: 'Avery 5302 / 5011 Meal-Coded Folded Tent Place Cards',
-    desc: 'Skip hand-writing 150 escort cards or fighting Word mail-merge margins. SeatHarmony generates a pre-aligned 2"×3.5" Avery 5302 print sheet with guest-facing calligraphy on the front and upside-down server allergy notes on the back fold.',
-    pills: ['✓ Front Guest Crest + Entrée Symbol', '✓ 180° Rotated Server Back-Fold Alert'],
     annotations: [
-      {
-        num: '1',
-        title: '180° Rotated Server Back-Fold',
-        body: 'The top half of each tent card is printed upside-down so when folded along the score line, the server standing behind the chair reads the exact meal and allergy alert.'
-      },
-      {
-        num: '2',
-        title: 'Discreet Geometric Meal Icons',
-        body: 'Prints ◆ Beef, ● Fish, ▲ Vegan, or ★ Kids in the upper corner of the front card so banquet staff spot dietary choices from 6 feet away.'
-      },
-      {
-        num: '3',
-        title: 'Exact Table & Clockwise Chair Number',
-        body: 'Every card includes your couple monogram, guest name, table name, and exact clockwise Seat # so guests sit in the exact chair your caterer expects.'
-      }
+      { num: '1', title: '180° Rotated Server Back-Fold Allergy & Seat Notes' },
+      { num: '2', title: 'Discreet Meal Icons (◆ Beef · ● Fish · ▲ Vegan · ★ Kids)' },
+      { num: '3', title: 'Exact Table & Clockwise Chair # on Every Tent Card' }
     ],
     urlText: 'citationforge.io/print/avery-5302/SH-4819',
     routeHref: (vId) => `/print/avery-5302/${encodeURIComponent(vId)}`,
@@ -111,24 +69,10 @@ const SHOWCASE_SLIDES = [
     tabLabel: '4. Cocktail-Hour Guest QR App',
     badge: 'DELIVERABLE 4 OF 5 · ZERO-LINE MOBILE SEAT LOOKUP',
     title: 'Live Cocktail-Hour Mobile Guest QR Seat Finder',
-    desc: 'When 180 guests leave the bar at 6:45 PM, a single easel sign creates a 15-minute bottleneck in the foyer. Guests scan your QR code from cocktail napkins or your welcome sign, type two letters of their name, and walk straight to their table.',
-    pills: ['✓ No App Download Required (Works on iOS & Android)', '✓ Live Sync for Last-Minute 48-Hour RSVP Changes'],
     annotations: [
-      {
-        num: '1',
-        title: 'Instant Type-Ahead Guest & Family Search',
-        body: 'Guests type their first name, last name, or table number and immediately see their Table #, Table Name, and exact Clockwise Seat #.'
-      },
-      {
-        num: '2',
-        title: '1-Tap Household & VIP Quick Filters',
-        body: 'Includes quick-tap pills for bridal party and family groups so grandparents and guests find their entire household in under 2 seconds.'
-      },
-      {
-        num: '3',
-        title: 'Live Cloud Sync After Poster Printing',
-        body: 'If an uncle cancels the morning of the wedding after your foam-board sign is already printed, swap his seat in your vault and the QR app updates immediately.'
-      }
+      { num: '1', title: 'Instant 2-Second Guest & Family Name Search at the Bar' },
+      { num: '2', title: 'Shows Exact Table Name & Clockwise Chair Number' },
+      { num: '3', title: 'Live Cloud Sync for Last-Minute 48-Hour Seat Swaps' }
     ],
     urlText: 'citationforge.io/qr/SH-4819',
     routeHref: (vId) => `/qr/${encodeURIComponent(vId)}`,
@@ -146,24 +90,10 @@ const SHOWCASE_SLIDES = [
     tabLabel: '5. Event Vault & Mom Sandbox',
     badge: 'DELIVERABLE 5 OF 5 · PERSISTENT CLOUD COMMAND CENTER',
     title: 'Persistent Event Vault & Restricted "Mom Sandbox" Link',
-    desc: 'Manage your entire reception from one passwordless command center. Save your progress with your email or Vault Code, share a restricted Tables 1 to 3 link with parents so they cannot touch your friends\' tables, and re-export unlimited times for 30 days.',
-    pills: ['✓ Restricted Mom Sandbox (Tables 1-3 Only)', '✓ Unlimited 30-Day Re-Exports Included'],
     annotations: [
-      {
-        num: '1',
-        title: 'Passwordless Vault Code & Email Recovery',
-        body: 'Every seat swap auto-saves to your permanent Vault ID (e.g. #SH-4819) so you, your fiancé, and your coordinator can resume from any laptop or tablet.'
-      },
-      {
-        num: '2',
-        title: 'All 4 Production Print & BEO Hubs in One Place',
-        body: 'One-click launchpad for your 24"×36" Poster Studio, Avery 5302 Tent Cards, Signed Caterer BEO Packet, and Live Guest QR Lookup.'
-      },
-      {
-        num: '3',
-        title: '1-Click Restricted Mom Sandbox Link',
-        body: 'Copy a safe, permission-locked link that lets parents arrange Tables 1 to 3 while keeping Tables 4+ completely locked against accidental edits.'
-      }
+      { num: '1', title: 'Passwordless Vault Code & Magic-Link Email Recovery' },
+      { num: '2', title: 'All 4 Print & Caterer Deliverables in One Command Center' },
+      { num: '3', title: '1-Click "Mom Sandbox" Link (Parents Edit Tables 1–3 Only)' }
     ],
     urlText: 'citationforge.io/vault/SH-4819?unlocked=1',
     routeHref: (vId) => `/vault/${encodeURIComponent(vId)}?unlocked=1`,
@@ -186,6 +116,7 @@ function renderFeatureShowcaseCarousel(vId = 'SH-4819') {
       class="studio-carousel-tab${idx === 0 ? ' active' : ''}"
       data-carousel-tab="${idx}"
       aria-selected="${idx === 0 ? 'true' : 'false'}"
+      style="padding:9px 14px;font-size:0.85rem;"
       onclick="window.selectStudioFeatureSlide(${idx})">
       ${escapeHtml(s.tabLabel)}
     </button>
@@ -195,38 +126,27 @@ function renderFeatureShowcaseCarousel(vId = 'SH-4819') {
     const liveHref = s.routeHref(vId || 'SH-4819');
     return `
     <div class="studio-feature-slide${idx === 0 ? ' active' : ''}" data-slide-idx="${idx}">
-      <!-- Slide Header -->
-      <div style="display:flex;flex-wrap:wrap;justify-content:space-between;align-items:flex-end;gap:16px;margin-bottom:20px;padding-bottom:16px;border-bottom:1px solid #EFEAE1;">
-        <div style="max-width:62ch;">
-          <div style="display:inline-flex;align-items:center;gap:6px;font-size:0.82rem;font-weight:800;text-transform:uppercase;letter-spacing:0.08em;color:#8C2D19;background:#FDF2EE;border:1px solid #F5C2B8;padding:5px 13px;border-radius:999px;margin-bottom:10px;">
-            &#128274; ${escapeHtml(s.badge)}
-          </div>
-          <h3 class="serif-display" style="font-size:clamp(1.75rem, 2.6vw, 2.25rem);color:#181412;line-height:1.15;margin-bottom:8px;">
-            ${escapeHtml(s.title)}
-          </h3>
-          <p style="font-size:1.05rem;color:#44403C;line-height:1.62;max-width:62ch;">
-            ${escapeHtml(s.desc)}
-          </p>
-        </div>
-        <div style="display:flex;flex-direction:column;gap:8px;align-items:flex-end;">
-          ${s.pills.map(p => `<span class="badge badge-emerald" style="font-size:0.84rem;padding:7px 14px;">${escapeHtml(p)}</span>`).join('')}
-        </div>
+      <!-- Compact Slide Title + 3 Crisp Annotation Labels -->
+      <div style="display:flex;flex-wrap:wrap;justify-content:space-between;align-items:center;gap:12px;margin-bottom:14px;">
+        <h3 class="serif-display" style="font-size:clamp(1.5rem, 2.2vw, 1.85rem);color:#181412;line-height:1.2;margin:0;">
+          ${escapeHtml(s.title)}
+        </h3>
+        <span style="font-size:0.82rem;font-weight:800;text-transform:uppercase;letter-spacing:0.06em;color:#065F46;background:#ECFDF5;border:1px solid #A7F3D0;padding:5px 12px;border-radius:999px;">
+          &#10003; ${escapeHtml(s.badge)}
+        </span>
       </div>
 
-      <!-- 3 Annotated Callout Cards -->
-      <div class="studio-showcase-annotation-grid">
+      <!-- 3 Compact One-Line Annotation Labels ("You get this, and this, and this!") -->
+      <div class="studio-showcase-annotation-grid" style="margin-bottom:16px;">
         ${s.annotations.map(a => `
-          <div class="studio-showcase-annotation-card">
-            <span class="studio-showcase-num-badge">${escapeHtml(a.num)}</span>
-            <div>
-              <div style="font-size:1.06rem;font-weight:800;color:#181412;margin-bottom:5px;line-height:1.3;">${escapeHtml(a.title)}</div>
-              <p style="font-size:0.96rem;color:#44403C;line-height:1.58;margin:0;">${escapeHtml(a.body)}</p>
-            </div>
+          <div class="studio-showcase-annotation-card" style="padding:12px 15px;align-items:center;">
+            <span class="studio-showcase-num-badge" style="margin-top:0;">${escapeHtml(a.num)}</span>
+            <div style="font-size:0.96rem;font-weight:800;color:#181412;line-height:1.35;">${escapeHtml(a.title)}</div>
           </div>
         `).join('')}
       </div>
 
-      <!-- Tall Annotated Live Screenshot Frame -->
+      <!-- Full-Height Live Screenshot Frame -->
       <div class="studio-showcase-device-frame">
         <div class="studio-showcase-browser-bar">
           <div style="display:flex;align-items:center;gap:12px;flex-wrap:wrap;">
@@ -240,7 +160,7 @@ function renderFeatureShowcaseCarousel(vId = 'SH-4819') {
             </div>
           </div>
           <div style="display:flex;align-items:center;gap:12px;">
-            <span style="font-size:0.84rem;color:#D6CFC2;font-weight:700;" class="hide-mobile-text">Actual Live Deliverable View (Vault #${safeVid})</span>
+            <span style="font-size:0.84rem;color:#D6CFC2;font-weight:700;" class="hide-mobile-text">Live Deliverable Preview (Vault #${safeVid})</span>
             <a href="${liveHref}" target="_blank" style="background:linear-gradient(135deg,#FDE68A 0%,#C8A96E 100%);color:#181412;padding:7px 15px;border-radius:8px;font-size:0.85rem;font-weight:800;text-decoration:none;box-shadow:0 3px 10px rgba(0,0,0,0.25);">
               ${escapeHtml(s.ctaText)}
             </a>
@@ -260,39 +180,36 @@ function renderFeatureShowcaseCarousel(vId = 'SH-4819') {
   }).join('');
 
   return `
-  <!-- INTERACTIVE 5-SLIDE FEATURE & TOOLING SHOWCASE CAROUSEL -->
-  <div id="studio-features-showcase-carousel" style="margin-top:16px;background:#FFFFFF;border:2px solid #C8A96E;border-radius:24px;padding:38px 34px;box-shadow:0 20px 50px rgba(24,20,18,0.08);">
-    <div style="display:flex;flex-wrap:wrap;justify-content:space-between;align-items:flex-end;gap:18px;margin-bottom:24px;padding-bottom:20px;border-bottom:1.5px solid #EAE2D3;">
-      <div>
-        <div style="display:inline-flex;align-items:center;gap:8px;background:#FAF3E3;border:1px solid #C8A96E;padding:6px 14px;border-radius:999px;margin-bottom:12px;">
-          <span style="font-size:0.82rem;font-weight:800;letter-spacing:0.08em;text-transform:uppercase;color:#78350F;">&#10022; INSIDE THE $14.99 WEDDING PRINT &amp; CATERER PACK &middot; 5 LIVE TOOLS</span>
-        </div>
-        <h3 class="serif-display" style="font-size:clamp(1.95rem, 3vw, 2.55rem);color:#181412;line-height:1.12;">
-          See the Exact Print &amp; Catering Tools You Unlock
-        </h3>
-        <p style="font-size:1.08rem;color:#44403C;max-width:62ch;margin-top:8px;line-height:1.6;">
-          Click through all 5 production tools below. Every screen is a real, interactive SeatHarmony deliverable generated from your reception floorplan (and you can click <strong>Open Live View &nearr;</strong> on any slide to test it right now).
-        </p>
-      </div>
-      <div style="display:flex;gap:8px;flex-wrap:wrap;" id="studio-carousel-tabs" role="tablist" aria-label="SeatHarmony Feature Showcase Slides">
-        ${tabsHtml}
-      </div>
+  <!-- INTERACTIVE 5-SLIDE FEATURE & TOOLING SHOWCASE CAROUSEL (SCREENSHOT-FIRST) -->
+  <div id="studio-features-showcase-carousel">
+    <div class="bs-section-header" style="margin-bottom:28px;">
+      <div class="bs-section-eyebrow">&#10022; INSIDE THE $14.99 WEDDING PRINT &amp; CATERER PACK &bull; 5 LIVE TOOLS</div>
+      <h2 class="bs-section-h2">See the Exact Print &amp; Catering Tools <em>You Unlock.</em></h2>
+      <p class="bs-section-sub">
+        Every screen below is generated directly from your reception floorplan. Click any tool to preview what you get:
+      </p>
     </div>
 
-    ${slidesHtml}
+    <div style="display:flex;gap:10px;flex-wrap:wrap;justify-content:center;margin-bottom:26px;" id="studio-carousel-tabs" role="tablist" aria-label="SeatHarmony Feature Showcase Slides">
+      ${tabsHtml}
+    </div>
 
-    <!-- Carousel Footer Navigation & Conversion Bar -->
-    <div style="margin-top:24px;padding-top:20px;border-top:1.5px solid #EAE2D3;display:flex;flex-wrap:wrap;justify-content:space-between;align-items:center;gap:14px;">
-      <div style="display:flex;align-items:center;gap:10px;">
-        <button type="button" onclick="window.stepStudioFeatureSlide(-1)" class="btn btn-secondary" style="padding:10px 18px;font-size:0.90rem;">&larr; Prev Tool</button>
-        <span id="studio-carousel-counter" style="font-family:var(--font-mono);font-size:0.95rem;font-weight:800;color:#181412;padding:0 10px;">Tool 1 of 5</span>
-        <button type="button" onclick="window.stepStudioFeatureSlide(1)" class="btn btn-secondary" style="padding:10px 18px;font-size:0.90rem;">Next Tool &rarr;</button>
-      </div>
-      <div style="display:flex;align-items:center;gap:12px;flex-wrap:wrap;">
-        <a href="#studio" class="btn btn-secondary" style="padding:11px 20px;font-size:0.92rem;">&#9998; Jump to Interactive Studio &darr;</a>
-        <a href="/buy/complete_dossier?target=estate-150&vault=${safeVid}" id="sh-carousel-unlock-cta" class="btn btn-primary" style="padding:12px 24px;font-size:0.95rem;">
-          &#128275; Unlock All 5 Print &amp; Caterer Tools ($14.99) &rarr;
-        </a>
+    <div style="background:#FFFFFF;border:2px solid #C8A96E;border-radius:24px;padding:28px 28px;box-shadow:0 20px 50px rgba(24,20,18,0.08);">
+      ${slidesHtml}
+
+      <!-- Carousel Footer Navigation & Conversion Bar -->
+      <div style="margin-top:20px;padding-top:18px;border-top:1.5px solid #EAE2D3;display:flex;flex-wrap:wrap;justify-content:space-between;align-items:center;gap:14px;">
+        <div style="display:flex;align-items:center;gap:10px;">
+          <button type="button" onclick="window.stepStudioFeatureSlide(-1)" class="btn btn-secondary" style="padding:10px 18px;font-size:0.90rem;">&larr; Prev Tool</button>
+          <span id="studio-carousel-counter" style="font-family:var(--font-mono);font-size:0.95rem;font-weight:800;color:#181412;padding:0 10px;">Tool 1 of 5</span>
+          <button type="button" onclick="window.stepStudioFeatureSlide(1)" class="btn btn-secondary" style="padding:10px 18px;font-size:0.90rem;">Next Tool &rarr;</button>
+        </div>
+        <div style="display:flex;align-items:center;gap:12px;flex-wrap:wrap;">
+          <a href="#studio" class="btn btn-secondary" style="padding:11px 20px;font-size:0.92rem;">&#9998; Jump to Interactive Studio &darr;</a>
+          <a href="/buy/complete_dossier?target=estate-150&vault=${safeVid}" id="sh-carousel-unlock-cta" class="btn btn-primary" style="padding:12px 24px;font-size:0.95rem;">
+            &#128275; Unlock All 5 Print &amp; Caterer Tools ($14.99) &rarr;
+          </a>
+        </div>
       </div>
     </div>
   </div>`;
@@ -527,7 +444,7 @@ function renderZone4ProofStackAndPricing() {
         </p>
       </div>
 
-      <div class="bs-written-proof-grid studio-reviews-grid">
+      <div class="bs-written-proof-grid studio-reviews-grid" style="margin-bottom:0;">
         <div class="bs-quote-card studio-review-card">
           <div class="bs-quote-stars">&#9733;&#9733;&#9733;&#9733;&#9733; Verified 48-Hr Drop-Out Rescue</div>
           <p class="bs-quote-body">&ldquo;Three guests dropped out 48 hours before our wedding. We deleted them on the canvas, re-exported our 24&Prime;&times;36&Prime; Arch D PDF in 10 seconds, and sent it straight to FedEx Office without re-typing a single name.&rdquo;</p>
@@ -582,11 +499,16 @@ function renderZone4ProofStackAndPricing() {
           </div>
         </div>
       </div>
+    </div>
+  </section>
 
+  <!-- SECTION 4 OF PROOF STACK: 5-SLIDE FEATURE SHOWCASE -->
+  <section class="studio-zone-section bs-feature-showcase-section" id="bs-feature-showcase-section" style="padding:100px 0 108px;background:#F5ECE0;border-bottom:1.5px solid #E5D9C5;">
+    <div class="container">
       ${renderFeatureShowcaseCarousel('SH-4819')}
 
       <!-- TRANSITION BRIDGE BANNER INTO INTERACTIVE STUDIO -->
-      <div id="bs-zone3-anchor" style="margin-top:44px;background:linear-gradient(135deg,#FFFDF9 0%,#F5ECE0 100%);border:2px solid #D8C29D;border-radius:20px;padding:28px 32px;display:flex;flex-wrap:wrap;align-items:center;justify-content:space-between;gap:18px;">
+      <div id="bs-zone3-anchor" style="margin-top:68px;background:linear-gradient(135deg,#FFFDF9 0%,#FAF6EE 100%);border:2px solid #D8C29D;border-radius:20px;padding:28px 32px;display:flex;flex-wrap:wrap;align-items:center;justify-content:space-between;gap:18px;">
         <div>
           <div style="font-size:0.84rem;font-weight:800;letter-spacing:0.10em;text-transform:uppercase;color:#8C2D19;margin-bottom:6px;">YOUR TURN &bull; THE 5-STEP RECEPTION FLOORPLAN &amp; 24&Prime;&times;36&Prime; SIGN STUDIO</div>
           <div class="serif-display" style="font-size:clamp(1.55rem, 2.4vw, 1.95rem);color:#181412;">Test a 150-guest reception below or paste your own Zola / Knot RSVP list.</div>
