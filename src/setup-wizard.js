@@ -385,7 +385,7 @@ function renderSetupWizardClientScript() {
 
   window.shwBuild = function() {
     var S = window.__SH_SETUP, couple = String(shwEl('shw-couple').value || '').trim() || 'Our', venue = String(shwEl('shw-venue').value || '').trim() || 'Our Venue';
-    var lines = shwHouseholds(), people = shwPersonCount(lines), guests = people ? Math.ceil((people + 2) * 1.1) : (S.guests || 0);
+    var lines = shwHouseholds(), people = shwPersonCount(lines), guests = Math.max(S.guests || 0, people);
     var lay = shwLayoutTables(Math.max(1, Math.ceil(guests / shwPerTable())), S.table || 'round8');
     var partners = couple.split(/\\s*(?:&|\\band\\b|\\+)\\s*/i).filter(Boolean);
     var hosts = (partners.length ? partners : ['Partner 1', 'Partner 2']).slice(0, 2).map(function(n) { return { name: n, initials: n.slice(0, 2).toUpperCase(), role: 'Couple', meal: 'Filet Mignon', allergy: '', accessibility: '' }; });
@@ -412,7 +412,7 @@ function renderSetupWizardClientScript() {
     window.__SH_SELECTED_TABLE_IDX = window.__SH_STATE.tables.length > 1 ? 1 : 0;
     S.built = true; S.sample = false; S.engaged = true; try { localStorage.setItem('sh_binder_engaged', '1'); } catch (_) {}
     window.shFinishSetupWizard();
-    shToast('Seated ' + (people + hosts.length) + ' guests at ' + (window.__SH_STATE.tables.length - 1) + ' tables' + (S.apart.length ? ' \\u00b7 ' + S.apart.length + ' conflict' + (S.apart.length === 1 ? '' : 's') + ' kept apart' : '') + '. Click any seat to adjust.');
+    shToast('\\u2713 Seated ' + (people + hosts.length) + ' guests at ' + (window.__SH_STATE.tables.length - 1) + ' tables' + (S.apart.length ? ' \\u00b7 ' + S.apart.length + ' conflict' + (S.apart.length === 1 ? '' : 's') + ' kept apart' : '') + '. Click any seat to adjust.');
   };
 
   window.shFinishSetupWizard = function() {
@@ -453,25 +453,7 @@ function renderSetupWizardClientScript() {
       var sp = new URLSearchParams(window.location.search);
       if (sp.get('sandbox') || sp.get('preset') || sp.get('checkout') || sp.get('unlocked')) window.shFinishSetupWizard();
     } catch (_) {}
-  });
-
-  /* ---- Entrance motion: sections' parts rise in as they scroll into view (transform + opacity only) ---- */
-  (function() {
-    if (window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
-    var sel = '.bs-section-header, .studio-how-card, .bs-case-card, .studio-proof-case-card, .sh-crease-proof-bar, .studio-faq-item, .pricing-grid > *, .bs-ba-container, .dir-card';
-    function arm() {
-      var els = [].slice.call(document.querySelectorAll(sel)).filter(function(e) { return e.getBoundingClientRect().top > window.innerHeight; });
-      els.forEach(function(e, i) { e.classList.add('rv'); e.style.transitionDelay = ((i % 4) * 70) + 'ms'; });
-      function check() {
-        var left = 0;
-        els.forEach(function(e) { if (e.classList.contains('rv-in')) return; if (e.getBoundingClientRect().top < window.innerHeight - 40) e.classList.add('rv-in'); else left++; });
-        if (!left) window.removeEventListener('scroll', onS);
-      }
-      var tick = false, onS = function() { if (tick) return; tick = true; requestAnimationFrame(function() { tick = false; check(); }); };
-      window.addEventListener('scroll', onS, { passive: true }); setTimeout(function() { els.forEach(function(e) { e.classList.add('rv-in'); }); }, 12000);
-    }
-    if (document.readyState === 'complete') arm(); else window.addEventListener('load', arm);
-  })();`;
+  });`;
 }
 
 module.exports = { renderSetupWizardHtml, renderBinderDockHtml, renderSetupWizardClientScript };

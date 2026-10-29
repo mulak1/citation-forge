@@ -116,7 +116,7 @@ function renderFeatureShowcaseCarousel(vId = 'SH-4819') {
       class="studio-carousel-tab${idx === 0 ? ' active' : ''}"
       data-carousel-tab="${idx}"
       aria-selected="${idx === 0 ? 'true' : 'false'}"
-      style="padding:9px 14px;font-size:13px;"
+      style="padding:9px 14px;font-size:0.85rem;"
       onclick="window.selectStudioFeatureSlide(${idx})">
       ${escapeHtml(s.tabLabel)}
     </button>
@@ -137,7 +137,7 @@ function renderFeatureShowcaseCarousel(vId = 'SH-4819') {
         ${s.annotations.map(a => `
           <div class="studio-showcase-annotation-card" style="padding:12px 15px;align-items:center;">
             <span class="studio-showcase-num-badge" style="margin-top:0;">${escapeHtml(a.num)}</span>
-            <div style="font-size:16px;font-weight:800;color:#181412;line-height:1.35;">${escapeHtml(a.title)}</div>
+            <div style="font-size:0.96rem;font-weight:800;color:#181412;line-height:1.35;">${escapeHtml(a.title)}</div>
           </div>
         `).join('')}
       </div>
@@ -161,7 +161,7 @@ function renderFeatureShowcaseCarousel(vId = 'SH-4819') {
   <!-- INTERACTIVE 5-SLIDE FEATURE & TOOLING SHOWCASE CAROUSEL (SCREENSHOT-FIRST) -->
   <div id="studio-features-showcase-carousel">
     <div class="bs-section-header" style="margin-bottom:28px;">
-      <div class="bs-section-eyebrow">INSIDE THE $14.99 WEDDING PRINT &amp; CATERER PACK &bull; 5 LIVE TOOLS</div>
+      <div class="bs-section-eyebrow">&#10022; INSIDE THE $14.99 WEDDING PRINT &amp; CATERER PACK &bull; 5 LIVE TOOLS</div>
       <h2 class="bs-section-h2">See the Exact Print &amp; Catering Tools <em>You Unlock.</em></h2>
       <p class="bs-section-sub">
         Every screen below is generated directly from your reception floorplan. Click any tool to preview what you get:
@@ -172,20 +172,20 @@ function renderFeatureShowcaseCarousel(vId = 'SH-4819') {
       ${tabsHtml}
     </div>
 
-    <div style="background:#FFFFFF;border-radius:24px;padding:28px 28px;box-shadow:0 20px 50px rgba(24,20,18,0.08);">
+    <div style="background:#FFFFFF;border:2px solid #C8A96E;border-radius:24px;padding:28px 28px;box-shadow:0 20px 50px rgba(24,20,18,0.08);">
       ${slidesHtml}
 
       <!-- Carousel Footer Navigation & Conversion Bar -->
-      <div style="margin-top:20px;padding-top:18px;display:flex;flex-wrap:wrap;justify-content:space-between;align-items:center;gap:14px;">
+      <div style="margin-top:20px;padding-top:18px;border-top:1.5px solid #EAE2D3;display:flex;flex-wrap:wrap;justify-content:space-between;align-items:center;gap:14px;">
         <div style="display:flex;align-items:center;gap:10px;">
-          <button type="button" onclick="window.stepStudioFeatureSlide(-1)" class="btn btn-secondary" style="padding:10px 18px;font-size:13px;">&larr; Prev Tool</button>
-          <span id="studio-carousel-counter" style="font-family:var(--font-mono);font-size:16px;font-weight:800;color:#181412;padding:0 10px;">Tool 1 of 5</span>
-          <button type="button" onclick="window.stepStudioFeatureSlide(1)" class="btn btn-secondary" style="padding:10px 18px;font-size:13px;">Next Tool &rarr;</button>
+          <button type="button" onclick="window.stepStudioFeatureSlide(-1)" class="btn btn-secondary" style="padding:10px 18px;font-size:0.90rem;">&larr; Prev Tool</button>
+          <span id="studio-carousel-counter" style="font-family:var(--font-mono);font-size:0.95rem;font-weight:800;color:#181412;padding:0 10px;">Tool 1 of 5</span>
+          <button type="button" onclick="window.stepStudioFeatureSlide(1)" class="btn btn-secondary" style="padding:10px 18px;font-size:0.90rem;">Next Tool &rarr;</button>
         </div>
         <div style="display:flex;align-items:center;gap:12px;flex-wrap:wrap;">
-          <a href="#studio" class="btn btn-secondary" style="padding:11px 20px;font-size:16px;">Jump to Interactive Studio &darr;</a>
-          <a href="/buy/complete_dossier?target=estate-150&vault=${safeVid}" id="sh-carousel-unlock-cta" class="btn btn-gold-soft" style="padding:12px 24px;font-size:16px;">
-            Unlock All 5 Print &amp; Caterer Tools ($14.99) &rarr;
+          <a href="#studio" class="btn btn-secondary" style="padding:11px 20px;font-size:0.92rem;">&#9998; Jump to Interactive Studio &darr;</a>
+          <a href="/buy/complete_dossier?target=estate-150&vault=${safeVid}" id="sh-carousel-unlock-cta" class="btn btn-gold-soft" style="padding:12px 24px;font-size:0.95rem;">
+            &#128275; Unlock All 5 Print &amp; Caterer Tools ($14.99) &rarr;
           </a>
         </div>
       </div>
@@ -336,10 +336,10 @@ function renderZone4ProofStackAndPricing() {
             </div>
             <h4 class="bs-ba-card-h4">Split couples, family tension &amp; 2 AM Canva re-types</h4>
             <ul class="bs-ba-list">
-              <li><span class="bs-ba-icon bs-ba-icon-bad">&times;</span><div><strong>Plus-Ones Split Up:</strong> Manual drag-and-drop separates couples whenever a guest drops out.</div></li>
-              <li><span class="bs-ba-icon bs-ba-icon-bad">&times;</span><div><strong>Parent Sightline Clashes:</strong> Unnoticed back-to-back chairs across tables trigger reception tension.</div></li>
-              <li><span class="bs-ba-icon bs-ba-icon-bad">&times;</span><div><strong>Canva Re-Typing Nightmare:</strong> Re-aligning 150 alphabetical names by hand at 1:30 AM before the wedding.</div></li>
-              <li><span class="bs-ba-icon bs-ba-icon-bad">&times;</span><div><strong>Confused Banquet Servers:</strong> Waitstaff auctioning Filet Mignon at the table and missing nut allergies.</div></li>
+              <li><span class="bs-ba-icon bs-ba-icon-bad">&#10005;</span><div><strong>Plus-Ones Split Up:</strong> Manual drag-and-drop separates couples whenever a guest drops out.</div></li>
+              <li><span class="bs-ba-icon bs-ba-icon-bad">&#10005;</span><div><strong>Parent Sightline Clashes:</strong> Unnoticed back-to-back chairs across tables trigger reception tension.</div></li>
+              <li><span class="bs-ba-icon bs-ba-icon-bad">&#10005;</span><div><strong>Canva Re-Typing Nightmare:</strong> Re-aligning 150 alphabetical names by hand at 1:30 AM before the wedding.</div></li>
+              <li><span class="bs-ba-icon bs-ba-icon-bad">&#10005;</span><div><strong>Confused Banquet Servers:</strong> Waitstaff auctioning Filet Mignon at the table and missing nut allergies.</div></li>
             </ul>
           </div>
 
@@ -349,12 +349,12 @@ function renderZone4ProofStackAndPricing() {
               <span class="bs-ba-pill bs-ba-pill-after">AFTER SEATHARMONY</span>
               <span class="bs-ba-price-tag bs-ba-price-good">60 Seconds &bull; $14.99 Pack</span>
             </div>
-            <h4 class="bs-ba-card-h4">Couples together, sign ready to print</h4>
+            <h4 class="bs-ba-card-h4">Couples together, clockwise BEO &amp; FedEx-ready 24&Prime;&times;36&Prime; sign</h4>
             <ul class="bs-ba-list">
-              <li><span class="bs-ba-icon bs-ba-icon-good"></span><div><strong>Couples Kept Together:</strong> Every partner, plus-one, and household stays seated side-by-side automatically.</div></li>
-              <li><span class="bs-ba-icon bs-ba-icon-good"></span><div><strong>1-Click Family Peace:</strong> Places divorced parents or exes on opposite sides of the dance floor.</div></li>
-              <li><span class="bs-ba-icon bs-ba-icon-good"></span><div><strong>6 Luxury 24&Prime;&times;36&Prime; Signs + Avery 5302:</strong> Instant 300-DPI FedEx PDF with <code>0.125&Prime;</code> bleed and tent cards.</div></li>
-              <li><span class="bs-ba-icon bs-ba-icon-good"></span><div><strong>Clockwise 12:00 Caterer BEO:</strong> Servers set every plate and allergy dish at the exact chair without asking.</div></li>
+              <li><span class="bs-ba-icon bs-ba-icon-good">&#10003;</span><div><strong>Couples Kept Together:</strong> Every partner, plus-one, and household stays seated side-by-side automatically.</div></li>
+              <li><span class="bs-ba-icon bs-ba-icon-good">&#10003;</span><div><strong>1-Click Family Peace:</strong> Places divorced parents or exes on opposite sides of the dance floor.</div></li>
+              <li><span class="bs-ba-icon bs-ba-icon-good">&#10003;</span><div><strong>6 Luxury 24&Prime;&times;36&Prime; Signs + Avery 5302:</strong> Instant 300-DPI FedEx PDF with <code>0.125&Prime;</code> bleed and tent cards.</div></li>
+              <li><span class="bs-ba-icon bs-ba-icon-good">&#10003;</span><div><strong>Clockwise 12:00 Caterer BEO:</strong> Servers set every plate and allergy dish at the exact chair without asking.</div></li>
             </ul>
           </div>
         </div>
@@ -368,7 +368,7 @@ function renderZone4ProofStackAndPricing() {
             <thead>
               <tr>
                 <th style="width:24%;">What Matters on Wedding Day</th>
-                <th class="bs-col-highlight" style="width:28%;">SeatHarmony ($14.99 once)</th>
+                <th class="bs-col-highlight" style="width:28%;">&#10022; SeatHarmony ($14.99 once)</th>
                 <th style="width:24%;">Event SaaS ($150+/yr)</th>
                 <th style="width:24%;">Excel + Canva By Hand</th>
               </tr>
@@ -382,25 +382,25 @@ function renderZone4ProofStackAndPricing() {
               </tr>
               <tr>
                 <td><strong>Family Peace Seating</strong></td>
-                <td class="bs-col-highlight">Couples Together + Ex Buffer</td>
+                <td class="bs-col-highlight">&#10003; Couples Together + Ex Buffer</td>
                 <td>Manual drag-and-drop only</td>
                 <td>Manual copy-paste errors</td>
               </tr>
               <tr>
                 <td><strong>Caterer Meal Sheet (BEO)</strong></td>
-                <td class="bs-col-highlight"><code>12:00 Seat #1</code> + Allergy Flags</td>
+                <td class="bs-col-highlight">&#10003; <code>12:00 Seat #1</code> + Allergy Flags</td>
                 <td>Generic table list only</td>
                 <td>None (servers guess seats)</td>
               </tr>
               <tr>
                 <td><strong>24&Prime;&times;36&Prime; Sign &amp; Cards</strong></td>
-                <td class="bs-col-highlight">6 Sign Themes + Avery 5302</td>
+                <td class="bs-col-highlight">&#10003; 6 Sign Themes + Avery 5302</td>
                 <td>No poster typography</td>
                 <td>5+ hrs re-typing 150 names</td>
               </tr>
               <tr>
                 <td><strong>Parent Sandbox Link</strong></td>
-                <td class="bs-col-highlight">Parents Edit Tables 1-3 Only</td>
+                <td class="bs-col-highlight">&#10003; Parents Edit Tables 1-3 Only</td>
                 <td>Full edit access or none</td>
                 <td>Broken spreadsheet copies</td>
               </tr>
@@ -415,7 +415,7 @@ function renderZone4ProofStackAndPricing() {
   <section class="studio-zone-section bs-written-testimonials-section" id="bs-written-testimonials-section">
     <div class="container">
       <div class="bs-section-header">
-        <div class="bs-section-eyebrow">4.9 / 5 FROM 18,420+ WEDDINGS &amp; GALAS</div>
+        <div class="bs-section-eyebrow">&#9733;&#9733;&#9733;&#9733;&#9733; 4.9 / 5 FROM 18,420+ WEDDINGS &amp; GALAS</div>
         <h2 class="bs-section-h2">What couples &amp; coordinators say <em>Monday morning.</em></h2>
         <p class="bs-section-sub">
           From 48-hour RSVP drop-out rescues to clockwise 12:00 caterer meal sheets and framed 24&Prime;&times;36&Prime; welcome signs.
@@ -424,7 +424,7 @@ function renderZone4ProofStackAndPricing() {
 
       <div class="bs-written-proof-grid studio-reviews-grid" style="margin-bottom:0;">
         <div class="bs-quote-card studio-review-card">
-          <div class="bs-quote-stars">Verified 48-Hr Drop-Out Rescue</div>
+          <div class="bs-quote-stars">&#9733;&#9733;&#9733;&#9733;&#9733; Verified 48-Hr Drop-Out Rescue</div>
           <p class="bs-quote-body">&ldquo;Three guests canceled 48 hours out. We removed them on the canvas and sent a fresh 24&Prime;&times;36&Prime; PDF to FedEx in 10 seconds.&rdquo;</p>
           <div class="bs-quote-author">
             <img src="/public/avatar-couple.jpg" alt="Hannah &amp; Devon R." class="bs-quote-avatar" width="46" height="46" loading="lazy" />
@@ -433,7 +433,7 @@ function renderZone4ProofStackAndPricing() {
         </div>
 
         <div class="bs-quote-card studio-review-card">
-          <div class="bs-quote-stars">Verified Caterer BEO Manifest</div>
+          <div class="bs-quote-stars">&#9733;&#9733;&#9733;&#9733;&#9733; Verified Caterer BEO Manifest</div>
           <p class="bs-quote-body">&ldquo;Our banquet captain loved the Clockwise 12:00 Meal Sheet. Seat #1 was anchored to the dance floor with peanut allergies flagged in red.&rdquo;</p>
           <div class="bs-quote-author">
             <img src="/public/avatar-planner.jpg" alt="Claire M." class="bs-quote-avatar" width="46" height="46" loading="lazy" />
@@ -442,7 +442,7 @@ function renderZone4ProofStackAndPricing() {
         </div>
 
         <div class="bs-quote-card studio-review-card">
-          <div class="bs-quote-stars">Father of the Bride</div>
+          <div class="bs-quote-stars">&#9733;&#9733;&#9733;&#9733;&#9733; Father of the Bride</div>
           <p class="bs-quote-body">&ldquo;The Mom Sandbox link saved our sanity. My wife arranged Tables 1 to 3 at midnight while Tables 4 to 12 stayed safely locked.&rdquo;</p>
           <div class="bs-quote-author">
             <div class="bs-quote-avatar">RT</div>
@@ -451,7 +451,7 @@ function renderZone4ProofStackAndPricing() {
         </div>
 
         <div class="bs-quote-card studio-review-card">
-          <div class="bs-quote-stars">Lead Wedding Coordinator</div>
+          <div class="bs-quote-stars">&#9733;&#9733;&#9733;&#9733;&#9733; Lead Wedding Coordinator</div>
           <p class="bs-quote-body">&ldquo;Handing the venue SeatHarmony&rsquo;s Clockwise 12:00 BEO and Avery 5302 tent cards made 220-guest plated service effortless.&rdquo;</p>
           <div class="bs-quote-author">
             <div class="bs-quote-avatar">EV</div>
@@ -460,7 +460,7 @@ function renderZone4ProofStackAndPricing() {
         </div>
 
         <div class="bs-quote-card studio-review-card">
-          <div class="bs-quote-stars">24&Prime;&times;36&Prime; Sign + Cocktail QR</div>
+          <div class="bs-quote-stars">&#9733;&#9733;&#9733;&#9733;&#9733; 24&Prime;&times;36&Prime; Sign + Cocktail QR</div>
           <p class="bs-quote-body">&ldquo;Everyone photographed our Obsidian &amp; Gold 24&Prime;&times;36&Prime; sign! Half our guests scanned the bar QR so there was zero doorway line.&rdquo;</p>
           <div class="bs-quote-author">
             <div class="bs-quote-avatar">PL</div>
@@ -469,7 +469,7 @@ function renderZone4ProofStackAndPricing() {
         </div>
 
         <div class="bs-quote-card studio-review-card">
-          <div class="bs-quote-stars">Divorced-Parent Buffer Solver</div>
+          <div class="bs-quote-stars">&#9733;&#9733;&#9733;&#9733;&#9733; Divorced-Parent Buffer Solver</div>
           <p class="bs-quote-body">&ldquo;One click placed two estranged aunts on opposite sides of the dance floor while keeping every couple seated together.&rdquo;</p>
           <div class="bs-quote-author">
             <div class="bs-quote-avatar">MJ</div>
@@ -481,17 +481,17 @@ function renderZone4ProofStackAndPricing() {
   </section>
 
   <!-- SECTION 4 OF PROOF STACK: 5-SLIDE FEATURE SHOWCASE -->
-  <section class="studio-zone-section bs-feature-showcase-section" id="bs-feature-showcase-section" style="padding:100px 0 108px;background:#EBEBE8;border-bottom:1.5px solid #E5D9C5;">
+  <section class="studio-zone-section bs-feature-showcase-section" id="bs-feature-showcase-section" style="padding:100px 0 108px;background:#F5ECE0;border-bottom:1.5px solid #E5D9C5;">
     <div class="container">
       ${renderFeatureShowcaseCarousel('SH-4819')}
 
       <!-- TRANSITION BRIDGE BANNER INTO INTERACTIVE STUDIO -->
-      <div id="bs-zone3-anchor" style="margin-top:68px;background:#F4F4F2;border-radius:20px;padding:34px 36px;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;gap:16px;">
+      <div id="bs-zone3-anchor" style="margin-top:68px;background:linear-gradient(135deg,#FFFDF9 0%,#FAF6EE 100%);border:2px solid #D8C29D;border-radius:20px;padding:34px 36px;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;gap:16px;">
         <div style="text-align:center;">
-          <div style="font-size:13px;font-weight:800;letter-spacing:0.10em;text-transform:uppercase;color:#8C2D19;margin-bottom:8px;">YOUR TURN &bull; THE 5-STEP RECEPTION FLOORPLAN &amp; 24&Prime;&times;36&Prime; SIGN STUDIO</div>
+          <div style="font-size:0.84rem;font-weight:800;letter-spacing:0.10em;text-transform:uppercase;color:#8C2D19;margin-bottom:8px;">YOUR TURN &bull; THE 5-STEP RECEPTION FLOORPLAN &amp; 24&Prime;&times;36&Prime; SIGN STUDIO</div>
           <div class="serif-display" style="font-size:clamp(1.25rem, 2.2vw, 1.85rem);color:#181412;">Test a 150-guest reception below or paste your RSVP list.</div>
         </div>
-        <a href="#studio" class="btn btn-primary" style="padding:14px 28px;font-size:16px;align-self:center;margin:0 auto;">Jump Into Interactive Studio &darr;</a>
+        <a href="#studio" class="btn btn-primary" style="padding:14px 28px;font-size:0.98rem;align-self:center;margin:0 auto;">Jump Into Interactive Studio &darr;</a>
       </div>
     </div>
   </section>`;
