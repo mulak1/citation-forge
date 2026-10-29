@@ -183,7 +183,7 @@ function renderDeliverablesClientScript() {
   function shRenderActiveCrudBanner(plan) {
     const swapBanner = document.getElementById('sh-active-swap-banner');
     if (!swapBanner) return;
-    if ((window.__SH_WIZARD_STEP || 1) < 4) { swapBanner.style.display = 'none'; return; }
+    if ((window.__SH_WIZARD_STEP || 1) < 4 || window.shRenderSeatPanel) { swapBanner.style.display = 'none'; return; }
     if (window.__SH_SELECTED_LANDMARK_IDX != null && plan.landmarks && plan.landmarks[window.__SH_SELECTED_LANDMARK_IDX]) {
       const lmIdx = window.__SH_SELECTED_LANDMARK_IDX, lm = plan.landmarks[lmIdx];
       swapBanner.style.display = 'flex';
@@ -237,6 +237,7 @@ function renderDeliverablesClientScript() {
   }
 
   function shRenderSelectedTableInspector() {
+    if (window.shRenderSeatPanel) { window.shRenderSeatPanel(); return; }
     const box = document.getElementById('sh-selected-table-box');
     if (!box || !window.__SH_STATE || !window.__SH_STATE.tables) return;
     const tIdx = window.__SH_SELECTED_TABLE_IDX || 0, t = window.__SH_STATE.tables[tIdx] || window.__SH_STATE.tables[0];

@@ -161,6 +161,48 @@ function renderHead({
     .studio-how-num { width: 40px; height: 40px; border-radius: 10px; background: #FAF3E3; color: #78350F; border: 1.5px solid #C8A96E; font-family: var(--font-mono); font-size: 1rem; font-weight: 800; display: inline-flex; align-items: center; justify-content: center; }
     .studio-scroll-builder-grid { display: grid; grid-template-columns: minmax(340px, 390px) minmax(0, 1fr); gap: 20px; align-items: start; margin-top: 14px; transition: all 0.2s ease; width: 100%; max-width: 100%; }
     .studio-scroll-builder-grid.full-stage { grid-template-columns: minmax(0, 1fr); }
+    .sh-ed-ghost { font-size: 0.88rem; font-weight: 700; color: #44403C; background: #FFFFFF; border: 1.5px solid #DCD3C3; padding: 7px 13px; border-radius: 10px; cursor: pointer; white-space: nowrap; transition: border-color 0.15s ease, background 0.15s ease; }
+    .sh-ed-ghost:hover { border-color: #C8A96E; background: #FFF8E8; }
+    .sh-ed-bar { display: flex; align-items: center; gap: 10px; margin-bottom: 12px; }
+    .sh-ed-hint { flex: 1; min-width: 0; font-size: 0.94rem; font-weight: 600; color: #57534E; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+    .sh-ed-grid { display: grid; grid-template-columns: minmax(0, 1fr) 360px; gap: 16px; align-items: start; }
+    .sh-ed-canvas { border-radius: 14px; border: 1.5px solid #E2D9C8; background: #FAF7F2; overflow: hidden; }
+    .sh-ed-panel { background: #FFFFFF; border: 1.5px solid #E2D3B5; border-radius: 16px; padding: 16px; max-height: 760px; overflow-y: auto; box-shadow: 0 12px 30px -16px rgba(120, 85, 30, 0.25); position: sticky; top: 84px; }
+    .sh-ed-empty { font-size: 0.98rem; color: #78716C; text-align: center; padding: 40px 10px; line-height: 1.5; }
+    .sh-ed-head { margin-bottom: 12px; }
+    .sh-ed-title { width: 100%; font-family: var(--font-serif); font-size: 1.5rem; font-weight: 700; color: #181412; border: 1.5px solid transparent; border-radius: 8px; padding: 2px 6px; margin-left: -6px; background: transparent; outline: none; }
+    .sh-ed-title:hover { border-color: #EFE6D4; } .sh-ed-title:focus { border-color: #C8A96E; background: #FFFDF9; }
+    .sh-ed-meta { display: flex; justify-content: space-between; align-items: center; gap: 8px; font-size: 0.92rem; color: #78716C; font-weight: 600; margin-top: 2px; }
+    .sh-ed-stepper { display: inline-flex; align-items: center; gap: 6px; } .sh-ed-stepper b { font-size: 0.86rem; color: #44403C; min-width: 66px; text-align: center; }
+    .sh-ed-stepper button { width: 30px; height: 30px; border-radius: 999px; border: 1.5px solid #DCD3C3; background: #FFFFFF; font-size: 1.05rem; font-weight: 800; color: #44403C; cursor: pointer; }
+    .sh-ed-add { display: flex; gap: 8px; margin-bottom: 12px; }
+    .sh-ed-add input, .sh-ed-input { flex: 1; min-width: 0; width: 100%; padding: 11px 13px; font-size: 0.98rem; border: 1.5px solid #DCD3C3; border-radius: 10px; background: #FFFDF9; outline: none; font-family: inherit; }
+    .sh-ed-add input:focus, .sh-ed-input:focus { border-color: #C8A96E; box-shadow: 0 0 0 3px rgba(232, 199, 125, 0.25); }
+    .sh-ed-add button { padding: 0 16px; font-size: 0.95rem; font-weight: 800; color: #3B2A12; background: linear-gradient(135deg, #FDE68A, #E8C77D); border: 1.5px solid #C8A96E; border-radius: 10px; cursor: pointer; }
+    .sh-ed-list { display: flex; flex-direction: column; gap: 6px; }
+    .sh-ed-item { border: 1.5px solid #EFE6D4; border-radius: 12px; background: #FFFFFF; overflow: hidden; }
+    .sh-ed-item.open { border-color: #C8A96E; box-shadow: 0 6px 16px -10px rgba(180, 135, 40, 0.5); }
+    .sh-ed-row { width: 100%; display: flex; align-items: center; gap: 10px; padding: 11px 12px; background: transparent; border: none; cursor: pointer; text-align: left; font-family: inherit; }
+    .sh-ed-row:hover { background: #FFFBF0; }
+    .sh-ed-seat { width: 24px; height: 24px; border-radius: 999px; background: #F5EFE6; color: #78716C; font-size: 0.76rem; font-weight: 800; display: inline-flex; align-items: center; justify-content: center; flex-shrink: 0; }
+    .sh-ed-name { flex: 1; min-width: 0; font-size: 1rem; font-weight: 700; color: #181412; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+    .sh-ed-tag { font-size: 0.76rem; font-weight: 700; color: #78716C; background: #F5F1EA; padding: 2px 8px; border-radius: 999px; flex-shrink: 0; }
+    .sh-ed-tag.warn { color: #9F1239; background: #FFF1F2; }
+    .sh-ed-chev { color: #A8A29E; font-size: 0.8rem; flex-shrink: 0; }
+    .sh-ed-detail { padding: 4px 12px 14px; background: #FFFBF3; border-top: 1px solid #F1E8D6; }
+    .sh-ed-label { font-size: 0.80rem; font-weight: 800; color: #78716C; text-transform: uppercase; letter-spacing: 0.05em; margin: 12px 0 6px; }
+    .sh-ed-chips { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 6px; }
+    .sh-ed-chip { display: flex; flex-direction: column; align-items: center; gap: 1px; padding: 8px 4px; font-size: 0.88rem; font-weight: 800; color: #181412; background: #FFFFFF; border: 1.5px solid #E2D9C8; border-radius: 10px; cursor: pointer; }
+    .sh-ed-chip small { font-size: 0.72rem; font-weight: 600; color: #059669; }
+    .sh-ed-chip:hover:not(.full) { border-color: #C8A96E; background: #FFF8E8; }
+    .sh-ed-chip.full { opacity: 0.45; cursor: not-allowed; } .sh-ed-chip.full small { color: #A8A29E; }
+    .sh-ed-seg { display: flex; gap: 6px; } .sh-ed-seg.wrap { flex-wrap: wrap; }
+    .sh-ed-seg button { flex: 1 1 auto; padding: 8px 10px; font-size: 0.88rem; font-weight: 700; color: #44403C; background: #FFFFFF; border: 1.5px solid #E2D9C8; border-radius: 9px; cursor: pointer; white-space: nowrap; }
+    .sh-ed-seg button.on { background: linear-gradient(135deg, #FEF3C7, #FDE68A); border-color: #B89352; color: #3B2A12; }
+    .sh-ed-remove { display: block; width: 100%; margin-top: 14px; padding: 9px; font-size: 0.90rem; font-weight: 700; color: #9F1239; background: transparent; border: 1.5px dashed #FECDD3; border-radius: 10px; cursor: pointer; }
+    .sh-ed-remove:hover { background: #FFF1F2; }
+    .sh-ed-free { font-size: 0.88rem; color: #A8A29E; text-align: center; padding: 6px; }
+    @media (max-width: 1080px) { .sh-ed-grid { grid-template-columns: minmax(0, 1fr); } .sh-ed-panel { position: static; max-height: none; } .sh-ed-hint { white-space: normal; } }
     .shw-wrap { max-width: 620px; margin: 0 auto; }
     .shw-intro { text-align: center; margin-bottom: 22px; }
     .shw-card { background: #FFFFFF; border: 1.5px solid #E2D3B5; border-radius: 22px; padding: 22px 32px 30px; box-shadow: 0 20px 48px -18px rgba(120, 85, 30, 0.22); }

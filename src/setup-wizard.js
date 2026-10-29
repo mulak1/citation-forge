@@ -235,7 +235,7 @@ function renderSetupWizardClientScript() {
     var w = shwEl('sh-setup-wizard'), g = shwEl('sh-builder-grid');
     if (w) w.style.display = 'none';
     if (g) g.style.display = '';
-    window.__SH_WIZARD_STEP = 4; window.__SH_SWAP_SOURCE = null; window.__SH_CANVAS_ZOOM = 'room';
+    window.__SH_WIZARD_STEP = 4; window.__SH_SWAP_SOURCE = null; window.__SH_CANVAS_ZOOM = 'room'; window.__SH_UNDO = []; window.__SH_OPEN_GUEST = null;
     shSyncTableSelectAndPills(); shRenderAll();
     var st = shwEl('studio'); if (st && window.__SH_SETUP.userStarted) window.scrollTo({ top: st.getBoundingClientRect().top + window.pageYOffset - 70, behavior: 'smooth' });
   };

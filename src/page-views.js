@@ -193,7 +193,7 @@ function renderZone3InteractiveStudio(plan) {
         <input id="sh-custom-rule-input" type="text" value="" /><select id="sh-custom-rule-type"><option value="must_keep_apart">Keep Apart</option></select>
       </div>
 
-      <div class="studio-scroll-builder-grid" id="sh-builder-grid" style="display:none;">
+      <div class="studio-scroll-builder-grid full-stage" id="sh-builder-grid" style="display:none;">
         <!-- LEFT COLUMN: Fine-tune & Print (shown after the setup wizard) -->
         <div class="studio-hybrid-wizard" id="sh-csv-parse-preview">
 
@@ -336,58 +336,41 @@ function renderZone3InteractiveStudio(plan) {
                   <div id="specimen-tagline-sub" style="display:none;"></div>
                 </div>
               </div>
-              <div style="display:flex;align-items:center;gap:6px;flex-shrink:0;">
-                <span id="sh-mom-sandbox-badge" class="badge badge-cyan" style="font-size:0.78rem;padding:4px 10px;cursor:pointer;" onclick="window.shToggleMomSandbox()">&#128117; Family Share: OFF</span>
-                <button type="button" id="sh-stage-expand-btn" onclick="window.shToggleFullWidthStage()" style="font-size:0.78rem;font-weight:800;color:#181412;background:#FFFFFF;border:1px solid #C8A96E;padding:4px 10px;border-radius:999px;cursor:pointer;">&#9974; Expand</button>
+              <div style="display:flex;align-items:center;gap:8px;flex-shrink:0;">
+                <span id="sh-mom-sandbox-badge" style="display:none;"></span>
+                <button type="button" class="sh-ed-ghost" onclick="window.shOpenSetupWizard()">&larr; Edit setup</button>
+                <button type="button" class="sh-ed-ghost" onclick="window.shOpenVaultModal()">&#128190; Save</button>
               </div>
             </div>
 
             <!-- 4-Tab Switcher -->
             <div class="studio-stage-tabs" role="tablist" aria-label="SeatHarmony 4-Tab Operational Kit">
-              <button id="sh-tab-floorplan" type="button" class="studio-stage-tab-btn tab-btn active" data-tab="llmsTxt" onclick="window.shSetActiveTab('floorplan')">&#127919; 1. Floorplan</button>
-              <button id="sh-tab-beo" type="button" class="studio-stage-tab-btn tab-btn" data-tab="jsonLd" onclick="window.shSetActiveTab('beo')">&#127869; 2. Caterer BEO</button>
-              <button id="sh-tab-poster" type="button" class="studio-stage-tab-btn" onclick="window.shSetActiveTab('poster')">&#129703; 3. 24&Prime;&times;36&Prime; Sign</button>
-              <button id="sh-tab-qr" type="button" class="studio-stage-tab-btn" onclick="window.shSetActiveTab('qr')">&#128241; 4. Guest QR</button>
+              <button id="sh-tab-floorplan" type="button" class="studio-stage-tab-btn tab-btn active" data-tab="llmsTxt" onclick="window.shSetActiveTab('floorplan')">Seating</button>
+              <button id="sh-tab-beo" type="button" class="studio-stage-tab-btn tab-btn" data-tab="jsonLd" onclick="window.shSetActiveTab('beo')">Caterer sheet</button>
+              <button id="sh-tab-poster" type="button" class="studio-stage-tab-btn" onclick="window.shSetActiveTab('poster')">Welcome sign</button>
+              <button id="sh-tab-qr" type="button" class="studio-stage-tab-btn" onclick="window.shSetActiveTab('qr')">Guest QR</button>
             </div>
 
             <!-- Foreground Specimen Card -->
             <div class="studio-foreground-specimen" id="studio-foreground-specimen">
               <!-- PANE 1: Interactive Floorplan & Selected Table Inspector -->
               <div id="sh-pane-floorplan" style="display:block;">
-                <!-- Guided Wizard Step Banner (Shown in Steps 1–3, replaced by Full Micro-Toolbar in Step 4) -->
-                <div id="sh-canvas-step-banner" style="display:flex;align-items:center;justify-content:space-between;gap:10px;margin-bottom:8px;padding:7px 12px;background:#FAF3E6;border:1.5px solid #DFD3BE;border-radius:10px;">
-                  <div style="display:flex;align-items:center;gap:8px;min-width:0;flex:1;">
-                    <span id="sh-canvas-step-badge" style="font-size:0.74rem;font-weight:800;text-transform:uppercase;letter-spacing:0.05em;background:#FFFFFF;color:#78350F;border:1px solid #C8A96E;padding:3px 9px;border-radius:999px;flex-shrink:0;">Step 1 of 4</span>
-                    <span id="sh-canvas-step-hint" style="font-size:0.83rem;font-weight:700;color:#181412;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;">Pick a venue layout or add tables on the left. Drag tables to arrange.</span>
-                  </div>
-                  <div style="display:flex;align-items:center;gap:6px;flex-shrink:0;">
-                    <button type="button" id="sh-canvas-step-next-btn" onclick="window.scrollToShCard(2)" style="background:linear-gradient(135deg,#FDE68A,#E8C77D);color:#3B2A12;border:1px solid #C8A96E;border-radius:8px;padding:5px 11px;font-size:0.78rem;font-weight:800;cursor:pointer;white-space:nowrap;">Next: Add Guests &rarr;</button>
-                  </div>
+                <div id="sh-canvas-step-banner" style="display:none;"><span id="sh-canvas-step-badge"></span><span id="sh-canvas-step-hint"></span><button type="button" id="sh-canvas-step-next-btn"></button></div>
+                <div id="sh-active-swap-banner" style="display:none;"></div>
+
+                <!-- Simple editor bar: one hint, Undo, Add table -->
+                <div id="sh-canvas-micro-toolbar" class="sh-ed-bar">
+                  <span id="sh-live-toast" class="sh-ed-hint">Tap a table to see who&rsquo;s sitting there. Drag a guest to another seat to move them.</span>
+                  <button type="button" id="sh-undo-btn" class="sh-ed-ghost" style="display:none;" onclick="window.shUndo()">&#8630; Undo</button>
+                  <button type="button" id="sh-toolbar-add-table-btn" class="sh-ed-ghost" onclick="window.shAddNewTable()">+ Add table</button>
                 </div>
 
-                <!-- Micro-Editing Canvas Toolbar (Revealed in Step 4: Fine-Tune & Export) -->
-                <div id="sh-canvas-micro-toolbar" style="display:none;align-items:center;justify-content:space-between;gap:8px;margin-bottom:8px;padding:6px 10px;background:#FAF6EE;border:1px solid #E2D9C8;border-radius:10px;">
-                  <div style="display:flex;align-items:center;gap:5px;flex-shrink:0;">
-                    <button type="button" id="sh-zoom-room-btn" class="studio-tap-chip active" style="padding:4px 10px;font-size:0.80rem;" onclick="window.shSetCanvasZoom('room')">Full Room</button>
-                    <button type="button" id="sh-zoom-15-btn" class="studio-tap-chip" style="padding:4px 10px;font-size:0.80rem;" onclick="window.shSetCanvasZoom('zoom15')">1.5&times; Zoom</button>
-                    <button type="button" id="sh-zoom-table-btn" class="studio-tap-chip" style="padding:4px 10px;font-size:0.80rem;" onclick="window.shSetCanvasZoom('table')">Focus Table</button>
+                <div class="sh-ed-grid">
+                  <div class="sh-ed-canvas">
+                    <svg id="sh-floorplan-svg" viewBox="0 0 1120 680" style="width:100%;height:auto;display:block;touch-action:none;user-select:none;" role="img" aria-label="Wedding floorplan"></svg>
                   </div>
-                  <div id="sh-live-toast" style="font-size:0.80rem;font-weight:700;color:#78350F;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;flex:1;min-width:0;text-align:center;">
-                    Fine-Tune Mode: Click any table or seat to edit
-                  </div>
-                  <div style="display:flex;align-items:center;gap:5px;flex-shrink:0;">
-                    <button type="button" id="sh-toolbar-add-table-btn" class="studio-tap-chip" style="padding:4px 10px;font-size:0.80rem;border-color:#065F46;background:#ECFDF5;color:#065F46;font-weight:800;" onclick="window.shAddNewTable()">+ Table</button>
-                    <button type="button" id="sh-toolbar-add-landmark-btn" class="studio-tap-chip" style="padding:4px 10px;font-size:0.80rem;border-color:#C8A96E;background:#FFFFFF;color:#78350F;font-weight:800;" onclick="window.shAddLandmark()">+ Element</button>
-                  </div>
+                  <div id="sh-selected-table-box" class="sh-ed-panel"></div>
                 </div>
-
-                <!-- Active Seat Swap / Drag Banner -->
-                <div id="sh-active-swap-banner" style="display:none;margin-bottom:8px;padding:7px 12px;border-radius:9px;background:#FEF3C7;border:1.5px solid #D97706;color:#78350F;font-size:0.75rem;font-weight:800;align-items:center;justify-content:space-between;gap:8px;"></div>
-
-                <div style="width:100%;overflow:hidden;border-radius:12px;border:1.5px solid #DFD5C3;background:#FAF7F2;margin-bottom:8px;position:relative;">
-                  <svg id="sh-floorplan-svg" viewBox="0 0 1120 680" style="width:100%;height:auto;min-height:480px;display:block;touch-action:none;user-select:none;" role="img" aria-label="Interactive Wedding & Event Floorplan Canvas"></svg>
-                </div>
-                <div id="sh-selected-table-box" style="display:none;padding:12px;border-radius:10px;background:#FAF7F2;border:1px solid #E2D9C8;"></div>
               </div>
 
               <!-- PANE 2: Clockwise Caterer BEO Sheet -->
