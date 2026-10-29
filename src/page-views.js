@@ -11,17 +11,17 @@ function renderZone1Hero(plan) {
   <!-- ZONE 1: ABOVE THE FOLD (CENTERED HEADER + SUB-HEADER + 4-SCENE STORY VSL PLAYER UNDERNEATH + SURER NEXT STEP CTA + CREASE PROOF BAR) -->
   <section class="studio-zone1-hero" id="grader">
     <div class="container">
-      <div id="sh-unlocked-command-bar" style="display:${isUnl ? 'flex' : 'none'};max-width:960px;margin:0 auto 20px;background:linear-gradient(135deg,#064E3B 0%,#181412 100%);border:2px solid #10B981;border-radius:14px;padding:12px 16px;color:#FAF8F5;align-items:center;justify-content:space-between;gap:12px;flex-wrap:wrap;box-shadow:0 12px 28px rgba(6,95,70,0.22);">
-        <div>
-          <div style="font-size:0.70rem;font-weight:800;letter-spacing:0.08em;text-transform:uppercase;color:#6EE7B7;">&#10003; UNLOCKED PRO / WEDDING PACK ACTIVE &middot; VAULT #<span id="sh-unlocked-vault-id">${vId}</span></div>
-          <div style="font-size:0.86rem;font-weight:700;color:#FFFFFF;">Your Print-Ready 24&Prime;&times;36&Prime; Arch D Poster, Avery 5302 Tent Cards, Signed Clockwise BEO &amp; Live QR App are unlocked:</div>
+      <div id="sh-unlocked-command-bar" style="display:${isUnl ? 'flex' : 'none'};max-width:960px;margin:0 auto 20px;background:linear-gradient(135deg,#064E3B 0%,#181412 100%);border:2px solid #10B981;border-radius:14px;padding:10px 16px;color:#FAF8F5;align-items:center;justify-content:space-between;gap:10px;flex-wrap:wrap;box-shadow:0 12px 28px rgba(6,95,70,0.22);">
+        <div style="display:flex;align-items:center;gap:10px;flex-wrap:wrap;">
+          <span style="font-size:0.72rem;font-weight:800;letter-spacing:0.06em;text-transform:uppercase;color:#6EE7B7;white-space:nowrap;">&#10003; UNLOCKED PACK &middot; #<span id="sh-unlocked-vault-id">${vId}</span></span>
+          <span style="font-size:0.84rem;font-weight:700;color:#FFFFFF;">All 4 print &amp; caterer deliverables ready:</span>
         </div>
-        <div style="display:flex;gap:8px;flex-wrap:wrap;">
-          <a id="sh-cmd-vault-link" href="/vault/${vId}" style="background:#FDE68A;color:#181412;padding:7px 12px;border-radius:8px;font-size:0.74rem;font-weight:800;text-decoration:none;">&#128275; Full Command Center &nearr;</a>
-          <a id="sh-cmd-poster-link" href="/print/poster/${vId}" target="_blank" style="background:rgba(255,255,255,0.12);color:#FFFFFF;border:1px solid #6EE7B7;padding:7px 11px;border-radius:8px;font-size:0.73rem;font-weight:800;text-decoration:none;">&#129703; 24&Prime;&times;36&Prime; Poster PDF &nearr;</a>
-          <a id="sh-cmd-avery-link" href="/print/avery-5302/${vId}" target="_blank" style="background:rgba(255,255,255,0.12);color:#FFFFFF;border:1px solid #6EE7B7;padding:7px 11px;border-radius:8px;font-size:0.73rem;font-weight:800;text-decoration:none;">&#127915; Avery 5302 Cards &nearr;</a>
-          <a id="sh-cmd-beo-link" href="/print/beo/${vId}" target="_blank" style="background:rgba(255,255,255,0.12);color:#FFFFFF;border:1px solid #6EE7B7;padding:7px 11px;border-radius:8px;font-size:0.73rem;font-weight:800;text-decoration:none;">&#127869; Signed BEO PDF &nearr;</a>
-          <a id="sh-cmd-qr-link" href="/qr/${vId}" target="_blank" style="background:rgba(255,255,255,0.12);color:#FFFFFF;border:1px solid #6EE7B7;padding:7px 11px;border-radius:8px;font-size:0.73rem;font-weight:800;text-decoration:none;">&#128241; Guest QR App &nearr;</a>
+        <div style="display:flex;gap:6px;flex-wrap:wrap;">
+          <a id="sh-cmd-vault-link" href="/vault/${vId}" style="background:#FDE68A;color:#181412;padding:6px 11px;border-radius:8px;font-size:0.74rem;font-weight:800;text-decoration:none;white-space:nowrap;">&#128275; Command Center &nearr;</a>
+          <a id="sh-cmd-poster-link" href="/print/poster/${vId}" target="_blank" style="background:rgba(255,255,255,0.12);color:#FFFFFF;border:1px solid #6EE7B7;padding:6px 10px;border-radius:8px;font-size:0.73rem;font-weight:800;text-decoration:none;white-space:nowrap;">&#129703; 24&Prime;&times;36&Prime; Sign &nearr;</a>
+          <a id="sh-cmd-avery-link" href="/print/avery-5302/${vId}" target="_blank" style="background:rgba(255,255,255,0.12);color:#FFFFFF;border:1px solid #6EE7B7;padding:6px 10px;border-radius:8px;font-size:0.73rem;font-weight:800;text-decoration:none;white-space:nowrap;">&#127915; Avery Cards &nearr;</a>
+          <a id="sh-cmd-beo-link" href="/print/beo/${vId}" target="_blank" style="background:rgba(255,255,255,0.12);color:#FFFFFF;border:1px solid #6EE7B7;padding:6px 10px;border-radius:8px;font-size:0.73rem;font-weight:800;text-decoration:none;white-space:nowrap;">&#127869; Signed BEO &nearr;</a>
+          <a id="sh-cmd-qr-link" href="/qr/${vId}" target="_blank" style="background:rgba(255,255,255,0.12);color:#FFFFFF;border:1px solid #6EE7B7;padding:6px 10px;border-radius:8px;font-size:0.73rem;font-weight:800;text-decoration:none;white-space:nowrap;">&#128241; QR App &nearr;</a>
         </div>
       </div>
 
@@ -29,10 +29,10 @@ function renderZone1Hero(plan) {
         <div class="sh-zone1-header-block">
           <div style="display:flex;align-items:center;justify-content:center;gap:10px;flex-wrap:wrap;">
             <div class="sh-eyebrow-pill"><span class="sh-eyebrow-dot"></span><span>WEDDING SEATING &amp; FLOORPLAN SOLVER &bull; 24&times;36&Prime; SIGN STUDIO</span></div>
-            <button type="button" id="hero-vault-pill-btn" onclick="window.shOpenVaultModal()" style="cursor:pointer;display:inline-flex;align-items:center;gap:6px;font-size:13.5px;font-weight:700;color:#78350F;background:#FAF3E3;border:1px solid #D6CBB9;border-radius:999px;padding:6px 13px;" title="Save or Resume Your Event Vault"><span>&#128190; Vault <strong id="hero-vault-code-label">#${vId}</strong> &bull; Save / Login &nearr;</span></button>
+            <button type="button" id="hero-vault-pill-btn" onclick="window.shOpenVaultModal()" style="cursor:pointer;display:inline-flex;align-items:center;gap:6px;font-size:13.5px;font-weight:700;color:#78350F;background:#FAF3E3;border:1px solid #D6CBB9;border-radius:999px;padding:6px 13px;white-space:nowrap;" title="Save or Resume Your Event Vault"><span>&#128190; Vault <strong id="hero-vault-code-label">#${vId}</strong> &bull; Save / Login &nearr;</span></button>
           </div>
           <h1 id="score-brand-title" class="sh-display-h1">The 6-Hour Seating Chart.<br/><span class="sh-h1-accent">Solved in 60 Seconds, Drama-Free.</span></h1>
-          <p class="sh-lead-sub">Paste your Zola, The Knot, or Excel guest list to automatically separate divorced relatives across the dance floor, keep every couple side-by-side, and print your caterer&rsquo;s Clockwise Seat 1&ndash;10 meal sheet and framed 24&times;36&Prime; welcome sign.</p>
+          <p class="sh-lead-sub">Paste your Zola, The Knot, or Excel guest list to keep couples together, separate divorced relatives, and export your Clockwise 12:00 meal sheet and 24&times;36&Prime; welcome sign.</p>
         </div>
 
         <div class="sh-vsl-player-shell" id="studio-editorial-vsl-stage">
@@ -52,9 +52,9 @@ function renderZone1Hero(plan) {
               <div class="sh-vsl-scene-grid">
                 <div class="sh-vsl-scene-copy">
                   <div class="sh-vsl-speaker-row"><img src="/public/avatar-couple.jpg" alt="Maya and Liam" class="sh-vsl-speaker-avatar" loading="eager" /><div class="sh-vsl-speaker-meta"><span class="sh-vsl-speaker-name">Maya &amp; Liam &bull; 150-Guest Estate Wedding</span><span class="sh-vsl-scene-kicker">THE 2 AM SPREADSHEET SPIRAL</span></div></div>
-                  <h3 class="sh-vsl-scene-h3">&ldquo;Three days before our 150-guest wedding, four guests canceled and our entire seating chart collapsed.&rdquo;</h3>
-                  <p class="sh-vsl-scene-p">Every time we moved one person to fill an empty chair in Excel, it triggered a chain reaction: divorced parents ended up in direct sightline, married couples got split across table corners, and we had to re-type 150 names into our Canva welcome sign.</p>
-                  <div class="sh-vsl-caption-pill"><span>&ldquo;Moving four guests at 1:30 AM broke five tables and ruined our $220 printed foam-board sign.&rdquo;</span></div>
+                  <h3 class="sh-vsl-scene-h3">&ldquo;Three days before our wedding, four guests canceled and our seating chart collapsed.&rdquo;</h3>
+                  <p class="sh-vsl-scene-p">Moving one person in Excel set off a chain reaction: divorced parents ended up in direct sightline, couples got split up, and we had to re-type 150 names into our Canva sign.</p>
+                  <div class="sh-vsl-caption-pill"><span>&ldquo;Four RSVP drops at 1:30 AM broke five tables and ruined our $220 printed sign.&rdquo;</span></div>
                 </div>
                 <div class="sh-vsl-scene-visual"><div class="sh-vsl-overlap-collage"><div class="sh-vsl-main-photo-frame"><img src="/public/vsl-scene0-laptop.jpg" alt="Couple stressed over wedding seating chart spreadsheet late at night" class="sh-vsl-main-photo" loading="eager" /></div><div class="sh-vsl-overlap-card sh-vsl-overlap-bad"><div class="sh-vsl-overlap-kicker">MANUAL EXCEL + CANVA SPIRAL (150 GUESTS)</div><div class="sh-vsl-overlap-big-num"><span>6.5 Hours</span> <small>3 Redos</small></div><div class="sh-vsl-overlap-sub">2 Family Clashes &bull; 4 Split Couples &bull; $220 Sign Redo</div></div></div></div>
               </div>
@@ -65,9 +65,9 @@ function renderZone1Hero(plan) {
               <div class="sh-vsl-scene-grid">
                 <div class="sh-vsl-scene-copy">
                   <div class="sh-vsl-speaker-row"><img src="/public/avatar-couple.jpg" alt="Maya and Liam" class="sh-vsl-speaker-avatar" loading="lazy" /><div class="sh-vsl-speaker-meta"><span class="sh-vsl-speaker-name">Maya &amp; Liam &bull; 150-Guest Estate Wedding</span><span class="sh-vsl-scene-kicker">THE DRAG-AND-DROP TRAP</span></div></div>
-                  <h3 class="sh-vsl-scene-h3">&ldquo;So we tried free registry seating tools, and spent hours dragging tiny dots around by hand.&rdquo;</h3>
-                  <p class="sh-vsl-scene-p">Generic registry tools are just blank canvases with no brain. They don&rsquo;t know which relatives must stay apart, they scramble households when you switch from Round to Banquet tables, and they can&rsquo;t format a 24&times;36&Prime; welcome poster.</p>
-                  <div class="sh-vsl-caption-pill"><span>&ldquo;Free registry tools force you to play human Sudoku with 150 relatives and still leave you stuck in Canva.&rdquo;</span></div>
+                  <h3 class="sh-vsl-scene-h3">&ldquo;Free registry tools left us dragging tiny dots around by hand for hours.&rdquo;</h3>
+                  <p class="sh-vsl-scene-p">Generic registry tools have no conflict solver. They don&rsquo;t know which relatives must stay apart, they split couples when you switch table shapes, and they can&rsquo;t export a 24&times;36&Prime; poster.</p>
+                  <div class="sh-vsl-caption-pill"><span>&ldquo;Playing human Sudoku with 150 relatives and still re-typing names in Canva.&rdquo;</span></div>
                 </div>
                 <div class="sh-vsl-scene-visual"><div class="sh-vsl-overlap-collage"><div class="sh-vsl-main-photo-frame"><img src="/public/vsl-scene1-notes.jpg" alt="Late night handwritten wedding table notes and coffee" class="sh-vsl-main-photo" loading="lazy" /></div><div class="sh-vsl-overlap-card sh-vsl-overlap-warn"><div class="sh-vsl-overlap-kicker">WHY FREE REGISTRY SEATING TOOLS FAIL</div><div class="sh-vsl-overlap-list"><div>&#10005; No divorced-parent buffer &bull; Splits couples on table swaps</div><div>&#10005; Zero 24&times;36&Prime; welcome sign or Avery 5302 card export</div></div></div></div></div>
               </div>
@@ -78,9 +78,9 @@ function renderZone1Hero(plan) {
               <div class="sh-vsl-scene-grid">
                 <div class="sh-vsl-scene-copy">
                   <div class="sh-vsl-speaker-row"><img src="/public/avatar-planner.jpg" alt="Venue Catering Coordinator" class="sh-vsl-speaker-avatar" loading="lazy" /><div class="sh-vsl-speaker-meta"><span class="sh-vsl-speaker-name">Venue Catering Coordinator &bull; 72 Hours Out</span><span class="sh-vsl-scene-kicker">THE CATERER &amp; FOYER TRAP</span></div></div>
-                  <h3 class="sh-vsl-scene-h3">&ldquo;Wait... if seats aren&rsquo;t numbered clockwise from 12 o&rsquo;clock, dinner service stalls and allergies get missed?&rdquo;</h3>
-                  <p class="sh-vsl-scene-p">Our catering captain warned us: banquet servers cannot read flat spreadsheets. Without a Clockwise Seat 1&ndash;10 meal sheet anchored to the dance floor, servers have to auction off plates at every table while 150 guests jam the doorway around one easel.</p>
-                  <div class="sh-vsl-caption-pill"><span>&ldquo;One unnumbered table sheet delays entrée service by 25 minutes and risks severe allergy mix-ups.&rdquo;</span></div>
+                  <h3 class="sh-vsl-scene-h3">&ldquo;Without clockwise Seat 1&ndash;10 numbering, dinner service stalls and allergies get missed.&rdquo;</h3>
+                  <p class="sh-vsl-scene-p">Banquet servers cannot read flat spreadsheets. Without Seat #1 anchored at 12 o&rsquo;clock toward the dance floor, servers auction off plates at every table while 150 guests jam the foyer.</p>
+                  <div class="sh-vsl-caption-pill"><span>&ldquo;Unnumbered table sheets delay entrée service by 25 minutes and risk allergy mix-ups.&rdquo;</span></div>
                 </div>
                 <div class="sh-vsl-scene-visual"><div class="sh-vsl-overlap-collage"><div class="sh-vsl-main-photo-frame"><img src="/public/editorial-segment-3.jpg" alt="Wedding coordinator reviewing ballroom floorplan and caterer meal sheet" class="sh-vsl-main-photo" loading="lazy" /></div><div class="sh-vsl-overlap-card sh-vsl-overlap-bad"><div class="sh-vsl-overlap-kicker">THE 2 RECEPTION NIGHT TRAPS</div><div class="sh-vsl-overlap-list"><div>1. Service Stall: Unnumbered chairs = servers auctioning meals</div><div>2. Foyer Jam: 150 guests at 1 easel = 20-min doorway line</div></div></div></div></div>
               </div>
@@ -91,9 +91,9 @@ function renderZone1Hero(plan) {
               <div class="sh-vsl-scene-grid">
                 <div class="sh-vsl-scene-copy">
                   <div class="sh-vsl-speaker-row"><img src="/public/avatar-couple.jpg" alt="Maya and Liam" class="sh-vsl-speaker-avatar" loading="lazy" /><div class="sh-vsl-speaker-meta"><span class="sh-vsl-speaker-name">Maya &amp; Liam &bull; Reception Night</span><span class="sh-vsl-scene-kicker" style="color:#047857;">HOW SEATHARMONY SOLVED IT</span></div></div>
-                  <h3 class="sh-vsl-scene-h3">&ldquo;That&rsquo;s where SeatHarmony came in. In 60 seconds, every conflict, meal sheet, and sign was solved.&rdquo;</h3>
-                  <p class="sh-vsl-scene-p">It placed our divorced parents on opposite sides of the dance floor, kept every couple side-by-side, generated our caterer&rsquo;s Clockwise Seat 1&ndash;10 meal sheet with allergy alerts, and formatted our framed 24&times;36&Prime; welcome sign, Avery 5302 place cards, and live Guest QR finder.</p>
-                  <div class="sh-vsl-caption-pill sh-vsl-caption-good"><span>&ldquo;Zero family drama, 8-minute dinner service, our framed 24&times;36&Prime; welcome sign, and $220 saved.&rdquo;</span></div>
+                  <h3 class="sh-vsl-scene-h3">&ldquo;In 60 seconds, every family buffer, caterer meal sheet, and 24&times;36&Prime; sign was ready.&rdquo;</h3>
+                  <p class="sh-vsl-scene-p">SeatHarmony placed our divorced parents across the dance floor, kept every couple together, and exported our Clockwise 12:00 BEO, framed 24&times;36&Prime; sign, Avery 5302 cards, and Guest QR app.</p>
+                  <div class="sh-vsl-caption-pill sh-vsl-caption-good"><span>&ldquo;Zero family drama, 8-minute dinner service, and $220 saved on signage.&rdquo;</span></div>
                   <div style="padding-top:10px;"><button type="button" onclick="window.shLoadVslSceneIntoStudio && window.shLoadVslSceneIntoStudio()" style="display:inline-flex;align-items:center;gap:8px;padding:10px 18px;border-radius:10px;background:#047857;color:#ffffff;font-weight:700;font-size:14px;border:none;cursor:pointer;box-shadow:0 4px 12px rgba(4,120,87,0.28);"><span>&#9889; Load Maya &amp; Liam&rsquo;s 150-Guest Reception in Studio &darr;</span></button></div>
                 </div>
                 <div class="sh-vsl-scene-visual"><div class="sh-vsl-overlap-collage"><div class="sh-vsl-main-photo-frame"><img src="/public/editorial-segment-1.jpg" alt="Framed 24x36 Find Your Seat wedding welcome sign on gold easel at reception" class="sh-vsl-main-photo" loading="lazy" /></div><div class="sh-vsl-overlap-card sh-vsl-overlap-good"><div class="sh-vsl-overlap-kicker">SEATHARMONY 60-SECOND RECEPTION RESCUE</div><div class="sh-vsl-overlap-big-num"><span style="color:#047857;">98/100 Harmony</span> <small style="background:#dcfce7;color:#065f46;">Saved 6.5 Hrs + $220</small></div><div class="sh-vsl-overlap-sub">0 Family Clashes &bull; Clockwise 1&ndash;10 BEO &bull; 24&times;36&Prime; Sign + QR</div></div></div></div>
@@ -118,9 +118,9 @@ function renderZone1Hero(plan) {
       </div>
 
       <div class="sh-crease-proof-bar" id="studio-crease-proof-bar">
-        <div class="sh-crease-item"><div class="sh-crease-val">6.5 Hrs + $220 Saved</div><div class="sh-crease-lbl">ON A 150-GUEST RECEPTION (60-SECOND AUTO-SOLVER + 24&times;36&Prime; SIGN VS. EXCEL &amp; ETSY TEMPLATES)</div></div>
-        <div class="sh-crease-item"><div class="sh-crease-val">Clockwise Seat 1&ndash;10</div><div class="sh-crease-lbl">ANCHORED TO THE DANCE FLOOR AT 12 O&rsquo;CLOCK WITH ENTREE ICONS &amp; ALLERGY ALERTS FOR SERVERS</div></div>
-        <div class="sh-crease-item"><div class="sh-crease-val">6 Framed Sign Styles + QR</div><div class="sh-crease-lbl">300-DPI 24&times;36&Prime; ARCH D POSTERS, AVERY 5302 TENT CARDS &amp; LIVE GUEST PHONE LOOKUP INCLUDED</div></div>
+        <div class="sh-crease-item"><div class="sh-crease-val">6.5 Hrs + $220 Saved</div><div class="sh-crease-lbl">150-GUEST AUTO-SOLVER + 24&times;36&Prime; SIGN VS. EXCEL &amp; ETSY</div></div>
+        <div class="sh-crease-item"><div class="sh-crease-val">Clockwise Seat 1&ndash;10</div><div class="sh-crease-lbl">12 O&rsquo;CLOCK SEAT #1 WITH ENTR&Eacute;E ICONS &amp; ALLERGY ALERTS</div></div>
+        <div class="sh-crease-item"><div class="sh-crease-val">6 Framed Sign Styles + QR</div><div class="sh-crease-lbl">300-DPI 24&times;36&Prime; POSTERS, AVERY 5302 CARDS &amp; GUEST QR</div></div>
       </div>
     </div>
   </section>`;
@@ -134,28 +134,28 @@ function renderZone2Walkthrough() {
       <div class="bs-section-header">
         <div class="bs-section-eyebrow">HOW SEATHARMONY WORKS</div>
         <h2 class="bs-section-h2">From RSVP list to print-ready reception <em>in four steps.</em></h2>
-        <p class="bs-section-sub">We replace late-night spreadsheet guesswork and manual Canva re-typing with conflict-free household seating, clockwise caterer meal sheets, and print-shop-ready signage.</p>
+        <p class="bs-section-sub">Replace late-night spreadsheet guesswork with conflict-free household seating, clockwise caterer meal sheets, and print-ready signage.</p>
       </div>
       <div class="studio-how-grid">
         <div class="studio-how-card" style="cursor:pointer;" onclick="window.scrollToShCard(2)">
-          <div style="display:flex;align-items:center;justify-content:space-between;"><span class="studio-how-num">01</span><span class="mono" style="font-size:0.82rem;font-weight:800;color:#78350F;background:#FAF3E3;padding:5px 11px;border-radius:999px;">15-Sec Import</span></div>
-          <h3 style="font-size:1.22rem;font-weight:800;color:#181412;margin:0;line-height:1.28;">1. Paste Your Guest List</h3>
-          <p style="font-size:1.02rem;color:#44403C;line-height:1.58;margin:0;">Paste from Zola, The Knot, or Excel. Couples, plus-ones, and children stay seated together automatically.</p>
+          <div style="display:flex;align-items:center;justify-content:space-between;"><span class="studio-how-num">01</span><span class="mono" style="font-size:0.82rem;font-weight:800;color:#78350F;background:#FAF3E3;padding:5px 11px;border-radius:999px;white-space:nowrap;">15-Sec Import</span></div>
+          <h3 style="font-size:1.18rem;font-weight:800;color:#181412;margin:0;line-height:1.25;">1. Paste Your Guest List</h3>
+          <p style="font-size:0.96rem;color:#44403C;line-height:1.5;margin:0;">Paste from Zola, The Knot, or Excel. Couples and children stay seated together automatically.</p>
         </div>
         <div class="studio-how-card" style="cursor:pointer;" onclick="window.scrollToShCard(3)">
-          <div style="display:flex;align-items:center;justify-content:space-between;"><span class="studio-how-num">02</span><span class="mono" style="font-size:0.82rem;font-weight:800;color:#065F46;background:#ECFDF5;padding:5px 11px;border-radius:999px;">1-Click Peace</span></div>
-          <h3 style="font-size:1.22rem;font-weight:800;color:#181412;margin:0;line-height:1.28;">2. Keep Family Peace</h3>
-          <p style="font-size:1.02rem;color:#44403C;line-height:1.58;margin:0;">Seat divorced parents across the dance floor and place grandparents away from the DJ speakers.</p>
+          <div style="display:flex;align-items:center;justify-content:space-between;"><span class="studio-how-num">02</span><span class="mono" style="font-size:0.82rem;font-weight:800;color:#065F46;background:#ECFDF5;padding:5px 11px;border-radius:999px;white-space:nowrap;">1-Click Peace</span></div>
+          <h3 style="font-size:1.18rem;font-weight:800;color:#181412;margin:0;line-height:1.25;">2. Keep Family Peace</h3>
+          <p style="font-size:0.96rem;color:#44403C;line-height:1.5;margin:0;">Seat divorced parents across the dance floor and place grandparents in the quiet zone.</p>
         </div>
         <div class="studio-how-card" style="cursor:pointer;" onclick="if(window.shSetActiveTab){window.shSetActiveTab('beo');}document.getElementById('studio-bespoke-artifact-stage').scrollIntoView({behavior:'smooth'});">
-          <div style="display:flex;align-items:center;justify-content:space-between;"><span class="studio-how-num">03</span><span class="mono" style="font-size:0.82rem;font-weight:800;color:#8C2D19;background:#FDF2EE;padding:5px 11px;border-radius:999px;">12:00 = Seat #1</span></div>
-          <h3 style="font-size:1.22rem;font-weight:800;color:#181412;margin:0;line-height:1.28;">3. Caterer Meal Sheet (BEO)</h3>
-          <p style="font-size:1.02rem;color:#44403C;line-height:1.58;margin:0;">Numbers every chair clockwise from 12 o&rsquo;clock with entrée icons and red allergy alerts for servers.</p>
+          <div style="display:flex;align-items:center;justify-content:space-between;"><span class="studio-how-num">03</span><span class="mono" style="font-size:0.82rem;font-weight:800;color:#8C2D19;background:#FDF2EE;padding:5px 11px;border-radius:999px;white-space:nowrap;">12:00 = Seat #1</span></div>
+          <h3 style="font-size:1.18rem;font-weight:800;color:#181412;margin:0;line-height:1.25;">3. Caterer Meal Sheet</h3>
+          <p style="font-size:0.96rem;color:#44403C;line-height:1.5;margin:0;">Numbers every chair clockwise from 12 o&rsquo;clock with entrée icons and red allergy alerts.</p>
         </div>
         <div class="studio-how-card" style="cursor:pointer;" onclick="if(window.shSetActiveTab){window.shSetActiveTab('poster');}document.getElementById('studio-bespoke-artifact-stage').scrollIntoView({behavior:'smooth'});">
-          <div style="display:flex;align-items:center;justify-content:space-between;"><span class="studio-how-num">04</span><span class="mono" style="font-size:0.82rem;font-weight:800;color:#78350F;background:#FAF3E3;padding:5px 11px;border-radius:999px;">6 Sign Styles</span></div>
-          <h3 style="font-size:1.22rem;font-weight:800;color:#181412;margin:0;line-height:1.28;">4. Print 24&Prime;&times;36&Prime; Sign &amp; Cards</h3>
-          <p style="font-size:1.02rem;color:#44403C;line-height:1.58;margin:0;">Download your FedEx/Staples easel poster PDF, Avery 5302 place cards, and cocktail-hour QR code.</p>
+          <div style="display:flex;align-items:center;justify-content:space-between;"><span class="studio-how-num">04</span><span class="mono" style="font-size:0.82rem;font-weight:800;color:#78350F;background:#FAF3E3;padding:5px 11px;border-radius:999px;white-space:nowrap;">6 Sign Styles</span></div>
+          <h3 style="font-size:1.18rem;font-weight:800;color:#181412;margin:0;line-height:1.25;">4. Print Sign &amp; Cards</h3>
+          <p style="font-size:0.96rem;color:#44403C;line-height:1.5;margin:0;">Export your 24&Prime;&times;36&Prime; easel poster PDF, Avery 5302 place cards, and cocktail-hour QR.</p>
         </div>
       </div>
       <div style="text-align:center;margin-top:36px;">
@@ -637,47 +637,47 @@ David &amp; Elena Rostova (Filet, Peanut Allergy)</textarea>
             <div style="font-size:0.68rem;font-weight:800;letter-spacing:0.10em;text-transform:uppercase;color:#8C2D19;">&#128190; PERSISTENT CLOUD RECEPTION VAULT &amp; PASSWORDLESS LOGIN</div>
             <h3 class="serif-display" style="font-size:1.55rem;margin-top:2px;">Save Your Reception or Resume a Saved Event</h3>
           </div>
-          <button type="button" onclick="window.shCloseVaultModal()" style="background:#EFECE6;border:1px solid #D6CFC2;border-radius:8px;padding:6px 12px;font-weight:800;cursor:pointer;">&#10005; Close</button>
+          <button type="button" onclick="window.shCloseVaultModal()" style="background:#EFECE6;border:1px solid #D6CFC2;border-radius:8px;padding:6px 12px;font-weight:800;cursor:pointer;white-space:nowrap;">&#10005; Close</button>
         </div>
 
         <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(290px,1fr));gap:16px;">
           <div style="background:#FFFFFF;border:1.5px solid #C8A96E;border-radius:14px;padding:16px;">
             <div class="badge badge-emerald" style="margin-bottom:6px;white-space:nowrap;">1. SAVE CURRENT FLOORPLAN (#<span id="sh-modal-vault-code">${vId}</span>)</div>
             <h4 class="serif-display" style="font-size:1.18rem;margin-bottom:6px;">Link Email &amp; Get All 5 Live URLs</h4>
-            <p style="font-size:0.78rem;color:#57534E;margin-bottom:10px;">Every seat swap and household you add is saved to our SQLite vault so you can edit on your laptop, share with your coordinator, or print 48 hours before the wedding.</p>
+            <p style="font-size:0.78rem;color:#57534E;margin-bottom:10px;line-height:1.45;">Save your tables and guest list to our cloud vault to edit from any device or print 48 hours out.</p>
             <label for="sh-vault-email-input" class="studio-field-label">Your Bride / Groom / Planner Email:</label>
             <input id="sh-vault-email-input" type="email" class="grader-input" style="width:100%;margin-bottom:8px;" placeholder="maya@example.com" value="${escapeHtml(plan.ownerEmail || '')}" />
-            <label for="sh-vault-pin-input" class="studio-field-label">Optional 4-Digit Edit PIN (Locks Out Unwanted Edits):</label>
+            <label for="sh-vault-pin-input" class="studio-field-label">Optional 4-Digit Edit PIN:</label>
             <input id="sh-vault-pin-input" type="text" maxlength="8" class="grader-input" style="width:100%;margin-bottom:10px;" placeholder="2026" value="2026" />
             <button type="button" id="sh-vault-save-submit-btn" class="btn btn-primary" style="width:100%;padding:10px;" onclick="window.shSaveVaultToServer()">&#128190; Save My Event &amp; Generate Magic Links</button>
             <div id="sh-vault-saved-links-box" style="margin-top:10px;padding:10px;border-radius:10px;background:#FAF6EE;border:1px solid #E2D9C8;font-size:0.74rem;">
               <div style="font-weight:800;color:#065F46;margin-bottom:4px;">&#10003; Active Links for Vault #<span id="sh-modal-links-vault-id">${vId}</span>:</div>
               <div style="display:flex;flex-direction:column;gap:4px;">
-                <a id="sh-modal-link-vault" href="/vault/${vId}" style="color:#8C2D19;font-weight:700;">&#128275; Inside-the-Paywall Command Center (/vault/${vId}) &nearr;</a>
-                <a id="sh-modal-link-poster" href="/print/poster/${vId}" target="_blank" style="color:#181412;font-weight:700;">&#129703; 24&Prime;&times;36&Prime; Arch D Poster Studio (/print/poster/${vId}) &nearr;</a>
-                <a id="sh-modal-link-avery" href="/print/avery-5302/${vId}" target="_blank" style="color:#181412;font-weight:700;">&#127915; Avery 5302 Place Cards Sheet (/print/avery-5302/${vId}) &nearr;</a>
-                <a id="sh-modal-link-beo" href="/print/beo/${vId}" target="_blank" style="color:#181412;font-weight:700;">&#127869; Official Signed Caterer BEO (/print/beo/${vId}) &nearr;</a>
-                <a id="sh-modal-link-qr" href="/qr/${vId}" target="_blank" style="color:#065F46;font-weight:700;">&#128241; Cocktail-Hour Guest QR Lookup (/qr/${vId}) &nearr;</a>
+                <a id="sh-modal-link-vault" href="/vault/${vId}" style="color:#8C2D19;font-weight:700;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;">&#128275; Command Center (/vault/${vId}) &nearr;</a>
+                <a id="sh-modal-link-poster" href="/print/poster/${vId}" target="_blank" style="color:#181412;font-weight:700;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;">&#129703; 24&Prime;&times;36&Prime; Poster Studio (/print/poster/${vId}) &nearr;</a>
+                <a id="sh-modal-link-avery" href="/print/avery-5302/${vId}" target="_blank" style="color:#181412;font-weight:700;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;">&#127915; Avery 5302 Place Cards (/print/avery-5302/${vId}) &nearr;</a>
+                <a id="sh-modal-link-beo" href="/print/beo/${vId}" target="_blank" style="color:#181412;font-weight:700;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;">&#127869; Signed Caterer BEO (/print/beo/${vId}) &nearr;</a>
+                <a id="sh-modal-link-qr" href="/qr/${vId}" target="_blank" style="color:#065F46;font-weight:700;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;">&#128241; Guest QR Lookup (/qr/${vId}) &nearr;</a>
               </div>
             </div>
           </div>
 
           <div style="background:#FFFFFF;border:1px solid #E2D9C8;border-radius:14px;padding:16px;display:flex;flex-direction:column;justify-content:space-between;">
             <div>
-              <div class="badge badge-amber" style="margin-bottom:6px;">2. RETURNING USER / COORDINATOR LOGIN</div>
+              <div class="badge badge-amber" style="margin-bottom:6px;white-space:nowrap;">2. RETURNING USER / COORDINATOR LOGIN</div>
               <h4 class="serif-display" style="font-size:1.18rem;margin-bottom:6px;">Load a Saved Reception Vault</h4>
-              <p style="font-size:0.78rem;color:#57534E;margin-bottom:10px;">Enter the email address you saved with OR your Vault Code (e.g. <code>test@seatharmony.com</code> or <code>SH-4819</code>) to restore your tables, guest list, and unlocked print files:</p>
+              <p style="font-size:0.78rem;color:#57534E;margin-bottom:10px;line-height:1.45;">Enter your saved email or Vault Code (e.g. <code>test@seatharmony.com</code> or <code>SH-4819</code>) to restore your event:</p>
               <label for="sh-vault-lookup-input" class="studio-field-label">Email Address or Vault Code:</label>
               <input id="sh-vault-lookup-input" type="text" class="grader-input" style="width:100%;margin-bottom:8px;" placeholder="test@seatharmony.com or SH-4819" />
               <button type="button" id="sh-vault-lookup-btn" class="btn btn-secondary" style="width:100%;padding:10px;" onclick="window.shLookupSavedVault()">&#128275; Load My Saved Event</button>
               <div id="sh-vault-lookup-status" style="margin-top:10px;font-size:0.76rem;color:#44403C;"></div>
             </div>
             <div style="margin-top:12px;padding:10px 12px;border-radius:10px;background:#ECFDF5;border:1.5px solid #10B981;font-size:0.74rem;color:#065F46;">
-              <div style="font-weight:800;margin-bottom:4px;">&#9889; TEST ACCOUNT CREDENTIALS (UNLOCKED PRO PACK):</div>
-              <div class="mono" style="font-size:0.72rem;color:#181412;margin-bottom:6px;">Email: <strong>test@seatharmony.com</strong> &bull; Vault: <strong>SH-4819</strong> (or <strong>SH-VIP</strong>) &bull; PIN: <strong>2026</strong></div>
-              <div style="display:flex;gap:6px;flex-wrap:wrap;">
-                <button type="button" id="sh-test-login-btn" onclick="window.shLoginWithTestAccount && window.shLoginWithTestAccount('SH-4819')" style="cursor:pointer;background:#065F46;color:#FFFFFF;border:1px solid #10B981;border-radius:7px;padding:6px 10px;font-size:0.74rem;font-weight:800;">&#9889; 1-Click Test Login (#SH-4819)</button>
-                <a href="/vault/SH-4819?unlocked=1" style="background:#FFFFFF;color:#065F46;border:1px solid #10B981;border-radius:7px;padding:6px 10px;font-size:0.74rem;font-weight:800;text-decoration:none;">Open Unlocked Command Center &rarr;</a>
+              <div style="font-weight:800;margin-bottom:4px;white-space:nowrap;">&#9889; TEST ACCOUNT (UNLOCKED PRO PACK):</div>
+              <div class="mono" style="font-size:0.70rem;color:#181412;margin-bottom:6px;white-space:nowrap;"><strong>test@seatharmony.com</strong> &bull; Vault: <strong>SH-4819</strong> &bull; PIN: <strong>2026</strong></div>
+              <div style="display:flex;gap:6px;flex-wrap:nowrap;">
+                <button type="button" id="sh-test-login-btn" onclick="window.shLoginWithTestAccount && window.shLoginWithTestAccount('SH-4819')" style="cursor:pointer;background:#065F46;color:#FFFFFF;border:1px solid #10B981;border-radius:7px;padding:6px 9px;font-size:0.72rem;font-weight:800;white-space:nowrap;">&#9889; 1-Click Test Login (#SH-4819)</button>
+                <a href="/vault/SH-4819?unlocked=1" style="background:#FFFFFF;color:#065F46;border:1px solid #10B981;border-radius:7px;padding:6px 9px;font-size:0.72rem;font-weight:800;text-decoration:none;white-space:nowrap;">Command Center &rarr;</a>
               </div>
             </div>
           </div>
@@ -832,11 +832,11 @@ function renderHomePage(initialAudit, sampleSeoPages = []) {
 function renderLandingPage(initialAudit) { return renderHomePage(initialAudit, []); }
 
 function renderDirectoryPage(seoPages = []) {
-  const cards = seoPages.map(p => `<a href="/seo/${escapeHtml(p.slug)}" class="panel" style="padding:20px;text-decoration:none;color:inherit;display:flex;flex-direction:column;justify-content:space-between;gap:12px;"><div><div style="display:flex;justify-content:space-between;align-items:center;gap:8px;margin-bottom:8px;"><span class="badge badge-cyan">${escapeHtml(p.category || 'Wedding Floorplan')}</span><span class="badge badge-emerald tabular">${escapeHtml(String(p.csov_score || 98))}% Harmony</span></div><h3 class="serif-display" style="font-size:1.25rem;color:#181412;margin-bottom:6px;">${escapeHtml(p.title)}</h3><p style="font-size:0.83rem;color:#44403C;">${escapeHtml(p.meta_description)}</p></div><div style="font-size:0.78rem;font-weight:800;color:#8C2D19;">Open Interactive Floorplan &amp; BEO Template &rarr;</div></a>`).join('');
+  const cards = seoPages.map(p => `<a href="/seo/${escapeHtml(p.slug)}" class="panel" style="padding:20px;text-decoration:none;color:inherit;display:flex;flex-direction:column;justify-content:space-between;gap:12px;"><div><div style="display:flex;justify-content:space-between;align-items:center;gap:6px;margin-bottom:8px;"><span class="badge badge-cyan" style="font-size:0.68rem;padding:3px 8px;">${escapeHtml(p.category || 'Wedding Floorplan')}</span><span class="badge badge-emerald tabular" style="font-size:0.68rem;padding:3px 8px;">${escapeHtml(String(p.csov_score || 98))}% Harmony</span></div><h3 class="serif-display" style="font-size:1.22rem;color:#181412;margin-bottom:6px;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden;">${escapeHtml(p.title)}</h3><p style="font-size:0.84rem;color:#44403C;line-height:1.48;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden;">${escapeHtml(p.meta_description)}</p></div><div style="font-size:0.80rem;font-weight:800;color:#8C2D19;">Open Floorplan &amp; BEO Template &rarr;</div></a>`).join('');
   return [
     renderHead({ title: '60+ Wedding & Event Seating Chart Floorplan Templates | SeatHarmony Directory', description: 'Browse 60+ verified wedding reception, rehearsal dinner, Tuscan banquet, and charity gala floorplan templates with clockwise caterer BEOs and 24"×36" welcome signs.', canonicalPath: '/directory', ogSlug: 'directory' }),
     '<body>', renderNavbar(),
-    `<main class="container" style="padding:48px 24px 72px;"><div style="max-width:760px;margin-bottom:32px;"><div class="studio-eyebrow-kicker">PROGRAMMATIC FLOORPLAN &amp; BEO DIRECTORY</div><h1 class="studio-zone-title">60+ Verified Wedding &amp; Event Floorplan Templates</h1><p style="font-size:0.98rem;color:#44403C;">Select any guest count, table geometry (60&Prime; Round, 8ft Banquet, Sweetheart, or King&rsquo;s Table), or family seating scenario to launch in the interactive studio.</p></div><div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(320px,1fr));gap:18px;">${cards}</div></main>`,
+    `<main class="container" style="padding:48px 24px 72px;"><div style="max-width:720px;margin-bottom:32px;"><div class="studio-eyebrow-kicker">PROGRAMMATIC FLOORPLAN &amp; BEO DIRECTORY</div><h1 class="studio-zone-title">60+ Verified Wedding &amp; Event Floorplan Templates</h1><p style="font-size:0.98rem;color:#44403C;line-height:1.55;">Select any guest count, table geometry (60&Prime; Round, 8ft Banquet, Sweetheart, or King&rsquo;s Table), or family seating scenario to launch in the interactive studio.</p></div><div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(320px,1fr));gap:18px;">${cards}</div></main>`,
     renderFooter(), '</body></html>'
   ].join('\n');
 }
@@ -845,12 +845,12 @@ function renderSeoDetailPage(pageRow, relatedPages = []) {
   let payload = {};
   try { payload = JSON.parse(pageRow.payload_json || '{}'); } catch (_) {}
   const faqs = Array.isArray(payload.faqs) ? payload.faqs : [];
-  const faqHtml = faqs.map(f => `<details class="studio-faq-item" open><summary><span>${escapeHtml(f.question)}</span><span>&#9662;</span></summary><div style="padding-top:8px;font-size:0.86rem;color:#44403C;">${escapeHtml(f.answer)}</div></details>`).join('');
-  const relHtml = relatedPages.map(r => `<a href="/seo/${escapeHtml(r.slug)}" class="panel" style="padding:14px;text-decoration:none;color:inherit;"><div style="font-size:0.72rem;font-weight:800;color:#8C2D19;margin-bottom:4px;">${escapeHtml(r.category)} &middot; ${escapeHtml(String(r.csov_score))}% Harmony</div><div style="font-weight:700;font-size:0.9rem;color:#181412;">${escapeHtml(r.title)}</div></a>`).join('');
+  const faqHtml = faqs.map(f => `<details class="studio-faq-item" open><summary><span>${escapeHtml(f.question)}</span><span>&#9662;</span></summary><div style="padding-top:8px;font-size:0.92rem;color:#44403C;line-height:1.55;">${escapeHtml(f.answer)}</div></details>`).join('');
+  const relHtml = relatedPages.map(r => `<a href="/seo/${escapeHtml(r.slug)}" class="panel" style="padding:14px;text-decoration:none;color:inherit;"><div style="font-size:0.72rem;font-weight:800;color:#8C2D19;margin-bottom:4px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;">${escapeHtml(r.category)} &middot; ${escapeHtml(String(r.csov_score))}% Harmony</div><div style="font-weight:700;font-size:0.90rem;color:#181412;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden;">${escapeHtml(r.title)}</div></a>`).join('');
   return [
     renderHead({ title: `${pageRow.title} | SeatHarmony Studio`, description: pageRow.meta_description, canonicalPath: `/seo/${pageRow.slug}`, ogSlug: pageRow.slug }),
     '<body>', renderNavbar(),
-    `<main class="container" style="padding:48px 24px 72px;"><div style="max-width:860px;margin:0 auto;"><div style="display:flex;gap:8px;align-items:center;margin-bottom:12px;"><a href="/directory" style="font-size:0.8rem;font-weight:700;color:#8C2D19;text-decoration:none;">&larr; All 60+ Floorplans</a><span class="badge badge-emerald">${escapeHtml(pageRow.category)} &middot; ${escapeHtml(String(pageRow.csov_score))}% Harmony</span></div><h1 class="studio-zone-title" style="margin-bottom:12px;">${escapeHtml(pageRow.title)}</h1><p style="font-size:1rem;color:#44403C;margin-bottom:24px;">${escapeHtml(payload.summary || pageRow.meta_description)}</p><div class="panel" style="padding:24px;margin-bottom:28px;background:#FAF6EE;border-color:#C8A96E;"><h2 class="serif-display" style="font-size:1.5rem;margin-bottom:8px;">Customize This Floorplan Live in SeatHarmony Studio</h2><p style="font-size:0.88rem;color:#44403C;margin-bottom:16px;">Load this exact table geometry, run the 35ms family conflict solver, and export your Clockwise 12:00 Caterer BEO and 24&Prime;&times;36&Prime; Welcome Sign.</p><div style="display:flex;gap:12px;flex-wrap:wrap;"><a href="/?preset=${encodeURIComponent(pageRow.slug)}#studio" class="btn btn-primary">Load Template in Interactive Studio &rarr;</a><a href="/buy/complete_dossier?target=${encodeURIComponent(pageRow.slug)}" class="btn btn-secondary">Unlock Print &amp; BEO Pack ($14.99)</a></div></div>${faqHtml ? `<h2 class="serif-display" style="font-size:1.6rem;margin-bottom:12px;">Layout &amp; Catering Specifications</h2><div style="display:flex;flex-direction:column;gap:10px;margin-bottom:32px;">${faqHtml}</div>` : ''}<h3 class="serif-display" style="font-size:1.4rem;margin-bottom:12px;">Related Reception &amp; Event Floorplans</h3><div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(240px,1fr));gap:12px;">${relHtml}</div></div></main>`,
+    `<main class="container" style="padding:48px 24px 72px;"><div style="max-width:860px;margin:0 auto;"><div style="display:flex;gap:8px;align-items:center;margin-bottom:12px;flex-wrap:wrap;"><a href="/directory" style="font-size:0.82rem;font-weight:700;color:#8C2D19;text-decoration:none;">&larr; All 60+ Floorplans</a><span class="badge badge-emerald">${escapeHtml(pageRow.category)} &middot; ${escapeHtml(String(pageRow.csov_score))}% Harmony</span></div><h1 class="studio-zone-title" style="margin-bottom:12px;">${escapeHtml(pageRow.title)}</h1><p style="font-size:1.02rem;color:#44403C;line-height:1.58;margin-bottom:24px;max-width:65ch;">${escapeHtml(payload.summary || pageRow.meta_description)}</p><div class="panel" style="padding:24px;margin-bottom:28px;background:#FAF6EE;border-color:#C8A96E;"><h2 class="serif-display" style="font-size:1.5rem;margin-bottom:6px;">Customize This Floorplan Live in Studio</h2><p style="font-size:0.92rem;color:#44403C;line-height:1.5;margin-bottom:16px;max-width:62ch;">Load this table geometry, run the 1-click family conflict solver, and export your Clockwise 12:00 Caterer BEO and 24&Prime;&times;36&Prime; Welcome Sign.</p><div style="display:flex;gap:12px;flex-wrap:wrap;"><a href="/?preset=${encodeURIComponent(pageRow.slug)}#studio" class="btn btn-primary">Load Template in Interactive Studio &rarr;</a><a href="/buy/complete_dossier?target=${encodeURIComponent(pageRow.slug)}" class="btn btn-secondary">Unlock Print &amp; BEO Pack ($14.99)</a></div></div>${faqHtml ? `<h2 class="serif-display" style="font-size:1.6rem;margin-bottom:12px;">Layout &amp; Catering Specifications</h2><div style="display:flex;flex-direction:column;gap:10px;margin-bottom:32px;">${faqHtml}</div>` : ''}<h3 class="serif-display" style="font-size:1.4rem;margin-bottom:12px;">Related Reception &amp; Event Floorplans</h3><div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(240px,1fr));gap:12px;">${relHtml}</div></div></main>`,
     renderFooter(), '</body></html>'
   ].join('\n');
 }

@@ -100,7 +100,7 @@ function buildSeoPagesSeed() {
   VENUE_LAYOUT_TEMPLATES.forEach(([slug, title, category, b1, b2, b3, b4, s1, s2, s3, s4]) => {
     const rawMeta = `${title}: Conflict-free seating chart solver, Clockwise Caterer BEO meal sheet & print-ready 24"×36" Welcome Sign (${s1}% Harmony).`;
     const metaDesc = trimMetaDescription(rawMeta, 158);
-    const summary = `For ${category} (${b1}), SeatHarmony's combinatorial solver achieves a ${s1}/100 Room Harmony Score while keeping 100% of couples and children coupled, separating divorced family members by 2+ tables, and compiling a Clockwise Caterer BEO + 24"×36" Alphabetical Welcome Sign.`;
+    const summary = `${b1} layout (${s1}/100 Room Harmony): Keeps 100% of couples together, separates divorced relatives by 2+ tables, and exports a Clockwise 12:00 Caterer BEO + 24"×36" Welcome Sign.`;
     const payload = {
       type: 'leaderboard',
       category,
@@ -111,19 +111,19 @@ function buildSeoPagesSeed() {
         { rank: 3, brand: b3, domain: 'planner-beo-sandbox', csov: s3, llmsTxt: 'Mom Sandbox Link Active', schemaScore: 92 },
         { rank: 4, brand: b4, domain: 'estate-150', csov: s4, llmsTxt: 'Quiet & Party Zones Mapped', schemaScore: 90 }
       ],
-      keyTakeaway: `Best layout for ${category}: Start with ${b1}, lock your Sweetheart or Head Table first, tag any family separation rules, and export both an Alphabetical A-Z 24"×36" Welcome Sign and a Clockwise Caterer BEO sheet.`,
+      keyTakeaway: `Start with ${b1}, lock your Sweetheart or Head Table first, and export your 24"×36" Welcome Sign and Clockwise Caterer BEO.`,
       faqs: [
         {
-          question: `What is the best table layout and seating chart template for ${category}?`,
+          question: `What is the best table layout for ${category}?`,
           answer: `${summary}`
         },
         {
-          question: `How do I export a 24"×36" Welcome Sign and Caterer BEO sheet for ${b1}?`,
-          answer: `Load the ${b1} preset in SeatHarmony Studio, paste your guest list, click Auto-Solve All Tables (35ms), and download the print-ready 24"×36" Welcome Sign PDF/SVG, Avery 5302 Place Cards, and Clockwise Caterer BEO CSV.`
+          question: `How do I export a 24"×36" Welcome Sign and Caterer BEO for ${b1}?`,
+          answer: `Load ${b1} in SeatHarmony Studio, paste your guest list, click Auto-Arrange, and export your 24"×36" Welcome Sign PDF, Avery 5302 Cards, and Clockwise BEO.`
         },
         {
-          question: `How does SeatHarmony prevent splitting couples or seating divorced parents together in ${category}?`,
-          answer: `SeatHarmony uses Union-Find atomic household clustering so couples and kids never split across tables, paired with hard separation constraints that keep divorced parents at least 2 tables apart.`
+          question: `How does SeatHarmony prevent splitting couples or seating divorced parents together?`,
+          answer: `Atomic household coupling locks couples and children together while separation rules keep divorced parents 2+ tables apart.`
         }
       ]
     };
@@ -190,7 +190,7 @@ function buildSeoPagesSeed() {
   PLANNER_AND_BEO_GUIDES.forEach(([slug, title, subtitle, category], idx) => {
     const rawMeta = `${title}: ${subtitle}. Free interactive wedding floorplan, conflict solver, caterer BEO & 24"×36" poster guide.`;
     const metaDesc = trimMetaDescription(rawMeta, 158);
-    const summary = `${title}: Complete operational blueprint for ${subtitle}. Learn how couples, luxury wedding planners, and venue banquet directors eliminate seating drama and print 24"×36" signage in under 3 minutes.`;
+    const summary = `${title}: Operational blueprint for ${subtitle}. Solve household conflicts in 35ms and export 24"×36" signage in under 3 minutes.`;
     const payload = {
       type: 'guide',
       category,
@@ -198,10 +198,10 @@ function buildSeoPagesSeed() {
       readTimeMinutes: 5 + (idx % 4),
       summary,
       checklist: [
-        'Atomic Household Coupling: Group couples and children so they move as a single magnetic unit and never split across tables.',
-        'Hard Separation Rules: Tag divorced parents or estranged relatives with a 2-table minimum distance constraint before auto-solving.',
-        'Clockwise 12-O’Clock BEO Numbering: Anchor Seat #1 closest to the Dance Floor / Focal Point and number clockwise for banquet servers.',
-        'Dual Day-Of Signage: Print an Alphabetical A-Z 24"×36" Welcome Sign with a corner QR lookup plus Avery 5302 meal-coded place cards.'
+        'Atomic Household Coupling: Group couples and children so they move as a single unit and never split across tables.',
+        'Hard Separation Rules: Tag divorced parents or estranged relatives with a 2-table buffer before auto-solving.',
+        'Clockwise 12:00 BEO Numbering: Anchor Seat #1 facing the Dance Floor and number clockwise for banquet servers.',
+        'Dual Day-Of Signage: Print an Alphabetical A-Z 24"×36" Welcome Sign with a corner QR plus Avery 5302 place cards.'
       ],
       codeExample: `TABLE 2 · BRIDE'S FAMILY (QUIET ZONE · 8 SEATS CLOCKWISE)\nSeat #1 (12:00): Grandma Rose Lin | Pan-Seared Halibut | [♿ REMOVE CHAIR FOR WHEELCHAIR]\nSeat #2 (01:30): Eleanor Vance    | Pan-Seared Halibut | [Separated 410px from Table 5]\nSeat #3 (03:00): Aunt Clara Lin   | Vegan Risotto      | [🌾 SEVERE CELIAC · GLUTEN FREE]`,
       faqs: [
@@ -211,11 +211,11 @@ function buildSeoPagesSeed() {
         },
         {
           question: `How does SeatHarmony automate ${category} for couples and planners?`,
-          answer: `SeatHarmony combines a 35ms Simulated Annealing conflict solver with live polar table rings, Clockwise Caterer BEO exports, and a 24"×36" Welcome Sign studio.`
+          answer: `SeatHarmony combines a 35ms conflict solver with live polar table rings, 12:00 Caterer BEO exports, and a 24"×36" sign studio.`
         },
         {
           question: `What files are included when I export my seating plan?`,
-          answer: `You receive the 300-DPI 24"×36" Welcome Sign (PDF & SVG), the Clockwise Caterer BEO Sheet (CSV & PDF), Avery 5302 Tented Place Cards with server meal icons, and a Live Cocktail-Hour QR Lookup link.`
+          answer: `You get the 300-DPI 24"×36" Welcome Sign (PDF & SVG), 12:00 Caterer BEO (CSV & PDF), Avery 5302 Place Cards, and Live QR Lookup.`
         }
       ]
     };

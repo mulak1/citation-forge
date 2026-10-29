@@ -7,9 +7,9 @@ const SHOWCASE_SLIDES = [
     badge: 'DELIVERABLE 1 OF 5 · 300-DPI ARCH D PRINT FILE',
     title: '24"×36" Arch D Reception Welcome Sign Studio',
     annotations: [
-      { num: '1', title: '6 Luxury Print-Shop Themes (0.125" Bleed & Crop Marks)' },
-      { num: '2', title: '1-Click Alphabetical (A–Z) or Table-by-Table Sort' },
-      { num: '3', title: 'Embedded Couple Monogram & Scannable Bar QR Crest' }
+      { num: '1', title: '6 Print Themes (0.125" Bleed & Crop Marks)' },
+      { num: '2', title: '1-Click Alphabetical (A–Z) or By-Table Sort' },
+      { num: '3', title: 'Couple Monogram & Scannable QR Crest' }
     ],
     urlText: 'citationforge.io/print/poster/SH-4819?theme=obsidian',
     routeHref: (vId) => `/print/poster/${encodeURIComponent(vId)}?theme=obsidian`,
@@ -28,9 +28,9 @@ const SHOWCASE_SLIDES = [
     badge: 'DELIVERABLE 2 OF 5 · BANQUET CAPTAIN & KITCHEN SHEET',
     title: 'Clockwise 12:00 Server Meal & Allergy Manifest (BEO)',
     annotations: [
-      { num: '1', title: 'Seat #1 = 12:00 Clockwise Numbering (Facing Dance Floor)' },
-      { num: '2', title: 'Color-Coded Entrée & Protein Prep Totals per Table' },
-      { num: '3', title: 'Highlighted Red Kitchen Allergy & Wheelchair Alerts' }
+      { num: '1', title: 'Seat #1 = 12:00 Clockwise (Dance Floor)' },
+      { num: '2', title: 'Entrée & Protein Prep Totals per Table' },
+      { num: '3', title: 'Red Kitchen Allergy & Wheelchair Alerts' }
     ],
     urlText: 'citationforge.io/print/beo/SH-4819',
     routeHref: (vId) => `/print/beo/${encodeURIComponent(vId)}`,
@@ -49,9 +49,9 @@ const SHOWCASE_SLIDES = [
     badge: 'DELIVERABLE 3 OF 5 · PRE-ALIGNED FOLDED TENT CARDS',
     title: 'Avery 5302 / 5011 Meal-Coded Folded Tent Place Cards',
     annotations: [
-      { num: '1', title: '180° Rotated Server Back-Fold Allergy & Seat Notes' },
-      { num: '2', title: 'Discreet Meal Icons (◆ Beef · ● Fish · ▲ Vegan · ★ Kids)' },
-      { num: '3', title: 'Exact Table & Clockwise Chair # on Every Tent Card' }
+      { num: '1', title: '180° Server Back-Fold Allergy & Seat Notes' },
+      { num: '2', title: 'Meal Icons (◆ Beef · ● Fish · ▲ Vegan · ★ Kids)' },
+      { num: '3', title: 'Exact Table & Clockwise Chair # on Every Card' }
     ],
     urlText: 'citationforge.io/print/avery-5302/SH-4819',
     routeHref: (vId) => `/print/avery-5302/${encodeURIComponent(vId)}`,
@@ -70,9 +70,9 @@ const SHOWCASE_SLIDES = [
     badge: 'DELIVERABLE 4 OF 5 · ZERO-LINE MOBILE SEAT LOOKUP',
     title: 'Live Cocktail-Hour Mobile Guest QR Seat Finder',
     annotations: [
-      { num: '1', title: 'Instant 2-Second Guest & Family Name Search at the Bar' },
-      { num: '2', title: 'Shows Exact Table Name & Clockwise Chair Number' },
-      { num: '3', title: 'Live Cloud Sync for Last-Minute 48-Hour Seat Swaps' }
+      { num: '1', title: 'Instant 2-Second Guest Search at the Bar' },
+      { num: '2', title: 'Shows Exact Table & Clockwise Chair #' },
+      { num: '3', title: 'Live Cloud Sync for 48-Hour Seat Swaps' }
     ],
     urlText: 'citationforge.io/qr/SH-4819',
     routeHref: (vId) => `/qr/${encodeURIComponent(vId)}`,
@@ -91,9 +91,9 @@ const SHOWCASE_SLIDES = [
     badge: 'DELIVERABLE 5 OF 5 · PERSISTENT CLOUD COMMAND CENTER',
     title: 'Persistent Event Vault & Restricted "Mom Sandbox" Link',
     annotations: [
-      { num: '1', title: 'Passwordless Vault Code & Magic-Link Email Recovery' },
-      { num: '2', title: 'All 4 Print & Caterer Deliverables in One Command Center' },
-      { num: '3', title: '1-Click "Mom Sandbox" Link (Parents Edit Tables 1–3 Only)' }
+      { num: '1', title: 'Passwordless Vault Code & Email Login' },
+      { num: '2', title: 'All 4 Print & Caterer Files in One Hub' },
+      { num: '3', title: '1-Click Mom Sandbox (Tables 1–3 Only)' }
     ],
     urlText: 'citationforge.io/vault/SH-4819?unlocked=1',
     routeHref: (vId) => `/vault/${encodeURIComponent(vId)}?unlocked=1`,
@@ -243,19 +243,19 @@ function renderZone4ProofStackAndPricing() {
           </div>
           <div class="bs-case-math-box">
             <div class="bs-case-math-row">
-              <span>Manual Excel + Etsy Sign Template:</span>
+              <span>Manual Excel + Etsy Sign:</span>
               <span style="color:#B91C1C;text-decoration:line-through;">6.5 Hrs + $220</span>
             </div>
             <div class="bs-case-math-row">
-              <span>SeatHarmony Print &amp; Caterer Pack:</span>
+              <span>SeatHarmony Print Pack:</span>
               <span>$14.99 Once</span>
             </div>
             <div class="bs-case-math-row">
-              <span>Couples Together &amp; Parent Buffer:</span>
+              <span>Couple &amp; Parent Buffer:</span>
               <span style="color:#047857;">100% Conflict-Free</span>
             </div>
             <div class="bs-case-math-row bs-case-math-total">
-              <span>Net Time &amp; Sign Budget Saved:</span>
+              <span>Net Time &amp; Budget Saved:</span>
               <span style="color:#047857;">6.5 Hrs + $205 Saved</span>
             </div>
           </div>
@@ -273,24 +273,24 @@ function renderZone4ProofStackAndPricing() {
             </div>
             <h3 class="bs-case-title">12:00 Meal Sheet + Family Link</h3>
             <p class="bs-case-context">
-              Sent Mom a restricted link for Tables 1 to 3, locked the Groom&rsquo;s side, and handed the chef a Clockwise 12:00 Meal Sheet (BEO) with 4 allergy flags.
+              Sent Mom a restricted link for Tables 1 to 3, locked the Groom&rsquo;s side, and handed the chef a Clockwise 12:00 Meal Sheet with 4 allergy flags.
             </p>
           </div>
           <div class="bs-case-math-box">
             <div class="bs-case-math-row">
-              <span>Annual Event Seating SaaS Quote:</span>
+              <span>Annual Event SaaS Quote:</span>
               <span style="color:#B91C1C;text-decoration:line-through;">$150 / Year</span>
             </div>
             <div class="bs-case-math-row">
-              <span>Clockwise Seat #1 (12:00 Anchor):</span>
+              <span>12:00 Clockwise Anchor:</span>
               <span>16 Round Tables</span>
             </div>
             <div class="bs-case-math-row">
-              <span>Red Kitchen Anaphylaxis &amp; ADA Alerts:</span>
+              <span>Kitchen Allergy &amp; ADA Alerts:</span>
               <span style="color:#047857;">4 Allergies Flagged</span>
             </div>
             <div class="bs-case-math-row bs-case-math-total">
-              <span>16 tables &times; Clockwise Seat #1:</span>
+              <span>16 tables &times; Seat #1 Anchor:</span>
               <span style="color:#047857;">0 Server Plate Errors</span>
             </div>
           </div>
@@ -313,19 +313,19 @@ function renderZone4ProofStackAndPricing() {
           </div>
           <div class="bs-case-math-box">
             <div class="bs-case-math-row">
-              <span>Single Foyer Easel Bottleneck:</span>
-              <span style="color:#B91C1C;text-decoration:line-through;">20-Min Doorway Jam</span>
+              <span>Single Foyer Easel Jam:</span>
+              <span style="color:#B91C1C;text-decoration:line-through;">20-Min Doorway Line</span>
             </div>
             <div class="bs-case-math-row">
-              <span>Cocktail-Hour Mobile QR Lookup:</span>
+              <span>Cocktail-Hour QR Lookup:</span>
               <span>3-Sec Name Search</span>
             </div>
             <div class="bs-case-math-row">
-              <span>Pre-Aligned Avery 5302 Tent Cards:</span>
+              <span>Avery 5302 Tent Cards:</span>
               <span style="color:#047857;">300 Cards in 1 Click</span>
             </div>
             <div class="bs-case-math-row bs-case-math-total">
-              <span>300 guests &times; 3 sec QR lookup:</span>
+              <span>300 guests &times; 3 sec QR:</span>
               <span style="color:#047857;">18 Min Jam Eliminated</span>
             </div>
           </div>
@@ -344,7 +344,7 @@ function renderZone4ProofStackAndPricing() {
         <div class="bs-section-eyebrow">BEFORE &amp; AFTER &bull; 150-GUEST RECEPTION</div>
         <h2 class="bs-section-h2">2 AM Spreadsheets vs. <em>SeatHarmony.</em></h2>
         <p class="bs-section-sub">
-          What changes in the final 48 hours before your wedding when you replace manual Canva re-typing and spreadsheets with conflict-free seating and print-ready signage.
+          What changes in the final 48 hours before your wedding when you replace manual Canva re-typing with conflict-free seating and print-ready signage.
         </p>
       </div>
 
@@ -358,10 +358,10 @@ function renderZone4ProofStackAndPricing() {
             </div>
             <h4 class="bs-ba-card-h4">Split couples, family tension &amp; 2 AM Canva re-types</h4>
             <ul class="bs-ba-list">
-              <li><span class="bs-ba-icon bs-ba-icon-bad">&#10005;</span><div><strong>Plus-Ones Split Up:</strong> Manual drag-and-drop separates couples across tables whenever a last-minute guest drops out.</div></li>
-              <li><span class="bs-ba-icon bs-ba-icon-bad">&#10005;</span><div><strong>Divorced-Parent Sightline Clashes:</strong> Unnoticed back-to-back chairs across adjacent tables trigger reception tension.</div></li>
-              <li><span class="bs-ba-icon bs-ba-icon-bad">&#10005;</span><div><strong>Canva Re-Typing Nightmare:</strong> Re-aligning 150 alphabetical names by hand at 1:30 AM 48 hours before the wedding.</div></li>
-              <li><span class="bs-ba-icon bs-ba-icon-bad">&#10005;</span><div><strong>Confused Banquet Servers:</strong> Waitstaff auctioning off Filet Mignon at the table and missing severe nut allergies.</div></li>
+              <li><span class="bs-ba-icon bs-ba-icon-bad">&#10005;</span><div><strong>Plus-Ones Split Up:</strong> Manual drag-and-drop separates couples whenever a guest drops out.</div></li>
+              <li><span class="bs-ba-icon bs-ba-icon-bad">&#10005;</span><div><strong>Parent Sightline Clashes:</strong> Unnoticed back-to-back chairs across tables trigger reception tension.</div></li>
+              <li><span class="bs-ba-icon bs-ba-icon-bad">&#10005;</span><div><strong>Canva Re-Typing Nightmare:</strong> Re-aligning 150 alphabetical names by hand at 1:30 AM before the wedding.</div></li>
+              <li><span class="bs-ba-icon bs-ba-icon-bad">&#10005;</span><div><strong>Confused Banquet Servers:</strong> Waitstaff auctioning Filet Mignon at the table and missing nut allergies.</div></li>
             </ul>
           </div>
 
@@ -374,9 +374,9 @@ function renderZone4ProofStackAndPricing() {
             <h4 class="bs-ba-card-h4">Couples together, clockwise BEO &amp; FedEx-ready 24&Prime;&times;36&Prime; sign</h4>
             <ul class="bs-ba-list">
               <li><span class="bs-ba-icon bs-ba-icon-good">&#10003;</span><div><strong>Couples Kept Together:</strong> Every partner, plus-one, and household stays seated side-by-side automatically.</div></li>
-              <li><span class="bs-ba-icon bs-ba-icon-good">&#10003;</span><div><strong>1-Click Family Peace:</strong> Places divorced parents or exes on opposite sides of the dance floor with zero sightline friction.</div></li>
-              <li><span class="bs-ba-icon bs-ba-icon-good">&#10003;</span><div><strong>6 Luxury 24&Prime;&times;36&Prime; Signs + Avery 5302:</strong> Instant 300-DPI FedEx/Staples PDF with <code>0.125&Prime;</code> bleed and folded place cards.</div></li>
-              <li><span class="bs-ba-icon bs-ba-icon-good">&#10003;</span><div><strong>Clockwise 12:00 Caterer Meal Sheet (BEO):</strong> Servers set every plate and allergy dish at the exact chair without asking.</div></li>
+              <li><span class="bs-ba-icon bs-ba-icon-good">&#10003;</span><div><strong>1-Click Family Peace:</strong> Places divorced parents or exes on opposite sides of the dance floor.</div></li>
+              <li><span class="bs-ba-icon bs-ba-icon-good">&#10003;</span><div><strong>6 Luxury 24&Prime;&times;36&Prime; Signs + Avery 5302:</strong> Instant 300-DPI FedEx PDF with <code>0.125&Prime;</code> bleed and tent cards.</div></li>
+              <li><span class="bs-ba-icon bs-ba-icon-good">&#10003;</span><div><strong>Clockwise 12:00 Caterer BEO:</strong> Servers set every plate and allergy dish at the exact chair without asking.</div></li>
             </ul>
           </div>
         </div>
@@ -390,41 +390,41 @@ function renderZone4ProofStackAndPricing() {
             <thead>
               <tr>
                 <th style="width:24%;">What Matters on Wedding Day</th>
-                <th class="bs-col-highlight" style="width:28%;">&#10022; SeatHarmony Studio ($14.99 once)</th>
-                <th style="width:24%;">Event Seating SaaS ($150+/yr)</th>
+                <th class="bs-col-highlight" style="width:28%;">&#10022; SeatHarmony ($14.99 once)</th>
+                <th style="width:24%;">Event SaaS ($150+/yr)</th>
                 <th style="width:24%;">Excel + Canva By Hand</th>
               </tr>
             </thead>
             <tbody>
               <tr>
                 <td><strong>Pricing Model</strong></td>
-                <td class="bs-col-highlight">$14.99 One-Time (Zero Subscription)</td>
-                <td>$39 to $99/mo recurring trap</td>
-                <td>Free + $45 Etsy sign template</td>
+                <td class="bs-col-highlight">$14.99 One-Time Pass</td>
+                <td>$39 to $99/mo subscription</td>
+                <td>Free + $45 Etsy template</td>
               </tr>
               <tr>
                 <td><strong>Family Peace Seating</strong></td>
-                <td class="bs-col-highlight">&#10003; Keeps Couples Together + Separates Exes</td>
+                <td class="bs-col-highlight">&#10003; Couples Together + Ex Buffer</td>
                 <td>Manual drag-and-drop only</td>
                 <td>Manual copy-paste errors</td>
               </tr>
               <tr>
                 <td><strong>Caterer Meal Sheet (BEO)</strong></td>
-                <td class="bs-col-highlight">&#10003; <code>12:00 = Seat #1</code> + Allergy Alerts</td>
+                <td class="bs-col-highlight">&#10003; <code>12:00 Seat #1</code> + Allergy Flags</td>
                 <td>Generic table list only</td>
                 <td>None (servers guess seats)</td>
               </tr>
               <tr>
-                <td><strong>24&Prime;&times;36&Prime; Sign &amp; Place Cards</strong></td>
-                <td class="bs-col-highlight">&#10003; 6 Welcome Signs + Avery 5302 PDF</td>
+                <td><strong>24&Prime;&times;36&Prime; Sign &amp; Cards</strong></td>
+                <td class="bs-col-highlight">&#10003; 6 Sign Themes + Avery 5302</td>
                 <td>No poster typography</td>
-                <td>5+ hours re-typing 150 names</td>
+                <td>5+ hrs re-typing 150 names</td>
               </tr>
               <tr>
-                <td><strong>Parent &ldquo;Mom Sandbox&rdquo; Link</strong></td>
-                <td class="bs-col-highlight">&#10003; Locks Tables 4+ (Parents Edit 1-3 Only)</td>
+                <td><strong>Parent Sandbox Link</strong></td>
+                <td class="bs-col-highlight">&#10003; Parents Edit Tables 1-3 Only</td>
                 <td>Full edit access or none</td>
-                <td>Broken shared spreadsheet versions</td>
+                <td>Broken spreadsheet copies</td>
               </tr>
             </tbody>
           </table>
@@ -447,7 +447,7 @@ function renderZone4ProofStackAndPricing() {
       <div class="bs-written-proof-grid studio-reviews-grid" style="margin-bottom:0;">
         <div class="bs-quote-card studio-review-card">
           <div class="bs-quote-stars">&#9733;&#9733;&#9733;&#9733;&#9733; Verified 48-Hr Drop-Out Rescue</div>
-          <p class="bs-quote-body">&ldquo;Three guests dropped out 48 hours before our wedding. We deleted them on the canvas, re-exported our 24&Prime;&times;36&Prime; Arch D PDF in 10 seconds, and sent it straight to FedEx Office without re-typing a single name.&rdquo;</p>
+          <p class="bs-quote-body">&ldquo;Three guests canceled 48 hours out. We removed them on the canvas and sent a fresh 24&Prime;&times;36&Prime; PDF to FedEx in 10 seconds.&rdquo;</p>
           <div class="bs-quote-author">
             <img src="/public/avatar-couple.jpg" alt="Hannah &amp; Devon R." class="bs-quote-avatar" width="46" height="46" loading="lazy" />
             <div><strong>Hannah &amp; Devon R.</strong><span>165 Guests &bull; Napa Valley, CA</span></div>
@@ -456,7 +456,7 @@ function renderZone4ProofStackAndPricing() {
 
         <div class="bs-quote-card studio-review-card">
           <div class="bs-quote-stars">&#9733;&#9733;&#9733;&#9733;&#9733; Verified Caterer BEO Manifest</div>
-          <p class="bs-quote-body">&ldquo;Our banquet captain literally hugged our coordinator when she handed him the Clockwise 12:00 Meal Sheet with Seat #1 anchored to the dance floor and the two peanut allergies highlighted in red.&rdquo;</p>
+          <p class="bs-quote-body">&ldquo;Our banquet captain loved the Clockwise 12:00 Meal Sheet. Seat #1 was anchored to the dance floor with peanut allergies flagged in red.&rdquo;</p>
           <div class="bs-quote-author">
             <img src="/public/avatar-planner.jpg" alt="Claire M." class="bs-quote-avatar" width="46" height="46" loading="lazy" />
             <div><strong>Claire M.</strong><span>140 Guests &bull; Chicago, IL (Bride)</span></div>
@@ -465,7 +465,7 @@ function renderZone4ProofStackAndPricing() {
 
         <div class="bs-quote-card studio-review-card">
           <div class="bs-quote-stars">&#9733;&#9733;&#9733;&#9733;&#9733; Father of the Bride</div>
-          <p class="bs-quote-body">&ldquo;The Restricted Mom Sandbox link saved our sanity. My wife rearranged our family friends on Tables 1 to 3 at midnight while keeping our daughter&rsquo;s college friends on Tables 4 to 12 completely locked.&rdquo;</p>
+          <p class="bs-quote-body">&ldquo;The Mom Sandbox link saved our sanity. My wife arranged Tables 1 to 3 at midnight while Tables 4 to 12 stayed safely locked.&rdquo;</p>
           <div class="bs-quote-author">
             <div class="bs-quote-avatar">RT</div>
             <div><strong>Robert T.</strong><span>155 Guests &bull; Boston, MA (Father of the Bride)</span></div>
@@ -474,16 +474,16 @@ function renderZone4ProofStackAndPricing() {
 
         <div class="bs-quote-card studio-review-card">
           <div class="bs-quote-stars">&#9733;&#9733;&#9733;&#9733;&#9733; Lead Wedding Coordinator</div>
-          <p class="bs-quote-body">&ldquo;As a planner, DIY spreadsheets usually terrify me because couples split up plus-ones and forget high chairs. Handing the venue SeatHarmony&rsquo;s Clockwise 12:00 BEO and Avery 5302 tent cards made the whole night effortless.&rdquo;</p>
+          <p class="bs-quote-body">&ldquo;Handing the venue SeatHarmony&rsquo;s Clockwise 12:00 BEO and Avery 5302 tent cards made 220-guest plated service effortless.&rdquo;</p>
           <div class="bs-quote-author">
             <div class="bs-quote-avatar">EV</div>
-            <div><strong>Elena V.</strong><span>220 Guests &bull; Charleston, SC (Event Coordinator)</span></div>
+            <div><strong>Elena V.</strong><span>220 Guests &bull; Charleston, SC (Coordinator)</span></div>
           </div>
         </div>
 
         <div class="bs-quote-card studio-review-card">
           <div class="bs-quote-stars">&#9733;&#9733;&#9733;&#9733;&#9733; 24&Prime;&times;36&Prime; Sign + Cocktail QR</div>
-          <p class="bs-quote-body">&ldquo;Everyone photographed our Obsidian &amp; Gold 24&Prime;&times;36&Prime; welcome sign on the brass easel! Even better, half our guests scanned the QR code right from the bar so there was zero doorway line when dinner started.&rdquo;</p>
+          <p class="bs-quote-body">&ldquo;Everyone photographed our Obsidian &amp; Gold 24&Prime;&times;36&Prime; sign! Half our guests scanned the bar QR so there was zero doorway line.&rdquo;</p>
           <div class="bs-quote-author">
             <div class="bs-quote-avatar">PL</div>
             <div><strong>Priya &amp; Lukas M.</strong><span>175 Guests &bull; Austin, TX (Estate Reception)</span></div>
@@ -492,7 +492,7 @@ function renderZone4ProofStackAndPricing() {
 
         <div class="bs-quote-card studio-review-card">
           <div class="bs-quote-stars">&#9733;&#9733;&#9733;&#9733;&#9733; Divorced-Parent Buffer Solver</div>
-          <p class="bs-quote-body">&ldquo;Both sets of parents had strict seating requests and two aunts who couldn&rsquo;t sit near each other. One click placed them on opposite sides of the dance floor while keeping every single couple together.&rdquo;</p>
+          <p class="bs-quote-body">&ldquo;One click placed two estranged aunts on opposite sides of the dance floor while keeping every couple seated together.&rdquo;</p>
           <div class="bs-quote-author">
             <div class="bs-quote-avatar">MJ</div>
             <div><strong>Marcus &amp; Jenna K.</strong><span>130 Guests &bull; Seattle, WA (Vineyard Wedding)</span></div>
