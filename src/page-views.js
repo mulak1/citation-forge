@@ -168,36 +168,57 @@ function renderZone3InteractiveStudio(plan) {
   <!-- ZONE 3: SCROLL-PACED 5-CARD BUILDER + STICKY LIVE STAGE (FOLD 3) -->
   <section class="studio-zone-section" id="studio">
     <div class="container">
-      <div class="bs-section-header" style="margin-bottom:24px;text-align:center;display:flex;flex-direction:column;align-items:center;">
+      <div class="bs-section-header" style="margin-bottom:18px;text-align:center;display:flex;flex-direction:column;align-items:center;">
         <div class="bs-section-eyebrow" style="margin-left:auto;margin-right:auto;">LIVE WEDDING &amp; RECEPTION STUDIO &middot; EVENT #<span id="sh-studio-vault-code">${vId}</span></div>
-        <h2 class="bs-section-h2" style="text-align:center;margin-left:auto;margin-right:auto;margin-bottom:8px;">Arrange tables, swap seats &amp; <em>preview all 4 reception files live.</em></h2>
-        <p class="bs-section-sub" style="text-align:center;margin:0 auto;">Drag any table or seat on the floorplan, or click a table to edit guests and meals.</p>
-        <div style="display:none;"><span id="sh-endowed-progress-label">Step 1 of 5</span><span id="sh-endowed-progress-fill"></span><span id="sh-btn-vault-id">${vId}</span></div>
+        <h2 class="bs-section-h2" style="text-align:center;margin-left:auto;margin-right:auto;margin-bottom:8px;">Build your reception in <em>4 guided steps.</em></h2>
+        <p class="bs-section-sub" style="text-align:center;margin:0 auto;">Set your venue &amp; tables first, add your guests, apply family rules, then fine-tune seats &amp; print.</p>
+        <div style="display:none;"><span id="sh-endowed-progress-label">Step 1 of 4</span><span id="sh-endowed-progress-fill"></span><span id="sh-btn-vault-id">${vId}</span></div>
         <a href="#studio-bespoke-artifact-stage" onclick="var el=document.getElementById('studio-bespoke-artifact-stage');if(el){window.scrollTo({top:el.getBoundingClientRect().top+window.pageYOffset-90,behavior:'smooth'});}return false;" class="mobile-jump-canvas-btn" style="margin-top:10px;font-size:0.82rem;font-weight:800;color:#181412;background:#FAF3E3;border:1.5px solid #C8A96E;padding:6px 12px;border-radius:999px;text-decoration:none;">&#128065; Jump to Floorplan &darr;</a>
       </div>
 
+      <!-- 4-Step Progressive Interactive Wizard Bar -->
+      <div class="sh-wizard-stepper" id="sh-wizard-stepper" role="navigation" aria-label="Reception Setup Wizard Steps">
+        <button type="button" class="sh-wizard-step-pill active" id="sh-top-step-pill-1" data-step-pill="1" onclick="window.scrollToShCard(1)">
+          <span class="sh-wizard-step-num" id="sh-top-step-num-1">1</span>
+          <span>Venue &amp; Tables</span>
+        </button>
+        <button type="button" class="sh-wizard-step-pill" id="sh-top-step-pill-2" data-step-pill="2" onclick="window.scrollToShCard(2)">
+          <span class="sh-wizard-step-num" id="sh-top-step-num-2">2</span>
+          <span>Add Guests</span>
+        </button>
+        <button type="button" class="sh-wizard-step-pill" id="sh-top-step-pill-3" data-step-pill="3" onclick="window.scrollToShCard(3)">
+          <span class="sh-wizard-step-num" id="sh-top-step-num-3">3</span>
+          <span>Family Rules</span>
+        </button>
+        <button type="button" class="sh-wizard-step-pill" id="sh-top-step-pill-4" data-step-pill="4" onclick="window.scrollToShCard(4)">
+          <span class="sh-wizard-step-num" id="sh-top-step-num-4">4</span>
+          <span>Fine-Tune &amp; Export</span>
+        </button>
+      </div>
+
       <div class="studio-scroll-builder-grid" id="sh-builder-grid">
-        <!-- LEFT COLUMN: Clean 5-Step Builder -->
+        <!-- LEFT COLUMN: Progressive 1-Step-at-a-Time Wizard -->
         <div class="studio-hybrid-wizard" id="sh-csv-parse-preview">
 
-          <!-- CARD 1 OF 5: Event & Venue -->
+          <!-- STEP 1 OF 4: Venue & Tables -->
           <div class="studio-wizard-step active" id="sh-wizard-step-1" data-step="1">
-            <button type="button" class="studio-wizard-header" onclick="window.scrollToShCard(1)">
-              <span class="studio-wizard-step-title"><span style="color:#8C2D19;">1.</span> Event &amp; Venue</span>
+            <div class="studio-wizard-header">
+              <span class="studio-wizard-step-title"><span style="color:#8C2D19;">Step 1 of 4:</span> Venue &amp; Tables</span>
               <span class="studio-wizard-step-summary" id="sh-wizard-summary-1">Estate</span>
-            </button>
+            </div>
             <div class="studio-wizard-body">
-              <div style="margin-bottom:10px;">
-                <span class="studio-field-label">Sample Reception Layouts</span>
+              <div style="margin-bottom:12px;">
+                <span class="studio-field-label">Choose a Starting Venue Layout</span>
                 <div class="studio-chip-group">
                   <button type="button" class="studio-tap-chip preset-chip active" data-preset="estate-150" data-domain="supabase.com" onclick="window.loadPresetScenario('estate-150', this)">&#128141; Estate</button>
                   <button type="button" class="studio-tap-chip preset-chip" data-preset="tuscan-banquet-80" onclick="window.loadPresetScenario('tuscan-banquet-80', this)">&#127863; Tuscan</button>
                   <button type="button" class="studio-tap-chip preset-chip" data-preset="planner-beo-sandbox" onclick="window.loadPresetScenario('planner-beo-sandbox', this)">&#128203; Planner</button>
                   <button type="button" class="studio-tap-chip preset-chip" data-preset="vip-exec-dinner" onclick="window.loadPresetScenario('vip-exec-dinner', this)">&#129346; VIP</button>
                   <button type="button" class="studio-tap-chip preset-chip" data-preset="charity-gala-300" onclick="window.loadPresetScenario('charity-gala-300', this)">&#127895; 300 Gala</button>
+                  <button type="button" id="sh-clear-demo-btn" class="studio-tap-chip" style="border-color:#8C2D19;color:#8C2D19;font-weight:800;" onclick="window.shStartBlankList()">&#10024; Start Blank</button>
                 </div>
               </div>
-              <div style="display:grid;grid-template-columns:1fr;gap:8px;margin-bottom:10px;">
+              <div style="display:grid;grid-template-columns:1fr;gap:8px;margin-bottom:12px;">
                 <div>
                   <label for="sh-couple-title-input" class="studio-field-label">Event Title</label>
                   <input id="sh-couple-title-input" type="text" class="grader-input" value="${escapeHtml(plan.title || "Maya & Liam's Estate Reception")}" oninput="window.shUpdateCoupleTitle(this.value)" />
@@ -207,22 +228,29 @@ function renderZone3InteractiveStudio(plan) {
                   <input id="sh-venue-name-input" type="text" class="grader-input" value="${escapeHtml(plan.venueName || 'Rosewood Conservatory')}" oninput="window.shUpdateVenueName(this.value)" />
                 </div>
               </div>
-              <input id="sh-crest-logo-input" type="hidden" value="" />
-              <div style="display:flex;justify-content:space-between;align-items:center;gap:6px;padding-top:6px;border-top:1px solid #EFEAE1;">
-                <button type="button" id="sh-clear-demo-btn" class="studio-tap-chip" style="border-color:#D6CFC2;color:#57534E;" onclick="window.shStartBlankList()">Start Blank</button>
-                <button type="button" onclick="window.scrollToShCard(2)" style="background:linear-gradient(135deg,#FDE68A,#E8C77D);color:#3B2A12;border:1px solid #C8A96E;border-radius:8px;padding:6px 12px;font-size:0.82rem;font-weight:800;cursor:pointer;">Next: Guests &rarr;</button>
+              <div style="background:#FAF6EE;border:1px solid #E2D9C8;border-radius:10px;padding:10px 12px;margin-bottom:12px;display:flex;align-items:center;justify-content:space-between;gap:8px;">
+                <div>
+                  <div style="font-size:0.76rem;font-weight:800;text-transform:uppercase;letter-spacing:0.06em;color:#57534E;">Tables in Room</div>
+                  <div style="font-size:0.92rem;font-weight:800;color:#181412;" id="sh-step1-table-count-label">8 Tables Ready</div>
+                </div>
+                <div style="display:flex;gap:6px;">
+                  <button type="button" class="studio-tap-chip" style="padding:5px 10px;font-size:0.80rem;" onclick="window.shDeleteSelectedTable()">&minus; Table</button>
+                  <button type="button" class="studio-tap-chip" style="padding:5px 10px;font-size:0.80rem;border-color:#065F46;background:#ECFDF5;color:#065F46;font-weight:800;" onclick="window.shAddNewTable()">+ Add Table</button>
+                </div>
               </div>
+              <input id="sh-crest-logo-input" type="hidden" value="" />
+              <button type="button" onclick="window.scrollToShCard(2)" style="width:100%;background:linear-gradient(135deg,#FDE68A,#E8C77D);color:#3B2A12;border:1.5px solid #C8A96E;border-radius:10px;padding:10px 14px;font-size:0.88rem;font-weight:800;cursor:pointer;">Continue to Step 2: Add Guests &rarr;</button>
             </div>
           </div>
 
-          <!-- CARD 2 OF 5: Guest List -->
+          <!-- STEP 2 OF 4: Add Guests -->
           <div class="studio-wizard-step" id="sh-wizard-step-2" data-step="2">
-            <button type="button" class="studio-wizard-header" onclick="window.scrollToShCard(2)">
-              <span class="studio-wizard-step-title"><span style="color:#8C2D19;">2.</span> Guest List</span>
+            <div class="studio-wizard-header">
+              <span class="studio-wizard-step-title"><span style="color:#8C2D19;">Step 2 of 4:</span> Add Guests</span>
               <span class="studio-wizard-step-summary" id="sh-wizard-summary-2">62 Guests</span>
-            </button>
+            </div>
             <div class="studio-wizard-body">
-              <div style="margin-bottom:8px;">
+              <div style="margin-bottom:10px;">
                 <label for="domain-input" class="studio-field-label">Add Household or Guest</label>
                 <div style="display:flex;flex-wrap:wrap;gap:6px;">
                   <input id="domain-input" type="text" class="grader-input" style="flex:1 1 100%;" value="Sarah &amp; Mark Miller + 1 Kid (GF)" aria-label="Add household or guest" />
@@ -240,13 +268,13 @@ function renderZone3InteractiveStudio(plan) {
                   <button type="button" class="btn btn-primary" style="padding:7px 14px;font-size:0.82rem;" onclick="window.shAddMessyHousehold()">+ Add</button>
                 </div>
               </div>
-              <div style="margin-bottom:8px;">
+              <div style="margin-bottom:10px;">
                 <div class="studio-chip-group">
                   <button type="button" class="studio-tap-chip" onclick="window.shQuickFillHousehold('Dr. &amp; Mrs. James Chen (Halibut)')">+ Dr. &amp; Mrs. Chen</button>
-                  <button type="button" id="sh-toggle-bulk-csv-btn" class="studio-tap-chip" style="border-color:#065F46;background:#ECFDF5;color:#065F46;font-weight:800;" onclick="window.shToggleBulkCsvDrawer()">&#128203; Import CSV</button>
+                  <button type="button" id="sh-toggle-bulk-csv-btn" class="studio-tap-chip" style="border-color:#065F46;background:#ECFDF5;color:#065F46;font-weight:800;" onclick="window.shToggleBulkCsvDrawer()">&#128203; Import CSV / Paste List</button>
                 </div>
               </div>
-              <div id="sh-bulk-csv-drawer" style="display:none;background:#FAF6EE;border:1.5px solid #C8A96E;border-radius:10px;padding:10px;margin-bottom:8px;">
+              <div id="sh-bulk-csv-drawer" style="display:none;background:#FAF6EE;border:1.5px solid #C8A96E;border-radius:10px;padding:10px;margin-bottom:10px;">
                 <div style="display:flex;justify-content:space-between;align-items:center;gap:8px;margin-bottom:6px;">
                   <span style="font-size:0.80rem;font-weight:800;color:#181412;">Paste Rows or Upload CSV</span>
                   <label class="studio-tap-chip" style="cursor:pointer;background:#FFFFFF;border-color:#181412;font-weight:800;padding:4px 9px;font-size:0.78rem;">
@@ -263,21 +291,22 @@ David &amp; Elena Rostova (Filet, Peanut Allergy)</textarea>
                   <button type="button" id="sh-bulk-replace-btn" class="studio-tap-chip" style="border-color:#8C2D19;color:#8C2D19;font-weight:800;" onclick="window.shProcessBulkCsv(true)">Replace All</button>
                 </div>
               </div>
-              <div style="display:flex;justify-content:flex-end;padding-top:6px;border-top:1px solid #EFEAE1;">
-                <button type="button" onclick="window.scrollToShCard(3)" style="background:linear-gradient(135deg,#FDE68A,#E8C77D);color:#3B2A12;border:1px solid #C8A96E;border-radius:8px;padding:6px 12px;font-size:0.82rem;font-weight:800;cursor:pointer;">Next: Rules &rarr;</button>
+              <div style="display:flex;justify-content:space-between;align-items:center;gap:8px;padding-top:8px;border-top:1px solid #EFEAE1;">
+                <button type="button" class="studio-tap-chip" onclick="window.scrollToShCard(1)">&larr; Step 1: Venue</button>
+                <button type="button" onclick="window.scrollToShCard(3)" style="background:linear-gradient(135deg,#FDE68A,#E8C77D);color:#3B2A12;border:1.5px solid #C8A96E;border-radius:10px;padding:8px 14px;font-size:0.84rem;font-weight:800;cursor:pointer;">Step 3: Family Rules &rarr;</button>
               </div>
             </div>
           </div>
 
-          <!-- CARD 3 OF 5: Family Rules -->
+          <!-- STEP 3 OF 4: Family Rules -->
           <div class="studio-wizard-step" id="sh-wizard-step-3" data-step="3">
-            <button type="button" class="studio-wizard-header" onclick="window.scrollToShCard(3)">
-              <span class="studio-wizard-step-title"><span style="color:#8C2D19;">3.</span> Family Rules</span>
+            <div class="studio-wizard-header">
+              <span class="studio-wizard-step-title"><span style="color:#8C2D19;">Step 3 of 4:</span> Family Rules</span>
               <span class="studio-wizard-step-summary" id="sh-wizard-summary-3">0 Clashes</span>
-            </button>
+            </div>
             <div class="studio-wizard-body">
-              <div id="sh-rules-list" style="display:flex;flex-direction:column;gap:6px;margin-bottom:8px;">${rulesHtml}</div>
-              <div style="background:#FAF6EE;border:1px solid #E2D9C8;border-radius:9px;padding:8px;margin-bottom:8px;">
+              <div id="sh-rules-list" style="display:flex;flex-direction:column;gap:6px;margin-bottom:10px;">${rulesHtml}</div>
+              <div style="background:#FAF6EE;border:1px solid #E2D9C8;border-radius:9px;padding:8px;margin-bottom:10px;">
                 <input id="sh-custom-rule-input" type="text" class="grader-input" style="width:100%;font-size:0.82rem;margin-bottom:6px;" value="Keep Uncle Bob &amp; Aunt Linda 2+ tables apart" aria-label="Seating Rule" />
                 <div style="display:flex;gap:6px;align-items:center;">
                   <select id="sh-custom-rule-type" class="grader-input" style="flex:1;font-size:0.80rem;padding:6px 8px;" aria-label="Rule Type">
@@ -288,19 +317,23 @@ David &amp; Elena Rostova (Filet, Peanut Allergy)</textarea>
                   <button type="button" class="studio-tap-chip active" onclick="window.shAddCustomRule()">+ Add</button>
                 </div>
               </div>
-              <button id="sh-solve-btn" type="button" class="btn btn-primary" style="width:100%;padding:8px 12px;font-size:0.82rem;" onclick="window.shRunSimulatedAnnealingSolver()">&#10024; Auto-Arrange Tables</button>
+              <button id="sh-solve-btn" type="button" class="btn btn-primary" style="width:100%;padding:9px 12px;font-size:0.86rem;margin-bottom:10px;" onclick="window.shRunSimulatedAnnealingSolver();window.scrollToShCard(4);">&#10024; Auto-Seat &amp; Unlock Fine-Tune &rarr;</button>
+              <div style="display:flex;justify-content:space-between;align-items:center;gap:8px;padding-top:8px;border-top:1px solid #EFEAE1;">
+                <button type="button" class="studio-tap-chip" onclick="window.scrollToShCard(2)">&larr; Step 2: Guests</button>
+                <button type="button" class="studio-tap-chip" style="font-weight:800;color:#78350F;border-color:#C8A96E;" onclick="window.scrollToShCard(4)">Skip to Step 4 &rarr;</button>
+              </div>
             </div>
           </div>
 
-          <!-- CARD 4 OF 5: Table Style -->
+          <!-- STEP 4 OF 4: Fine-Tune & Export (Unlocks Full Table/Seat Micro-Editing + Sign Studio) -->
           <div class="studio-wizard-step" id="sh-wizard-step-4" data-step="4">
-            <button type="button" class="studio-wizard-header" onclick="window.scrollToShCard(4)">
-              <span class="studio-wizard-step-title"><span style="color:#8C2D19;">4.</span> Table Style</span>
-              <span class="studio-wizard-step-summary" id="sh-wizard-summary-4">Round</span>
-            </button>
+            <div class="studio-wizard-header">
+              <span class="studio-wizard-step-title"><span style="color:#8C2D19;">Step 4 of 4:</span> Fine-Tune &amp; Print</span>
+              <span class="studio-wizard-step-summary" id="sh-wizard-summary-4">Unlocked</span>
+            </div>
             <div class="studio-wizard-body">
               <div style="margin-bottom:8px;">
-                <span class="studio-field-label">Select Table</span>
+                <span class="studio-field-label">Select Table to Edit</span>
                 <div class="studio-chip-group" id="sh-card4-table-pills">
                   <button type="button" class="studio-tap-chip" onclick="window.shSelectTable(0)">Tbl 1</button>
                   <button type="button" class="studio-tap-chip active" onclick="window.shSelectTable(1)">Tbl 2</button>
@@ -312,9 +345,9 @@ David &amp; Elena Rostova (Filet, Peanut Allergy)</textarea>
                   <button type="button" class="studio-tap-chip" onclick="window.shSelectTable(7)">Tbl 8</button>
                 </div>
               </div>
-              <div style="margin-bottom:8px;">
-                <span class="studio-field-label">Shape</span>
-                <div class="studio-chip-group" id="sh-card4-shape-pills">
+              <div style="margin-bottom:10px;">
+                <span class="studio-field-label">Table Shape &amp; View</span>
+                <div class="studio-chip-group" id="sh-card4-shape-pills" style="margin-bottom:6px;">
                   <button type="button" class="studio-tap-chip active" data-shape="round" onclick="window.shMorphSelectedTable('round')">&#9679; Round</button>
                   <button type="button" class="studio-tap-chip" data-shape="banquet_2sided" onclick="window.shMorphSelectedTable('banquet_2sided')">&#9644; Banquet</button>
                   <button type="button" class="studio-tap-chip" data-shape="sweetheart" onclick="window.shMorphSelectedTable('sweetheart')">&#128149; Sweetheart</button>
@@ -322,25 +355,18 @@ David &amp; Elena Rostova (Filet, Peanut Allergy)</textarea>
                   <button type="button" class="studio-tap-chip" onclick="window.shRotateSelectedTable()">&#8635; 45&deg;</button>
                   <button id="sh-lock-table-btn" type="button" class="studio-tap-chip" onclick="window.shToggleLockSelectedTable()">&#128274; Lock</button>
                 </div>
+                <div style="display:flex;gap:5px;flex-wrap:wrap;">
+                  <button id="sh-ring-harmony" type="button" class="studio-tap-chip active" onclick="window.shSetRingMode('harmony')">Harmony View</button>
+                  <button id="sh-ring-meal" type="button" class="studio-tap-chip" onclick="window.shSetRingMode('meal')">Meal View</button>
+                  <button type="button" class="studio-tap-chip" onclick="window.shCopyMomSandboxLink()">Copy Family Link</button>
+                </div>
               </div>
-              <div style="display:flex;gap:5px;flex-wrap:wrap;">
-                <button id="sh-ring-harmony" type="button" class="studio-tap-chip active" onclick="window.shSetRingMode('harmony')">Harmony View</button>
-                <button id="sh-ring-meal" type="button" class="studio-tap-chip" onclick="window.shSetRingMode('meal')">Meal View</button>
-                <button type="button" class="studio-tap-chip" onclick="window.shCopyMomSandboxLink()">Copy Family Link</button>
-              </div>
-            </div>
-          </div>
-
-          <!-- CARD 5 OF 5: Welcome Sign -->
-          <div class="studio-wizard-step" id="sh-wizard-step-5" data-step="5">
-            <button type="button" class="studio-wizard-header" onclick="window.scrollToShCard(5)">
-              <span class="studio-wizard-step-title"><span style="color:#8C2D19;">5.</span> Welcome Sign</span>
-              <span class="studio-wizard-step-summary" id="sh-wizard-summary-5">Gold A-Z</span>
-            </button>
-            <div class="studio-wizard-body">
-              <div style="margin-bottom:8px;">
-                <span class="studio-field-label">Sign Theme</span>
-                <div class="studio-chip-group" id="sh-card5-theme-pills">
+              <div style="padding-top:8px;border-top:1px solid #EFEAE1;margin-bottom:8px;">
+                <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:6px;">
+                  <span class="studio-field-label" style="margin-bottom:0;">24&Prime;&times;36&Prime; Sign Theme</span>
+                  <span class="studio-wizard-step-summary" id="sh-wizard-summary-5" style="font-size:0.74rem;">Gold A-Z</span>
+                </div>
+                <div class="studio-chip-group" id="sh-card5-theme-pills" style="margin-bottom:8px;">
                   <button type="button" class="studio-tap-chip active" data-theme="alabaster" onclick="window.shSetActiveTab('poster');window.shSetPosterMode(null,'alabaster')">Parisian Gold</button>
                   <button type="button" class="studio-tap-chip" data-theme="ivory" onclick="window.shSetActiveTab('poster');window.shSetPosterMode(null,'ivory')">Botanical Ivory</button>
                   <button type="button" class="studio-tap-chip" data-theme="obsidian" onclick="window.shSetActiveTab('poster');window.shSetPosterMode(null,'obsidian')">Editorial Noir</button>
@@ -348,30 +374,33 @@ David &amp; Elena Rostova (Filet, Peanut Allergy)</textarea>
                   <button type="button" class="studio-tap-chip" data-theme="rosewater" onclick="window.shSetActiveTab('poster');window.shSetPosterMode(null,'rosewater')">Rosewater</button>
                   <button type="button" class="studio-tap-chip" data-theme="terracotta" onclick="window.shSetActiveTab('poster');window.shSetPosterMode(null,'terracotta')">Terracotta</button>
                 </div>
-              </div>
-              <div style="display:grid;grid-template-columns:1fr 1fr;gap:6px;margin-bottom:8px;">
-                <div>
-                  <label for="sh-sign-kicker-input" class="studio-field-label">Heading</label>
-                  <select id="sh-sign-kicker-input" class="grader-input" style="padding:5px 7px;font-size:0.80rem;" onchange="window.shUpdateSignKicker(this.value)">
-                    <option value="Please Find Your Seat">Please Find Your Seat</option>
-                    <option value="Welcome to Our Reception">Welcome to Our Reception</option>
-                    <option value="Dinner &amp; Dancing">Dinner &amp; Dancing</option>
-                    <option value="Find Your Table">Find Your Table</option>
-                  </select>
+                <div style="display:grid;grid-template-columns:1fr 1fr;gap:6px;margin-bottom:8px;">
+                  <div>
+                    <label for="sh-sign-kicker-input" class="studio-field-label">Heading</label>
+                    <select id="sh-sign-kicker-input" class="grader-input" style="padding:5px 7px;font-size:0.80rem;" onchange="window.shUpdateSignKicker(this.value)">
+                      <option value="Please Find Your Seat">Please Find Your Seat</option>
+                      <option value="Welcome to Our Reception">Welcome to Our Reception</option>
+                      <option value="Dinner &amp; Dancing">Dinner &amp; Dancing</option>
+                      <option value="Find Your Table">Find Your Table</option>
+                    </select>
+                  </div>
+                  <div>
+                    <label for="sh-sign-monogram-input" class="studio-field-label">Monogram</label>
+                    <input id="sh-sign-monogram-input" type="text" class="grader-input" style="padding:5px 7px;font-size:0.80rem;" value="M&amp;L &middot; EST. 2026" oninput="window.shUpdateSignMonogram(this.value)" />
+                  </div>
                 </div>
-                <div>
-                  <label for="sh-sign-monogram-input" class="studio-field-label">Monogram</label>
-                  <input id="sh-sign-monogram-input" type="text" class="grader-input" style="padding:5px 7px;font-size:0.80rem;" value="M&amp;L &middot; EST. 2026" oninput="window.shUpdateSignMonogram(this.value)" />
+                <div class="studio-chip-group" id="sh-card5-sort-pills">
+                  <button type="button" class="studio-tap-chip active" data-sort="alphabetical" onclick="window.shSetActiveTab('poster');window.shSetPosterMode('alphabetical',null)">Sort A-Z</button>
+                  <button type="button" class="studio-tap-chip" data-sort="by_table" onclick="window.shSetActiveTab('poster');window.shSetPosterMode('by_table',null)">By Table</button>
+                  <button type="button" class="studio-tap-chip" onclick="window.shExportBeoCsv()">&#11015; BEO .CSV</button>
+                  <a id="sh-card5-poster-studio-link" href="/print/poster/${vId}" target="_blank" class="studio-tap-chip" style="text-decoration:none;font-weight:800;color:#78350F;border-color:#C8A96E;">Sign PDF &nearr;</a>
+                  <a id="sh-card5-avery-studio-link" href="/print/avery-5302/${vId}" target="_blank" class="studio-tap-chip" style="text-decoration:none;font-weight:800;color:#065F46;border-color:#10B981;">Avery 5302 &nearr;</a>
                 </div>
+                <a id="sh-card5-buy-btn" href="/buy/complete_dossier?target=estate-150&amp;vault=${vId}" style="display:none;">Unlock</a>
               </div>
-              <div class="studio-chip-group" id="sh-card5-sort-pills">
-                <button type="button" class="studio-tap-chip active" data-sort="alphabetical" onclick="window.shSetActiveTab('poster');window.shSetPosterMode('alphabetical',null)">Sort A-Z</button>
-                <button type="button" class="studio-tap-chip" data-sort="by_table" onclick="window.shSetActiveTab('poster');window.shSetPosterMode('by_table',null)">By Table</button>
-                <button type="button" class="studio-tap-chip" onclick="window.shExportBeoCsv()">&#11015; BEO .CSV</button>
-                <a id="sh-card5-poster-studio-link" href="/print/poster/${vId}" target="_blank" class="studio-tap-chip" style="text-decoration:none;font-weight:800;color:#78350F;border-color:#C8A96E;">Sign PDF &nearr;</a>
-                <a id="sh-card5-avery-studio-link" href="/print/avery-5302/${vId}" target="_blank" class="studio-tap-chip" style="text-decoration:none;font-weight:800;color:#065F46;border-color:#10B981;">Avery 5302 &nearr;</a>
+              <div style="display:flex;justify-content:space-between;align-items:center;gap:8px;padding-top:8px;border-top:1px solid #EFEAE1;">
+                <button type="button" class="studio-tap-chip" onclick="window.scrollToShCard(3)">&larr; Back to Step 3: Family Rules</button>
               </div>
-              <a id="sh-card5-buy-btn" href="/buy/complete_dossier?target=estate-150&amp;vault=${vId}" style="display:none;">Unlock</a>
             </div>
           </div>
 
@@ -452,17 +481,28 @@ David &amp; Elena Rostova (Filet, Peanut Allergy)</textarea>
             <div class="studio-foreground-specimen" id="studio-foreground-specimen">
               <!-- PANE 1: Interactive Floorplan & Selected Table Inspector -->
               <div id="sh-pane-floorplan" style="display:block;">
-                <!-- Single-Row Canvas Toolbar -->
-                <div style="display:flex;flex-wrap:wrap;align-items:center;justify-content:space-between;gap:8px;margin-bottom:8px;padding:6px 10px;background:#FAF6EE;border:1px solid #E2D9C8;border-radius:10px;">
-                  <div style="display:flex;align-items:center;gap:5px;flex-wrap:wrap;">
+                <!-- Guided Wizard Step Banner (Shown in Steps 1–3, replaced by Full Micro-Toolbar in Step 4) -->
+                <div id="sh-canvas-step-banner" style="display:flex;align-items:center;justify-content:space-between;gap:10px;margin-bottom:8px;padding:7px 12px;background:#FAF3E6;border:1.5px solid #DFD3BE;border-radius:10px;">
+                  <div style="display:flex;align-items:center;gap:8px;min-width:0;flex:1;">
+                    <span id="sh-canvas-step-badge" style="font-size:0.74rem;font-weight:800;text-transform:uppercase;letter-spacing:0.05em;background:#FFFFFF;color:#78350F;border:1px solid #C8A96E;padding:3px 9px;border-radius:999px;flex-shrink:0;">Step 1 of 4</span>
+                    <span id="sh-canvas-step-hint" style="font-size:0.83rem;font-weight:700;color:#181412;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;">Pick a venue layout or add tables on the left. Drag tables to arrange.</span>
+                  </div>
+                  <div style="display:flex;align-items:center;gap:6px;flex-shrink:0;">
+                    <button type="button" id="sh-canvas-step-next-btn" onclick="window.scrollToShCard(2)" style="background:linear-gradient(135deg,#FDE68A,#E8C77D);color:#3B2A12;border:1px solid #C8A96E;border-radius:8px;padding:5px 11px;font-size:0.78rem;font-weight:800;cursor:pointer;white-space:nowrap;">Next: Add Guests &rarr;</button>
+                  </div>
+                </div>
+
+                <!-- Micro-Editing Canvas Toolbar (Revealed in Step 4: Fine-Tune & Export) -->
+                <div id="sh-canvas-micro-toolbar" style="display:none;align-items:center;justify-content:space-between;gap:8px;margin-bottom:8px;padding:6px 10px;background:#FAF6EE;border:1px solid #E2D9C8;border-radius:10px;">
+                  <div style="display:flex;align-items:center;gap:5px;flex-shrink:0;">
                     <button type="button" id="sh-zoom-room-btn" class="studio-tap-chip active" style="padding:4px 10px;font-size:0.80rem;" onclick="window.shSetCanvasZoom('room')">Full Room</button>
                     <button type="button" id="sh-zoom-15-btn" class="studio-tap-chip" style="padding:4px 10px;font-size:0.80rem;" onclick="window.shSetCanvasZoom('zoom15')">1.5&times; Zoom</button>
                     <button type="button" id="sh-zoom-table-btn" class="studio-tap-chip" style="padding:4px 10px;font-size:0.80rem;" onclick="window.shSetCanvasZoom('table')">Focus Table</button>
                   </div>
-                  <div id="sh-live-toast" style="font-size:0.80rem;font-weight:700;color:#78350F;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;max-width:340px;">
-                    Drag any table or seat to rearrange
+                  <div id="sh-live-toast" style="font-size:0.80rem;font-weight:700;color:#78350F;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;flex:1;min-width:0;text-align:center;">
+                    Fine-Tune Mode: Click any table or seat to edit
                   </div>
-                  <div style="display:flex;align-items:center;gap:5px;">
+                  <div style="display:flex;align-items:center;gap:5px;flex-shrink:0;">
                     <button type="button" id="sh-toolbar-add-table-btn" class="studio-tap-chip" style="padding:4px 10px;font-size:0.80rem;border-color:#065F46;background:#ECFDF5;color:#065F46;font-weight:800;" onclick="window.shAddNewTable()">+ Table</button>
                     <button type="button" id="sh-toolbar-add-landmark-btn" class="studio-tap-chip" style="padding:4px 10px;font-size:0.80rem;border-color:#C8A96E;background:#FFFFFF;color:#78350F;font-weight:800;" onclick="window.shAddLandmark()">+ Element</button>
                   </div>
@@ -471,10 +511,10 @@ David &amp; Elena Rostova (Filet, Peanut Allergy)</textarea>
                 <!-- Active Seat Swap / Drag Banner -->
                 <div id="sh-active-swap-banner" style="display:none;margin-bottom:8px;padding:7px 12px;border-radius:9px;background:#FEF3C7;border:1.5px solid #D97706;color:#78350F;font-size:0.75rem;font-weight:800;align-items:center;justify-content:space-between;gap:8px;"></div>
 
-                <div style="width:100%;overflow:hidden;border-radius:12px;border:1.5px solid #DFD5C3;background:#FAF7F2;margin-bottom:10px;position:relative;">
+                <div style="width:100%;overflow:hidden;border-radius:12px;border:1.5px solid #DFD5C3;background:#FAF7F2;margin-bottom:8px;position:relative;">
                   <svg id="sh-floorplan-svg" viewBox="0 0 1120 680" style="width:100%;height:auto;min-height:480px;display:block;touch-action:none;user-select:none;" role="img" aria-label="Interactive Wedding & Event Floorplan Canvas"></svg>
                 </div>
-                <div id="sh-selected-table-box" style="padding:12px;border-radius:10px;background:#FAF7F2;border:1px solid #E2D9C8;"></div>
+                <div id="sh-selected-table-box" style="display:none;padding:12px;border-radius:10px;background:#FAF7F2;border:1px solid #E2D9C8;"></div>
               </div>
 
               <!-- PANE 2: Clockwise Caterer BEO Sheet -->

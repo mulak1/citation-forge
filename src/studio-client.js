@@ -14,6 +14,7 @@ function renderInteractiveScript(initialPlan) {
   window.__SH_SELECTED_LANDMARK_IDX = null;
   window.__SH_SANDBOX_MOM = false; window.__SH_CREST_LOGO_URL = ''; window.__SH_SIGN_KICKER = 'Please Find Your Seat';
   window.__SH_SIGN_MONOGRAM = 'M&L · EST. 2026'; window.__SH_CANVAS_ZOOM = 'room'; window.__SH_DRAG_STATE = null; window.__SH_VSL_TIMER = null;
+  window.__SH_WIZARD_STEP = 1;
 
   window.selectShVslScene = function(idx) {
     var scenes = document.querySelectorAll('#studio-editorial-vsl-stage .sh-vsl-scene');
@@ -38,10 +39,17 @@ function renderInteractiveScript(initialPlan) {
     var st = document.getElementById('studio'); if (st) st.scrollIntoView({ behavior: 'smooth' });
   };
   window.scrollToShCard = function(stepNum) {
-    document.querySelectorAll('.studio-wizard-step').forEach(function(el) { el.classList.toggle('active', Number(el.getAttribute('data-step')) === Number(stepNum)); });
-    var pct = Math.min(100, 55 + Number(stepNum) * 9), lbl = document.getElementById('sh-endowed-progress-label'), fill = document.getElementById('sh-endowed-progress-fill');
-    if (lbl) lbl.textContent = 'Reception Plan: Step ' + stepNum + ' of 5 (' + pct + '%)'; if (fill) fill.style.width = pct + '%';
-    var target = document.getElementById('sh-wizard-step-' + stepNum); if (target) target.scrollIntoView({ behavior: 'smooth', block: 'center' });
+    var s = Math.max(1, Math.min(4, Number(stepNum) || 1));
+    window.__SH_WIZARD_STEP = s;
+    document.querySelectorAll('.studio-wizard-step').forEach(function(el) { el.classList.toggle('active', Number(el.getAttribute('data-step')) === s); });
+    for (var i = 1; i <= 4; i++) {
+      var pill = document.getElementById('sh-top-step-pill-' + i), numEl = document.getElementById('sh-top-step-num-' + i);
+      if (pill) { pill.classList.toggle('active', i === s); pill.classList.toggle('completed', i < s); }
+      if (numEl) numEl.textContent = i < s ? '✓' : String(i);
+    }
+    if (s < 4) { window.__SH_SWAP_SOURCE = null; window.__SH_SELECTED_LANDMARK_IDX = null; window.__SH_CANVAS_ZOOM = 'room'; }
+    if (typeof window.shSyncWizardStepStage === 'function') window.shSyncWizardStepStage();
+    shRenderAll();
   };
 
   function shEsc(s) {
@@ -294,7 +302,7 @@ function renderInteractiveScript(initialPlan) {
       if (!moved) return;
       if (moveEv.cancelable) moveEv.preventDefault();
       tbl.x = Math.max(95, Math.min(1025, origX + dx));
-      tbl.y = Math.max(72, Math.min(605, origY + dy));
+      tbl.y = Math.max(72, Math.min((window.__SH_STATE.roomHeight || 680) - 75, origY + dy));
       shRecomputeGeometry(tbl);
       shRenderFloorplanSvg();
     };
@@ -325,6 +333,10 @@ function renderInteractiveScript(initialPlan) {
   window.shStartSeatDrag = function(tIdx, sIdx, ev) {
     if (ev && ev.button && ev.button !== 0) return;
     if (ev) { ev.stopPropagation(); if (ev.type === 'mousedown' && ev.preventDefault) ev.preventDefault(); }
+    if ((window.__SH_WIZARD_STEP || 1) < 4) {
+      window.shSeatClick(tIdx, sIdx, ev);
+      return;
+    }
     const tbl = window.__SH_STATE && window.__SH_STATE.tables && window.__SH_STATE.tables[tIdx];
     if (!tbl) return;
     window.__SH_SELECTED_LANDMARK_IDX = null;
@@ -538,8 +550,13 @@ function renderInteractiveScript(initialPlan) {
     const dstTbl = window.__SH_STATE && window.__SH_STATE.tables && window.__SH_STATE.tables[tIdx];
     if (!dstTbl) return;
     window.__SH_SELECTED_LANDMARK_IDX = null;
-    if (window.__SH_SANDBOX_MOM && tIdx >= 3 && !dstTbl.isUserAdded) { shToast('🔒 Family Share Mode: Only Tables 1-3 are editable.'); return; }
     window.__SH_SELECTED_TABLE_IDX = tIdx;
+    if ((window.__SH_WIZARD_STEP || 1) < 4) {
+      shToast('Selected ' + dstTbl.name + ' · Seat-by-seat editing unlocks in Step 4 (Fine-Tune & Export)!');
+      shRenderAll();
+      return;
+    }
+    if (window.__SH_SANDBOX_MOM && tIdx >= 3 && !dstTbl.isUserAdded) { shToast('🔒 Family Share Mode: Only Tables 1-3 are editable.'); return; }
 
     const src = window.__SH_SWAP_SOURCE;
     const srcTbl = src && window.__SH_STATE.tables[src.tableIdx];
@@ -766,9 +783,9 @@ function renderInteractiveScript(initialPlan) {
   };
 
   function shToast(msg) {
-    const el = document.getElementById('sh-live-toast'); if (!el) return;
-    el.textContent = msg; el.style.opacity = '1';
-    clearTimeout(window.__shToastTimer); window.__shToastTimer = setTimeout(function() { el.style.opacity = '0.94'; }, 5000);
+    const el = document.getElementById('sh-live-toast'); if (el) { el.textContent = msg; el.style.opacity = '1'; }
+    const stepHint = document.getElementById('sh-canvas-step-hint'); if (stepHint && (window.__SH_WIZARD_STEP || 1) < 4) stepHint.textContent = msg;
+    clearTimeout(window.__shToastTimer); window.__shToastTimer = setTimeout(function() { if (el) el.style.opacity = '0.94'; }, 5000);
   }
 
   function shRenderRulesList() {
@@ -786,31 +803,32 @@ function renderInteractiveScript(initialPlan) {
     const svgEl = document.getElementById('sh-floorplan-svg');
     if (!svgEl || !window.__SH_STATE || !window.__SH_STATE.tables) return;
     const plan = window.__SH_STATE, selTbl = plan.tables[window.__SH_SELECTED_TABLE_IDX || 0] || plan.tables[0];
-    const zMode = window.__SH_CANVAS_ZOOM || 'room';
+    const roomH = Math.max(680, Number(plan.roomHeight) || 680);
+    const zMode = window.__SH_CANVAS_ZOOM || 'room', isFineTune = (window.__SH_WIZARD_STEP || 1) >= 4;
     if (window.__SH_DRAG_VIEWBOX) {
       svgEl.setAttribute('viewBox', window.__SH_DRAG_VIEWBOX);
-    } else if (zMode === 'table' && selTbl) {
-      const vx = Math.max(0, Math.min(730, Math.round((selTbl.x || 250) - 195))), vy = Math.max(0, Math.min(430, Math.round((selTbl.y || 200) - 125)));
+    } else if (isFineTune && zMode === 'table' && selTbl) {
+      const vx = Math.max(0, Math.min(730, Math.round((selTbl.x || 250) - 195))), vy = Math.max(0, Math.min(roomH - 250, Math.round((selTbl.y || 200) - 125)));
       svgEl.setAttribute('viewBox', vx + ' ' + vy + ' 390 250');
-    } else if (zMode === 'zoom15' && selTbl) {
-      const vx = Math.max(0, Math.min(400, Math.round((selTbl.x || 250) - 360))), vy = Math.max(0, Math.min(240, Math.round((selTbl.y || 200) - 220)));
+    } else if (isFineTune && zMode === 'zoom15' && selTbl) {
+      const vx = Math.max(0, Math.min(400, Math.round((selTbl.x || 250) - 360))), vy = Math.max(0, Math.min(roomH - 440, Math.round((selTbl.y || 200) - 220)));
       svgEl.setAttribute('viewBox', vx + ' ' + vy + ' 720 440');
     } else {
-      svgEl.setAttribute('viewBox', '0 0 1120 680');
+      svgEl.setAttribute('viewBox', '0 0 1120 ' + roomH);
     }
     shRenderActiveCrudBanner(plan);
     const parts = [
       '<defs><pattern id="sh-grid" width="40" height="40" patternUnits="userSpaceOnUse"><path d="M 40 0 L 0 0 0 40" fill="none" stroke="#EAE2D3" stroke-width="0.8"/></pattern></defs>',
-      '<rect width="1120" height="680" rx="12" fill="#FAF7F2" stroke="#D6CBB8" stroke-width="1.5"/>',
-      '<rect width="1120" height="680" rx="12" fill="url(#sh-grid)"/>'
+      '<rect width="1120" height="' + roomH + '" rx="12" fill="#FAF7F2" stroke="#D6CBB8" stroke-width="1.5"/>',
+      '<rect width="1120" height="' + roomH + '" rx="12" fill="url(#sh-grid)"/>'
     ];
     (plan.landmarks || []).forEach(function(lm, lmIdx) {
-      const isLoud = lm.zone === 'loud', isQuiet = lm.zone === 'quiet', isSelLm = window.__SH_SELECTED_LANDMARK_IDX === lmIdx;
+      const isLoud = lm.zone === 'loud', isQuiet = lm.zone === 'quiet', isSelLm = isFineTune && window.__SH_SELECTED_LANDMARK_IDX === lmIdx;
       const fill = isLoud ? '#FFF1F2' : (isQuiet ? '#ECFDF5' : '#F3EDE3'), stroke = isSelLm ? '#8C2D19' : (isLoud ? '#FECDD3' : (isQuiet ? '#A7F3D0' : '#D6CBB8')), textCol = isLoud ? '#9F1239' : (isQuiet ? '#065F46' : '#57534E');
-      parts.push('<g style="cursor:grab;" transform="translate(' + lm.x + ',' + lm.y + ')" onmousedown="window.shStartLandmarkDrag(' + lmIdx + ',event)" ontouchstart="window.shStartLandmarkDrag(' + lmIdx + ',event)" onclick="window.shSelectLandmark(' + lmIdx + ',event)"><title>Drag ' + shEsc(lm.label) + ' or click to rename/resize/remove</title><rect x="' + (-lm.w / 2) + '" y="' + (-lm.h / 2) + '" width="' + lm.w + '" height="' + lm.h + '" rx="8" fill="' + fill + '" stroke="' + stroke + '" stroke-width="' + (isSelLm ? '2.5' : '1.5') + '" stroke-dasharray="4 3"/><text x="0" y="4" text-anchor="middle" fill="' + textCol + '" font-size="11" font-weight="800" letter-spacing="0.06em">' + shEsc(lm.label) + '</text></g>');
+      parts.push('<g style="cursor:grab;" transform="translate(' + lm.x + ',' + lm.y + ')" onmousedown="window.shStartLandmarkDrag(' + lmIdx + ',event)" ontouchstart="window.shStartLandmarkDrag(' + lmIdx + ',event)" onclick="if((window.__SH_WIZARD_STEP||1)>=4)window.shSelectLandmark(' + lmIdx + ',event)"><title>Drag ' + shEsc(lm.label) + '</title><rect x="' + (-lm.w / 2) + '" y="' + (-lm.h / 2) + '" width="' + lm.w + '" height="' + lm.h + '" rx="8" fill="' + fill + '" stroke="' + stroke + '" stroke-width="' + (isSelLm ? '2.5' : '1.5') + '" stroke-dasharray="4 3"/><text x="0" y="4" text-anchor="middle" fill="' + textCol + '" font-size="11" font-weight="800" letter-spacing="0.06em">' + shEsc(lm.label) + '</text></g>');
     });
     const t2 = plan.tables[1], t5 = plan.tables[4];
-    if (t2 && t5) {
+    if (t2 && t5 && (t2.guests.length > 0 || t5.guests.length > 0)) {
       const mx = Math.round((t2.x + t5.x) / 2), my = Math.round((t2.y + t5.y) / 2) - 22;
       parts.push('<line x1="' + t2.x + '" y1="' + t2.y + '" x2="' + t5.x + '" y2="' + t5.y + '" stroke="#065F46" stroke-width="1.5" stroke-dasharray="5 5" opacity="0.65"/><rect x="' + (mx - 98) + '" y="' + (my - 12) + '" width="196" height="24" rx="12" fill="#ECFDF5" stroke="#065F46" stroke-width="1"/><text x="' + mx + '" y="' + (my + 4) + '" text-anchor="middle" fill="#065F46" font-size="10.2" font-weight="800">✓ Opposite Sides of Dance Floor</text>');
     }
@@ -819,10 +837,10 @@ function renderInteractiveScript(initialPlan) {
       const geom = t.geometry, isSelected = tIdx === window.__SH_SELECTED_TABLE_IDX, isMomLocked = window.__SH_SANDBOX_MOM && tIdx >= 3;
       const strokeCol = isSelected ? '#8C2D19' : (t.locked ? '#A16207' : '#A89F91'), strokeW = isSelected ? 2.8 : 1.6, tblFill = isMomLocked ? '#EFECE6' : '#FFFFFF';
       parts.push('<g><g style="cursor:grab;" onmousedown="window.shStartTableDrag(' + tIdx + ',event)" ontouchstart="window.shStartTableDrag(' + tIdx + ',event)" onclick="if(window.__SH_SWAP_SOURCE && window.__SH_SWAP_SOURCE.tableIdx!==' + tIdx + '){window.shMoveGuestToTable(window.__SH_SWAP_SOURCE.tableIdx,window.__SH_SWAP_SOURCE.seatIdx,' + tIdx + ');window.__SH_SWAP_SOURCE=null;}else{window.shSelectTable(' + tIdx + ');}">');
-      parts.push('<title>Drag ' + shEsc(t.name) + ' anywhere in the room, or click to inspect seats</title>');
+      parts.push('<title>Drag ' + shEsc(t.name) + ' anywhere in the room</title>');
       if (shNormalizeShape(t.shape) === 'round') {
         const r = Math.round(geom.tableWidth / 2);
-        if (isSelected) parts.push('<circle cx="' + t.x + '" cy="' + t.y + '" r="' + (r + 50) + '" fill="none" stroke="#8C2D19" stroke-width="1.4" stroke-dasharray="4 3" opacity="0.65"/>');
+        if (isSelected && isFineTune) parts.push('<circle cx="' + t.x + '" cy="' + t.y + '" r="' + (r + 50) + '" fill="none" stroke="#8C2D19" stroke-width="1.4" stroke-dasharray="4 3" opacity="0.65"/>');
         parts.push('<circle cx="' + t.x + '" cy="' + t.y + '" r="' + r + '" fill="' + tblFill + '" stroke="' + strokeCol + '" stroke-width="' + strokeW + '"/>');
       } else {
         const hw = Math.round(geom.tableWidth / 2), hh = Math.round(geom.tableHeight / 2);
@@ -830,7 +848,12 @@ function renderInteractiveScript(initialPlan) {
       }
       parts.push('<text x="' + t.x + '" y="' + (t.y - 4) + '" text-anchor="middle" fill="#1C1917" font-size="12.5" font-weight="800">' + (t.locked ? '🔒 ' : '') + 'Table ' + t.number + '</text><text x="' + t.x + '" y="' + (t.y + 11) + '" text-anchor="middle" fill="#78716C" font-size="9.8" font-weight="700">' + t.guests.length + '/' + t.capacity + ' Seats</text></g>');
       geom.seats.forEach(function(s, sIdx) {
-        const g = t.guests[sIdx], isSwapSrc = window.__SH_SWAP_SOURCE && window.__SH_SWAP_SOURCE.tableIdx === tIdx && window.__SH_SWAP_SOURCE.seatIdx === sIdx;
+        const g = t.guests[sIdx];
+        if (!g && !isFineTune) {
+          parts.push('<circle cx="' + s.x + '" cy="' + s.y + '" r="10" fill="#F5EFE6" stroke="#D6CBB8" stroke-width="1.3"><title>Open Chair #' + s.seatNumber + ' (' + shEsc(t.name) + ') · Add guests in Step 2 or fine-tune seats in Step 4</title></circle>');
+          return;
+        }
+        const isSwapSrc = isFineTune && window.__SH_SWAP_SOURCE && window.__SH_SWAP_SOURCE.tableIdx === tIdx && window.__SH_SWAP_SOURCE.seatIdx === sIdx;
         let seatFill = isSwapSrc ? '#FEF3C7' : '#FFFFFF', seatStroke = isSwapSrc ? '#D97706' : '#A89F91', txtFill = '#1C1917', topTxt = '#' + s.seatNumber;
         if (g) {
           if (window.__SH_RING_MODE === 'meal') {
@@ -842,9 +865,9 @@ function renderInteractiveScript(initialPlan) {
             txtFill = isSwapSrc ? '#FFFFFF' : '#1C1917';
           }
         }
-        const firstName = g ? String(g.name || '').replace(/^(Dr|Mr|Mrs|Ms|Prof|Aunt|Uncle|Cousin)\\.?\\s+/i, '').split(/\\s+/)[0].slice(0, 7) : '+Open';
+        const firstName = g ? String(g.name || '').replace(/^(Dr|Mr|Mrs|Ms|Prof|Aunt|Uncle|Cousin)\\.?\\s+/i, '').split(/\\s+/)[0].slice(0, 7) : 'Open';
         parts.push('<g data-seat-target="' + tIdx + ':' + sIdx + '" style="cursor:pointer;" onmousedown="window.shStartSeatDrag(' + tIdx + ',' + sIdx + ',event)" ontouchstart="window.shStartSeatDrag(' + tIdx + ',' + sIdx + ',event)">');
-        parts.push('<title>Seat #' + s.seatNumber + ' (' + shEsc(s.clockPosition) + '): ' + (g ? (shEsc(g.name) + ' · ' + shEsc(g.meal) + ' · Drag or click to move/edit/remove') : 'Open Chair · Click to seat a guest or remove chair') + '</title>');
+        parts.push('<title>Seat #' + s.seatNumber + ' (' + shEsc(s.clockPosition) + '): ' + (g ? (shEsc(g.name) + ' · ' + shEsc(g.meal)) : 'Open Chair · Click in Step 4 to seat a guest') + '</title>');
         parts.push('<circle cx="' + s.x + '" cy="' + s.y + '" r="19" fill="' + seatFill + '" stroke="' + seatStroke + '" stroke-width="' + (isSwapSrc ? '3' : '1.8') + '"' + (g ? '' : ' stroke-dasharray="3 2"') + '/>');
         parts.push('<text x="' + s.x + '" y="' + (s.y - 3) + '" text-anchor="middle" fill="' + txtFill + '" font-size="8.5" font-weight="800">' + shEsc(topTxt) + '</text>');
         parts.push('<text x="' + s.x + '" y="' + (s.y + 7.2) + '" text-anchor="middle" fill="' + (g ? txtFill : '#78716C') + '" font-size="7.6" font-weight="700">' + shEsc(firstName) + '</text>');
@@ -900,6 +923,8 @@ function renderInteractiveScript(initialPlan) {
 
   function shSyncTableSelectAndPills() {
     if (!window.__SH_STATE || !window.__SH_STATE.tables) return;
+    const cntLbl = document.getElementById('sh-step1-table-count-label');
+    if (cntLbl) cntLbl.textContent = window.__SH_STATE.tables.length + ' Tables Ready';
     const sel = document.getElementById('sh-target-table-select');
     if (sel) {
       const curVal = sel.value;
@@ -915,20 +940,7 @@ function renderInteractiveScript(initialPlan) {
   }
 
   window.shAddNewTable = function() {
-    if (!window.__SH_STATE || !window.__SH_STATE.tables) return;
-    const num = window.__SH_STATE.tables.length + 1;
-    const candidates = [{ x: 560, y: 395 }, { x: 365, y: 215 }, { x: 745, y: 215 }, { x: 365, y: 555 }, { x: 755, y: 555 }, { x: 205, y: 365 }, { x: 910, y: 365 }, { x: 350, y: 110 }, { x: 760, y: 110 }, { x: 560, y: 485 }, { x: 280, y: 300 }, { x: 830, y: 300 }];
-    let bestPt = { x: 560, y: 395 }, bestClearance = -1;
-    candidates.forEach(function(pt) {
-      let minDist = 9999;
-      (window.__SH_STATE.tables || []).forEach(function(t) { const d = Math.hypot((t.x || 0) - pt.x, (t.y || 0) - pt.y); if (d < minDist) minDist = d; });
-      (window.__SH_STATE.landmarks || []).forEach(function(lm) { const d = Math.hypot((lm.x || 0) - pt.x, (lm.y || 0) - pt.y); if (d < minDist) minDist = d; });
-      if (minDist > bestClearance) { bestClearance = minDist; bestPt = pt; }
-    });
-    const newTbl = { id: 'table-' + num, number: num, name: 'Table ' + num + ' (Added Guests)', shape: 'round', capacity: 8, x: bestPt.x, y: bestPt.y, rotation: 0, locked: false, isUserAdded: true, guests: [] };
-    shRecomputeGeometry(newTbl); window.__SH_STATE.tables.push(newTbl); window.__SH_SELECTED_TABLE_IDX = window.__SH_STATE.tables.length - 1;
-    if (window.__SH_CANVAS_ZOOM === 'table') window.shSetCanvasZoom('room');
-    shSyncTableSelectAndPills(); shToast('✓ Added ' + newTbl.name + ' at (' + bestPt.x + ', ' + bestPt.y + ') · Add guests or adjust chairs below!'); shRenderAll();
+    if (typeof window.shFindAndAddNonOverlappingTable === 'function') window.shFindAndAddNonOverlappingTable();
   };
   window.shDeleteSelectedTable = function() {
     if (!window.__SH_STATE || !window.__SH_STATE.tables || window.__SH_STATE.tables.length <= 1) return;
@@ -943,6 +955,7 @@ function renderInteractiveScript(initialPlan) {
 
   function shRenderAll() {
     if (!window.__SH_STATE) return;
+    if (typeof window.shSyncWizardStepStage === 'function') window.shSyncWizardStepStage();
     const csovEl = document.getElementById('score-csov'); if (csovEl) csovEl.textContent = String(window.__SH_STATE.harmonyScore || 98);
     if (window.__SH_STATE.tables) {
       let totalSeated = 0, totalTables = window.__SH_STATE.tables.length, allergyAndChairCount = 0;
