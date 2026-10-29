@@ -231,12 +231,8 @@ function renderHead({
     .studio-showcase-annotation-grid { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 18px; margin-bottom: 20px; }
     .studio-showcase-annotation-card { background: #FAF6EE; border: 1.5px solid #E2D9C8; border-radius: 14px; padding: 14px 16px; display: flex; gap: 11px; align-items: center; }
     .studio-showcase-num-badge { width: 28px; height: 28px; border-radius: 50%; background: #181412; color: #FDE68A; border: 1.5px solid #C8A96E; font-size: 0.84rem; font-weight: 800; display: inline-flex; align-items: center; justify-content: center; flex-shrink: 0; box-shadow: 0 3px 8px rgba(24, 20, 18, 0.18); }
-    .studio-showcase-device-frame { position: relative; border-radius: 18px; overflow: hidden; border: 2px solid #C8A96E; background: #181412; box-shadow: 0 22px 48px rgba(24, 20, 18, 0.18); }
-    .studio-showcase-browser-bar { background: #181412; border-bottom: 1.5px solid rgba(200, 169, 110, 0.35); padding: 12px 18px; display: flex; align-items: center; justify-content: space-between; gap: 12px; flex-wrap: wrap; }
-    .studio-showcase-dots { display: flex; gap: 6px; align-items: center; }
-    .studio-showcase-dots span { width: 10px; height: 10px; border-radius: 50%; display: inline-block; }
-    .studio-showcase-url-pill { background: rgba(255, 255, 255, 0.08); border: 1px solid rgba(200, 169, 110, 0.35); border-radius: 8px; padding: 6px 14px; font-family: var(--font-mono); font-size: 0.85rem; color: #FDE68A; font-weight: 700; display: inline-flex; align-items: center; gap: 6px; white-space: nowrap; }
-    .studio-showcase-img-wrap { position: relative; background: #181412; line-height: 0; max-height: 620px; overflow: hidden; }
+    .studio-showcase-device-frame { position: relative; border-radius: 18px; overflow: hidden; border: 2px solid #D8C29D; background: #FAF6EE; box-shadow: 0 18px 42px rgba(24, 20, 18, 0.08); }
+    .studio-showcase-img-wrap { position: relative; background: #FAF6EE; line-height: 0; max-height: 640px; overflow: hidden; }
     .studio-showcase-img-wrap img { width: 100%; height: auto; display: block; object-fit: cover; object-position: top center; }
     .studio-showcase-pin { position: absolute; z-index: 4; display: inline-flex; align-items: center; justify-content: center; width: 30px; height: 30px; background: rgba(24, 20, 18, 0.92); color: #FAF8F5; padding: 0; border-radius: 50%; font-size: 0.82rem; font-weight: 900; box-shadow: 0 6px 16px rgba(0, 0, 0, 0.38); border: 2px solid #FDE68A; pointer-events: none; }
     .studio-showcase-pin-num { width: 22px; height: 22px; border-radius: 50%; background: linear-gradient(135deg, #FDE68A 0%, #C8A96E 100%); color: #181412; font-size: 0.82rem; font-weight: 900; display: inline-flex; align-items: center; justify-content: center; flex-shrink: 0; }

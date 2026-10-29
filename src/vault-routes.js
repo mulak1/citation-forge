@@ -169,29 +169,29 @@ function buildInlineQrDataUri(seedStr) {
 function renderTopPrintBar({ vault, activeRoute, baseUrl }) {
   const urls = buildVaultUrls(baseUrl, vault.vaultId);
   const unlockBadge = vault.isUnlocked
-    ? `<span style="background:#065F46;color:#D1FAE5;border:1px solid #34D399;padding:3px 9px;border-radius:999px;font-size:0.68rem;font-weight:800;white-space:nowrap;">&#10003; UNLOCKED</span>`
+    ? `<span style="background:#ECFDF5;color:#065F46;border:1px solid #A7F3D0;padding:3px 9px;border-radius:999px;font-size:0.68rem;font-weight:800;white-space:nowrap;">&#10003; UNLOCKED</span>`
     : `<a href="/buy/complete_dossier?target=${encodeURIComponent(vault.vaultId)}&vault=${encodeURIComponent(vault.vaultId)}" style="background:linear-gradient(135deg,#FDE68A,#C8A96E);color:#181412;padding:4px 10px;border-radius:999px;font-size:0.70rem;font-weight:800;text-decoration:none;white-space:nowrap;">&#128274; Unlock Print Pack ($14.99) &rarr;</a>`;
 
   return `
-  <header class="no-print" style="position:sticky;top:0;z-index:100;background:#181412;color:#FAF8F5;border-bottom:2px solid #C8A96E;padding:9px 18px;">
+  <header class="no-print" style="position:sticky;top:0;z-index:100;background:#FAF6EE;color:#181412;border-bottom:1.5px solid #D8C29D;padding:9px 18px;box-shadow:0 4px 14px rgba(24,20,18,0.04);">
     <div style="max-width:1280px;margin:0 auto;display:flex;align-items:center;justify-content:space-between;gap:10px;flex-wrap:wrap;">
       <div style="display:flex;align-items:center;gap:8px;flex-wrap:nowrap;">
-        <a href="${urls.studio}" style="display:inline-flex;align-items:center;gap:7px;color:#FAF8F5;text-decoration:none;font-weight:800;font-size:0.90rem;white-space:nowrap;">
+        <a href="${urls.studio}" style="display:inline-flex;align-items:center;gap:7px;color:#181412;text-decoration:none;font-weight:800;font-size:0.92rem;white-space:nowrap;">
           ${renderBrandLogoSvg(22)}
           <span>SeatHarmony</span>
         </a>
-        <span style="color:#C8A96E;font-family:monospace;font-size:0.72rem;font-weight:800;background:rgba(200,169,110,0.14);padding:3px 8px;border-radius:6px;border:1px solid rgba(200,169,110,0.4);white-space:nowrap;">
+        <span style="color:#78350F;font-family:monospace;font-size:0.72rem;font-weight:800;background:#FAF3E3;padding:3px 8px;border-radius:6px;border:1px solid #C8A96E;white-space:nowrap;">
           #${escapeHtml(vault.vaultId)}
         </span>
         ${unlockBadge}
       </div>
       <nav style="display:flex;align-items:center;gap:5px;flex-wrap:wrap;">
-        <a href="${urls.vault_dashboard}" style="padding:5px 10px;border-radius:8px;font-size:0.73rem;font-weight:800;text-decoration:none;white-space:nowrap;${activeRoute === 'dashboard' ? 'background:#C8A96E;color:#181412;' : 'background:rgba(255,255,255,0.08);color:#E6E0D6;'}">&#127968; Command Center</a>
-        <a href="${urls.print_poster}" style="padding:5px 10px;border-radius:8px;font-size:0.73rem;font-weight:800;text-decoration:none;white-space:nowrap;${activeRoute === 'poster' ? 'background:#C8A96E;color:#181412;' : 'background:rgba(255,255,255,0.08);color:#E6E0D6;'}">&#129703; 24&Prime;&times;36&Prime; Sign</a>
-        <a href="${urls.print_avery}" style="padding:5px 10px;border-radius:8px;font-size:0.73rem;font-weight:800;text-decoration:none;white-space:nowrap;${activeRoute === 'avery' ? 'background:#C8A96E;color:#181412;' : 'background:rgba(255,255,255,0.08);color:#E6E0D6;'}">&#127991; Avery 5302</a>
-        <a href="${urls.print_beo}" style="padding:5px 10px;border-radius:8px;font-size:0.73rem;font-weight:800;text-decoration:none;white-space:nowrap;${activeRoute === 'beo' ? 'background:#C8A96E;color:#181412;' : 'background:rgba(255,255,255,0.08);color:#E6E0D6;'}">&#127869; Caterer BEO</a>
-        <a href="${urls.qr_lookup}" style="padding:5px 10px;border-radius:8px;font-size:0.73rem;font-weight:800;text-decoration:none;white-space:nowrap;${activeRoute === 'qr' ? 'background:#C8A96E;color:#181412;' : 'background:rgba(255,255,255,0.08);color:#E6E0D6;'}">&#128241; Guest QR</a>
-        <a href="${urls.studio}" style="padding:5px 10px;border-radius:8px;font-size:0.73rem;font-weight:800;text-decoration:none;background:transparent;border:1px solid #C8A96E;color:#FDE68A;white-space:nowrap;">&larr; Studio</a>
+        <a href="${urls.vault_dashboard}" style="padding:5px 10px;border-radius:8px;font-size:0.73rem;font-weight:800;text-decoration:none;white-space:nowrap;${activeRoute === 'dashboard' ? 'background:#FAF3E3;color:#8C2D19;border:1.5px solid #8C2D19;' : 'background:#FFFFFF;color:#44403C;border:1px solid #E2D9C8;'}">&#127968; Command Center</a>
+        <a href="${urls.print_poster}" style="padding:5px 10px;border-radius:8px;font-size:0.73rem;font-weight:800;text-decoration:none;white-space:nowrap;${activeRoute === 'poster' ? 'background:#FAF3E3;color:#8C2D19;border:1.5px solid #8C2D19;' : 'background:#FFFFFF;color:#44403C;border:1px solid #E2D9C8;'}">&#129703; 24&Prime;&times;36&Prime; Sign</a>
+        <a href="${urls.print_avery}" style="padding:5px 10px;border-radius:8px;font-size:0.73rem;font-weight:800;text-decoration:none;white-space:nowrap;${activeRoute === 'avery' ? 'background:#FAF3E3;color:#8C2D19;border:1.5px solid #8C2D19;' : 'background:#FFFFFF;color:#44403C;border:1px solid #E2D9C8;'}">&#127991; Avery 5302</a>
+        <a href="${urls.print_beo}" style="padding:5px 10px;border-radius:8px;font-size:0.73rem;font-weight:800;text-decoration:none;white-space:nowrap;${activeRoute === 'beo' ? 'background:#FAF3E3;color:#8C2D19;border:1.5px solid #8C2D19;' : 'background:#FFFFFF;color:#44403C;border:1px solid #E2D9C8;'}">&#127869; Caterer BEO</a>
+        <a href="${urls.qr_lookup}" style="padding:5px 10px;border-radius:8px;font-size:0.73rem;font-weight:800;text-decoration:none;white-space:nowrap;${activeRoute === 'qr' ? 'background:#FAF3E3;color:#8C2D19;border:1.5px solid #8C2D19;' : 'background:#FFFFFF;color:#44403C;border:1px solid #E2D9C8;'}">&#128241; Guest QR</a>
+        <a href="${urls.studio}" style="padding:5px 10px;border-radius:8px;font-size:0.73rem;font-weight:800;text-decoration:none;background:#FFFFFF;border:1.5px solid #C8A96E;color:#78350F;white-space:nowrap;">&larr; Studio</a>
       </nav>
     </div>
   </header>`;
@@ -372,9 +372,9 @@ function attachVaultAndPaywallRoutes(app, publicUrl) {
     <div class="card" style="border:2px solid #C8A96E;background:linear-gradient(180deg,#FFFFFF 0%,#FAF6EE 100%);margin-bottom:16px;">
       <div style="display:flex;align-items:center;justify-content:space-between;gap:16px;flex-wrap:wrap;">
         <div style="display:flex;align-items:center;gap:14px;">
-          <div style="width:62px;height:62px;border-radius:16px;background:#181412;border:2px solid #C8A96E;color:#FDE68A;display:flex;flex-direction:column;align-items:center;justify-content:center;flex-shrink:0;">
+          <div style="width:62px;height:62px;border-radius:16px;background:#FAF3E3;border:2px solid #C8A96E;color:#8C2D19;display:flex;flex-direction:column;align-items:center;justify-content:center;flex-shrink:0;">
             <span class="serif" style="font-size:1.35rem;line-height:1;">${escapeHtml(monogram)}</span>
-            <span class="mono" style="font-size:0.50rem;color:#C8A96E;margin-top:3px;">${escapeHtml(vault.vaultId)}</span>
+            <span class="mono" style="font-size:0.50rem;color:#78350F;margin-top:3px;">${escapeHtml(vault.vaultId)}</span>
           </div>
           <div>
             <div style="display:flex;gap:6px;flex-wrap:wrap;align-items:center;margin-bottom:4px;">
@@ -565,7 +565,7 @@ function attachVaultAndPaywallRoutes(app, publicUrl) {
       }
 
       const themePillsHtml = Object.keys(POSTER_THEMES).map(k =>
-        `<a href="${urls.print_poster}?sort=${encodeURIComponent(sortMode)}&theme=${k}" style="padding:5px 10px;border-radius:999px;font-size:0.72rem;font-weight:800;text-decoration:none;white-space:nowrap;${theme === k ? 'background:#FDE68A;color:#181412;' : 'background:rgba(255,255,255,0.10);color:#D6CFC2;'}" title="${escapeHtml(POSTER_THEMES[k].label)}">${escapeHtml(POSTER_THEMES[k].short)}</a>`
+        `<a href="${urls.print_poster}?sort=${encodeURIComponent(sortMode)}&theme=${k}" style="padding:5px 10px;border-radius:999px;font-size:0.72rem;font-weight:800;text-decoration:none;white-space:nowrap;${theme === k ? 'background:#FAF3E3;color:#8C2D19;border:1.5px solid #8C2D19;' : 'background:#FAF6EE;color:#44403C;border:1px solid #E2D9C8;'}" title="${escapeHtml(POSTER_THEMES[k].label)}">${escapeHtml(POSTER_THEMES[k].short)}</a>`
       ).join('');
 
       const html = `<!DOCTYPE html>
@@ -576,10 +576,10 @@ function attachVaultAndPaywallRoutes(app, publicUrl) {
   <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,600;0,700;1,600&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=JetBrains+Mono:wght@500;600;700&display=swap" rel="stylesheet" />
   <style>
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-    body { background: #26221E; color: #181412; font-family: 'Plus Jakarta Sans', sans-serif; }
+    body { background: #F4EFE6; color: #181412; font-family: 'Plus Jakarta Sans', sans-serif; }
     .serif { font-family: 'Cormorant Garamond', Georgia, serif; font-weight: 700; }
     .mono { font-family: 'JetBrains Mono', monospace; }
-    .poster-sheet { max-width: 960px; min-height: 1380px; margin: 20px auto 48px; background: ${bg}; color: ${fg}; border: 3px double ${border}; padding: 48px 44px; position: relative; box-shadow: 0 28px 70px rgba(0,0,0,0.45); display: flex; flex-direction: column; justify-content: space-between; }
+    .poster-sheet { max-width: 960px; min-height: 1380px; margin: 20px auto 48px; background: ${bg}; color: ${fg}; border: 3px double ${border}; padding: 48px 44px; position: relative; box-shadow: 0 22px 54px rgba(24,20,18,0.10); display: flex; flex-direction: column; justify-content: space-between; }
     .crop-mark { position: absolute; width: 18px; height: 18px; border-color: ${border}; pointer-events: none; }
     .crop-tl { top: 10px; left: 10px; border-top: 2px solid ${border}; border-left: 2px solid ${border}; }
     .crop-tr { top: 10px; right: 10px; border-top: 2px solid ${border}; border-right: 2px solid ${border}; }
@@ -595,28 +595,28 @@ function attachVaultAndPaywallRoutes(app, publicUrl) {
 </head>
 <body>
   ${renderTopPrintBar({ vault, activeRoute: 'poster', baseUrl })}
-  <div class="no-print" style="max-width:960px;margin:16px auto 0;padding:12px 16px;background:rgba(255,255,255,0.06);border:1px solid rgba(200,169,110,0.35);border-radius:14px;display:flex;flex-direction:column;gap:10px;color:#FAF8F5;">
+  <div class="no-print" style="max-width:960px;margin:16px auto 0;padding:12px 16px;background:#FFFFFF;border:1.5px solid #D8C29D;border-radius:14px;display:flex;flex-direction:column;gap:10px;color:#181412;box-shadow:0 8px 24px rgba(24,20,18,0.05);">
     <div style="display:flex;justify-content:space-between;align-items:center;gap:8px;flex-wrap:wrap;">
       <div style="display:flex;gap:5px;flex-wrap:wrap;align-items:center;">
-        <span class="mono" style="font-size:0.68rem;color:#FDE68A;font-weight:800;white-space:nowrap;">SORT:</span>
-        <a href="${urls.print_poster}?sort=alphabetical&theme=${encodeURIComponent(theme)}" style="padding:5px 10px;border-radius:999px;font-size:0.72rem;font-weight:800;text-decoration:none;white-space:nowrap;${sortMode !== 'by_table' ? 'background:#FDE68A;color:#181412;' : 'background:rgba(255,255,255,0.12);color:#FAF8F5;'}">Sort A-Z</a>
-        <a href="${urls.print_poster}?sort=by_table&theme=${encodeURIComponent(theme)}" style="padding:5px 10px;border-radius:999px;font-size:0.72rem;font-weight:800;text-decoration:none;white-space:nowrap;${sortMode === 'by_table' ? 'background:#FDE68A;color:#181412;' : 'background:rgba(255,255,255,0.12);color:#FAF8F5;'}">By Table (1..${tables.length})</a>
-        <span class="mono" style="font-size:0.68rem;color:#FDE68A;font-weight:800;margin-left:4px;white-space:nowrap;">THEMES:</span>
+        <span class="mono" style="font-size:0.68rem;color:#8C2D19;font-weight:800;white-space:nowrap;">SORT:</span>
+        <a href="${urls.print_poster}?sort=alphabetical&theme=${encodeURIComponent(theme)}" style="padding:5px 10px;border-radius:999px;font-size:0.72rem;font-weight:800;text-decoration:none;white-space:nowrap;${sortMode !== 'by_table' ? 'background:#FAF3E3;color:#8C2D19;border:1.5px solid #8C2D19;' : 'background:#FAF6EE;color:#44403C;border:1px solid #E2D9C8;'}">Sort A-Z</a>
+        <a href="${urls.print_poster}?sort=by_table&theme=${encodeURIComponent(theme)}" style="padding:5px 10px;border-radius:999px;font-size:0.72rem;font-weight:800;text-decoration:none;white-space:nowrap;${sortMode === 'by_table' ? 'background:#FAF3E3;color:#8C2D19;border:1.5px solid #8C2D19;' : 'background:#FAF6EE;color:#44403C;border:1px solid #E2D9C8;'}">By Table (1..${tables.length})</a>
+        <span class="mono" style="font-size:0.68rem;color:#8C2D19;font-weight:800;margin-left:4px;white-space:nowrap;">THEMES:</span>
         ${themePillsHtml}
       </div>
-      <button type="button" onclick="window.print()" style="background:linear-gradient(135deg,#FDE68A,#C8A96E);color:#181412;border:none;border-radius:10px;padding:8px 14px;font-weight:800;font-size:0.78rem;cursor:pointer;white-space:nowrap;">
+      <button type="button" onclick="window.print()" style="background:linear-gradient(135deg,#FDE68A,#C8A96E);color:#181412;border:1.5px solid #B89352;border-radius:10px;padding:8px 14px;font-weight:800;font-size:0.78rem;cursor:pointer;white-space:nowrap;">
         &#128424; Print 24&Prime;&times;36&Prime; PDF
       </button>
     </div>
-    <div style="display:flex;gap:10px;flex-wrap:wrap;align-items:center;font-size:0.75rem;">
-      <label style="display:flex;align-items:center;gap:6px;white-space:nowrap;">Headline:
-        <input type="text" value="${escapeHtml(customKicker)}" oninput="document.getElementById('poster-live-h1').textContent=this.value||'Please Find Your Seat'" style="padding:4px 8px;border-radius:6px;border:1px solid #C8A96E;background:#181412;color:#FAF8F5;font-weight:700;width:190px;" />
+    <div style="display:flex;gap:10px;flex-wrap:wrap;align-items:center;font-size:0.75rem;color:#44403C;">
+      <label style="display:flex;align-items:center;gap:6px;white-space:nowrap;font-weight:700;">Headline:
+        <input type="text" value="${escapeHtml(customKicker)}" oninput="document.getElementById('poster-live-h1').textContent=this.value||'Please Find Your Seat'" style="padding:4px 8px;border-radius:6px;border:1px solid #C8A96E;background:#FAF6EE;color:#181412;font-weight:700;width:190px;" />
       </label>
-      <label style="display:flex;align-items:center;gap:6px;white-space:nowrap;">Crest:
-        <input type="text" value="${escapeHtml(monogram)}" oninput="document.getElementById('poster-live-mono').textContent=this.value||'M&L'" style="padding:4px 8px;border-radius:6px;border:1px solid #C8A96E;background:#181412;color:#FDE68A;font-weight:700;width:80px;" />
+      <label style="display:flex;align-items:center;gap:6px;white-space:nowrap;font-weight:700;">Crest:
+        <input type="text" value="${escapeHtml(monogram)}" oninput="document.getElementById('poster-live-mono').textContent=this.value||'M&L'" style="padding:4px 8px;border-radius:6px;border:1px solid #C8A96E;background:#FAF6EE;color:#8C2D19;font-weight:800;width:80px;" />
       </label>
-      <label style="display:flex;align-items:center;gap:6px;white-space:nowrap;">Subtitle:
-        <input type="text" value="${escapeHtml(vault.title)} · ${escapeHtml(vault.venueName)}" oninput="document.getElementById('poster-live-sub').textContent=this.value" style="padding:4px 8px;border-radius:6px;border:1px solid #C8A96E;background:#181412;color:#FAF8F5;font-weight:600;width:270px;" />
+      <label style="display:flex;align-items:center;gap:6px;white-space:nowrap;font-weight:700;">Subtitle:
+        <input type="text" value="${escapeHtml(vault.title)} · ${escapeHtml(vault.venueName)}" oninput="document.getElementById('poster-live-sub').textContent=this.value" style="padding:4px 8px;border-radius:6px;border:1px solid #C8A96E;background:#FAF6EE;color:#181412;font-weight:600;width:270px;" />
       </label>
     </div>
   </div>
@@ -627,9 +627,9 @@ function attachVaultAndPaywallRoutes(app, publicUrl) {
     <div>
       <div style="display:flex;align-items:center;justify-content:space-between;gap:18px;border-bottom:2px solid ${border};padding-bottom:22px;margin-bottom:26px;">
         <div style="display:flex;align-items:center;gap:16px;">
-          <div style="width:74px;height:74px;border-radius:16px;background:#181412;border:2px solid ${border};color:#FDE68A;display:flex;flex-direction:column;align-items:center;justify-content:center;flex-shrink:0;">
+          <div style="width:74px;height:74px;border-radius:16px;background:${theme === 'obsidian' ? '#181412' : '#FAF3E3'};border:2px solid ${border};color:${theme === 'obsidian' ? '#FDE68A' : accent};display:flex;flex-direction:column;align-items:center;justify-content:center;flex-shrink:0;">
             <span id="poster-live-mono" class="serif" style="font-size:1.65rem;line-height:1;">${escapeHtml(monogram)}</span>
-            <span class="mono" style="font-size:0.52rem;color:#C8A96E;margin-top:3px;">EST. 2026</span>
+            <span class="mono" style="font-size:0.52rem;color:${theme === 'obsidian' ? '#C8A96E' : sub};margin-top:3px;">EST. 2026</span>
           </div>
           <div>
             <div class="mono" style="font-size:0.74rem;letter-spacing:0.16em;text-transform:uppercase;color:${accent};font-weight:800;">
@@ -818,17 +818,17 @@ function attachVaultAndPaywallRoutes(app, publicUrl) {
 <body>
   ${renderTopPrintBar({ vault, activeRoute: 'beo', baseUrl })}
   <main style="max-width:980px;margin:24px auto 64px;padding:0 18px;">
-    <div style="background:#181412;color:#FAF8F5;border:2px solid #C8A96E;border-radius:16px;padding:18px 22px;margin-bottom:16px;display:flex;justify-content:space-between;align-items:center;flex-wrap:nowrap;gap:14px;">
+    <div style="background:linear-gradient(180deg,#FFFFFF 0%,#FAF3E3 100%);color:#181412;border:2px solid #C8A96E;border-radius:16px;padding:18px 22px;margin-bottom:16px;display:flex;justify-content:space-between;align-items:center;flex-wrap:nowrap;gap:14px;box-shadow:0 8px 24px rgba(24,20,18,0.05);">
       <div style="min-width:0;">
-        <div class="mono" style="font-size:0.68rem;color:#FDE68A;font-weight:800;white-space:nowrap;">OFFICIAL BANQUET EVENT ORDER (BEO) &bull; VAULT #${escapeHtml(vault.vaultId)}</div>
-        <h1 class="serif" style="font-size:1.72rem;color:#FFFFFF;line-height:1.15;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;">${escapeHtml(vault.title)} &bull; 12:00 Server BEO</h1>
-        <div style="font-size:0.78rem;color:#D6CFC2;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;">${escapeHtml(vault.venueName)} &bull; ${tables.length} Tables &bull; ${guests.length} Guests &bull; ${allergies.length} Allergy Flags &bull; ${chairMods.length} Chair Mods</div>
+        <div class="mono" style="font-size:0.68rem;color:#8C2D19;font-weight:800;white-space:nowrap;">OFFICIAL BANQUET EVENT ORDER (BEO) &bull; VAULT #${escapeHtml(vault.vaultId)}</div>
+        <h1 class="serif" style="font-size:1.72rem;color:#181412;line-height:1.15;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;">${escapeHtml(vault.title)} &bull; 12:00 Server BEO</h1>
+        <div style="font-size:0.78rem;color:#57534E;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;">${escapeHtml(vault.venueName)} &bull; ${tables.length} Tables &bull; ${guests.length} Guests &bull; ${allergies.length} Allergy Flags &bull; ${chairMods.length} Chair Mods</div>
       </div>
       <div class="no-print" style="display:flex;gap:8px;flex-wrap:nowrap;flex-shrink:0;">
-        <button id="download-csv" type="button" onclick="window.downloadBeoCsv()" style="background:#FFFFFF;color:#181412;border:1.5px solid #C8A96E;border-radius:10px;padding:9px 14px;font-weight:800;font-size:0.78rem;cursor:pointer;white-space:nowrap;">
+        <button id="download-csv" type="button" onclick="window.downloadBeoCsv()" style="background:#FFFFFF;color:#78350F;border:1.5px solid #C8A96E;border-radius:10px;padding:9px 14px;font-weight:800;font-size:0.78rem;cursor:pointer;white-space:nowrap;">
           &#11015; Export .CSV
         </button>
-        <button type="button" onclick="window.print()" style="background:linear-gradient(135deg,#FDE68A,#C8A96E);color:#181412;border:none;border-radius:10px;padding:9px 16px;font-weight:800;font-size:0.80rem;cursor:pointer;white-space:nowrap;">
+        <button type="button" onclick="window.print()" style="background:linear-gradient(135deg,#FDE68A,#C8A96E);color:#181412;border:1.5px solid #B89352;border-radius:10px;padding:9px 16px;font-weight:800;font-size:0.80rem;cursor:pointer;white-space:nowrap;">
           &#128424; Print Signed BEO PDF
         </button>
       </div>
@@ -880,15 +880,15 @@ function attachVaultAndPaywallRoutes(app, publicUrl) {
   <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,600;0,700;1,600&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=JetBrains+Mono:wght@500;600;700&display=swap" rel="stylesheet" />
   <style>
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-    body { background: #181412; color: #FAF8F5; font-family: 'Plus Jakarta Sans', sans-serif; min-height: 100vh; }
+    body { background: #FAF6EE; color: #181412; font-family: 'Plus Jakarta Sans', sans-serif; min-height: 100vh; }
     .serif { font-family: 'Cormorant Garamond', Georgia, serif; font-weight: 700; }
     .mono { font-family: 'JetBrains Mono', monospace; }
-    .qr-page-wrap { max-width: 960px; margin: 24px auto 56px; padding: 0 16px; display: grid; grid-template-columns: 1.25fr 0.9fr; gap: 22px; align-items: start; }
-    .qr-shell { background: #FAF6EE; color: #181412; border: 2px solid #C8A96E; border-radius: 24px; padding: 24px 20px; box-shadow: 0 24px 60px rgba(0,0,0,0.45); }
-    .search-input { width: 100%; padding: 14px 16px; border-radius: 14px; border: 2px solid #C8A96E; font-size: 1rem; font-weight: 700; background: #FFFFFF; color: #181412; outline: none; margin: 14px 0 10px; }
-    .guest-card { background: #FFFFFF; border: 1.5px solid #E2D9C8; border-radius: 14px; padding: 13px 16px; margin-bottom: 10px; display: flex; justify-content: space-between; align-items: center; gap: 10px; }
-    .pill-btn { padding: 5px 11px; border-radius: 999px; border: 1px solid #C8A96E; background: #FFFFFF; color: #57534E; font-size: 0.75rem; font-weight: 800; cursor: pointer; white-space: nowrap; }
-    .pill-btn:hover { background: #181412; color: #FDE68A; }
+    .qr-page-wrap { max-width: 960px; margin: 24px auto 56px; padding: 0 16px; display: grid; grid-template-columns: minmax(0, 1.15fr) minmax(0, 0.95fr); gap: 20px; align-items: start; }
+    .qr-shell { background: #FFFFFF; color: #181412; border: 2px solid #C8A96E; border-radius: 24px; padding: 24px 20px; box-shadow: 0 16px 40px rgba(24,20,18,0.07); }
+    .search-input { width: 100%; padding: 14px 16px; border-radius: 14px; border: 2px solid #C8A96E; font-size: 1rem; font-weight: 700; background: #FAF8F5; color: #181412; outline: none; margin: 14px 0 10px; }
+    .guest-card { background: #FAF8F5; border: 1.5px solid #E2D9C8; border-radius: 14px; padding: 13px 16px; margin-bottom: 10px; display: flex; justify-content: space-between; align-items: center; gap: 10px; }
+    .pill-btn { padding: 5px 11px; border-radius: 999px; border: 1px solid #C8A96E; background: #FAF6EE; color: #57534E; font-size: 0.75rem; font-weight: 800; cursor: pointer; white-space: nowrap; }
+    .pill-btn:hover { background: #FAF3E3; color: #8C2D19; }
     @media (max-width: 820px) { .qr-page-wrap { grid-template-columns: 1fr; } }
   </style>
 </head>
@@ -897,9 +897,9 @@ function attachVaultAndPaywallRoutes(app, publicUrl) {
   <div class="qr-page-wrap">
     <div class="qr-shell">
       <div style="text-align:center;border-bottom:1.5px solid #E2D9C8;padding-bottom:16px;">
-        <div style="width:58px;height:58px;border-radius:14px;background:#181412;border:2px solid #C8A96E;color:#FDE68A;display:inline-flex;flex-direction:column;align-items:center;justify-content:center;margin-bottom:8px;">
+        <div style="width:58px;height:58px;border-radius:14px;background:#FAF3E3;border:2px solid #C8A96E;color:#8C2D19;display:inline-flex;flex-direction:column;align-items:center;justify-content:center;margin-bottom:8px;">
           <span class="serif" style="font-size:1.3rem;line-height:1;">${escapeHtml(monogram)}</span>
-          <span class="mono" style="font-size:0.46rem;color:#C8A96E;">WELCOME</span>
+          <span class="mono" style="font-size:0.46rem;color:#78350F;">WELCOME</span>
         </div>
         <div class="mono" style="font-size:0.68rem;font-weight:800;color:#8C2D19;letter-spacing:0.12em;text-transform:uppercase;">${escapeHtml(vault.venueName)}</div>
         <h1 class="serif" style="font-size:2.05rem;line-height:1.1;margin:2px 0;">Find Your Seat</h1>
@@ -917,20 +917,20 @@ function attachVaultAndPaywallRoutes(app, publicUrl) {
       <div id="qr-guest-list"></div>
     </div>
 
-    <div style="background:#231E1A;border:1.5px solid #C8A96E;border-radius:22px;padding:22px;color:#FAF8F5;">
-      <div class="mono" style="font-size:0.70rem;font-weight:800;color:#FDE68A;letter-spacing:0.08em;text-transform:uppercase;margin-bottom:6px;">COCKTAIL-HOUR FOYER QR DISPLAY</div>
-      <h2 class="serif" style="font-size:1.65rem;color:#FFFFFF;line-height:1.15;margin-bottom:10px;">Guests Scan at the Bar. Zero Easel Crowds.</h2>
-      <p style="font-size:0.86rem;color:#D6CFC2;line-height:1.5;margin-bottom:16px;">Print this QR on bar signs or the corner of your 24&Prime;&times;36&Prime; welcome sign so guests find their table and clockwise seat in 3 seconds.</p>
-      <div style="display:flex;align-items:center;gap:14px;background:#181412;border:1.5px solid rgba(200,169,110,0.5);border-radius:16px;padding:14px;margin-bottom:16px;">
-        <img src="${qrImgUrl}" width="84" height="84" alt="Live Reception QR Code" style="border-radius:10px;border:1.5px solid #C8A96E;background:#FAF6EE;padding:4px;flex-shrink:0;" />
+    <div style="min-width:0;background:#FFFFFF;border:1.5px solid #D8C29D;border-radius:22px;padding:22px;color:#181412;box-shadow:0 12px 32px rgba(24,20,18,0.06);">
+      <div class="mono" style="font-size:0.70rem;font-weight:800;color:#8C2D19;letter-spacing:0.08em;text-transform:uppercase;margin-bottom:6px;">COCKTAIL-HOUR FOYER QR DISPLAY</div>
+      <h2 class="serif" style="font-size:1.65rem;color:#181412;line-height:1.15;margin-bottom:10px;">Guests Scan at the Bar. Zero Easel Crowds.</h2>
+      <p style="font-size:0.86rem;color:#57534E;line-height:1.5;margin-bottom:16px;">Print this QR on bar signs or the corner of your 24&Prime;&times;36&Prime; welcome sign so guests find their table and clockwise seat in 3 seconds.</p>
+      <div style="display:flex;align-items:center;gap:14px;background:#FAF3E3;border:1.5px solid #C8A96E;border-radius:16px;padding:14px;margin-bottom:16px;">
+        <img src="${qrImgUrl}" width="84" height="84" alt="Live Reception QR Code" style="border-radius:10px;border:1.5px solid #C8A96E;background:#FFFFFF;padding:4px;flex-shrink:0;" />
         <div style="min-width:0;">
-          <div class="mono" style="font-size:0.70rem;color:#34D399;font-weight:800;white-space:nowrap;">&#9679; LIVE SYNC ACTIVE &bull; VAULT #${escapeHtml(vault.vaultId)}</div>
-          <div style="font-size:0.88rem;font-weight:800;color:#FFFFFF;margin:3px 0;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;">${escapeHtml(urls.qr_lookup)}</div>
-          <div style="font-size:0.76rem;color:#A8A29E;">Syncs automatically with last-minute seat swaps.</div>
+          <div class="mono" style="font-size:0.70rem;color:#065F46;font-weight:800;white-space:nowrap;">&#9679; LIVE SYNC ACTIVE &bull; VAULT #${escapeHtml(vault.vaultId)}</div>
+          <div style="font-size:0.88rem;font-weight:800;color:#181412;margin:3px 0;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;">Instant Guest Name &amp; Table Lookup</div>
+          <div style="font-size:0.76rem;color:#57534E;">Syncs automatically with last-minute seat swaps.</div>
         </div>
       </div>
-      <div style="border-top:1px solid rgba(200,169,110,0.25);padding-top:12px;display:grid;grid-template-columns:repeat(2,1fr);gap:8px;">
-        ${tables.slice(0, 6).map((t, idx) => `<div style="background:rgba(255,255,255,0.05);border:1px solid rgba(200,169,110,0.22);border-radius:10px;padding:8px 10px;"><div class="mono" style="font-size:0.66rem;color:#FDE68A;font-weight:800;">TABLE ${t.number || (idx + 1)}</div><div style="font-size:0.80rem;font-weight:700;color:#FAF8F5;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;">${escapeHtml(t.name || `Table ${idx + 1}`)}</div><div style="font-size:0.70rem;color:#A8A29E;">${(t.guests || []).length} Seated Guests</div></div>`).join('')}
+      <div style="border-top:1px solid #E2D9C8;padding-top:12px;display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:8px;">
+        ${tables.slice(0, 6).map((t, idx) => `<div style="min-width:0;background:#FAF8F5;border:1px solid #E2D9C8;border-radius:10px;padding:8px 10px;"><div class="mono" style="font-size:0.66rem;color:#8C2D19;font-weight:800;">TABLE ${t.number || (idx + 1)}</div><div style="font-size:0.80rem;font-weight:700;color:#181412;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;">${escapeHtml(t.name || `Table ${idx + 1}`)}</div><div style="font-size:0.70rem;color:#57534E;">${(t.guests || []).length} Seated Guests</div></div>`).join('')}
       </div>
     </div>
   </div>
@@ -951,9 +951,9 @@ function attachVaultAndPaywallRoutes(app, publicUrl) {
             '<div style="font-weight:800;font-size:1rem;color:#181412;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;">' + g.name + '</div>' +
             '<div style="font-size:0.78rem;color:#57534E;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;">' + g.tableName + ' &bull; ' + g.meal + '</div>' +
           '</div>' +
-          '<div style="text-align:right;background:#181412;color:#FDE68A;border:1.5px solid #C8A96E;padding:6px 12px;border-radius:10px;flex-shrink:0;white-space:nowrap;">' +
-            '<div class="serif" style="font-size:1.15rem;line-height:1;">Table ' + g.tableNumber + '</div>' +
-            '<div class="mono" style="font-size:0.65rem;color:#C8A96E;margin-top:2px;">Seat #' + g.seatNumber + ' (' + g.clockLabel + ')</div>' +
+          '<div style="text-align:right;background:#FAF3E3;color:#78350F;border:1.5px solid #C8A96E;padding:6px 12px;border-radius:10px;flex-shrink:0;white-space:nowrap;">' +
+            '<div class="serif" style="font-size:1.15rem;line-height:1;color:#8C2D19;">Table ' + g.tableNumber + '</div>' +
+            '<div class="mono" style="font-size:0.65rem;color:#78350F;margin-top:2px;">Seat #' + g.seatNumber + ' (' + g.clockLabel + ')</div>' +
           '</div>' +
         '</div>';
       }).join('');

@@ -4,20 +4,20 @@ const SHOWCASE_SLIDES = [
   {
     idx: 0,
     tabLabel: '1. 24"×36" Welcome Sign Studio',
-    badge: 'DELIVERABLE 1 OF 5 · 300-DPI ARCH D PRINT FILE',
-    title: '24"×36" Arch D Reception Welcome Sign Studio',
+    badge: 'DELIVERABLE 1 OF 5 · 300-DPI ARCH D PDF',
+    title: '24"×36" Reception Welcome Sign Studio',
     annotations: [
-      { num: '1', title: '6 Print Themes (0.125" Bleed & Crop Marks)' },
-      { num: '2', title: '1-Click Alphabetical (A–Z) or By-Table Sort' },
-      { num: '3', title: 'Couple Monogram & Scannable QR Crest' }
+      { num: '1', title: '6 Print Themes (0.125" Bleed)' },
+      { num: '2', title: '1-Click A–Z or By-Table Sort' },
+      { num: '3', title: 'Monogram & Scannable QR Crest' }
     ],
-    urlText: 'citationforge.io/print/poster/SH-4819?theme=obsidian',
-    routeHref: (vId) => `/print/poster/${encodeURIComponent(vId)}?theme=obsidian`,
-    ctaText: 'Open Live 24"×36" Poster Studio ↗',
+    urlText: 'citationforge.io/print/poster/SH-4819?theme=alabaster',
+    routeHref: (vId) => `/print/poster/${encodeURIComponent(vId)}?theme=alabaster`,
+    ctaText: 'Open Live 24"×36" Studio ↗',
     imgSrc: '/public/showcase-poster-24x36.png',
-    imgAlt: 'SeatHarmony 24x36 Arch D Reception Welcome Sign Studio in Obsidian Black-Tie theme',
+    imgAlt: 'SeatHarmony 24x36 Arch D Reception Welcome Sign Studio in Parisian Gold & Alabaster theme',
     pins: [
-      { num: '1', text: '1-Click A-Z / By-Table & Theme Switcher', style: 'top: 13%; left: 4%;' },
+      { num: '1', text: '1-Click A-Z / By-Table & Theme Switcher', style: 'top: 6%; left: 4%;' },
       { num: '2', text: 'Embedded Cocktail-Hour Seat Map QR', style: 'top: 22%; right: 6%;' },
       { num: '3', text: '300-DPI Arch D Vector Columns (0.125" Bleed)', style: 'bottom: 6%; right: 6%;' }
     ]
@@ -25,16 +25,16 @@ const SHOWCASE_SLIDES = [
   {
     idx: 1,
     tabLabel: '2. Clockwise 12:00 Caterer BEO',
-    badge: 'DELIVERABLE 2 OF 5 · BANQUET CAPTAIN & KITCHEN SHEET',
-    title: 'Clockwise 12:00 Server Meal & Allergy Manifest (BEO)',
+    badge: 'DELIVERABLE 2 OF 5 · KITCHEN & SERVER SHEET',
+    title: 'Clockwise 12:00 Caterer Meal Sheet (BEO)',
     annotations: [
-      { num: '1', title: 'Seat #1 = 12:00 Clockwise (Dance Floor)' },
-      { num: '2', title: 'Entrée & Protein Prep Totals per Table' },
-      { num: '3', title: 'Red Kitchen Allergy & Wheelchair Alerts' }
+      { num: '1', title: 'Seat #1 = 12:00 (Dance Floor)' },
+      { num: '2', title: 'Entrée Prep Totals per Table' },
+      { num: '3', title: 'Kitchen Allergy & ADA Alerts' }
     ],
     urlText: 'citationforge.io/print/beo/SH-4819',
     routeHref: (vId) => `/print/beo/${encodeURIComponent(vId)}`,
-    ctaText: 'Open Live Caterer BEO Manifest ↗',
+    ctaText: 'Open Live Caterer BEO ↗',
     imgSrc: '/public/showcase-signed-beo.png',
     imgAlt: 'SeatHarmony Clockwise 12:00 Caterer Banquet Event Order (BEO) Manifest',
     pins: [
@@ -46,16 +46,16 @@ const SHOWCASE_SLIDES = [
   {
     idx: 2,
     tabLabel: '3. Avery 5302 Place Cards',
-    badge: 'DELIVERABLE 3 OF 5 · PRE-ALIGNED FOLDED TENT CARDS',
-    title: 'Avery 5302 / 5011 Meal-Coded Folded Tent Place Cards',
+    badge: 'DELIVERABLE 3 OF 5 · FOLDED TENT CARDS',
+    title: 'Avery 5302 Meal-Coded Tent Place Cards',
     annotations: [
-      { num: '1', title: '180° Server Back-Fold Allergy & Seat Notes' },
-      { num: '2', title: 'Meal Icons (◆ Beef · ● Fish · ▲ Vegan · ★ Kids)' },
-      { num: '3', title: 'Exact Table & Clockwise Chair # on Every Card' }
+      { num: '1', title: '180° Server Back-Fold Notes' },
+      { num: '2', title: 'Meal Icons (◆ Beef · ● Fish · ▲ Vegan)' },
+      { num: '3', title: 'Exact Table & Clockwise Chair #' }
     ],
     urlText: 'citationforge.io/print/avery-5302/SH-4819',
     routeHref: (vId) => `/print/avery-5302/${encodeURIComponent(vId)}`,
-    ctaText: 'Open Live Avery 5302 Print Sheet ↗',
+    ctaText: 'Open Live Avery 5302 Sheet ↗',
     imgSrc: '/public/showcase-avery-5302.png',
     imgAlt: 'SeatHarmony Avery 5302 Folded Tent Place Cards Print Sheet with 180-degree rotated server allergy back fold',
     pins: [
@@ -67,16 +67,16 @@ const SHOWCASE_SLIDES = [
   {
     idx: 3,
     tabLabel: '4. Cocktail-Hour Guest QR App',
-    badge: 'DELIVERABLE 4 OF 5 · ZERO-LINE MOBILE SEAT LOOKUP',
-    title: 'Live Cocktail-Hour Mobile Guest QR Seat Finder',
+    badge: 'DELIVERABLE 4 OF 5 · MOBILE SEAT LOOKUP',
+    title: 'Cocktail-Hour Mobile Guest QR Seat Finder',
     annotations: [
-      { num: '1', title: 'Instant 2-Second Guest Search at the Bar' },
-      { num: '2', title: 'Shows Exact Table & Clockwise Chair #' },
-      { num: '3', title: 'Live Cloud Sync for 48-Hour Seat Swaps' }
+      { num: '1', title: '2-Second Guest Search at Bar' },
+      { num: '2', title: 'Exact Table & Clockwise Chair #' },
+      { num: '3', title: 'Live Cloud Sync for Seat Swaps' }
     ],
     urlText: 'citationforge.io/qr/SH-4819',
     routeHref: (vId) => `/qr/${encodeURIComponent(vId)}`,
-    ctaText: 'Test Live Mobile Guest QR App ↗',
+    ctaText: 'Test Live Mobile QR App ↗',
     imgSrc: '/public/showcase-mobile-qr.png',
     imgAlt: 'SeatHarmony Cocktail-Hour Mobile Guest QR Seat Lookup Web App',
     pins: [
@@ -88,16 +88,16 @@ const SHOWCASE_SLIDES = [
   {
     idx: 4,
     tabLabel: '5. Event Vault & Mom Sandbox',
-    badge: 'DELIVERABLE 5 OF 5 · PERSISTENT CLOUD COMMAND CENTER',
-    title: 'Persistent Event Vault & Restricted "Mom Sandbox" Link',
+    badge: 'DELIVERABLE 5 OF 5 · CLOUD COMMAND CENTER',
+    title: 'Event Vault & Restricted "Mom Sandbox"',
     annotations: [
-      { num: '1', title: 'Passwordless Vault Code & Email Login' },
-      { num: '2', title: 'All 4 Print & Caterer Files in One Hub' },
-      { num: '3', title: '1-Click Mom Sandbox (Tables 1–3 Only)' }
+      { num: '1', title: 'Passwordless Vault & Email Login' },
+      { num: '2', title: 'All 4 Print & Caterer Files' },
+      { num: '3', title: 'Mom Sandbox (Tables 1–3 Only)' }
     ],
     urlText: 'citationforge.io/vault/SH-4819?unlocked=1',
     routeHref: (vId) => `/vault/${encodeURIComponent(vId)}?unlocked=1`,
-    ctaText: 'Open Unlocked Vault Command Center ↗',
+    ctaText: 'Open Vault Command Center ↗',
     imgSrc: '/public/showcase-vault-command.png',
     imgAlt: 'SeatHarmony Inside-the-Paywall Event Vault Command Center and Mom Sandbox Hub',
     pins: [
@@ -126,14 +126,19 @@ function renderFeatureShowcaseCarousel(vId = 'SH-4819') {
     const liveHref = s.routeHref(vId || 'SH-4819');
     return `
     <div class="studio-feature-slide${idx === 0 ? ' active' : ''}" data-slide-idx="${idx}">
-      <!-- Compact Slide Title + 3 Crisp Annotation Labels -->
+      <!-- Compact Slide Title + Badge + Direct Live Tool Button (No Browser URL Header) -->
       <div style="display:flex;flex-wrap:wrap;justify-content:space-between;align-items:center;gap:12px;margin-bottom:14px;">
-        <h3 class="serif-display" style="font-size:clamp(1.5rem, 2.2vw, 1.85rem);color:#181412;line-height:1.2;margin:0;">
-          ${escapeHtml(s.title)}
-        </h3>
-        <span style="font-size:0.82rem;font-weight:800;text-transform:uppercase;letter-spacing:0.06em;color:#065F46;background:#ECFDF5;border:1px solid #A7F3D0;padding:5px 12px;border-radius:999px;">
-          &#10003; ${escapeHtml(s.badge)}
-        </span>
+        <div style="display:flex;flex-wrap:wrap;align-items:center;gap:10px;">
+          <h3 class="serif-display" style="font-size:clamp(1.5rem, 2.2vw, 1.85rem);color:#181412;line-height:1.2;margin:0;">
+            ${escapeHtml(s.title)}
+          </h3>
+          <span style="font-size:0.82rem;font-weight:800;text-transform:uppercase;letter-spacing:0.06em;color:#065F46;background:#ECFDF5;border:1px solid #A7F3D0;padding:5px 12px;border-radius:999px;white-space:nowrap;">
+            &#10003; ${escapeHtml(s.badge)}
+          </span>
+        </div>
+        <a href="${liveHref}" target="_blank" style="background:linear-gradient(135deg,#FDE68A 0%,#C8A96E 100%);color:#181412;border:1.5px solid #B89352;padding:8px 16px;border-radius:10px;font-size:0.86rem;font-weight:800;text-decoration:none;white-space:nowrap;">
+          ${escapeHtml(s.ctaText)}
+        </a>
       </div>
 
       <!-- 3 Compact One-Line Annotation Labels ("You get this, and this, and this!") -->
@@ -146,26 +151,8 @@ function renderFeatureShowcaseCarousel(vId = 'SH-4819') {
         `).join('')}
       </div>
 
-      <!-- Full-Height Live Screenshot Frame -->
+      <!-- Full-Height Live Screenshot Frame (Clean Editorial Frame, No Browser Chrome / URL Bar) -->
       <div class="studio-showcase-device-frame">
-        <div class="studio-showcase-browser-bar">
-          <div style="display:flex;align-items:center;gap:12px;flex-wrap:wrap;">
-            <div class="studio-showcase-dots" aria-hidden="true">
-              <span style="background:#EF4444;"></span>
-              <span style="background:#F59E0B;"></span>
-              <span style="background:#10B981;"></span>
-            </div>
-            <div class="studio-showcase-url-pill">
-              <span style="color:#34D399;">&#128274; https://</span><span>${escapeHtml(s.urlText)}</span>
-            </div>
-          </div>
-          <div style="display:flex;align-items:center;gap:12px;">
-            <span style="font-size:0.84rem;color:#D6CFC2;font-weight:700;" class="hide-mobile-text">Live Deliverable Preview (Vault #${safeVid})</span>
-            <a href="${liveHref}" target="_blank" style="background:linear-gradient(135deg,#FDE68A 0%,#C8A96E 100%);color:#181412;padding:7px 15px;border-radius:8px;font-size:0.85rem;font-weight:800;text-decoration:none;box-shadow:0 3px 10px rgba(0,0,0,0.25);">
-              ${escapeHtml(s.ctaText)}
-            </a>
-          </div>
-        </div>
         <div class="studio-showcase-img-wrap">
           <img src="${s.imgSrc}" alt="${escapeHtml(s.imgAlt)}" width="1280" height="780" loading="${idx === 0 ? 'eager' : 'lazy'}" />
           ${s.pins.map(pin => `

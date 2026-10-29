@@ -11,17 +11,17 @@ function renderZone1Hero(plan) {
   <!-- ZONE 1: ABOVE THE FOLD (CENTERED HEADER + SUB-HEADER + 4-SCENE STORY VSL PLAYER UNDERNEATH + SURER NEXT STEP CTA + CREASE PROOF BAR) -->
   <section class="studio-zone1-hero" id="grader">
     <div class="container">
-      <div id="sh-unlocked-command-bar" style="display:${isUnl ? 'flex' : 'none'};max-width:960px;margin:0 auto 20px;background:linear-gradient(135deg,#064E3B 0%,#181412 100%);border:2px solid #10B981;border-radius:14px;padding:10px 16px;color:#FAF8F5;align-items:center;justify-content:space-between;gap:10px;flex-wrap:wrap;box-shadow:0 12px 28px rgba(6,95,70,0.22);">
+      <div id="sh-unlocked-command-bar" style="display:${isUnl ? 'flex' : 'none'};max-width:960px;margin:0 auto 20px;background:#ECFDF5;border:1.5px solid #10B981;border-radius:14px;padding:10px 16px;color:#065F46;align-items:center;justify-content:space-between;gap:10px;flex-wrap:wrap;box-shadow:0 8px 20px rgba(6,95,70,0.08);">
         <div style="display:flex;align-items:center;gap:10px;flex-wrap:wrap;">
-          <span style="font-size:0.72rem;font-weight:800;letter-spacing:0.06em;text-transform:uppercase;color:#6EE7B7;white-space:nowrap;">&#10003; UNLOCKED PACK &middot; #<span id="sh-unlocked-vault-id">${vId}</span></span>
-          <span style="font-size:0.84rem;font-weight:700;color:#FFFFFF;">All 4 print &amp; caterer deliverables ready:</span>
+          <span style="font-size:0.74rem;font-weight:800;letter-spacing:0.05em;text-transform:uppercase;color:#065F46;background:#D1FAE5;border:1px solid #6EE7B7;padding:3px 9px;border-radius:999px;white-space:nowrap;">&#10003; UNLOCKED &middot; #<span id="sh-unlocked-vault-id">${vId}</span></span>
+          <span style="font-size:0.84rem;font-weight:700;color:#064E3B;white-space:nowrap;">All 4 print &amp; caterer tools ready:</span>
         </div>
         <div style="display:flex;gap:6px;flex-wrap:wrap;">
-          <a id="sh-cmd-vault-link" href="/vault/${vId}" style="background:#FDE68A;color:#181412;padding:6px 11px;border-radius:8px;font-size:0.74rem;font-weight:800;text-decoration:none;white-space:nowrap;">&#128275; Command Center &nearr;</a>
-          <a id="sh-cmd-poster-link" href="/print/poster/${vId}" target="_blank" style="background:rgba(255,255,255,0.12);color:#FFFFFF;border:1px solid #6EE7B7;padding:6px 10px;border-radius:8px;font-size:0.73rem;font-weight:800;text-decoration:none;white-space:nowrap;">&#129703; 24&Prime;&times;36&Prime; Sign &nearr;</a>
-          <a id="sh-cmd-avery-link" href="/print/avery-5302/${vId}" target="_blank" style="background:rgba(255,255,255,0.12);color:#FFFFFF;border:1px solid #6EE7B7;padding:6px 10px;border-radius:8px;font-size:0.73rem;font-weight:800;text-decoration:none;white-space:nowrap;">&#127915; Avery Cards &nearr;</a>
-          <a id="sh-cmd-beo-link" href="/print/beo/${vId}" target="_blank" style="background:rgba(255,255,255,0.12);color:#FFFFFF;border:1px solid #6EE7B7;padding:6px 10px;border-radius:8px;font-size:0.73rem;font-weight:800;text-decoration:none;white-space:nowrap;">&#127869; Signed BEO &nearr;</a>
-          <a id="sh-cmd-qr-link" href="/qr/${vId}" target="_blank" style="background:rgba(255,255,255,0.12);color:#FFFFFF;border:1px solid #6EE7B7;padding:6px 10px;border-radius:8px;font-size:0.73rem;font-weight:800;text-decoration:none;white-space:nowrap;">&#128241; QR App &nearr;</a>
+          <a id="sh-cmd-vault-link" href="/vault/${vId}" style="background:#065F46;color:#FFFFFF;padding:6px 11px;border-radius:8px;font-size:0.74rem;font-weight:800;text-decoration:none;white-space:nowrap;">&#128275; Command Center &nearr;</a>
+          <a id="sh-cmd-poster-link" href="/print/poster/${vId}" target="_blank" style="background:#FFFFFF;color:#065F46;border:1px solid #6EE7B7;padding:6px 10px;border-radius:8px;font-size:0.73rem;font-weight:800;text-decoration:none;white-space:nowrap;">&#129703; 24&Prime;&times;36&Prime; Sign &nearr;</a>
+          <a id="sh-cmd-avery-link" href="/print/avery-5302/${vId}" target="_blank" style="background:#FFFFFF;color:#065F46;border:1px solid #6EE7B7;padding:6px 10px;border-radius:8px;font-size:0.73rem;font-weight:800;text-decoration:none;white-space:nowrap;">&#127915; Avery Cards &nearr;</a>
+          <a id="sh-cmd-beo-link" href="/print/beo/${vId}" target="_blank" style="background:#FFFFFF;color:#065F46;border:1px solid #6EE7B7;padding:6px 10px;border-radius:8px;font-size:0.73rem;font-weight:800;text-decoration:none;white-space:nowrap;">&#127869; Signed BEO &nearr;</a>
+          <a id="sh-cmd-qr-link" href="/qr/${vId}" target="_blank" style="background:#FFFFFF;color:#065F46;border:1px solid #6EE7B7;padding:6px 10px;border-radius:8px;font-size:0.73rem;font-weight:800;text-decoration:none;white-space:nowrap;">&#128241; QR App &nearr;</a>
         </div>
       </div>
 
@@ -499,10 +499,10 @@ David &amp; Elena Rostova (Filet, Peanut Allergy)</textarea>
               <!-- Prominent 54px × 54px Left Monogram / Planner Crest Header Block -->
               <div id="specimen-header-block" style="display:flex;align-items:center;justify-content:space-between;gap:10px;padding:7px 10px;margin-bottom:8px;border-bottom:1.5px solid #EAE2D3;background:linear-gradient(180deg,#FAF8F5 0%,#FFFFFF 100%);border-radius:10px;">
                 <div style="display:flex;align-items:center;gap:11px;min-width:0;flex:1;">
-                  <div id="specimen-logo-badge" title="Couple Monogram / Planner Crest Badge" style="width:50px;height:50px;border-radius:12px;background:linear-gradient(135deg,#181412 0%,#2E241E 100%);border:2px solid #C8A96E;color:#FDE68A;display:flex;flex-direction:column;align-items:center;justify-content:center;flex-shrink:0;box-shadow:0 6px 16px rgba(24,20,18,0.16);overflow:hidden;position:relative;padding:2px;">
+                  <div id="specimen-logo-badge" title="Couple Monogram / Planner Crest Badge" style="width:50px;height:50px;border-radius:12px;background:#FAF3E3;border:2px solid #C8A96E;color:#8C2D19;display:flex;flex-direction:column;align-items:center;justify-content:center;flex-shrink:0;box-shadow:0 4px 12px rgba(24,20,18,0.08);overflow:hidden;position:relative;padding:2px;">
                     <span id="specimen-logo-monogram" style="display:flex;flex-direction:column;align-items:center;justify-content:center;line-height:1;">
-                      <span id="specimen-logo-monogram-initials" style="font-family:var(--font-serif);font-size:1.12rem;font-weight:700;letter-spacing:0.03em;color:#FDE68A;">M&amp;L</span>
-                      <span id="specimen-logo-monogram-sub" style="font-family:var(--font-mono);font-size:0.82rem;font-weight:800;letter-spacing:0.04em;color:#C8A96E;margin-top:2px;text-transform:uppercase;display:none;">EST. 2026</span>
+                      <span id="specimen-logo-monogram-initials" style="font-family:var(--font-serif);font-size:1.12rem;font-weight:700;letter-spacing:0.03em;color:#8C2D19;">M&amp;L</span>
+                      <span id="specimen-logo-monogram-sub" style="font-family:var(--font-mono);font-size:0.82rem;font-weight:800;letter-spacing:0.04em;color:#78350F;margin-top:2px;text-transform:uppercase;display:none;">EST. 2026</span>
                     </span>
                     <img id="specimen-logo-img" src="" alt="Planner or Couple Crest Logo" style="display:none;width:100%;height:100%;object-fit:contain;background:#FFFFFF;padding:3px;border-radius:9px;" />
                   </div>
