@@ -241,7 +241,8 @@ function renderSetupWizardClientScript() {
   function shwSyncDock() {
     var S = window.__SH_SETUP, dock = shwEl('shw-dock'), pop = shwEl('shw-pop'), n = S.kitCount || 0, chip = shwEl('nav-binder-btn');
     var open = pop && pop.style.display !== 'none';
-    var show = S.engaged && (!S.kitInView || open);
+    var grid = shwEl('sh-builder-grid'), editorOn = grid && grid.style.display !== 'none';
+    var show = (S.engaged || editorOn) && (!S.kitInView || open);
     if (dock) { dock.style.display = show ? '' : 'none'; dock.classList.toggle('full', n === 5); }
     var dn = shwEl('shw-dock-n'); if (dn) dn.textContent = n;
     document.querySelectorAll('#shw-dock .shw-dock-ticks i').forEach(function(t, i) { t.classList.toggle('on', i < n); });
@@ -416,6 +417,7 @@ function renderSetupWizardClientScript() {
   };
 
   window.shFinishSetupWizard = function() {
+    var S0 = window.__SH_SETUP; if (!S0.built && !S0.sample) S0.sample = true; S0.engaged = true; try { localStorage.setItem('sh_binder_engaged', '1'); } catch (_) {}
     setTimeout(function() { window.shwPaintKit(); }, 0);
     var w = shwEl('sh-setup-wizard'), g = shwEl('sh-builder-grid');
     if (w) w.style.display = 'none';
