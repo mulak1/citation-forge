@@ -1,6 +1,7 @@
 const fs = require('fs');
 const path = require('path');
 const initSqlJs = require('sql.js');
+const { buildPresetForTarget } = require('./seating-engine');
 
 const DATA_DIR = path.join(__dirname, '..', 'data');
 const DB_PATH = path.join(DATA_DIR, 'citation_forge.db');
@@ -354,10 +355,36 @@ async function initDb() {
   `);
 
   seedSeoPages(dbInstance);
+  seedTestAccounts(dbInstance);
   dbInstance.run("UPDATE seo_pages SET title = REPLACE(REPLACE(title, '\u2014', ' - '), '\u2013', '-'), meta_description = REPLACE(REPLACE(meta_description, '\u2014', ' - '), '\u2013', '-'), payload_json = REPLACE(REPLACE(payload_json, '\u2014', ' - '), '\u2013', '-');");
   dbInstance.run("UPDATE event_vaults SET title = REPLACE(REPLACE(title, '\u2014', ' - '), '\u2013', '-'), state_json = REPLACE(REPLACE(state_json, '\u2014', ' - '), '\u2013', '-');");
   saveDb();
   return dbInstance;
+}
+
+function seedTestAccounts(db = dbInstance) {
+  if (!db) return;
+  try {
+    const estatePlan = buildPresetForTarget('estate-150');
+    estatePlan.vaultId = 'SH-4819';
+    estatePlan.ownerEmail = 'test@seatharmony.com';
+    estatePlan.isUnlocked = true;
+
+    const proPlan = buildPresetForTarget('tuscan-banquet-80');
+    proPlan.vaultId = 'SH-VIP';
+    proPlan.ownerEmail = 'vip@seatharmony.com';
+    proPlan.isUnlocked = true;
+
+    const stmt = db.prepare(`
+      INSERT OR REPLACE INTO event_vaults (
+        vault_id, owner_email, pin_code, title, venue_name,
+        plan_tier, is_unlocked, stripe_session_id, state_json, updated_at
+      ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, datetime('now'))
+    `);
+    stmt.run(['SH-4819', 'test@seatharmony.com', '2026', estatePlan.title, estatePlan.venueName, 'complete_dossier', 1, 'cs_live_test_sh4819', JSON.stringify(estatePlan)]);
+    stmt.run(['SH-VIP', 'vip@seatharmony.com', '2026', proPlan.title, proPlan.venueName, 'pro_b2b', 1, 'cs_live_test_shvip', JSON.stringify(proPlan)]);
+    stmt.free();
+  } catch (_) {}
 }
 
 function queryAll(sql, params = []) {

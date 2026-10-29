@@ -285,7 +285,7 @@ function renderDeliverablesClientScript() {
     const id = String(vId || (window.__SH_STATE && window.__SH_STATE.vaultId) || 'SH-4819');
     if (window.__SH_STATE) window.__SH_STATE.vaultId = id;
     const setTxt = function(elId, txt) { const el = document.getElementById(elId); if (el) el.textContent = txt; };
-    setTxt('hero-vault-code-label', '#' + id); setTxt('sh-studio-vault-code', id); setTxt('sh-btn-vault-id', id); setTxt('sh-modal-vault-code', '#' + id);
+    setTxt('hero-vault-code-label', '#' + id); setTxt('sh-studio-vault-code', id); setTxt('sh-btn-vault-id', id); setTxt('sh-modal-vault-code', id);
     setTxt('sh-modal-links-vault-id', id); setTxt('sh-unlocked-vault-id', id); setTxt('sh-qr-short-url', '/qr/' + id);
     const setHref = function(elId, url) { const el = document.getElementById(elId); if (el) el.href = url; };
     ['sh-cmd-vault-link', 'sh-footer-vault-link', 'sh-modal-link-vault'].forEach(function(k) { setHref(k, '/vault/' + id); });
@@ -342,8 +342,10 @@ function renderDeliverablesClientScript() {
       if (data && data.ok && vid) { shSyncVaultIdLinks(vid); if (btn) btn.textContent = '✓ Saved Vault #' + vid + ' (' + (email || 'Cloud Link Ready') + ')'; shToast('✓ Saved Reception Vault #' + vid + '! All 5 print & QR links updated.'); }
     } catch (e) { if (btn) btn.textContent = '💾 Save My Event & Generate Magic Links'; }
   };
-  window.shLookupSavedVault = async function() {
-    const inp = document.getElementById('sh-vault-lookup-input'), st = document.getElementById('sh-vault-lookup-status'), q = inp ? inp.value.trim() : '';
+  window.shLookupSavedVault = async function(overrideQuery) {
+    const inp = document.getElementById('sh-vault-lookup-input'), st = document.getElementById('sh-vault-lookup-status');
+    if (overrideQuery && inp) inp.value = overrideQuery;
+    const q = (overrideQuery || (inp ? inp.value : '')).trim();
     if (!q) return;
     if (st) st.textContent = 'Searching saved vaults...';
     try {
@@ -351,11 +353,15 @@ function renderDeliverablesClientScript() {
       const data = await res.json(), vid = data && (data.vault_id || data.vaultId);
       if (data && data.ok && vid && data.state) {
         window.__SH_STATE = data.state; window.__SH_STATE.vaultId = vid; window.__SH_STATE.isUnlocked = Boolean(data.is_unlocked);
+        const navLbl = document.getElementById('nav-vault-label'); if (navLbl) navLbl.textContent = 'Unlocked #' + vid;
         shSyncVaultIdLinks(vid); shRenderAll();
-        if (st) st.innerHTML = '<strong style="color:#065F46;">✓ Loaded "' + shEsc(data.title || 'Saved Reception') + '" (#' + shEsc(vid) + ')!</strong> <a href="/vault/' + shEsc(vid) + '" style="color:#8C2D19;font-weight:800;">Open Command Center ↗</a>';
-        shToast('✓ Restored Saved Event "' + (data.title || vid) + '" (Vault #' + vid + ')!');
-      } else if (st) { st.innerHTML = '<span style="color:#9F1239;">No vault found for "' + shEsc(q) + '". Try SH-4819.</span>'; }
+        if (st) st.innerHTML = '<div style="padding:8px 10px;border-radius:8px;background:#ECFDF5;border:1px solid #10B981;"><strong style="color:#065F46;">✓ Logged In: "' + shEsc(data.title || 'Saved Reception') + '" (#' + shEsc(vid) + ')!</strong><br/><a href="/vault/' + shEsc(vid) + '" style="color:#8C2D19;font-weight:800;text-decoration:underline;">🔓 Enter Unlocked Command Center (/vault/' + shEsc(vid) + ') ↗</a></div>';
+        shToast('✓ Logged into Unlocked Account "' + (data.owner_email || vid) + '" (Vault #' + vid + ')!');
+      } else if (st) { st.innerHTML = '<span style="color:#9F1239;">No vault found for "' + shEsc(q) + '". Try test@seatharmony.com or SH-4819.</span>'; }
     } catch (e) { if (st) st.textContent = 'Could not look up vault.'; }
+  };
+  window.shLoginWithTestAccount = function(code) {
+    return window.shLookupSavedVault(code || 'test@seatharmony.com');
   };`;
 }
 

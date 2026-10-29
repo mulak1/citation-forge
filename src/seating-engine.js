@@ -423,6 +423,17 @@ function buildPresetForTarget(rawInput = 'estate-150') {
     base.title = '300-Guest Charity Gala & Table Captain Matrix (Coming Soon Preview)';
     base.subtitle = 'Corporate Gold Sponsor Table Allocations + Bidder Paddle Numbers (#101-#300)';
     base.vertical = 'charity_gala';
+  } else if (key && key !== 'estate-150' && key !== 'supabase.com') {
+    const guestMatch = key.match(/^(\d+)-guest/);
+    const cleanWords = key.replace(/-+/g, ' ').replace(/\b\w/g, (c) => c.toUpperCase());
+    base.id = key;
+    base.title = `${cleanWords} Layout`;
+    if (guestMatch) base.totalRsvpScale = Number(guestMatch[1]) || 150;
+    if (key.includes('banquet') || key.includes('farm') || key.includes('harvest') || key.includes('winery')) {
+      base.tables.forEach((t, i) => { if (i > 0) t.shape = 'banquet_2sided'; });
+    } else if (key.includes('kings')) {
+      base.tables.forEach((t, i) => { if (i === 0) t.shape = 'kings_4sided'; });
+    }
   }
   base.tables = base.tables.map((t) => ({
     ...t,

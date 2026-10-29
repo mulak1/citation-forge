@@ -642,7 +642,7 @@ David &amp; Elena Rostova (Filet, Peanut Allergy)</textarea>
 
         <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(290px,1fr));gap:16px;">
           <div style="background:#FFFFFF;border:1.5px solid #C8A96E;border-radius:14px;padding:16px;">
-            <div class="badge badge-emerald" style="margin-bottom:6px;">1. SAVE CURRENT FLOORPLAN (<span id="sh-modal-vault-code">#${vId}</span>)</div>
+            <div class="badge badge-emerald" style="margin-bottom:6px;white-space:nowrap;">1. SAVE CURRENT FLOORPLAN (#<span id="sh-modal-vault-code">${vId}</span>)</div>
             <h4 class="serif-display" style="font-size:1.18rem;margin-bottom:6px;">Link Email &amp; Get All 5 Live URLs</h4>
             <p style="font-size:0.78rem;color:#57534E;margin-bottom:10px;">Every seat swap and household you add is saved to our SQLite vault so you can edit on your laptop, share with your coordinator, or print 48 hours before the wedding.</p>
             <label for="sh-vault-email-input" class="studio-field-label">Your Bride / Groom / Planner Email:</label>
@@ -666,15 +666,19 @@ David &amp; Elena Rostova (Filet, Peanut Allergy)</textarea>
             <div>
               <div class="badge badge-amber" style="margin-bottom:6px;">2. RETURNING USER / COORDINATOR LOGIN</div>
               <h4 class="serif-display" style="font-size:1.18rem;margin-bottom:6px;">Load a Saved Reception Vault</h4>
-              <p style="font-size:0.78rem;color:#57534E;margin-bottom:10px;">Enter the email address you saved with OR your Vault Code (e.g. <code>SH-4819</code>) to restore your tables, guest list, and unlocked print files:</p>
-              <label for="sh-vault-lookup-input" class="studio-field-label">Email Address or Vault Code (e.g. SH-4819):</label>
-              <input id="sh-vault-lookup-input" type="text" class="grader-input" style="width:100%;margin-bottom:10px;" placeholder="maya@example.com or SH-4819" />
+              <p style="font-size:0.78rem;color:#57534E;margin-bottom:10px;">Enter the email address you saved with OR your Vault Code (e.g. <code>test@seatharmony.com</code> or <code>SH-4819</code>) to restore your tables, guest list, and unlocked print files:</p>
+              <label for="sh-vault-lookup-input" class="studio-field-label">Email Address or Vault Code:</label>
+              <input id="sh-vault-lookup-input" type="text" class="grader-input" style="width:100%;margin-bottom:8px;" placeholder="test@seatharmony.com or SH-4819" />
               <button type="button" id="sh-vault-lookup-btn" class="btn btn-secondary" style="width:100%;padding:10px;" onclick="window.shLookupSavedVault()">&#128275; Load My Saved Event</button>
               <div id="sh-vault-lookup-status" style="margin-top:10px;font-size:0.76rem;color:#44403C;"></div>
             </div>
-            <div style="margin-top:14px;padding-top:10px;border-top:1px solid #EFEAE1;font-size:0.72rem;color:#57534E;">
-              <strong>Need to test the Unlocked Paywall Experience right now?</strong><br/>
-              <a href="/vault/SH-4819?unlocked=1" style="color:#065F46;font-weight:800;text-decoration:underline;">&#9889; Preview Unlocked Reception Command Center (/vault/SH-4819) &rarr;</a>
+            <div style="margin-top:12px;padding:10px 12px;border-radius:10px;background:#ECFDF5;border:1.5px solid #10B981;font-size:0.74rem;color:#065F46;">
+              <div style="font-weight:800;margin-bottom:4px;">&#9889; TEST ACCOUNT CREDENTIALS (UNLOCKED PRO PACK):</div>
+              <div class="mono" style="font-size:0.72rem;color:#181412;margin-bottom:6px;">Email: <strong>test@seatharmony.com</strong> &bull; Vault: <strong>SH-4819</strong> (or <strong>SH-VIP</strong>) &bull; PIN: <strong>2026</strong></div>
+              <div style="display:flex;gap:6px;flex-wrap:wrap;">
+                <button type="button" id="sh-test-login-btn" onclick="window.shLoginWithTestAccount && window.shLoginWithTestAccount('SH-4819')" style="cursor:pointer;background:#065F46;color:#FFFFFF;border:1px solid #10B981;border-radius:7px;padding:6px 10px;font-size:0.74rem;font-weight:800;">&#9889; 1-Click Test Login (#SH-4819)</button>
+                <a href="/vault/SH-4819?unlocked=1" style="background:#FFFFFF;color:#065F46;border:1px solid #10B981;border-radius:7px;padding:6px 10px;font-size:0.74rem;font-weight:800;text-decoration:none;">Open Unlocked Command Center &rarr;</a>
+              </div>
             </div>
           </div>
         </div>
@@ -846,7 +850,7 @@ function renderSeoDetailPage(pageRow, relatedPages = []) {
   return [
     renderHead({ title: `${pageRow.title} | SeatHarmony Studio`, description: pageRow.meta_description, canonicalPath: `/seo/${pageRow.slug}`, ogSlug: pageRow.slug }),
     '<body>', renderNavbar(),
-    `<main class="container" style="padding:48px 24px 72px;"><div style="max-width:860px;margin:0 auto;"><div style="display:flex;gap:8px;align-items:center;margin-bottom:12px;"><a href="/directory" style="font-size:0.8rem;font-weight:700;color:#8C2D19;text-decoration:none;">&larr; All 60+ Floorplans</a><span class="badge badge-emerald">${escapeHtml(pageRow.category)} &middot; ${escapeHtml(String(pageRow.csov_score))}% Harmony</span></div><h1 class="studio-zone-title" style="margin-bottom:12px;">${escapeHtml(pageRow.title)}</h1><p style="font-size:1rem;color:#44403C;margin-bottom:24px;">${escapeHtml(payload.summary || pageRow.meta_description)}</p><div class="panel" style="padding:24px;margin-bottom:28px;background:#FAF6EE;border-color:#C8A96E;"><h2 class="serif-display" style="font-size:1.5rem;margin-bottom:8px;">Customize This Floorplan Live in SeatHarmony Studio</h2><p style="font-size:0.88rem;color:#44403C;margin-bottom:16px;">Load this exact table geometry, run the 35ms family conflict solver, and export your Clockwise 12:00 Caterer BEO and 24&Prime;&times;36&Prime; Welcome Sign.</p><div style="display:flex;gap:12px;flex-wrap:wrap;"><a href="/#studio" class="btn btn-primary">Open Interactive Floorplan Studio &rarr;</a><a href="/buy/complete_dossier?target=${encodeURIComponent(pageRow.slug)}" class="btn btn-secondary">Unlock Print &amp; BEO Pack ($14.99)</a></div></div>${faqHtml ? `<h2 class="serif-display" style="font-size:1.6rem;margin-bottom:12px;">Layout &amp; Catering Specifications</h2><div style="display:flex;flex-direction:column;gap:10px;margin-bottom:32px;">${faqHtml}</div>` : ''}<h3 class="serif-display" style="font-size:1.4rem;margin-bottom:12px;">Related Reception &amp; Event Floorplans</h3><div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(240px,1fr));gap:12px;">${relHtml}</div></div></main>`,
+    `<main class="container" style="padding:48px 24px 72px;"><div style="max-width:860px;margin:0 auto;"><div style="display:flex;gap:8px;align-items:center;margin-bottom:12px;"><a href="/directory" style="font-size:0.8rem;font-weight:700;color:#8C2D19;text-decoration:none;">&larr; All 60+ Floorplans</a><span class="badge badge-emerald">${escapeHtml(pageRow.category)} &middot; ${escapeHtml(String(pageRow.csov_score))}% Harmony</span></div><h1 class="studio-zone-title" style="margin-bottom:12px;">${escapeHtml(pageRow.title)}</h1><p style="font-size:1rem;color:#44403C;margin-bottom:24px;">${escapeHtml(payload.summary || pageRow.meta_description)}</p><div class="panel" style="padding:24px;margin-bottom:28px;background:#FAF6EE;border-color:#C8A96E;"><h2 class="serif-display" style="font-size:1.5rem;margin-bottom:8px;">Customize This Floorplan Live in SeatHarmony Studio</h2><p style="font-size:0.88rem;color:#44403C;margin-bottom:16px;">Load this exact table geometry, run the 35ms family conflict solver, and export your Clockwise 12:00 Caterer BEO and 24&Prime;&times;36&Prime; Welcome Sign.</p><div style="display:flex;gap:12px;flex-wrap:wrap;"><a href="/?preset=${encodeURIComponent(pageRow.slug)}#studio" class="btn btn-primary">Load Template in Interactive Studio &rarr;</a><a href="/buy/complete_dossier?target=${encodeURIComponent(pageRow.slug)}" class="btn btn-secondary">Unlock Print &amp; BEO Pack ($14.99)</a></div></div>${faqHtml ? `<h2 class="serif-display" style="font-size:1.6rem;margin-bottom:12px;">Layout &amp; Catering Specifications</h2><div style="display:flex;flex-direction:column;gap:10px;margin-bottom:32px;">${faqHtml}</div>` : ''}<h3 class="serif-display" style="font-size:1.4rem;margin-bottom:12px;">Related Reception &amp; Event Floorplans</h3><div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(240px,1fr));gap:12px;">${relHtml}</div></div></main>`,
     renderFooter(), '</body></html>'
   ].join('\n');
 }
