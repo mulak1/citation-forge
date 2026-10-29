@@ -754,7 +754,7 @@ function renderZone5FaqAndZone6Close(sampleSeoPages = []) {
       </div>
 
       ${seoLinks ? `
-      <div style="margin-bottom:32px;padding-top:22px;border-top:1px solid #E5D9C5;">
+      <div style="margin-top:72px;margin-bottom:32px;padding-top:40px;border-top:1px solid #E5D9C5;">
         <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:12px;flex-wrap:wrap;gap:8px;">
           <span style="font-size:0.82rem;font-weight:800;text-transform:uppercase;letter-spacing:0.08em;color:#78716C;">POPULAR VENUE FLOORPLAN TEMPLATES</span>
           <a href="/directory" style="font-size:0.88rem;font-weight:700;color:#8C2D19;text-decoration:none;">Browse All 60+ Templates &rarr;</a>
