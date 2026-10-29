@@ -297,8 +297,6 @@ function renderDeliverablesClientScript() {
     setHref('sh-vault-buy-pro-btn', '/buy/pro_b2b?target=estate-150&vault=' + id); setHref('sh-pane-beo-buy-link', '/buy/flash_pass?target=estate-150&vault=' + id);
     const qrImg = document.getElementById('sh-live-qr-img');
     if (qrImg) qrImg.src = 'https://api.qrserver.com/v1/create-qr-code/?size=160x160&color=181412&bgcolor=FFFFFF&data=' + encodeURIComponent(window.location.origin + '/qr/' + id);
-    const unlBar = document.getElementById('sh-unlocked-command-bar');
-    if (unlBar && window.__SH_STATE && window.__SH_STATE.isUnlocked) unlBar.style.display = 'flex';
   }
 
   function shAutoPersistVault() {

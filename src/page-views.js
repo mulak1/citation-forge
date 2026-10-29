@@ -6,25 +6,10 @@ const { renderZone4ProofStackAndPricing } = require('./feature-carousel');
 
 function renderZone1Hero(plan) {
   const vId = escapeHtml(plan.vaultId || 'SH-4819');
-  const isUnl = Boolean(plan.isUnlocked);
   return `
   <!-- ZONE 1: ABOVE THE FOLD (CENTERED HEADER + SUB-HEADER + 4-SCENE STORY VSL PLAYER UNDERNEATH + SURER NEXT STEP CTA + CREASE PROOF BAR) -->
   <section class="studio-zone1-hero" id="grader">
     <div class="container">
-      <div id="sh-unlocked-command-bar" style="display:${isUnl ? 'flex' : 'none'};max-width:960px;margin:0 auto 20px;background:#ECFDF5;border:1.5px solid #10B981;border-radius:14px;padding:10px 16px;color:#065F46;align-items:center;justify-content:space-between;gap:10px;flex-wrap:wrap;box-shadow:0 8px 20px rgba(6,95,70,0.08);">
-        <div style="display:flex;align-items:center;gap:10px;flex-wrap:wrap;">
-          <span style="font-size:0.74rem;font-weight:800;letter-spacing:0.05em;text-transform:uppercase;color:#065F46;background:#D1FAE5;border:1px solid #6EE7B7;padding:3px 9px;border-radius:999px;white-space:nowrap;">&#10003; UNLOCKED &middot; #<span id="sh-unlocked-vault-id">${vId}</span></span>
-          <span style="font-size:0.84rem;font-weight:700;color:#064E3B;white-space:nowrap;">All 4 print &amp; caterer tools ready:</span>
-        </div>
-        <div style="display:flex;gap:6px;flex-wrap:wrap;">
-          <a id="sh-cmd-vault-link" href="/vault/${vId}" style="background:#065F46;color:#FFFFFF;padding:6px 11px;border-radius:8px;font-size:0.74rem;font-weight:800;text-decoration:none;white-space:nowrap;">&#128275; Command Center &nearr;</a>
-          <a id="sh-cmd-poster-link" href="/print/poster/${vId}" target="_blank" style="background:#FFFFFF;color:#065F46;border:1px solid #6EE7B7;padding:6px 10px;border-radius:8px;font-size:0.73rem;font-weight:800;text-decoration:none;white-space:nowrap;">&#129703; 24&Prime;&times;36&Prime; Sign &nearr;</a>
-          <a id="sh-cmd-avery-link" href="/print/avery-5302/${vId}" target="_blank" style="background:#FFFFFF;color:#065F46;border:1px solid #6EE7B7;padding:6px 10px;border-radius:8px;font-size:0.73rem;font-weight:800;text-decoration:none;white-space:nowrap;">&#127915; Avery Cards &nearr;</a>
-          <a id="sh-cmd-beo-link" href="/print/beo/${vId}" target="_blank" style="background:#FFFFFF;color:#065F46;border:1px solid #6EE7B7;padding:6px 10px;border-radius:8px;font-size:0.73rem;font-weight:800;text-decoration:none;white-space:nowrap;">&#127869; Signed BEO &nearr;</a>
-          <a id="sh-cmd-qr-link" href="/qr/${vId}" target="_blank" style="background:#FFFFFF;color:#065F46;border:1px solid #6EE7B7;padding:6px 10px;border-radius:8px;font-size:0.73rem;font-weight:800;text-decoration:none;white-space:nowrap;">&#128241; QR App &nearr;</a>
-        </div>
-      </div>
-
       <div class="sh-zone1-stack">
         <div class="sh-zone1-header-block">
           <div style="display:flex;align-items:center;justify-content:center;gap:10px;flex-wrap:wrap;">
