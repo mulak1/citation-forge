@@ -164,6 +164,29 @@ function renderHead({
     .sh-ed-ghost { font-size: 0.88rem; font-weight: 700; color: #44403C; background: #FFFFFF; border: 1.5px solid #DCD3C3; padding: 7px 13px; border-radius: 10px; cursor: pointer; white-space: nowrap; transition: border-color 0.15s ease, background 0.15s ease; }
     .sh-venue-cta { display: inline-flex; align-items: center; padding: 10px 18px; font-size: 0.94rem; font-weight: 800; color: #3B2A12; background: linear-gradient(135deg, #FDE68A 0%, #E8C77D 100%); border: 1.5px solid #C8A96E; border-radius: 999px; text-decoration: none; box-shadow: 0 8px 18px -10px rgba(180,135,40,0.55); }
     .sh-venue-cta:hover { box-shadow: 0 10px 22px -8px rgba(180,135,40,0.7); }
+    .sh-gdot { display: inline-block; width: 10px; height: 10px; border-radius: 999px; flex-shrink: 0; margin-right: 6px; vertical-align: middle; }
+    .sh-ed-row .sh-gdot { margin: 0 0 0 -2px; }
+    .sh-ed-legend { display: flex; flex-wrap: wrap; gap: 6px; margin: 0 0 12px; }
+    .sh-ed-legend:empty { display: none; }
+    .sh-leg { display: inline-flex; align-items: center; padding: 6px 12px; font-size: 13px; font-weight: 600; color: #44403C; background: #FFFFFF; border: 1px solid #DCD3C3; border-radius: 999px; cursor: pointer; font-family: inherit; }
+    .sh-leg b { margin-left: 6px; color: #78716C; font-weight: 700; } .sh-leg:hover { border-color: #C8A96E; } .sh-leg.on { background: #3B2A12; color: #FFFFFF; border-color: #3B2A12; } .sh-leg.on b { color: #FDE68A; }
+    .sh-ed-style { display: flex; flex-wrap: wrap; gap: 8px; align-items: center; margin: 4px 0 12px; }
+    .sh-ed-style .sh-ed-seg { flex: 1 1 200px; } .sh-ed-rot { display: flex; gap: 6px; }
+    .sh-ed-rot button { padding: 8px 10px; font-size: 13px; font-weight: 700; color: #44403C; background: #FFFFFF; border: 1.5px solid #E2D9C8; border-radius: 9px; cursor: pointer; white-space: nowrap; font-family: inherit; } .sh-ed-rot button:hover { border-color: #C8A96E; }
+    .sh-ed-seg button .sh-gdot { margin-right: 5px; }
+    .sh-ed-ka { margin-top: 16px; padding-top: 12px; border-top: 1px solid #EFE6D4; }
+    .sh-ed-ka-empty { font-size: 13px; color: #78716C; line-height: 1.45; margin-bottom: 8px; }
+    .sh-ed-ka-row { display: flex; align-items: center; gap: 8px; padding: 7px 0; flex-wrap: wrap; }
+    .sh-ed-ka-names { flex: 1 1 140px; font-size: 14px; font-weight: 600; color: #181412; min-width: 0; }
+    .sh-ed-ka-st { font-size: 12.5px; font-weight: 700; color: #78716C; } .sh-ed-ka-st.ok { color: #047857; } .sh-ed-ka-st.bad { color: #9F1239; }
+    .sh-ed-ka-btn { padding: 5px 10px; font-size: 13px; font-weight: 700; color: #8C2D19; background: #FFF1F2; border: 1px solid #FECDD3; border-radius: 8px; cursor: pointer; font-family: inherit; }
+    .sh-ed-ka-x { border: none; background: transparent; font-size: 1.2rem; line-height: 1; color: #A8A29E; cursor: pointer; padding: 0 4px; }
+    .sh-ed-ka-form { display: grid; grid-template-columns: 1fr 1fr auto; gap: 6px; margin-top: 6px; }
+    .sh-ed-ka-form input { min-width: 0; padding: 9px 10px; font-size: 14px; border: 1.5px solid #DCD3C3; border-radius: 9px; background: #FFFFFF; font-family: inherit; outline: none; } .sh-ed-ka-form input:focus { border-color: #C8A96E; }
+    .sh-ed-ka-form button { padding: 0 14px; font-size: 14px; font-weight: 800; color: #3B2A12; background: #EBCB82; border: 1.5px solid #C8A96E; border-radius: 9px; cursor: pointer; font-family: inherit; }
+    .sh-ed-menu-wrap { position: relative; display: inline-block; }
+    .sh-ed-menu { position: absolute; right: 0; top: calc(100% + 6px); z-index: 30; min-width: 210px; background: #FFFFFF; border: 1px solid #E2D3B5; border-radius: 12px; padding: 6px; box-shadow: 0 18px 40px -18px rgba(60,40,10,0.4); }
+    .sh-ed-menu button { display: flex; justify-content: space-between; align-items: baseline; gap: 10px; width: 100%; padding: 10px 12px; font-size: 14px; font-weight: 700; color: #181412; background: transparent; border: none; border-radius: 8px; cursor: pointer; text-align: left; font-family: inherit; } .sh-ed-menu button:hover { background: #FFF8E8; } .sh-ed-menu small { font-size: 12.5px; color: #78716C; font-weight: 600; }
     .sh-ed-ghost:hover { border-color: #C8A96E; background: #FFF8E8; }
     .sh-ed-bar { display: flex; align-items: center; gap: 10px; margin-bottom: 12px; }
     .sh-ed-hint { flex: 1; min-width: 0; font-size: 0.94rem; font-weight: 600; color: #57534E; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }

@@ -365,9 +365,10 @@ function renderZone3InteractiveStudio(plan) {
                 <div id="sh-canvas-micro-toolbar" class="sh-ed-bar">
                   <span id="sh-live-toast" class="sh-ed-hint">Tap a table to see who&rsquo;s sitting there. Drag a guest to another seat to move them.</span>
                   <button type="button" id="sh-undo-btn" class="sh-ed-ghost" style="display:none;" onclick="window.shUndo()">&#8630; Undo</button>
-                  <button type="button" id="sh-toolbar-add-table-btn" class="sh-ed-ghost" onclick="window.shAddNewTable()">+ Add table</button>
+                  <span class="sh-ed-menu-wrap"><button type="button" id="sh-toolbar-add-table-btn" class="sh-ed-ghost" aria-haspopup="true" onclick="window.shToggleAddMenu(event)">+ Add table &#9662;</button><div id="sh-add-menu" class="sh-ed-menu" style="display:none;"><button type="button" onclick="window.shAddTableType('round8')">Round table <small>8 seats</small></button><button type="button" onclick="window.shAddTableType('round10')">Round table <small>10 seats</small></button><button type="button" onclick="window.shAddTableType('banquet12')">Long banquet <small>12 seats</small></button><button type="button" onclick="window.shAddTableType('kings8')">King's table <small>8 seats</small></button></div></span>
                 </div>
 
+                <div id="sh-ed-legend" class="sh-ed-legend" aria-label="Guest groups. Tap a group to highlight it."></div>
                 <div class="sh-ed-grid">
                   <div class="sh-ed-canvas">
                     <svg id="sh-floorplan-svg" viewBox="0 0 1120 680" style="width:100%;height:auto;display:block;touch-action:none;user-select:none;" role="img" aria-label="Wedding floorplan"></svg>

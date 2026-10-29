@@ -417,7 +417,7 @@ function renderSetupWizardClientScript() {
       vaultId: vaultId, isWizardBuilt: true, title: (partners.length >= 2 ? couple + "'s Wedding" : couple + ' Wedding'), venueName: venue,
       harmonyScore: S.apart.length ? 99 : 98, householdsCoupled: 0, roomHeight: lay.roomHeight, tables: tables,
       landmarks: [{ id: 'lm-dance', label: 'DANCE FLOOR', x: 560, y: 230, w: 210, h: 130, zone: 'loud' }],
-      rules: S.apart.map(function(p, i) { return { id: 'rule_w_' + i, type: 'must_keep_apart', label: p[0] + ' & ' + p[1] + ' kept apart', detail: 'Separated across the room', status: 'VERIFIED' }; })
+      rules: S.apart.map(function(p, i) { return { id: 'rule_w_' + i, type: 'must_keep_apart', label: p[0] + ' & ' + p[1] + ' kept apart', detail: 'Separated across the room', status: 'VERIFIED', pair: [p[0], p[1]] }; })
     };
     var ta = shwEl('sh-bulk-csv-textarea');
     if (ta && lines.length) {

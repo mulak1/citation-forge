@@ -25,7 +25,7 @@ function renderSeatEditorClientScript() {
   function shEdTableLabel(t) { return shNormalizeShape(t.shape) === 'sweetheart' ? 'Sweetheart' : ('Table ' + t.number); }
 
   /* ---- Undo ---- */
-  function shEdState() { return JSON.stringify({ tables: window.__SH_STATE.tables, roomHeight: window.__SH_STATE.roomHeight }); }
+  function shEdState() { return JSON.stringify({ tables: window.__SH_STATE.tables, roomHeight: window.__SH_STATE.roomHeight, rules: window.__SH_STATE.rules }); }
   window.shSnapshot = function() {
     if (!window.__SH_STATE || window.__SH_SUPPRESS_RENDER) return;
     var snap = shEdState(), st = window.__SH_UNDO;
@@ -37,7 +37,7 @@ function renderSeatEditorClientScript() {
     while (st.length && st[st.length - 1] === cur) st.pop();
     if (!st.length) return;
     var prev = JSON.parse(st.pop());
-    window.__SH_STATE.tables = prev.tables; window.__SH_STATE.roomHeight = prev.roomHeight;
+    window.__SH_STATE.tables = prev.tables; window.__SH_STATE.roomHeight = prev.roomHeight; if (prev.rules) window.__SH_STATE.rules = prev.rules;
     window.__SH_STATE.tables.forEach(function(t) { shRecomputeGeometry(t); });
     window.__SH_OPEN_GUEST = null; window.__SH_SWAP_SOURCE = null;
     window.__SH_SELECTED_TABLE_IDX = Math.min(window.__SH_SELECTED_TABLE_IDX || 0, window.__SH_STATE.tables.length - 1);
@@ -87,7 +87,7 @@ function renderSeatEditorClientScript() {
   /* ---- Panel render ---- */
   window.shRenderSeatPanel = function() {
     var box = document.getElementById('sh-selected-table-box'); if (!box || !window.__SH_STATE || !window.__SH_STATE.tables) return;
-    shSyncTableSelectAndPills();
+    shSyncTableSelectAndPills(); if (window.shRenderLegend) window.shRenderLegend();
     var undoBtn = document.getElementById('sh-undo-btn'); if (undoBtn) undoBtn.style.display = window.__SH_UNDO.length ? '' : 'none';
     var tables = window.__SH_STATE.tables, tIdx = window.__SH_SELECTED_TABLE_IDX, t = tables[tIdx];
     if (!t) { box.innerHTML = '<div class="sh-ed-empty">Tap any table on the floorplan to see who&rsquo;s sitting there.</div>'; return; }
@@ -99,13 +99,14 @@ function renderSeatEditorClientScript() {
     h.push('<div class="sh-ed-meta"><span>' + t.guests.length + ' of ' + t.capacity + ' seats filled</span>');
     if (!isSweet) h.push('<span class="sh-ed-stepper"><button type="button" aria-label="Remove a chair" onclick="window.shEdSeats(' + tIdx + ',-1)">&minus;</button><b>' + t.capacity + ' chairs</b><button type="button" aria-label="Add a chair" onclick="window.shEdSeats(' + tIdx + ',1)">+</button></span>');
     h.push('</div></div>');
+    if (window.shEdTableStyleHtml) h.push(window.shEdTableStyleHtml(tIdx));
     h.push('<div class="sh-ed-add"><input id="sh-ed-add" placeholder="Add a guest to ' + shEsc(shEdTableLabel(t)) + '" onkeydown="if(event.key===\\'Enter\\')window.shEdAdd(' + tIdx + ')" /><button type="button" onclick="window.shEdAdd(' + tIdx + ')">Add</button></div>');
     h.push('<div class="sh-ed-list">');
     if (!t.guests.length) h.push('<div class="sh-ed-empty" style="padding:14px 4px;">No one here yet. Add a guest above, or drag someone onto this table.</div>');
     t.guests.forEach(function(g, sIdx) {
       var open = og && og.t === tIdx && og.s === sIdx, nk = shEdNoteKey(g), noteLbl = nk === 'none' ? '' : (nk === 'other' ? String(g.allergy).replace(/[^A-Za-z\\s-]/g, '').trim().toLowerCase().replace(/^./, function(c) { return c.toUpperCase(); }).slice(0, 16) : SH_ED_NOTES.filter(function(x) { return x[0] === nk; })[0][1]);
       h.push('<div class="sh-ed-item' + (open ? ' open' : '') + '">');
-      h.push('<button type="button" class="sh-ed-row" onclick="window.shEdOpen(' + tIdx + ',' + sIdx + ')"><span class="sh-ed-seat">' + (sIdx + 1) + '</span><span class="sh-ed-name">' + shEsc(g.name) + '</span>' + (noteLbl ? '<span class="sh-ed-tag warn">' + noteLbl + '</span>' : '') + '<span class="sh-ed-tag">' + shEdMealShort(g.meal) + '</span><span class="sh-ed-chev">' + (open ? '&#9652;' : '&#9662;') + '</span></button>');
+      h.push('<button type="button" class="sh-ed-row" onclick="window.shEdOpen(' + tIdx + ',' + sIdx + ')"><span class="sh-ed-seat">' + (sIdx + 1) + '</span>' + (window.shGroupDot ? window.shGroupDot(g) : '') + '<span class="sh-ed-name">' + shEsc(g.name) + '</span>' + (noteLbl ? '<span class="sh-ed-tag warn">' + noteLbl + '</span>' : '') + '<span class="sh-ed-tag">' + shEdMealShort(g.meal) + '</span><span class="sh-ed-chev">' + (open ? '&#9652;' : '&#9662;') + '</span></button>');
       if (open) {
         h.push('<div class="sh-ed-detail">');
         h.push('<div class="sh-ed-label">Move to</div><div class="sh-ed-chips">');
@@ -118,7 +119,7 @@ function renderSeatEditorClientScript() {
         SH_ED_MEALS.forEach(function(m) { h.push('<button type="button" class="' + (shEdMealShort(g.meal) === m[1] ? 'on' : '') + '" onclick="window.shEdMeal(' + tIdx + ',' + sIdx + ',\\'' + m[0] + '\\')">' + m[1] + '</button>'); });
         h.push('</div><div class="sh-ed-label">Dietary or seating need</div><div class="sh-ed-seg wrap">');
         SH_ED_NOTES.forEach(function(n) { h.push('<button type="button" class="' + (nk === n[0] ? 'on' : '') + '" onclick="window.shEdNote(' + tIdx + ',' + sIdx + ',\\'' + n[0] + '\\')">' + n[1] + '</button>'); });
-        h.push('</div><div class="sh-ed-label">Name</div><input class="sh-ed-input" value="' + shEsc(g.name) + '" onchange="window.shEdRename(' + tIdx + ',' + sIdx + ',this.value)" onkeydown="if(event.key===\\'Enter\\')this.blur()" />');
+        h.push('</div>'); if (window.shEdGuestExtras) h.push(window.shEdGuestExtras(tIdx, sIdx)); h.push('<div class="sh-ed-label">Name</div><input class="sh-ed-input" value="' + shEsc(g.name) + '" onchange="window.shEdRename(' + tIdx + ',' + sIdx + ',this.value)" onkeydown="if(event.key===\\'Enter\\')this.blur()" />');
         h.push('<button type="button" class="sh-ed-remove" onclick="window.shEdRemove(' + tIdx + ',' + sIdx + ')">Remove from guest list</button>');
         h.push('</div>');
       }
@@ -127,6 +128,7 @@ function renderSeatEditorClientScript() {
     if (free > 0 && t.guests.length) h.push('<div class="sh-ed-free">' + free + ' empty seat' + (free === 1 ? '' : 's') + '</div>');
     h.push('</div>');
     if (!isSweet && !t.guests.length && tables.length > 2) h.push('<button type="button" class="sh-ed-remove" style="margin-top:10px;" onclick="window.shDeleteSelectedTable()">Remove this table</button>');
+    if (window.shEdKeepApartHtml) h.push(window.shEdKeepApartHtml());
     box.innerHTML = h.join('');
   };`;
 }

@@ -6,6 +6,7 @@
 const { renderDeliverablesClientScript } = require('./studio-deliverables-client');
 const { renderSetupWizardClientScript } = require('./setup-wizard');
 const { renderSeatEditorClientScript } = require('./seat-editor');
+const { renderSeatGroupsClientScript } = require('./seat-groups');
 
 function renderInteractiveScript(initialPlan) {
   const safeInitialJson = JSON.stringify(initialPlan || {}).replace(/</g, '\\u003c');
@@ -827,6 +828,7 @@ function renderInteractiveScript(initialPlan) {
       const mx = Math.round((t2.x + t5.x) / 2), my = Math.round((t2.y + t5.y) / 2) - 22;
       parts.push('<line x1="' + t2.x + '" y1="' + t2.y + '" x2="' + t5.x + '" y2="' + t5.y + '" stroke="#065F46" stroke-width="1.5" stroke-dasharray="5 5" opacity="0.65"/><rect x="' + (mx - 98) + '" y="' + (my - 12) + '" width="196" height="24" rx="12" fill="#ECFDF5" stroke="#065F46" stroke-width="1"/><text x="' + mx + '" y="' + (my + 4) + '" text-anchor="middle" fill="#065F46" font-size="10.2" font-weight="800">✓ Opposite Sides of Dance Floor</text>');
     }
+    if (window.shDropHalo) parts.push(window.shDropHalo(plan));
     plan.tables.forEach(function(t, tIdx) {
       shRecomputeGeometry(t);
       const geom = t.geometry, isSelected = tIdx === window.__SH_SELECTED_TABLE_IDX, isMomLocked = window.__SH_SANDBOX_MOM && tIdx >= 3;
@@ -866,6 +868,7 @@ function renderInteractiveScript(initialPlan) {
         parts.push('<title>Seat #' + s.seatNumber + ' (' + shEsc(s.clockPosition) + '): ' + (g ? (shEsc(g.name) + ' · ' + shEsc(g.meal)) : 'Open Chair · Click in Step 4 to seat a guest') + '</title>');
         parts.push('<circle cx="' + s.x + '" cy="' + s.y + '" r="19" fill="' + seatFill + '" stroke="' + seatStroke + '" stroke-width="' + (isSwapSrc ? '3' : '1.8') + '"' + (g ? '' : ' stroke-dasharray="3 2"') + '/>');
         if (isOpenG) parts.push('<circle cx="' + s.x + '" cy="' + s.y + '" r="23" fill="none" stroke="#B89352" stroke-width="3"/>');
+        if (g && window.shSeatGroupMark) parts.push(window.shSeatGroupMark(g, s));
         parts.push('<text x="' + s.x + '" y="' + (s.y - 3) + '" text-anchor="middle" fill="' + txtFill + '" font-size="8.5" font-weight="800">' + shEsc(topTxt) + '</text>');
         parts.push('<text x="' + s.x + '" y="' + (s.y + 7.2) + '" text-anchor="middle" fill="' + (g ? txtFill : '#78716C') + '" font-size="7.6" font-weight="700">' + shEsc(firstName) + '</text>');
         if (sIdx === 0) parts.push('<circle cx="' + s.x + '" cy="' + (s.y - 19) + '" r="4.8" fill="#8C2D19" stroke="#FFFFFF" stroke-width="1"/>');
@@ -953,6 +956,8 @@ function renderInteractiveScript(initialPlan) {
   ${renderSetupWizardClientScript()}
 
   ${renderSeatEditorClientScript()}
+
+  ${renderSeatGroupsClientScript()}
 
   function shRenderAll() {
     if (!window.__SH_STATE || window.__SH_SUPPRESS_RENDER) return;

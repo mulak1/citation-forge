@@ -87,11 +87,12 @@ function renderDeliverablesClientScript() {
     }
   };
 
-  window.shFindAndAddNonOverlappingTable = function() {
+  window.shFindAndAddNonOverlappingTable = function(opts) {
+    opts = opts || {};
     if (!window.__SH_STATE || !window.__SH_STATE.tables) return;
     var plan = window.__SH_STATE, num = plan.tables.length + 1;
     var roomH = Math.max(680, Number(plan.roomHeight) || 680);
-    var newR = 92;
+    var newR = opts.shape && opts.shape !== 'round' ? 124 : 92;
     var checkClearance = function(pt) {
       var minC = 9999;
       (plan.tables || []).forEach(function(t) {
@@ -134,7 +135,7 @@ function renderDeliverablesClientScript() {
       });
       if (!bestPt) bestPt = { x: 435, y: newRowY };
     }
-    var newTbl = { id: 'table-' + num, number: num, name: 'Table ' + num, shape: 'round', capacity: 8, x: bestPt.x, y: bestPt.y, rotation: 0, locked: false, isUserAdded: true, guests: [] };
+    var newTbl = { id: 'table-' + num, number: num, name: 'Table ' + num, shape: opts.shape || 'round', capacity: opts.capacity || 8, x: bestPt.x, y: bestPt.y, rotation: 0, locked: false, isUserAdded: true, guests: [] };
     shRecomputeGeometry(newTbl); plan.tables.push(newTbl); window.__SH_SELECTED_TABLE_IDX = plan.tables.length - 1;
     if (window.__SH_CANVAS_ZOOM === 'table') window.shSetCanvasZoom('room');
     shSyncTableSelectAndPills();
