@@ -66,18 +66,20 @@ function renderInteractiveScript(initialPlan) {
     var crestEl = document.getElementById('specimen-salon-crest'), headlineEl = document.getElementById('specimen-client-headline');
     var metaSubEl = document.getElementById('specimen-meta-sub'), harmPillEl = document.getElementById('specimen-harmony-pill');
     if (initialsEl) initialsEl.textContent = initials;
-    if (harmPillEl) harmPillEl.textContent = '✦ ' + (window.__SH_STATE.harmonyScore || 98) + '/100 HARMONY';
+    if (harmPillEl) harmPillEl.textContent = '✓ ' + (window.__SH_STATE.harmonyScore || 98) + '% Harmony';
     if (logoImgEl) {
       logoImgEl.src = logoUrl || '';
       logoImgEl.style.display = logoUrl ? 'block' : 'none';
       if (logoMonogramEl) logoMonogramEl.style.display = logoUrl ? 'none' : 'flex';
     }
-    if (crestEl) crestEl.textContent = '✦ ' + venue.toUpperCase() + ' × SEATHARMONY STUDIO';
+    if (crestEl) crestEl.textContent = venue.toUpperCase();
     if (headlineEl) headlineEl.textContent = title;
     if (metaSubEl && window.__SH_STATE.tables) {
       var totalGuests = 0;
       window.__SH_STATE.tables.forEach(function(t) { totalGuests += (t.guests ? t.guests.length : 0); });
-      metaSubEl.textContent = (window.__SH_STATE.harmonyScore || 98) + '/100 Harmony • ' + totalGuests + ' Guests (' + window.__SH_STATE.tables.length + ' Tbls) • 12:00 Seat #1 BEO • Vault #' + (window.__SH_STATE.vaultId || 'SH-4819');
+      metaSubEl.textContent = venue + ' · ' + totalGuests + ' Guests (' + window.__SH_STATE.tables.length + ' Tables)';
+      var sum2 = document.getElementById('sh-wizard-summary-2');
+      if (sum2) sum2.textContent = totalGuests + ' Guests';
     }
   }
 
@@ -104,7 +106,7 @@ function renderInteractiveScript(initialPlan) {
 
   function shFriendlyShape(rawShape) {
     const s = shNormalizeShape(rawShape);
-    return s === 'sweetheart' ? 'Sweetheart (1-Sided)' : (s === 'kings_4sided' ? "King's Table (4-Sided)" : (s === 'banquet_2sided' ? 'Banquet (2-Sided)' : '60" Round'));
+    return s === 'sweetheart' ? 'Sweetheart' : (s === 'kings_4sided' ? "King's" : (s === 'banquet_2sided' ? 'Banquet' : 'Round'));
   }
 
   function shRecomputeGeometry(table) {
@@ -150,9 +152,9 @@ function renderInteractiveScript(initialPlan) {
     if (!grid) return;
     const isFull = grid.classList.toggle('full-stage');
     const b1 = document.getElementById('sh-expand-stage-top-btn'), b2 = document.getElementById('sh-stage-expand-btn');
-    if (b1) b1.innerHTML = isFull ? '&#9707; Show 5-Step Builder + Stage' : '&#9974; Full-Width Floorplan';
-    if (b2) b2.innerHTML = isFull ? '&#9707; Split View' : '&#9974; Full-Width Stage';
-    shToast(isFull ? '⛶ Expanded Floorplan Stage to 100% Full Width!' : '◫ Restored Split Builder + Stage View');
+    if (b1) b1.innerHTML = isFull ? '&#9707; Split View' : '&#9974; Expand';
+    if (b2) b2.innerHTML = isFull ? '&#9707; Split View' : '&#9974; Expand';
+    shToast(isFull ? 'Expanded Floorplan Stage to Full Width' : 'Restored Split View');
   };
 
   window.shNudgeSelectedTable = function(dx, dy) {
@@ -638,8 +640,8 @@ function renderInteractiveScript(initialPlan) {
   window.shToggleMomSandbox = function() {
     window.__SH_SANDBOX_MOM = !window.__SH_SANDBOX_MOM;
     const badge = document.getElementById('sh-mom-sandbox-badge');
-    if (badge) { badge.textContent = window.__SH_SANDBOX_MOM ? '👵 Family Share Mode: ON (Tables 1-3)' : '👵 Family Share Mode: OFF (All Tables)'; badge.className = window.__SH_SANDBOX_MOM ? 'badge badge-amber' : 'badge badge-cyan'; }
-    shToast(window.__SH_SANDBOX_MOM ? '👵 Family Share Mode Active: Tables 1-3 Editable; Tables 4-8 Safely Locked!' : 'Full Edit Mode Restored: All tables unlocked.');
+    if (badge) { badge.textContent = window.__SH_SANDBOX_MOM ? '👵 Family Share: ON' : '👵 Family Share: OFF'; badge.className = window.__SH_SANDBOX_MOM ? 'badge badge-amber' : 'badge badge-cyan'; }
+    shToast(window.__SH_SANDBOX_MOM ? '👵 Family Share Mode: Tables 1-3 Editable; Tables 4-8 Locked' : 'Full Edit Mode Restored');
     shRenderAll();
   };
 
@@ -773,10 +775,10 @@ function renderInteractiveScript(initialPlan) {
     const listEl = document.getElementById('sh-rules-list'); if (!listEl || !window.__SH_STATE) return;
     if (!Array.isArray(window.__SH_STATE.rules)) window.__SH_STATE.rules = window.__SH_STATE.conflictRules || [];
     const rules = window.__SH_STATE.rules;
-    const sum3 = document.getElementById('sh-wizard-summary-3'); if (sum3) sum3.textContent = rules.length + ' Rules • 0 Clashes';
+    const sum3 = document.getElementById('sh-wizard-summary-3'); if (sum3) sum3.textContent = '0 Clashes';
     listEl.innerHTML = rules.map(function(r, rIdx) {
       const icon = (r.type === 'keep_apart' || r.type === 'must_keep_apart') ? '🔴 ' : (r.type === 'zone_quiet' ? '🔇 ' : '🟢 ');
-      return '<div style="padding:10px 12px;border-radius:10px;background:#FAF8F5;border:1px solid #E2D9C8;font-size:0.84rem;display:flex;flex-direction:column;align-items:flex-start;gap:5px;"><div style="display:flex;align-items:flex-start;justify-content:space-between;gap:8px;width:100%;"><div style="font-weight:800;color:#181412;line-height:1.35;flex:1;">' + icon + shEsc(r.label) + '</div><button type="button" title="Delete Rule" onclick="window.shRemoveRule(' + rIdx + ',event)" style="cursor:pointer;border:1px solid #FECDD3;background:#FFF1F2;color:#9F1239;font-size:0.78rem;font-weight:800;padding:1px 6px;border-radius:5px;flex-shrink:0;">✕</button></div><div style="font-size:0.82rem;color:#57534E;line-height:1.42;width:100%;">' + shEsc(r.detail) + '</div><button type="button" title="Click to cycle rule type" onclick="window.shCycleRuleType(' + rIdx + ',event)" class="badge badge-emerald" style="cursor:pointer;border:1px solid #A7F3D0;font-size:0.82rem;padding:3px 9px;align-self:flex-start;">✓ ' + shEsc(r.status) + ' · Cycle Type</button></div>';
+      return '<div style="padding:8px 10px;border-radius:8px;background:#FAF8F5;border:1px solid #E2D9C8;font-size:0.82rem;display:flex;align-items:center;justify-content:space-between;gap:8px;"><div onclick="window.shCycleRuleType(' + rIdx + ',event)" title="Click to change rule type" style="cursor:pointer;font-weight:700;color:#181412;line-height:1.3;flex:1;">' + icon + shEsc(r.label) + '</div><button type="button" title="Delete Rule" onclick="window.shRemoveRule(' + rIdx + ',event)" style="cursor:pointer;border:none;background:transparent;color:#9CA3AF;font-size:0.80rem;font-weight:800;padding:2px 5px;flex-shrink:0;">✕</button></div>';
     }).join('');
   }
 
@@ -826,7 +828,7 @@ function renderInteractiveScript(initialPlan) {
         const hw = Math.round(geom.tableWidth / 2), hh = Math.round(geom.tableHeight / 2);
         parts.push('<g transform="translate(' + t.x + ',' + t.y + ') rotate(' + (t.rotation || 0) + ')"><rect x="' + (-hw) + '" y="' + (-hh) + '" width="' + geom.tableWidth + '" height="' + geom.tableHeight + '" rx="10" fill="' + tblFill + '" stroke="' + strokeCol + '" stroke-width="' + strokeW + '"/></g>');
       }
-      parts.push('<text x="' + t.x + '" y="' + (t.y - 4) + '" text-anchor="middle" fill="#1C1917" font-size="12.5" font-weight="800">' + (t.locked ? '🔒 ' : '') + 'Table ' + t.number + '</text><text x="' + t.x + '" y="' + (t.y + 11) + '" text-anchor="middle" fill="#78716C" font-size="9.8" font-weight="700">' + t.guests.length + '/' + t.capacity + ' · Drag</text></g>');
+      parts.push('<text x="' + t.x + '" y="' + (t.y - 4) + '" text-anchor="middle" fill="#1C1917" font-size="12.5" font-weight="800">' + (t.locked ? '🔒 ' : '') + 'Table ' + t.number + '</text><text x="' + t.x + '" y="' + (t.y + 11) + '" text-anchor="middle" fill="#78716C" font-size="9.8" font-weight="700">' + t.guests.length + '/' + t.capacity + ' Seats</text></g>');
       geom.seats.forEach(function(s, sIdx) {
         const g = t.guests[sIdx], isSwapSrc = window.__SH_SWAP_SOURCE && window.__SH_SWAP_SOURCE.tableIdx === tIdx && window.__SH_SWAP_SOURCE.seatIdx === sIdx;
         let seatFill = isSwapSrc ? '#FEF3C7' : '#FFFFFF', seatStroke = isSwapSrc ? '#D97706' : '#A89F91', txtFill = '#1C1917', topTxt = '#' + s.seatNumber;

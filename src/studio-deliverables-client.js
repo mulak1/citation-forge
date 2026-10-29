@@ -69,14 +69,14 @@ function renderDeliverablesClientScript() {
         }).join('');
         swapBanner.innerHTML =
           '<div style="display:flex;flex-wrap:wrap;align-items:center;gap:6px;flex:1;">' +
-            '<span style="font-size:0.82rem;font-weight:800;color:#8C2D19;">Seat #' + (sIdx + 1) + ' (' + shEsc(sTbl.name) + '):</span>' +
+            '<span style="font-size:0.82rem;font-weight:800;color:#8C2D19;">Seat #' + (sIdx + 1) + ':</span>' +
             '<input type="text" value="' + shEsc(sG.name) + '" onchange="window.shRenameGuest(' + tIdx + ',' + sIdx + ',this.value,event)" style="padding:4px 8px;border:1px solid #C8A96E;border-radius:6px;font-size:0.82rem;font-weight:800;background:#FFFFFF;color:#181412;width:155px;" aria-label="Edit Guest Name" />' +
-            '<button type="button" title="Move Seat Counter-Clockwise" onclick="window.shMoveGuestSeatOffset(' + tIdx + ',' + sIdx + ',-1,event)" style="background:#FFFFFF;border:1px solid #D6CFC2;border-radius:6px;padding:4px 8px;font-size:0.80rem;font-weight:800;cursor:pointer;">&#9664; Seat</button>' +
-            '<button type="button" title="Move Seat Clockwise" onclick="window.shMoveGuestSeatOffset(' + tIdx + ',' + sIdx + ',1,event)" style="background:#FFFFFF;border:1px solid #D6CFC2;border-radius:6px;padding:4px 8px;font-size:0.80rem;font-weight:800;cursor:pointer;">Seat &#9654;</button>' +
+            '<button type="button" title="Move Seat Counter-Clockwise" onclick="window.shMoveGuestSeatOffset(' + tIdx + ',' + sIdx + ',-1,event)" style="background:#FFFFFF;border:1px solid #D6CFC2;border-radius:6px;padding:4px 8px;font-size:0.80rem;font-weight:800;cursor:pointer;">&#9664;</button>' +
+            '<button type="button" title="Move Seat Clockwise" onclick="window.shMoveGuestSeatOffset(' + tIdx + ',' + sIdx + ',1,event)" style="background:#FFFFFF;border:1px solid #D6CFC2;border-radius:6px;padding:4px 8px;font-size:0.80rem;font-weight:800;cursor:pointer;">&#9654;</button>' +
             '<select aria-label="Move guest to table" onchange="window.shMoveGuestToTable(' + tIdx + ',' + sIdx + ',this.value,event)" style="background:#FFFFFF;border:1px solid #C8A96E;border-radius:6px;padding:4px 6px;font-size:0.80rem;font-weight:800;color:#78350F;cursor:pointer;">' + tblOpts + '</select>' +
-            '<button type="button" onclick="window.shCycleGuestMeal(' + tIdx + ',' + sIdx + ',event)" style="background:' + mb.bg + ';border:1px solid ' + mb.color + ';color:' + mb.color + ';border-radius:6px;padding:4px 8px;font-size:0.80rem;font-weight:800;cursor:pointer;">' + mb.code + ' ' + mb.short + '</button>' +
-            '<button type="button" onclick="window.shRemoveGuest(' + tIdx + ',' + sIdx + ',event);window.__SH_SWAP_SOURCE=null;shRenderAll();" style="background:#FFF1F2;border:1px solid #FECDD3;color:#9F1239;border-radius:6px;padding:4px 9px;font-size:0.80rem;font-weight:800;cursor:pointer;">✕ Remove Guest</button>' +
-            '<span style="font-size:0.78rem;color:#78350F;font-weight:700;">or click any other seat/table on map to swap!</span>' +
+            '<button type="button" onclick="window.shCycleGuestMeal(' + tIdx + ',' + sIdx + ',event)" style="background:' + mb.bg + ';border:1px solid ' + mb.color + ';color:' + mb.color + ';border-radius:6px;padding:4px 8px;font-size:0.80rem;font-weight:800;cursor:pointer;">' + mb.short + '</button>' +
+            '<button type="button" onclick="window.shCycleGuestAllergy(' + tIdx + ',' + sIdx + ',event)" style="background:#FFFFFF;border:1px solid #D6CFC2;color:#44403C;border-radius:6px;padding:4px 8px;font-size:0.80rem;font-weight:800;cursor:pointer;">+ Dietary / ADA</button>' +
+            '<button type="button" onclick="window.shRemoveGuest(' + tIdx + ',' + sIdx + ',event);window.__SH_SWAP_SOURCE=null;shRenderAll();" style="background:#FFF1F2;border:1px solid #FECDD3;color:#9F1239;border-radius:6px;padding:4px 9px;font-size:0.80rem;font-weight:800;cursor:pointer;">✕ Remove</button>' +
           '</div>' +
           '<button type="button" onclick="window.shCancelSwap()" style="background:#FFFFFF;border:1px solid #D97706;border-radius:6px;padding:4px 9px;font-size:0.80rem;font-weight:800;cursor:pointer;color:#78350F;">Done</button>';
       } else {
@@ -105,32 +105,32 @@ function renderDeliverablesClientScript() {
     const lockBtn = document.getElementById('sh-lock-table-btn');
     if (lockBtn) { lockBtn.classList.toggle('active', Boolean(t.locked)); lockBtn.textContent = t.locked ? '🔒 Locked' : '🔓 Lock'; }
     const sum4 = document.getElementById('sh-wizard-summary-4');
-    if (sum4) sum4.textContent = 'Table ' + t.number + ' • ' + shFriendlyShape(t.shape);
+    if (sum4) sum4.textContent = shFriendlyShape(t.shape);
 
     const tableMoveOpts = (window.__SH_STATE.tables || []).map(function(cand, cIdx) {
-      return '<option value="' + cIdx + '"' + (cIdx === tIdx ? ' selected' : '') + '>⇄ Tbl ' + cand.number + '</option>';
+      return '<option value="' + cIdx + '"' + (cIdx === tIdx ? ' selected' : '') + '>T' + cand.number + '</option>';
     }).join('');
 
     const cards = [];
     t.guests.forEach(function(g, idx) {
       const seat = t.geometry.seats[idx] || { seatNumber: idx + 1, clockPosition: '12:00' }, mb = shMealBadge(g.meal);
       const cleanAllergy = g.allergy ? String(g.allergy).replace(/^[⚠️🥜🌾🐚🥛]+\\s*/, '') : '', cleanAccess = g.accessibility ? String(g.accessibility).replace(/^[♿👶]+\\s*/, '') : '';
-      const tagLabel = cleanAllergy ? ('⚠️ ' + shEsc(cleanAllergy)) : (cleanAccess ? ('♿ ' + shEsc(cleanAccess)) : '+ Tag');
-      const tagStyle = cleanAllergy ? 'background:#FFF1F2;color:#9F1239;border:1px solid #FECDD3;' : (cleanAccess ? 'background:#FEF3C7;color:#92400E;border:1px solid #FDE68A;' : 'background:#F5F5F4;color:#57534E;border:1px solid #D6D3D1;');
+      const shortAllergy = cleanAllergy ? (cleanAllergy.indexOf('PEANUT') !== -1 ? 'Nut' : (cleanAllergy.indexOf('CELIAC') !== -1 ? 'GF' : (cleanAllergy.indexOf('SODIUM') !== -1 ? 'Low-Na' : cleanAllergy.split(' ')[0]))) : '';
+      const shortAccess = cleanAccess ? (cleanAccess.indexOf('WHEELCHAIR') !== -1 ? 'ADA' : 'Child') : '';
+      const hasTag = Boolean(shortAllergy || shortAccess);
+      const tagHtml = hasTag
+        ? '<button type="button" title="Click to change or clear dietary/chair note" onclick="window.shCycleGuestAllergy(' + tIdx + ',' + idx + ',event)" style="cursor:pointer;font-size:0.72rem;font-weight:700;border-radius:5px;white-space:nowrap;' + (shortAllergy ? 'background:#FFF1F2;color:#9F1239;border:1px solid #FECDD3;padding:2px 5px;' : 'background:#FEF3C7;color:#92400E;border:1px solid #FDE68A;padding:2px 5px;') + '">' + (shortAllergy ? shEsc(shortAllergy) : ('♿ ' + shEsc(shortAccess))) + '</button>'
+        : '';
       const isSelSeat = window.__SH_SWAP_SOURCE && window.__SH_SWAP_SOURCE.tableIdx === tIdx && window.__SH_SWAP_SOURCE.seatIdx === idx;
       cards.push(
-        '<div onclick="window.shSeatClick(' + tIdx + ',' + idx + ',event)" style="cursor:pointer;display:flex;flex-direction:column;gap:6px;padding:9px 11px;border-radius:10px;background:' + (isSelSeat ? '#FFFBEB' : '#FFFFFF') + ';border:' + (isSelSeat ? '2px solid #D97706' : '1px solid #EAE2D3') + ';font-size:0.84rem;min-width:0;max-width:100%;">' +
-          '<div style="display:flex;align-items:center;justify-content:space-between;gap:6px;width:100%;min-width:0;" onclick="event.stopPropagation()">' +
-            '<span class="mono" onclick="window.shSeatClick(' + tIdx + ',' + idx + ',event)" style="font-size:0.82rem;font-weight:800;padding:2px 6px;border-radius:5px;flex-shrink:0;background:' + (idx === 0 ? '#8C2D19' : '#F3EDE3') + ';color:' + (idx === 0 ? '#FFF' : '#1C1917') + ';">#' + seat.seatNumber + '</span>' +
-            '<input type="text" value="' + shEsc(g.name) + '" aria-label="Guest Name" onchange="window.shRenameGuest(' + tIdx + ',' + idx + ',this.value,event)" style="flex:1;min-width:0;border:1px solid transparent;background:transparent;font-weight:800;font-size:0.84rem;color:#1C1917;padding:2px 4px;border-radius:4px;" onfocus="this.style.borderColor=\\'#C8A96E\\';this.style.background=\\'#FAF7F2\\';" onblur="this.style.borderColor=\\'transparent\\';this.style.background=\\'transparent\\';" />' +
-            '<button type="button" title="Remove guest from seat" onclick="window.shRemoveGuest(' + tIdx + ',' + idx + ',event)" style="cursor:pointer;border:1px solid #FECDD3;background:#FFF1F2;color:#9F1239;font-size:0.82rem;font-weight:800;padding:2px 6px;border-radius:5px;flex-shrink:0;">✕</button>' +
-          '</div>' +
-          '<div style="display:flex;flex-wrap:wrap;align-items:center;gap:4px;width:100%;" onclick="event.stopPropagation()">' +
-            '<button type="button" title="Move Seat Counter-Clockwise" onclick="window.shMoveGuestSeatOffset(' + tIdx + ',' + idx + ',-1,event)" style="cursor:pointer;border:1px solid #D6CFC2;background:#FAF7F2;color:#181412;font-size:0.82rem;font-weight:800;padding:2px 6px;border-radius:5px;">&#9664;</button>' +
-            '<button type="button" title="Move Seat Clockwise" onclick="window.shMoveGuestSeatOffset(' + tIdx + ',' + idx + ',1,event)" style="cursor:pointer;border:1px solid #D6CFC2;background:#FAF7F2;color:#181412;font-size:0.82rem;font-weight:800;padding:2px 6px;border-radius:5px;">&#9654;</button>' +
-            '<select aria-label="Move guest to another table" onchange="window.shMoveGuestToTable(' + tIdx + ',' + idx + ',this.value,event)" style="cursor:pointer;border:1px solid #C8A96E;background:#FAF3E3;color:#78350F;font-size:0.82rem;font-weight:800;padding:2px 5px;border-radius:5px;">' + tableMoveOpts + '</select>' +
-            '<button type="button" title="Cycle Entrée" onclick="window.shCycleGuestMeal(' + tIdx + ',' + idx + ',event)" style="cursor:pointer;border:1px solid ' + mb.color + ';font-size:0.82rem;font-weight:800;padding:2px 6px;border-radius:5px;background:' + mb.bg + ';color:' + mb.color + ';">' + mb.code + ' ' + mb.short + '</button>' +
-            '<button type="button" title="Cycle Allergy / Chair" onclick="window.shCycleGuestAllergy(' + tIdx + ',' + idx + ',event)" style="cursor:pointer;font-size:0.82rem;font-weight:800;padding:2px 6px;border-radius:5px;max-width:100%;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;' + tagStyle + '">' + tagLabel + '</button>' +
+        '<div onclick="window.shSeatClick(' + tIdx + ',' + idx + ',event)" style="cursor:pointer;display:flex;align-items:center;justify-content:space-between;gap:5px;padding:7px 9px;border-radius:9px;background:' + (isSelSeat ? '#FFFBEB' : '#FFFFFF') + ';border:' + (isSelSeat ? '2px solid #D97706' : '1px solid #EAE2D3') + ';font-size:0.83rem;min-width:0;max-width:100%;">' +
+          '<span class="mono" style="font-size:0.74rem;font-weight:800;padding:2px 5px;border-radius:5px;flex-shrink:0;background:' + (idx === 0 ? '#8C2D19' : '#F3EDE3') + ';color:' + (idx === 0 ? '#FFF' : '#1C1917') + ';">#' + seat.seatNumber + '</span>' +
+          '<input type="text" value="' + shEsc(g.name) + '" aria-label="Guest Name" onclick="event.stopPropagation()" onchange="window.shRenameGuest(' + tIdx + ',' + idx + ',this.value,event)" style="flex:1;min-width:0;border:1px solid transparent;background:transparent;font-weight:700;font-size:0.83rem;color:#1C1917;padding:2px 3px;border-radius:4px;" onfocus="this.style.borderColor=\\'#C8A96E\\';this.style.background=\\'#FAF7F2\\';" onblur="this.style.borderColor=\\'transparent\\';this.style.background=\\'transparent\\';" />' +
+          '<div style="display:flex;align-items:center;gap:4px;flex-shrink:0;" onclick="event.stopPropagation()">' +
+            tagHtml +
+            '<button type="button" title="Click to change meal" onclick="window.shCycleGuestMeal(' + tIdx + ',' + idx + ',event)" style="cursor:pointer;border:1px solid ' + mb.color + ';font-size:0.74rem;font-weight:800;padding:2px 6px;border-radius:5px;background:' + mb.bg + ';color:' + mb.color + ';">' + mb.short + '</button>' +
+            '<select aria-label="Move to table" title="Move guest to another table" onchange="window.shMoveGuestToTable(' + tIdx + ',' + idx + ',this.value,event)" style="cursor:pointer;border:1px solid #D6CFC2;background:#FAF8F5;color:#44403C;font-size:0.74rem;font-weight:700;padding:2px 3px;border-radius:5px;">' + tableMoveOpts + '</select>' +
+            '<button type="button" title="Remove guest" onclick="window.shRemoveGuest(' + tIdx + ',' + idx + ',event)" style="cursor:pointer;border:none;background:transparent;color:#9CA3AF;font-size:0.80rem;font-weight:800;padding:2px 3px;border-radius:4px;" onmouseover="this.style.color=\\'#9F1239\\'" onmouseout="this.style.color=\\'#9CA3AF\\'">✕</button>' +
           '</div>' +
         '</div>'
       );
@@ -138,46 +138,40 @@ function renderDeliverablesClientScript() {
 
     for (let sIdx = t.guests.length; sIdx < (t.capacity || 8); sIdx++) {
       cards.push(
-        '<div style="display:flex;align-items:center;justify-content:space-between;gap:6px;padding:9px 11px;border-radius:10px;background:#FAF8F5;border:1.5px dashed #D6CBB8;font-size:0.82rem;min-width:0;">' +
-          '<span class="mono" style="font-weight:800;color:#78716C;">#' + (sIdx + 1) + ' Open Chair</span>' +
+        '<div style="display:flex;align-items:center;justify-content:space-between;gap:6px;padding:7px 10px;border-radius:9px;background:#FAF8F5;border:1.5px dashed #D6CBB8;font-size:0.80rem;min-width:0;">' +
+          '<span class="mono" style="font-weight:700;color:#78716C;">#' + (sIdx + 1) + ' Open Seat</span>' +
           '<div style="display:flex;gap:4px;">' +
-            '<button type="button" onclick="window.shSeatClick(' + tIdx + ',' + sIdx + ',event)" style="cursor:pointer;border:1px solid #10B981;background:#ECFDF5;color:#065F46;font-size:0.80rem;font-weight:800;padding:2px 8px;border-radius:5px;">+ Guest</button>' +
-            (t.capacity > 2 ? '<button type="button" title="Remove this empty chair" onclick="window.shChangeTableCapacity(' + tIdx + ',-1,event)" style="cursor:pointer;border:1px solid #FECDD3;background:#FFF1F2;color:#9F1239;font-size:0.80rem;font-weight:800;padding:2px 6px;border-radius:5px;">✕ Chair</button>' : '') +
+            '<button type="button" onclick="window.shSeatClick(' + tIdx + ',' + sIdx + ',event)" style="cursor:pointer;border:1px solid #10B981;background:#ECFDF5;color:#065F46;font-size:0.76rem;font-weight:800;padding:2px 8px;border-radius:5px;">+ Seat Guest</button>' +
+            (t.capacity > 2 ? '<button type="button" title="Remove empty chair" onclick="window.shChangeTableCapacity(' + tIdx + ',-1,event)" style="cursor:pointer;border:none;background:transparent;color:#9CA3AF;font-size:0.78rem;font-weight:800;padding:2px 4px;">✕</button>' : '') +
           '</div>' +
         '</div>'
       );
     }
 
     box.innerHTML =
-      '<div style="display:flex;flex-wrap:wrap;align-items:center;justify-content:space-between;gap:8px;margin-bottom:10px;">' +
-        '<div style="min-width:0;flex:1 1 240px;">' +
-          '<div style="font-size:0.84rem;font-weight:800;text-transform:uppercase;letter-spacing:0.06em;color:#8C2D19;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;">SELECTED TABLE &amp; SEATS &middot; CLICK OR DRAG ANY ELEMENT</div>' +
-          '<div style="display:flex;align-items:center;gap:6px;flex-wrap:wrap;margin-top:3px;">' +
-            '<input type="text" value="' + shEsc(t.name) + '" onchange="window.shRenameTable(' + tIdx + ',this.value)" aria-label="Rename Selected Table" class="serif-display" style="font-size:1.06rem;font-weight:700;color:#181412;background:#FFFFFF;border:1px solid #D6CBB8;border-radius:6px;padding:3px 8px;width:230px;" />' +
-            '<span class="mono" style="font-size:0.82rem;color:#57534E;font-weight:800;">' + t.guests.length + '/' + t.capacity + ' Chairs</span>' +
-            '<button type="button" title="Remove 1 Chair from Table" onclick="window.shChangeTableCapacity(' + tIdx + ',-1,event)" class="studio-tap-chip" style="padding:3px 8px;">- Chair</button>' +
-            '<button type="button" title="Add 1 Chair to Table" onclick="window.shChangeTableCapacity(' + tIdx + ',1,event)" class="studio-tap-chip" style="padding:3px 8px;">+ Chair</button>' +
+      '<div style="display:flex;flex-wrap:wrap;align-items:center;justify-content:space-between;gap:6px;margin-bottom:8px;padding-bottom:8px;border-bottom:1px solid #EAE2D3;">' +
+        '<div style="display:flex;align-items:center;gap:6px;min-width:0;flex:1 1 280px;">' +
+          '<input type="text" value="' + shEsc(t.name) + '" onchange="window.shRenameTable(' + tIdx + ',this.value)" aria-label="Table Name" class="serif-display" style="font-size:1.00rem;font-weight:700;color:#181412;background:#FFFFFF;border:1px solid #D6CBB8;border-radius:7px;padding:4px 8px;flex:1;min-width:140px;max-width:230px;" />' +
+          '<div style="display:inline-flex;align-items:center;background:#FFFFFF;border:1px solid #D6CFC2;border-radius:7px;overflow:hidden;flex-shrink:0;">' +
+            '<button type="button" title="Remove 1 Chair" onclick="window.shChangeTableCapacity(' + tIdx + ',-1,event)" style="cursor:pointer;border:none;background:transparent;padding:4px 7px;font-weight:800;color:#44403C;">&minus;</button>' +
+            '<span class="mono" style="font-size:0.75rem;color:#181412;font-weight:800;padding:0 4px;">' + t.guests.length + '/' + t.capacity + '</span>' +
+            '<button type="button" title="Add 1 Chair" onclick="window.shChangeTableCapacity(' + tIdx + ',1,event)" style="cursor:pointer;border:none;background:transparent;padding:4px 7px;font-weight:800;color:#44403C;">+</button>' +
           '</div>' +
         '</div>' +
         '<div style="display:flex;flex-wrap:wrap;gap:4px;align-items:center;">' +
-          '<button type="button" title="Move Table Left" onclick="window.shNudgeSelectedTable(-32,0)" class="studio-tap-chip" style="padding:3px 7px;">&larr;</button>' +
-          '<button type="button" title="Move Table Up" onclick="window.shNudgeSelectedTable(0,-28)" class="studio-tap-chip" style="padding:3px 7px;">&uarr;</button>' +
-          '<button type="button" title="Move Table Down" onclick="window.shNudgeSelectedTable(0,28)" class="studio-tap-chip" style="padding:3px 7px;">&darr;</button>' +
-          '<button type="button" title="Move Table Right" onclick="window.shNudgeSelectedTable(32,0)" class="studio-tap-chip" style="padding:3px 7px;">&rarr;</button>' +
-          '<button type="button" onclick="window.shMorphSelectedTable(\\'round\\')" class="studio-tap-chip' + (normShape === 'round' ? ' active' : '') + '">● Round</button>' +
-          '<button type="button" onclick="window.shMorphSelectedTable(\\'sweetheart\\')" class="studio-tap-chip' + (normShape === 'sweetheart' ? ' active' : '') + '">💕 Sweetheart</button>' +
-          '<button type="button" onclick="window.shMorphSelectedTable(\\'banquet_2sided\\')" class="studio-tap-chip' + (normShape === 'banquet_2sided' ? ' active' : '') + '">▬ Banquet</button>' +
-          '<button type="button" onclick="window.shMorphSelectedTable(\\'kings_4sided\\')" class="studio-tap-chip' + (normShape === 'kings_4sided' ? ' active' : '') + '">⊞ King\\'s</button>' +
-          '<button type="button" onclick="window.shRotateSelectedTable()" class="studio-tap-chip">↻ 45°</button>' +
-          (window.__SH_STATE.tables.length > 1 ? '<button type="button" title="Delete Selected Table" onclick="window.shDeleteSelectedTable()" class="studio-tap-chip" style="border-color:#FECDD3;background:#FFF1F2;color:#9F1239;">✕ Delete Table</button>' : '') +
+          '<button type="button" onclick="window.shMorphSelectedTable(\\'round\\')" class="studio-tap-chip' + (normShape === 'round' ? ' active' : '') + '" style="padding:4px 8px;font-size:0.75rem;">Round</button>' +
+          '<button type="button" onclick="window.shMorphSelectedTable(\\'banquet_2sided\\')" class="studio-tap-chip' + (normShape === 'banquet_2sided' ? ' active' : '') + '" style="padding:4px 8px;font-size:0.75rem;">Banquet</button>' +
+          '<button type="button" onclick="window.shMorphSelectedTable(\\'sweetheart\\')" class="studio-tap-chip' + (normShape === 'sweetheart' ? ' active' : '') + '" style="padding:4px 8px;font-size:0.75rem;">Sweetheart</button>' +
+          '<button type="button" onclick="window.shMorphSelectedTable(\\'kings_4sided\\')" class="studio-tap-chip' + (normShape === 'kings_4sided' ? ' active' : '') + '" style="padding:4px 8px;font-size:0.75rem;">King\\'s</button>' +
+          '<button type="button" onclick="window.shRotateSelectedTable()" class="studio-tap-chip" style="padding:4px 7px;font-size:0.75rem;" title="Rotate Table 45°">↻ 45°</button>' +
+          (window.__SH_STATE.tables.length > 1 ? '<button type="button" title="Delete Table" onclick="window.shDeleteSelectedTable()" class="studio-tap-chip" style="padding:4px 7px;font-size:0.75rem;border-color:#FECDD3;background:#FFF1F2;color:#9F1239;">Delete</button>' : '') +
         '</div>' +
       '</div>' +
-      '<div style="display:flex;flex-wrap:wrap;align-items:center;gap:6px;margin-bottom:10px;padding:7px 10px;background:#FFFFFF;border:1px solid #EAE2D3;border-radius:8px;">' +
-        '<span style="font-size:0.82rem;font-weight:800;color:#181412;">+ Add Guest to ' + shEsc(t.name) + ':</span>' +
-        '<input id="sh-inspector-add-guest-input" type="text" placeholder="Type guest name (e.g. Cousin Rachel)..." onkeydown="if(event.key===\\'Enter\\')window.shQuickAddGuestToTable(' + tIdx + ',\\'sh-inspector-add-guest-input\\')" style="flex:1 1 180px;padding:5px 9px;border:1px solid #D6CFC2;border-radius:6px;font-size:0.82rem;" aria-label="Add guest to selected table" />' +
-        '<button type="button" onclick="window.shQuickAddGuestToTable(' + tIdx + ',\\'sh-inspector-add-guest-input\\')" class="studio-tap-chip" style="border-color:#10B981;background:#ECFDF5;color:#065F46;font-weight:800;">+ Seat Guest</button>' +
+      '<div style="display:flex;align-items:center;gap:6px;margin-bottom:8px;">' +
+        '<input id="sh-inspector-add-guest-input" type="text" placeholder="Add guest to ' + shEsc(t.name) + ' (press Enter)..." onkeydown="if(event.key===\\'Enter\\')window.shQuickAddGuestToTable(' + tIdx + ',\\'sh-inspector-add-guest-input\\')" style="flex:1;padding:6px 10px;border:1px solid #D6CFC2;border-radius:7px;font-size:0.82rem;background:#FFFFFF;" aria-label="Add guest to selected table" />' +
+        '<button type="button" onclick="window.shQuickAddGuestToTable(' + tIdx + ',\\'sh-inspector-add-guest-input\\')" class="studio-tap-chip" style="padding:5px 11px;font-size:0.80rem;border-color:#10B981;background:#ECFDF5;color:#065F46;font-weight:800;">+ Add Guest</button>' +
       '</div>' +
-      '<div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(255px,1fr));gap:8px;">' + cards.join('') + '</div>';
+      '<div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(275px,1fr));gap:6px;">' + cards.join('') + '</div>';
   }
 
   function shRenderBeoView() {
