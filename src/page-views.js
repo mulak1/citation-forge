@@ -170,12 +170,10 @@ function renderZone3InteractiveStudio(plan) {
   const vId = escapeHtml(plan.vaultId || 'SH-4819');
   const activeRules = plan.rules || plan.conflictRules || [];
   const rulesHtml = activeRules.map(r => `
-    <div style="padding:8px 10px;border-radius:10px;background:#FAF8F5;border:1px solid #E2D9C8;font-size:0.84rem;display:flex;justify-content:space-between;align-items:center;gap:8px;flex-wrap:wrap;">
-      <div style="min-width:0;flex:1;">
-        <div style="font-weight:800;color:#181412;">${(r.type === 'keep_apart' || r.type === 'must_keep_apart') ? '🔴 ' : (r.type === 'zone_quiet' ? '🔇 ' : '🟢 ')}${escapeHtml(r.label)}</div>
-        <div style="font-size:0.82rem;color:#57534E;">${escapeHtml(r.detail)}</div>
-      </div>
-      <span class="badge badge-emerald" style="font-size:0.82rem;flex-shrink:0;">&#10003; ${escapeHtml(r.status)}</span>
+    <div style="padding:10px 12px;border-radius:10px;background:#FAF8F5;border:1px solid #E2D9C8;font-size:0.84rem;display:flex;flex-direction:column;align-items:flex-start;gap:5px;">
+      <div style="font-weight:800;color:#181412;line-height:1.35;width:100%;">${(r.type === 'keep_apart' || r.type === 'must_keep_apart') ? '🔴 ' : (r.type === 'zone_quiet' ? '🔇 ' : '🟢 ')}${escapeHtml(r.label)}</div>
+      <div style="font-size:0.82rem;color:#57534E;line-height:1.42;width:100%;">${escapeHtml(r.detail)}</div>
+      <span class="badge badge-emerald" style="font-size:0.82rem;padding:3px 9px;align-self:flex-start;">&#10003; ${escapeHtml(r.status)}</span>
     </div>`).join('');
 
   return `
@@ -212,7 +210,7 @@ function renderZone3InteractiveStudio(plan) {
           <!-- CARD 1 OF 5: Couple / Event Names, Reception Venue & Preset Scenario -->
           <div class="studio-wizard-step active" id="sh-wizard-step-1" data-step="1">
             <button type="button" class="studio-wizard-header" onclick="window.scrollToShCard(1)">
-              <span class="studio-wizard-step-title"><span style="color:#8C2D19;">&#9679; Step 1:</span><span>Event Title &amp; Preset</span></span>
+              <span class="studio-wizard-step-title"><span style="color:#8C2D19;white-space:nowrap;">&#9679; Step 1:</span> Event Title &amp; Preset</span>
               <span class="studio-wizard-step-summary" id="sh-wizard-summary-1">${escapeHtml(plan.title || "Maya & Liam's Estate Reception")}</span>
             </button>
             <div class="studio-wizard-body">
@@ -253,15 +251,15 @@ function renderZone3InteractiveStudio(plan) {
           <!-- CARD 2 OF 5: Coupled Household Parser, Bulk CSV Paste/Upload & Atomic Family Lock -->
           <div class="studio-wizard-step" id="sh-wizard-step-2" data-step="2">
             <button type="button" class="studio-wizard-header" onclick="window.scrollToShCard(2)">
-              <span class="studio-wizard-step-title"><span style="color:#8C2D19;">&#9679; Step 2:</span><span>Add Guests &amp; CSV</span></span>
+              <span class="studio-wizard-step-title"><span style="color:#8C2D19;white-space:nowrap;">&#9679; Step 2:</span> Add Guests &amp; CSV</span>
               <span class="studio-wizard-step-summary" id="sh-wizard-summary-2">26 Households</span>
             </button>
             <div class="studio-wizard-body">
               <div style="margin-bottom:8px;">
                 <label for="domain-input" class="studio-field-label">2A. Add Guest / Household Line (Parses Meals &amp; Allergies):</label>
                 <div style="display:flex;flex-wrap:wrap;gap:6px;">
-                  <input id="domain-input" type="text" class="grader-input" style="flex:1 1 180px;" value="Sarah &amp; Mark Miller + 1 Kid (GF)" aria-label="Add messy household string" />
-                  <select id="sh-target-table-select" class="grader-input" style="flex:0 1 135px;" aria-label="Target Table">
+                  <input id="domain-input" type="text" class="grader-input" style="flex:1 1 100%;" value="Sarah &amp; Mark Miller + 1 Kid (GF)" aria-label="Add messy household string" />
+                  <select id="sh-target-table-select" class="grader-input" style="flex:1 1 140px;" aria-label="Target Table">
                     <option value="auto">Auto Table</option>
                     <option value="0">Table 1 (VIP)</option>
                     <option value="1" selected>Table 2 (Bride Fam)</option>
@@ -272,7 +270,7 @@ function renderZone3InteractiveStudio(plan) {
                     <option value="6">Table 7 (Friends)</option>
                     <option value="7">Table 8 (Seniors)</option>
                   </select>
-                  <button type="button" class="btn btn-primary" style="padding:7px 12px;font-size:0.82rem;" onclick="window.shAddMessyHousehold()">+ Seat</button>
+                  <button type="button" class="btn btn-primary" style="padding:7px 14px;font-size:0.82rem;" onclick="window.shAddMessyHousehold()">+ Seat</button>
                 </div>
               </div>
               <div style="margin-bottom:8px;">
@@ -310,16 +308,16 @@ David &amp; Elena Rostova (Filet, Peanut Allergy)</textarea>
           <!-- CARD 3 OF 5: Family Diplomacy, Sightline Buffers & 1-Click Auto-Seating -->
           <div class="studio-wizard-step" id="sh-wizard-step-3" data-step="3">
             <button type="button" class="studio-wizard-header" onclick="window.scrollToShCard(3)">
-              <span class="studio-wizard-step-title"><span style="color:#8C2D19;">&#9679; Step 3:</span><span>Family Peace Rules</span></span>
+              <span class="studio-wizard-step-title"><span style="color:#8C2D19;white-space:nowrap;">&#9679; Step 3:</span> Family Peace Rules</span>
               <span class="studio-wizard-step-summary" id="sh-wizard-summary-3">${activeRules.length || 5} Rules &bull; 0 Clashes</span>
             </button>
             <div class="studio-wizard-body">
-              <div id="sh-rules-list" style="display:flex;flex-direction:column;gap:5px;margin-bottom:8px;">${rulesHtml}</div>
-              <div style="background:#FAF6EE;border:1px solid #E2D9C8;border-radius:10px;padding:8px;margin-bottom:8px;">
+              <div id="sh-rules-list" style="display:flex;flex-direction:column;gap:8px;margin-bottom:10px;">${rulesHtml}</div>
+              <div style="background:#FAF6EE;border:1px solid #E2D9C8;border-radius:10px;padding:10px;margin-bottom:10px;">
                 <label for="sh-custom-rule-input" class="studio-field-label">Add Family Buffer or Quiet Table Rule:</label>
-                <div style="display:flex;flex-wrap:wrap;gap:5px;">
-                  <input id="sh-custom-rule-input" type="text" class="grader-input" style="flex:1 1 150px;font-size:0.82rem;" value="Keep Uncle Bob &amp; Aunt Linda 2+ tables apart" />
-                  <select id="sh-custom-rule-type" class="grader-input" style="flex:0 1 140px;font-size:0.82rem;" aria-label="Rule Type">
+                <input id="sh-custom-rule-input" type="text" class="grader-input" style="width:100%;font-size:0.82rem;margin-bottom:6px;" value="Keep Uncle Bob &amp; Aunt Linda 2+ tables apart" />
+                <div style="display:flex;flex-wrap:wrap;gap:6px;align-items:center;">
+                  <select id="sh-custom-rule-type" class="grader-input" style="flex:1 1 140px;font-size:0.82rem;" aria-label="Rule Type">
                     <option value="must_keep_apart">&#128308; Keep Apart</option>
                     <option value="zone_quiet">&#128263; Quiet Zone</option>
                     <option value="must_sit_together">&#128994; Sit Together</option>
@@ -338,7 +336,7 @@ David &amp; Elena Rostova (Filet, Peanut Allergy)</textarea>
           <!-- CARD 4 OF 5: Table Shape Morphing, Clockwise 12:00 Seat #1 & Family Share Mode -->
           <div class="studio-wizard-step" id="sh-wizard-step-4" data-step="4">
             <button type="button" class="studio-wizard-header" onclick="window.scrollToShCard(4)">
-              <span class="studio-wizard-step-title"><span style="color:#8C2D19;">&#9679; Step 4:</span><span>Table Shapes &amp; Family Link</span></span>
+              <span class="studio-wizard-step-title"><span style="color:#8C2D19;white-space:nowrap;">&#9679; Step 4:</span> Table Shapes &amp; Family Link</span>
               <span class="studio-wizard-step-summary" id="sh-wizard-summary-4">Table 2 &bull; ROUND</span>
             </button>
             <div class="studio-wizard-body">
@@ -384,7 +382,7 @@ David &amp; Elena Rostova (Filet, Peanut Allergy)</textarea>
           <!-- CARD 5 OF 5: 6-Design 24"x36" Arch D Poster Studio, Reactive Kicker/Monogram & Export -->
           <div class="studio-wizard-step" id="sh-wizard-step-5" data-step="5">
             <button type="button" class="studio-wizard-header" onclick="window.scrollToShCard(5)">
-              <span class="studio-wizard-step-title"><span style="color:#8C2D19;">&#9679; Step 5:</span><span>24&Prime;&times;36&Prime; Sign &amp; Export</span></span>
+              <span class="studio-wizard-step-title"><span style="color:#8C2D19;white-space:nowrap;">&#9679; Step 5:</span> 24&Prime;&times;36&Prime; Sign &amp; Export</span>
               <span class="studio-wizard-step-summary" id="sh-wizard-summary-5">PARISIAN GOLD &bull; A-Z</span>
             </button>
             <div class="studio-wizard-body">
