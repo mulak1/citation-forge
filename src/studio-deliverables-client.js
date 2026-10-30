@@ -334,6 +334,9 @@ function renderDeliverablesClientScript() {
       return '<div style="background:#FFFFFF;border:1px solid #E2D9C8;border-radius:12px;padding:12px;margin-bottom:10px;"><div style="display:flex;flex-wrap:wrap;justify-content:space-between;align-items:center;gap:6px;margin-bottom:6px;"><strong style="font-size:0.90rem;color:#181412;">' + shEsc(t.name) + ' (' + t.guests.length + ' Covers)</strong><span class="badge badge-emerald">Seat #1 = 12 O\\'Clock Anchor</span></div><div style="overflow-x:auto;"><table class="ba-table" style="font-size:0.76rem;"><thead><tr><th>Clockwise Seat</th><th>Guest Name</th><th>Entrée</th><th>Allergy Alert</th><th>Chair Spec</th></tr></thead><tbody>' + rows + '</tbody></table></div></div>';
     }).join('');
     container.innerHTML = '<div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(85px,1fr));gap:8px;margin-bottom:12px;"><div style="background:#FDF2EE;border:1px solid #F5D0C5;padding:8px;border-radius:10px;text-align:center;"><div style="font-size:0.65rem;font-weight:800;color:#8C2D19;">◆ FILET</div><div style="font-size:1.15rem;font-weight:800;color:#181412;">' + totalFilet + '</div></div><div style="background:#F0F9FF;border:1px solid #BAE6FD;padding:8px;border-radius:10px;text-align:center;"><div style="font-size:0.65rem;font-weight:800;color:#0369A1;">● HALIBUT</div><div style="font-size:1.15rem;font-weight:800;color:#181412;">' + totalHalibut + '</div></div><div style="background:#ECFDF5;border:1px solid #A7F3D0;padding:8px;border-radius:10px;text-align:center;"><div style="font-size:0.65rem;font-weight:800;color:#065F46;">▲ VEGAN</div><div style="font-size:1.15rem;font-weight:800;color:#181412;">' + totalVegan + '</div></div><div style="background:#FFFBEB;border:1px solid #FDE68A;padding:8px;border-radius:10px;text-align:center;"><div style="font-size:0.65rem;font-weight:800;color:#A16207;">★ KIDS</div><div style="font-size:1.15rem;font-weight:800;color:#181412;">' + totalKids + '</div></div><div style="background:#FFF1F2;border:1px solid #FECDD3;padding:8px;border-radius:10px;text-align:center;"><div style="font-size:0.65rem;font-weight:800;color:#9F1239;">⚠️ ALLERGIES</div><div style="font-size:1.15rem;font-weight:800;color:#9F1239;">' + totalAllergies + '</div></div></div>' + tableCards;
+    const totalCovers = totalFilet + totalHalibut + totalVegan + totalKids;
+    const beoBuyBtn = document.getElementById('sh-pane-beo-buy-link');
+    if (beoBuyBtn) beoBuyBtn.innerHTML = 'Unlock Signed BEO (' + totalCovers + ' Meals &middot; ' + totalAllergies + ' Allergies) &mdash; $1.99 &rarr;';
   }
 
   function shFormatPosterName(rawName) {
@@ -404,8 +407,9 @@ function renderDeliverablesClientScript() {
     const averyEl = document.getElementById('sh-avery-preview');
     if (averyEl) {
       const vid = shEsc((window.__SH_STATE && window.__SH_STATE.vaultId) || 'SH-4819');
-      averyEl.innerHTML = '<div style="padding:11px 14px;border-radius:12px;background:linear-gradient(135deg,#FAF3E6 0%,#F5ECE0 100%);border:1.5px solid #D8C29D;display:flex;flex-wrap:wrap;align-items:center;justify-content:space-between;gap:10px;"><div style="display:flex;align-items:center;gap:10px;min-width:0;"><span style="font-size:1.25rem;">🔒</span><div><div style="font-size:0.68rem;font-weight:800;letter-spacing:0.08em;text-transform:uppercase;color:#78350F;">300-DPI WELCOME SIGN + AVERY 5302 TENT PLACE CARDS</div><div style="font-size:0.78rem;color:#44403C;">2&Prime;&times;3.5&Prime; Avery 5302 sheets with meal icons (<code>◆ Beef · ● Fish · ▲ Vegan · ★ Kid</code>) &amp; 180&deg; allergy fold.</div></div></div><div style="display:flex;gap:6px;flex-wrap:wrap;"><a href="/print/avery-5302/' + vid + '" target="_blank" class="btn btn-secondary" style="padding:6px 11px;font-size:0.73rem;">🎫 Preview Avery 5302 ↗</a><a href="/buy/complete_dossier?target=estate-150&vault=' + vid + '" class="btn btn-primary" style="padding:6px 12px;font-size:0.73rem;">Unlock Print Pack ($14.99) →</a></div></div>';
+      averyEl.innerHTML = '<div style="padding:11px 14px;border-radius:12px;background:linear-gradient(135deg,#FAF3E6 0%,#F5ECE0 100%);border:1.5px solid #D8C29D;display:flex;flex-wrap:wrap;align-items:center;justify-content:space-between;gap:10px;"><div style="display:flex;align-items:center;gap:10px;min-width:0;"><span style="font-size:1.25rem;">🔒</span><div><div style="font-size:0.68rem;font-weight:800;letter-spacing:0.08em;text-transform:uppercase;color:#78350F;">300-DPI WELCOME SIGN + AVERY 5302 TENT PLACE CARDS</div><div style="font-size:0.78rem;color:#44403C;">Same-day FedEx/Staples 24&Prime;&times;36&Prime; PDF + standard home printer Avery 5302 sheets (with meal icons &amp; 180&deg; allergy fold). <strong>30 days of free re-exports included.</strong></div></div></div><div style="display:flex;gap:6px;flex-wrap:wrap;"><a href="/print/avery-5302/' + vid + '" target="_blank" class="btn btn-secondary" style="padding:6px 11px;font-size:0.73rem;">🎫 Preview Avery 5302 ↗</a><a id="sh-avery-pack-buy-btn" href="/buy/complete_dossier?target=estate-150&vault=' + vid + '" class="btn btn-primary" style="padding:6px 12px;font-size:0.73rem;">Unlock Print Pack ($14.99) →</a></div></div>';
     }
+    shSyncVaultIdLinks((window.__SH_STATE && window.__SH_STATE.vaultId) || 'SH-4819');
   }
 
   window.shFilterQrLookup = function() {
@@ -422,6 +426,10 @@ function renderDeliverablesClientScript() {
   function shSyncVaultIdLinks(vId) {
     const id = String(vId || (window.__SH_STATE && window.__SH_STATE.vaultId) || 'SH-4819');
     if (window.__SH_STATE) window.__SH_STATE.vaultId = id;
+    const state = window.__SH_STATE || {};
+    const coupleTitle = String(state.title || "Maya & Liam's Reception").trim();
+    const totalGuests = Array.isArray(state.tables) ? state.tables.reduce(function(acc, t) { return acc + ((t.guests && t.guests.length) || 0); }, 0) : 62;
+    const encTarget = encodeURIComponent(coupleTitle || 'our-wedding');
     const setTxt = function(elId, txt) { const el = document.getElementById(elId); if (el) el.textContent = txt; };
     setTxt('hero-vault-code-label', '#' + id); setTxt('sh-studio-vault-code', id); setTxt('sh-btn-vault-id', id); setTxt('sh-modal-vault-code', id);
     setTxt('sh-modal-links-vault-id', id); setTxt('sh-unlocked-vault-id', id); setTxt('sh-qr-short-url', '/qr/' + id);
@@ -431,8 +439,16 @@ function renderDeliverablesClientScript() {
     ['sh-cmd-avery-link', 'sh-open-avery-studio-link', 'sh-card5-avery-studio-link', 'sh-modal-link-avery'].forEach(function(k) { setHref(k, '/print/avery-5302/' + id); });
     ['sh-cmd-beo-link', 'sh-open-beo-studio-link', 'sh-modal-link-beo'].forEach(function(k) { setHref(k, '/print/beo/' + id); });
     ['sh-cmd-qr-link', 'sh-open-qr-app-link', 'sh-qr-short-url', 'sh-modal-link-qr'].forEach(function(k) { setHref(k, '/qr/' + id); });
-    ['hero-buy-btn', 'sh-card5-buy-btn', 'sh-vault-buy-pack-btn', 'sh-pane-poster-buy-link'].forEach(function(k) { setHref(k, '/buy/complete_dossier?target=estate-150&vault=' + id); });
-    setHref('sh-vault-buy-pro-btn', '/buy/pro_b2b?target=estate-150&vault=' + id); setHref('sh-pane-beo-buy-link', '/buy/flash_pass?target=estate-150&vault=' + id);
+    const packUrl = '/buy/complete_dossier?target=' + encTarget + '&vault=' + id;
+    const flashUrl = '/buy/flash_pass?target=' + encTarget + '&vault=' + id;
+    const proUrl = '/buy/pro_b2b?target=' + encTarget + '&vault=' + id;
+    ['hero-buy-btn', 'sh-card5-buy-btn', 'sh-vault-buy-pack-btn', 'sh-pane-poster-buy-link', 'sh-avery-pack-buy-btn', 'sh-carousel-unlock-cta', 'nav-primary-buy-cta', 'pricing-buy-pack', 'pricing-buy-bottom', 'sh-pane-beo-pack-upgrade-link'].forEach(function(k) { setHref(k, packUrl); });
+    ['sh-pane-beo-buy-link', 'pricing-buy-flash'].forEach(function(k) { setHref(k, flashUrl); });
+    ['sh-vault-buy-pro-btn', 'pricing-buy-pro'].forEach(function(k) { setHref(k, proUrl); });
+    const vBtn = document.getElementById('sh-vault-buy-pack-btn');
+    if (vBtn) vBtn.innerHTML = 'Unlock ' + shEsc(coupleTitle) + ' (' + totalGuests + ' Guests &middot; $14.99) &rarr;';
+    const pBtn = document.getElementById('pricing-buy-pack');
+    if (pBtn) pBtn.innerHTML = 'Unlock ' + shEsc(coupleTitle) + ' (' + totalGuests + ' Guests &middot; $14.99) &rarr;';
     const qrImg = document.getElementById('sh-live-qr-img');
     if (qrImg) qrImg.src = 'https://api.qrserver.com/v1/create-qr-code/?size=160x160&color=181412&bgcolor=FFFFFF&data=' + encodeURIComponent(window.location.origin + '/qr/' + id);
   }

@@ -224,7 +224,7 @@ function renderSetupWizardClientScript() {
     if (done > 0 && !S.engaged) { S.engaged = true; try { localStorage.setItem('sh_binder_engaged', '1'); } catch (_) {} }
     var sub = shwEl('shw-kit-sub'); if (sub) sub.textContent = done + ' of 5';
     var bar = shwEl('shw-kit-bar-fill'); if (bar) bar.style.width = (done / 5 * 100) + '%';
-    var foot = shwEl('shw-kit-foot'); if (foot) foot.textContent = done >= 4 ? 'One last step: we seat your guests.' : 'Each answer fills a page of your binder.';
+    var foot = shwEl('shw-kit-foot'); if (foot) foot.textContent = done === 5 ? 'All 5 deliverables ready · 30 days of free edits included.' : (done >= 4 ? 'One last step: we seat your guests.' : 'Each answer fills a page of your binder.');
     S.kitCount = done; S.kitSt = st; if (window.shwSaveSession) window.shwSaveSession();
     var kr = shwEl('shw-kit'); if (kr) { var rr = kr.getBoundingClientRect(); S.kitInView = rr.height > 0 && rr.bottom > 70 && rr.top < window.innerHeight - 40; }
     var clr = { 1: (shwEl('shw-couple') || {}).value || (shwEl('shw-venue') || {}).value, 2: S.guests, 3: S.table, 4: shwHouseholds().length, 5: S.apart.length };
@@ -252,7 +252,7 @@ function renderSetupWizardClientScript() {
   function shwRenderPop() {
     var S = window.__SH_SETUP, st = S.kitSt || shwKitState(), list = shwEl('shw-pop-list'); if (!list) return;
     var n = S.kitCount || 0;
-    shwEl('shw-pop-title').textContent = n === 5 ? 'Binder complete' : (n + ' of 5 pages ready');
+    shwEl('shw-pop-title').textContent = n === 5 ? 'All 5 pages complete & ready to print' : (n + ' of 5 pages ready');
     shwEl('shw-pop-bar').style.width = (n / 5 * 100) + '%';
     list.innerHTML = Object.keys(st).map(function(k) {
       var ok = st[k].ok;
@@ -260,9 +260,21 @@ function renderSetupWizardClientScript() {
         + '<span class="shw-pop-text"><b>' + SHW_KIT_NAMES[k] + '</b><small>' + shEsc(st[k].d) + '</small></span>'
         + '<span class="shw-pop-actions">' + (ok && k !== 'qr' ? '<button type="button" class="shw-pop-link" onclick="window.shwPopEdit(\\'' + k + '\\')">Edit</button><button type="button" class="shw-pop-link muted" onclick="window.shwClear(\\'' + k + '\\')">Clear</button>' : (k === 'qr' && ok ? '<button type="button" class="shw-pop-link" onclick="window.shwPopEdit(\\'qr\\')">View</button>' : '<button type="button" class="shw-pop-link" onclick="window.shwPopEdit(\\'' + k + '\\')">Add</button>')) + '</span></li>';
     }).join('');
-    var cta = shwEl('shw-pop-cta'); cta.textContent = n === 5 ? 'Open my seating plan' : 'Continue setup';
-    var foot = shwEl('shw-pop-foot'); if (foot && !S.confirmClear) foot.innerHTML = '<button type="button" class="shw-link" onclick="window.shwAskClearAll()">Clear everything</button>';
+    var cta = shwEl('shw-pop-cta');
+    cta.textContent = n === 5 ? 'Unlock All 5 Print Deliverables ($14.99) \u2192' : 'Continue setup';
+    var foot = shwEl('shw-pop-foot');
+    if (foot && !S.confirmClear) {
+      foot.innerHTML = n === 5
+        ? '<div style="display:flex;align-items:center;justify-content:space-between;width:100%;"><button type="button" class="shw-link" onclick="window.shwPopReviewFloorplan()">Review &amp; fine-tune floorplan &rarr;</button><button type="button" class="shw-link" onclick="window.shwAskClearAll()">Clear everything</button></div>'
+        : '<button type="button" class="shw-link" onclick="window.shwAskClearAll()">Clear everything</button>';
+    }
   }
+  window.shwPopReviewFloorplan = function() {
+    window.shwToggleBinder(false);
+    var g = shwEl('sh-builder-grid');
+    if (g && g.style.display !== 'none') { shwScrollStudio(); return; }
+    window.shFinishSetupWizard();
+  };
   window.shwToggleBinder = function(force) {
     var pop = shwEl('shw-pop'); if (!pop) return;
     var open = typeof force === 'boolean' ? force : pop.style.display === 'none';
@@ -285,7 +297,12 @@ function renderSetupWizardClientScript() {
   };
   window.shwPopCta = function() {
     var S = window.__SH_SETUP; window.shwToggleBinder(false);
-    if (S.kitCount === 5) { var g = shwEl('sh-builder-grid'); if (g && g.style.display !== 'none') { shwScrollStudio(); return; } if (S.built || S.sample) { window.shFinishSetupWizard(); return; } window.shOpenSetupWizard(5); return; }
+    if (S.kitCount === 5) {
+      var vid = (window.__SH_STATE && window.__SH_STATE.vaultId) || 'SH-4819';
+      var tTitle = (window.__SH_STATE && window.__SH_STATE.title) || 'our-wedding';
+      window.location.href = '/buy/complete_dossier?target=' + encodeURIComponent(tTitle) + '&vault=' + encodeURIComponent(vid);
+      return;
+    }
     window.shOpenSetupWizard(shwNextStep(S.kitSt || shwKitState()));
   };
 

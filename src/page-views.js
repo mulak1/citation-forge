@@ -289,10 +289,11 @@ function renderZone3InteractiveStudio(plan) {
               <a id="sh-vault-buy-pack-btn" href="/buy/complete_dossier?target=estate-150&amp;vault=${vId}" style="flex:1;text-align:center;background:linear-gradient(135deg,#FDE68A,#E8C77D);color:#3B2A12;border:1px solid #C8A96E;border-radius:8px;padding:8px 10px;font-size:0.82rem;font-weight:800;text-decoration:none;white-space:nowrap;">
                 Unlock Print Pack ($14.99) &rarr;
               </a>
-              <a id="sh-vault-buy-pro-btn" href="/buy/pro_b2b?target=estate-150&amp;vault=${vId}" style="background:#FFFFFF;color:#181412;border:1px solid #D6CFC2;border-radius:8px;padding:8px 10px;font-size:0.80rem;font-weight:700;text-decoration:none;white-space:nowrap;">
-                Pro
+              <a id="sh-vault-buy-pro-btn" href="/buy/pro_b2b?target=estate-150&amp;vault=${vId}" title="Planners: Unlimited weddings + Custom logo crest on all BEOs and signs" style="background:#FFFFFF;color:#181412;border:1px solid #D6CFC2;border-radius:8px;padding:8px 10px;font-size:0.80rem;font-weight:700;text-decoration:none;white-space:nowrap;">
+                Planner Pro ($39)
               </a>
             </div>
+            <div style="font-size:0.75rem;color:#78350F;text-align:center;font-weight:600;">&#10003; 30 Days Free Edits &bull; Re-export anytime if RSVPs change</div>
           </div>
         </div>
 
@@ -388,6 +389,7 @@ function renderZone3InteractiveStudio(plan) {
                     <button type="button" class="btn btn-secondary" style="padding:6px 11px;font-size:0.74rem;" onclick="window.shExportBeoCsv()">&#11015; Free BEO (.CSV)</button>
                     <a id="sh-open-beo-studio-link" href="/print/beo/${vId}" target="_blank" class="btn btn-secondary" style="padding:6px 11px;font-size:0.74rem;">&#128424; Signed BEO Print View &nearr;</a>
                     <a id="sh-pane-beo-buy-link" href="/buy/flash_pass?target=estate-150&amp;vault=${vId}" class="btn btn-primary" style="padding:6px 11px;font-size:0.74rem;">Unlock Signed BEO ($1.99)</a>
+                    <a id="sh-pane-beo-pack-upgrade-link" href="/buy/complete_dossier?target=estate-150&amp;vault=${vId}" class="btn btn-secondary" style="padding:6px 11px;font-size:0.74rem;border-color:#C8A96E;color:#78350F;font-weight:800;">Or Complete Pack ($14.99) &rarr;</a>
                   </div>
                 </div>
                 <div id="sh-beo-container" style="max-height:480px;overflow-y:auto;"></div>
@@ -409,7 +411,7 @@ function renderZone3InteractiveStudio(plan) {
                   <div style="display:flex;gap:6px;flex-wrap:wrap;">
                     <a id="sh-open-poster-studio-link" href="/print/poster/${vId}" target="_blank" class="btn btn-secondary" style="padding:6px 10px;font-size:0.73rem;">&#129703; 24&Prime;&times;36&Prime; Print Studio &nearr;</a>
                     <a id="sh-open-avery-studio-link" href="/print/avery-5302/${vId}" target="_blank" class="btn btn-secondary" style="padding:6px 10px;font-size:0.73rem;">&#127915; Avery 5302 Sheet &nearr;</a>
-                    <a id="sh-pane-poster-buy-link" href="/buy/complete_dossier?target=estate-150&amp;vault=${vId}" class="btn btn-primary" style="padding:6px 11px;font-size:0.73rem;">&#11015; Unlock 300-DPI PDF ($14.99)</a>
+                    <a id="sh-pane-poster-buy-link" href="/buy/complete_dossier?target=estate-150&amp;vault=${vId}" class="btn btn-primary" style="padding:6px 11px;font-size:0.73rem;">&#11015; Unlock 300-DPI PDF (FedEx/Staples Ready &middot; $14.99)</a>
                   </div>
                 </div>
                 <div id="sh-poster-preview" style="max-height:370px;overflow-y:auto;margin-bottom:10px;"></div>
@@ -513,7 +515,8 @@ function renderZone3InteractiveStudio(plan) {
   </section>`;
 }
 
-function renderZone5FaqAndZone6Close(sampleSeoPages = []) {
+function renderZone5FaqAndZone6Close(sampleSeoPages = [], plan = {}) {
+  const vId = escapeHtml((plan && plan.vaultId) || 'SH-4819');
   const seoLinks = sampleSeoPages.slice(0, 12).map(p =>
     `<a href="/seo/${escapeHtml(p.slug)}" style="font-size:0.86rem;color:#44403C;text-decoration:none;padding:7px 12px;border-radius:8px;background:#FFFFFF;border:1px solid #E2D9C8;font-weight:600;">${escapeHtml(p.title)}</a>`
   ).join('');
@@ -581,7 +584,7 @@ function renderZone5FaqAndZone6Close(sampleSeoPages = []) {
               <li>&#10003; Live Mobile QR Guest Seat Lookup</li>
             </ul>
           </div>
-          <a href="/buy/flash_pass?target=estate-150" class="btn btn-secondary" style="width:100%;padding:14px 20px;font-size:0.96rem;">Get Caterer &amp; QR Pass ($1.99)</a>
+          <a id="pricing-buy-flash" href="/buy/flash_pass?target=estate-150&amp;vault=${vId}" class="btn btn-secondary" style="width:100%;padding:14px 20px;font-size:0.96rem;">Get Caterer &amp; QR Pass ($1.99)</a>
         </div>
         <div class="panel" style="padding:30px 26px;border:2px solid #8C2D19;display:flex;flex-direction:column;justify-content:space-between;gap:18px;position:relative;">
           <span class="badge badge-rose" style="position:absolute;top:-12px;right:18px;background:#8C2D19;color:#FFF;">MOST POPULAR</span>
@@ -596,20 +599,23 @@ function renderZone5FaqAndZone6Close(sampleSeoPages = []) {
               <li>&#10003; Family Share Link + QR Lookup (30-Day Edits)</li>
             </ul>
           </div>
-          <a href="/buy/complete_dossier?target=estate-150" class="btn btn-primary" style="width:100%;padding:14px 20px;font-size:0.96rem;">Get Wedding Print Pack ($14.99) &rarr;</a>
+          <a id="pricing-buy-pack" href="/buy/complete_dossier?target=estate-150&amp;vault=${vId}" class="btn btn-primary" style="width:100%;padding:12px 14px;font-size:0.90rem;white-space:normal;text-align:center;line-height:1.35;">Get Wedding Print Pack ($14.99) &rarr;</a>
         </div>
         <div class="panel" style="padding:30px 26px;display:flex;flex-direction:column;justify-content:space-between;gap:18px;">
           <div>
-            <span class="badge badge-emerald" style="margin-bottom:10px;">PLANNERS &amp; VENUES</span>
+            <div style="display:flex;align-items:center;justify-content:space-between;gap:6px;margin-bottom:10px;flex-wrap:wrap;">
+              <span class="badge badge-emerald">PLANNERS &amp; VENUES</span>
+              <span style="font-size:0.75rem;font-weight:800;color:#065F46;background:#ECFDF5;padding:2px 8px;border-radius:999px;">PAYS FOR ITSELF IN 3 EVENTS</span>
+            </div>
             <h4 class="serif-display" style="font-size:1.65rem;">Planner Pro Studio</h4>
             <div class="tabular" style="font-size:2.35rem;font-weight:800;margin:8px 0;">$39 <span style="font-size:0.95rem;font-weight:600;color:#78716C;">/ month</span></div>
             <ul style="list-style:none;font-size:1.0rem;color:#44403C;display:flex;flex-direction:column;gap:11px;margin-top:12px;line-height:1.55;">
-              <li>&#10003; Unlimited Receptions &amp; 300-Guest Galas</li>
+              <li>&#10003; Unlimited Receptions &amp; 300-Guest Galas (Save $140+/yr)</li>
               <li>&#10003; Custom Planner Crest on All Meal Sheets</li>
               <li>&#10003; Unlimited Client &amp; Family Share Links</li>
             </ul>
           </div>
-          <a href="/buy/pro_b2b?target=estate-150" class="btn btn-secondary" style="width:100%;padding:14px 20px;font-size:0.96rem;">Start Planner Pro ($39/mo) &rarr;</a>
+          <a id="pricing-buy-pro" href="/buy/pro_b2b?target=estate-150&amp;vault=${vId}" class="btn btn-secondary" style="width:100%;padding:14px 20px;font-size:0.96rem;">Start Planner Pro ($39/mo) &rarr;</a>
         </div>
       </div>
 
@@ -631,7 +637,7 @@ function renderZone5FaqAndZone6Close(sampleSeoPages = []) {
         <p style="font-size:1.05rem;color:#57534E;max-width:620px;margin:0 auto 18px;">Every couple together, both moms happy, and your 24&Prime;&times;36&Prime; welcome sign ready for FedEx.</p>
         <div style="display:flex;flex-wrap:wrap;justify-content:center;gap:14px;margin-top:16px;">
           <a href="#studio" class="btn btn-primary" style="padding:14px 26px;font-size:0.96rem;">&uarr; Open Interactive Studio</a>
-          <a href="/buy/complete_dossier?target=estate-150" class="btn btn-secondary" style="padding:14px 24px;font-size:0.94rem;">&#10022; Unlock Print &amp; BEO Pack ($14.99) &rarr;</a>
+          <a id="pricing-buy-bottom" href="/buy/complete_dossier?target=estate-150&amp;vault=${vId}" class="btn btn-secondary" style="padding:14px 24px;font-size:0.94rem;">&#10022; Unlock Print &amp; BEO Pack ($14.99) &rarr;</a>
         </div>
       </div>
     </div>
@@ -653,7 +659,7 @@ function renderHomePage(initialAudit, sampleSeoPages = []) {
   return [
     renderHead({ title: 'SeatHarmony: Wedding Floorplan, Conflict-Free Seating Solver & 24"×36" Poster Studio', description: 'Seat 150 wedding guests in 30 seconds without family drama. Auto-solve divorced parent table buffers, generate clockwise caterer BEO meal sheets, and export print-ready 24"×36" welcome signs & Avery 5302 place cards.', canonicalPath: '/', jsonLd, ogSlug: 'home' }),
     '<body>', renderNavbar(), '<main id="main-content">',
-    renderZone1Hero(plan), renderZone2Walkthrough(), renderZone4ProofStackAndPricing(), renderZone3InteractiveStudio(plan), renderZone5FaqAndZone6Close(sampleSeoPages),
+    renderZone1Hero(plan), renderZone2Walkthrough(), renderZone4ProofStackAndPricing(), renderZone3InteractiveStudio(plan), renderZone5FaqAndZone6Close(sampleSeoPages, plan),
     '</main>', renderFooter(), renderInteractiveScript(plan), '</body></html>'
   ].join('\n');
 }
