@@ -226,6 +226,19 @@ function renderHead({
     .sh-ed-chip small { font-size: 0.8125rem; font-weight: 600; color: #059669; }
     .sh-ed-chip:hover:not(.full) { border-color: #C8A96E; background: #FFF8E8; }
     .sh-ed-chip.full { opacity: 0.45; cursor: not-allowed; } .sh-ed-chip.full small { color: #A8A29E; }
+    .sh-ed-chip.expand small { color: #8C2D19; font-weight: 700; }
+    .sh-ed-meal-pill { border: 1px solid #E2D9C8; cursor: pointer; font-family: inherit; transition: background 0.15s, border-color 0.15s; } .sh-ed-meal-pill:hover { background: #FEF3C7; border-color: #C8A96E; color: #3B2A12; }
+    .sh-ed-find-wrap { position: relative; margin-bottom: 8px; } .sh-ed-find-input { width: 100%; padding: 8px 28px 8px 11px; font-size: 0.88rem; border: 1.5px solid #DCD3C3; border-radius: 10px; background: #FAF7F2; font-family: inherit; outline: none; } .sh-ed-find-input:focus { border-color: #C8A96E; background: #FFFFFF; }
+    .sh-ed-find-clear { position: absolute; right: 6px; top: 50%; transform: translateY(-50%); background: none; border: none; font-size: 1.15rem; font-weight: 800; color: #78716C; cursor: pointer; padding: 2px 6px; line-height: 1; }
+    .sh-ed-tbl-strip { display: flex; gap: 5px; overflow-x: auto; padding-bottom: 6px; margin-bottom: 8px; border-bottom: 1px solid #F1E8D6; }
+    .sh-ed-tbl-pill { flex-shrink: 0; padding: 5px 8px; font-size: 0.78rem; font-weight: 700; color: #44403C; background: #FAF7F2; border: 1px solid #E2D9C8; border-radius: 999px; cursor: pointer; font-family: inherit; } .sh-ed-tbl-pill small { font-weight: 600; color: #78716C; } .sh-ed-tbl-pill.has-free small { color: #059669; } .sh-ed-tbl-pill.on { background: #FEF3C7; border-color: #B89352; color: #3B2A12; }
+    .sh-ed-tally { font-size: 0.80rem; font-weight: 600; color: #8A6A2E; background: #FAF7F2; border: 1px solid #EFE6D4; border-radius: 8px; padding: 5px 8px; margin-top: 6px; }
+    .sh-ed-bulk-box { background: #FFFBF3; border: 1.5px solid #E8D8B0; border-radius: 10px; padding: 8px; margin-bottom: 10px; }
+    .sh-ed-find-results { margin-top: 4px; background: #FFFFFF; border: 1.5px solid #E2D3B5; border-radius: 10px; padding: 4px; max-height: 210px; overflow-y: auto; box-shadow: 0 10px 24px -12px rgba(60,40,10,0.28); }
+    .sh-ed-find-item { width: 100%; display: flex; align-items: center; gap: 8px; padding: 7px 9px; background: transparent; border: none; border-radius: 7px; cursor: pointer; text-align: left; font-family: inherit; } .sh-ed-find-item:hover { background: #FFF8E8; } .sh-ed-find-name { flex: 1; font-size: 0.88rem; font-weight: 700; color: #181412; } .sh-ed-find-empty { padding: 8px; font-size: 0.84rem; color: #78716C; text-align: center; }
+    .sh-ed-conflict-alert { display: flex; align-items: center; justify-content: space-between; gap: 8px; padding: 8px 10px; margin-bottom: 10px; background: #FFF1F2; border: 1.5px solid #FECDD3; border-radius: 10px; font-size: 0.84rem; color: #9F1239; }
+    .sh-ed-menu-sec { padding: 6px 10px 3px; font-size: 0.72rem; font-weight: 800; text-transform: uppercase; letter-spacing: 0.05em; color: #8A6A2E; border-top: 1px solid #F1E8D6; margin-top: 4px; } .sh-ed-menu-sec:first-child { border-top: none; margin-top: 0; }
+    .sh-ed-cap-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 4px; padding: 4px 6px 6px; } .sh-ed-cap-grid button { justify-content: center !important; text-align: center !important; border: 1px solid #E2D9C8 !important; padding: 6px 4px !important; }
     .sh-ed-seg { display: flex; gap: 6px; } .sh-ed-seg.wrap { flex-wrap: wrap; }
     .sh-ed-seg button { flex: 1 1 auto; padding: 8px 10px; font-size: 0.88rem; font-weight: 700; color: #44403C; background: #FFFFFF; border: 1.5px solid #E2D9C8; border-radius: 9px; cursor: pointer; white-space: nowrap; }
     .sh-ed-seg button.on { background: linear-gradient(135deg, #FEF3C7, #FDE68A); border-color: #B89352; color: #3B2A12; }

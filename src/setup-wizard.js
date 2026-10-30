@@ -406,6 +406,10 @@ function renderSetupWizardClientScript() {
 
   window.shwBuild = function() {
     var S = window.__SH_SETUP, couple = String(shwEl('shw-couple').value || '').trim() || 'Our', venue = String(shwEl('shw-venue').value || '').trim() || 'Our Venue';
+    var prevState = (window.__SH_STATE && window.__SH_STATE.isWizardBuilt) ? window.__SH_STATE : null, prevGuestMap = {};
+    if (prevState && Array.isArray(prevState.tables)) {
+      prevState.tables.forEach(function(t) { (t.guests || []).forEach(function(g) { if (g && g.name) prevGuestMap[String(g.name).trim().toLowerCase()] = g; }); });
+    }
     var lines = shwHouseholds(), people = shwPersonCount(lines), guests = Math.max(S.guests || 0, people);
     var lay = shwLayoutTables(Math.max(1, Math.ceil(guests / shwPerTable())), S.table || 'round8');
     var partners = couple.split(/\\s*(?:&|\\band\\b|\\+)\\s*/i).filter(Boolean);
@@ -413,10 +417,11 @@ function renderSetupWizardClientScript() {
     var tables = [{ id: 'table-1', number: 1, name: 'Sweetheart Table', shape: 'sweetheart', capacity: 2, x: 560, y: 80, rotation: 0, locked: true, guests: hosts }];
     lay.pts.forEach(function(pt, i) { tables.push({ id: 'table-' + (i + 2), number: i + 2, name: 'Table ' + (i + 2), shape: lay.shape, capacity: lay.per, x: pt.x, y: pt.y, rotation: 0, locked: false, guests: [] }); });
     var vaultId = (window.__SH_STATE && window.__SH_STATE.vaultId) || 'SH-4819';
+    var savedLandmarks = (prevState && Array.isArray(prevState.landmarks) && prevState.landmarks.length) ? prevState.landmarks : [{ id: 'lm-dance', label: 'DANCE FLOOR', x: 560, y: 230, w: 210, h: 130, zone: 'loud' }];
     window.__SH_STATE = {
       vaultId: vaultId, isWizardBuilt: true, title: (partners.length >= 2 ? couple + "'s Wedding" : couple + ' Wedding'), venueName: venue,
       harmonyScore: S.apart.length ? 99 : 98, householdsCoupled: 0, roomHeight: lay.roomHeight, tables: tables,
-      landmarks: [{ id: 'lm-dance', label: 'DANCE FLOOR', x: 560, y: 230, w: 210, h: 130, zone: 'loud' }],
+      landmarks: savedLandmarks,
       rules: S.apart.map(function(p, i) { return { id: 'rule_w_' + i, type: 'must_keep_apart', label: p[0] + ' & ' + p[1] + ' kept apart', detail: 'Separated across the room', status: 'VERIFIED', pair: [p[0], p[1]] }; })
     };
     var ta = shwEl('sh-bulk-csv-textarea');
@@ -426,7 +431,13 @@ function renderSetupWizardClientScript() {
       try { window.shProcessBulkCsv(true); } finally { window.__SH_SUPPRESS_RENDER = false; }
       window.__SH_STATE.householdsCoupled = lines.length;
     }
-    window.__SH_STATE.tables.forEach(function(t) { shRecomputeGeometry(t); });
+    window.__SH_STATE.tables.forEach(function(t) {
+      (t.guests || []).forEach(function(g) {
+        var old = g && g.name && prevGuestMap[String(g.name).trim().toLowerCase()];
+        if (old) { if (old.meal) g.meal = old.meal; if (old.allergy) g.allergy = old.allergy; if (old.accessibility) g.accessibility = old.accessibility; if (old.rel) g.rel = old.rel; if (old._marker) g._marker = old._marker; }
+      });
+      shRecomputeGeometry(t);
+    });
     shwApplyKeepApart(window.__SH_STATE, S.apart);
     var ti = shwEl('sh-couple-title-input'); if (ti) ti.value = window.__SH_STATE.title;
     var vi = shwEl('sh-venue-name-input'); if (vi) vi.value = venue;
