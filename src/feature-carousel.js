@@ -484,15 +484,6 @@ function renderZone4ProofStackAndPricing() {
   <section class="studio-zone-section bs-feature-showcase-section" id="bs-feature-showcase-section" style="padding:100px 0 108px;background:#F5ECE0;border-bottom:1.5px solid #E5D9C5;">
     <div class="container">
       ${renderFeatureShowcaseCarousel('SH-4819')}
-
-      <!-- TRANSITION BRIDGE BANNER INTO INTERACTIVE STUDIO -->
-      <div id="bs-zone3-anchor" style="margin-top:68px;background:linear-gradient(135deg,#FFFDF9 0%,#FAF6EE 100%);border:2px solid #D8C29D;border-radius:20px;padding:34px 36px;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;gap:16px;">
-        <div style="text-align:center;">
-          <div style="font-size:0.84rem;font-weight:800;letter-spacing:0.10em;text-transform:uppercase;color:#8C2D19;margin-bottom:8px;">YOUR TURN &bull; THE 5-STEP RECEPTION FLOORPLAN &amp; 24&Prime;&times;36&Prime; SIGN STUDIO</div>
-          <div class="serif-display" style="font-size:clamp(1.25rem, 2.2vw, 1.85rem);color:#181412;">Test a 150-guest reception below or paste your RSVP list.</div>
-        </div>
-        <a href="#studio" class="btn btn-primary" style="padding:14px 28px;font-size:0.98rem;align-self:center;margin:0 auto;">Jump Into Interactive Studio &darr;</a>
-      </div>
     </div>
   </section>`;
 }
