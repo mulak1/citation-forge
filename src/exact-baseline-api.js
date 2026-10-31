@@ -951,8 +951,8 @@ function attachExactBaselinePack(app, options = {}) {
   }
   app.get(['/buy/:tier', '/api/buy/:tier'], handleTierCheckout);
   app.post([`/api/calculators/${cfg.moduleId}/checkout`, '/api/calculators/:anyMod/checkout', '/api/exact-checkout', '/api/checkout/create-session', '/api/stripe/create-checkout-session'], handleTierCheckout);
-  app.get('/embed', (req, res) => { res.removeHeader('X-Frame-Options'); res.setHeader('X-Robots-Tag', 'noindex, follow'); res.status(200).type('html').send(renderEmbedWidgetHtml(cfg)); });
-  app.get(['/dossier/sample', '/dossier/sample/:mod'], (req, res) => res.status(200).type('html').send(renderSampleDossierHtml(cfg)));
+  app.get('/embed', (req, res) => { if (cfg.moduleId === 'citation_forge') return res.redirect(302, '/#studio'); res.removeHeader('X-Frame-Options'); res.setHeader('X-Robots-Tag', 'noindex, follow'); res.status(200).type('html').send(renderEmbedWidgetHtml(cfg)); });
+  app.get(['/dossier/sample', '/dossier/sample/:mod'], (req, res) => { if (cfg.moduleId === 'citation_forge') return res.redirect(302, '/#studio'); return res.status(200).type('html').send(renderSampleDossierHtml(cfg)); });
   app.use((req, res, next) => {
     const { isTest, isCrawler, isOwnerIp, clientIp } = classifyTrafficRequest(req);
     if (isOwnerIp) { try { res.setHeader('Set-Cookie', 'eb_owner_test=1; Path=/; Max-Age=31536000; SameSite=Lax'); } catch (_) {} }
