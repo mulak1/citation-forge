@@ -185,6 +185,7 @@ function renderInteractiveScript(initialPlan) {
   /* ---- LANDMARK CRUD (Drag, Add, Rename, Resize, Delete) ---- */
   window.shSelectLandmark = function(lmIdx, ev) {
     if (ev) ev.stopPropagation();
+    window.__SH_BOX_SEL = null;
     window.__SH_SWAP_SOURCE = null;
     window.__SH_OPEN_GUEST = null;
     window.__SH_SELECTED_LANDMARK_IDX = lmIdx;
@@ -288,6 +289,11 @@ function renderInteractiveScript(initialPlan) {
     window.__SH_DRAG_VIEWBOX = svgEl ? svgEl.getAttribute('viewBox') : '0 0 1120 680';
     const startPt = shSvgCoord(ev);
     const origX = tbl.x || 250, origY = tbl.y || 200;
+    const isMultiDrag = Boolean(window.shIsTableBoxSelected && window.shIsTableBoxSelected(tIdx) && window.__SH_BOX_SEL && ((window.__SH_BOX_SEL.tables && window.__SH_BOX_SEL.tables.length > 1) || (window.__SH_BOX_SEL.landmarks && window.__SH_BOX_SEL.landmarks.length > 0)));
+    const multiOrig = isMultiDrag ? {
+      tables: (window.__SH_BOX_SEL.tables || []).map(function(i) { const t = window.__SH_STATE.tables[i]; return { idx: i, x: t ? t.x : 0, y: t ? t.y : 0 }; }),
+      landmarks: (window.__SH_BOX_SEL.landmarks || []).map(function(i) { const l = window.__SH_STATE.landmarks && window.__SH_STATE.landmarks[i]; return { idx: i, x: l ? l.x : 0, y: l ? l.y : 0 }; })
+    } : null;
     let moved = false;
     const onMove = function(moveEv) {
       const cur = shSvgCoord(moveEv);
@@ -297,8 +303,20 @@ function renderInteractiveScript(initialPlan) {
       if (moveEv.cancelable) moveEv.preventDefault();
       const rawTx = Math.max(95, Math.min(1025, origX + dx)), rawTy = Math.max(72, Math.min((window.__SH_STATE.roomHeight || 680) - 75, origY + dy));
       const snappedTbl = window.shSnapTablePos ? window.shSnapTablePos(tIdx, rawTx, rawTy, moveEv.shiftKey) : { x: rawTx, y: rawTy };
+      const snapDx = snappedTbl.x - origX, snapDy = snappedTbl.y - origY;
       tbl.x = snappedTbl.x; tbl.y = snappedTbl.y;
       shRecomputeGeometry(tbl);
+      if (multiOrig) {
+        multiOrig.tables.forEach(function(mt) {
+          if (mt.idx === tIdx) return;
+          const ot = window.__SH_STATE.tables[mt.idx];
+          if (ot) { ot.x = Math.max(95, Math.min(1025, mt.x + snapDx)); ot.y = Math.max(72, Math.min((window.__SH_STATE.roomHeight || 680) - 75, mt.y + snapDy)); shRecomputeGeometry(ot); }
+        });
+        multiOrig.landmarks.forEach(function(ml) {
+          const olm = window.__SH_STATE.landmarks && window.__SH_STATE.landmarks[ml.idx];
+          if (olm) { olm.x = Math.max(60, Math.min(1060, ml.x + snapDx)); olm.y = Math.max(35, Math.min((window.__SH_STATE.roomHeight || 680) - 35, ml.y + snapDy)); }
+        });
+      }
       shRenderFloorplanSvg();
     };
     const onUp = function() {
@@ -325,71 +343,7 @@ function renderInteractiveScript(initialPlan) {
     window.addEventListener('touchend', onUp);
   };
 
-  /* ---- SEAT DRAG & CLICK CRUD ---- */
-  window.shStartSeatDrag = function(tIdx, sIdx, ev) {
-    if (ev && ev.button && ev.button !== 0) return;
-    if (ev) { ev.stopPropagation(); if (ev.type === 'mousedown' && ev.preventDefault) ev.preventDefault(); }
-    if ((window.__SH_WIZARD_STEP || 1) < 4) {
-      window.shSeatClick(tIdx, sIdx, ev);
-      return;
-    }
-    const tbl = window.__SH_STATE && window.__SH_STATE.tables && window.__SH_STATE.tables[tIdx];
-    if (!tbl) return;
-    window.__SH_SELECTED_LANDMARK_IDX = null;
-    const guest = tbl.guests && tbl.guests[sIdx];
-    if (!guest) {
-      window.shSeatClick(tIdx, sIdx, ev);
-      return;
-    }
-    if (window.__SH_SANDBOX_MOM && tIdx >= 3 && !tbl.isUserAdded) { shToast('🔒 Family Share Mode: Only Tables 1-3 are editable.'); return; }
-    const startPt = shSvgCoord(ev);
-    let moved = false;
-    const onMove = function(moveEv) {
-      const cur = shSvgCoord(moveEv);
-      if (Math.hypot(cur.x - startPt.x, cur.y - startPt.y) > 6) moved = true;
-      if (!moved) return;
-      if (moveEv.cancelable) moveEv.preventDefault();
-      window.__SH_DRAG_STATE = { tableIdx: tIdx, seatIdx: sIdx, x: cur.x, y: cur.y, label: guest ? guest.name.split(' ')[0] : ('S' + (sIdx + 1)) };
-      shRenderFloorplanSvg();
-    };
-    const onUp = function(upEv) {
-      window.removeEventListener('mousemove', onMove);
-      window.removeEventListener('mouseup', onUp);
-      window.removeEventListener('touchmove', onMove);
-      window.removeEventListener('touchend', onUp);
-      window.__SH_DRAG_STATE = null;
-      if (!moved) { window.shSeatClick(tIdx, sIdx, upEv); return; }
-      const dropPt = shSvgCoord(upEv);
-      let bestSeat = null, bestDist = 36;
-      (window.__SH_STATE.tables || []).forEach(function(candTbl, cTIdx) {
-        if (!candTbl.geometry) shRecomputeGeometry(candTbl);
-        (candTbl.geometry.seats || []).forEach(function(s, cSIdx) {
-          const d = Math.hypot(dropPt.x - s.x, dropPt.y - s.y);
-          if (d < bestDist) { bestDist = d; bestSeat = { tIdx: cTIdx, sIdx: cSIdx }; }
-        });
-      });
-      if (bestSeat && (bestSeat.tIdx !== tIdx || bestSeat.sIdx !== sIdx)) {
-        window.__SH_SWAP_SOURCE = { tableIdx: tIdx, seatIdx: sIdx };
-        window.shSeatClick(bestSeat.tIdx, bestSeat.sIdx, upEv);
-        return;
-      }
-      let bestTblIdx = -1, bestTblDist = 95;
-      (window.__SH_STATE.tables || []).forEach(function(candTbl, cTIdx) {
-        const d = Math.hypot(dropPt.x - candTbl.x, dropPt.y - candTbl.y);
-        if (d < bestTblDist) { bestTblDist = d; bestTblIdx = cTIdx; }
-      });
-      if (bestTblIdx !== -1 && bestTblIdx !== tIdx && guest) {
-        window.shMoveGuestToTable(tIdx, sIdx, bestTblIdx);
-        return;
-      }
-      shRenderAll();
-    };
-    window.addEventListener('mousemove', onMove);
-    window.addEventListener('mouseup', onUp);
-    window.addEventListener('touchmove', onMove, { passive: false });
-    window.addEventListener('touchend', onUp);
-  };
-
+  /* ---- SEAT DRAG & CLICK CRUD (shStartSeatDrag defined in seat-groups.js) ---- */
   window.shCancelSwap = function() {
     window.__SH_SWAP_SOURCE = null;
     window.__SH_SELECTED_LANDMARK_IDX = null;
@@ -511,6 +465,7 @@ function renderInteractiveScript(initialPlan) {
   };
 
   window.shSelectTable = function(idx) {
+    window.__SH_BOX_SEL = null;
     window.__SH_SELECTED_TABLE_IDX = idx;
     window.__SH_SELECTED_LANDMARK_IDX = null;
     window.__SH_OPEN_GUEST = null;
@@ -840,7 +795,7 @@ function renderInteractiveScript(initialPlan) {
           return;
         }
         const isSwapSrc = isFineTune && window.__SH_SWAP_SOURCE && window.__SH_SWAP_SOURCE.tableIdx === tIdx && window.__SH_SWAP_SOURCE.seatIdx === sIdx;
-        const isOpenG = window.__SH_OPEN_GUEST && window.__SH_OPEN_GUEST.t === tIdx && window.__SH_OPEN_GUEST.s === sIdx;
+        const isOpenG = (window.__SH_OPEN_GUEST && window.__SH_OPEN_GUEST.t === tIdx && window.__SH_OPEN_GUEST.s === sIdx) || (window.shIsSeatBoxSelected && window.shIsSeatBoxSelected(tIdx, sIdx));
         let seatFill = isSwapSrc ? '#FEF3C7' : '#FFFFFF', seatStroke = isSwapSrc ? '#D97706' : '#A89F91', txtFill = '#1C1917', topTxt = '#' + s.seatNumber;
         if (g) {
           if (window.__SH_RING_MODE === 'meal') {
@@ -872,6 +827,10 @@ function renderInteractiveScript(initialPlan) {
     if (window.__SH_DRAG_STATE) {
       const ds = window.__SH_DRAG_STATE;
       parts.push('<g pointer-events="none"><circle cx="' + ds.x + '" cy="' + ds.y + '" r="22" fill="#8C2D19" stroke="#FDE68A" stroke-width="2.5" opacity="0.92"/><text x="' + ds.x + '" y="' + (ds.y + 4) + '" text-anchor="middle" fill="#FFFFFF" font-size="9.5" font-weight="800">' + shEsc(ds.label) + '</text></g>');
+    }
+    if (window.__SH_BOX_RECT) {
+      const br = window.__SH_BOX_RECT, bsSum = window.shFormatBoxSelSummary ? window.shFormatBoxSelSummary(window.__SH_BOX_SEL) : '';
+      parts.push('<g class="sh-marquee-box" pointer-events="none"><rect x="' + br.x + '" y="' + br.y + '" width="' + br.w + '" height="' + br.h + '" rx="6" fill="rgba(200,169,110,0.16)" stroke="#8C2D19" stroke-width="2" stroke-dasharray="6 4"/>' + (bsSum ? ('<rect x="' + br.x + '" y="' + Math.max(8, br.y - 24) + '" width="' + Math.max(120, bsSum.length * 7 + 22) + '" height="20" rx="10" fill="#8C2D19"/><text x="' + (br.x + 10) + '" y="' + (Math.max(8, br.y - 24) + 14) + '" fill="#FFFFFF" font-size="10.2" font-weight="800">' + shEsc(bsSum) + '</text>') : '') + '</g>');
     }
     svgEl.innerHTML = parts.join('');
   }

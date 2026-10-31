@@ -101,7 +101,258 @@ function renderSeatElementsClientScript() {
     };
     window.addEventListener('mousemove', onMove); window.addEventListener('mouseup', onUp);
     window.addEventListener('touchmove', onMove, { passive: false }); window.addEventListener('touchend', onUp);
-  };`;
+  };
+
+  /* ---- Marquee Box Selection (draw a box on the floorplan to select guests, tables & elements) ---- */
+  window.__SH_BOX_RECT = null;
+  window.__SH_BOX_SEL = null;
+  window.shHasBoxSelection = function() {
+    var b = window.__SH_BOX_SEL;
+    return Boolean(b && ((b.tables && b.tables.length) || (b.guests && b.guests.length) || (b.landmarks && b.landmarks.length)));
+  };
+  window.shClearBoxSelection = function(silent) {
+    window.__SH_BOX_RECT = null;
+    window.__SH_BOX_SEL = null;
+    if (!silent) shRenderAll();
+  };
+  window.shFormatBoxSelSummary = function(sel) {
+    if (!sel) return '';
+    var parts = [];
+    if (sel.guests && sel.guests.length) parts.push(sel.guests.length + ' ' + (sel.guests.length === 1 ? 'person' : 'people'));
+    if (sel.tables && sel.tables.length) parts.push(sel.tables.length + ' ' + (sel.tables.length === 1 ? 'table' : 'tables'));
+    if (sel.landmarks && sel.landmarks.length) parts.push(sel.landmarks.length + ' ' + (sel.landmarks.length === 1 ? 'element' : 'elements'));
+    return parts.join(', ');
+  };
+  window.shComputeHitsInRect = function(x1, y1, x2, y2) {
+    var plan = window.__SH_STATE || {};
+    var tables = [], guests = [], landmarks = [];
+    (plan.tables || []).forEach(function(t, ti) {
+      if (!t.geometry) shRecomputeGeometry(t);
+      var tx = t.x || 0, ty = t.y || 0;
+      if (tx >= x1 && tx <= x2 && ty >= y1 && ty <= y2) tables.push(ti);
+      (t.geometry.seats || []).forEach(function(s, si) {
+        var g = t.guests && t.guests[si];
+        if (!g) return;
+        if (s.x >= x1 && s.x <= x2 && s.y >= y1 && s.y <= y2) {
+          guests.push({ t: ti, s: si, uid: g.uid || (ti + ':' + si), name: g.name });
+        }
+      });
+    });
+    (plan.landmarks || []).forEach(function(lm, li) {
+      var lx = lm.x || 0, ly = lm.y || 0;
+      if (lx >= x1 && lx <= x2 && ly >= y1 && ly <= y2) landmarks.push(li);
+    });
+    return { tables: tables, guests: guests, landmarks: landmarks };
+  };
+  window.shIsTableBoxSelected = function(tIdx) {
+    return Boolean(window.__SH_BOX_SEL && window.__SH_BOX_SEL.tables && window.__SH_BOX_SEL.tables.indexOf(tIdx) !== -1);
+  };
+  window.shIsSeatBoxSelected = function(tIdx, sIdx) {
+    if (!window.__SH_BOX_SEL || !window.__SH_BOX_SEL.guests) return false;
+    for (var i = 0; i < window.__SH_BOX_SEL.guests.length; i++) {
+      var g = window.__SH_BOX_SEL.guests[i];
+      if (g.t === tIdx && g.s === sIdx) return true;
+    }
+    return false;
+  };
+  window.shIsLandmarkBoxSelected = function(lmIdx) {
+    return Boolean(window.__SH_BOX_SEL && window.__SH_BOX_SEL.landmarks && window.__SH_BOX_SEL.landmarks.indexOf(lmIdx) !== -1);
+  };
+  window.shBoxMoveGuestsToTable = function(dstTIdx) {
+    dstTIdx = Number(dstTIdx);
+    var plan = window.__SH_STATE, sel = window.__SH_BOX_SEL;
+    if (!plan || !plan.tables || !plan.tables[dstTIdx] || !sel || !sel.guests || !sel.guests.length) return;
+    window.shSnapshot();
+    var dst = plan.tables[dstTIdx], moved = 0;
+    var byTable = {};
+    sel.guests.forEach(function(h) {
+      if (h.t === dstTIdx) return;
+      if (!byTable[h.t]) byTable[h.t] = [];
+      byTable[h.t].push(h.s);
+    });
+    var picked = [];
+    Object.keys(byTable).forEach(function(tk) {
+      var ti = Number(tk), tb = plan.tables[ti];
+      if (!tb || !tb.guests) return;
+      byTable[tk].sort(function(a, b) { return b - a; }).forEach(function(si) {
+        if (tb.guests[si]) picked.unshift(tb.guests.splice(si, 1)[0]);
+      });
+      shRecomputeGeometry(tb);
+    });
+    picked.forEach(function(g) { dst.guests.push(g); moved++; });
+    dst.capacity = Math.max(dst.capacity || 8, dst.guests.length);
+    shRecomputeGeometry(dst);
+    window.__SH_BOX_SEL = null;
+    window.__SH_SELECTED_TABLE_IDX = dstTIdx;
+    shToast('\\u2713 Moved ' + moved + ' selected ' + (moved === 1 ? 'person' : 'people') + ' to ' + shEdTableLabel(dst) + '. Tap Undo to reverse.');
+    shRenderAll();
+  };
+  window.shBoxSetMeal = function(mealName) {
+    var plan = window.__SH_STATE, sel = window.__SH_BOX_SEL;
+    if (!plan || !sel || !sel.guests || !sel.guests.length) return;
+    window.shSnapshot();
+    var count = 0;
+    sel.guests.forEach(function(h) {
+      var g = plan.tables[h.t] && plan.tables[h.t].guests && plan.tables[h.t].guests[h.s];
+      if (g) { g.meal = mealName; count++; }
+    });
+    shToast('\\u2713 Updated meal to ' + mealName + ' for ' + count + ' selected ' + (count === 1 ? 'person' : 'people') + '.');
+    shRenderAll();
+  };
+  window.shBoxSetGroup = function(grpIdx) {
+    var plan = window.__SH_STATE, sel = window.__SH_BOX_SEL;
+    if (!plan || !sel || !sel.guests || !sel.guests.length) return;
+    window.shSnapshot();
+    var count = 0, grp = (typeof SH_GROUPS !== 'undefined' && SH_GROUPS[grpIdx]) ? SH_GROUPS[grpIdx] : { key: 'other', label: 'Other guests' };
+    sel.guests.forEach(function(h) {
+      var g = plan.tables[h.t] && plan.tables[h.t].guests && plan.tables[h.t].guests[h.s];
+      if (g) { g.grp = grp.key; count++; }
+    });
+    shToast('\\u2713 Set group to ' + grp.label + ' for ' + count + ' selected ' + (count === 1 ? 'person' : 'people') + '.');
+    shRenderAll();
+  };
+  window.shBoxDeleteSelection = function() {
+    var plan = window.__SH_STATE, sel = window.__SH_BOX_SEL;
+    if (!plan || !window.shHasBoxSelection()) return;
+    window.shSnapshot();
+    var summary = window.shFormatBoxSelSummary(sel);
+    var delTblSet = {};
+    (sel.tables || []).forEach(function(ti) {
+      var tb = plan.tables[ti];
+      if (tb && shNormalizeShape(tb.shape) !== 'sweetheart') delTblSet[ti] = true;
+    });
+    var guestsByTbl = {};
+    (sel.guests || []).forEach(function(h) {
+      if (delTblSet[h.t]) return;
+      if (!guestsByTbl[h.t]) guestsByTbl[h.t] = [];
+      guestsByTbl[h.t].push(h.s);
+    });
+    Object.keys(guestsByTbl).forEach(function(tk) {
+      var ti = Number(tk), tb = plan.tables[ti];
+      if (!tb || !tb.guests) return;
+      guestsByTbl[tk].sort(function(a, b) { return b - a; }).forEach(function(si) {
+        if (tb.guests[si]) tb.guests.splice(si, 1);
+      });
+      shRecomputeGeometry(tb);
+    });
+    var tblIndices = Object.keys(delTblSet).map(Number).sort(function(a, b) { return b - a; });
+    tblIndices.forEach(function(ti) {
+      if (plan.tables.length > 2) plan.tables.splice(ti, 1);
+    });
+    plan.tables.forEach(function(tb, idx) {
+      tb.number = idx + 1;
+      if (idx > 0 && /^Table \\d+$/i.test(tb.name)) tb.name = 'Table ' + (idx + 1);
+      shRecomputeGeometry(tb);
+    });
+    if (sel.landmarks && sel.landmarks.length && Array.isArray(plan.landmarks)) {
+      sel.landmarks.slice().sort(function(a, b) { return b - a; }).forEach(function(li) {
+        if (plan.landmarks[li]) plan.landmarks.splice(li, 1);
+      });
+    }
+    window.__SH_BOX_SEL = null;
+    window.__SH_SELECTED_LANDMARK_IDX = null;
+    window.__SH_SELECTED_TABLE_IDX = Math.min(window.__SH_SELECTED_TABLE_IDX || 0, plan.tables.length - 1);
+    shSyncTableSelectAndPills();
+    shToast('\\u2713 Removed selected ' + summary + '. Tap Undo to restore.');
+    shRenderAll();
+  };
+  window.shBoxPanelHtml = function() {
+    var sel = window.__SH_BOX_SEL, plan = window.__SH_STATE;
+    if (!sel || !plan) return '';
+    var gCount = (sel.guests || []).length, tCount = (sel.tables || []).length, lCount = (sel.landmarks || []).length;
+    var summary = window.shFormatBoxSelSummary(sel);
+    var h = ['<div class="sh-ed-panel-top"><span>Box Selection</span><button type="button" id="sh-panel-minimize-btn" class="sh-ed-panel-hide-btn" onclick="window.shToggleRightPanel(true)" title="Minimize right side panel to expand floorplan">Minimize &#8677;</button></div>'];
+    h.push('<div class="sh-ed-head"><div class="sh-ed-title" style="padding:0;margin:0;">Selected ' + shEsc(summary) + '</div><div class="sh-ed-meta"><span>Drag any selected table to move together, or bulk-edit below</span><button type="button" class="sh-ed-ka-btn" onclick="window.shClearBoxSelection()">Clear</button></div></div>');
+    if (tCount > 0) {
+      h.push('<div class="sh-ed-label">Tables in box (' + tCount + ')</div><div class="sh-ed-chips" style="margin-bottom:8px;">');
+      sel.tables.forEach(function(ti) {
+        var tb = plan.tables[ti];
+        if (tb) h.push('<button type="button" class="sh-ed-chip" onclick="window.shClearBoxSelection(true);window.shSelectTable(' + ti + ')">' + shEsc(shEdTableLabel(tb)) + ' <small>' + tb.guests.length + '/' + tb.capacity + '</small></button>');
+      });
+      h.push('</div>');
+    }
+    if (lCount > 0 && plan.landmarks) {
+      h.push('<div class="sh-ed-label">Room elements in box (' + lCount + ')</div><div class="sh-ed-chips" style="margin-bottom:8px;">');
+      sel.landmarks.forEach(function(li) {
+        var lm = plan.landmarks[li];
+        if (lm) h.push('<button type="button" class="sh-ed-chip" onclick="window.shClearBoxSelection(true);window.shSelectLandmark(' + li + ')">' + shEsc(lm.label) + '</button>');
+      });
+      h.push('</div>');
+    }
+    if (gCount > 0) {
+      h.push('<div class="sh-ed-label">Move all ' + gCount + ' selected ' + (gCount === 1 ? 'person' : 'people') + ' to table</div><div class="sh-ed-chips" style="margin-bottom:8px;">');
+      plan.tables.forEach(function(tb, ti) {
+        var free = Math.max(0, (tb.capacity || 8) - tb.guests.length);
+        h.push('<button type="button" class="sh-ed-chip" onclick="window.shBoxMoveGuestsToTable(' + ti + ')">' + shEsc(shEdTableLabel(tb)) + ' <small>' + (free > 0 ? free + ' open' : '+chairs') + '</small></button>');
+      });
+      h.push('</div>');
+      h.push('<div class="sh-ed-label">Set meal for all ' + gCount + ' selected</div><div class="sh-ed-seg wrap" style="margin-bottom:8px;">');
+      [['Filet Mignon', 'Beef'], ['Pan-Seared Halibut', 'Fish'], ['Herb Roasted Chicken', 'Chicken'], ['Vegan Risotto', 'Vegan'], ['Vegetarian Pasta', 'Veg'], ['Kids Chicken Tenders', 'Kids']].forEach(function(m) {
+        h.push('<button type="button" onclick="window.shBoxSetMeal(\\'' + m[0] + '\\')">' + m[1] + '</button>');
+      });
+      h.push('</div>');
+      h.push('<div class="sh-ed-label">People in box (' + gCount + ')</div><div class="sh-ed-list" style="max-height:220px;overflow-y:auto;margin-bottom:10px;">');
+      sel.guests.forEach(function(item, idx) {
+        var tb = plan.tables[item.t], g = tb && tb.guests && tb.guests[item.s];
+        if (!g) return;
+        h.push('<div class="sh-ed-item"><div class="sh-ed-row" onclick="window.shClearBoxSelection(true);window.shSelectTable(' + item.t + ');window.shEdOpen(' + item.t + ',' + item.s + ')"><span class="sh-ed-seat">' + (idx + 1) + '</span>' + (window.shGroupDot ? window.shGroupDot(g) : '') + '<span class="sh-ed-name">' + shEsc(g.name) + '</span><span class="sh-ed-tag">' + shEsc(shEdTableLabel(tb)) + '</span></div></div>');
+      });
+      h.push('</div>');
+    }
+    h.push('<button type="button" id="sh-box-delete-btn" class="sh-ed-remove" onclick="window.shBoxDeleteSelection()">Delete selected (' + shEsc(summary) + ')</button>');
+    return h.join('');
+  };
+  document.addEventListener('mousedown', function(ev) {
+    if (!ev || ev.button !== 0) return;
+    var svg = document.getElementById('sh-floorplan-svg');
+    if (!svg || !ev.target) return;
+    var isBg = ev.target === svg || (ev.target.tagName === 'rect' && ev.target.parentNode === svg);
+    if (!isBg) return;
+    if (ev.cancelable) ev.preventDefault();
+    var startPt = shSvgCoord(ev), moved = false;
+    var onMove = function(mv) {
+      var cur = shSvgCoord(mv);
+      var x = Math.min(startPt.x, cur.x), y = Math.min(startPt.y, cur.y);
+      var w = Math.abs(cur.x - startPt.x), h = Math.abs(cur.y - startPt.y);
+      if (w > 6 || h > 6) moved = true;
+      if (!moved) return;
+      if (mv.cancelable) mv.preventDefault();
+      window.__SH_BOX_RECT = { x: x, y: y, w: w, h: h };
+      window.__SH_BOX_SEL = window.shComputeHitsInRect(x, y, x + w, y + h);
+      shRenderFloorplanSvg();
+    };
+    var onUp = function() {
+      window.removeEventListener('mousemove', onMove);
+      window.removeEventListener('mouseup', onUp);
+      var rect = window.__SH_BOX_RECT;
+      window.__SH_BOX_RECT = null;
+      if (!moved || !rect || (rect.w < 8 && rect.h < 8)) {
+        if (window.shHasBoxSelection()) {
+          window.shClearBoxSelection();
+          shToast('Cleared box selection.');
+        }
+        return;
+      }
+      var hits = window.shComputeHitsInRect(rect.x, rect.y, rect.x + rect.w, rect.y + rect.h);
+      if (!hits.tables.length && !hits.guests.length && !hits.landmarks.length) {
+        window.__SH_BOX_SEL = null;
+        shRenderAll();
+        shToast('No tables or guests inside that box.');
+        return;
+      }
+      window.__SH_BOX_SEL = hits;
+      window.__SH_OPEN_GUEST = null;
+      window.__SH_SWAP_SOURCE = null;
+      if (hits.tables.length === 1 && !hits.landmarks.length) {
+        window.__SH_SELECTED_TABLE_IDX = hits.tables[0];
+      }
+      var sum = window.shFormatBoxSelSummary(hits);
+      shToast('\\u2B1A Selected ' + sum + ' · Drag to move together, bulk-edit in side panel, or press Delete.');
+      shRenderAll();
+    };
+    window.addEventListener('mousemove', onMove);
+    window.addEventListener('mouseup', onUp);
+  });`;
 }
 
 module.exports = { renderSeatElementsClientScript };

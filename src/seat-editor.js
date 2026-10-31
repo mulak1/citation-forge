@@ -189,6 +189,11 @@ function renderSeatEditorClientScript() {
       if (window.__SH_ACTIVE_VIEW && window.__SH_ACTIVE_VIEW !== 'floorplan') return;
       var plan = window.__SH_STATE;
       if (!plan) return;
+      if (window.shHasBoxSelection && window.shHasBoxSelection()) {
+        ev.preventDefault();
+        window.shBoxDeleteSelection();
+        return;
+      }
       if (window.__SH_OPEN_GUEST && plan.tables && plan.tables[window.__SH_OPEN_GUEST.t] && plan.tables[window.__SH_OPEN_GUEST.t].guests[window.__SH_OPEN_GUEST.s]) {
         ev.preventDefault();
         window.shEdRemove(window.__SH_OPEN_GUEST.t, window.__SH_OPEN_GUEST.s);
@@ -549,6 +554,7 @@ function renderSeatEditorClientScript() {
     var box = document.getElementById('sh-selected-table-box'); if (!box || !window.__SH_STATE || !window.__SH_STATE.tables) return;
     shSyncTableSelectAndPills(); if (window.shRenderLegend) window.shRenderLegend();
     if (window.shSyncHistoryUi) window.shSyncHistoryUi();
+    if (window.shHasBoxSelection && window.shHasBoxSelection() && window.shBoxPanelHtml) { box.innerHTML = window.shBoxPanelHtml(); return; }
     if (window.shElementPanelHtml && window.__SH_SELECTED_LANDMARK_IDX != null && window.__SH_STATE.landmarks && window.__SH_STATE.landmarks[window.__SH_SELECTED_LANDMARK_IDX]) { box.innerHTML = window.shElementPanelHtml(); return; }
     var tables = window.__SH_STATE.tables, tIdx = window.__SH_SELECTED_TABLE_IDX, t = tables[tIdx];
     var topBar = '<div class="sh-ed-panel-top"><span>Table &amp; Guest Inspector</span><button type="button" id="sh-panel-minimize-btn" class="sh-ed-panel-hide-btn" onclick="window.shToggleRightPanel(true)" title="Minimize right side panel to expand floorplan">Minimize &#8677;</button></div>';
