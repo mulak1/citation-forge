@@ -202,8 +202,9 @@ function renderInteractiveScript(initialPlan) {
       if (Math.abs(dx) > 2 || Math.abs(dy) > 2) moved = true;
       if (!moved) return;
       if (moveEv.cancelable) moveEv.preventDefault();
-      lm.x = Math.max(60, Math.min(1060, origX + dx));
-      lm.y = Math.max(35, Math.min((window.__SH_STATE.roomHeight || 680) - 35, origY + dy));
+      const rawLx = Math.max(60, Math.min(1060, origX + dx)), rawLy = Math.max(35, Math.min((window.__SH_STATE.roomHeight || 680) - 35, origY + dy));
+      const snappedLm = window.shSnapLandmarkPos ? window.shSnapLandmarkPos(lmIdx, rawLx, rawLy, moveEv.shiftKey) : { x: rawLx, y: rawLy };
+      lm.x = snappedLm.x; lm.y = snappedLm.y;
       shRenderFloorplanSvg();
     };
     const onUp = function() {
@@ -211,6 +212,7 @@ function renderInteractiveScript(initialPlan) {
       window.removeEventListener('mouseup', onUp);
       window.removeEventListener('touchmove', onMove);
       window.removeEventListener('touchend', onUp);
+      window.__SH_ALIGN_GUIDES = null;
       if (moved) shToast('✓ Moved "' + lm.label + '" to (' + lm.x + ', ' + lm.y + ')');
       shRenderAll();
     };
@@ -289,8 +291,9 @@ function renderInteractiveScript(initialPlan) {
       if (Math.abs(dx) > 2 || Math.abs(dy) > 2) moved = true;
       if (!moved) return;
       if (moveEv.cancelable) moveEv.preventDefault();
-      tbl.x = Math.max(95, Math.min(1025, origX + dx));
-      tbl.y = Math.max(72, Math.min((window.__SH_STATE.roomHeight || 680) - 75, origY + dy));
+      const rawTx = Math.max(95, Math.min(1025, origX + dx)), rawTy = Math.max(72, Math.min((window.__SH_STATE.roomHeight || 680) - 75, origY + dy));
+      const snappedTbl = window.shSnapTablePos ? window.shSnapTablePos(tIdx, rawTx, rawTy, moveEv.shiftKey) : { x: rawTx, y: rawTy };
+      tbl.x = snappedTbl.x; tbl.y = snappedTbl.y;
       shRecomputeGeometry(tbl);
       shRenderFloorplanSvg();
     };
@@ -300,7 +303,8 @@ function renderInteractiveScript(initialPlan) {
       window.removeEventListener('touchmove', onMove);
       window.removeEventListener('touchend', onUp);
       window.__SH_DRAG_VIEWBOX = null;
-      if (moved) shToast('✓ Moved ' + tbl.name + ' to (' + tbl.x + ', ' + tbl.y + ')!');
+      window.__SH_ALIGN_GUIDES = null;
+      if (moved) shToast('✓ Moved ' + tbl.name + ' to (' + tbl.x + ', ' + tbl.y + ')' + (window.__SH_SNAP_GRID !== false ? ' · Snapped to grid' : '') + '!');
       else if (window.__SH_SWAP_SOURCE && window.__SH_SWAP_SOURCE.tableIdx !== tIdx) {
         const srcTbl = window.__SH_STATE.tables[window.__SH_SWAP_SOURCE.tableIdx];
         if (srcTbl && srcTbl.guests[window.__SH_SWAP_SOURCE.seatIdx]) {
@@ -679,10 +683,17 @@ function renderInteractiveScript(initialPlan) {
     if (selVal === 'auto' && tbl.guests.length > startCap) {
       const n = tbl.guests.length - startLen, moved = tbl.guests.splice(startLen, n);
       let j = window.__SH_STATE.tables.findIndex(function(t, i) { return i > 0 && !t.locked && t.guests.length + n <= (t.capacity || 8); });
+      if (j === -1) {
+        j = window.__SH_STATE.tables.findIndex(function(t, i) {
+          const maxComf = shNormalizeShape(t.shape) === 'round' ? 10 : 12;
+          return i > 0 && !t.locked && t.guests.length + n <= maxComf;
+        });
+      }
       if (j === -1) { window.shAddNewTable(); j = window.__SH_STATE.tables.length - 1; }
       shRecomputeGeometry(tbl); tbl = window.__SH_STATE.tables[j]; window.__SH_SELECTED_TABLE_IDX = j;
       moved.forEach(function(g) { tbl.guests.push(g); });
     }
+    window.__SH_STATE.hasUserEdits = true;
     tbl.capacity = Math.max(tbl.capacity, tbl.guests.length);
     window.__SH_STATE.householdsCoupled = (window.__SH_STATE.householdsCoupled || 26) + 1;
     shRecomputeGeometry(tbl); if (input) input.value = '';

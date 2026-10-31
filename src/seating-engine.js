@@ -477,13 +477,24 @@ function buildPresetForTarget(rawInput = 'estate-150') {
       zone: 'vip', locked: true, guests: coupleGuests
     };
     const remGuestsNeeded = Math.max(0, bp.guests - coupleGuests.length);
-    const nTbls = bp.pts.length || 1;
-    const basePerTbl = Math.floor(remGuestsNeeded / nTbls);
-    const extraSeats = remGuestsNeeded % nTbls;
     const groupNames = ["Bride's Family (Eleanor)", 'College Crew', "Groom's Family (O'Connors)", "Father of Bride (Richard's Side)", 'SF Work & Founders', 'High School Friends', 'Out-of-Town Family & Seniors', 'Extended Family & Cousins', 'Bridal Party & Dates', 'Neighborhood & Childhood Friends'];
     const builtTables = [headT];
+    const allocations = bp.pts.map(() => 0);
+    let leftToAssign = remGuestsNeeded;
+    while (leftToAssign > 0) {
+      let progressed = false;
+      for (let i = 0; i < bp.pts.length && leftToAssign > 0; i++) {
+        const maxCap = bp.pts[i].cap || (bp.pts[i].shape === 'round' ? 10 : 12);
+        if (allocations[i] < maxCap) {
+          allocations[i]++;
+          leftToAssign--;
+          progressed = true;
+        }
+      }
+      if (!progressed) break;
+    }
     bp.pts.forEach((pt, idx) => {
-      const want = basePerTbl + (idx < extraSeats ? 1 : 0);
+      const want = allocations[idx];
       const cap = Math.max(pt.cap || 8, want);
       const tGuests = [];
       for (let k = 0; k < want; k++) {

@@ -190,7 +190,7 @@ function renderSeatEditorClientScript() {
     window.shSnapshot(); g.allergy = String(val || '').trim();
     shToast(g.allergy ? '\\u2713 Saved dietary note for ' + g.name : 'Cleared dietary note'); shRenderAll();
   };
-  window.shEdRename = function(tIdx, sIdx, v) { if (!String(v || '').trim()) return; window.shSnapshot(); window.shRenameGuest(tIdx, sIdx, v); };
+  window.shEdRename = function(tIdx, sIdx, v) { if (!String(v || '').trim()) return; window.shSnapshot(); window.__SH_STATE.hasUserEdits = true; window.__SH_SETUP.sample = false; window.shRenameGuest(tIdx, sIdx, v); };
   window.shEdRemove = function(tIdx, sIdx) {
     var g = window.__SH_STATE.tables[tIdx].guests[sIdx]; if (!g) return;
     window.shRemoveGuest(tIdx, sIdx); window.__SH_OPEN_GUEST = null;
@@ -287,6 +287,7 @@ function renderSeatEditorClientScript() {
   window.shEdAdd = function(tIdx) {
     var inp = document.getElementById('sh-ed-add'), tbl = window.__SH_STATE.tables[tIdx];
     if (!inp || !tbl || !inp.value.trim()) { if (inp) inp.focus(); return; }
+    window.__SH_STATE.hasUserEdits = true; window.__SH_SETUP.sample = false;
     var people = shParseHouseholdLine(inp.value);
     if (people.length > 1) {
       window.shSnapshot();
@@ -313,12 +314,21 @@ function renderSeatEditorClientScript() {
         if ((tables[i].capacity || 8) - tables[i].guests.length >= grp.length) { dst = tables[i]; break; }
       }
       if (!dst) {
-        for (var j = 1; j < tables.length; j++) if ((tables[j].capacity || 8) - tables[j].guests.length > 0) { dst = tables[j]; break; }
+        for (var j = 1; j < tables.length; j++) {
+          var maxComf = shNormalizeShape(tables[j].shape) === 'round' ? 10 : 12;
+          if (tables[j].guests.length + grp.length <= maxComf) { dst = tables[j]; break; }
+        }
       }
       if (!dst) {
-        var n = tables.length + 1, sample = tables[1] || { shape: 'round', capacity: 8 };
-        dst = { id: 'table-' + n, number: n, name: 'Table ' + n, shape: sample.shape, capacity: Math.max(sample.capacity || 8, grp.length), x: 560, y: 420, rotation: 0, locked: false, guests: [] };
-        tables.push(dst);
+        var sample = tables[1] || { shape: 'round', capacity: 8 };
+        if (typeof window.shFindAndAddNonOverlappingTable === 'function') {
+          window.shFindAndAddNonOverlappingTable({ shape: sample.shape, capacity: Math.max(sample.capacity || 8, grp.length) });
+          dst = tables[tables.length - 1];
+        } else {
+          var n = tables.length + 1;
+          dst = { id: 'table-' + n, number: n, name: 'Table ' + n, shape: sample.shape, capacity: Math.max(sample.capacity || 8, grp.length), x: 340, y: 230, rotation: 0, locked: false, guests: [] };
+          tables.push(dst);
+        }
       }
       grp.forEach(function(g) { dst.guests.push(g); added++; });
       dst.capacity = Math.max(dst.capacity || 8, dst.guests.length);
@@ -328,24 +338,38 @@ function renderSeatEditorClientScript() {
     shToast('\\u2713 Seated ' + added + ' late-RSVP guest' + (added === 1 ? '' : 's') + ' without changing your existing layout.');
     shRenderAll();
   };
-  /* 1-click occupied table removal: auto-reseats guests to nearby tables */
+  /* 1-click occupied table removal: auto-reseats guests into open seats on nearest tables (or distributes +1 evenly if all tables are full) */
   window.shEdRemoveTable = function(tIdx) {
     var tables = window.__SH_STATE.tables, t = tables[tIdx];
     if (!t || tables.length <= 2 || shNormalizeShape(t.shape) === 'sweetheart') return;
     window.shSnapshot();
-    var orphans = (t.guests || []).slice(), tblName = shEdTableLabel(t);
+    var orphans = (t.guests || []).slice(), tblName = shEdTableLabel(t), oldX = t.x || 560, oldY = t.y || 340;
     tables.splice(tIdx, 1);
     tables.forEach(function(tb, idx) { tb.number = idx + 1; if (idx > 0 && /^Table \\d+$/i.test(tb.name)) tb.name = 'Table ' + (idx + 1); });
     orphans.forEach(function(g) {
-      var dst = null;
-      for (var i = 1; i < tables.length; i++) if (tables[i].guests.length < (tables[i].capacity || 8)) { dst = tables[i]; break; }
-      if (!dst) { dst = tables[1] || tables[0]; dst.capacity = Math.max(dst.capacity || 8, dst.guests.length + 1); }
+      var dst = null, bestDist = 1e9;
+      for (var i = 1; i < tables.length; i++) {
+        if (shNormalizeShape(tables[i].shape) === 'sweetheart') continue;
+        if (tables[i].guests.length < (tables[i].capacity || 8)) {
+          var d = Math.hypot((tables[i].x || 0) - oldX, (tables[i].y || 0) - oldY);
+          if (d < bestDist) { bestDist = d; dst = tables[i]; }
+        }
+      }
+      if (!dst) {
+        var leastFull = null;
+        for (var j = 1; j < tables.length; j++) {
+          if (shNormalizeShape(tables[j].shape) === 'sweetheart') continue;
+          if (!leastFull || tables[j].guests.length < leastFull.guests.length) leastFull = tables[j];
+        }
+        dst = leastFull || tables[1] || tables[0];
+        dst.capacity = Math.max(dst.capacity || 8, dst.guests.length + 1);
+      }
       dst.guests.push(g);
     });
     tables.forEach(function(tb) { shRecomputeGeometry(tb); });
     window.__SH_SELECTED_TABLE_IDX = Math.min(tIdx, tables.length - 1); window.__SH_OPEN_GUEST = null;
     shSyncTableSelectAndPills();
-    shToast(orphans.length ? 'Removed ' + tblName + ' and re-seated ' + orphans.length + ' guest' + (orphans.length === 1 ? '' : 's') + '. Tap Undo to reverse.' : 'Removed ' + tblName + '. Tap Undo to reverse.');
+    shToast(orphans.length ? 'Removed ' + tblName + ' and re-seated ' + orphans.length + ' guest' + (orphans.length === 1 ? '' : 's') + ' into your existing tables. Tap Undo to reverse.' : 'Removed ' + tblName + '. Tap Undo to reverse.');
     shRenderAll();
   };
   window.shEdSeats = function(tIdx, d) { window.shChangeTableCapacity(tIdx, d); };

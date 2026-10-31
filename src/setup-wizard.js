@@ -438,12 +438,141 @@ function renderSetupWizardClientScript() {
   };
   window.shwRemoveApart = function(i) { window.__SH_SETUP.apart.splice(i, 1); shwPaint(); };
 
+  /* ---- Preserve user-entered guests & rules when trying any new venue layout ---- */
+  function shGroupGuestsIntoHouseholds(tables) {
+    var groups = [], seenHh = {};
+    (tables || []).slice(1).forEach(function(t) {
+      (t.guests || []).forEach(function(g) {
+        if (!g || !g.name) return;
+        var copy = JSON.parse(JSON.stringify(g));
+        if (copy.hhId) {
+          if (!seenHh[copy.hhId]) { seenHh[copy.hhId] = []; groups.push(seenHh[copy.hhId]); }
+          seenHh[copy.hhId].push(copy);
+        } else {
+          groups.push([copy]);
+        }
+      });
+    });
+    return groups;
+  }
+
+  function shCaptureUserPeopleContext() {
+    var S = window.__SH_SETUP || {};
+    var cur = window.__SH_STATE;
+    if (cur && (cur.isWizardBuilt || cur.hasUserEdits || (S.built && !S.sample)) && Array.isArray(cur.tables) && cur.tables.length) {
+      var hGroups = shGroupGuestsIntoHouseholds(cur.tables);
+      var gTotal = hGroups.reduce(function(s, grp) { return s + grp.length; }, 0);
+      if (gTotal > 0) {
+        return {
+          title: cur.title || '',
+          hosts: JSON.parse(JSON.stringify((cur.tables[0] && cur.tables[0].guests) || [])),
+          households: hGroups,
+          totalGuests: gTotal + (((cur.tables[0] && cur.tables[0].guests) || []).length),
+          rules: JSON.parse(JSON.stringify(cur.rules || [])),
+          apartPairs: (S.apart && S.apart.length) ? S.apart.slice() : (cur.rules || []).filter(function(r) { return r.pair; }).map(function(r) { return r.pair; })
+        };
+      }
+    }
+    try {
+      var raw = JSON.parse(localStorage.getItem('sh_session_v1') || 'null');
+      if (raw && raw.v === 1) {
+        var f = raw.fields || {};
+        if (f.couple && shwEl('shw-couple') && !shwEl('shw-couple').value) shwEl('shw-couple').value = f.couple;
+        if (f.list && shwEl('shw-guests') && !shwEl('shw-guests').value) shwEl('shw-guests').value = f.list;
+        if (Array.isArray(f.apart) && f.apart.length && (!S.apart || !S.apart.length)) S.apart = f.apart;
+        var st = raw.state;
+        if (st && (st.isWizardBuilt || st.hasUserEdits || (raw.built && !raw.sample)) && Array.isArray(st.tables)) {
+          var sGroups = shGroupGuestsIntoHouseholds(st.tables);
+          var sTotal = sGroups.reduce(function(s, grp) { return s + grp.length; }, 0);
+          if (sTotal > 0) {
+            return {
+              title: st.title || '',
+              hosts: JSON.parse(JSON.stringify((st.tables[0] && st.tables[0].guests) || [])),
+              households: sGroups,
+              totalGuests: sTotal + (((st.tables[0] && st.tables[0].guests) || []).length),
+              rules: JSON.parse(JSON.stringify(st.rules || [])),
+              apartPairs: (f.apart && f.apart.length) ? f.apart : (st.rules || []).filter(function(r) { return r.pair; }).map(function(r) { return r.pair; })
+            };
+          }
+        }
+      }
+    } catch (_) {}
+    var typedLines = shwHouseholds();
+    if (typedLines.length > 0 && typeof window.shParseHouseholdLine === 'function') {
+      var parsedGroups = typedLines.map(function(l) { return window.shParseHouseholdLine(l); }).filter(function(g) { return g && g.length > 0; });
+      var pTotal = parsedGroups.reduce(function(s, grp) { return s + grp.length; }, 0);
+      if (pTotal > 0) {
+        var cVal = String((shwEl('shw-couple') || {}).value || '').trim();
+        var parts = cVal.split(/\\s*(?:&|\\band\\b|\\+)\\s*/i).filter(Boolean);
+        var hosts = (parts.length ? parts : ['Partner 1', 'Partner 2']).slice(0, 2).map(function(n) { return { name: n, initials: n.slice(0, 2).toUpperCase(), role: 'Couple', meal: 'Filet Mignon', allergy: '', accessibility: '' }; });
+        return {
+          title: cVal ? (parts.length >= 2 ? cVal + "'s Wedding" : cVal + ' Wedding') : '',
+          hosts: hosts,
+          households: parsedGroups,
+          totalGuests: pTotal + hosts.length,
+          rules: (S.apart || []).map(function(p, i) { return { id: 'rule_w_' + i, type: 'must_keep_apart', label: p[0] + ' & ' + p[1] + ' kept apart', detail: 'Separated across the room', status: 'VERIFIED', pair: [p[0], p[1]] }; }),
+          apartPairs: (S.apart || []).slice()
+        };
+      }
+    }
+    return null;
+  }
+
+  function shApplyUserPeopleToVenuePlan(plan, ctx) {
+    if (!plan || !Array.isArray(plan.tables) || !ctx || !ctx.households || !ctx.households.length) return false;
+    plan.isWizardBuilt = true;
+    plan.hasUserEdits = true;
+    if (ctx.title) plan.title = ctx.title;
+    if (ctx.rules && ctx.rules.length) plan.rules = JSON.parse(JSON.stringify(ctx.rules));
+    if (plan.tables[0] && ctx.hosts && ctx.hosts.length) {
+      plan.tables[0].guests = JSON.parse(JSON.stringify(ctx.hosts));
+      plan.tables[0].capacity = Math.max(plan.tables[0].capacity || 2, plan.tables[0].guests.length);
+    }
+    for (var i = 1; i < plan.tables.length; i++) {
+      plan.tables[i].guests = [];
+    }
+    ctx.households.forEach(function(grp) {
+      if (!grp || !grp.length) return;
+      var dst = null;
+      for (var ti = 1; ti < plan.tables.length; ti++) {
+        if ((plan.tables[ti].capacity || 8) - plan.tables[ti].guests.length >= grp.length) { dst = plan.tables[ti]; break; }
+      }
+      if (!dst) {
+        for (var tj = 1; tj < plan.tables.length; tj++) {
+          var maxComf = shNormalizeShape(plan.tables[tj].shape) === 'round' ? 10 : 12;
+          if (plan.tables[tj].guests.length + grp.length <= maxComf) { dst = plan.tables[tj]; break; }
+        }
+      }
+      if (!dst) {
+        var sample = plan.tables[1] || { shape: 'round', capacity: 8 };
+        if (typeof window.shFindAndAddNonOverlappingTable === 'function') {
+          window.shFindAndAddNonOverlappingTable({ shape: sample.shape, capacity: Math.max(sample.capacity || 8, grp.length) });
+          dst = plan.tables[plan.tables.length - 1];
+        } else {
+          dst = plan.tables[1] || plan.tables[0];
+        }
+      }
+      grp.forEach(function(g) { dst.guests.push(g); });
+      dst.capacity = Math.max(dst.capacity || 8, dst.guests.length);
+    });
+    plan.householdsCoupled = ctx.households.length;
+    if (ctx.apartPairs && ctx.apartPairs.length) shwApplyKeepApart(plan, ctx.apartPairs);
+    plan.tables.forEach(function(t) { shRecomputeGeometry(t); });
+    window.__SH_SETUP.built = true;
+    window.__SH_SETUP.sample = false;
+    return true;
+  }
+
   /* ---- Venue layouts & 1-click scenarios: build a populated room sized to the layout ---- */
   window.shwLoadInstantScenario = function(key, btn) {
     document.querySelectorAll('#shw-instant-scenarios button[data-instant-preset]').forEach(function(b) { b.classList.toggle('active', b.getAttribute('data-instant-preset') === key); });
-    window.__SH_SETUP.userStarted = true; window.__SH_SETUP.sample = true; window.__SH_SETUP.cleared = false;
+    var savedCtx = shCaptureUserPeopleContext();
+    window.__SH_SETUP.userStarted = true; window.__SH_SETUP.sample = !savedCtx; window.__SH_SETUP.cleared = false;
     if (key === 'estate-150' && window.__SH_SEED_STATE) {
       window.__SH_STATE = JSON.parse(JSON.stringify(window.__SH_SEED_STATE));
+      if (savedCtx && shApplyUserPeopleToVenuePlan(window.__SH_STATE, savedCtx)) {
+        shToast('✓ Applied ' + (window.__SH_STATE.venueName || 'Estate') + ' layout while keeping your ' + savedCtx.totalGuests + ' entered guests!');
+      }
       window.shFinishSetupWizard();
       return;
     }
@@ -458,17 +587,24 @@ function renderSetupWizardClientScript() {
   window.shwBuildFromLayout = function(slug) {
     var key = String(slug || '').toLowerCase();
     if (!key || key === 'estate-150' || key === 'tuscan-banquet-80' || key === 'planner-beo-sandbox') return false;
+    var savedCtx = shCaptureUserPeopleContext();
     var applyTabAndToast = function() {
       if (!window.__SH_STATE) return;
+      var keptUser = savedCtx && shApplyUserPeopleToVenuePlan(window.__SH_STATE, savedCtx);
       (window.__SH_STATE.tables || []).forEach(function(t) { shRecomputeGeometry(t); });
       window.__SH_SELECTED_TABLE_IDX = (window.__SH_STATE.tables && window.__SH_STATE.tables.length > 1) ? 1 : 0;
-      window.__SH_SETUP.sample = true;
+      window.__SH_SETUP.sample = !keptUser;
       window.shFinishSetupWizard();
       if (/beo|clockwise|caterer|allergy|meal|vendor/.test(key) && window.shSetActiveTab) window.shSetActiveTab('beo');
       else if (/poster|24x36|avery|escort|sign|alphabetical/.test(key) && window.shSetActiveTab) window.shSetActiveTab('poster');
       else if (/qr|cocktail/.test(key) && window.shSetActiveTab) window.shSetActiveTab('qr');
       var gCount = (window.__SH_STATE.tables || []).reduce(function(s, t) { return s + (t.guests ? t.guests.length : 0); }, 0);
-      shToast('✓ Opened ' + (window.__SH_STATE.title || key) + ' (' + gCount + ' seated guests across ' + (window.__SH_STATE.tables || []).length + ' tables).');
+      if (keptUser) {
+        shToast('✓ Applied ' + (window.__SH_STATE.venueName || key) + ' layout while keeping all ' + gCount + ' of your entered guests & rules!');
+        if (window.shwSaveSession) window.shwSaveSession();
+      } else {
+        shToast('✓ Opened ' + (window.__SH_STATE.title || key) + ' (' + gCount + ' seated guests across ' + (window.__SH_STATE.tables || []).length + ' tables).');
+      }
     };
     if (window.__SH_STATE && String(window.__SH_STATE.id || '').toLowerCase() === key) {
       applyTabAndToast();
@@ -579,10 +715,16 @@ function renderSetupWizardClientScript() {
   (function() {
     var origLoad = window.loadPresetScenario;
     window.loadPresetScenario = async function(key, btn) {
+      var savedCtx = shCaptureUserPeopleContext();
       window.__SH_SETUP.userStarted = true;
       await origLoad(key, btn);
-      window.__SH_SETUP.sample = true; window.__SH_SETUP.cleared = false; window.__SH_SETUP.engaged = true; try { localStorage.setItem('sh_binder_engaged', '1'); } catch (_) {}
+      var keptUser = savedCtx && shApplyUserPeopleToVenuePlan(window.__SH_STATE, savedCtx);
+      window.__SH_SETUP.sample = !keptUser; window.__SH_SETUP.cleared = false; window.__SH_SETUP.engaged = true; try { localStorage.setItem('sh_binder_engaged', '1'); } catch (_) {}
       window.shFinishSetupWizard();
+      if (keptUser) {
+        shToast('✓ Applied ' + (window.__SH_STATE.venueName || key) + ' layout while keeping your ' + savedCtx.totalGuests + ' entered guests & rules!');
+        if (window.shwSaveSession) window.shwSaveSession();
+      }
     };
   })();
   /* ---- Auto-save on this device + restore when you come back (e.g. after visiting the Command Center) ---- */

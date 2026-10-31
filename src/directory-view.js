@@ -248,7 +248,7 @@ function buildVenueBlueprint(slug = '', title = '') {
     specLabel = `6 Horizontal Courtyard Banquets + Center King's Table`;
   } else if (arch === 'tuscan_rows') {
     roomHeight = 790;
-    const count = Math.max(4, Math.min(10, Math.ceil((guests - 2) / 12)));
+    const count = Math.max(4, Math.min(12, Math.ceil((guests - 2) / 12)));
     const cols = count <= 4 ? [260, 860] : [175, 360, 760, 945];
     let r = 0;
     while (pts.length < count) {
@@ -479,6 +479,28 @@ function buildVenueBlueprint(slug = '', title = '') {
       { id: 'lm_exit', label: 'QUIET FOYER & TERRACE EXIT', x: 560, y: roomHeight - 38, w: 240, h: 34, zone: 'quiet' }
     ];
     specLabel = `Sweetheart + ${pts.length}×${per}-Top Rounds · Ballroom Wings`;
+  }
+
+  let totalCap = (headTable.capacity || 2) + pts.reduce((s, p) => s + (p.cap || 8), 0);
+  if (totalCap < guests) {
+    pts.forEach((p) => {
+      if (totalCap >= guests) return;
+      const maxC = p.shape === 'round' ? 10 : 12;
+      if ((p.cap || 8) < maxC) { totalCap += (maxC - (p.cap || 8)); p.cap = maxC; }
+    });
+    const lastPt = pts[pts.length - 1] || { shape: 'round', cap: 10, rot: 0 };
+    const extraShape = lastPt.shape === 'sweetheart' ? 'round' : (lastPt.shape || 'round');
+    const extraCap = extraShape === 'round' ? 10 : 12;
+    const addCols = extraShape === 'round' ? [160, 360, 560, 760, 960] : [260, 560, 860];
+    let extraIdx = 0;
+    let baseExtraY = pts.reduce((m, p) => Math.max(m, p.y || 240), 240) + 200;
+    while (totalCap < guests) {
+      const x = addCols[extraIdx % addCols.length];
+      const y = baseExtraY + Math.floor(extraIdx / addCols.length) * 200;
+      pts.push({ x, y, shape: extraShape, cap: extraCap, rot: 0 });
+      totalCap += extraCap;
+      extraIdx++;
+    }
   }
 
   roomHeight = enforceArchitecturalClearance(headTable, pts, landmarks, roomHeight);

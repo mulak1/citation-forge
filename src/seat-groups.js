@@ -286,6 +286,81 @@ function renderSeatGroupsClientScript() {
     shToast(removed > 0 ? ('\\u2713 Removed ' + removed + ' empty table' + (removed === 1 ? '' : 's') + ' and re-numbered room.') : 'All tables currently have seated guests.');
     shRenderAll();
   };
+
+  /* ---- Magnetic 20px Architectural Grid Snap & Smart Peer-Table Alignment Guides ---- */
+  window.__SH_SNAP_GRID = true;
+  window.__SH_ALIGN_GUIDES = null;
+  window.shToggleSnapGrid = function(ev) {
+    if (ev) ev.stopPropagation();
+    window.__SH_SNAP_GRID = !window.__SH_SNAP_GRID;
+    var btn = document.getElementById('sh-toolbar-snap-btn');
+    if (btn) {
+      btn.innerHTML = window.__SH_SNAP_GRID ? '&#8862; Snap: ON' : '&#8862; Snap: OFF';
+      btn.style.background = window.__SH_SNAP_GRID ? '#FAF3E3' : '';
+      btn.style.borderColor = window.__SH_SNAP_GRID ? '#C8A96E' : '';
+      btn.style.color = window.__SH_SNAP_GRID ? '#78350F' : '';
+    }
+    shToast(window.__SH_SNAP_GRID ? '\\u229e Magnetic Grid Snap ON (20px grid + row/column alignment guides · hold Shift for freeform)' : 'Magnetic Grid Snap OFF (freeform table movement)');
+  };
+  window.shSnapTablePos = function(tIdx, rawX, rawY, disableSnap) {
+    if (window.__SH_SNAP_GRID === false || disableSnap) {
+      window.__SH_ALIGN_GUIDES = null;
+      return { x: Math.round(rawX), y: Math.round(rawY) };
+    }
+    var tables = (window.__SH_STATE && window.__SH_STATE.tables) || [];
+    var bestX = null, bestDx = 13, bestY = null, bestDy = 13;
+    if (Math.abs(rawX - 560) < bestDx) { bestDx = Math.abs(rawX - 560); bestX = 560; }
+    tables.forEach(function(ot, idx) {
+      if (idx === tIdx) return;
+      var dx = Math.abs(rawX - (ot.x || 0)), dy = Math.abs(rawY - (ot.y || 0));
+      if (dx < bestDx) { bestDx = dx; bestX = ot.x; }
+      if (dy < bestDy) { bestDy = dy; bestY = ot.y; }
+    });
+    var snappedX = bestX != null ? bestX : Math.round(rawX / 20) * 20;
+    var snappedY = bestY != null ? bestY : Math.round(rawY / 20) * 20;
+    snappedX = Math.max(100, Math.min(1020, snappedX));
+    snappedY = Math.max(80, Math.min((window.__SH_STATE.roomHeight || 680) - 80, snappedY));
+    window.__SH_ALIGN_GUIDES = { gx: bestX, gy: bestY, tx: snappedX, ty: snappedY };
+    return { x: snappedX, y: snappedY };
+  };
+  window.shSnapLandmarkPos = function(lmIdx, rawX, rawY, disableSnap) {
+    if (window.__SH_SNAP_GRID === false || disableSnap) {
+      window.__SH_ALIGN_GUIDES = null;
+      return { x: Math.round(rawX), y: Math.round(rawY) };
+    }
+    var gx = Math.abs(rawX - 560) <= 14 ? 560 : null;
+    var sx = gx != null ? gx : Math.round(rawX / 20) * 20;
+    var sy = Math.round(rawY / 20) * 20;
+    window.__SH_ALIGN_GUIDES = { gx: gx, gy: null, tx: sx, ty: sy };
+    return { x: sx, y: sy };
+  };
+  window.shAlignAllTablesToGrid = function() {
+    shCloseMenus();
+    var plan = window.__SH_STATE; if (!plan || !plan.tables) return;
+    window.shSnapshot();
+    var rowAnchors = [], colAnchors = [560];
+    plan.tables.forEach(function(t, idx) {
+      var gx = Math.round((t.x || 250) / 20) * 20;
+      var gy = Math.round((t.y || 200) / 20) * 20;
+      for (var ci = 0; ci < colAnchors.length; ci++) {
+        if (Math.abs(gx - colAnchors[ci]) <= 24) { gx = colAnchors[ci]; break; }
+      }
+      if (colAnchors.indexOf(gx) === -1) colAnchors.push(gx);
+      for (var ri = 0; ri < rowAnchors.length; ri++) {
+        if (Math.abs(gy - rowAnchors[ri]) <= 24) { gy = rowAnchors[ri]; break; }
+      }
+      if (rowAnchors.indexOf(gy) === -1) rowAnchors.push(gy);
+      t.x = Math.max(100, Math.min(1020, gx));
+      t.y = Math.max(80, Math.min((plan.roomHeight || 680) - 80, gy));
+      shRecomputeGeometry(t);
+    });
+    (plan.landmarks || []).forEach(function(lm) {
+      lm.x = Math.abs((lm.x || 560) - 560) <= 24 ? 560 : Math.round((lm.x || 560) / 20) * 20;
+      lm.y = Math.round((lm.y || 300) / 20) * 20;
+    });
+    shToast('\\u2713 Snapped & aligned all ' + plan.tables.length + ' tables and room elements to the 20px architectural grid!');
+    shRenderAll();
+  };
   document.addEventListener('click', function() { shCloseMenus(); });
 
   /* ---- Snap-to-table drag & Visual SVG Conflict Halos ---- */
@@ -333,6 +408,16 @@ function renderSeatGroupsClientScript() {
     if (idx != null && plan.tables[idx]) {
       var b = shTableBox(plan.tables[idx]);
       out.push('<rect x="' + (b.l + 6) + '" y="' + (b.t + 6) + '" width="' + (b.r - b.l - 12) + '" height="' + (b.b - b.t - 12) + '" rx="26" fill="rgba(232,199,125,0.26)" stroke="#B89352" stroke-width="2.6" pointer-events="none"/>');
+    }
+    var ag = window.__SH_ALIGN_GUIDES;
+    if (ag) {
+      var rH = Math.max(680, Number(plan.roomHeight) || 680);
+      if (ag.gx != null) {
+        out.push('<g class="sh-align-guide-x" pointer-events="none"><line x1="' + ag.gx + '" y1="20" x2="' + ag.gx + '" y2="' + (rH - 20) + '" stroke="#B89352" stroke-width="1.8" stroke-dasharray="6 4"/><rect x="' + (ag.gx - 54) + '" y="18" width="108" height="20" rx="10" fill="#FAF3E3" stroke="#B89352" stroke-width="1.2"/><text x="' + ag.gx + '" y="32" text-anchor="middle" fill="#78350F" font-size="9.5" font-weight="800">' + (ag.gx === 560 ? '&#8862; Center Axis' : ('&#8862; Col X: ' + ag.gx)) + '</text></g>');
+      }
+      if (ag.gy != null) {
+        out.push('<g class="sh-align-guide-y" pointer-events="none"><line x1="20" y1="' + ag.gy + '" x2="1100" y2="' + ag.gy + '" stroke="#B89352" stroke-width="1.8" stroke-dasharray="6 4"/><rect x="24" y="' + (ag.gy - 10) + '" width="88" height="20" rx="10" fill="#FAF3E3" stroke="#B89352" stroke-width="1.2"/><text x="68" y="' + (ag.gy + 4) + '" text-anchor="middle" fill="#78350F" font-size="9.5" font-weight="800">&#8862; Row Y: ' + ag.gy + '</text></g>');
+      }
     }
     return out.join('');
   };
