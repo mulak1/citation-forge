@@ -540,18 +540,17 @@ function renderSeatGroupsClientScript() {
         out.push('<g class="sh-align-guide-y" pointer-events="none"><line x1="20" y1="' + ag.gy + '" x2="1100" y2="' + ag.gy + '" stroke="#B89352" stroke-width="1.8" stroke-dasharray="6 4"/><rect x="24" y="' + (ag.gy - 10) + '" width="88" height="20" rx="10" fill="#FAF3E3" stroke="#B89352" stroke-width="1.2"/><text x="68" y="' + (ag.gy + 4) + '" text-anchor="middle" fill="#78350F" font-size="9.5" font-weight="800">&#8862; Row Y: ' + ag.gy + '</text></g>');
       }
     }
-    if (window.shHasBoxSelection && window.shHasBoxSelection() && window.__SH_BOX_SEL) {
-      var bs = window.__SH_BOX_SEL;
-      (bs.tables || []).forEach(function(ti) {
-        var tb = plan.tables && plan.tables[ti]; if (!tb) return;
-        var cb2 = shTableBox(tb);
-        out.push('<rect data-box-tbl="' + ti + '" class="sh-box-sel-table" x="' + (cb2.l + 4) + '" y="' + (cb2.t + 4) + '" width="' + (cb2.r - cb2.l - 8) + '" height="' + (cb2.b - cb2.t - 8) + '" rx="26" fill="rgba(140,45,25,0.06)" stroke="#8C2D19" stroke-width="2.4" stroke-dasharray="6 4" pointer-events="none"/>');
-      });
-      (bs.landmarks || []).forEach(function(li) {
-        var lm = plan.landmarks && plan.landmarks[li]; if (!lm) return;
-        out.push('<g data-box-lm="' + li + '" transform="translate(' + lm.x + ',' + lm.y + ') rotate(' + (lm.rot || 0) + ')" pointer-events="none"><rect x="' + (-lm.w / 2 - 5) + '" y="' + (-lm.h / 2 - 5) + '" width="' + (lm.w + 10) + '" height="' + (lm.h + 10) + '" rx="10" fill="rgba(140,45,25,0.06)" stroke="#8C2D19" stroke-width="2.4" stroke-dasharray="6 4"/></g>');
-      });
-    }
+    (plan.tables || []).forEach(function(tb, ti) {
+      if (!tb) return;
+      var cb2 = shTableBox(tb);
+      var showT = window.shIsTableBoxSelected && window.shIsTableBoxSelected(ti);
+      out.push('<rect data-box-tbl="' + ti + '" class="sh-box-sel-table" x="' + (cb2.l + 4) + '" y="' + (cb2.t + 4) + '" width="' + (cb2.r - cb2.l - 8) + '" height="' + (cb2.b - cb2.t - 8) + '" rx="26" fill="rgba(140,45,25,0.06)" stroke="#8C2D19" stroke-width="2.4" stroke-dasharray="6 4" pointer-events="none" style="display:' + (showT ? 'block' : 'none') + ';"/>');
+    });
+    (plan.landmarks || []).forEach(function(lm, li) {
+      if (!lm) return;
+      var showL = window.shIsLandmarkBoxSelected && window.shIsLandmarkBoxSelected(li);
+      out.push('<g data-box-lm="' + li + '" transform="translate(' + lm.x + ',' + lm.y + ') rotate(' + (lm.rot || 0) + ')" pointer-events="none" style="display:' + (showL ? 'block' : 'none') + ';"><rect x="' + (-lm.w / 2 - 5) + '" y="' + (-lm.h / 2 - 5) + '" width="' + (lm.w + 10) + '" height="' + (lm.h + 10) + '" rx="10" fill="rgba(140,45,25,0.06)" stroke="#8C2D19" stroke-width="2.4" stroke-dasharray="6 4"/></g>');
+    });
     out.push('<rect id="sh-drop-halo-live" x="0" y="0" width="0" height="0" rx="26" fill="rgba(232,199,125,0.26)" stroke="#B89352" stroke-width="2.6" pointer-events="none" style="display:none;"/>');
     return out.join('');
   };

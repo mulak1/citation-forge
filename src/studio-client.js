@@ -214,41 +214,50 @@ function renderInteractiveScript(initialPlan) {
     window.__SH_SELECTED_LANDMARK_IDX = lmIdx;
     const svgEl = document.getElementById('sh-floorplan-svg');
     const fastCoord = (svgEl && window.shFastSvgTransform) ? window.shFastSvgTransform(svgEl) : shSvgCoord;
-    const lmGroup = svgEl ? svgEl.querySelector('[data-lm-group="' + lmIdx + '"]') : null;
-    const startPt = fastCoord(ev), origX = lm.x || 560, origY = lm.y || 340, rot = lm.rot || 0;
-    let moved = false, lastX = origX, lastY = origY;
+    const lmGroup = svgEl ? svgEl.querySelector('[data-lm-group="' + lmIdx + '"]') : null, startPt = fastCoord(ev), origX = lm.x || 560, origY = lm.y || 340, rot = lm.rot || 0;
+    const isMultiLm = Boolean(window.shIsLandmarkBoxSelected && window.shIsLandmarkBoxSelected(lmIdx) && window.__SH_BOX_SEL && (((window.__SH_BOX_SEL.tables || []).length > 0) || ((window.__SH_BOX_SEL.landmarks || []).length > 1)));
+    const multiOrig = isMultiLm ? {
+      tables: (window.__SH_BOX_SEL.tables || []).map(function(i) { const t = window.__SH_STATE.tables[i]; return { idx: i, x: t ? t.x : 0, y: t ? t.y : 0, el: svgEl ? svgEl.querySelector('[data-table-group="' + i + '"]') : null, boxEl: svgEl ? svgEl.querySelector('[data-box-tbl="' + i + '"]') : null }; }),
+      landmarks: (window.__SH_BOX_SEL.landmarks || []).map(function(i) { const l = window.__SH_STATE.landmarks && window.__SH_STATE.landmarks[i]; return { idx: i, x: l ? l.x : 0, y: l ? l.y : 0, rot: l ? (l.rot || 0) : 0, el: svgEl ? svgEl.querySelector('[data-lm-group="' + i + '"]') : null, boxEl: svgEl ? svgEl.querySelector('[data-box-lm="' + i + '"]') : null }; })
+    } : null;
+    let moved = false, snappedOnce = false, lastX = origX, lastY = origY;
     const onMove = function(moveEv) {
-      const cur = fastCoord(moveEv);
-      const dx = cur.x - startPt.x, dy = cur.y - startPt.y;
+      const cur = fastCoord(moveEv), dx = cur.x - startPt.x, dy = cur.y - startPt.y;
       if (Math.abs(dx) > 1.5 || Math.abs(dy) > 1.5) moved = true;
       if (!moved) return;
+      if (!snappedOnce) { snappedOnce = true; if (window.shSnapshot) window.shSnapshot(); }
       if (moveEv.cancelable) moveEv.preventDefault();
       lastX = Math.max(60, Math.min(1060, origX + dx));
       lastY = Math.max(35, Math.min((window.__SH_STATE.roomHeight || 680) - 35, origY + dy));
+      const dTx = lastX - origX, dTy = lastY - origY;
       if (lmGroup) {
         lmGroup.setAttribute('transform', 'translate(' + lastX + ',' + lastY + ') rotate(' + rot + ')');
-      } else {
-        lm.x = Math.round(lastX); lm.y = Math.round(lastY); shRenderFloorplanSvg();
-      }
+        if (multiOrig) {
+          multiOrig.tables.forEach(function(mt) { if (mt.el) mt.el.setAttribute('transform', 'translate(' + dTx + ',' + dTy + ')'); if (mt.boxEl) mt.boxEl.setAttribute('transform', 'translate(' + dTx + ',' + dTy + ')'); });
+          multiOrig.landmarks.forEach(function(ml) { if (ml.el) ml.el.setAttribute('transform', 'translate(' + (ml.x + dTx) + ',' + (ml.y + dTy) + ') rotate(' + ml.rot + ')'); if (ml.boxEl) ml.boxEl.setAttribute('transform', 'translate(' + (ml.x + dTx) + ',' + (ml.y + dTy) + ') rotate(' + ml.rot + ')'); });
+        }
+      } else { lm.x = Math.round(lastX); lm.y = Math.round(lastY); shRenderFloorplanSvg(); }
     };
     const onUp = function(upEv) {
-      window.removeEventListener('mousemove', onMove);
-      window.removeEventListener('mouseup', onUp);
-      window.removeEventListener('touchmove', onMove);
-      window.removeEventListener('touchend', onUp);
+      window.removeEventListener('mousemove', onMove); window.removeEventListener('mouseup', onUp);
+      window.removeEventListener('touchmove', onMove); window.removeEventListener('touchend', onUp);
       window.__SH_ALIGN_GUIDES = null;
       if (moved) {
+        window.__SH_LAST_DRAG_END = Date.now();
         const snappedLm = window.shSnapLandmarkPos ? window.shSnapLandmarkPos(lmIdx, lastX, lastY, upEv && upEv.shiftKey) : { x: Math.round(lastX), y: Math.round(lastY) };
         window.__SH_ALIGN_GUIDES = null;
+        const snapDx = snappedLm.x - origX, snapDy = snappedLm.y - origY;
         lm.x = snappedLm.x; lm.y = snappedLm.y;
+        if (multiOrig) {
+          multiOrig.tables.forEach(function(mt) { const ot = window.__SH_STATE.tables[mt.idx]; if (ot) { ot.x = Math.max(95, Math.min(1025, Math.round(mt.x + snapDx))); ot.y = Math.max(72, Math.min((window.__SH_STATE.roomHeight || 680) - 75, Math.round(mt.y + snapDy))); shRecomputeGeometry(ot); } });
+          multiOrig.landmarks.forEach(function(ml) { if (ml.idx === lmIdx) return; const olm = window.__SH_STATE.landmarks[ml.idx]; if (olm) { olm.x = Math.max(60, Math.min(1060, Math.round(ml.x + snapDx))); olm.y = Math.max(35, Math.min((window.__SH_STATE.roomHeight || 680) - 35, Math.round(ml.y + snapDy))); } });
+        }
         shToast('✓ Moved "' + lm.label + '" to (' + lm.x + ', ' + lm.y + ')');
-      }
-      shRenderAll();
+        shRenderAll();
+      } else { window.shSelectLandmark(lmIdx); }
     };
-    window.addEventListener('mousemove', onMove);
-    window.addEventListener('mouseup', onUp);
-    window.addEventListener('touchmove', onMove, { passive: false });
-    window.addEventListener('touchend', onUp);
+    window.addEventListener('mousemove', onMove); window.addEventListener('mouseup', onUp);
+    window.addEventListener('touchmove', onMove, { passive: false }); window.addEventListener('touchend', onUp);
   };
 
   window.shAddLandmark = function() {
@@ -321,12 +330,13 @@ function renderInteractiveScript(initialPlan) {
     } : null;
     const mainTblGroup = svgEl ? svgEl.querySelector('[data-table-group="' + tIdx + '"]') : null;
     const mainBoxEl = svgEl ? svgEl.querySelector('[data-box-tbl="' + tIdx + '"]') : null;
-    let moved = false, lastRawX = origX, lastRawY = origY;
+    let moved = false, snappedOnce = false, lastRawX = origX, lastRawY = origY;
     const onMove = function(moveEv) {
       const cur = fastCoord(moveEv);
       const dx = cur.x - startPt.x, dy = cur.y - startPt.y;
       if (Math.abs(dx) > 1.5 || Math.abs(dy) > 1.5) moved = true;
       if (!moved) return;
+      if (!snappedOnce) { snappedOnce = true; if (window.shSnapshot) window.shSnapshot(); }
       if (moveEv.cancelable) moveEv.preventDefault();
       lastRawX = Math.max(95, Math.min(1025, origX + dx));
       lastRawY = Math.max(72, Math.min((window.__SH_STATE.roomHeight || 680) - 75, origY + dy));
@@ -352,12 +362,11 @@ function renderInteractiveScript(initialPlan) {
       }
     };
     const onUp = function(upEv) {
-      window.removeEventListener('mousemove', onMove);
-      window.removeEventListener('mouseup', onUp);
-      window.removeEventListener('touchmove', onMove);
-      window.removeEventListener('touchend', onUp);
+      window.removeEventListener('mousemove', onMove); window.removeEventListener('mouseup', onUp);
+      window.removeEventListener('touchmove', onMove); window.removeEventListener('touchend', onUp);
       window.__SH_DRAG_VIEWBOX = null;
       if (moved) {
+        window.__SH_LAST_DRAG_END = Date.now();
         const snappedTbl = window.shSnapTablePos ? window.shSnapTablePos(tIdx, lastRawX, lastRawY, upEv && upEv.shiftKey) : { x: Math.round(lastRawX), y: Math.round(lastRawY) };
         window.__SH_ALIGN_GUIDES = null;
         const snapDx = snappedTbl.x - origX, snapDy = snappedTbl.y - origY;
@@ -375,6 +384,7 @@ function renderInteractiveScript(initialPlan) {
           });
         }
         shToast('✓ Moved ' + tbl.name + ' to (' + tbl.x + ', ' + tbl.y + ')' + (window.__SH_SNAP_GRID !== false ? ' · Snapped to grid' : '') + '!');
+        shRenderAll();
       } else if (window.__SH_SWAP_SOURCE && window.__SH_SWAP_SOURCE.tableIdx !== tIdx) {
         const srcTbl = window.__SH_STATE.tables[window.__SH_SWAP_SOURCE.tableIdx];
         if (srcTbl && srcTbl.guests[window.__SH_SWAP_SOURCE.seatIdx]) {
@@ -382,21 +392,13 @@ function renderInteractiveScript(initialPlan) {
           window.__SH_SWAP_SOURCE = null;
           return;
         }
-      }
-      shRenderAll();
+      } else { window.shSelectTable(tIdx); }
     };
-    window.addEventListener('mousemove', onMove);
-    window.addEventListener('mouseup', onUp);
-    window.addEventListener('touchmove', onMove, { passive: false });
-    window.addEventListener('touchend', onUp);
+    window.addEventListener('mousemove', onMove); window.addEventListener('mouseup', onUp);
+    window.addEventListener('touchmove', onMove, { passive: false }); window.addEventListener('touchend', onUp);
   };
 
-  /* ---- SEAT DRAG & CLICK CRUD (shStartSeatDrag defined in seat-groups.js) ---- */
-  window.shCancelSwap = function() {
-    window.__SH_SWAP_SOURCE = null;
-    window.__SH_SELECTED_LANDMARK_IDX = null;
-    shRenderAll();
-  };
+  window.shCancelSwap = function() { window.__SH_SWAP_SOURCE = null; window.__SH_SELECTED_LANDMARK_IDX = null; shRenderAll(); };
 
   window.shMoveGuestSeatOffset = function(tIdx, gIdx, delta, ev) {
     if (ev) ev.stopPropagation();
@@ -822,18 +824,18 @@ function renderInteractiveScript(initialPlan) {
     (plan.landmarks || []).forEach(function(lm, lmIdx) {
       const isLoud = lm.zone === 'loud', isQuiet = lm.zone === 'quiet', isSelLm = isFineTune && window.__SH_SELECTED_LANDMARK_IDX === lmIdx;
       const fill = isLoud ? '#FFF1F2' : (isQuiet ? '#ECFDF5' : '#F3EDE3'), stroke = isSelLm ? '#8C2D19' : (isLoud ? '#FECDD3' : (isQuiet ? '#A7F3D0' : '#D6CBB8')), textCol = isLoud ? '#9F1239' : (isQuiet ? '#065F46' : '#57534E');
-      parts.push('<g data-lm-group="' + lmIdx + '" style="cursor:grab;" transform="translate(' + lm.x + ',' + lm.y + ') rotate(' + (lm.rot || 0) + ')" onmousedown="window.shStartLandmarkDrag(' + lmIdx + ',event)" ontouchstart="window.shStartLandmarkDrag(' + lmIdx + ',event)" onclick="if((window.__SH_WIZARD_STEP||1)>=4)window.shSelectLandmark(' + lmIdx + ',event)"><title>Drag ' + shEsc(lm.label) + '</title><rect x="' + (-lm.w / 2) + '" y="' + (-lm.h / 2) + '" width="' + lm.w + '" height="' + lm.h + '" rx="8" fill="' + fill + '" stroke="' + stroke + '" stroke-width="' + (isSelLm ? '2.5' : '1.5') + '" stroke-dasharray="4 3"/><text transform="rotate(' + (((lm.rot || 0) > 90 && (lm.rot || 0) < 270) ? 180 : 0) + ')" x="0" y="4" text-anchor="middle" fill="' + textCol + '" font-size="12" font-weight="800" letter-spacing="0.06em">' + shEsc(lm.label) + '</text>' + (window.shElementHandle ? window.shElementHandle(lm, lmIdx) : '') + '</g>');
+      parts.push('<g data-lm-group="' + lmIdx + '" style="cursor:grab;" transform="translate(' + lm.x + ',' + lm.y + ') rotate(' + (lm.rot || 0) + ')" onmousedown="window.shStartLandmarkDrag(' + lmIdx + ',event)" ontouchstart="window.shStartLandmarkDrag(' + lmIdx + ',event)"><title>Drag ' + shEsc(lm.label) + '</title><rect x="' + (-lm.w / 2) + '" y="' + (-lm.h / 2) + '" width="' + lm.w + '" height="' + lm.h + '" rx="8" fill="' + fill + '" stroke="' + stroke + '" stroke-width="' + (isSelLm ? '2.5' : '1.5') + '" stroke-dasharray="4 3"/><text transform="rotate(' + (((lm.rot || 0) > 90 && (lm.rot || 0) < 270) ? 180 : 0) + ')" x="0" y="4" text-anchor="middle" fill="' + textCol + '" font-size="12" font-weight="800" letter-spacing="0.06em">' + shEsc(lm.label) + '</text>' + (window.shElementHandle ? window.shElementHandle(lm, lmIdx) : '') + '</g>');
     });
     if (window.shDropHalo) parts.push(window.shDropHalo(plan));
     plan.tables.forEach(function(t, tIdx) {
       shRecomputeGeometry(t);
       const geom = t.geometry, isSelected = tIdx === window.__SH_SELECTED_TABLE_IDX, isMomLocked = window.__SH_SANDBOX_MOM && tIdx >= 3;
       const strokeCol = isSelected ? '#8C2D19' : (t.locked ? '#A16207' : '#A89F91'), strokeW = isSelected ? 2.8 : 1.6, tblFill = isMomLocked ? '#EFECE6' : '#FFFFFF';
-      parts.push('<g data-table-group="' + tIdx + '"><g style="cursor:grab;" onmousedown="window.shStartTableDrag(' + tIdx + ',event)" ontouchstart="window.shStartTableDrag(' + tIdx + ',event)" onclick="if(window.__SH_SWAP_SOURCE && window.__SH_SWAP_SOURCE.tableIdx!==' + tIdx + '){window.shMoveGuestToTable(window.__SH_SWAP_SOURCE.tableIdx,window.__SH_SWAP_SOURCE.seatIdx,' + tIdx + ');window.__SH_SWAP_SOURCE=null;}else{window.shSelectTable(' + tIdx + ');}">');
+      parts.push('<g data-table-group="' + tIdx + '"><g style="cursor:grab;" onmousedown="window.shStartTableDrag(' + tIdx + ',event)" ontouchstart="window.shStartTableDrag(' + tIdx + ',event)">');
       parts.push('<title>Drag ' + shEsc(t.name) + ' anywhere in the room</title>');
       if (shNormalizeShape(t.shape) === 'round') {
         const r = Math.round(geom.tableWidth / 2);
-        if (isSelected && isFineTune) parts.push('<circle cx="' + t.x + '" cy="' + t.y + '" r="' + (r + 50) + '" fill="none" stroke="#8C2D19" stroke-width="1.4" stroke-dasharray="4 3" opacity="0.65"/>');
+        if (isSelected && isFineTune) parts.push('<circle cx="' + t.x + '" cy="' + t.y + '" r="' + (r + 50) + '" fill="none" stroke="#8C2D19" stroke-width="1.4" stroke-dasharray="4 3" opacity="0.65" pointer-events="none"/>');
         parts.push('<circle cx="' + t.x + '" cy="' + t.y + '" r="' + r + '" fill="' + tblFill + '" stroke="' + strokeCol + '" stroke-width="' + strokeW + '"/>');
       } else {
         const hw = Math.round(geom.tableWidth / 2), hh = Math.round(geom.tableHeight / 2);

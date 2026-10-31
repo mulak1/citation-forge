@@ -230,7 +230,7 @@ function renderSeatEditorClientScript() {
       }
     }
   });
-  ['shMoveGuestToTable', 'shAddNewTable', 'shDeleteSelectedTable', 'shStartTableDrag', 'shChangeTableCapacity', 'shRemoveGuest', 'shQuickAddGuestToTable', 'shStartLandmarkDrag', 'shDeleteLandmark'].forEach(function(fn) {
+  ['shMoveGuestToTable', 'shAddNewTable', 'shDeleteSelectedTable', 'shChangeTableCapacity', 'shRemoveGuest', 'shQuickAddGuestToTable', 'shDeleteLandmark'].forEach(function(fn) {
     var orig = window[fn]; if (typeof orig !== 'function') return;
     window[fn] = function() { window.shSnapshot(); return orig.apply(this, arguments); };
   });
