@@ -968,6 +968,7 @@ function buildClientRuntimeScript(cfg) {
 <script type="text/javascript">var vglnk = { key: '${SOVRN_KEY}' }; (function(d, t) { if (window.location.hostname === '127.0.0.1' || window.location.hostname === 'localhost' || window.location.hostname === '0.0.0.0') return; var s = d.createElement(t); s.type = 'text/javascript'; s.async = true; s.src = '//cdn.viglink.com/api/vglnk.js'; var r = d.getElementsByTagName(t)[0]; if (r && r.parentNode) r.parentNode.insertBefore(s, r); }(document, 'script'));</script>`;
 }
 function renderExactBaselineEnhancements(html, cfg, reqPath) {
+  if (cfg && cfg.moduleId === 'citation_forge') return html;
   let out = enhanceHtmlForSearchAndAiBots(html, cfg, reqPath);
   const styles = buildExactBaselineStyles(cfg), bottomSuite = buildBottomConversionSuiteHtml(cfg, reqPath), clientJs = buildClientRuntimeScript(cfg);
   out = out.includes('</head>') ? out.replace('</head>', () => `${styles}\n</head>`) : styles + out;

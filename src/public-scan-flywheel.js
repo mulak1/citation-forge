@@ -523,6 +523,18 @@ function attachPublicScanFlywheel(app, cfg, badgeColor, renderHtmlFn, classifyFn
     const rawParam = String(req.params.target || '');
     const isMd = rawParam.endsWith('.md');
     const scan = evaluateScanTarget(cfg, isMd ? rawParam.slice(0, -3) : rawParam);
+    if (cfg.moduleId === 'citation_forge' && !isMd && req.query.format !== 'json') {
+      const shSlugMap = {
+        'estate-150': '/seo/150-guest-wedding-seating-chart-round-tables',
+        'tuscan-banquet-80': '/seo/80-guest-intimate-wedding-banquet-seating-chart',
+        'planner-beo-sandbox': '/seo/how-to-collaborate-with-mothers-of-bride-and-groom-sandbox',
+        'vip-exec-dinner': '/seo/60-guest-rehearsal-dinner-seating-chart',
+        'charity-gala-300': '/seo/300-guest-charity-gala-table-captain-floorplan',
+        'zola-manual-chart': '/seo/seatharmony-vs-zola-seating-chart-maker',
+        'google-sheets-seating': '/seo/seatharmony-vs-google-sheets-wedding-seating'
+      };
+      return res.redirect(302, shSlugMap[scan.target] || '/directory');
+    }
     const cls = classifyFn ? classifyFn(req) : { isTest: 0, isCrawler: 0, isOwnerIp: false };
     if (!cls.isTest && !cls.isCrawler && !cls.isOwnerIp) savePublicScanEntry(cfg, scan);
 
