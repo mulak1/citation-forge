@@ -37,18 +37,12 @@ function renderInteractiveScript(initialPlan) {
     if (typeof window.shSyncWizardStepStage === 'function') window.shSyncWizardStepStage();
     shRenderAll();
   };
-
-  function shEsc(s) {
-    return String(s == null ? '' : s).replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;').replace(/'/g, '&#39;');
-  }
-
+  function shEsc(s) { return String(s == null ? '' : s).replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;').replace(/'/g, '&#39;'); }
   function shComputeCoupleMonogram(title) {
-    var raw = String(title || "Maya & Liam's Estate Reception").trim();
-    var ampMatch = raw.match(/([A-Za-z])\\w*\\s*(?:&|\\band\\b|\\+)\\s*([A-Za-z])/i);
+    var raw = String(title || "Maya & Liam's Estate Reception").trim(), ampMatch = raw.match(/([A-Za-z])\\w*\\s*(?:&|\\band\\b|\\+)\\s*([A-Za-z])/i);
     if (ampMatch) return (ampMatch[1] + '&' + ampMatch[2]).toUpperCase();
     var words = raw.replace(/[^A-Za-z\\s]/g, ' ').split(/\\s+/).filter(Boolean);
-    if (words.length >= 2) return (words[0][0] + words[1][0]).toUpperCase();
-    return (words[0] ? words[0].slice(0, 2).toUpperCase() : 'SH');
+    return words.length >= 2 ? (words[0][0] + words[1][0]).toUpperCase() : (words[0] ? words[0].slice(0, 2).toUpperCase() : 'SH');
   }
 
   function shSyncSpecimenCrestHeader() {
