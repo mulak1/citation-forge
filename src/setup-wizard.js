@@ -458,41 +458,27 @@ function renderSetupWizardClientScript() {
   window.shwBuildFromLayout = function(slug) {
     var key = String(slug || '').toLowerCase();
     if (!key || key === 'estate-150' || key === 'tuscan-banquet-80' || key === 'planner-beo-sandbox') return false;
-    var seed = window.__SH_SEED_STATE || window.__SH_STATE || {};
-    var seedRules = (Array.isArray(seed.rules) && seed.rules.length ? JSON.parse(JSON.stringify(seed.rules)) : [{ id: 'rule_1', type: 'must_keep_apart', label: 'Mom (Eleanor) kept apart from Dad & Stepmom (Richard & Claire)', detail: 'Separated across dance floor (Table 2 vs Table 5)', status: 'Seated Apart', pair: ['Eleanor Vance', 'Richard Vance'] }]);
-    var m = key.match(/^(\\d{2,3})-(?:guest|person)/);
-    if (!m) {
-      if (seed.tables && seed.tables.length) window.__SH_STATE = JSON.parse(JSON.stringify(seed));
-      if (window.__SH_STATE) window.__SH_STATE.rules = seedRules;
+    var applyTabAndToast = function() {
+      if (!window.__SH_STATE) return;
+      (window.__SH_STATE.tables || []).forEach(function(t) { shRecomputeGeometry(t); });
+      window.__SH_SELECTED_TABLE_IDX = (window.__SH_STATE.tables && window.__SH_STATE.tables.length > 1) ? 1 : 0;
       window.__SH_SETUP.sample = true;
       window.shFinishSetupWizard();
       if (/beo|clockwise|caterer|allergy|meal|vendor/.test(key) && window.shSetActiveTab) window.shSetActiveTab('beo');
       else if (/poster|24x36|avery|escort|sign|alphabetical/.test(key) && window.shSetActiveTab) window.shSetActiveTab('poster');
       else if (/qr|cocktail/.test(key) && window.shSetActiveTab) window.shSetActiveTab('qr');
+      var gCount = (window.__SH_STATE.tables || []).reduce(function(s, t) { return s + (t.guests ? t.guests.length : 0); }, 0);
+      shToast('✓ Opened ' + (window.__SH_STATE.title || key) + ' (' + gCount + ' seated guests across ' + (window.__SH_STATE.tables || []).length + ' tables).');
+    };
+    if (window.__SH_STATE && String(window.__SH_STATE.id || '').toLowerCase() === key) {
+      applyTabAndToast();
       return true;
     }
-    var n = Number(m[1]), rest = key.replace(/^\\d+-(?:guest|person)-?/, '').replace(/-+/g, ' ').replace(/\\b\\w/g, function(c) { return c.toUpperCase(); }).trim();
-    var kind = /banquet|farm|harvest|winery|barn|king|tuscan|long/.test(key) ? 'banquet12' : (n >= 120 ? 'round10' : 'round8');
-    var per = kind === 'round10' ? 10 : (kind === 'banquet12' ? 12 : 8), lay = shwLayoutTables(Math.max(1, Math.ceil(n / per)), kind);
-    var seedCouple = (seed.tables && seed.tables[0] && seed.tables[0].guests && seed.tables[0].guests.length) ? JSON.parse(JSON.stringify(seed.tables[0].guests)) : [{ name: 'Maya Lin', initials: 'ML', role: 'Couple', meal: 'Filet Mignon' }, { name: 'Liam Vance', initials: 'LV', role: 'Couple', meal: 'Wild Halibut' }];
-    var seedPool = [];
-    (seed.tables || []).slice(1).forEach(function(st) { (st.guests || []).forEach(function(g) { seedPool.push(JSON.parse(JSON.stringify(g))); }); });
-    var tables = [{ id: 'table-1', number: 1, name: 'Sweetheart Table', shape: 'sweetheart', capacity: 2, x: 560, y: 80, rotation: 0, locked: true, guests: seedCouple }];
-    var poolIdx = 0;
-    lay.pts.forEach(function(pt, i) {
-      var tGuests = [];
-      while (tGuests.length < Math.min(lay.per, 8) && poolIdx < seedPool.length) { tGuests.push(seedPool[poolIdx++]); }
-      tables.push({ id: 'table-' + (i + 2), number: i + 2, name: 'Table ' + (i + 2), shape: lay.shape, capacity: lay.per, x: pt.x, y: pt.y, rotation: 0, locked: false, guests: tGuests });
-    });
-    var vaultId = (window.__SH_STATE && window.__SH_STATE.vaultId) || 'SH-4819';
-    window.__SH_STATE = { vaultId: vaultId, isWizardBuilt: true, title: n + '-Guest ' + rest, venueName: rest, harmonyScore: 98.4, householdsCoupled: 24, roomHeight: lay.roomHeight, targetGuests: n, tables: tables,
-      landmarks: (seed.landmarks && seed.landmarks.length) ? JSON.parse(JSON.stringify(seed.landmarks)) : [{ id: 'lm-dance', label: 'DANCE FLOOR', x: 560, y: 230, w: 210, h: 130, zone: 'loud' }], rules: seedRules };
-    tables.forEach(function(t) { shRecomputeGeometry(t); });
-    window.__SH_SELECTED_TABLE_IDX = tables.length > 1 ? 1 : 0;
-    window.__SH_SETUP.sample = true;
-    window.shFinishSetupWizard();
-    shToast('✓ Opened ' + n + '-guest layout (' + (tables.length - 1) + ' tables of ' + per + ') with sample families and seating rules.');
-    return true;
+    if (window.loadPresetScenario) {
+      window.loadPresetScenario(key).then(applyTabAndToast);
+      return true;
+    }
+    return false;
   };
 
   function shwLayoutTables(count, kind) {

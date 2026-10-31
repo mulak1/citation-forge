@@ -396,44 +396,108 @@ function buildCatererBeoReport(preset = SEATING_PRESETS['estate-150']) {
   };
 }
 
+const EXTRA_SURNAMES = ['Anderson', 'Bennett', 'Campbell', 'Delgado', 'Ellis', 'Fitzgerald', 'Gallagher', 'Henderson', 'Ibrahim', 'Jensen', 'Kowalski', 'Lawson', 'Montgomery', 'Nakamura', 'Ortiz', 'Pellegrini', 'Quinn', 'Reynolds', 'Sinclair', 'Townsend', 'Vaughn', 'Whitaker', 'Yamamoto', 'Zimmerman'];
+const EXTRA_FIRST_A = ['Liam', 'Olivia', 'Noah', 'Emma', 'Oliver', 'Charlotte', 'Elijah', 'Amelia', 'James', 'Sophia', 'William', 'Isabella', 'Benjamin', 'Mia', 'Lucas', 'Evelyn', 'Henry', 'Harper', 'Theodore', 'Camila', 'Jack', 'Gianna', 'Levi', 'Abigail'];
+const EXTRA_FIRST_B = ['Alexander', 'Luna', 'Jackson', 'Ella', 'Mateo', 'Elizabeth', 'Daniel', 'Sofia', 'Michael', 'Emily', 'Mason', 'Avery', 'Sebastian', 'Mila', 'Ethan', 'Scarlett', 'Logan', 'Eleanor', 'Owen', 'Madison', 'Samuel', 'Layla', 'Jacob', 'Penelope'];
+const EXTRA_MEALS = ['Filet Mignon', 'Pan-Seared Halibut', 'Herb-Roasted Chicken', 'Vegan Risotto', 'Filet Mignon', 'Pan-Seared Halibut', 'Herb-Roasted Chicken', 'Kids Chicken Tenders'];
+
+function buildGuestPool(baseTables, targetTotal) {
+  const pool = [];
+  (baseTables || []).slice(1).forEach((t) => (t.guests || []).forEach((g) => pool.push(JSON.parse(JSON.stringify(g)))));
+  let idx = 0;
+  while (pool.length < targetTotal) {
+    const sur = EXTRA_SURNAMES[idx % EXTRA_SURNAMES.length];
+    const f1 = EXTRA_FIRST_A[(idx * 3) % EXTRA_FIRST_A.length];
+    const f2 = EXTRA_FIRST_B[(idx * 5) % EXTRA_FIRST_B.length];
+    const hhId = `p_ext_${idx + 1}`;
+    const grp = idx % 3 === 0 ? "Bride's Family" : (idx % 3 === 1 ? "Groom's Family" : 'College & Friends');
+    const m1 = EXTRA_MEALS[(idx * 2) % 7];
+    const m2 = EXTRA_MEALS[(idx * 2 + 1) % 7];
+    pool.push({ id: `g_ext_${pool.length + 1}`, name: `${f1} ${sur}`, initials: `${f1[0]}${sur[0]}`, partyId: hhId, hhId, group: grp, meal: m1, allergy: idx % 14 === 0 ? '🌾 CELIAC (GF)' : '', accessibility: '', role: 'Family & Friends' });
+    if (pool.length < targetTotal) {
+      pool.push({ id: `g_ext_${pool.length + 1}`, name: `${f2} ${sur}`, initials: `${f2[0]}${sur[0]}`, partyId: hhId, hhId, group: grp, meal: m2, allergy: '', accessibility: '', role: 'Spouse / Partner' });
+    }
+    idx++;
+  }
+  return pool;
+}
+
 function buildPresetForTarget(rawInput = 'estate-150') {
   const key = String(rawInput || 'estate-150').toLowerCase().trim();
   const base = JSON.parse(JSON.stringify(SEATING_PRESETS['estate-150']));
-  if (key.includes('tuscan') || key.includes('banquet') || key.includes('80')) {
+  if (key === 'tuscan-banquet-80') {
     base.id = 'tuscan-banquet-80';
     base.title = 'Tuscan Courtyard Long Banquet (80-Guest Al Fresco Layout)';
     base.subtitle = 'Long 2-Sided Banquet & King’s Estate Tables · String-Light Courtyard Geometry';
     base.venueName = 'Villa Cipressi Olive Grove Courtyard';
     base.harmonyScore = 99;
+    const tuscanCoords = [[560, 76], [265, 225], [855, 225], [265, 385], [855, 385], [560, 545], [265, 545], [855, 545]];
     base.tables.forEach((t, i) => {
-      if (i > 0) t.shape = i % 2 === 0 ? 'kings_4sided' : 'banquet_2sided';
+      if (tuscanCoords[i]) { t.x = tuscanCoords[i][0]; t.y = tuscanCoords[i][1]; }
+      if (i > 0) { t.shape = i % 2 === 0 ? 'kings_4sided' : 'banquet_2sided'; t.rotation = (i >= 1 && i <= 4) ? 90 : 0; }
     });
-  } else if (key.includes('planner') || key.includes('sandbox') || key.includes('mom') || key.includes('chloe')) {
+    base.landmarks = [
+      { id: 'lm_dance', label: 'STRING-LIGHT DANCE FLOOR', x: 560, y: 305, w: 210, h: 175, zone: 'party' },
+      { id: 'lm_bar', label: 'WINE BARREL & VINTAGE BAR', x: 195, y: 76, w: 190, h: 38, zone: 'party' },
+      { id: 'lm_dj', label: 'ACOUSTIC TRIO STAGE', x: 925, y: 76, w: 180, h: 38, zone: 'loud' },
+      { id: 'lm_exit', label: 'OLIVE GROVE QUIET TERRACE', x: 560, y: 642, w: 245, h: 36, zone: 'quiet' }
+    ];
+  } else if (key === 'planner-beo-sandbox' || key === 'mom-sandbox') {
     base.id = 'planner-beo-sandbox';
     base.title = 'Planner BEO & "Mom Sandbox" Collaboration Workspace';
     base.subtitle = 'Tables 1-3 Unlocked for Bride’s Mom · Tables 4-8 Locked by Lead Planner Chloe Vance';
     base.tables.forEach((t, i) => { t.locked = i >= 3; });
-  } else if (key.includes('vip') || key.includes('exec') || key.includes('b2b')) {
-    base.id = 'vip-exec-dinner';
-    base.title = 'B2B VIP Executive Summit Dinner (Coming Soon Vertical Preview)';
-    base.subtitle = '1 Account Executive + 5 Target Buyers per Table · Zero Competing Vendors Together';
-    base.vertical = 'vip_dinner';
-  } else if (key.includes('gala') || key.includes('charity')) {
-    base.id = 'charity-gala-300';
-    base.title = '300-Guest Charity Gala & Table Captain Matrix (Coming Soon Preview)';
-    base.subtitle = 'Corporate Gold Sponsor Table Allocations + Bidder Paddle Numbers (#101-#300)';
-    base.vertical = 'charity_gala';
   } else if (key && key !== 'estate-150' && key !== 'supabase.com') {
-    const guestMatch = key.match(/^(\d+)-guest/);
-    const cleanWords = key.replace(/-+/g, ' ').replace(/\b\w/g, (c) => c.toUpperCase());
+    const { buildVenueBlueprint } = require('./directory-view');
+    const bp = buildVenueBlueprint(key, key);
+    const shortTitle = key
+      .replace(/-(?:wedding|reception|seating-chart|floorplan|template|seating-plan|seating|guide|comparison|playbook)+/g, '')
+      .replace(/-+/g, ' ')
+      .replace(/\b\w/g, (c) => c.toUpperCase())
+      .replace(/^(\d+)\s+(Guest|Person)/i, '$1-$2');
     base.id = key;
-    base.title = `${cleanWords} Layout`;
-    if (guestMatch) base.totalRsvpScale = Number(guestMatch[1]) || 150;
-    if (key.includes('banquet') || key.includes('farm') || key.includes('harvest') || key.includes('winery')) {
-      base.tables.forEach((t, i) => { if (i > 0) t.shape = 'banquet_2sided'; });
-    } else if (key.includes('kings')) {
-      base.tables.forEach((t, i) => { if (i === 0) t.shape = 'kings_4sided'; });
+    base.title = `${shortTitle} Layout`;
+    base.subtitle = `${bp.guests} Guests · ${bp.specLabel} · ~${bp.sqft.toLocaleString()} sq ft`;
+    base.venueName = `${bp.type} · ${bp.specLabel.split('·')[0].trim()}`;
+    base.totalRsvpScale = bp.guests;
+    base.targetGuests = bp.guests;
+    base.roomHeight = bp.roomHeight;
+    base.landmarks = bp.landmarks;
+    const headCap = bp.headTable.capacity || 2;
+    const fullPool = buildGuestPool(base.tables, bp.guests + 30);
+    let pIdx = 0;
+    const coupleGuests = base.tables[0].guests.slice(0, Math.min(headCap, 2));
+    while (coupleGuests.length < headCap && pIdx < fullPool.length) {
+      coupleGuests.push(fullPool[pIdx++]);
     }
+    const headT = {
+      id: 'table-1', number: 1, name: bp.headTable.name || 'Table 1 · Head Table',
+      shape: bp.headTable.shape, capacity: headCap,
+      x: bp.headTable.x, y: bp.headTable.y, rotation: bp.headTable.rotation || 0,
+      zone: 'vip', locked: true, guests: coupleGuests
+    };
+    const remGuestsNeeded = Math.max(0, bp.guests - coupleGuests.length);
+    const nTbls = bp.pts.length || 1;
+    const basePerTbl = Math.floor(remGuestsNeeded / nTbls);
+    const extraSeats = remGuestsNeeded % nTbls;
+    const groupNames = ["Bride's Family (Eleanor)", 'College Crew', "Groom's Family (O'Connors)", "Father of Bride (Richard's Side)", 'SF Work & Founders', 'High School Friends', 'Out-of-Town Family & Seniors', 'Extended Family & Cousins', 'Bridal Party & Dates', 'Neighborhood & Childhood Friends'];
+    const builtTables = [headT];
+    bp.pts.forEach((pt, idx) => {
+      const want = basePerTbl + (idx < extraSeats ? 1 : 0);
+      const cap = Math.max(pt.cap || 8, want);
+      const tGuests = [];
+      for (let k = 0; k < want; k++) {
+        if (pIdx < fullPool.length) tGuests.push(fullPool[pIdx++]);
+      }
+      builtTables.push({
+        id: `table-${idx + 2}`, number: idx + 2,
+        name: `Table ${idx + 2} · ${groupNames[idx % groupNames.length]}`,
+        shape: pt.shape, capacity: cap, x: pt.x, y: pt.y, rotation: pt.rot || 0,
+        zone: idx < 4 ? 'vip' : 'standard', locked: false, guests: tGuests
+      });
+    });
+    base.tables = builtTables;
+    base.householdsCoupled = Math.round(bp.guests / 2.2);
   }
   base.tables = base.tables.map((t) => ({
     ...t,

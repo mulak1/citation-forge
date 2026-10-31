@@ -118,7 +118,7 @@ function renderInteractiveScript(initialPlan) {
     }
     const topCnt = shape === 'sweetheart' ? cap : Math.ceil(cap / 2), botCnt = shape === 'sweetheart' ? 0 : (cap - topCnt);
     const w = shape === 'sweetheart' ? Math.max(150, topCnt * 44 + 22) : (shape === 'kings_4sided' ? Math.max(180, topCnt * 44 + 28) : Math.max(168, topCnt * 44 + 24));
-    const h = shape === 'sweetheart' ? 48 : (shape === 'kings_4sided' ? 68 : 56), cx = Math.max(w / 2 + 28, Math.min(1092 - w / 2, x));
+    const h = shape === 'sweetheart' ? 48 : (shape === 'kings_4sided' ? 68 : 56), rotDeg = ((table.rotation || 0) % 180 + 180) % 180, effW = (rotDeg >= 45 && rotDeg <= 135) ? h : w, cx = Math.max(effW / 2 + 28, Math.min(1092 - effW / 2, x));
     table.x = cx;
     const rot = ((table.rotation || 0) * Math.PI) / 180;
     const rotPt = function(dx, dy) { return { x: Math.round(cx + dx * Math.cos(rot) - dy * Math.sin(rot)), y: Math.round(y + dx * Math.sin(rot) + dy * Math.cos(rot)) }; };
@@ -160,7 +160,7 @@ function renderInteractiveScript(initialPlan) {
     if (window.__SH_SANDBOX_MOM && tIdx >= 3 && !tbl.isUserAdded) { shToast('🔒 Family Share Mode: Tables 4-8 are locked.'); return; }
     if (window.__SH_CANVAS_ZOOM === 'table') window.__SH_CANVAS_ZOOM = 'room';
     tbl.x = Math.max(95, Math.min(1025, Math.round((tbl.x || 250) + dx)));
-    tbl.y = Math.max(72, Math.min(605, Math.round((tbl.y || 200) + dy)));
+    tbl.y = Math.max(72, Math.min((window.__SH_STATE.roomHeight || 680) - 75, Math.round((tbl.y || 200) + dy)));
     shRecomputeGeometry(tbl);
     shToast('✓ Moved ' + tbl.name + ' to (' + tbl.x + ', ' + tbl.y + ')');
     shRenderAll();
