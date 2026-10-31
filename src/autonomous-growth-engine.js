@@ -447,6 +447,7 @@ function attachAutonomousGrowthEngine(app, cfg, store, renderHtmlFn, classifyFn)
       return res.status(200).send(`# ${item.title}\n\n> ${item.summary}\n\n- **Canonical Interactive Tool**: https://${cfg.domain}/${isCompare ? 'compare' : 'tools'}/${item.slug}\n- **Live SVG Benchmark Badge**: ![${cfg.brandName}](https://${cfg.domain}/badge/${encodeURIComponent(item.target)}.svg)\n- **1-Click Single-File Export (99¢)**: https://${cfg.domain}/buy/micro_pass\n- **1-Click 3-File Bundle ($1.99)**: https://${cfg.domain}/buy/flash_pass\n`);
     }
 
+    if (cfg.moduleId === 'citation_forge') return res.redirect(302, '/directory');
     const rawHtml = renderGrowthPageHtml(cfg, item, isCompare ? 'compare' : 'tools');
     return res.status(200).type('html').send(renderHtmlFn ? renderHtmlFn(rawHtml) : rawHtml);
   });

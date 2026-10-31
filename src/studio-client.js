@@ -60,7 +60,7 @@ function renderInteractiveScript(initialPlan) {
     var crestEl = document.getElementById('specimen-salon-crest'), headlineEl = document.getElementById('specimen-client-headline');
     var metaSubEl = document.getElementById('specimen-meta-sub'), harmPillEl = document.getElementById('specimen-harmony-pill');
     if (initialsEl) initialsEl.textContent = initials;
-    if (harmPillEl) harmPillEl.textContent = '✓ ' + (window.__SH_STATE.harmonyScore || 98) + '% Harmony';
+    if (harmPillEl) harmPillEl.textContent = '✓ Conflict-Free Plan';
     if (logoImgEl) {
       logoImgEl.src = logoUrl || '';
       logoImgEl.style.display = logoUrl ? 'block' : 'none';
@@ -752,7 +752,7 @@ function renderInteractiveScript(initialPlan) {
             h1.innerHTML = 'Seat 150 Wedding Guests in 30 Seconds.<br/><em>Zero Family Drama. Print-Ready 24&Prime;&times;36&Prime; Signs.</em><span style="font-size:0;opacity:0;">Supabase</span>';
           }
         }
-        shToast('✓ Loaded Preset: ' + window.__SH_STATE.title + ' (' + window.__SH_STATE.harmonyScore + '/100 Harmony)');
+        shToast('✓ Opened Layout: ' + window.__SH_STATE.title);
         shRenderAll();
       }
     } catch (e) { console.error(e); }
@@ -776,7 +776,7 @@ function renderInteractiveScript(initialPlan) {
     const url = window.location.origin + '/?preset=planner-beo-sandbox&sandbox=mom_tables_1_3#studio';
     if (navigator.clipboard && navigator.clipboard.writeText) { navigator.clipboard.writeText(url).catch(function(){}); }
     if (!window.__SH_SANDBOX_MOM) window.shToggleMomSandbox();
-    shToast('✓ Copied "Mom Sandbox" Link (Tables 1-3 Editable, Groom’s Side Read-Only)!');
+    shToast('✓ Copied Family Table Share Link (Tables 1-3 Editable, Other Tables Locked)!');
   };
 
   function shToast(msg) {
@@ -824,11 +824,6 @@ function renderInteractiveScript(initialPlan) {
       const fill = isLoud ? '#FFF1F2' : (isQuiet ? '#ECFDF5' : '#F3EDE3'), stroke = isSelLm ? '#8C2D19' : (isLoud ? '#FECDD3' : (isQuiet ? '#A7F3D0' : '#D6CBB8')), textCol = isLoud ? '#9F1239' : (isQuiet ? '#065F46' : '#57534E');
       parts.push('<g style="cursor:grab;" transform="translate(' + lm.x + ',' + lm.y + ') rotate(' + (lm.rot || 0) + ')" onmousedown="window.shStartLandmarkDrag(' + lmIdx + ',event)" ontouchstart="window.shStartLandmarkDrag(' + lmIdx + ',event)" onclick="if((window.__SH_WIZARD_STEP||1)>=4)window.shSelectLandmark(' + lmIdx + ',event)"><title>Drag ' + shEsc(lm.label) + '</title><rect x="' + (-lm.w / 2) + '" y="' + (-lm.h / 2) + '" width="' + lm.w + '" height="' + lm.h + '" rx="8" fill="' + fill + '" stroke="' + stroke + '" stroke-width="' + (isSelLm ? '2.5' : '1.5') + '" stroke-dasharray="4 3"/><text transform="rotate(' + (((lm.rot || 0) > 90 && (lm.rot || 0) < 270) ? 180 : 0) + ')" x="0" y="4" text-anchor="middle" fill="' + textCol + '" font-size="12" font-weight="800" letter-spacing="0.06em">' + shEsc(lm.label) + '</text>' + (window.shElementHandle ? window.shElementHandle(lm, lmIdx) : '') + '</g>');
     });
-    const t2 = plan.tables[1], t5 = plan.tables[4];
-    if (t2 && t5 && !plan.isWizardBuilt && (t2.guests.length > 0 || t5.guests.length > 0)) {
-      const mx = Math.round((t2.x + t5.x) / 2), my = Math.round((t2.y + t5.y) / 2) - 22;
-      parts.push('<line x1="' + t2.x + '" y1="' + t2.y + '" x2="' + t5.x + '" y2="' + t5.y + '" stroke="#065F46" stroke-width="1.5" stroke-dasharray="5 5" opacity="0.65"/><rect x="' + (mx - 98) + '" y="' + (my - 12) + '" width="196" height="24" rx="12" fill="#ECFDF5" stroke="#065F46" stroke-width="1"/><text x="' + mx + '" y="' + (my + 4) + '" text-anchor="middle" fill="#065F46" font-size="10.2" font-weight="800">✓ Opposite Sides of Dance Floor</text>');
-    }
     if (window.shDropHalo) parts.push(window.shDropHalo(plan));
     plan.tables.forEach(function(t, tIdx) {
       shRecomputeGeometry(t);
@@ -969,9 +964,9 @@ function renderInteractiveScript(initialPlan) {
     if (window.__SH_STATE.tables) {
       let totalSeated = 0, totalTables = window.__SH_STATE.tables.length, allergyAndChairCount = 0;
       window.__SH_STATE.tables.forEach(function(t) { t.guests = (t.guests || []).filter(Boolean); totalSeated += t.guests.length; t.guests.forEach(function(g) { if (g.allergy || g.accessibility) allergyAndChairCount++; }); });
-      const guestsEl = document.getElementById('sh-stat-guests'); if (guestsEl) guestsEl.textContent = totalSeated + ' Guests (' + totalTables + ' Tbls)';
-      const hhSub = document.getElementById('sh-stat-households-sub'); if (hhSub) hhSub.textContent = '✓ ' + (window.__SH_STATE.householdsCoupled || 26) + ' Coupled • 150 Scale';
-      const alSub = document.getElementById('sh-stat-allergies-sub'); if (alSub) alSub.textContent = '✓ ' + allergyAndChairCount + ' Alerts + Avery 5302';
+      const guestsEl = document.getElementById('sh-stat-guests'); if (guestsEl) guestsEl.textContent = totalSeated + ' Guests (' + totalTables + ' Tables)';
+      const hhSub = document.getElementById('sh-stat-households-sub'); if (hhSub) hhSub.textContent = '✓ ' + (window.__SH_STATE.householdsCoupled || 26) + ' Couples & families together';
+      const alSub = document.getElementById('sh-stat-allergies-sub'); if (alSub) alSub.textContent = '✓ ' + allergyAndChairCount + ' Allergy flags • Place cards ready';
     }
     shSyncVaultIdLinks(window.__SH_STATE.vaultId || 'SH-4819'); shSyncSpecimenCrestHeader();
     shRenderRulesList(); shRenderFloorplanSvg(); shRenderSelectedTableInspector(); shRenderBeoView(); shRenderPosterView(); window.shFilterQrLookup(); shAutoPersistVault();

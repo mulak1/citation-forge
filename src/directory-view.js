@@ -8,7 +8,7 @@ const { escapeHtml, renderHead, renderNavbar, renderFooter } = require('./templa
 const SQFT_PER_GUEST = 15; // seated dinner + dance floor planning figure
 
 const VENUE_TYPES = [
-  [/Gala|B2B|Executive|Charity/i, 'Gala & Corporate'],
+  [/Gala|B2B|Executive|Charity/i, 'Galas & Welcome Dinners'],
   [/Intimate|Micro|Rehearsal/i, 'Intimate & Rehearsal'],
   [/Tent|Sailcloth/i, 'Tent & Outdoor'],
   [/Ballroom|Estate|Country Club|Hotel/i, 'Ballroom & Estate'],

@@ -267,6 +267,11 @@ function renderSeatGroupsClientScript() {
   }
   window.shDropHalo = function(plan) {
     var out = [], cMap = shConflictTables();
+    var p1 = plan.tables && plan.tables[1], p2 = plan.tables && plan.tables[Math.min(4, plan.tables.length - 1)];
+    if (p1 && p2 && p1 !== p2 && !cMap[1] && !cMap[4]) {
+      var mx = Math.round((p1.x + p2.x) / 2), my = Math.round((p1.y + p2.y) / 2) - 22;
+      out.push('<g class="sh-peace-line" pointer-events="none"><line x1="' + p1.x + '" y1="' + p1.y + '" x2="' + p2.x + '" y2="' + p2.y + '" stroke="#065F46" stroke-width="1.6" stroke-dasharray="5 5" opacity="0.72"/><rect x="' + (mx - 104) + '" y="' + (my - 12) + '" width="208" height="24" rx="12" fill="#ECFDF5" stroke="#065F46" stroke-width="1"/><text x="' + mx + '" y="' + (my + 4) + '" text-anchor="middle" fill="#065F46" font-size="10.2" font-weight="800">&#10003; Separated Across Dance Floor</text></g>');
+    }
     Object.keys(cMap).forEach(function(k) {
       var ti = Number(k), tb = plan.tables[ti]; if (!tb) return;
       var cb = shTableBox(tb);

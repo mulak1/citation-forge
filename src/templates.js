@@ -193,8 +193,8 @@ function renderHead({
     .sh-restore-note { display: flex; justify-content: space-between; align-items: center; gap: 12px; flex-wrap: wrap; margin: 0 0 14px; padding: 10px 14px; background: #FFF8E8; border: 1px solid #E8D8B0; border-radius: 12px; font-size: 14px; font-weight: 600; color: #44403C; }
     .sh-restore-note button { background: none; border: none; font-family: inherit; font-size: 14px; font-weight: 700; color: #8C2D19; cursor: pointer; text-decoration: underline; text-underline-offset: 3px; padding: 2px 6px; }
     .sh-ed-ghost:hover { border-color: #C8A96E; background: #FFF8E8; }
-    .sh-ed-bar { display: flex; align-items: center; gap: 10px; margin-bottom: 12px; }
-    .sh-ed-hint { flex: 1; min-width: 0; font-size: 0.94rem; font-weight: 600; color: #57534E; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+    .sh-ed-bar { display: flex; align-items: center; gap: 10px; margin-bottom: 12px; flex-wrap: wrap; }
+    .sh-ed-hint { flex: 1; min-width: 200px; font-size: 0.92rem; font-weight: 600; color: #57534E; line-height: 1.35; }
     .sh-ed-grid { display: grid; grid-template-columns: minmax(0, 1fr) 360px; gap: 16px; align-items: start; }
     .sh-ed-canvas { border-radius: 14px; border: 1.5px solid #E2D9C8; background: #FAF7F2; overflow: hidden; }
     .sh-ed-panel { background: #FFFFFF; border: 1.5px solid #E2D3B5; border-radius: 16px; padding: 16px; max-height: 760px; overflow-y: auto; box-shadow: 0 12px 30px -16px rgba(120, 85, 30, 0.25); position: sticky; top: 84px; }
@@ -212,10 +212,10 @@ function renderHead({
     .sh-ed-list { display: flex; flex-direction: column; gap: 6px; }
     .sh-ed-item { border: 1.5px solid #EFE6D4; border-radius: 12px; background: #FFFFFF; overflow: hidden; }
     .sh-ed-item.open { border-color: #C8A96E; box-shadow: 0 6px 16px -10px rgba(180, 135, 40, 0.5); }
-    .sh-ed-row { width: 100%; display: flex; align-items: center; gap: 10px; padding: 11px 12px; background: transparent; border: none; cursor: pointer; text-align: left; font-family: inherit; }
+    .sh-ed-row { width: 100%; display: flex; align-items: center; gap: 7px; padding: 10px 10px; background: transparent; border: none; cursor: pointer; text-align: left; font-family: inherit; }
     .sh-ed-row:hover { background: #FFFBF0; }
     .sh-ed-seat { width: 24px; height: 24px; border-radius: 999px; background: #F5EFE6; color: #78716C; font-size: 0.8125rem; font-weight: 800; display: inline-flex; align-items: center; justify-content: center; flex-shrink: 0; }
-    .sh-ed-name { flex: 1; min-width: 0; font-size: 1rem; font-weight: 700; color: #181412; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+    .sh-ed-name { flex: 1; min-width: 0; font-size: 0.94rem; font-weight: 700; color: #181412; line-height: 1.25; }
     .sh-ed-tag { font-size: 0.8125rem; font-weight: 700; color: #78716C; background: #F5F1EA; padding: 2px 8px; border-radius: 999px; flex-shrink: 0; }
     .sh-ed-tag.warn { color: #9F1239; background: #FFF1F2; }
     .sh-ed-chev { color: #A8A29E; font-size: 0.8125rem; flex-shrink: 0; }
@@ -262,7 +262,7 @@ function renderHead({
     .shw-kit-glyph { width: 22px; height: 22px; color: #CFC4B0; display: inline-flex; flex-shrink: 0; transition: color 0.35s ease; }
     .shw-kit-text { display: flex; flex-direction: column; min-width: 0; flex: 1; gap: 1px; }
     .shw-kit-text b { font-size: 0.92rem; font-weight: 600; color: #A39B8D; letter-spacing: 0.005em; transition: color 0.3s ease; }
-    .shw-kit-text small { font-size: 0.8125rem; color: #B5AD9F; line-height: 1.3; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; transition: color 0.3s ease; }
+    .shw-kit-text small { font-size: 0.8125rem; color: #B5AD9F; line-height: 1.3; transition: color 0.3s ease; }
     .shw-kit-dot { order: 3; width: 16px; height: 16px; border-radius: 999px; border: 1px solid #DDD2BC; flex-shrink: 0; position: relative; transition: all 0.3s ease; }
     .shw-kit-item:hover .shw-kit-text b { color: #57534E; }
     .shw-kit-item.done .shw-kit-glyph { color: #B89352; }
@@ -308,7 +308,7 @@ function renderHead({
     .shw-pop-row:first-child { border-top: none; }
     .shw-pop-glyph { color: #CFC4B0; display: inline-flex; flex-shrink: 0; } .shw-pop-row.done .shw-pop-glyph { color: #B89352; }
     .shw-pop-text { display: flex; flex-direction: column; min-width: 0; flex: 1; } .shw-pop-text b { font-size: 0.92rem; font-weight: 600; color: #A39B8D; } .shw-pop-row.done .shw-pop-text b { color: #181412; }
-    .shw-pop-text small { font-size: 0.8125rem; color: #B5AD9F; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; } .shw-pop-row.done .shw-pop-text small { color: #78716C; }
+    .shw-pop-text small { font-size: 0.8125rem; color: #B5AD9F; line-height: 1.3; } .shw-pop-row.done .shw-pop-text small { color: #78716C; }
     .shw-pop-actions { display: flex; gap: 10px; flex-shrink: 0; }
     .shw-pop-link { background: none; border: none; padding: 4px 2px; font-size: 0.84rem; font-weight: 700; color: #8C2D19; cursor: pointer; font-family: inherit; text-decoration: underline; text-underline-offset: 3px; } .shw-pop-link.muted, .shw-link.muted { color: #A8A29E; }
     .shw-pop-cta { margin-top: 12px; padding: 13px 16px; font-size: 0.98rem; }
@@ -400,16 +400,16 @@ function renderHead({
     .bs-case-studies-grid, .studio-proof-cases-grid { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 28px; margin-top: 0; }
     .bs-case-card, .studio-proof-case-card { background: #FFFFFF; border: 1.5px solid #E7DFD3; border-radius: 18px; padding: 28px 24px; display: flex; flex-direction: column; justify-content: space-between; gap: 16px; box-shadow: 0 8px 24px -6px rgba(28, 25, 23, 0.06); }
     .bs-case-featured { border: 2px solid #1C1917; background: linear-gradient(180deg, #FFFDF9 0%, #FFFFFF 100%); box-shadow: 0 16px 34px -10px rgba(28, 25, 23, 0.12); }
-    .bs-case-top-bar { display: flex; justify-content: space-between; align-items: center; flex-wrap: nowrap; gap: 6px; margin-bottom: 10px; }
-    .bs-case-badge { font-size: 13.5px; font-weight: 800; letter-spacing: 0.04em; text-transform: uppercase; color: #B45309; background: #FEF3C7; padding: 4px 9px; border-radius: 6px; white-space: nowrap; }
-    .bs-case-state-tag { font-size: 13.5px; font-weight: 700; color: #065F46; white-space: nowrap; }
+    .bs-case-top-bar { display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 6px; margin-bottom: 10px; }
+    .bs-case-badge { font-size: 12px; font-weight: 800; letter-spacing: 0.04em; text-transform: uppercase; color: #B45309; background: #FEF3C7; padding: 4px 8px; border-radius: 6px; white-space: nowrap; }
+    .bs-case-state-tag { font-size: 13px; font-weight: 700; color: #065F46; white-space: nowrap; }
     .bs-case-title { font-family: var(--font-serif); font-size: 22px; font-weight: 700; color: #1C1917; line-height: 1.22; margin: 0 0 8px 0; text-wrap: balance; }
     .bs-case-context { font-size: 16px; font-weight: 400; line-height: 1.54; color: #44403C; margin: 0; text-wrap: pretty; }
     .bs-case-math-box { background: #FAF7F2; border: 1.5px solid #E7DFD3; border-radius: 12px; padding: 14px 15px; display: flex; flex-direction: column; gap: 8px; font-variant-numeric: tabular-nums; font-family: var(--font-sans); }
-    .bs-case-math-row { display: flex; justify-content: space-between; align-items: baseline; gap: 10px; font-size: 16px; font-weight: 500; color: #44403C; line-height: 1.35; }
-    .bs-case-math-row span:first-child { white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+    .bs-case-math-row { display: flex; justify-content: space-between; align-items: baseline; gap: 8px; font-size: 14.5px; font-weight: 500; color: #44403C; line-height: 1.4; }
+    .bs-case-math-row span:first-child { white-space: normal; }
     .bs-case-math-row span:last-child { white-space: nowrap; text-align: right; flex-shrink: 0; font-weight: 700; }
-    .bs-case-math-total { border-top: 1.5px dashed #D6CBB9; padding-top: 8px; margin-top: 2px; font-size: 16px; font-weight: 800; color: #1C1917; }
+    .bs-case-math-total { border-top: 1.5px dashed #D6CBB9; padding-top: 8px; margin-top: 2px; font-size: 14.5px; font-weight: 800; color: #1C1917; }
     .bs-case-takeaway { font-size: 16px; font-weight: 500; line-height: 1.5; color: #57534E; margin: 0; }
     .bs-zone4a-ba { padding: 92px 0 96px; background: #FAF6EE; border-bottom: 1.5px solid #E6D7C0; }
     .bs-ba-container { max-width: 1040px; margin: 0 auto; background: #FFFFFF; border: 1.5px solid #DFD6C7; border-radius: 22px; padding: 36px 36px; box-shadow: 0 12px 32px -10px rgba(28, 25, 23, 0.07); }

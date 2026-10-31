@@ -232,11 +232,11 @@ const SEATING_PRESETS = {
       { id: 'lm_exit', label: 'QUIET GARDEN TERRACE & ACCESSIBLE EXIT', x: 195, y: 642, w: 255, h: 36, zone: 'quiet' }
     ],
     rules: [
-      { id: 'rule_1', type: 'must_keep_apart', label: 'Eleanor Vance ↔ Richard Vance', detail: 'Divorced Parents: 2+ tables apart, zero sightline', g1: 'Eleanor Vance', g2: 'Richard Vance', status: 'Resolved (Tbls 2 & 5)' },
-      { id: 'rule_2', type: 'must_keep_apart', label: 'Ethan Brooks ↔ Rachel Kim', detail: 'Recent Exes: Opposite sides of Dance Floor', g1: 'Ethan Brooks', g2: 'Rachel Kim', status: 'Resolved (Tbls 3 & 7)' },
-      { id: 'rule_3', type: 'must_keep_apart', label: 'Uncle Arthur ↔ Cousin Leo', detail: 'Family Politics: Separate tables enforced', g1: 'Uncle Arthur', g2: 'Cousin Leo', status: 'Resolved (Tbls 2 & 5)' },
-      { id: 'rule_4', type: 'zone_quiet', label: 'Grandma Rose (84yo · ♿)', detail: 'Quiet Zone: >30ft from DJ & near Terrace Exit', g1: 'Grandma Rose', g2: 'Quiet Zone', status: 'Resolved (Tbl 2, Seat #1)' },
-      { id: 'rule_5', type: 'must_sit_together', label: '26 Coupled Households', detail: 'Atomic Lock: Couples & kids never split up', g1: 'All Households', g2: 'Same Table', status: '100% Coupled' }
+      { id: 'rule_1', type: 'must_keep_apart', label: 'Eleanor Vance kept apart from Richard Vance', detail: 'Divorced Parents: 2+ tables apart across dance floor', g1: 'Eleanor Vance', g2: 'Richard Vance', status: 'Seated Apart (Tbls 2 & 5)' },
+      { id: 'rule_2', type: 'must_keep_apart', label: 'Ethan Brooks kept apart from Rachel Kim', detail: 'Recent Exes: Opposite sides of Dance Floor', g1: 'Ethan Brooks', g2: 'Rachel Kim', status: 'Seated Apart (Tbls 3 & 7)' },
+      { id: 'rule_3', type: 'must_keep_apart', label: 'Uncle Arthur kept apart from Cousin Leo', detail: 'Family Politics: Separate tables enforced', g1: 'Uncle Arthur', g2: 'Cousin Leo', status: 'Seated Apart (Tbls 2 & 5)' },
+      { id: 'rule_4', type: 'zone_quiet', label: 'Grandma Rose (84yo · ♿)', detail: 'Quiet Zone: >30ft from DJ & near Terrace Exit', g1: 'Grandma Rose', g2: 'Quiet Zone', status: 'Seated (Tbl 2, Seat #1)' },
+      { id: 'rule_5', type: 'must_sit_together', label: '26 Couples & Families', detail: 'Couples & children stay seated together automatically', g1: 'All Households', g2: 'Same Table', status: 'Seated Together' }
     ],
     tables: [
       {

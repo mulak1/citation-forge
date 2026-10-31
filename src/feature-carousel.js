@@ -87,23 +87,23 @@ const SHOWCASE_SLIDES = [
   },
   {
     idx: 4,
-    tabLabel: '5. Event Vault & Mom Sandbox',
-    badge: 'DELIVERABLE 5 OF 5 · CLOUD COMMAND CENTER',
-    title: 'Event Vault & Restricted "Mom Sandbox"',
+    tabLabel: '5. Family Share Link & Saved Plan',
+    badge: 'DELIVERABLE 5 OF 5 · SAVE & SHARE WITH FAMILY',
+    title: 'Saved Wedding Plan & Family Table Share Link',
     annotations: [
-      { num: '1', title: 'Passwordless Vault & Email Login' },
+      { num: '1', title: 'Save & Re-Open From Any Device' },
       { num: '2', title: 'All 4 Print & Caterer Files' },
-      { num: '3', title: 'Mom Sandbox (Tables 1–3 Only)' }
+      { num: '3', title: 'Family Share Link (Tables 1–3 Only)' }
     ],
-    urlText: 'citationforge.io/vault/SH-4819?unlocked=1',
+    urlText: 'seatharmony.com/vault/SH-4819?unlocked=1',
     routeHref: (vId) => `/vault/${encodeURIComponent(vId)}?unlocked=1`,
-    ctaText: 'Open Vault Command Center ↗',
+    ctaText: 'Open Saved Wedding Files ↗',
     imgSrc: '/public/showcase-vault-command.png?v=light3',
-    imgAlt: 'SeatHarmony Inside-the-Paywall Event Vault Command Center and Mom Sandbox Hub',
+    imgAlt: 'SeatHarmony Saved Wedding Plan and Family Table Share Hub',
     pins: [
       { num: '1', text: 'Permanent Event Crest & Unlimited 30-Day Re-Exports', style: 'top: 17%; right: 24%;' },
       { num: '2', text: 'Direct Launchpad for Poster, Avery 5302 & Caterer BEO', style: 'top: 49%; left: 45%;' },
-      { num: '3', text: '1-Click Restricted Mom Sandbox Link (Tables 1-3 Only)', style: 'bottom: 6%; right: 5%;' }
+      { num: '3', text: '1-Click Family Share Link for Parents (Tables 1-3 Only)', style: 'bottom: 6%; right: 5%;' }
     ]
   }
 ];
@@ -221,19 +221,19 @@ function renderZone4ProofStackAndPricing() {
           </div>
           <div class="bs-case-math-box">
             <div class="bs-case-math-row">
-              <span>Manual Excel + Etsy Sign:</span>
+              <span>Manual Excel + Etsy:</span>
               <span style="color:#B91C1C;text-decoration:line-through;">6.5 Hrs + $220</span>
             </div>
             <div class="bs-case-math-row">
-              <span>SeatHarmony Print Pack:</span>
+              <span>SeatHarmony Pack:</span>
               <span>$14.99 Once</span>
             </div>
             <div class="bs-case-math-row">
-              <span>Couple &amp; Parent Buffer:</span>
+              <span>Family Seating Rules:</span>
               <span style="color:#047857;">100% Conflict-Free</span>
             </div>
             <div class="bs-case-math-row bs-case-math-total">
-              <span>Net Time &amp; Budget Saved:</span>
+              <span>Time &amp; Cost Saved:</span>
               <span style="color:#047857;">6.5 Hrs + $205 Saved</span>
             </div>
           </div>
@@ -256,20 +256,20 @@ function renderZone4ProofStackAndPricing() {
           </div>
           <div class="bs-case-math-box">
             <div class="bs-case-math-row">
-              <span>Annual Event SaaS Quote:</span>
+              <span>Subscription Apps:</span>
               <span style="color:#B91C1C;text-decoration:line-through;">$150 / Year</span>
             </div>
             <div class="bs-case-math-row">
-              <span>12:00 Clockwise Anchor:</span>
+              <span>12:00 Seat #1 Map:</span>
               <span>16 Round Tables</span>
             </div>
             <div class="bs-case-math-row">
-              <span>Kitchen Allergy &amp; ADA Alerts:</span>
+              <span>Allergy &amp; Seat Notes:</span>
               <span style="color:#047857;">4 Allergies Flagged</span>
             </div>
             <div class="bs-case-math-row bs-case-math-total">
-              <span>16 tables &times; Seat #1 Anchor:</span>
-              <span style="color:#047857;">0 Server Plate Errors</span>
+              <span>Dinner Plate Service:</span>
+              <span style="color:#047857;">0 Plate Mix-Ups</span>
             </div>
           </div>
           <p class="bs-case-takeaway">
@@ -291,20 +291,20 @@ function renderZone4ProofStackAndPricing() {
           </div>
           <div class="bs-case-math-box">
             <div class="bs-case-math-row">
-              <span>Single Foyer Easel Jam:</span>
-              <span style="color:#B91C1C;text-decoration:line-through;">20-Min Doorway Line</span>
+              <span>Single Easel Line:</span>
+              <span style="color:#B91C1C;text-decoration:line-through;">20-Min Doorway Jam</span>
             </div>
             <div class="bs-case-math-row">
-              <span>Cocktail-Hour QR Lookup:</span>
+              <span>Mobile QR Lookup:</span>
               <span>3-Sec Name Search</span>
             </div>
             <div class="bs-case-math-row">
-              <span>Avery 5302 Tent Cards:</span>
+              <span>Avery 5302 Cards:</span>
               <span style="color:#047857;">300 Cards in 1 Click</span>
             </div>
             <div class="bs-case-math-row bs-case-math-total">
-              <span>300 guests &times; 3 sec QR:</span>
-              <span style="color:#047857;">18 Min Jam Eliminated</span>
+              <span>Cocktail-Hour Flow:</span>
+              <span style="color:#047857;">18-Min Line Saved</span>
             </div>
           </div>
           <p class="bs-case-takeaway">
@@ -369,7 +369,7 @@ function renderZone4ProofStackAndPricing() {
               <tr>
                 <th style="width:24%;">What Matters on Wedding Day</th>
                 <th class="bs-col-highlight" style="width:28%;">&#10022; SeatHarmony ($14.99 once)</th>
-                <th style="width:24%;">Event SaaS ($150+/yr)</th>
+                <th style="width:24%;">Subscription Apps ($150+/yr)</th>
                 <th style="width:24%;">Excel + Canva By Hand</th>
               </tr>
             </thead>
@@ -443,7 +443,7 @@ function renderZone4ProofStackAndPricing() {
 
         <div class="bs-quote-card studio-review-card">
           <div class="bs-quote-stars">&#9733;&#9733;&#9733;&#9733;&#9733; Father of the Bride</div>
-          <p class="bs-quote-body">&ldquo;The Mom Sandbox link saved our sanity. My wife arranged Tables 1 to 3 at midnight while Tables 4 to 12 stayed safely locked.&rdquo;</p>
+          <p class="bs-quote-body">&ldquo;The Family Table Share link saved our sanity. My wife arranged Tables 1 to 3 at midnight while Tables 4 to 12 stayed safely locked.&rdquo;</p>
           <div class="bs-quote-author">
             <div class="bs-quote-avatar">RT</div>
             <div><strong>Robert T.</strong><span>155 Guests &bull; Boston, MA (Father of the Bride)</span></div>

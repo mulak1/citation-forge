@@ -20,7 +20,14 @@ function renderSetupWizardHtml() {
       <div id="sh-setup-wizard" class="shw-wrap">
         <div class="shw-intro">
           <h2 class="bs-section-h2" style="text-align:center;margin:0 auto 6px;">Plan your seating in <em>2 minutes.</em></h2>
-          <p class="bs-section-sub" style="text-align:center;margin:0 auto;">5 quick questions. We build the room and seat everyone.</p>
+          <p class="bs-section-sub" style="text-align:center;margin:0 auto 14px;">Answer 5 quick questions below &mdash; or <strong>explore a live populated reception in 1 click</strong> first:</p>
+          <div id="shw-instant-scenarios" style="display:flex;flex-wrap:wrap;justify-content:center;gap:8px;max-width:880px;margin:0 auto 6px;padding:10px 14px;background:#FAF6EE;border:1.5px solid #D8C29D;border-radius:14px;">
+            <span style="font-size:0.74rem;font-weight:800;letter-spacing:0.06em;text-transform:uppercase;color:#8C2D19;display:inline-flex;align-items:center;margin-right:4px;">&#10024; Try a Sample Wedding:</span>
+            <button type="button" class="studio-tap-chip active" data-instant-preset="estate-150" onclick="window.shwLoadInstantScenario('estate-150',this)">&#10024; 150-Guest Estate (Divorced Parents Solved)</button>
+            <button type="button" class="studio-tap-chip" data-instant-preset="tuscan-banquet-80" onclick="window.shwLoadInstantScenario('tuscan-banquet-80',this)">&#127863; 80-Guest Winery Banquet (Long Tables)</button>
+            <button type="button" class="studio-tap-chip" data-instant-preset="planner-beo-sandbox" onclick="window.shwLoadInstantScenario('planner-beo-sandbox',this)">&#128203; Family Table Sharing &amp; Caterer Meal Sheet (4 Allergies)</button>
+            <button type="button" class="studio-tap-chip" data-instant-preset="200-guest-hotel-ballroom-seating-chart-template" onclick="window.shwLoadInstantScenario('200-guest-hotel-ballroom-seating-chart-template',this)">&#127963; 200-Guest Ballroom (20 Rounds)</button>
+          </div>
         </div>
 
         <div class="shw-layout">
@@ -140,6 +147,7 @@ function renderBinderDockHtml() {
 
 function renderSetupWizardClientScript() {
   return `
+  window.__SH_SEED_STATE = window.__SH_STATE ? JSON.parse(JSON.stringify(window.__SH_STATE)) : null;
   window.__SH_SETUP = { step: 1, maxStep: 1, guests: 0, table: '', apart: [], kitDone: {}, built: false, sample: false, engaged: false, kitInView: false };
   try { if (localStorage.getItem('sh_binder_engaged') === '1') window.__SH_SETUP.engaged = true; } catch (_) {}
   function shwEl(id) { return document.getElementById(id); }
@@ -261,20 +269,12 @@ function renderSetupWizardClientScript() {
         + '<span class="shw-pop-actions">' + (ok && k !== 'qr' ? '<button type="button" class="shw-pop-link" onclick="window.shwPopEdit(\\'' + k + '\\')">Edit</button><button type="button" class="shw-pop-link muted" onclick="window.shwClear(\\'' + k + '\\')">Clear</button>' : (k === 'qr' && ok ? '<button type="button" class="shw-pop-link" onclick="window.shwPopEdit(\\'qr\\')">View</button>' : '<button type="button" class="shw-pop-link" onclick="window.shwPopEdit(\\'' + k + '\\')">Add</button>')) + '</span></li>';
     }).join('');
     var cta = shwEl('shw-pop-cta');
-    cta.textContent = n === 5 ? 'Unlock All 5 Print Deliverables ($14.99) \u2192' : 'Continue setup';
+    cta.textContent = n === 5 ? 'Review floorplan' : 'Continue setup';
     var foot = shwEl('shw-pop-foot');
     if (foot && !S.confirmClear) {
-      foot.innerHTML = n === 5
-        ? '<div style="display:flex;align-items:center;justify-content:space-between;width:100%;"><button type="button" class="shw-link" onclick="window.shwPopReviewFloorplan()">Review &amp; fine-tune floorplan &rarr;</button><button type="button" class="shw-link" onclick="window.shwAskClearAll()">Clear everything</button></div>'
-        : '<button type="button" class="shw-link" onclick="window.shwAskClearAll()">Clear everything</button>';
+      foot.innerHTML = '<button type="button" class="shw-link" onclick="window.shwAskClearAll()">Clear everything</button>';
     }
   }
-  window.shwPopReviewFloorplan = function() {
-    window.shwToggleBinder(false);
-    var g = shwEl('sh-builder-grid');
-    if (g && g.style.display !== 'none') { shwScrollStudio(); return; }
-    window.shFinishSetupWizard();
-  };
   window.shwToggleBinder = function(force) {
     var pop = shwEl('shw-pop'); if (!pop) return;
     var open = typeof force === 'boolean' ? force : pop.style.display === 'none';
@@ -298,9 +298,9 @@ function renderSetupWizardClientScript() {
   window.shwPopCta = function() {
     var S = window.__SH_SETUP; window.shwToggleBinder(false);
     if (S.kitCount === 5) {
-      var vid = (window.__SH_STATE && window.__SH_STATE.vaultId) || 'SH-4819';
-      var tTitle = (window.__SH_STATE && window.__SH_STATE.title) || 'our-wedding';
-      window.location.href = '/buy/complete_dossier?target=' + encodeURIComponent(tTitle) + '&vault=' + encodeURIComponent(vid);
+      var g = shwEl('sh-builder-grid');
+      if (g && g.style.display !== 'none') { shwScrollStudio(); return; }
+      window.shFinishSetupWizard();
       return;
     }
     window.shOpenSetupWizard(shwNextStep(S.kitSt || shwKitState()));
@@ -368,23 +368,60 @@ function renderSetupWizardClientScript() {
   };
   window.shwRemoveApart = function(i) { window.__SH_SETUP.apart.splice(i, 1); shwPaint(); };
 
-  /* ---- Venue layouts from the directory: build a room sized to the layout's guest count ---- */
+  /* ---- Venue layouts & 1-click scenarios: build a populated room sized to the layout ---- */
+  window.shwLoadInstantScenario = function(key, btn) {
+    document.querySelectorAll('#shw-instant-scenarios button[data-instant-preset]').forEach(function(b) { b.classList.toggle('active', b.getAttribute('data-instant-preset') === key); });
+    window.__SH_SETUP.userStarted = true; window.__SH_SETUP.sample = true;
+    if (key === 'estate-150' && window.__SH_SEED_STATE) {
+      window.__SH_STATE = JSON.parse(JSON.stringify(window.__SH_SEED_STATE));
+      window.shFinishSetupWizard();
+      return;
+    }
+    if (key === 'estate-150' || key === 'tuscan-banquet-80' || key === 'planner-beo-sandbox') {
+      window.shFinishSetupWizard();
+      if (window.loadPresetScenario) window.loadPresetScenario(key, btn);
+      return;
+    }
+    window.shwBuildFromLayout(key);
+  };
+
   window.shwBuildFromLayout = function(slug) {
-    var key = String(slug || '').toLowerCase(), m = key.match(/^(\\d{2,3})-(?:guest|person)/);
-    if (!m) return false;
+    var key = String(slug || '').toLowerCase();
+    if (!key || key === 'estate-150' || key === 'tuscan-banquet-80' || key === 'planner-beo-sandbox') return false;
+    var seed = window.__SH_SEED_STATE || window.__SH_STATE || {};
+    var seedRules = (Array.isArray(seed.rules) && seed.rules.length ? JSON.parse(JSON.stringify(seed.rules)) : [{ id: 'rule_1', type: 'must_keep_apart', label: 'Mom (Eleanor) kept apart from Dad & Stepmom (Richard & Claire)', detail: 'Separated across dance floor (Table 2 vs Table 5)', status: 'Seated Apart', pair: ['Eleanor Vance', 'Richard Vance'] }]);
+    var m = key.match(/^(\\d{2,3})-(?:guest|person)/);
+    if (!m) {
+      if (seed.tables && seed.tables.length) window.__SH_STATE = JSON.parse(JSON.stringify(seed));
+      if (window.__SH_STATE) window.__SH_STATE.rules = seedRules;
+      window.__SH_SETUP.sample = true;
+      window.shFinishSetupWizard();
+      if (/beo|clockwise|caterer|allergy|meal|vendor/.test(key) && window.shSetActiveTab) window.shSetActiveTab('beo');
+      else if (/poster|24x36|avery|escort|sign|alphabetical/.test(key) && window.shSetActiveTab) window.shSetActiveTab('poster');
+      else if (/qr|cocktail/.test(key) && window.shSetActiveTab) window.shSetActiveTab('qr');
+      return true;
+    }
     var n = Number(m[1]), rest = key.replace(/^\\d+-(?:guest|person)-?/, '').replace(/-+/g, ' ').replace(/\\b\\w/g, function(c) { return c.toUpperCase(); }).trim();
     var kind = /banquet|farm|harvest|winery|barn|king|tuscan|long/.test(key) ? 'banquet12' : (n >= 120 ? 'round10' : 'round8');
     var per = kind === 'round10' ? 10 : (kind === 'banquet12' ? 12 : 8), lay = shwLayoutTables(Math.max(1, Math.ceil(n / per)), kind);
-    var tables = [{ id: 'table-1', number: 1, name: 'Sweetheart Table', shape: 'sweetheart', capacity: 2, x: 560, y: 80, rotation: 0, locked: true, guests: [] }];
-    lay.pts.forEach(function(pt, i) { tables.push({ id: 'table-' + (i + 2), number: i + 2, name: 'Table ' + (i + 2), shape: lay.shape, capacity: lay.per, x: pt.x, y: pt.y, rotation: 0, locked: false, guests: [] }); });
+    var seedCouple = (seed.tables && seed.tables[0] && seed.tables[0].guests && seed.tables[0].guests.length) ? JSON.parse(JSON.stringify(seed.tables[0].guests)) : [{ name: 'Maya Lin', initials: 'ML', role: 'Couple', meal: 'Filet Mignon' }, { name: 'Liam Vance', initials: 'LV', role: 'Couple', meal: 'Wild Halibut' }];
+    var seedPool = [];
+    (seed.tables || []).slice(1).forEach(function(st) { (st.guests || []).forEach(function(g) { seedPool.push(JSON.parse(JSON.stringify(g))); }); });
+    var tables = [{ id: 'table-1', number: 1, name: 'Sweetheart Table', shape: 'sweetheart', capacity: 2, x: 560, y: 80, rotation: 0, locked: true, guests: seedCouple }];
+    var poolIdx = 0;
+    lay.pts.forEach(function(pt, i) {
+      var tGuests = [];
+      while (tGuests.length < Math.min(lay.per, 8) && poolIdx < seedPool.length) { tGuests.push(seedPool[poolIdx++]); }
+      tables.push({ id: 'table-' + (i + 2), number: i + 2, name: 'Table ' + (i + 2), shape: lay.shape, capacity: lay.per, x: pt.x, y: pt.y, rotation: 0, locked: false, guests: tGuests });
+    });
     var vaultId = (window.__SH_STATE && window.__SH_STATE.vaultId) || 'SH-4819';
-    window.__SH_STATE = { vaultId: vaultId, isWizardBuilt: true, title: n + '-Guest ' + rest, venueName: rest, harmonyScore: 98, householdsCoupled: 0, roomHeight: lay.roomHeight, targetGuests: n, tables: tables,
-      landmarks: [{ id: 'lm-dance', label: 'DANCE FLOOR', x: 560, y: 230, w: 210, h: 130, zone: 'loud' }], rules: [] };
+    window.__SH_STATE = { vaultId: vaultId, isWizardBuilt: true, title: n + '-Guest ' + rest, venueName: rest, harmonyScore: 98.4, householdsCoupled: 24, roomHeight: lay.roomHeight, targetGuests: n, tables: tables,
+      landmarks: (seed.landmarks && seed.landmarks.length) ? JSON.parse(JSON.stringify(seed.landmarks)) : [{ id: 'lm-dance', label: 'DANCE FLOOR', x: 560, y: 230, w: 210, h: 130, zone: 'loud' }], rules: seedRules };
     tables.forEach(function(t) { shRecomputeGeometry(t); });
     window.__SH_SELECTED_TABLE_IDX = tables.length > 1 ? 1 : 0;
     window.__SH_SETUP.sample = true;
     window.shFinishSetupWizard();
-    shToast('Room ready for ' + n + ' guests: ' + (tables.length - 1) + ' tables of ' + per + '. Tap a table to add guests, or use Edit setup to paste your list.');
+    shToast('✓ Opened ' + n + '-guest layout (' + (tables.length - 1) + ' tables of ' + per + ') with sample families and seating rules.');
     return true;
   };
 

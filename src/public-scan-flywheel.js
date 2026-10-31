@@ -538,6 +538,18 @@ function attachPublicScanFlywheel(app, cfg, badgeColor, renderHtmlFn, classifyFn
       res.setHeader('Link', `<https://${cfg.domain}/scan/${encodeURIComponent(scan.target)}>; rel="canonical"`);
       return res.status(200).send(`# ${scan.target} : ${cfg.brandName} Public Audit (${scan.grade} • ${scan.score}/100)\n\n- **Primary KPI**: ${scan.kpi1} (${scan.kpi2})\n- **CNN Model**: ${scan.cnnModel}\n- **CNN Sensor Readout**: ${scan.cnnReadout}\n- **Diagnostic Verdict**: ${scan.issue}\n- **Canonical Permalink**: https://${cfg.domain}/scan/${encodeURIComponent(scan.target)}\n- **Live SVG Badge**: ![${scan.target}](https://${cfg.domain}/badge/${encodeURIComponent(scan.target)}.svg)\n- **99¢ Single-File Fix**: https://${cfg.domain}/buy/micro_pass\n- **$1.99 3-File Bundle**: https://${cfg.domain}/buy/flash_pass\n`);
     }
+    if (cfg.moduleId === 'citation_forge') {
+      const shSlugMap = {
+        'estate-150': '/seo/150-guest-wedding-seating-chart-round-tables',
+        'tuscan-banquet-80': '/seo/80-guest-intimate-wedding-banquet-seating-chart',
+        'planner-beo-sandbox': '/seo/how-to-collaborate-with-mothers-of-bride-and-groom-sandbox',
+        'vip-exec-dinner': '/seo/60-guest-rehearsal-dinner-seating-chart',
+        'charity-gala-300': '/seo/300-guest-charity-gala-table-captain-floorplan',
+        'zola-manual-chart': '/seo/seatharmony-vs-zola-seating-chart-maker',
+        'google-sheets-seating': '/seo/seatharmony-vs-google-sheets-wedding-seating'
+      };
+      return res.redirect(302, shSlugMap[scan.target] || '/directory');
+    }
     const html = renderPublicScanPageHtml(cfg, scan, badgeColor);
     return res.status(200).type('html').send(renderHtmlFn ? renderHtmlFn(html) : html);
   });
@@ -550,6 +562,7 @@ function attachPublicScanFlywheel(app, cfg, badgeColor, renderHtmlFn, classifyFn
       const lines = ledger.map((e, i) => `${i + 1}. **[${e.target}](https://${cfg.domain}/scan/${encodeURIComponent(e.target)})** : Grade **${e.grade}** (${e.score}/100) | ${e.kpi1} | ${e.cnnReadout}`).join('\n');
       return res.status(200).send(`# ${cfg.brandName} Public Leaderboard (Hall of Fame & Needs Fix)\n\n${lines}\n\n- **99¢ Single-File Pass**: https://${cfg.domain}/buy/micro_pass\n- **$1.99 3-File Bundle**: https://${cfg.domain}/buy/flash_pass\n`);
     }
+    if (cfg.moduleId === 'citation_forge') return res.redirect(302, '/directory');
     const html = renderLeaderboardPageHtml(cfg, badgeColor);
     return res.status(200).type('html').send(renderHtmlFn ? renderHtmlFn(html) : html);
   });
