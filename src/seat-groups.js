@@ -175,7 +175,7 @@ function renderSeatGroupsClientScript() {
       h.push('<div class="sh-ed-ka-row"><span class="sh-ed-ka-names">' + shEsc(r.pair[0]) + ' &amp; ' + shEsc(r.pair[1]) + '</span>' + (st === 'same' ? '<span class="sh-ed-ka-st bad">Same table</span><button type="button" class="sh-ed-ka-btn" onclick="window.shFixKeepApart(' + i + ')">Separate</button>' : (st === 'missing' ? '<span class="sh-ed-ka-st">Not seated</span>' : '<span class="sh-ed-ka-st ok">Apart</span>')) + '<button type="button" class="sh-ed-ka-x" aria-label="Remove rule" onclick="window.shRemoveKeepApart(' + i + ')">&times;</button></div>');
     });
     if (!any) h.push('<div class="sh-ed-ka-empty">No one is set to sit apart. Add exes, divorced parents or feuding relatives.</div>');
-    h.push('<div class="sh-ed-ka-form"><input id="sh-ka-a" list="sh-ka-names" placeholder="First guest" autocomplete="off" /><input id="sh-ka-b" list="sh-ka-names" placeholder="Second guest" autocomplete="off" onkeydown="if(event.key===\\'Enter\\')window.shAddKeepApartForm()" /><button type="button" onclick="window.shAddKeepApartForm()">Add</button></div><datalist id="sh-ka-names">' + names.join('') + '</datalist></div>');
+    h.push('<div class="sh-ed-ka-form"><input id="sh-ka-a" list="sh-ka-names" placeholder="Guest 1" autocomplete="off" /><input id="sh-ka-b" list="sh-ka-names" placeholder="Guest 2" autocomplete="off" onkeydown="if(event.key===\\'Enter\\')window.shAddKeepApartForm()" /><button type="button" onclick="window.shAddKeepApartForm()">Add</button></div><datalist id="sh-ka-names">' + names.join('') + '</datalist></div>');
     return h.join('');
   };
   window.shEdGuestExtras = function(tIdx, sIdx) {

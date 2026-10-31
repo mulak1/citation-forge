@@ -62,7 +62,15 @@ function renderSeatEditorClientScript() {
   window.__SH_REDO = [];
   function shEdState() { return JSON.stringify({ tables: window.__SH_STATE.tables, roomHeight: window.__SH_STATE.roomHeight, targetGuests: window.__SH_STATE.targetGuests, rules: window.__SH_STATE.rules, landmarks: window.__SH_STATE.landmarks }); }
   function shCleanMoveLabel(msg) {
-    return String(msg || '').replace(/^[\u2713\u21bb\u229e\u2728\uD83D\uDD12\uD83D\uDD13\s]+/, '').replace(/\s*(?:\u00b7|\.)?\s*Tap Undo to reverse\.?/i, '').replace(/\s*\u00b7\s*Snapped to grid!?/i, '').replace(/!$/, '').trim();
+    return String(msg || '')
+      .replace(/^[\u2713\u21bb\u229e\u2728\uD83D\uDD12\uD83D\uDD13\s]+/, '')
+      .replace(/\s*\u00b7.*$/, '')
+      .replace(/\s*\(\d+\s*tables in room\)/i, '')
+      .replace(/\s*and room elements to the 20px architectural grid!?/i, ' to grid')
+      .replace(/\s*\(Seat #\d+\)!?/i, '')
+      .replace(/\s*Tap Undo to reverse\.?/i, '')
+      .replace(/!$/, '')
+      .trim();
   }
   function shPruneNoOpSnapshots() {
     if (!window.__SH_STATE) return;
@@ -155,7 +163,7 @@ function renderSeatEditorClientScript() {
       recent.forEach(function(item, idx) {
         var lbl = (item && item.label) || ('Move #' + (st.length - idx));
         var stepsBack = idx + 1;
-        rows.push('<button type="button" onclick="window.shUndo(' + stepsBack + ')" style="display:flex;align-items:center;justify-content:space-between;gap:8px;width:100%;text-align:left;"><span style="overflow:hidden;text-overflow:ellipsis;white-space:nowrap;max-width:210px;">&#8630; ' + shEsc(lbl) + '</span><small>' + (stepsBack === 1 ? 'last move' : ('-' + stepsBack + ' moves')) + '</small></button>');
+        rows.push('<button type="button" onclick="window.shUndo(' + stepsBack + ')" style="display:flex;align-items:center;justify-content:space-between;gap:10px;width:100%;text-align:left;white-space:normal;line-height:1.3;"><span style="flex:1;">&#8630; ' + shEsc(lbl) + '</span><small style="flex-shrink:0;">' + (stepsBack === 1 ? 'last move' : ('-' + stepsBack + ' moves')) + '</small></button>');
       });
     }
     if (rd.length) {
