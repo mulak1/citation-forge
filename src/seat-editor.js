@@ -124,7 +124,7 @@ function renderSeatEditorClientScript() {
     }).join('');
   }
   window.shEdJumpGuest = function(tIdx, sIdx) {
-    window.__SH_FIND_Q = ''; window.__SH_SELECTED_LANDMARK_IDX = null;
+    window.__SH_FIND_Q = ''; window.__SH_SELECTED_LANDMARK_IDX = null; window.__SH_PAN_VIEW = null;
     window.__SH_SELECTED_TABLE_IDX = tIdx; window.__SH_OPEN_GUEST = { t: tIdx, s: sIdx };
     if (window.shFlashTable) window.shFlashTable(tIdx);
     shRenderAll();
@@ -391,7 +391,7 @@ function renderSeatEditorClientScript() {
     h.push('<div class="sh-ed-tbl-strip" role="navigation" aria-label="Jump to table">');
     tables.forEach(function(tb, idx) {
       var tf = Math.max(0, (tb.capacity || 8) - tb.guests.length), sw = shNormalizeShape(tb.shape) === 'sweetheart';
-      h.push('<button type="button" class="sh-ed-tbl-pill' + (idx === tIdx ? ' on' : '') + (tf > 0 ? ' has-free' : '') + '" onclick="window.shSelectTable(' + idx + ')">' + (sw ? 'Sweetheart' : 'Tbl ' + tb.number) + ' <small>' + (tf === 0 ? 'Full' : tf + ' open') + '</small></button>');
+      h.push('<button type="button" class="sh-ed-tbl-pill' + (idx === tIdx ? ' on' : '') + (tf > 0 ? ' has-free' : '') + '" onclick="window.__SH_PAN_VIEW=null;window.shSelectTable(' + idx + ')">' + (sw ? 'Sweetheart' : 'Tbl ' + tb.number) + ' <small>' + (tf === 0 ? 'Full' : tf + ' open') + '</small></button>');
     });
     h.push('</div>');
     var mCounts = {}, aCount = 0;
