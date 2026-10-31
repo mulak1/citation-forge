@@ -361,6 +361,62 @@ function renderSeatGroupsClientScript() {
     shToast('\\u2713 Snapped & aligned all ' + plan.tables.length + ' tables and room elements to the 20px architectural grid!');
     shRenderAll();
   };
+
+  /* ---- Smooth Mouse-Wheel Zoom & Toolbar Zoom Controls Around Selected Table / Element ---- */
+  window.__SH_ZOOM_SCALE = 1;
+  window.shComputeCanvasViewBox = function(plan, selTbl, roomH) {
+    var zMode = window.__SH_CANVAS_ZOOM || 'room';
+    var scale = Number(window.__SH_ZOOM_SCALE) || (zMode === 'table' ? 2.4 : (zMode === 'zoom15' ? 1.5 : 1));
+    if (scale <= 1.01) return '0 0 1120 ' + roomH;
+    var cx = 560, cy = Math.round(roomH / 2);
+    if (window.__SH_SELECTED_LANDMARK_IDX != null && plan.landmarks && plan.landmarks[window.__SH_SELECTED_LANDMARK_IDX]) {
+      var lm = plan.landmarks[window.__SH_SELECTED_LANDMARK_IDX];
+      cx = lm.x || 560; cy = lm.y || cy;
+    } else if (selTbl) {
+      cx = selTbl.x || 560; cy = selTbl.y || cy;
+    }
+    var vw = Math.max(320, Math.min(1120, Math.round(1120 / scale)));
+    var vh = Math.max(210, Math.min(roomH, Math.round(roomH / scale)));
+    var vx = Math.max(0, Math.min(1120 - vw, Math.round(cx - vw / 2)));
+    var vy = Math.max(0, Math.min(roomH - vh, Math.round(cy - vh / 2)));
+    return vx + ' ' + vy + ' ' + vw + ' ' + vh;
+  };
+  window.shStepCanvasZoom = function(delta) {
+    var cur = Number(window.__SH_ZOOM_SCALE) || 1;
+    var next = Math.max(1, Math.min(3, Math.round((cur + Number(delta || 0)) * 20) / 20));
+    window.__SH_ZOOM_SCALE = next;
+    window.__SH_CANVAS_ZOOM = next <= 1.01 ? 'room' : (next >= 2.1 ? 'table' : 'zoom15');
+    var pctBtn = document.getElementById('sh-zoom-pct-btn');
+    if (pctBtn) {
+      pctBtn.textContent = Math.round(next * 100) + '%';
+      pctBtn.style.color = next > 1.01 ? '#8C2D19' : '';
+    }
+    var plan = window.__SH_STATE || {};
+    var selName = 'Room';
+    if (window.__SH_SELECTED_LANDMARK_IDX != null && plan.landmarks && plan.landmarks[window.__SH_SELECTED_LANDMARK_IDX]) {
+      selName = plan.landmarks[window.__SH_SELECTED_LANDMARK_IDX].label || 'Room Element';
+    } else if (plan.tables && plan.tables[window.__SH_SELECTED_TABLE_IDX || 0]) {
+      selName = shEdTableLabel(plan.tables[window.__SH_SELECTED_TABLE_IDX || 0]);
+    }
+    shRenderFloorplanSvg();
+    shToast(next <= 1.01 ? '🗺️ Full Room Floorplan (100%)' : ('🔍 Zoom: ' + Math.round(next * 100) + '% centered on ' + selName + ' (scroll wheel to zoom in/out · click % to reset)'));
+  };
+  window.shResetCanvasZoom = function() {
+    window.__SH_ZOOM_SCALE = 1;
+    window.__SH_CANVAS_ZOOM = 'room';
+    var pctBtn = document.getElementById('sh-zoom-pct-btn');
+    if (pctBtn) { pctBtn.textContent = '100%'; pctBtn.style.color = ''; }
+    shRenderFloorplanSvg();
+    shToast('🗺️ Reset zoom to 100% Full Room View');
+  };
+  document.addEventListener('wheel', function(ev) {
+    var svg = document.getElementById('sh-floorplan-svg');
+    if (!svg || !ev.target || !(ev.target === svg || svg.contains(ev.target))) return;
+    if (ev.cancelable) ev.preventDefault();
+    ev.stopPropagation();
+    var step = ev.deltaY < 0 ? 0.2 : -0.2;
+    window.shStepCanvasZoom(step);
+  }, { passive: false });
   document.addEventListener('click', function() { shCloseMenus(); });
 
   /* ---- Snap-to-table drag & Visual SVG Conflict Halos ---- */

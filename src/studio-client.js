@@ -135,12 +135,15 @@ function renderInteractiveScript(initialPlan) {
 
   window.shSetCanvasZoom = function(mode) {
     window.__SH_CANVAS_ZOOM = mode || 'room';
+    window.__SH_ZOOM_SCALE = mode === 'table' ? 2.4 : (mode === 'zoom15' ? 1.5 : (typeof mode === 'number' ? Math.max(1, Math.min(3, mode)) : 1));
     ['room', 'zoom15', 'table'].forEach(function(m) {
       const b = document.getElementById(m === 'room' ? 'sh-zoom-room-btn' : (m === 'zoom15' ? 'sh-zoom-15-btn' : 'sh-zoom-table-btn'));
       if (b) b.classList.toggle('active', m === window.__SH_CANVAS_ZOOM);
     });
+    const pctBtn = document.getElementById('sh-zoom-pct-btn');
+    if (pctBtn) pctBtn.textContent = Math.round((window.__SH_ZOOM_SCALE || 1) * 100) + '%';
     shRenderFloorplanSvg();
-    shToast(mode === 'table' ? '🎯 Focused 2.4× on Selected Table · Click any seat to edit, move or remove!' : (mode === 'zoom15' ? '🔍 Zoomed 1.5× around Selected Table' : '🗺️ Full Room Floorplan (1×)'));
+    shToast(window.__SH_ZOOM_SCALE > 1.01 ? ('🔍 Zoomed ' + Math.round(window.__SH_ZOOM_SCALE * 100) + '% on Selected Table · Scroll mouse wheel to zoom in/out') : '🗺️ Full Room Floorplan (100%)');
   };
 
   window.shToggleFullWidthStage = function() {
@@ -795,12 +798,8 @@ function renderInteractiveScript(initialPlan) {
     const zMode = window.__SH_CANVAS_ZOOM || 'room', isFineTune = (window.__SH_WIZARD_STEP || 1) >= 4;
     if (window.__SH_DRAG_VIEWBOX) {
       svgEl.setAttribute('viewBox', window.__SH_DRAG_VIEWBOX);
-    } else if (isFineTune && zMode === 'table' && selTbl) {
-      const vx = Math.max(0, Math.min(730, Math.round((selTbl.x || 250) - 195))), vy = Math.max(0, Math.min(roomH - 250, Math.round((selTbl.y || 200) - 125)));
-      svgEl.setAttribute('viewBox', vx + ' ' + vy + ' 390 250');
-    } else if (isFineTune && zMode === 'zoom15' && selTbl) {
-      const vx = Math.max(0, Math.min(400, Math.round((selTbl.x || 250) - 360))), vy = Math.max(0, Math.min(roomH - 440, Math.round((selTbl.y || 200) - 220)));
-      svgEl.setAttribute('viewBox', vx + ' ' + vy + ' 720 440');
+    } else if (window.shComputeCanvasViewBox) {
+      svgEl.setAttribute('viewBox', window.shComputeCanvasViewBox(plan, selTbl, roomH));
     } else {
       svgEl.setAttribute('viewBox', '0 0 1120 ' + roomH);
     }
