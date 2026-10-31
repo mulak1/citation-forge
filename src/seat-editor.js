@@ -58,25 +58,123 @@ function renderSeatEditorClientScript() {
     return -1;
   }
 
-  /* ---- Undo ---- */
+  /* ---- Undo, Redo & Last 5 Moves History ---- */
+  window.__SH_REDO = [];
   function shEdState() { return JSON.stringify({ tables: window.__SH_STATE.tables, roomHeight: window.__SH_STATE.roomHeight, targetGuests: window.__SH_STATE.targetGuests, rules: window.__SH_STATE.rules, landmarks: window.__SH_STATE.landmarks }); }
-  window.shSnapshot = function() {
+  function shCleanMoveLabel(msg) {
+    return String(msg || '').replace(/^[\u2713\u21bb\u229e\u2728\uD83D\uDD12\uD83D\uDD13\s]+/, '').replace(/\s*(?:\u00b7|\.)?\s*Tap Undo to reverse\.?/i, '').replace(/\s*\u00b7\s*Snapped to grid!?/i, '').replace(/!$/, '').trim();
+  }
+  function shPruneNoOpSnapshots() {
+    if (!window.__SH_STATE) return;
+    var st = window.__SH_UNDO, cur = shEdState();
+    while (st.length && (st[st.length - 1].snap || st[st.length - 1]) === cur) st.pop();
+  }
+  window.shSnapshot = function(label) {
     if (!window.__SH_STATE || window.__SH_SUPPRESS_RENDER) return;
     var snap = shEdState(), st = window.__SH_UNDO;
-    if (st.length && st[st.length - 1] === snap) return;
-    st.push(snap); if (st.length > 30) st.shift();
+    if (st.length && (st[st.length - 1].snap || st[st.length - 1]) === snap) {
+      if (label) st[st.length - 1].label = label;
+      return;
+    }
+    st.push({ snap: snap, label: label || '', ts: Date.now() });
+    if (st.length > 25) st.shift();
+    window.__SH_REDO = [];
   };
-  window.shUndo = function() {
-    var st = window.__SH_UNDO, cur = shEdState();
-    while (st.length && st[st.length - 1] === cur) st.pop();
-    if (!st.length) return;
-    var prev = JSON.parse(st.pop());
-    window.__SH_STATE.tables = prev.tables; window.__SH_STATE.roomHeight = prev.roomHeight; if (prev.targetGuests) window.__SH_STATE.targetGuests = prev.targetGuests; if (prev.rules) window.__SH_STATE.rules = prev.rules; if (prev.landmarks) window.__SH_STATE.landmarks = prev.landmarks; window.__SH_SELECTED_LANDMARK_IDX = null;
+  var origShToast = typeof shToast === 'function' ? shToast : null;
+  if (origShToast) {
+    shToast = function(msg) {
+      var st = window.__SH_UNDO;
+      if (st && st.length && !st[st.length - 1].label && !/^(?:\u21b6|\u21b7|Undone|Redone|\uD83D\uDDFA|\uD83D\uDD0D|\u270B|Selected )/i.test(String(msg || ''))) {
+        var cur = shEdState();
+        if ((st[st.length - 1].snap || st[st.length - 1]) !== cur) {
+          st[st.length - 1].label = shCleanMoveLabel(msg);
+        }
+      }
+      return origShToast(msg);
+    };
+  }
+  function shApplySnapshotJson(rawSnap) {
+    var prev = JSON.parse(rawSnap);
+    window.__SH_STATE.tables = prev.tables; window.__SH_STATE.roomHeight = prev.roomHeight;
+    if (prev.targetGuests) window.__SH_STATE.targetGuests = prev.targetGuests;
+    if (prev.rules) window.__SH_STATE.rules = prev.rules;
+    if (prev.landmarks) window.__SH_STATE.landmarks = prev.landmarks;
+    window.__SH_SELECTED_LANDMARK_IDX = null;
     window.__SH_STATE.tables.forEach(function(t) { shRecomputeGeometry(t); });
     window.__SH_OPEN_GUEST = null; window.__SH_SWAP_SOURCE = null;
     window.__SH_SELECTED_TABLE_IDX = Math.min(window.__SH_SELECTED_TABLE_IDX || 0, window.__SH_STATE.tables.length - 1);
-    shSyncTableSelectAndPills(); shToast('\\u21b6 Undone'); shRenderAll();
+    shSyncTableSelectAndPills();
+  }
+  window.shUndo = function(steps) {
+    shPruneNoOpSnapshots();
+    var st = window.__SH_UNDO, count = Math.max(1, Number(steps) || 1);
+    if (!st.length) { shToast('No moves to undo yet.'); return; }
+    var lastEntry = null;
+    for (var i = 0; i < count && st.length; i++) {
+      var curSnap = shEdState();
+      lastEntry = st.pop();
+      var lbl = (lastEntry && lastEntry.label) || 'Move';
+      window.__SH_REDO.push({ snap: curSnap, label: lbl, ts: Date.now() });
+      shApplySnapshotJson(lastEntry.snap || lastEntry);
+    }
+    if (window.shCloseMenus) window.shCloseMenus();
+    shToast('\\u21b6 Undone: ' + ((lastEntry && lastEntry.label) || 'last move') + (count > 1 ? ' (' + count + ' moves)' : ''));
+    shRenderAll();
   };
+  window.shRedo = function() {
+    var rd = window.__SH_REDO;
+    if (!rd || !rd.length) return;
+    var nextEntry = rd.pop();
+    window.__SH_UNDO.push({ snap: shEdState(), label: nextEntry.label || 'Move', ts: Date.now() });
+    shApplySnapshotJson(nextEntry.snap);
+    if (window.shCloseMenus) window.shCloseMenus();
+    shToast('\\u21b7 Redone: ' + (nextEntry.label || 'move'));
+    shRenderAll();
+  };
+  window.shSyncHistoryUi = function() {
+    shPruneNoOpSnapshots();
+    var st = window.__SH_UNDO || [], rd = window.__SH_REDO || [];
+    var undoBtn = document.getElementById('sh-undo-btn');
+    if (undoBtn) {
+      undoBtn.style.display = '';
+      undoBtn.disabled = !st.length;
+      undoBtn.style.opacity = st.length ? '1' : '0.52';
+      undoBtn.innerHTML = '&#8630; Undo' + (st.length ? ' (' + Math.min(5, st.length) + ')' : '');
+    }
+    var histBtn = document.getElementById('sh-toolbar-history-btn');
+    if (histBtn) {
+      histBtn.innerHTML = '&#128339; Last ' + (st.length ? Math.min(5, st.length) : 5) + ' moves &#9662;';
+    }
+    var menu = document.getElementById('sh-history-menu');
+    if (!menu) return;
+    var recent = st.slice(-5).reverse();
+    var rows = ['<div class="sh-ed-menu-sec">Last 5 moves (click to undo back)</div>'];
+    if (!recent.length) {
+      rows.push('<div style="padding:8px 10px;font-size:0.78rem;color:#78716C;">No moves recorded yet. Drag a table, swap seats, or edit a guest to see your last 5 moves here.</div>');
+    } else {
+      recent.forEach(function(item, idx) {
+        var lbl = (item && item.label) || ('Move #' + (st.length - idx));
+        var stepsBack = idx + 1;
+        rows.push('<button type="button" onclick="window.shUndo(' + stepsBack + ')" style="display:flex;align-items:center;justify-content:space-between;gap:8px;width:100%;text-align:left;"><span style="overflow:hidden;text-overflow:ellipsis;white-space:nowrap;max-width:210px;">&#8630; ' + shEsc(lbl) + '</span><small>' + (stepsBack === 1 ? 'last move' : ('-' + stepsBack + ' moves')) + '</small></button>');
+      });
+    }
+    if (rd.length) {
+      var topRedo = rd[rd.length - 1];
+      rows.push('<div class="sh-ed-menu-sec">Redo</div>');
+      rows.push('<button type="button" onclick="window.shRedo()" style="display:flex;align-items:center;justify-content:space-between;gap:8px;width:100%;text-align:left;color:#065F46;font-weight:700;"><span>&#8631; Redo: ' + shEsc(topRedo.label || 'Move') + '</span><small>+1</small></button>');
+    }
+    menu.innerHTML = rows.join('');
+  };
+  document.addEventListener('keydown', function(ev) {
+    if (!ev || !(ev.metaKey || ev.ctrlKey) || ev.altKey) return;
+    var tag = (ev.target && ev.target.tagName) ? ev.target.tagName.toLowerCase() : '';
+    if (tag === 'input' || tag === 'textarea' || tag === 'select') return;
+    if (String(ev.key || '').toLowerCase() === 'z') {
+      ev.preventDefault();
+      if (ev.shiftKey) window.shRedo();
+      else window.shUndo(1);
+    }
+  });
   ['shMoveGuestToTable', 'shAddNewTable', 'shDeleteSelectedTable', 'shStartTableDrag', 'shChangeTableCapacity', 'shRemoveGuest', 'shQuickAddGuestToTable', 'shStartLandmarkDrag'].forEach(function(fn) {
     var orig = window[fn]; if (typeof orig !== 'function') return;
     window[fn] = function() { window.shSnapshot(); return orig.apply(this, arguments); };
@@ -379,7 +477,7 @@ function renderSeatEditorClientScript() {
   window.shRenderSeatPanel = function() {
     var box = document.getElementById('sh-selected-table-box'); if (!box || !window.__SH_STATE || !window.__SH_STATE.tables) return;
     shSyncTableSelectAndPills(); if (window.shRenderLegend) window.shRenderLegend();
-    var undoBtn = document.getElementById('sh-undo-btn'); if (undoBtn) undoBtn.style.display = window.__SH_UNDO.length ? '' : 'none';
+    if (window.shSyncHistoryUi) window.shSyncHistoryUi();
     if (window.shElementPanelHtml && window.__SH_SELECTED_LANDMARK_IDX != null && window.__SH_STATE.landmarks && window.__SH_STATE.landmarks[window.__SH_SELECTED_LANDMARK_IDX]) { box.innerHTML = window.shElementPanelHtml(); return; }
     var tables = window.__SH_STATE.tables, tIdx = window.__SH_SELECTED_TABLE_IDX, t = tables[tIdx];
     if (!t) { box.innerHTML = '<div class="sh-ed-empty">Tap any table on the floorplan to see who&rsquo;s sitting there.</div>'; return; }

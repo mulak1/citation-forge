@@ -210,8 +210,10 @@ function renderSeatGroupsClientScript() {
   };
   var SH_TABLE_KINDS = { round8: { shape: 'round', cap: 8, label: 'Round (8 seats)' }, round10: { shape: 'round', cap: 10, label: 'Round (10 seats)' }, banquet12: { shape: 'banquet_2sided', cap: 12, label: 'Long banquet (12 seats)' }, kings8: { shape: 'kings_4sided', cap: 8, label: 'King\\'s (8 seats)' } };
   function shCloseMenus(keepId) {
-    ['sh-add-menu', 'sh-el-menu', 'sh-room-menu'].forEach(function(id) { if (id !== keepId) { var el = document.getElementById(id); if (el) el.style.display = 'none'; } });
+    ['sh-add-menu', 'sh-el-menu', 'sh-room-menu', 'sh-history-menu'].forEach(function(id) { if (id !== keepId) { var el = document.getElementById(id); if (el) el.style.display = 'none'; } });
   }
+  window.shCloseMenus = shCloseMenus;
+  window.shToggleHistoryMenu = function(ev) { if (ev) ev.stopPropagation(); shCloseMenus('sh-history-menu'); if (window.shSyncHistoryUi) window.shSyncHistoryUi(); var m = document.getElementById('sh-history-menu'); if (m) m.style.display = m.style.display === 'none' ? 'block' : 'none'; };
   window.shToggleAddMenu = function(ev) { if (ev) ev.stopPropagation(); shCloseMenus('sh-add-menu'); var m = document.getElementById('sh-add-menu'); if (m) m.style.display = m.style.display === 'none' ? 'block' : 'none'; };
   window.shToggleRoomMenu = function(ev) { if (ev) ev.stopPropagation(); shCloseMenus('sh-room-menu'); var m = document.getElementById('sh-room-menu'); if (m) m.style.display = m.style.display === 'none' ? 'block' : 'none'; };
   window.shAddTableType = function(kind) {
