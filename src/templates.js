@@ -253,7 +253,7 @@ function renderHead({
     .shw-kit { position: sticky; top: 96px; background: #FFFDF9; border: 1px solid #E8DCC4; border-radius: 16px; padding: 20px 20px 16px; box-shadow: 0 1px 2px rgba(120, 85, 30, 0.04), 0 18px 40px -26px rgba(120, 85, 30, 0.28); }
     .shw-kit-titles { display: flex; align-items: baseline; justify-content: space-between; gap: 10px; }
     .shw-kit-title { font-family: var(--font-sans); font-size: 0.8125rem; font-weight: 700; letter-spacing: 0.17em; text-transform: uppercase; color: #8A6A2E; }
-    .shw-kit-sub { font-family: var(--font-serif); font-size: 1.15rem; font-weight: 600; color: #181412; font-variant-numeric: lining-nums tabular-nums; font-feature-settings: "lnum" 1; }
+    .shw-kit-sub { font-family: var(--font-serif); font-size: 1.15rem; font-weight: 600; color: #181412; font-variant-numeric: lining-nums tabular-nums; font-feature-settings: "lnum" 1; white-space: nowrap; flex-shrink: 0; }
     .shw-kit-bar { height: 2px; background: #EFE6D4; border-radius: 999px; overflow: hidden; margin: 12px 0 8px; }
     .shw-kit-bar-fill { height: 100%; width: 0; background: #B89352; transition: width 0.5s ease; }
     .shw-kit-list { list-style: none; margin: 0; padding: 0; }

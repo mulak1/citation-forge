@@ -229,6 +229,7 @@ function renderSetupWizardClientScript() {
       if (d) d.textContent = st[k].d;
       S.kitDone[k] = st[k].ok;
     });
+    if (done > 0) S.cleared = false;
     if (done > 0 && !S.engaged) { S.engaged = true; try { localStorage.setItem('sh_binder_engaged', '1'); } catch (_) {} }
     var sub = shwEl('shw-kit-sub'); if (sub) sub.textContent = done + ' of 5';
     var bar = shwEl('shw-kit-bar-fill'); if (bar) bar.style.width = (done / 5 * 100) + '%';
@@ -272,7 +273,7 @@ function renderSetupWizardClientScript() {
     cta.textContent = n === 5 ? 'Review & Fine-Tune Floorplan \u2192' : 'Continue Setup \u2192';
     var foot = shwEl('shw-pop-foot');
     if (foot && !S.confirmClear) {
-      foot.innerHTML = '<button type="button" class="shw-link" onclick="window.shwGoToFloorplan()">Review &amp; fine-tune floorplan &rarr;</button> &middot; <button type="button" class="shw-link muted" onclick="window.shwAskClearAll()">Clear everything</button>';
+      foot.innerHTML = '<button type="button" class="shw-link" onclick="window.shwGoToFloorplan()">Review &amp; fine-tune floorplan &rarr;</button> &middot; <button type="button" class="shw-link muted" onclick="window.shwDoClearAll()">Clear everything</button>';
     }
   }
   window.shwToggleBinder = function(force) {
@@ -347,17 +348,36 @@ function renderSetupWizardClientScript() {
   };
   function shwResetAll() {
     var S = window.__SH_SETUP;
+    S.step = 1; S.maxStep = 1; S.built = false; S.sample = false; S.cleared = true; S.engaged = true; S.kitDone = {}; S.kitCount = 0; S.confirmClear = false;
     ['sign', 'plan', 'cards', 'apart'].forEach(shwResetField);
-    S.step = 1; S.maxStep = 1; S.built = false; S.sample = false; S.engaged = false; S.kitDone = {}; S.confirmClear = false;
-    try { localStorage.removeItem('sh_binder_engaged'); localStorage.removeItem('sh_session_v1'); } catch (_) {}
+    var ti = shwEl('sh-couple-title-input'); if (ti) ti.value = '';
+    var vi = shwEl('sh-venue-name-input'); if (vi) vi.value = '';
+    var csv = shwEl('sh-bulk-csv'); if (csv) csv.value = '';
+    document.querySelectorAll('#shw-instant-scenarios button[data-instant-preset]').forEach(function(b) { b.classList.remove('active'); });
+    if (window.shwDismissNote) window.shwDismissNote();
+    window.__SH_STATE = {
+      vaultId: (window.__SH_STATE && window.__SH_STATE.vaultId) || 'SH-4819',
+      title: 'Your Wedding Reception',
+      venueName: '',
+      targetGuests: 0,
+      harmonyScore: 100,
+      householdsCoupled: 0,
+      rules: [],
+      landmarks: (window.__SH_SEED_STATE && Array.isArray(window.__SH_SEED_STATE.landmarks)) ? JSON.parse(JSON.stringify(window.__SH_SEED_STATE.landmarks)) : [],
+      tables: [{ id: 'tbl_1', number: 1, name: 'Table 1', shape: 'round', capacity: 8, x: 480, y: 310, guests: [] }]
+    };
+    if (typeof shRecomputeGeometry === 'function') shRecomputeGeometry(window.__SH_STATE.tables[0]);
+    window.__SH_SELECTED_TABLE_IDX = 0;
     var pop = shwEl('shw-pop'); if (pop) pop.style.display = 'none';
     var w = shwEl('sh-setup-wizard'), g = shwEl('sh-builder-grid'); if (g) g.style.display = 'none'; if (w) w.style.display = '';
+    if (typeof shSyncTableSelectAndPills === 'function') shSyncTableSelectAndPills();
+    if (typeof shRenderAll === 'function') shRenderAll();
     shwPaint();
+    clearTimeout(shwSaveTimer); clearTimeout(window.__shPersistTimer);
+    try { localStorage.removeItem('sh_session_v1'); localStorage.removeItem('sh_saved_vault_v1'); } catch (_) {}
+    if (typeof shToast === 'function') shToast('\u2713 Cleared all wedding details, guests, and tables');
   }
-  window.shwAskClearAll = function() {
-    var foot = shwEl('shw-pop-foot'); if (!foot) return; window.__SH_SETUP.confirmClear = true;
-    foot.innerHTML = '<span class="shw-confirm">Clear every answer and start over?</span> <button type="button" class="shw-link" onclick="window.shwDoClearAll()">Yes, clear</button> <button type="button" class="shw-link muted" onclick="window.__SH_SETUP.confirmClear=false;window.shwToggleBinder(true)">Keep</button>';
-  };
+  window.shwAskClearAll = function() { window.shwDoClearAll(); };
   window.shwDoClearAll = function() { shwResetAll(); shwScrollStudio(); };
   window.shwPickGuests = function(n) {
     var v = Math.max(2, Math.min(600, Math.round(Number(n) || 0)));
@@ -387,7 +407,7 @@ function renderSetupWizardClientScript() {
   /* ---- Venue layouts & 1-click scenarios: build a populated room sized to the layout ---- */
   window.shwLoadInstantScenario = function(key, btn) {
     document.querySelectorAll('#shw-instant-scenarios button[data-instant-preset]').forEach(function(b) { b.classList.toggle('active', b.getAttribute('data-instant-preset') === key); });
-    window.__SH_SETUP.userStarted = true; window.__SH_SETUP.sample = true;
+    window.__SH_SETUP.userStarted = true; window.__SH_SETUP.sample = true; window.__SH_SETUP.cleared = false;
     if (key === 'estate-150' && window.__SH_SEED_STATE) {
       window.__SH_STATE = JSON.parse(JSON.stringify(window.__SH_SEED_STATE));
       window.shFinishSetupWizard();
@@ -512,13 +532,13 @@ function renderSetupWizardClientScript() {
     var ti = shwEl('sh-couple-title-input'); if (ti) ti.value = window.__SH_STATE.title;
     var vi = shwEl('sh-venue-name-input'); if (vi) vi.value = venue;
     window.__SH_SELECTED_TABLE_IDX = window.__SH_STATE.tables.length > 1 ? 1 : 0;
-    S.built = true; S.sample = false; S.engaged = true; try { localStorage.setItem('sh_binder_engaged', '1'); } catch (_) {}
+    S.built = true; S.sample = false; S.cleared = false; S.engaged = true; try { localStorage.setItem('sh_binder_engaged', '1'); } catch (_) {}
     window.shFinishSetupWizard();
     shToast('\\u2713 Seated ' + (people + hosts.length) + ' guests at ' + (window.__SH_STATE.tables.length - 1) + ' tables' + (S.apart.length ? ' \\u00b7 ' + S.apart.length + ' conflict' + (S.apart.length === 1 ? '' : 's') + ' kept apart' : '') + '. Click any seat to adjust.');
   };
 
   window.shFinishSetupWizard = function() {
-    var S0 = window.__SH_SETUP; if (!S0.built && !S0.sample) S0.sample = true; S0.engaged = true; try { localStorage.setItem('sh_binder_engaged', '1'); } catch (_) {}
+    var S0 = window.__SH_SETUP; if (!S0.built && !S0.sample && !S0.cleared) S0.sample = true; S0.engaged = true; try { localStorage.setItem('sh_binder_engaged', '1'); } catch (_) {}
     setTimeout(function() { window.shwPaintKit(); }, 0);
     var w = shwEl('sh-setup-wizard'), g = shwEl('sh-builder-grid');
     if (w) w.style.display = 'none';
@@ -541,7 +561,7 @@ function renderSetupWizardClientScript() {
     window.loadPresetScenario = async function(key, btn) {
       window.__SH_SETUP.userStarted = true;
       await origLoad(key, btn);
-      window.__SH_SETUP.sample = true; window.__SH_SETUP.engaged = true; try { localStorage.setItem('sh_binder_engaged', '1'); } catch (_) {}
+      window.__SH_SETUP.sample = true; window.__SH_SETUP.cleared = false; window.__SH_SETUP.engaged = true; try { localStorage.setItem('sh_binder_engaged', '1'); } catch (_) {}
       window.shFinishSetupWizard();
     };
   })();
