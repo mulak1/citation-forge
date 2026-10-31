@@ -174,16 +174,58 @@ function renderSeatEditorClientScript() {
     menu.innerHTML = rows.join('');
   };
   document.addEventListener('keydown', function(ev) {
-    if (!ev || !(ev.metaKey || ev.ctrlKey) || ev.altKey) return;
+    if (!ev) return;
     var tag = (ev.target && ev.target.tagName) ? ev.target.tagName.toLowerCase() : '';
-    if (tag === 'input' || tag === 'textarea' || tag === 'select') return;
-    if (String(ev.key || '').toLowerCase() === 'z') {
+    if (tag === 'input' || tag === 'textarea' || tag === 'select' || (ev.target && ev.target.isContentEditable)) return;
+    if ((ev.metaKey || ev.ctrlKey) && !ev.altKey && String(ev.key || '').toLowerCase() === 'z') {
       ev.preventDefault();
       if (ev.shiftKey) window.shRedo();
       else window.shUndo(1);
+      return;
+    }
+    if (!ev.metaKey && !ev.ctrlKey && !ev.altKey && (ev.key === 'Delete' || ev.key === 'Backspace')) {
+      var grid = document.getElementById('sh-builder-grid');
+      if (grid && grid.style.display === 'none') return;
+      if (window.__SH_ACTIVE_VIEW && window.__SH_ACTIVE_VIEW !== 'floorplan') return;
+      var plan = window.__SH_STATE;
+      if (!plan) return;
+      if (window.__SH_OPEN_GUEST && plan.tables && plan.tables[window.__SH_OPEN_GUEST.t] && plan.tables[window.__SH_OPEN_GUEST.t].guests[window.__SH_OPEN_GUEST.s]) {
+        ev.preventDefault();
+        window.shEdRemove(window.__SH_OPEN_GUEST.t, window.__SH_OPEN_GUEST.s);
+        return;
+      }
+      if (window.__SH_SWAP_SOURCE && plan.tables && plan.tables[window.__SH_SWAP_SOURCE.tableIdx]) {
+        ev.preventDefault();
+        var st = window.__SH_SWAP_SOURCE.tableIdx, ss = window.__SH_SWAP_SOURCE.seatIdx;
+        if (plan.tables[st].guests[ss]) window.shEdRemove(st, ss);
+        else window.shChangeTableCapacity(st, -1);
+        window.__SH_SWAP_SOURCE = null;
+        return;
+      }
+      if (window.__SH_SELECTED_LANDMARK_IDX != null && plan.landmarks && plan.landmarks[window.__SH_SELECTED_LANDMARK_IDX]) {
+        ev.preventDefault();
+        window.shSnapshot();
+        window.shDeleteLandmark(window.__SH_SELECTED_LANDMARK_IDX);
+        return;
+      }
+      var selTIdx = window.__SH_SELECTED_TABLE_IDX;
+      if (selTIdx != null && plan.tables && plan.tables[selTIdx]) {
+        var selTbl = plan.tables[selTIdx];
+        if (shNormalizeShape(selTbl.shape) === 'sweetheart') {
+          shToast('Sweetheart table cannot be deleted (rename or morph it in the right panel).');
+          return;
+        }
+        if (plan.tables.length > 2) {
+          ev.preventDefault();
+          window.shEdRemoveTable(selTIdx);
+        } else if (plan.tables.length > 1) {
+          ev.preventDefault();
+          window.shDeleteSelectedTable();
+        }
+      }
     }
   });
-  ['shMoveGuestToTable', 'shAddNewTable', 'shDeleteSelectedTable', 'shStartTableDrag', 'shChangeTableCapacity', 'shRemoveGuest', 'shQuickAddGuestToTable', 'shStartLandmarkDrag'].forEach(function(fn) {
+  ['shMoveGuestToTable', 'shAddNewTable', 'shDeleteSelectedTable', 'shStartTableDrag', 'shChangeTableCapacity', 'shRemoveGuest', 'shQuickAddGuestToTable', 'shStartLandmarkDrag', 'shDeleteLandmark'].forEach(function(fn) {
     var orig = window[fn]; if (typeof orig !== 'function') return;
     window[fn] = function() { window.shSnapshot(); return orig.apply(this, arguments); };
   });
