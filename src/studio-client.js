@@ -721,7 +721,7 @@ function renderInteractiveScript(initialPlan) {
     window.__SH_STATE.title = val || "Maya & Liam's Estate Reception";
     const sum1 = document.getElementById('sh-wizard-summary-1'); if (sum1) sum1.textContent = window.__SH_STATE.title;
     const h1 = document.getElementById('score-brand-title'); if (h1 && String(val || '').toLowerCase().includes('supabase')) h1.textContent = val;
-    const vaultBar = document.getElementById('sh-vault-bar-headline'); if (vaultBar) vaultBar.textContent = '🔒 Vault #' + (window.__SH_STATE.vaultId || 'SH-4819') + ' Auto-Saved';
+    const vaultBar = document.getElementById('sh-vault-bar-headline'); if (vaultBar) vaultBar.textContent = '✓ Your Seating Plan Is Auto-Saved';
     shSyncSpecimenCrestHeader(); shRenderPosterView();
   };
 

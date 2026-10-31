@@ -16,7 +16,7 @@ function renderZone1Hero(plan) {
         <div class="sh-zone1-header-block">
           <div style="display:flex;align-items:center;justify-content:center;gap:10px;flex-wrap:wrap;">
             <div class="sh-eyebrow-pill"><span class="sh-eyebrow-dot"></span><span>WEDDING SEATING &amp; FLOORPLAN SOLVER &bull; 24&times;36&Prime; SIGN STUDIO</span></div>
-            <button type="button" id="hero-vault-pill-btn" onclick="window.shOpenVaultModal()" style="cursor:pointer;display:inline-flex;align-items:center;gap:6px;font-size:13.5px;font-weight:700;color:#78350F;background:#FAF3E3;border:1px solid #D6CBB9;border-radius:999px;padding:6px 13px;white-space:nowrap;" title="Save or Open Your Wedding Seating Plan"><span>&#128190; Save or Open Plan (<strong id="hero-vault-code-label">#${vId}</strong>) &nearr;</span></button>
+            <button type="button" id="hero-vault-pill-btn" onclick="window.shOpenVaultModal()" style="cursor:pointer;display:inline-flex;align-items:center;gap:6px;font-size:13.5px;font-weight:700;color:#78350F;background:#FAF3E3;border:1px solid #D6CBB9;border-radius:999px;padding:6px 13px;white-space:nowrap;" title="Save or Open Your Wedding Seating Plan"><span>&#128190; Save or Open Your Seating Plan &nearr;</span></button>
           </div>
           <h1 id="score-brand-title" class="sh-display-h1">The 6-Hour Seating Chart.<br/><span class="sh-h1-accent">Solved in 60 Seconds, Drama-Free.</span></h1>
           <p class="sh-lead-sub">Paste your Zola, The Knot, or Excel guest list to keep couples together, separate divorced relatives, and export your Clockwise 12:00 meal sheet and 24&times;36&Prime; welcome sign.</p>
@@ -468,46 +468,36 @@ function renderZone3InteractiveStudio(plan) {
           <button type="button" onclick="window.shCloseVaultModal()" style="background:#EFECE6;border:1px solid #D6CFC2;border-radius:8px;padding:6px 12px;font-weight:800;cursor:pointer;white-space:nowrap;">&#10005; Close</button>
         </div>
 
-        <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(290px,1fr));gap:16px;">
-          <div style="background:#FFFFFF;border:1.5px solid #C8A96E;border-radius:14px;padding:16px;">
-            <div class="badge badge-emerald" style="margin-bottom:6px;white-space:nowrap;">1. SAVE CURRENT FLOORPLAN (#<span id="sh-modal-vault-code">${vId}</span>)</div>
-            <h4 class="serif-display" style="font-size:1.18rem;margin-bottom:6px;">Link Email &amp; Get All 5 Live URLs</h4>
-            <p style="font-size:0.78rem;color:#57534E;margin-bottom:10px;line-height:1.45;">Save your tables and guest list online to edit from any device or print 48 hours out.</p>
-            <label for="sh-vault-email-input" class="studio-field-label">Your Bride / Groom / Planner Email:</label>
-            <input id="sh-vault-email-input" type="email" class="grader-input" style="width:100%;margin-bottom:8px;" placeholder="maya@example.com" value="${escapeHtml(plan.ownerEmail || '')}" />
+        <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:16px;">
+          <div style="background:#FFFFFF;border:1.5px solid #C8A96E;border-radius:14px;padding:18px;min-width:0;">
+            <div class="badge badge-emerald" style="margin-bottom:8px;white-space:normal;">1. SAVE YOUR RECEPTION</div>
+            <h4 class="serif-display" style="font-size:1.22rem;margin-bottom:6px;">Save Your Seating Plan Online</h4>
+            <p style="font-size:0.86rem;color:#57534E;margin-bottom:12px;line-height:1.45;">Save your tables and guest list online to edit from any device or print 48 hours out.</p>
+            <label for="sh-vault-email-input" class="studio-field-label">Your Email Address:</label>
+            <input id="sh-vault-email-input" type="email" class="grader-input" style="width:100%;margin-bottom:10px;" placeholder="maya@example.com" value="${escapeHtml(plan.ownerEmail || '')}" />
             <label for="sh-vault-pin-input" class="studio-field-label">Optional 4-Digit Edit PIN:</label>
-            <input id="sh-vault-pin-input" type="text" maxlength="8" class="grader-input" style="width:100%;margin-bottom:10px;" placeholder="2026" value="2026" />
-            <button type="button" id="sh-vault-save-submit-btn" class="btn btn-primary" style="width:100%;padding:10px;" onclick="window.shSaveVaultToServer()">&#128190; Save My Seating Plan &amp; Get Shareable Links</button>
-            <div id="sh-vault-saved-links-box" style="margin-top:10px;padding:10px;border-radius:10px;background:#FAF6EE;border:1px solid #E2D9C8;font-size:0.74rem;">
-              <div style="font-weight:800;color:#065F46;margin-bottom:4px;">&#10003; Active Links for Plan #<span id="sh-modal-links-vault-id">${vId}</span>:</div>
-              <div style="display:flex;flex-direction:column;gap:4px;">
-                <a id="sh-modal-link-vault" href="/vault/${vId}" style="color:#8C2D19;font-weight:700;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;">&#128275; All Print &amp; Caterer Files (/vault/${vId}) &nearr;</a>
-                <a id="sh-modal-link-poster" href="/print/poster/${vId}" target="_blank" style="color:#181412;font-weight:700;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;">&#129703; 24&Prime;&times;36&Prime; Poster Studio (/print/poster/${vId}) &nearr;</a>
-                <a id="sh-modal-link-avery" href="/print/avery-5302/${vId}" target="_blank" style="color:#181412;font-weight:700;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;">&#127915; Avery 5302 Place Cards (/print/avery-5302/${vId}) &nearr;</a>
-                <a id="sh-modal-link-beo" href="/print/beo/${vId}" target="_blank" style="color:#181412;font-weight:700;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;">&#127869; Signed Caterer BEO (/print/beo/${vId}) &nearr;</a>
-                <a id="sh-modal-link-qr" href="/qr/${vId}" target="_blank" style="color:#065F46;font-weight:700;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;">&#128241; Guest QR Lookup (/qr/${vId}) &nearr;</a>
+            <input id="sh-vault-pin-input" type="text" maxlength="8" class="grader-input" style="width:100%;margin-bottom:12px;" placeholder="2026" value="2026" />
+            <button type="button" id="sh-vault-save-submit-btn" class="btn btn-primary" style="width:100%;padding:11px;" onclick="window.shSaveVaultToServer()">&#128190; Save My Seating Plan</button>
+            <div id="sh-vault-saved-links-box" style="margin-top:12px;padding:10px 12px;border-radius:10px;background:#FAF6EE;border:1px solid #E2D9C8;font-size:0.84rem;">
+              <div style="font-weight:800;color:#065F46;margin-bottom:6px;">&#10003; Direct Links for Your Reception:</div>
+              <div style="display:flex;flex-direction:column;gap:5px;">
+                <a id="sh-modal-link-vault" href="/vault/${vId}" style="color:#8C2D19;font-weight:700;text-decoration:none;">&#128275; All 5 Print &amp; Caterer Files &nearr;</a>
+                <a id="sh-modal-link-poster" href="/print/poster/${vId}" target="_blank" style="color:#181412;font-weight:700;text-decoration:none;">&#129703; 24&Prime;&times;36&Prime; Welcome Sign Studio &nearr;</a>
+                <a id="sh-modal-link-avery" href="/print/avery-5302/${vId}" target="_blank" style="color:#181412;font-weight:700;text-decoration:none;">&#127915; Avery 5302 Place Cards &nearr;</a>
+                <a id="sh-modal-link-beo" href="/print/beo/${vId}" target="_blank" style="color:#181412;font-weight:700;text-decoration:none;">&#127869; Clockwise Caterer Meal Sheet &nearr;</a>
+                <a id="sh-modal-link-qr" href="/qr/${vId}" target="_blank" style="color:#065F46;font-weight:700;text-decoration:none;">&#128241; Guest Cocktail-Hour QR Lookup &nearr;</a>
               </div>
             </div>
           </div>
 
-          <div style="background:#FFFFFF;border:1px solid #E2D9C8;border-radius:14px;padding:16px;display:flex;flex-direction:column;justify-content:space-between;">
-            <div>
-              <div class="badge badge-amber" style="margin-bottom:6px;white-space:nowrap;">2. RETURNING COUPLE / PLANNER</div>
-              <h4 class="serif-display" style="font-size:1.18rem;margin-bottom:6px;">Open a Saved Seating Plan</h4>
-              <p style="font-size:0.78rem;color:#57534E;margin-bottom:10px;line-height:1.45;">Enter your saved email or Plan Code (e.g. <code>test@seatharmony.com</code> or <code>SH-4819</code>) to restore your wedding:</p>
-              <label for="sh-vault-lookup-input" class="studio-field-label">Email Address or Plan Code:</label>
-              <input id="sh-vault-lookup-input" type="text" class="grader-input" style="width:100%;margin-bottom:8px;" placeholder="test@seatharmony.com or SH-4819" />
-              <button type="button" id="sh-vault-lookup-btn" class="btn btn-secondary" style="width:100%;padding:10px;" onclick="window.shLookupSavedVault()">&#128275; Open My Saved Seating Plan</button>
-              <div id="sh-vault-lookup-status" style="margin-top:10px;font-size:0.76rem;color:#44403C;"></div>
-            </div>
-            <div style="margin-top:12px;padding:10px 12px;border-radius:10px;background:#ECFDF5;border:1.5px solid #10B981;font-size:0.74rem;color:#065F46;">
-              <div style="font-weight:800;margin-bottom:4px;white-space:nowrap;">&#9889; SAMPLE WEDDING ACCOUNT (ALL FILES UNLOCKED):</div>
-              <div class="mono" style="font-size:0.70rem;color:#181412;margin-bottom:6px;white-space:nowrap;"><strong>test@seatharmony.com</strong> &bull; Plan: <strong>SH-4819</strong> &bull; PIN: <strong>2026</strong></div>
-              <div style="display:flex;gap:6px;flex-wrap:nowrap;">
-                <button type="button" id="sh-test-login-btn" onclick="window.shLoginWithTestAccount && window.shLoginWithTestAccount('SH-4819')" style="cursor:pointer;background:#065F46;color:#FFFFFF;border:1px solid #10B981;border-radius:7px;padding:6px 9px;font-size:0.72rem;font-weight:800;white-space:nowrap;">&#9889; Open Sample Wedding (#SH-4819)</button>
-                <a href="/vault/SH-4819?unlocked=1" style="background:#FFFFFF;color:#065F46;border:1px solid #10B981;border-radius:7px;padding:6px 9px;font-size:0.72rem;font-weight:800;text-decoration:none;white-space:nowrap;">Open Print Files &rarr;</a>
-              </div>
-            </div>
+          <div style="background:#FFFFFF;border:1px solid #E2D9C8;border-radius:14px;padding:18px;display:flex;flex-direction:column;justify-content:flex-start;min-width:0;">
+            <div class="badge badge-amber" style="margin-bottom:8px;white-space:normal;align-self:flex-start;">2. OPEN A SAVED WEDDING</div>
+            <h4 class="serif-display" style="font-size:1.22rem;margin-bottom:6px;">Return to a Saved Seating Plan</h4>
+            <p style="font-size:0.86rem;color:#57534E;margin-bottom:12px;line-height:1.45;">Enter the email address you used when saving your reception floorplan to pick up right where you left off:</p>
+            <label for="sh-vault-lookup-input" class="studio-field-label">Your Saved Email Address:</label>
+            <input id="sh-vault-lookup-input" type="text" class="grader-input" style="width:100%;margin-bottom:12px;" placeholder="maya@example.com" />
+            <button type="button" id="sh-vault-lookup-btn" class="btn btn-secondary" style="width:100%;padding:11px;" onclick="window.shLookupSavedVault()">&#128275; Open My Saved Seating Plan</button>
+            <div id="sh-vault-lookup-status" style="margin-top:10px;font-size:0.84rem;color:#44403C;"></div>
           </div>
         </div>
       </div>
