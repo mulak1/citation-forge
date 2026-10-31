@@ -537,7 +537,8 @@ function renderSeatEditorClientScript() {
     var canvas = grid ? grid.querySelector('.sh-ed-canvas') : null;
     if (panel && canvas && !window.__SH_PANEL_HIDDEN) {
       var cH = Math.round(canvas.getBoundingClientRect().height || 0);
-      panel.style.maxHeight = cH > 320 ? (cH + 'px') : '';
+      if (cH > 320) { panel.style.height = cH + 'px'; panel.style.maxHeight = cH + 'px'; }
+      else { panel.style.height = ''; panel.style.maxHeight = ''; }
     }
     var reopenBtn = document.getElementById('sh-canvas-reopen-panel-btn');
     if (reopenBtn) {
@@ -642,6 +643,7 @@ function renderSeatEditorClientScript() {
     if (!isSweet && tables.length > 2) h.push('<button type="button" class="sh-ed-remove" style="margin-top:10px;" onclick="window.shEdRemoveTable(' + tIdx + ')">Remove this table' + (t.guests.length ? ' (re-seat ' + t.guests.length + ' guest' + (t.guests.length === 1 ? '' : 's') + ')' : '') + '</button>');
     if (window.shEdKeepApartHtml) h.push(window.shEdKeepApartHtml());
     box.innerHTML = h.join('');
+    if (window.shSyncRightPanelUi) window.shSyncRightPanelUi();
   };`;
 }
 

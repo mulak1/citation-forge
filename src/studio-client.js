@@ -806,7 +806,11 @@ function renderInteractiveScript(initialPlan) {
     const svgEl = document.getElementById('sh-floorplan-svg');
     if (!svgEl || !window.__SH_STATE || !window.__SH_STATE.tables) return;
     const plan = window.__SH_STATE, selTbl = plan.tables[window.__SH_SELECTED_TABLE_IDX || 0] || plan.tables[0];
-    const roomH = Math.max(680, Number(plan.roomHeight) || 680);
+    let maxBottomY = Number(plan.roomHeight) || 680;
+    (plan.tables || []).forEach(function(tb) { if ((tb.y || 0) + 115 > maxBottomY) maxBottomY = (tb.y || 0) + 115; });
+    (plan.landmarks || []).forEach(function(lm) { if ((lm.y || 0) + Math.round((lm.h || 40) / 2) + 35 > maxBottomY) maxBottomY = (lm.y || 0) + Math.round((lm.h || 40) / 2) + 35; });
+    const roomH = Math.max(680, maxBottomY);
+    plan.roomHeight = roomH;
     const zMode = window.__SH_CANVAS_ZOOM || 'room', isFineTune = (window.__SH_WIZARD_STEP || 1) >= 4;
     if (window.__SH_DRAG_VIEWBOX) {
       svgEl.setAttribute('viewBox', window.__SH_DRAG_VIEWBOX);
