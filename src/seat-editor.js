@@ -533,6 +533,12 @@ function renderSeatEditorClientScript() {
   window.shSyncRightPanelUi = function() {
     var grid = document.getElementById('sh-ed-grid') || document.querySelector('.sh-ed-grid');
     if (grid) grid.classList.toggle('panel-hidden', !!window.__SH_PANEL_HIDDEN);
+    var reopenBtn = document.getElementById('sh-canvas-reopen-panel-btn');
+    if (reopenBtn) {
+      var tbl = window.__SH_STATE && window.__SH_STATE.tables && window.__SH_STATE.tables[window.__SH_SELECTED_TABLE_IDX || 0];
+      var sub = (window.shHasBoxSelection && window.shHasBoxSelection()) ? (' (' + window.shFormatBoxSelSummary(window.__SH_BOX_SEL) + ')') : (tbl ? (' (' + shEdTableLabel(tbl) + ')') : '');
+      reopenBtn.innerHTML = '&#8676; Re-open right panel' + shEsc(sub);
+    }
     var btn = document.getElementById('sh-toolbar-panel-btn');
     if (btn) {
       btn.innerHTML = window.__SH_PANEL_HIDDEN ? '&#8676; Reopen panel' : '&#8677; Hide panel';

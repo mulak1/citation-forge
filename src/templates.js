@@ -202,7 +202,10 @@ function renderHead({
     .sh-ed-panel-top span { font-size: 0.72rem; font-weight: 800; letter-spacing: 0.06em; text-transform: uppercase; color: #78716C; }
     .sh-ed-panel-hide-btn { padding: 3px 9px; border-radius: 7px; border: 1px solid #DCD3C3; background: #FAF7F2; font-family: inherit; font-size: 0.75rem; font-weight: 700; color: #57534E; cursor: pointer; display: inline-flex; align-items: center; gap: 4px; }
     .sh-ed-panel-hide-btn:hover { border-color: #C8A96E; background: #FFF8E8; color: #181412; }
-    .sh-ed-canvas { border-radius: 14px; border: 1.5px solid #E2D9C8; background: #FAF7F2; overflow: hidden; }
+    .sh-ed-canvas { position: relative; border-radius: 14px; border: 1.5px solid #E2D9C8; background: #FAF7F2; overflow: hidden; }
+    .sh-canvas-reopen-btn { position: absolute; top: 14px; right: 14px; z-index: 25; padding: 8px 14px; border-radius: 10px; border: 1.5px solid #8C2D19; background: #FFFFFF; color: #8C2D19; font-family: inherit; font-size: 0.84rem; font-weight: 800; cursor: pointer; box-shadow: 0 8px 24px -6px rgba(24, 20, 18, 0.22); display: none; align-items: center; gap: 6px; transition: transform 0.12s ease, background 0.12s ease; }
+    .sh-canvas-reopen-btn:hover { background: #FFF8E8; transform: translateY(-1px); }
+    .sh-ed-grid.panel-hidden .sh-canvas-reopen-btn { display: inline-flex !important; }
     .sh-ed-panel { background: #FFFFFF; border: 1.5px solid #E2D3B5; border-radius: 16px; padding: 16px; max-height: 760px; overflow-y: auto; box-shadow: 0 12px 30px -16px rgba(120, 85, 30, 0.25); position: sticky; top: 84px; }
     .sh-ed-empty { font-size: 0.98rem; color: #78716C; text-align: center; padding: 40px 10px; line-height: 1.5; }
     .sh-ed-head { margin-bottom: 12px; }

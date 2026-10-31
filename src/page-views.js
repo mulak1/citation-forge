@@ -378,6 +378,7 @@ function renderZone3InteractiveStudio(plan) {
                 <div id="sh-ed-legend" class="sh-ed-legend" aria-label="Guest groups. Tap a group to highlight it."></div>
                 <div id="sh-ed-grid" class="sh-ed-grid">
                   <div class="sh-ed-canvas">
+                    <button type="button" id="sh-canvas-reopen-panel-btn" class="sh-canvas-reopen-btn" onclick="window.shToggleRightPanel(false)" title="Re-open / maximize the right-side table &amp; guest panel">&#8676; Re-open right panel</button>
                     <svg id="sh-floorplan-svg" viewBox="0 0 1120 680" style="width:100%;height:auto;display:block;touch-action:none;user-select:none;" role="img" aria-label="Wedding floorplan"></svg>
                   </div>
                   <div id="sh-selected-table-box" class="sh-ed-panel"></div>
