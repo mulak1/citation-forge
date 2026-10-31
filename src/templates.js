@@ -195,7 +195,7 @@ function renderHead({
     .sh-ed-ghost:hover { border-color: #C8A96E; background: #FFF8E8; }
     .sh-ed-bar { display: flex; align-items: center; gap: 10px; margin-bottom: 12px; flex-wrap: wrap; }
     .sh-ed-hint { flex: 1; min-width: 200px; font-size: 0.92rem; font-weight: 600; color: #57534E; line-height: 1.35; }
-    .sh-ed-grid { display: grid; grid-template-columns: minmax(0, 1fr) 360px; gap: 16px; align-items: start; }
+    .sh-ed-grid { display: grid; grid-template-columns: minmax(0, 1fr) 360px; gap: 16px; align-items: stretch; }
     .sh-ed-grid.panel-hidden { grid-template-columns: minmax(0, 1fr); }
     .sh-ed-grid.panel-hidden .sh-ed-panel { display: none !important; }
     .sh-ed-panel-top { display: flex; align-items: center; justify-content: space-between; gap: 8px; margin-bottom: 10px; padding-bottom: 8px; border-bottom: 1px solid #EFE6D4; }
@@ -206,7 +206,7 @@ function renderHead({
     .sh-canvas-reopen-btn { position: absolute; top: 14px; right: 14px; z-index: 25; padding: 8px 14px; border-radius: 10px; border: 1.5px solid #8C2D19; background: #FFFFFF; color: #8C2D19; font-family: inherit; font-size: 0.84rem; font-weight: 800; cursor: pointer; box-shadow: 0 8px 24px -6px rgba(24, 20, 18, 0.22); display: none; align-items: center; gap: 6px; transition: transform 0.12s ease, background 0.12s ease; }
     .sh-canvas-reopen-btn:hover { background: #FFF8E8; transform: translateY(-1px); }
     .sh-ed-grid.panel-hidden .sh-canvas-reopen-btn { display: inline-flex !important; }
-    .sh-ed-panel { background: #FFFFFF; border: 1.5px solid #E2D3B5; border-radius: 16px; padding: 16px; max-height: 760px; overflow-y: auto; box-shadow: 0 12px 30px -16px rgba(120, 85, 30, 0.25); position: sticky; top: 84px; }
+    .sh-ed-panel { background: #FFFFFF; border: 1.5px solid #E2D3B5; border-radius: 16px; padding: 16px; overflow-y: auto; box-shadow: 0 12px 30px -16px rgba(120, 85, 30, 0.25); }
     .sh-ed-empty { font-size: 0.98rem; color: #78716C; text-align: center; padding: 40px 10px; line-height: 1.5; }
     .sh-ed-head { margin-bottom: 12px; }
     .sh-ed-title { width: 100%; font-family: var(--font-serif); font-size: 1.5rem; font-weight: 700; color: #181412; border: 1.5px solid transparent; border-radius: 8px; padding: 2px 6px; margin-left: -6px; background: transparent; outline: none; }

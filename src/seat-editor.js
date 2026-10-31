@@ -533,6 +533,12 @@ function renderSeatEditorClientScript() {
   window.shSyncRightPanelUi = function() {
     var grid = document.getElementById('sh-ed-grid') || document.querySelector('.sh-ed-grid');
     if (grid) grid.classList.toggle('panel-hidden', !!window.__SH_PANEL_HIDDEN);
+    var panel = document.getElementById('sh-selected-table-box');
+    var canvas = grid ? grid.querySelector('.sh-ed-canvas') : null;
+    if (panel && canvas && !window.__SH_PANEL_HIDDEN) {
+      var cH = Math.round(canvas.getBoundingClientRect().height || 0);
+      panel.style.maxHeight = cH > 320 ? (cH + 'px') : '';
+    }
     var reopenBtn = document.getElementById('sh-canvas-reopen-panel-btn');
     if (reopenBtn) {
       var tbl = window.__SH_STATE && window.__SH_STATE.tables && window.__SH_STATE.tables[window.__SH_SELECTED_TABLE_IDX || 0];
