@@ -124,6 +124,7 @@ function buildScenarioAndExportWorkbenchHtml(cfg) {
 }
 
 function buildBottomConversionSuiteHtml(cfg, reqPath) {
+  if (cfg && cfg.moduleId === 'citation_forge') return '';
   const t = getTheme(cfg);
   const shareUrl = `https://${cfg.domain}${reqPath || '/'}`;
   const redditHref = `https://www.reddit.com/r/${cfg.redditSub}/submit?url=${encodeURIComponent(shareUrl)}&title=${encodeURIComponent(cfg.brandName + ' Benchmark & Protocol')}`;
