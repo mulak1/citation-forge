@@ -67,6 +67,7 @@ function renderSeatElementsClientScript() {
   };
   window.shElementPanelHtml = function() {
     var lm = shElSel(), z = (lm.zone === 'loud' || lm.zone === 'quiet') ? lm.zone : 'neutral', h = [];
+    h.push('<div class="sh-ed-panel-top"><span>Room Element Inspector</span><button type="button" id="sh-panel-minimize-btn" class="sh-ed-panel-hide-btn" onclick="window.shToggleRightPanel(true)" title="Minimize right side panel to expand floorplan">Minimize &#8677;</button></div>');
     h.push('<div class="sh-ed-head"><input id="sh-el-name" class="sh-ed-title" value="' + shEsc(lm.label) + '" aria-label="Element name" onchange="window.shElRename(this.value)" onkeydown="if(event.key===\\'Enter\\')this.blur()" /><div class="sh-ed-meta"><span>Room element</span><button type="button" class="sh-ed-ka-btn" onclick="window.shElDone()">Done</button></div></div>');
     h.push('<div class="sh-ed-label">Size</div>');
     h.push('<div class="sh-el-row"><span>Width</span><span class="sh-ed-stepper"><button type="button" aria-label="Narrower" onclick="window.shElSize(-18,0)">&minus;</button><b>' + shElFt(lm.w) + ' ft</b><button type="button" aria-label="Wider" onclick="window.shElSize(18,0)">+</button></span></div>');

@@ -196,6 +196,12 @@ function renderHead({
     .sh-ed-bar { display: flex; align-items: center; gap: 10px; margin-bottom: 12px; flex-wrap: wrap; }
     .sh-ed-hint { flex: 1; min-width: 200px; font-size: 0.92rem; font-weight: 600; color: #57534E; line-height: 1.35; }
     .sh-ed-grid { display: grid; grid-template-columns: minmax(0, 1fr) 360px; gap: 16px; align-items: start; }
+    .sh-ed-grid.panel-hidden { grid-template-columns: minmax(0, 1fr); }
+    .sh-ed-grid.panel-hidden .sh-ed-panel { display: none !important; }
+    .sh-ed-panel-top { display: flex; align-items: center; justify-content: space-between; gap: 8px; margin-bottom: 10px; padding-bottom: 8px; border-bottom: 1px solid #EFE6D4; }
+    .sh-ed-panel-top span { font-size: 0.72rem; font-weight: 800; letter-spacing: 0.06em; text-transform: uppercase; color: #78716C; }
+    .sh-ed-panel-hide-btn { padding: 3px 9px; border-radius: 7px; border: 1px solid #DCD3C3; background: #FAF7F2; font-family: inherit; font-size: 0.75rem; font-weight: 700; color: #57534E; cursor: pointer; display: inline-flex; align-items: center; gap: 4px; }
+    .sh-ed-panel-hide-btn:hover { border-color: #C8A96E; background: #FFF8E8; color: #181412; }
     .sh-ed-canvas { border-radius: 14px; border: 1.5px solid #E2D9C8; background: #FAF7F2; overflow: hidden; }
     .sh-ed-panel { background: #FFFFFF; border: 1.5px solid #E2D3B5; border-radius: 16px; padding: 16px; max-height: 760px; overflow-y: auto; box-shadow: 0 12px 30px -16px rgba(120, 85, 30, 0.25); position: sticky; top: 84px; }
     .sh-ed-empty { font-size: 0.98rem; color: #78716C; text-align: center; padding: 40px 10px; line-height: 1.5; }

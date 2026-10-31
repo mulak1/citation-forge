@@ -523,17 +523,39 @@ function renderSeatEditorClientScript() {
   window.shEdSeats = function(tIdx, d) { window.shChangeTableCapacity(tIdx, d); };
   window.shEdRenameTable = function(tIdx, v) { if (!String(v || '').trim()) return; window.shSnapshot(); window.shRenameTable(tIdx, v); };
 
+  /* ---- Panel minimize / reopen ---- */
+  if (typeof window.__SH_PANEL_HIDDEN === 'undefined') window.__SH_PANEL_HIDDEN = false;
+  window.shSyncRightPanelUi = function() {
+    var grid = document.getElementById('sh-ed-grid') || document.querySelector('.sh-ed-grid');
+    if (grid) grid.classList.toggle('panel-hidden', !!window.__SH_PANEL_HIDDEN);
+    var btn = document.getElementById('sh-toolbar-panel-btn');
+    if (btn) {
+      btn.innerHTML = window.__SH_PANEL_HIDDEN ? '&#8676; Reopen panel' : '&#8677; Hide panel';
+      btn.style.background = window.__SH_PANEL_HIDDEN ? '#FAF3E3' : '';
+      btn.style.borderColor = window.__SH_PANEL_HIDDEN ? '#C8A96E' : '';
+      btn.style.color = window.__SH_PANEL_HIDDEN ? '#78350F' : '';
+      btn.style.fontWeight = window.__SH_PANEL_HIDDEN ? '800' : '';
+    }
+  };
+  window.shToggleRightPanel = function(forceHidden) {
+    window.__SH_PANEL_HIDDEN = typeof forceHidden === 'boolean' ? forceHidden : !window.__SH_PANEL_HIDDEN;
+    window.shSyncRightPanelUi();
+    shToast(window.__SH_PANEL_HIDDEN ? 'Side panel minimized for full-width floorplan. Tap "\u21E4 Reopen panel" anytime.' : 'Side panel reopened.');
+  };
+
   /* ---- Panel render ---- */
   window.shRenderSeatPanel = function() {
+    if (window.shSyncRightPanelUi) window.shSyncRightPanelUi();
     var box = document.getElementById('sh-selected-table-box'); if (!box || !window.__SH_STATE || !window.__SH_STATE.tables) return;
     shSyncTableSelectAndPills(); if (window.shRenderLegend) window.shRenderLegend();
     if (window.shSyncHistoryUi) window.shSyncHistoryUi();
     if (window.shElementPanelHtml && window.__SH_SELECTED_LANDMARK_IDX != null && window.__SH_STATE.landmarks && window.__SH_STATE.landmarks[window.__SH_SELECTED_LANDMARK_IDX]) { box.innerHTML = window.shElementPanelHtml(); return; }
     var tables = window.__SH_STATE.tables, tIdx = window.__SH_SELECTED_TABLE_IDX, t = tables[tIdx];
-    if (!t) { box.innerHTML = '<div class="sh-ed-empty">Tap any table on the floorplan to see who&rsquo;s sitting there.</div>'; return; }
+    var topBar = '<div class="sh-ed-panel-top"><span>Table &amp; Guest Inspector</span><button type="button" id="sh-panel-minimize-btn" class="sh-ed-panel-hide-btn" onclick="window.shToggleRightPanel(true)" title="Minimize right side panel to expand floorplan">Minimize &#8677;</button></div>';
+    if (!t) { box.innerHTML = topBar + '<div class="sh-ed-empty">Tap any table on the floorplan to see who&rsquo;s sitting there.</div>'; return; }
     if (!t.geometry) shRecomputeGeometry(t);
     var og = window.__SH_OPEN_GUEST, isSweet = shNormalizeShape(t.shape) === 'sweetheart', free = Math.max(0, (t.capacity || 0) - t.guests.length);
-    var h = [];
+    var h = [topBar];
     if (window.shEdTopConflictHtml) h.push(window.shEdTopConflictHtml());
     h.push('<div class="sh-ed-find-wrap"><div style="position:relative;display:flex;align-items:center;"><input id="sh-ed-find-guest" class="sh-ed-find-input" value="' + shEsc(window.__SH_FIND_Q || '') + '" placeholder="Find any guest across all tables (press Enter)..." autocomplete="off" oninput="window.shEdFindInput(this.value)" onkeydown="window.shEdFindKey(event)" /><button type="button" id="sh-ed-find-clear" class="sh-ed-find-clear" aria-label="Clear search" style="display:' + ((window.__SH_FIND_Q || '').trim() ? 'block' : 'none') + ';" onclick="window.shEdFindClear()">&times;</button></div><div id="sh-ed-find-results" class="sh-ed-find-results" style="display:' + ((window.__SH_FIND_Q || '').trim() ? 'block' : 'none') + ';">' + shEdFindResultsHtml(window.__SH_FIND_Q) + '</div></div>');
     h.push('<div class="sh-ed-tbl-strip" role="navigation" aria-label="Jump to table">');
