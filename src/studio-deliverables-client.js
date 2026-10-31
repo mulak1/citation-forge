@@ -418,6 +418,67 @@ function renderDeliverablesClientScript() {
     shRenderPosterView(); shAutoPersistVault();
   };
 
+  window.shTogglePosterMiniMap = function() {
+    var cur = window.__SH_POSTER_SHOW_MAP !== false && (!window.__SH_STATE || window.__SH_STATE.posterShowMap !== false);
+    var next = !cur;
+    window.__SH_POSTER_SHOW_MAP = next;
+    if (window.__SH_STATE) window.__SH_STATE.posterShowMap = next;
+    var btn = document.getElementById('sh-poster-map-toggle');
+    if (btn) {
+      btn.classList.toggle('active', next);
+      btn.innerHTML = '&#128506; Mini Layout: ' + (next ? 'ON' : 'OFF');
+    }
+    shRenderPosterView(); shAutoPersistVault();
+  };
+
+  function shBuildPosterMiniMapHtml(plan, tSpec, themeKey) {
+    var tables = (plan && plan.tables) || [];
+    if (!tables.length) return '';
+    var minX = 1120, maxX = 0, minY = 9999, maxY = 0;
+    tables.forEach(function(tb) {
+      var tx = tb.x || 250, ty = tb.y || 200;
+      if (tx - 115 < minX) minX = tx - 115;
+      if (tx + 115 > maxX) maxX = tx + 115;
+      if (ty - 95 < minY) minY = ty - 95;
+      if (ty + 95 > maxY) maxY = ty + 95;
+    });
+    (plan.landmarks || []).forEach(function(lm) {
+      var lx = lm.x || 560, ly = lm.y || 340, lw = (lm.w || 150) / 2 + 24, lh = (lm.h || 42) / 2 + 24;
+      if (lx - lw < minX) minX = lx - lw;
+      if (lx + lw > maxX) maxX = lx + lw;
+      if (ly - lh < minY) minY = ly - lh;
+      if (ly + lh > maxY) maxY = ly + lh;
+    });
+    var vx = Math.max(0, Math.floor(minX)), vy = Math.max(0, Math.floor(minY));
+    var vw = Math.max(420, Math.ceil(maxX - vx)), vh = Math.max(260, Math.ceil(maxY - vy));
+    var isDark = themeKey === 'obsidian';
+    var mapBg = isDark ? 'rgba(255,255,255,0.04)' : 'rgba(255,255,255,0.72)';
+    var tblFill = isDark ? '#26201B' : '#FFFFFF';
+    var lmFill = isDark ? 'rgba(200,169,110,0.12)' : 'rgba(200,169,110,0.16)';
+    var svgParts = ['<svg id="sh-poster-mini-map-svg" viewBox="' + vx + ' ' + vy + ' ' + vw + ' ' + vh + '" style="width:100%;max-height:175px;height:auto;display:block;border-radius:8px;background:' + mapBg + ';border:1px solid ' + tSpec.borderCol + ';" role="img" aria-label="Mini reception table layout map">'];
+    (plan.landmarks || []).forEach(function(lm) {
+      var lx = lm.x || 560, ly = lm.y || 340, lw = lm.w || 150, lh = lm.h || 42, rot = lm.rot || 0;
+      svgParts.push('<g transform="translate(' + lx + ',' + ly + ') rotate(' + rot + ')"><rect x="' + (-lw / 2) + '" y="' + (-lh / 2) + '" width="' + lw + '" height="' + lh + '" rx="8" fill="' + lmFill + '" stroke="' + tSpec.borderCol + '" stroke-width="2" stroke-dasharray="6 4"/><text transform="rotate(' + ((rot > 90 && rot < 270) ? 180 : 0) + ')" x="0" y="5" text-anchor="middle" fill="' + tSpec.sub + '" font-size="14" font-weight="800" letter-spacing="0.05em">' + shEsc(lm.label) + '</text></g>');
+    });
+    tables.forEach(function(t, idx) {
+      if (!t.geometry) shRecomputeGeometry(t);
+      var tx = t.x || 250, ty = t.y || 200, shape = shNormalizeShape(t.shape), num = t.number || (idx + 1);
+      var isSw = shape === 'sweetheart';
+      if (shape === 'round') {
+        var r = Math.max(46, Math.round(((t.geometry && t.geometry.tableWidth) || 96) / 2));
+        svgParts.push('<circle cx="' + tx + '" cy="' + ty + '" r="' + (r + 10) + '" fill="none" stroke="' + tSpec.borderCol + '" stroke-width="1.5" stroke-dasharray="3 4" opacity="0.55"/>');
+        svgParts.push('<circle cx="' + tx + '" cy="' + ty + '" r="' + r + '" fill="' + tblFill + '" stroke="' + tSpec.borderCol + '" stroke-width="3.2"/>');
+      } else {
+        var tw = Math.max(96, (t.geometry && t.geometry.tableWidth) || 140), th = Math.max(48, (t.geometry && t.geometry.tableHeight) || 64);
+        svgParts.push('<g transform="translate(' + tx + ',' + ty + ') rotate(' + (t.rotation || 0) + ')"><rect x="' + (-tw / 2) + '" y="' + (-th / 2) + '" width="' + tw + '" height="' + th + '" rx="12" fill="' + tblFill + '" stroke="' + tSpec.borderCol + '" stroke-width="3.2"/></g>');
+      }
+      svgParts.push('<text x="' + tx + '" y="' + (ty + (isSw ? 5 : 2)) + '" text-anchor="middle" fill="' + tSpec.fg + '" font-size="' + (isSw ? '17' : '22') + '" font-weight="800">' + (isSw ? 'Sweetheart' : ('Tbl ' + num)) + '</text>');
+      if (!isSw) svgParts.push('<text x="' + tx + '" y="' + (ty + 20) + '" text-anchor="middle" fill="' + tSpec.sub + '" font-size="13.5" font-weight="700">' + (t.guests || []).length + ' Guests</text>');
+    });
+    svgParts.push('</svg>');
+    return '<div id="sh-poster-mini-map" style="margin-bottom:12px;padding:8px 10px;border-radius:10px;border:1px solid ' + tSpec.borderCol + ';background:' + (isDark ? 'rgba(255,255,255,0.03)' : 'rgba(200,169,110,0.08)') + ';"><div style="display:flex;justify-content:space-between;align-items:center;gap:8px;margin-bottom:5px;font-size:0.64rem;font-weight:800;letter-spacing:0.12em;text-transform:uppercase;color:' + tSpec.sub + ';"><span>' + tSpec.motif + ' RECEPTION ROOM &amp; TABLE NUMBER MAP (' + tables.length + ' TABLES)</span><span>FIND YOUR TABLE # BELOW &rarr; LOCATE IN ROOM</span></div>' + svgParts.join('') + '</div>';
+  }
+
   function shRenderPosterView() {
     const posterEl = document.getElementById('sh-poster-preview');
     if (!posterEl || !window.__SH_STATE) return;
@@ -443,8 +504,12 @@ function renderDeliverablesClientScript() {
     const posterCrestHtml = logoUrl
       ? '<img src="' + shEsc(logoUrl) + '" alt="Couple Crest" style="width:100%;height:100%;object-fit:contain;background:#FFFFFF;padding:4px;" />'
       : '<div id="sh-live-sign-monogram" style="display:flex;flex-direction:column;align-items:center;justify-content:center;line-height:1;"><span class="serif-display" style="font-size:1.22rem;font-weight:800;color:' + tSpec.badgeFg + ';letter-spacing:0.04em;">' + shEsc(initials) + '</span><span class="mono" style="font-size:0.44rem;font-weight:800;color:' + tSpec.badgeFg + ';opacity:0.85;letter-spacing:0.10em;margin-top:2px;">' + shEsc(monoSub) + '</span></div>';
+    const showMap = window.__SH_POSTER_SHOW_MAP !== false && (!window.__SH_STATE || window.__SH_STATE.posterShowMap !== false);
+    const mapBtn = document.getElementById('sh-poster-map-toggle');
+    if (mapBtn) { mapBtn.classList.toggle('active', showMap); mapBtn.innerHTML = '&#128506; Mini Layout: ' + (showMap ? 'ON' : 'OFF'); }
+    const miniMapHtml = showMap ? shBuildPosterMiniMapHtml(window.__SH_STATE, tSpec, themeKey) : '';
     posterEl.innerHTML =
-      '<div style="background:' + bg + ';color:' + fg + ';border:3px double ' + borderCol + ';border-radius:14px;padding:20px 18px;box-shadow:0 16px 36px rgba(24,20,18,0.12);"><div style="display:flex;align-items:center;gap:14px;text-align:left;border-bottom:1.5px double ' + borderCol + ';padding-bottom:12px;margin-bottom:14px;"><div id="poster-logo-badge" style="width:58px;height:58px;border-radius:14px;border:2px solid ' + borderCol + ';background:' + tSpec.badgeBg + ';display:flex;align-items:center;justify-content:center;flex-shrink:0;box-shadow:0 6px 14px rgba(24,20,18,0.18);overflow:hidden;">' + posterCrestHtml + '</div><div style="min-width:0;flex:1;"><div style="font-size:0.62rem;letter-spacing:0.14em;text-transform:uppercase;color:' + sub + ';font-weight:800;">' + tSpec.motif + ' 24&Prime; &times; 36&Prime; FOYER EASEL WELCOME SIGN &middot; ' + tSpec.label.toUpperCase() + ' &middot; 0.125&Prime; BLEED</div><h3 id="sh-live-sign-kicker" class="serif-display" style="font-size:1.68rem;color:' + fg + ';font-style:' + tSpec.fontStyle + ';margin:1px 0;">' + shEsc(kickerText) + '</h3><div style="font-size:0.80rem;color:' + sub + ';font-style:italic;">' + shEsc(window.__SH_STATE.title) + ' &middot; ' + shEsc(window.__SH_STATE.venueName || 'Rosewood Conservatory') + '</div></div></div>' + bodyHtml + '</div>';
+      '<div style="background:' + bg + ';color:' + fg + ';border:3px double ' + borderCol + ';border-radius:14px;padding:20px 18px;box-shadow:0 16px 36px rgba(24,20,18,0.12);"><div style="display:flex;align-items:center;gap:14px;text-align:left;border-bottom:1.5px double ' + borderCol + ';padding-bottom:12px;margin-bottom:14px;"><div id="poster-logo-badge" style="width:58px;height:58px;border-radius:14px;border:2px solid ' + borderCol + ';background:' + tSpec.badgeBg + ';display:flex;align-items:center;justify-content:center;flex-shrink:0;box-shadow:0 6px 14px rgba(24,20,18,0.18);overflow:hidden;">' + posterCrestHtml + '</div><div style="min-width:0;flex:1;"><div style="font-size:0.62rem;letter-spacing:0.14em;text-transform:uppercase;color:' + sub + ';font-weight:800;">' + tSpec.motif + ' 24&Prime; &times; 36&Prime; FOYER EASEL WELCOME SIGN &middot; ' + tSpec.label.toUpperCase() + ' &middot; 0.125&Prime; BLEED</div><h3 id="sh-live-sign-kicker" class="serif-display" style="font-size:1.68rem;color:' + fg + ';font-style:' + tSpec.fontStyle + ';margin:1px 0;">' + shEsc(kickerText) + '</h3><div style="font-size:0.80rem;color:' + sub + ';font-style:italic;">' + shEsc(window.__SH_STATE.title) + ' &middot; ' + shEsc(window.__SH_STATE.venueName || 'Rosewood Conservatory') + '</div></div></div>' + miniMapHtml + bodyHtml + '</div>';
     const averyEl = document.getElementById('sh-avery-preview');
     if (averyEl) {
       const vid = shEsc((window.__SH_STATE && window.__SH_STATE.vaultId) || 'SH-4819');
@@ -497,7 +562,8 @@ function renderDeliverablesClientScript() {
     const sortQ = encodeURIComponent(window.__SH_POSTER_MODE || state.posterSort || 'alphabetical');
     const kickerQ = encodeURIComponent(window.__SH_SIGN_KICKER || state.signKicker || 'Please Find Your Seat');
     const monoQ = encodeURIComponent(window.__SH_SIGN_MONOGRAM || state.signMonogram || '');
-    const posterQs = '?theme=' + themeQ + '&sort=' + sortQ + '&kicker=' + kickerQ + (monoQ ? ('&monogram=' + monoQ) : '');
+    const mapQ = (window.__SH_POSTER_SHOW_MAP === false || state.posterShowMap === false) ? '&map=0' : '&map=1';
+    const posterQs = '?theme=' + themeQ + '&sort=' + sortQ + '&kicker=' + kickerQ + (monoQ ? ('&monogram=' + monoQ) : '') + mapQ;
     const setHref = function(elId, url) { const el = document.getElementById(elId); if (el) el.href = url; };
     ['sh-cmd-vault-link', 'sh-footer-vault-link', 'sh-modal-link-vault'].forEach(function(k) { setHref(k, '/vault/' + id); });
     ['sh-cmd-poster-link', 'sh-open-poster-studio-link', 'sh-card5-poster-studio-link', 'sh-modal-link-poster'].forEach(function(k) { setHref(k, '/print/poster/' + id + posterQs); });

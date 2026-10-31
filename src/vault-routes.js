@@ -519,9 +519,11 @@ function attachVaultAndPaywallRoutes(app, publicUrl) {
       const urls = buildVaultUrls(baseUrl, vault.vaultId);
       const theme = String(req.query.theme || (vault.state && vault.state.posterTheme) || 'alabaster').toLowerCase();
       const sortMode = String(req.query.sort || (vault.state && vault.state.posterSort) || 'alphabetical').toLowerCase();
+      const showMap = req.query.map !== '0' && (!vault.state || vault.state.posterShowMap !== false);
       const customKicker = String(req.query.kicker || (vault.state && vault.state.signKicker) || 'Please Find Your Seat').trim();
       const guests = extractAllSeatedGuests(vault.state).sort((a, b) => a.lastName.localeCompare(b.lastName));
       const tables = Array.isArray(vault.state.tables) ? vault.state.tables : [];
+      const landmarks = Array.isArray(vault.state.landmarks) ? vault.state.landmarks : [];
       const monogram = String(req.query.monogram || (vault.state && vault.state.signMonogram) || computeMonogram(vault.title)).trim();
       const qrImgUrl = buildInlineQrDataUri(urls.qr_lookup);
 
@@ -567,8 +569,20 @@ function attachVaultAndPaywallRoutes(app, publicUrl) {
       }
 
       const themePillsHtml = Object.keys(POSTER_THEMES).map(k =>
-        `<a href="${urls.print_poster}?sort=${encodeURIComponent(sortMode)}&theme=${k}" style="padding:5px 10px;border-radius:999px;font-size:0.72rem;font-weight:800;text-decoration:none;white-space:nowrap;${theme === k ? 'background:#FAF3E3;color:#8C2D19;border:1.5px solid #8C2D19;' : 'background:#FAF6EE;color:#44403C;border:1px solid #E2D9C8;'}" title="${escapeHtml(POSTER_THEMES[k].label)}">${escapeHtml(POSTER_THEMES[k].short)}</a>`
+        `<a href="${urls.print_poster}?sort=${encodeURIComponent(sortMode)}&theme=${k}&map=${showMap ? '1' : '0'}" style="padding:5px 10px;border-radius:999px;font-size:0.72rem;font-weight:800;text-decoration:none;white-space:nowrap;${theme === k ? 'background:#FAF3E3;color:#8C2D19;border:1.5px solid #8C2D19;' : 'background:#FAF6EE;color:#44403C;border:1px solid #E2D9C8;'}" title="${escapeHtml(POSTER_THEMES[k].label)}">${escapeHtml(POSTER_THEMES[k].short)}</a>`
       ).join('');
+      let minX = 1120, maxX = 0, minY = 9999, maxY = 0;
+      tables.forEach(tb => { const tx = tb.x || 250, ty = tb.y || 200; if (tx - 115 < minX) minX = tx - 115; if (tx + 115 > maxX) maxX = tx + 115; if (ty - 95 < minY) minY = ty - 95; if (ty + 95 > maxY) maxY = ty + 95; });
+      landmarks.forEach(lm => { const lx = lm.x || 560, ly = lm.y || 340, lw = (lm.w || 150) / 2 + 24, lh = (lm.h || 42) / 2 + 24; if (lx - lw < minX) minX = lx - lw; if (lx + lw > maxX) maxX = lx + lw; if (ly - lh < minY) minY = ly - lh; if (ly + lh > maxY) maxY = ly + lh; });
+      const vx = Math.max(0, Math.floor(minX)), vy = Math.max(0, Math.floor(minY)), vw = Math.max(420, Math.ceil(maxX - vx)), vh = Math.max(260, Math.ceil(maxY - vy));
+      const isDark = theme === 'obsidian', mapBg = isDark ? 'rgba(255,255,255,0.04)' : 'rgba(255,255,255,0.72)', tblFill = isDark ? '#26201B' : '#FFFFFF';
+      const lmSvg = landmarks.map(lm => `<g transform="translate(${lm.x || 560},${lm.y || 340}) rotate(${lm.rot || 0})"><rect x="${-(lm.w || 150) / 2}" y="${-(lm.h || 42) / 2}" width="${lm.w || 150}" height="${lm.h || 42}" rx="8" fill="rgba(200,169,110,0.16)" stroke="${border}" stroke-width="2" stroke-dasharray="6 4"/><text x="0" y="5" text-anchor="middle" fill="${sub}" font-size="15" font-weight="800">${escapeHtml(lm.label || '')}</text></g>`).join('');
+      const tblSvg = tables.map((t, i) => {
+        const tx = t.x || 250, ty = t.y || 200, sh = String(t.shape || 'round').toLowerCase(), num = t.number || (i + 1), isSw = sh.includes('sweet');
+        const shapeNode = sh === 'round' ? `<circle cx="${tx}" cy="${ty}" r="58" fill="none" stroke="${border}" stroke-width="1.5" stroke-dasharray="3 4" opacity="0.55"/><circle cx="${tx}" cy="${ty}" r="48" fill="${tblFill}" stroke="${border}" stroke-width="3.2"/>` : `<g transform="translate(${tx},${ty}) rotate(${t.rotation || 0})"><rect x="-70" y="-32" width="140" height="64" rx="12" fill="${tblFill}" stroke="${border}" stroke-width="3.2"/></g>`;
+        return `${shapeNode}<text x="${tx}" y="${ty + (isSw ? 5 : 2)}" text-anchor="middle" fill="${fg}" font-size="${isSw ? 17 : 22}" font-weight="800">${isSw ? 'Sweetheart' : `Tbl ${num}`}</text>${isSw ? '' : `<text x="${tx}" y="${ty + 20}" text-anchor="middle" fill="${sub}" font-size="13.5" font-weight="700">${(t.guests || []).length} Guests</text>`}`;
+      }).join('');
+      const posterMiniMapBlock = `<div id="poster-mini-map-wrap" style="display:${showMap ? 'block' : 'none'};margin-bottom:24px;padding:14px 16px;border-radius:14px;border:1.5px solid ${border};background:${isDark ? 'rgba(255,255,255,0.03)' : 'rgba(200,169,110,0.08)'};"><div class="mono" style="display:flex;justify-content:space-between;align-items:center;margin-bottom:8px;font-size:0.68rem;font-weight:800;letter-spacing:0.12em;color:${accent};"><span>&#10022; RECEPTION ROOM &amp; TABLE NUMBER MAP (${tables.length} TABLES)</span><span>FIND YOUR TABLE # BELOW &rarr; LOCATE IN ROOM</span></div><svg viewBox="${vx} ${vy} ${vw} ${vh}" style="width:100%;max-height:230px;height:auto;display:block;border-radius:10px;background:${mapBg};border:1px solid ${border};">${lmSvg}${tblSvg}</svg></div>`;
 
       const html = `<!DOCTYPE html>
 <html lang="en">
@@ -601,8 +615,9 @@ function attachVaultAndPaywallRoutes(app, publicUrl) {
     <div style="display:flex;justify-content:space-between;align-items:center;gap:8px;flex-wrap:wrap;">
       <div style="display:flex;gap:5px;flex-wrap:wrap;align-items:center;">
         <span class="mono" style="font-size:0.68rem;color:#8C2D19;font-weight:800;white-space:nowrap;">SORT:</span>
-        <a href="${urls.print_poster}?sort=alphabetical&theme=${encodeURIComponent(theme)}" style="padding:5px 10px;border-radius:999px;font-size:0.72rem;font-weight:800;text-decoration:none;white-space:nowrap;${sortMode !== 'by_table' ? 'background:#FAF3E3;color:#8C2D19;border:1.5px solid #8C2D19;' : 'background:#FAF6EE;color:#44403C;border:1px solid #E2D9C8;'}">Sort A-Z</a>
-        <a href="${urls.print_poster}?sort=by_table&theme=${encodeURIComponent(theme)}" style="padding:5px 10px;border-radius:999px;font-size:0.72rem;font-weight:800;text-decoration:none;white-space:nowrap;${sortMode === 'by_table' ? 'background:#FAF3E3;color:#8C2D19;border:1.5px solid #8C2D19;' : 'background:#FAF6EE;color:#44403C;border:1px solid #E2D9C8;'}">By Table (1..${tables.length})</a>
+        <a href="${urls.print_poster}?sort=alphabetical&theme=${encodeURIComponent(theme)}&map=${showMap ? '1' : '0'}" style="padding:5px 10px;border-radius:999px;font-size:0.72rem;font-weight:800;text-decoration:none;white-space:nowrap;${sortMode !== 'by_table' ? 'background:#FAF3E3;color:#8C2D19;border:1.5px solid #8C2D19;' : 'background:#FAF6EE;color:#44403C;border:1px solid #E2D9C8;'}">Sort A-Z</a>
+        <a href="${urls.print_poster}?sort=by_table&theme=${encodeURIComponent(theme)}&map=${showMap ? '1' : '0'}" style="padding:5px 10px;border-radius:999px;font-size:0.72rem;font-weight:800;text-decoration:none;white-space:nowrap;${sortMode === 'by_table' ? 'background:#FAF3E3;color:#8C2D19;border:1.5px solid #8C2D19;' : 'background:#FAF6EE;color:#44403C;border:1px solid #E2D9C8;'}">By Table (1..${tables.length})</a>
+        <button type="button" onclick="var m=document.getElementById('poster-mini-map-wrap');var on=m.style.display==='none';m.style.display=on?'block':'none';this.textContent='🗺 Mini Layout: '+(on?'ON':'OFF');" style="padding:5px 10px;border-radius:999px;font-size:0.72rem;font-weight:800;cursor:pointer;background:#FAF3E3;color:#8C2D19;border:1.5px solid #8C2D19;">&#128506; Mini Layout: ${showMap ? 'ON' : 'OFF'}</button>
         <span class="mono" style="font-size:0.68rem;color:#8C2D19;font-weight:800;margin-left:4px;white-space:nowrap;">THEMES:</span>
         ${themePillsHtml}
       </div>
@@ -646,6 +661,7 @@ function attachVaultAndPaywallRoutes(app, publicUrl) {
           <div class="mono" style="font-size:0.60rem;font-weight:800;color:${accent};white-space:nowrap;">SCAN FOR SEAT MAP</div>
         </div>
       </div>
+      ${posterMiniMapBlock}
       <div style="display:grid;grid-template-columns:repeat(3, 1fr);gap:22px;">${bodyGridHtml}</div>
     </div>
     <div style="margin-top:32px;padding-top:14px;border-top:1.5px solid ${border};display:flex;justify-content:space-between;align-items:center;font-size:0.74rem;color:${sub};">
