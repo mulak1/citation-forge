@@ -545,13 +545,14 @@ function renderSeatGroupsClientScript() {
       (bs.tables || []).forEach(function(ti) {
         var tb = plan.tables && plan.tables[ti]; if (!tb) return;
         var cb2 = shTableBox(tb);
-        out.push('<rect class="sh-box-sel-table" x="' + (cb2.l + 4) + '" y="' + (cb2.t + 4) + '" width="' + (cb2.r - cb2.l - 8) + '" height="' + (cb2.b - cb2.t - 8) + '" rx="26" fill="rgba(140,45,25,0.06)" stroke="#8C2D19" stroke-width="2.4" stroke-dasharray="6 4" pointer-events="none"/>');
+        out.push('<rect data-box-tbl="' + ti + '" class="sh-box-sel-table" x="' + (cb2.l + 4) + '" y="' + (cb2.t + 4) + '" width="' + (cb2.r - cb2.l - 8) + '" height="' + (cb2.b - cb2.t - 8) + '" rx="26" fill="rgba(140,45,25,0.06)" stroke="#8C2D19" stroke-width="2.4" stroke-dasharray="6 4" pointer-events="none"/>');
       });
       (bs.landmarks || []).forEach(function(li) {
         var lm = plan.landmarks && plan.landmarks[li]; if (!lm) return;
-        out.push('<g transform="translate(' + lm.x + ',' + lm.y + ') rotate(' + (lm.rot || 0) + ')" pointer-events="none"><rect x="' + (-lm.w / 2 - 5) + '" y="' + (-lm.h / 2 - 5) + '" width="' + (lm.w + 10) + '" height="' + (lm.h + 10) + '" rx="10" fill="rgba(140,45,25,0.06)" stroke="#8C2D19" stroke-width="2.4" stroke-dasharray="6 4"/></g>');
+        out.push('<g data-box-lm="' + li + '" transform="translate(' + lm.x + ',' + lm.y + ') rotate(' + (lm.rot || 0) + ')" pointer-events="none"><rect x="' + (-lm.w / 2 - 5) + '" y="' + (-lm.h / 2 - 5) + '" width="' + (lm.w + 10) + '" height="' + (lm.h + 10) + '" rx="10" fill="rgba(140,45,25,0.06)" stroke="#8C2D19" stroke-width="2.4" stroke-dasharray="6 4"/></g>');
       });
     }
+    out.push('<rect id="sh-drop-halo-live" x="0" y="0" width="0" height="0" rx="26" fill="rgba(232,199,125,0.26)" stroke="#B89352" stroke-width="2.6" pointer-events="none" style="display:none;"/>');
     return out.join('');
   };
   function shFlash(i) { window.__SH_FLASH_TABLE = i; shRenderFloorplanSvg(); setTimeout(function() { window.__SH_FLASH_TABLE = null; shRenderFloorplanSvg(); }, 900); }
@@ -564,22 +565,45 @@ function renderSeatGroupsClientScript() {
     var guest = tbl.guests && tbl.guests[sIdx];
     if (!guest || (window.__SH_WIZARD_STEP || 1) < 4) { window.shSeatClick(tIdx, sIdx, ev); return; }
     if (window.__SH_SANDBOX_MOM && tIdx >= 3 && !tbl.isUserAdded) { shToast('Family Share Mode: only tables 1-3 are editable.'); return; }
-    var startPt = shSvgCoord(ev), moved = false;
+    var svgEl = document.getElementById('sh-floorplan-svg');
+    var fastCoord = (svgEl && window.shFastSvgTransform) ? window.shFastSvgTransform(svgEl) : shSvgCoord;
+    var ghostEl = document.getElementById('sh-drag-ghost'), ghostTxt = document.getElementById('sh-drag-ghost-text');
+    var haloEl = document.getElementById('sh-drop-halo-live');
+    var startPt = fastCoord(ev), moved = false, lbl = String(guest.name || '').split(' ')[0];
+    if (ghostTxt) ghostTxt.textContent = lbl;
     var onMove = function(mv) {
-      var cur = shSvgCoord(mv);
-      if (Math.hypot(cur.x - startPt.x, cur.y - startPt.y) > 6) moved = true;
+      var cur = fastCoord(mv);
+      if (Math.hypot(cur.x - startPt.x, cur.y - startPt.y) > 5) moved = true;
       if (!moved) return;
       if (mv.cancelable) mv.preventDefault();
-      window.__SH_DRAG_STATE = { tableIdx: tIdx, seatIdx: sIdx, x: cur.x, y: cur.y, label: String(guest.name || '').split(' ')[0] };
-      var over = shTableAt(cur); window.__SH_DROP_TABLE = (over !== -1 && over !== tIdx) ? over : null;
-      shRenderFloorplanSvg();
+      if (ghostEl) {
+        ghostEl.style.display = 'block';
+        ghostEl.setAttribute('transform', 'translate(' + cur.x + ',' + cur.y + ')');
+        var over = shTableAt(cur);
+        if (haloEl) {
+          if (over !== -1 && over !== tIdx && plan.tables[over]) {
+            var b = shTableBox(plan.tables[over]);
+            haloEl.setAttribute('x', b.l + 6); haloEl.setAttribute('y', b.t + 6);
+            haloEl.setAttribute('width', b.r - b.l - 12); haloEl.setAttribute('height', b.b - b.t - 12);
+            haloEl.style.display = 'block';
+          } else {
+            haloEl.style.display = 'none';
+          }
+        }
+      } else {
+        window.__SH_DRAG_STATE = { tableIdx: tIdx, seatIdx: sIdx, x: cur.x, y: cur.y, label: lbl };
+        var over2 = shTableAt(cur); window.__SH_DROP_TABLE = (over2 !== -1 && over2 !== tIdx) ? over2 : null;
+        shRenderFloorplanSvg();
+      }
     };
     var onUp = function(up) {
       window.removeEventListener('mousemove', onMove); window.removeEventListener('mouseup', onUp);
       window.removeEventListener('touchmove', onMove); window.removeEventListener('touchend', onUp);
+      if (ghostEl) ghostEl.style.display = 'none';
+      if (haloEl) haloEl.style.display = 'none';
       window.__SH_DRAG_STATE = null; window.__SH_DROP_TABLE = null;
       if (!moved) { window.shSeatClick(tIdx, sIdx, up); return; }
-      var drop = shSvgCoord(up), seatHit = null, sd = 24;
+      var drop = fastCoord(up), seatHit = null, sd = 24;
       plan.tables.forEach(function(t, ti) { if (!t.geometry) shRecomputeGeometry(t); t.geometry.seats.forEach(function(s, si) { var d = Math.hypot(drop.x - s.x, drop.y - s.y); if (d < sd && !(ti === tIdx && si === sIdx)) { sd = d; seatHit = { t: ti, s: si }; } }); });
       if (seatHit && plan.tables[seatHit.t].guests[seatHit.s]) { window.shSnapshot(); window.__SH_SWAP_SOURCE = { tableIdx: tIdx, seatIdx: sIdx }; window.shSeatClick(seatHit.t, seatHit.s, up); window.__SH_SWAP_SOURCE = null; shFlash(seatHit.t); return; }
       var target = seatHit ? seatHit.t : shTableAt(drop);

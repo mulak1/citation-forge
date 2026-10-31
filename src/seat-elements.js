@@ -309,24 +309,56 @@ function renderSeatElementsClientScript() {
     var isBg = ev.target === svg || (ev.target.tagName === 'rect' && ev.target.parentNode === svg);
     if (!isBg) return;
     if (ev.cancelable) ev.preventDefault();
-    var startPt = shSvgCoord(ev), moved = false;
+    var fastCoord = window.shFastSvgTransform ? window.shFastSvgTransform(svg) : shSvgCoord;
+    var startPt = fastCoord(ev), moved = false;
+    var mGroup = document.getElementById('sh-marquee-live');
+    var mRect = document.getElementById('sh-marquee-rect');
+    var mBadge = document.getElementById('sh-marquee-badge');
+    var mText = document.getElementById('sh-marquee-text');
+    var seatRings = {};
+    svg.querySelectorAll('[data-seat-ring]').forEach(function(el) { seatRings[el.getAttribute('data-seat-ring')] = el; });
     var onMove = function(mv) {
-      var cur = shSvgCoord(mv);
+      var cur = fastCoord(mv);
       var x = Math.min(startPt.x, cur.x), y = Math.min(startPt.y, cur.y);
       var w = Math.abs(cur.x - startPt.x), h = Math.abs(cur.y - startPt.y);
-      if (w > 6 || h > 6) moved = true;
+      if (w > 4 || h > 4) moved = true;
       if (!moved) return;
       if (mv.cancelable) mv.preventDefault();
       window.__SH_BOX_RECT = { x: x, y: y, w: w, h: h };
-      window.__SH_BOX_SEL = window.shComputeHitsInRect(x, y, x + w, y + h);
-      shRenderFloorplanSvg();
+      var hits = window.shComputeHitsInRect(x, y, x + w, y + h);
+      window.__SH_BOX_SEL = hits;
+      if (mGroup && mRect) {
+        mGroup.style.display = 'block';
+        mRect.setAttribute('x', x); mRect.setAttribute('y', y);
+        mRect.setAttribute('width', w); mRect.setAttribute('height', h);
+        var hitMap = {};
+        (hits.guests || []).forEach(function(g) { hitMap[g.t + ':' + g.s] = true; });
+        Object.keys(seatRings).forEach(function(k) { seatRings[k].style.display = hitMap[k] ? 'block' : 'none'; });
+        var bsSum = window.shFormatBoxSelSummary(hits);
+        if (mBadge && mText) {
+          if (bsSum) {
+            var by = Math.max(8, y - 24);
+            mBadge.setAttribute('x', x); mBadge.setAttribute('y', by);
+            mBadge.setAttribute('width', Math.max(120, bsSum.length * 7 + 22));
+            mBadge.style.display = 'block';
+            mText.setAttribute('x', x + 10); mText.setAttribute('y', by + 14);
+            mText.textContent = bsSum;
+          } else {
+            mBadge.style.display = 'none';
+            mText.textContent = '';
+          }
+        }
+      } else {
+        shRenderFloorplanSvg();
+      }
     };
     var onUp = function() {
       window.removeEventListener('mousemove', onMove);
       window.removeEventListener('mouseup', onUp);
+      if (mGroup) mGroup.style.display = 'none';
       var rect = window.__SH_BOX_RECT;
       window.__SH_BOX_RECT = null;
-      if (!moved || !rect || (rect.w < 8 && rect.h < 8)) {
+      if (!moved || !rect || (rect.w < 6 && rect.h < 6)) {
         if (window.shHasBoxSelection()) {
           window.shClearBoxSelection();
           shToast('Cleared box selection.');
