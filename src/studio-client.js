@@ -478,6 +478,7 @@ function renderInteractiveScript(initialPlan) {
   };
 
   window.shSetActiveTab = function(view) {
+    if (view === 'seating') view = 'floorplan';
     window.__SH_ACTIVE_VIEW = view;
     ['floorplan', 'beo', 'poster', 'qr'].forEach(function(k) {
       const btn = document.getElementById('sh-tab-' + k), pane = document.getElementById('sh-pane-' + k);

@@ -449,7 +449,7 @@ function renderZone3InteractiveStudio(plan) {
 
             <!-- Stage Footer -->
             <div style="display:flex;justify-content:space-between;align-items:center;gap:8px;flex-wrap:wrap;font-size:0.78rem;color:#78716C;padding:2px 4px 0;">
-              <a id="sh-footer-vault-link" href="/vault/${vId}" style="color:#065F46;font-weight:700;text-decoration:none;">All Print &amp; Caterer Files (#${vId}) &nearr;</a>
+              <a id="sh-footer-vault-link" href="/vault/${vId}" style="color:#065F46;font-weight:700;text-decoration:none;">All Print &amp; Caterer Files &nearr;</a>
               <a href="/directory" class="sh-venue-cta">Browse venue layouts by guests &amp; room size &rarr;</a>
             </div>
           </div>

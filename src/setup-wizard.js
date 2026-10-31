@@ -269,10 +269,10 @@ function renderSetupWizardClientScript() {
         + '<span class="shw-pop-actions">' + (ok && k !== 'qr' ? '<button type="button" class="shw-pop-link" onclick="window.shwPopEdit(\\'' + k + '\\')">Edit</button><button type="button" class="shw-pop-link muted" onclick="window.shwClear(\\'' + k + '\\')">Clear</button>' : (k === 'qr' && ok ? '<button type="button" class="shw-pop-link" onclick="window.shwPopEdit(\\'qr\\')">View</button>' : '<button type="button" class="shw-pop-link" onclick="window.shwPopEdit(\\'' + k + '\\')">Add</button>')) + '</span></li>';
     }).join('');
     var cta = shwEl('shw-pop-cta');
-    cta.textContent = n === 5 ? 'Review floorplan' : 'Continue setup';
+    cta.textContent = n === 5 ? 'Review & Fine-Tune Floorplan \u2192' : 'Continue Setup \u2192';
     var foot = shwEl('shw-pop-foot');
     if (foot && !S.confirmClear) {
-      foot.innerHTML = '<button type="button" class="shw-link" onclick="window.shwAskClearAll()">Clear everything</button>';
+      foot.innerHTML = '<button type="button" class="shw-link" onclick="window.shwGoToFloorplan()">Review &amp; fine-tune floorplan &rarr;</button> &middot; <button type="button" class="shw-link muted" onclick="window.shwAskClearAll()">Clear everything</button>';
     }
   }
   window.shwToggleBinder = function(force) {
@@ -289,7 +289,25 @@ function renderSetupWizardClientScript() {
     if (!e.target.isConnected || pop.contains(e.target) || (e.target.closest && (e.target.closest('#shw-dock') || e.target.closest('#nav-binder-btn')))) return;
     window.shwToggleBinder(false);
   });
-  function shwScrollStudio() { var st = shwEl('studio'); if (st) window.scrollTo({ top: st.getBoundingClientRect().top + window.pageYOffset - 70, behavior: 'smooth' }); }
+  function shwScrollStudio() {
+    var target = shwEl('sh-builder-grid');
+    if (!target || target.style.display === 'none') target = shwEl('studio');
+    if (target) window.scrollTo({ top: target.getBoundingClientRect().top + window.pageYOffset - 80, behavior: 'smooth' });
+  }
+  window.shwGoToFloorplan = function() {
+    window.shwToggleBinder(false);
+    window.__SH_SETUP.userStarted = true;
+    var g = shwEl('sh-builder-grid');
+    if (!g || g.style.display === 'none') {
+      if (window.__SH_SETUP.kitCount === 5 && !window.__SH_SETUP.built && !window.__SH_SETUP.sample) {
+        window.shwBuild();
+      } else {
+        window.shFinishSetupWizard();
+      }
+    }
+    if (window.shSetActiveTab) window.shSetActiveTab('floorplan');
+    setTimeout(shwScrollStudio, 60);
+  };
   window.shwPopEdit = function(k) {
     window.shwToggleBinder(false);
     if (k === 'qr' && window.__SH_SETUP.built) { shwScrollStudio(); setTimeout(function() { window.shSetActiveTab('qr'); }, 250); return; }
@@ -298,9 +316,7 @@ function renderSetupWizardClientScript() {
   window.shwPopCta = function() {
     var S = window.__SH_SETUP; window.shwToggleBinder(false);
     if (S.kitCount === 5) {
-      var g = shwEl('sh-builder-grid');
-      if (g && g.style.display !== 'none') { shwScrollStudio(); return; }
-      window.shFinishSetupWizard();
+      window.shwGoToFloorplan();
       return;
     }
     window.shOpenSetupWizard(shwNextStep(S.kitSt || shwKitState()));
