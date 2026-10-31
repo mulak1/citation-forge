@@ -427,7 +427,7 @@ function renderZone3InteractiveStudio(plan) {
                   <div><label for="sh-inline-sign-mono" style="display:block;font-size:0.68rem;font-weight:800;color:#78350F;text-transform:uppercase;margin-bottom:3px;">Monogram &amp; Date</label><input id="sh-inline-sign-mono" type="text" class="sh-ed-input" placeholder="M&amp;L &middot; OCT 24, 2026" oninput="window.shUpdateSignMonogram(this.value)" /></div>
                   <div><label for="sh-inline-sign-venue" style="display:block;font-size:0.68rem;font-weight:800;color:#78350F;text-transform:uppercase;margin-bottom:3px;">Reception Subtitle / Venue</label><input id="sh-inline-sign-venue" type="text" class="sh-ed-input" placeholder="The Conservatory at Villa Bellagio" oninput="window.shUpdateSignVenue(this.value)" /></div>
                 </div>
-                <div id="sh-poster-preview" style="max-height:540px;overflow-y:auto;margin-bottom:10px;"></div>
+                <div id="sh-poster-preview" style="max-height:760px;overflow-y:auto;margin-bottom:10px;"></div>
                 <div id="sh-avery-preview"></div>
               </div>
 

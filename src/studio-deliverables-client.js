@@ -443,40 +443,52 @@ function renderDeliverablesClientScript() {
       if (ty + 95 > maxY) maxY = ty + 95;
     });
     (plan.landmarks || []).forEach(function(lm) {
-      var lx = lm.x || 560, ly = lm.y || 340, lw = (lm.w || 150) / 2 + 24, lh = (lm.h || 42) / 2 + 24;
+      var lx = lm.x || 560, ly = lm.y || 340, lw = Math.max(185, lm.w || 150) / 2 + 24, lh = Math.max(46, lm.h || 44) / 2 + 24;
       if (lx - lw < minX) minX = lx - lw;
       if (lx + lw > maxX) maxX = lx + lw;
       if (ly - lh < minY) minY = ly - lh;
       if (ly + lh > maxY) maxY = ly + lh;
     });
     var vx = Math.max(0, Math.floor(minX)), vy = Math.max(0, Math.floor(minY));
-    var vw = Math.max(420, Math.ceil(maxX - vx)), vh = Math.max(260, Math.ceil(maxY - vy));
+    var vw = Math.max(540, Math.ceil(maxX - vx)), vh = Math.max(340, Math.ceil(maxY - vy));
     var isDark = themeKey === 'obsidian';
-    var mapBg = isDark ? 'rgba(255,255,255,0.04)' : 'rgba(255,255,255,0.72)';
-    var tblFill = isDark ? '#26201B' : '#FFFFFF';
-    var lmFill = isDark ? 'rgba(200,169,110,0.12)' : 'rgba(200,169,110,0.16)';
-    var svgParts = ['<svg id="sh-poster-mini-map-svg" viewBox="' + vx + ' ' + vy + ' ' + vw + ' ' + vh + '" style="width:100%;max-height:175px;height:auto;display:block;border-radius:8px;background:' + mapBg + ';border:1px solid ' + tSpec.borderCol + ';" role="img" aria-label="Mini reception table layout map">'];
+    var mapBg = isDark ? '#1F1A17' : '#FFFFFF';
+    var tblFill = isDark ? '#2B231D' : '#FAF6EE';
+    var lmFill = isDark ? 'rgba(200,169,110,0.14)' : '#F5EFE4';
+    var svgParts = ['<svg id="sh-poster-mini-map-svg" viewBox="' + vx + ' ' + vy + ' ' + vw + ' ' + vh + '" style="width:100%;height:auto;max-height:420px;display:block;border-radius:10px;background:' + mapBg + ';border:1.5px solid ' + tSpec.borderCol + ';box-shadow:inset 0 0 0 4px ' + (isDark ? 'rgba(200,169,110,0.08)' : 'rgba(200,169,110,0.12)') + ';" role="img" aria-label="Reception room table number map">'];
     (plan.landmarks || []).forEach(function(lm) {
-      var lx = lm.x || 560, ly = lm.y || 340, lw = lm.w || 150, lh = lm.h || 42, rot = lm.rot || 0;
-      svgParts.push('<g transform="translate(' + lx + ',' + ly + ') rotate(' + rot + ')"><rect x="' + (-lw / 2) + '" y="' + (-lh / 2) + '" width="' + lw + '" height="' + lh + '" rx="8" fill="' + lmFill + '" stroke="' + tSpec.borderCol + '" stroke-width="2" stroke-dasharray="6 4"/><text transform="rotate(' + ((rot > 90 && rot < 270) ? 180 : 0) + ')" x="0" y="5" text-anchor="middle" fill="' + tSpec.sub + '" font-size="14" font-weight="800" letter-spacing="0.05em">' + shEsc(lm.label) + '</text></g>');
+      var lx = lm.x || 560, ly = lm.y || 340, rot = lm.rot || 0;
+      var shortLm = String(lm.label || '').replace(/\\s*\\([^)]*\\)/g, '').replace(/\\s*&\\s*ACCESSIBLE EXIT/i, '').replace(/\\s*&\\s*SUBWOOFER/i, '').trim();
+      var lw = Math.max(165, lm.w || 150, shortLm.length * 10 + 28), lh = Math.max(46, lm.h || 44);
+      svgParts.push('<g transform="translate(' + lx + ',' + ly + ') rotate(' + rot + ')"><rect x="' + (-lw / 2) + '" y="' + (-lh / 2) + '" width="' + lw + '" height="' + lh + '" rx="10" fill="' + lmFill + '" stroke="' + tSpec.borderCol + '" stroke-width="2.2" stroke-dasharray="6 4"/><text transform="rotate(' + ((rot > 90 && rot < 270) ? 180 : 0) + ')" x="0" y="5" text-anchor="middle" fill="' + tSpec.sub + '" font-size="14" font-weight="800" letter-spacing="0.07em">' + shEsc(shortLm) + '</text></g>');
     });
     tables.forEach(function(t, idx) {
       if (!t.geometry) shRecomputeGeometry(t);
       var tx = t.x || 250, ty = t.y || 200, shape = shNormalizeShape(t.shape), num = t.number || (idx + 1);
       var isSw = shape === 'sweetheart';
       if (shape === 'round') {
-        var r = Math.max(46, Math.round(((t.geometry && t.geometry.tableWidth) || 96) / 2));
-        svgParts.push('<circle cx="' + tx + '" cy="' + ty + '" r="' + (r + 10) + '" fill="none" stroke="' + tSpec.borderCol + '" stroke-width="1.5" stroke-dasharray="3 4" opacity="0.55"/>');
-        svgParts.push('<circle cx="' + tx + '" cy="' + ty + '" r="' + r + '" fill="' + tblFill + '" stroke="' + tSpec.borderCol + '" stroke-width="3.2"/>');
+        var r = 62;
+        for (var ci = 0; ci < Math.min(12, t.capacity || 8); ci++) {
+          var ca = -Math.PI / 2 + (2 * Math.PI * ci) / Math.min(12, t.capacity || 8);
+          svgParts.push('<circle cx="' + (tx + (r + 10) * Math.cos(ca)).toFixed(1) + '" cy="' + (ty + (r + 10) * Math.sin(ca)).toFixed(1) + '" r="5.8" fill="' + tblFill + '" stroke="' + tSpec.borderCol + '" stroke-width="1.8"/>');
+        }
+        svgParts.push('<circle cx="' + tx + '" cy="' + ty + '" r="' + r + '" fill="' + tblFill + '" stroke="' + tSpec.borderCol + '" stroke-width="3.4"/>');
+        svgParts.push('<circle cx="' + tx + '" cy="' + ty + '" r="' + (r - 6) + '" fill="none" stroke="' + tSpec.borderCol + '" stroke-width="1" opacity="0.5"/>');
       } else {
-        var tw = Math.max(96, (t.geometry && t.geometry.tableWidth) || 140), th = Math.max(48, (t.geometry && t.geometry.tableHeight) || 64);
-        svgParts.push('<g transform="translate(' + tx + ',' + ty + ') rotate(' + (t.rotation || 0) + ')"><rect x="' + (-tw / 2) + '" y="' + (-th / 2) + '" width="' + tw + '" height="' + th + '" rx="12" fill="' + tblFill + '" stroke="' + tSpec.borderCol + '" stroke-width="3.2"/></g>');
+        var tw = isSw ? 168 : 172, th = isSw ? 66 : 74;
+        svgParts.push('<g transform="translate(' + tx + ',' + ty + ') rotate(' + (t.rotation || 0) + ')"><rect x="' + (-tw / 2) + '" y="' + (-th / 2) + '" width="' + tw + '" height="' + th + '" rx="16" fill="' + tblFill + '" stroke="' + tSpec.borderCol + '" stroke-width="3.4"/><rect x="' + (-tw / 2 + 5) + '" y="' + (-th / 2 + 5) + '" width="' + (tw - 10) + '" height="' + (th - 10) + '" rx="12" fill="none" stroke="' + tSpec.borderCol + '" stroke-width="1" opacity="0.5"/></g>');
       }
-      svgParts.push('<text x="' + tx + '" y="' + (ty + (isSw ? 5 : 2)) + '" text-anchor="middle" fill="' + tSpec.fg + '" font-size="' + (isSw ? '17' : '22') + '" font-weight="800">' + (isSw ? 'Sweetheart' : ('Tbl ' + num)) + '</text>');
-      if (!isSw) svgParts.push('<text x="' + tx + '" y="' + (ty + 20) + '" text-anchor="middle" fill="' + tSpec.sub + '" font-size="13.5" font-weight="700">' + (t.guests || []).length + ' Guests</text>');
+      if (isSw) {
+        svgParts.push('<text x="' + tx + '" y="' + (ty - 2) + '" text-anchor="middle" fill="' + tSpec.fg + '" font-family="Cormorant Garamond, Georgia, serif" font-size="24" font-weight="700" font-style="italic">Sweetheart</text>');
+        svgParts.push('<text x="' + tx + '" y="' + (ty + 17) + '" text-anchor="middle" fill="' + tSpec.sub + '" font-size="12.5" font-weight="800" letter-spacing="0.08em">TABLE 1 &middot; ' + (t.guests || []).length + ' SEATS</text>');
+      } else {
+        svgParts.push('<text x="' + tx + '" y="' + (ty - 17) + '" text-anchor="middle" fill="' + tSpec.sub + '" font-size="11.5" font-weight="800" letter-spacing="0.16em">TABLE</text>');
+        svgParts.push('<text x="' + tx + '" y="' + (ty + 12) + '" text-anchor="middle" fill="' + tSpec.fg + '" font-family="Cormorant Garamond, Georgia, serif" font-size="38" font-weight="700">' + num + '</text>');
+        svgParts.push('<text x="' + tx + '" y="' + (ty + 29) + '" text-anchor="middle" fill="' + tSpec.sub + '" font-size="12.5" font-weight="700">' + (t.guests || []).length + ' Guests</text>');
+      }
     });
     svgParts.push('</svg>');
-    return '<div id="sh-poster-mini-map" style="margin-bottom:12px;padding:8px 10px;border-radius:10px;border:1px solid ' + tSpec.borderCol + ';background:' + (isDark ? 'rgba(255,255,255,0.03)' : 'rgba(200,169,110,0.08)') + ';"><div style="display:flex;justify-content:space-between;align-items:center;gap:8px;margin-bottom:5px;font-size:0.64rem;font-weight:800;letter-spacing:0.12em;text-transform:uppercase;color:' + tSpec.sub + ';"><span>' + tSpec.motif + ' RECEPTION ROOM &amp; TABLE NUMBER MAP (' + tables.length + ' TABLES)</span><span>FIND YOUR TABLE # BELOW &rarr; LOCATE IN ROOM</span></div>' + svgParts.join('') + '</div>';
+    return '<div id="sh-poster-mini-map" style="margin-bottom:16px;padding:12px 14px;border-radius:12px;border:1.5px solid ' + tSpec.borderCol + ';background:' + (isDark ? 'rgba(255,255,255,0.03)' : 'rgba(200,169,110,0.10)') + ';"><div style="display:flex;justify-content:space-between;align-items:center;gap:8px;margin-bottom:8px;font-size:0.72rem;font-weight:800;letter-spacing:0.12em;text-transform:uppercase;color:' + tSpec.fg + ';"><span>' + tSpec.motif + ' RECEPTION FLOORPLAN &amp; TABLE NUMBERS (' + tables.length + ' TABLES)</span><span style="color:' + tSpec.sub + ';">FIND YOUR NAME BELOW &rarr; LOCATE YOUR TABLE</span></div>' + svgParts.join('') + '</div>';
   }
 
   function shRenderPosterView() {
