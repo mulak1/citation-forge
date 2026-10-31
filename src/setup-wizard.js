@@ -81,9 +81,12 @@ function renderSetupWizardHtml() {
             <h3 class="shw-q">Paste your guest list</h3>
             <p class="shw-hint">One household per line. Couples and kids stay together.</p>
             <textarea id="shw-guests" class="shw-input shw-textarea" rows="7" placeholder="Sarah &amp; Mark Miller + 2 kids&#10;Aunt Patricia + guest&#10;Dr. &amp; Mrs. James Chen&#10;Grandma Rose (wheelchair)" oninput="window.shwCountGuests()"></textarea>
-            <div class="shw-row-between">
+            <div class="shw-row-between" style="flex-wrap:wrap;gap:8px;">
               <span class="shw-hint" id="shw-guest-tally" style="margin:0;">0 households</span>
-              <label class="shw-link" style="cursor:pointer;">Upload CSV<input type="file" accept=".csv,.txt" style="display:none;" onchange="window.shwUploadCsv(this)" /></label>
+              <span style="display:inline-flex;align-items:center;gap:12px;flex-wrap:wrap;">
+                <button type="button" class="shw-link" onclick="window.shwPasteSampleList()">&#128203; Try sample list (with meals &amp; allergies)</button>
+                <label class="shw-link" style="cursor:pointer;">Upload Zola / CSV<input type="file" accept=".csv,.txt" style="display:none;" onchange="window.shwUploadCsv(this)" /></label>
+              </span>
             </div>
             <button type="button" class="shw-primary" onclick="window.shwGo(1)">Continue &rarr;</button>
             <div class="shw-alt"><button type="button" class="shw-link" onclick="document.getElementById('shw-guests').value='';window.shwCountGuests();window.shwGo(1)">Skip, I&rsquo;ll add guests later</button></div>
@@ -391,10 +394,41 @@ function renderSetupWizardClientScript() {
     window.shwPaintKit();
     if (el) el.textContent = lines.length + ' household' + (lines.length === 1 ? '' : 's') + (people ? ' \\u00b7 ' + people + ' guests' : '');
   };
+  window.shwPasteSampleList = function() {
+    var sample = [
+      'Eleanor Vance (Mother of Bride, fish, low sodium) & Grandma Rose Lin (fish, wheelchair)',
+      'Richard Vance (Father of Bride, steak) & Claire Vance (chicken)',
+      'Sarah Miller (fish, gluten-free) & Mark Miller (steak) + 2 kids',
+      'Aunt Patricia (chicken, nut allergy) + guest (fish)',
+      'Dr. & Mrs. James Chen (vegan, dairy-free)',
+      'Marcus Sterling (Best Man, steak) & Jenna Sterling (chicken)',
+      'Priya Meyer (vegetarian) & Lukas Meyer (fish)',
+      'Uncle Bob (steak) & Aunt Linda (chicken, shellfish allergy)',
+      'David Kim (steak) & Rachel Kim (vegan) + 1 kid',
+      'Hannah Brooks (chicken) & Devon Brooks (fish)'
+    ].join('\\n');
+    var el = shwEl('shw-guests'); if (el) el.value = sample;
+    if (!window.__SH_SETUP.apart.length) window.__SH_SETUP.apart = [['Eleanor Vance', 'Richard Vance']];
+    window.shwCountGuests();
+    if (typeof shToast === 'function') shToast('\\u2713 Loaded 10 sample households (23 guests with meals, kids, wheelchair & allergies)');
+  };
   window.shwUploadCsv = function(inp) {
     var f = inp && inp.files && inp.files[0]; if (!f) return;
     var r = new FileReader();
-    r.onload = function(ev) { shwEl('shw-guests').value = String(ev.target.result || '').split(/\\r?\\n/).map(function(l) { return l.split(',')[0].replace(/^"|"$/g, '').trim(); }).filter(Boolean).join('\\n'); window.shwCountGuests(); };
+    r.onload = function(ev) {
+      var rows = String(ev.target.result || '').split(/\\r?\\n/).map(function(l) {
+        var cols = l.split(',').map(function(c) { return c.replace(/^"|"$/g, '').trim(); }).filter(Boolean);
+        if (!cols.length) return '';
+        if (/^(first\\s*name|full\\s*name|guest\\s*name|name|household|party)$/i.test(cols[0])) return '';
+        if (cols.length === 1) return cols[0];
+        var looksSplitName = cols.length >= 2 && cols[0].indexOf(' ') === -1 && cols[1].indexOf(' ') === -1 && !/beef|steak|fish|halibut|salmon|chicken|vegan|vegetarian|kid|nut|gluten|celiac|dairy|wheelchair/i.test(cols[1]);
+        var name = looksSplitName ? (cols[0] + ' ' + cols[1]) : cols[0];
+        var meta = cols.slice(looksSplitName ? 2 : 1).join(', ');
+        return meta ? (name + ' (' + meta + ')') : name;
+      }).filter(Boolean);
+      shwEl('shw-guests').value = rows.join('\\n');
+      window.shwCountGuests();
+    };
     r.readAsText(f);
   };
   window.shwAddApart = function() {

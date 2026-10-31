@@ -196,37 +196,94 @@ function renderSeatEditorClientScript() {
     window.shRemoveGuest(tIdx, sIdx); window.__SH_OPEN_GUEST = null;
     shToast('Removed ' + g.name + '. Tap Undo to bring them back.'); shRenderAll();
   };
+  function shExtractTags(str, fallbackStr) {
+    var s = (String(str || '') + ' ' + String(fallbackStr || '')).toLowerCase();
+    var meal = 'Filet Mignon';
+    if (/kid|child|tender/.test(s) && !/\\+\\s*\\d+\\s*kid/.test(s)) meal = 'Kids Chicken Tenders';
+    else if (/chicken|poultry/.test(s)) meal = 'Roasted Chicken';
+    else if (/halibut|fish|salmon|seafood/.test(s)) meal = 'Pan-Seared Halibut';
+    else if (/vegan|risotto/.test(s)) meal = 'Vegan Risotto';
+    else if (/vegetarian|mushroom|tart|pasta|\\bveg\\b/.test(s)) meal = 'Wild Mushroom Tart';
+    var allergy = '';
+    if (/peanut|\\bnut\\b|tree\\s*nut/.test(s)) allergy = '🥜 SEVERE PEANUT ALLERGY';
+    else if (/celiac|gluten|\\bgf\\b/.test(s)) allergy = '🌾 SEVERE CELIAC (GF)';
+    else if (/dairy|lactose|\\bdf\\b/.test(s)) allergy = '🥛 DAIRY-FREE';
+    else if (/shellfish|shrimp/.test(s)) allergy = '🦐 SHELLFISH ALLERGY';
+    else if (/low\\s*sodium/.test(s)) allergy = 'LOW SODIUM';
+    else if (/kosher/.test(s)) allergy = 'KOSHER MEAL';
+    var access = '';
+    if (/wheelchair|\\bada\\b|scooter/.test(s)) access = '♿ REMOVE CHAIR FOR WHEELCHAIR';
+    else if (/highchair|booster/.test(s)) access = '👶 ADD HIGHCHAIR';
+    var rel = '';
+    if (/mother|father|\\bmom\\b|\\bdad\\b|parent|stepmom|stepdad/.test(s)) rel = 'parents';
+    else if (/grandma|grandpa|nana|aunt|uncle|cousin|sister|brother|family/.test(s)) rel = 'family';
+    else if (/best\\s*man|maid\\s*of\\s*honor|bridesmaid|groomsman|wedding\\s*party|coordinator/.test(s)) rel = 'party';
+    return { meal: meal, allergy: allergy, accessibility: access, rel: rel };
+  }
   function shParseHouseholdLine(raw) {
     var line = String(raw || '').trim(); if (!line) return [];
     var kidsMatch = line.match(/\\+\\s*(\\d+)\\s*(?:kid|child)[a-z]*/i);
     var numKids = kidsMatch ? Number(kidsMatch[1]) : 0;
-    var clean = line.replace(/\\+\\s*\\d+\\s*(?:kid|child)[a-z]*/i, '').trim();
-    if (/^Dr\\.?\\s*&\\s*Mrs\\.?\\s+(.+)$/i.test(clean)) {
-      var sn0 = clean.replace(/^Dr\\.?\\s*&\\s*Mrs\\.?\\s+/i, '').trim();
-      clean = 'Dr. ' + sn0 + ' & Mrs. ' + sn0;
-    } else if (/^The\\s+([A-Za-z-]+)\\s+Family$/i.test(clean)) {
-      var fam = clean.replace(/^The\\s+|\\s+Family$/gi, '').trim();
-      clean = fam + ' Parent 1 & ' + fam + ' Parent 2';
+    var hasPlusGuest = /\\+\\s*(?:1\\s*)?guest\\b/i.test(line);
+    var globalParens = (line.match(/\\(([^)]*)\\)/g) || []).join(' ');
+    var cleanNoKids = line.replace(/\\+\\s*\\d+\\s*(?:kid|child)[a-z]*/i, '').replace(/\\+\\s*(?:1\\s*)?guest\\b(\\s*\\([^)]*\\))?/i, '').trim();
+    var rawSegments = [], depth = 0, buf = '';
+    for (var ci = 0; ci < cleanNoKids.length; ci++) {
+      var ch = cleanNoKids[ci];
+      if (ch === '(') depth++;
+      else if (ch === ')' && depth > 0) depth--;
+      if (depth === 0 && (ch === '&' || ch === '+')) {
+        if (buf.trim()) rawSegments.push(buf.trim());
+        buf = '';
+      } else if (depth === 0 && /^and\\b/i.test(cleanNoKids.slice(ci)) && (ci === 0 || /\\s/.test(cleanNoKids[ci - 1]))) {
+        if (buf.trim()) rawSegments.push(buf.trim());
+        buf = '';
+        ci += 2;
+      } else {
+        buf += ch;
+      }
     }
-    var parts = clean.split(/\\s*(?:&|\\band\\b|\\+|,)\\s*/i).map(function(s) { return s.trim(); }).filter(Boolean);
+    if (buf.trim()) rawSegments.push(buf.trim());
+    if (rawSegments.length === 1 && /^Dr\\.?\\s*&\\s*Mrs\\.?\\s+(.+)$/i.test(rawSegments[0].replace(/\\([^)]*\\)/g, '').trim())) {
+      var sn0 = rawSegments[0].replace(/\\([^)]*\\)/g, '').replace(/^Dr\\.?\\s*&\\s*Mrs\\.?\\s+/i, '').trim();
+      rawSegments = ['Dr. ' + sn0 + ' ' + globalParens, 'Mrs. ' + sn0 + ' ' + globalParens];
+    } else if (rawSegments.length === 1 && /^The\\s+([A-Za-z-]+)\\s+Family/i.test(rawSegments[0])) {
+      var fam = rawSegments[0].replace(/\\([^)]*\\)/g, '').replace(/^The\\s+|\\s+Family.*$/gi, '').trim();
+      rawSegments = [fam + ' Parent 1 ' + globalParens, fam + ' Parent 2 ' + globalParens];
+    }
+    var strippedParts = rawSegments.map(function(s) { return s.replace(/\\([^)]*\\)/g, '').trim(); }).filter(Boolean);
     var lastSurname = '';
-    if (parts.length > 1) {
-      var lw = parts[parts.length - 1].replace(/^(Dr|Mr|Mrs|Ms|Prof)\\.?\\s+/i, '').trim().split(/\\s+/);
+    if (strippedParts.length >= 1) {
+      var lw = strippedParts[strippedParts.length - 1].replace(/^(Dr|Mr|Mrs|Ms|Prof)\\.?\\s+/i, '').trim().split(/\\s+/);
       if (lw.length >= 2) lastSurname = lw[lw.length - 1];
     }
-    var hhId = (parts.length > 1 || numKids > 0) ? ('hh_' + Date.now() + '_' + Math.floor(Math.random() * 999)) : '';
-    var out = parts.map(function(p, i) {
-      var nm = p;
-      if (/^\\d*\\s*guest/i.test(nm) || nm === '1') nm = parts[0] + ' (Guest)';
-      else if (i < parts.length - 1 && lastSurname && nm.replace(/^(Dr|Mr|Mrs|Ms|Prof)\\.?\\s+/i, '').trim().split(/\\s+/).length === 1) nm = nm + ' ' + lastSurname;
-      return { name: nm, initials: shMakeInitials(nm), role: 'Guest', meal: 'Filet Mignon', allergy: '', accessibility: '', hhId: hhId };
+    var hhId = (strippedParts.length > 1 || numKids > 0 || hasPlusGuest) ? ('hh_' + Date.now() + '_' + Math.floor(Math.random() * 9999)) : '';
+    var out = strippedParts.map(function(nm, i) {
+      var segRaw = rawSegments[i] || nm;
+      var tags = shExtractTags(segRaw, strippedParts.length > 1 && segRaw.indexOf('(') === -1 ? globalParens : '');
+      if (strippedParts.length === 2 && i === 1 && segRaw.indexOf('(') !== -1 && /&\\s*(chicken|fish|halibut|steak|beef|vegan|vegetarian)/i.test(segRaw)) {
+        var secondMealMatch = segRaw.match(/&\\s*(chicken|fish|halibut|steak|beef|vegan|vegetarian)/i);
+        if (secondMealMatch) tags.meal = shExtractTags(secondMealMatch[1], '').meal;
+      } else if (strippedParts.length === 2 && i === 0 && rawSegments[1] && /&\\s*(chicken|fish|halibut|steak|beef|vegan|vegetarian)/i.test(rawSegments[1])) {
+        var firstMealMatch = rawSegments[1].match(/\\((?:[^,)]*,\\s*)?(chicken|fish|halibut|steak|beef|vegan|vegetarian)\\s*&/i);
+        if (firstMealMatch) tags.meal = shExtractTags(firstMealMatch[1], '').meal;
+      }
+      if (/^\\d*\\s*guest/i.test(nm) || nm === '1') nm = (strippedParts[0] || 'Guest') + ' (+1 Guest)';
+      else if (i < strippedParts.length - 1 && lastSurname && nm.replace(/^(Dr|Mr|Mrs|Ms|Prof)\\.?\\s+/i, '').trim().split(/\\s+/).length === 1) nm = nm + ' ' + lastSurname;
+      return { name: nm, initials: shMakeInitials(nm), role: hhId ? 'Coupled Household' : 'Guest', meal: tags.meal, allergy: tags.allergy, accessibility: tags.accessibility, rel: tags.rel, hhId: hhId };
     });
+    if (hasPlusGuest && out.length > 0) {
+      var plusTags = shExtractTags((line.match(/\\+\\s*(?:1\\s*)?guest\\s*(\\([^)]*\\))?/i) || [])[1] || '', '');
+      var gName = out[0].name + ' (+1 Guest)';
+      out.push({ name: gName, initials: '+1', role: 'Plus-One (Coupled)', meal: plusTags.meal, allergy: plusTags.allergy, accessibility: '', rel: out[0].rel || '', hhId: hhId });
+    }
     for (var k = 1; k <= numKids; k++) {
-      var kn = (lastSurname || parts[0] || 'Guest') + ' Kid ' + k;
-      out.push({ name: kn, initials: shMakeInitials(kn), role: 'Child', meal: 'Kids Chicken Tenders', allergy: '', accessibility: '', hhId: hhId });
+      var kn = (lastSurname || strippedParts[0] || 'Guest') + ' Kid ' + k;
+      out.push({ name: kn, initials: ('C' + k), role: 'Child (Locked)', meal: 'Kids Chicken Tenders', allergy: '', accessibility: k === 1 ? '👶 ADD HIGHCHAIR' : '', rel: 'kids', hhId: hhId });
     }
     return out;
   }
+  window.shParseHouseholdLine = shParseHouseholdLine;
   window.shEdAdd = function(tIdx) {
     var inp = document.getElementById('sh-ed-add'), tbl = window.__SH_STATE.tables[tIdx];
     if (!inp || !tbl || !inp.value.trim()) { if (inp) inp.focus(); return; }

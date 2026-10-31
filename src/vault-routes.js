@@ -142,9 +142,11 @@ function extractAllSeatedGuests(state) {
 
 function mealSymbolInfo(mealStr) {
   const m = String(mealStr || '').toLowerCase();
-  if (m.includes('halibut') || m.includes('fish') || m.includes('salmon')) return { sym: '●', code: 'FISH', color: '#0369A1', label: 'Pan-Seared Halibut' };
-  if (m.includes('vegan') || m.includes('risotto') || m.includes('veg')) return { sym: '▲', code: 'VEGAN', color: '#15803D', label: 'Vegan Risotto' };
   if (m.includes('kid') || m.includes('child') || m.includes('tender')) return { sym: '★', code: 'KIDS', color: '#B45309', label: 'Kids Meal' };
+  if (m.includes('chicken') || m.includes('poultry')) return { sym: '■', code: 'CHICKEN', color: '#92400E', label: 'Roasted Chicken' };
+  if (m.includes('halibut') || m.includes('fish') || m.includes('salmon')) return { sym: '●', code: 'FISH', color: '#0369A1', label: 'Pan-Seared Halibut' };
+  if (m.includes('vegan') || m.includes('risotto')) return { sym: '▲', code: 'VEGAN', color: '#15803D', label: 'Vegan Risotto' };
+  if (m.includes('vegetarian') || m.includes('mushroom') || m.includes('tart')) return { sym: '◇', code: 'VEG', color: '#15803D', label: 'Wild Mushroom Tart' };
   return { sym: '◆', code: 'BEEF', color: '#8C2D19', label: mealStr || 'Filet Mignon' };
 }
 
@@ -515,12 +517,12 @@ function attachVaultAndPaywallRoutes(app, publicUrl) {
     try {
       const vault = await resolveVaultRecord(req.params.vaultId, req.query);
       const urls = buildVaultUrls(baseUrl, vault.vaultId);
-      const theme = String(req.query.theme || 'alabaster').toLowerCase();
-      const sortMode = String(req.query.sort || 'alphabetical').toLowerCase();
-      const customKicker = String(req.query.kicker || 'Please Find Your Seat').trim();
+      const theme = String(req.query.theme || (vault.state && vault.state.posterTheme) || 'alabaster').toLowerCase();
+      const sortMode = String(req.query.sort || (vault.state && vault.state.posterSort) || 'alphabetical').toLowerCase();
+      const customKicker = String(req.query.kicker || (vault.state && vault.state.signKicker) || 'Please Find Your Seat').trim();
       const guests = extractAllSeatedGuests(vault.state).sort((a, b) => a.lastName.localeCompare(b.lastName));
       const tables = Array.isArray(vault.state.tables) ? vault.state.tables : [];
-      const monogram = String(req.query.monogram || computeMonogram(vault.title)).trim();
+      const monogram = String(req.query.monogram || (vault.state && vault.state.signMonogram) || computeMonogram(vault.title)).trim();
       const qrImgUrl = buildInlineQrDataUri(urls.qr_lookup);
 
       const POSTER_THEMES = {

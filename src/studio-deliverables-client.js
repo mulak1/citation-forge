@@ -328,25 +328,41 @@ function renderDeliverablesClientScript() {
   function shRenderBeoView() {
     const container = document.getElementById('sh-beo-container');
     if (!container || !window.__SH_STATE) return;
-    let totalFilet = 0, totalHalibut = 0, totalVegan = 0, totalKids = 0, totalAllergies = 0;
+    let totalBeef = 0, totalHalibut = 0, totalChicken = 0, totalVegan = 0, totalVeg = 0, totalKids = 0, totalAllergies = 0, totalChairs = 0;
     const isChaos = Boolean(window.__SH_BEO_CHAOS);
     const chaosBanner = isChaos ? '<div style="padding:12px 14px;border-radius:10px;background:#FFF1F2;border:1.5px solid #E11D48;margin-bottom:12px;font-size:0.82rem;color:#881337;"><strong>&#9888; BEFORE SEATHARMONY (Unnumbered Spreadsheet Chaos):</strong> Free wedding tools only list table numbers without clockwise chair positions. Banquet servers must interrupt conversations to <em>auction plates around the table</em>, causing a <strong>25 min dinner service delay</strong> and dangerous allergy mix-ups.</div>' : '';
     const tableCards = (window.__SH_STATE.tables || []).map(function(t) {
       if (!t.geometry) shRecomputeGeometry(t);
+      let tBeef = 0, tFish = 0, tChicken = 0, tVegan = 0, tVeg = 0, tKids = 0, tAllergy = 0, tChair = 0;
       const rows = t.guests.map(function(g, idx) {
         const s = t.geometry.seats[idx] || { seatNumber: idx + 1, clockPosition: '12:00' }, mb = shMealBadge(g.meal);
-        if (mb.short === 'Filet') totalFilet++; else if (mb.short === 'Halibut') totalHalibut++; else if (mb.short === 'Vegan') totalVegan++; else totalKids++;
-        if (g.allergy) totalAllergies++;
+        if (mb.short === 'Beef') { totalBeef++; tBeef++; }
+        else if (mb.short === 'Fish') { totalHalibut++; tFish++; }
+        else if (mb.short === 'Chicken') { totalChicken++; tChicken++; }
+        else if (mb.short === 'Vegan') { totalVegan++; tVegan++; }
+        else if (mb.short === 'Veg') { totalVeg++; tVeg++; }
+        else { totalKids++; tKids++; }
+        if (g.allergy) { totalAllergies++; tAllergy++; }
+        if (g.accessibility) { totalChairs++; tChair++; }
         const cleanAllergy = g.allergy ? String(g.allergy).replace(/^[⚠️]+\\s*/, '') : '', cleanAccess = g.accessibility ? String(g.accessibility).replace(/^[♿👶]+\\s*/, '') : '';
         if (isChaos) {
           return '<tr><td class="mono" style="color:#9F1239;font-weight:700;">❓ Unnumbered Chair</td><td style="font-weight:700;">' + shEsc(g.name) + '</td><td>Server must ask guest at table (' + shEsc(g.meal) + ')</td><td>' + (cleanAllergy ? '<span style="color:#9F1239;">Unmapped Seat (' + shEsc(cleanAllergy) + ')</span>' : '—') + '</td><td>Unverified</td></tr>';
         }
         return '<tr><td class="mono" style="font-weight:800;color:' + (idx === 0 ? '#8C2D19' : '#1C1917') + ';">Seat #' + s.seatNumber + (idx === 0 ? ' ★12:00' : '') + '</td><td style="font-weight:700;">' + shEsc(g.name) + '</td><td><span style="padding:2px 8px;border-radius:6px;font-weight:700;font-size:0.74rem;background:' + mb.bg + ';color:' + mb.color + ';">' + mb.code + ' ' + shEsc(g.meal) + '</span></td><td>' + (cleanAllergy ? '<strong style="color:#9F1239;">⚠️ ' + shEsc(cleanAllergy) + '</strong>' : '<span style="color:#78716C;">None</span>') + '</td><td>' + (cleanAccess ? '<strong style="color:#92400E;">♿ ' + shEsc(cleanAccess) + '</strong>' : '<span style="color:#78716C;">Standard</span>') + '</td></tr>';
       }).join('');
-      return '<div style="background:#FFFFFF;border:1px solid ' + (isChaos ? '#FECDD3' : '#E2D9C8') + ';border-radius:12px;padding:12px;margin-bottom:10px;"><div style="display:flex;flex-wrap:wrap;justify-content:space-between;align-items:center;gap:6px;margin-bottom:6px;"><strong style="font-size:0.90rem;color:#181412;">' + shEsc(t.name) + ' (' + t.guests.length + ' Covers)</strong><span class="badge ' + (isChaos ? 'badge-rose' : 'badge-emerald') + '">' + (isChaos ? '⚠ Unnumbered Plate Auction (~25 min Delay)' : 'Seat #1 = 12 O&rsquo;Clock Anchor') + '</span></div><div style="overflow-x:auto;"><table class="ba-table" style="font-size:0.76rem;"><thead><tr><th>Clockwise Seat</th><th>Guest Name</th><th>Entrée</th><th>Allergy Alert</th><th>Chair Spec</th></tr></thead><tbody>' + rows + '</tbody></table></div></div>';
+      const trayParts = [];
+      if (tBeef) trayParts.push('◆ ' + tBeef + ' Beef');
+      if (tFish) trayParts.push('● ' + tFish + ' Fish');
+      if (tChicken) trayParts.push('■ ' + tChicken + ' Chicken');
+      if (tVegan) trayParts.push('▲ ' + tVegan + ' Vegan');
+      if (tVeg) trayParts.push('◇ ' + tVeg + ' Veg');
+      if (tKids) trayParts.push('★ ' + tKids + ' Kids');
+      const traySummary = trayParts.length ? ('<span style="font-size:0.75rem;font-weight:700;color:#57534E;background:#FAF6EE;padding:2px 8px;border-radius:6px;border:1px solid #E5DEC9;">Server Tray: ' + trayParts.join(' &middot; ') + '</span>') : '';
+      const alertBadges = (tAllergy ? '<span class="badge badge-rose" style="font-size:0.70rem;">⚠️ ' + tAllergy + ' Allergy</span>' : '') + (tChair ? '<span class="badge badge-amber" style="font-size:0.70rem;">♿ ' + tChair + ' Chair Mod</span>' : '');
+      return '<div style="background:#FFFFFF;border:1px solid ' + (isChaos ? '#FECDD3' : '#E2D9C8') + ';border-radius:12px;padding:12px;margin-bottom:10px;"><div style="display:flex;flex-wrap:wrap;justify-content:space-between;align-items:center;gap:6px;margin-bottom:6px;"><div style="display:flex;align-items:center;gap:8px;flex-wrap:wrap;"><strong style="font-size:0.90rem;color:#181412;">' + shEsc(t.name) + ' (' + t.guests.length + ' Covers)</strong>' + traySummary + alertBadges + '</div><span class="badge ' + (isChaos ? 'badge-rose' : 'badge-emerald') + '">' + (isChaos ? '⚠ Unnumbered Plate Auction (~25 min Delay)' : 'Seat #1 = 12 O&rsquo;Clock Anchor') + '</span></div><div style="overflow-x:auto;"><table class="ba-table" style="font-size:0.76rem;"><thead><tr><th>Clockwise Seat</th><th>Guest Name</th><th>Entrée</th><th>Allergy Alert</th><th>Chair Spec</th></tr></thead><tbody>' + rows + '</tbody></table></div></div>';
     }).join('');
-    container.innerHTML = chaosBanner + '<div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(85px,1fr));gap:8px;margin-bottom:12px;"><div style="background:#FDF2EE;border:1px solid #F5D0C5;padding:8px;border-radius:10px;text-align:center;"><div style="font-size:0.65rem;font-weight:800;color:#8C2D19;">◆ FILET</div><div style="font-size:1.15rem;font-weight:800;color:#181412;">' + totalFilet + '</div></div><div style="background:#F0F9FF;border:1px solid #BAE6FD;padding:8px;border-radius:10px;text-align:center;"><div style="font-size:0.65rem;font-weight:800;color:#0369A1;">● HALIBUT</div><div style="font-size:1.15rem;font-weight:800;color:#181412;">' + totalHalibut + '</div></div><div style="background:#ECFDF5;border:1px solid #A7F3D0;padding:8px;border-radius:10px;text-align:center;"><div style="font-size:0.65rem;font-weight:800;color:#065F46;">▲ VEGAN</div><div style="font-size:1.15rem;font-weight:800;color:#181412;">' + totalVegan + '</div></div><div style="background:#FFFBEB;border:1px solid #FDE68A;padding:8px;border-radius:10px;text-align:center;"><div style="font-size:0.65rem;font-weight:800;color:#A16207;">★ KIDS</div><div style="font-size:1.15rem;font-weight:800;color:#181412;">' + totalKids + '</div></div><div style="background:#FFF1F2;border:1px solid #FECDD3;padding:8px;border-radius:10px;text-align:center;"><div style="font-size:0.65rem;font-weight:800;color:#9F1239;">⚠️ ALLERGIES</div><div style="font-size:1.15rem;font-weight:800;color:#9F1239;">' + totalAllergies + '</div></div></div>' + tableCards;
-    const totalCovers = totalFilet + totalHalibut + totalVegan + totalKids;
+    container.innerHTML = chaosBanner + '<div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(85px,1fr));gap:8px;margin-bottom:12px;"><div style="background:#FDF2EE;border:1px solid #F5D0C5;padding:8px;border-radius:10px;text-align:center;"><div style="font-size:0.65rem;font-weight:800;color:#8C2D19;">◆ BEEF</div><div style="font-size:1.15rem;font-weight:800;color:#181412;">' + totalBeef + '</div></div><div style="background:#F0F9FF;border:1px solid #BAE6FD;padding:8px;border-radius:10px;text-align:center;"><div style="font-size:0.65rem;font-weight:800;color:#0369A1;">● FISH</div><div style="font-size:1.15rem;font-weight:800;color:#181412;">' + totalHalibut + '</div></div><div style="background:#FEF3C7;border:1px solid #FDE68A;padding:8px;border-radius:10px;text-align:center;"><div style="font-size:0.65rem;font-weight:800;color:#92400E;">■ CHICKEN</div><div style="font-size:1.15rem;font-weight:800;color:#181412;">' + totalChicken + '</div></div><div style="background:#ECFDF5;border:1px solid #A7F3D0;padding:8px;border-radius:10px;text-align:center;"><div style="font-size:0.65rem;font-weight:800;color:#065F46;">▲ VEGAN/VEG</div><div style="font-size:1.15rem;font-weight:800;color:#181412;">' + (totalVegan + totalVeg) + '</div></div><div style="background:#FFFBEB;border:1px solid #FDE68A;padding:8px;border-radius:10px;text-align:center;"><div style="font-size:0.65rem;font-weight:800;color:#A16207;">★ KIDS</div><div style="font-size:1.15rem;font-weight:800;color:#181412;">' + totalKids + '</div></div><div style="background:#FFF1F2;border:1px solid #FECDD3;padding:8px;border-radius:10px;text-align:center;"><div style="font-size:0.65rem;font-weight:800;color:#9F1239;">⚠️ ALLERGIES</div><div style="font-size:1.15rem;font-weight:800;color:#9F1239;">' + totalAllergies + '</div></div></div>' + tableCards;
+    const totalCovers = totalBeef + totalHalibut + totalChicken + totalVegan + totalVeg + totalKids;
     const beoBuyBtn = document.getElementById('sh-pane-beo-buy-link');
     if (beoBuyBtn) beoBuyBtn.innerHTML = 'Unlock Signed BEO (' + totalCovers + ' Meals &middot; ' + totalAllergies + ' Allergies) &mdash; $1.99 &rarr;';
   }
@@ -355,6 +371,10 @@ function renderDeliverablesClientScript() {
     const str = String(rawName || '').trim(), parenMatch = str.match(/\\s*(\\([^)]+\\))\\s*$/), suffix = parenMatch ? (' ' + parenMatch[1]) : '';
     const base = str.replace(/\\s*\\([^)]+\\)\\s*$/, '').trim(), parts = base.split(/\\s+/).filter(Boolean);
     if (parts.length <= 1) return { sortKey: base.toLowerCase(), display: base + suffix };
+    if (/^(kid|child)$/i.test(parts[parts.length - 2] || '') && /^\\d+$/.test(parts[parts.length - 1])) {
+      const surname = parts.slice(0, -2).join(' ') || 'Guest', kidLbl = parts.slice(-2).join(' ');
+      return { sortKey: (surname + ', ' + kidLbl).toLowerCase(), display: surname + ', ' + kidLbl + suffix };
+    }
     const last = parts[parts.length - 1], first = parts.slice(0, -1).join(' ');
     return { sortKey: (last + ', ' + first).toLowerCase(), display: last + ', ' + first + suffix };
   }
@@ -370,39 +390,48 @@ function renderDeliverablesClientScript() {
 
   window.shUpdateSignKicker = function(val) {
     window.__SH_SIGN_KICKER = String(val || 'Please Find Your Seat').trim();
-    shRenderPosterView();
-    shToast('✓ Updated 24"×36" Sign Header → "' + window.__SH_SIGN_KICKER + '"');
+    if (window.__SH_STATE) window.__SH_STATE.signKicker = window.__SH_SIGN_KICKER;
+    shRenderPosterView(); shAutoPersistVault();
   };
 
   window.shUpdateSignMonogram = function(val) {
     window.__SH_SIGN_MONOGRAM = String(val || '').trim();
-    shRenderPosterView();
-    shToast('✓ Updated 24"×36" Sign Crest Monogram → "' + (window.__SH_SIGN_MONOGRAM || shComputeCoupleMonogram(window.__SH_STATE && window.__SH_STATE.title)) + '"');
+    if (window.__SH_STATE) window.__SH_STATE.signMonogram = window.__SH_SIGN_MONOGRAM;
+    shRenderPosterView(); shAutoPersistVault();
+  };
+
+  window.shUpdateSignVenue = function(val) {
+    if (!window.__SH_STATE) return;
+    window.__SH_STATE.venueName = String(val || '').trim();
+    var vi = document.getElementById('sh-venue-name-input'); if (vi && vi.value !== window.__SH_STATE.venueName) vi.value = window.__SH_STATE.venueName;
+    shSyncSpecimenCrestHeader(); shRenderPosterView(); shAutoPersistVault();
   };
 
   window.shSetPosterMode = function(mode, theme) {
-    if (mode) window.__SH_POSTER_MODE = mode;
-    if (theme) window.__SH_POSTER_THEME = theme;
+    if (mode) { window.__SH_POSTER_MODE = mode; if (window.__SH_STATE) window.__SH_STATE.posterSort = mode; }
+    if (theme) { window.__SH_POSTER_THEME = theme; if (window.__SH_STATE) window.__SH_STATE.posterTheme = theme; }
     document.querySelectorAll('[data-poster-sort], #sh-card5-sort-pills [data-sort]').forEach(function(b) { b.classList.toggle('active', (b.getAttribute('data-poster-sort') || b.getAttribute('data-sort')) === window.__SH_POSTER_MODE); });
     document.querySelectorAll('[data-poster-theme], #sh-card5-theme-pills [data-theme]').forEach(function(b) { b.classList.toggle('active', (b.getAttribute('data-poster-theme') || b.getAttribute('data-theme')) === window.__SH_POSTER_THEME); });
     const tSpec = SH_POSTER_THEMES[window.__SH_POSTER_THEME || 'alabaster'] || SH_POSTER_THEMES.alabaster;
     const sum5 = document.getElementById('sh-wizard-summary-5');
     if (sum5) sum5.textContent = tSpec.label + ' • ' + (window.__SH_POSTER_MODE === 'by_table' ? 'By Table' : 'A-Z');
-    shRenderPosterView();
+    shRenderPosterView(); shAutoPersistVault();
   };
 
   function shRenderPosterView() {
     const posterEl = document.getElementById('sh-poster-preview');
     if (!posterEl || !window.__SH_STATE) return;
-    const themeKey = window.__SH_POSTER_THEME || 'alabaster', tSpec = SH_POSTER_THEMES[themeKey] || SH_POSTER_THEMES.alabaster;
+    const themeKey = window.__SH_POSTER_THEME || window.__SH_STATE.posterTheme || 'alabaster', tSpec = SH_POSTER_THEMES[themeKey] || SH_POSTER_THEMES.alabaster;
     const bg = tSpec.bg, fg = tSpec.fg, sub = tSpec.sub, borderCol = tSpec.borderCol;
-    const rawMono = String(window.__SH_SIGN_MONOGRAM || '').trim(), partsMono = rawMono.split('·');
+    const rawMono = String(window.__SH_SIGN_MONOGRAM || window.__SH_STATE.signMonogram || '').trim(), partsMono = rawMono.split('·');
     const initials = (partsMono[0] && partsMono[0].trim()) || shComputeCoupleMonogram(window.__SH_STATE.title);
     const monoSub = (partsMono[1] && partsMono[1].trim()) || 'EST. 2026';
-    const kickerText = window.__SH_SIGN_KICKER || 'Please Find Your Seat';
+    const kickerText = window.__SH_SIGN_KICKER || window.__SH_STATE.signKicker || 'Please Find Your Seat';
+    const kInp = document.getElementById('sh-inline-sign-kicker'); if (kInp && document.activeElement !== kInp) kInp.value = kickerText;
+    const vInp = document.getElementById('sh-inline-sign-venue'); if (vInp && document.activeElement !== vInp) vInp.value = window.__SH_STATE.venueName || '';
     const logoUrl = window.__SH_CREST_LOGO_URL || '';
     let bodyHtml = '';
-    if (window.__SH_POSTER_MODE === 'by_table') {
+    if ((window.__SH_POSTER_MODE || window.__SH_STATE.posterSort) === 'by_table') {
       bodyHtml = '<div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(175px,1fr));gap:12px;text-align:left;">' +
         (window.__SH_STATE.tables || []).map(function(t) { return '<div style="border-top:1px solid ' + borderCol + ';padding-top:6px;"><div class="serif-display" style="font-size:0.95rem;color:' + fg + ';margin-bottom:4px;">' + tSpec.motif + ' Table ' + t.number + '</div>' + t.guests.map(function(g) { return '<div style="font-size:0.74rem;color:' + sub + ';">' + shEsc(g.name) + '</div>'; }).join('') + '</div>'; }).join('') + '</div>';
     } else {
@@ -419,7 +448,19 @@ function renderDeliverablesClientScript() {
     const averyEl = document.getElementById('sh-avery-preview');
     if (averyEl) {
       const vid = shEsc((window.__SH_STATE && window.__SH_STATE.vaultId) || 'SH-4819');
-      averyEl.innerHTML = '<div style="padding:11px 14px;border-radius:12px;background:linear-gradient(135deg,#FAF3E6 0%,#F5ECE0 100%);border:1.5px solid #D8C29D;display:flex;flex-wrap:wrap;align-items:center;justify-content:space-between;gap:10px;"><div style="display:flex;align-items:center;gap:10px;min-width:0;"><span style="font-size:1.25rem;">🔒</span><div><div style="font-size:0.68rem;font-weight:800;letter-spacing:0.08em;text-transform:uppercase;color:#78350F;">300-DPI WELCOME SIGN + AVERY 5302 TENT PLACE CARDS</div><div style="font-size:0.78rem;color:#44403C;">Same-day FedEx/Staples 24&Prime;&times;36&Prime; PDF + standard home printer Avery 5302 sheets (with meal icons &amp; 180&deg; allergy fold). <strong>30 days of free re-exports included.</strong></div></div></div><div style="display:flex;gap:6px;flex-wrap:wrap;"><a href="/print/avery-5302/' + vid + '" target="_blank" class="btn btn-secondary" style="padding:6px 11px;font-size:0.73rem;">🎫 Preview Avery 5302 ↗</a><a id="sh-avery-pack-buy-btn" href="/buy/complete_dossier?target=estate-150&vault=' + vid + '" class="btn btn-primary" style="padding:6px 12px;font-size:0.73rem;">Unlock Print Pack ($14.99) →</a></div></div>';
+      const sampleCards = [];
+      (window.__SH_STATE.tables || []).forEach(function(t) { (t.guests || []).forEach(function(g, idx) { sampleCards.push({ g: g, tNum: t.number, sNum: idx + 1, priority: (g.allergy ? 2 : 0) + (g.accessibility ? 1 : 0) }); }); });
+      sampleCards.sort(function(a, b) { return b.priority - a.priority; });
+      const cardStripHtml = sampleCards.slice(0, 3).map(function(c) {
+        const mb = shMealBadge(c.g.meal), al = c.g.allergy ? String(c.g.allergy).replace(/^[⚠️]+\\s*/, '') : '';
+        return '<div style="background:#FFFDF9;border:1.5px solid #D8C29D;border-radius:10px;padding:8px 10px;box-shadow:0 4px 10px rgba(24,20,18,0.06);">' +
+          '<div style="font-size:0.62rem;color:#78716C;border-bottom:1px dashed #D6CFC2;padding-bottom:4px;margin-bottom:5px;display:flex;justify-content:space-between;gap:4px;"><span>180&deg; SERVER BACK: <b>TBL ' + c.tNum + ' &middot; SEAT #' + c.sNum + '</b></span><span style="color:' + (al ? '#9F1239' : mb.color) + ';font-weight:800;">' + (al ? ('⚠️ ' + shEsc(al)) : (mb.code + ' ' + mb.short.toUpperCase())) + '</span></div>' +
+          '<div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:2px;"><span style="font-size:0.62rem;font-weight:800;color:#8A6A2E;">' + shEsc(initials) + '</span><span style="font-size:0.68rem;font-weight:800;padding:1px 6px;border-radius:4px;background:' + mb.bg + ';color:' + mb.color + ';">' + mb.code + ' ' + mb.short + '</span></div>' +
+          '<div class="serif-display" style="font-size:0.95rem;font-weight:700;color:#181412;">' + shEsc(c.g.name) + '</div>' +
+          '<div style="font-size:0.68rem;color:#57534E;font-weight:700;">Table ' + c.tNum + ' &middot; Seat #' + c.sNum + ' (12:00 Clockwise)</div>' +
+        '</div>';
+      }).join('');
+      averyEl.innerHTML = '<div style="padding:12px 14px;border-radius:12px;background:linear-gradient(135deg,#FAF3E6 0%,#F5ECE0 100%);border:1.5px solid #D8C29D;"><div style="display:flex;flex-wrap:wrap;align-items:center;justify-content:space-between;gap:10px;margin-bottom:10px;"><div><div style="font-size:0.68rem;font-weight:800;letter-spacing:0.08em;text-transform:uppercase;color:#78350F;">🎫 LIVE AVERY 5302 FOLDED TENT CARDS (' + sampleCards.length + ' CARDS SYNCED WITH FLOORPLAN)</div><div style="font-size:0.78rem;color:#44403C;">Guest front + 180&deg; server back-fold with meal symbol &amp; red kitchen allergy alert.</div></div><div style="display:flex;gap:6px;flex-wrap:wrap;"><a id="sh-avery-preview-btn" href="/print/avery-5302/' + vid + '" target="_blank" class="btn btn-secondary" style="padding:6px 11px;font-size:0.73rem;">🎫 Open Full Avery 5302 Sheet ↗</a><a id="sh-avery-pack-buy-btn" href="/buy/complete_dossier?target=estate-150&vault=' + vid + '" class="btn btn-primary" style="padding:6px 12px;font-size:0.73rem;">Unlock Print Pack ($14.99) →</a></div></div><div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(210px,1fr));gap:8px;">' + cardStripHtml + '</div></div>';
     }
     shSyncVaultIdLinks((window.__SH_STATE && window.__SH_STATE.vaultId) || 'SH-4819');
   }
@@ -440,15 +481,27 @@ function renderDeliverablesClientScript() {
     if (window.__SH_STATE) window.__SH_STATE.vaultId = id;
     const state = window.__SH_STATE || {};
     const coupleTitle = String(state.title || "Maya & Liam's Reception").trim();
-    const totalGuests = Array.isArray(state.tables) ? state.tables.reduce(function(acc, t) { return acc + ((t.guests && t.guests.length) || 0); }, 0) : 62;
+    let totalGuests = 0, totalAlerts = 0, totalTables = Array.isArray(state.tables) ? state.tables.length : 1;
+    if (Array.isArray(state.tables)) {
+      state.tables.forEach(function(t) { (t.guests || []).forEach(function(g) { totalGuests++; if (g.allergy || g.accessibility) totalAlerts++; }); });
+    }
     const encTarget = encodeURIComponent(coupleTitle || 'our-wedding');
     const setTxt = function(elId, txt) { const el = document.getElementById(elId); if (el) el.textContent = txt; };
     setTxt('hero-vault-code-label', '#' + id); setTxt('sh-studio-vault-code', id); setTxt('sh-btn-vault-id', id); setTxt('sh-modal-vault-code', id);
     setTxt('sh-modal-links-vault-id', id); setTxt('sh-unlocked-vault-id', id); setTxt('sh-qr-short-url', '/qr/' + id);
+    setTxt('sh-tab-floorplan', 'Seating (' + totalTables + ' Tables)');
+    setTxt('sh-tab-beo', 'Caterer sheet (' + totalGuests + ' Meals' + (totalAlerts ? ' · ' + totalAlerts + ' Alerts' : '') + ')');
+    setTxt('sh-tab-poster', 'Welcome sign (' + totalGuests + ' Names)');
+    setTxt('sh-tab-qr', 'Guest QR (' + totalGuests + ' Live)');
+    const themeQ = encodeURIComponent(window.__SH_POSTER_THEME || state.posterTheme || 'alabaster');
+    const sortQ = encodeURIComponent(window.__SH_POSTER_MODE || state.posterSort || 'alphabetical');
+    const kickerQ = encodeURIComponent(window.__SH_SIGN_KICKER || state.signKicker || 'Please Find Your Seat');
+    const monoQ = encodeURIComponent(window.__SH_SIGN_MONOGRAM || state.signMonogram || '');
+    const posterQs = '?theme=' + themeQ + '&sort=' + sortQ + '&kicker=' + kickerQ + (monoQ ? ('&monogram=' + monoQ) : '');
     const setHref = function(elId, url) { const el = document.getElementById(elId); if (el) el.href = url; };
     ['sh-cmd-vault-link', 'sh-footer-vault-link', 'sh-modal-link-vault'].forEach(function(k) { setHref(k, '/vault/' + id); });
-    ['sh-cmd-poster-link', 'sh-open-poster-studio-link', 'sh-card5-poster-studio-link', 'sh-modal-link-poster'].forEach(function(k) { setHref(k, '/print/poster/' + id); });
-    ['sh-cmd-avery-link', 'sh-open-avery-studio-link', 'sh-card5-avery-studio-link', 'sh-modal-link-avery'].forEach(function(k) { setHref(k, '/print/avery-5302/' + id); });
+    ['sh-cmd-poster-link', 'sh-open-poster-studio-link', 'sh-card5-poster-studio-link', 'sh-modal-link-poster'].forEach(function(k) { setHref(k, '/print/poster/' + id + posterQs); });
+    ['sh-cmd-avery-link', 'sh-open-avery-studio-link', 'sh-avery-preview-btn', 'sh-card5-avery-studio-link', 'sh-modal-link-avery'].forEach(function(k) { setHref(k, '/print/avery-5302/' + id); });
     ['sh-cmd-beo-link', 'sh-open-beo-studio-link', 'sh-modal-link-beo'].forEach(function(k) { setHref(k, '/print/beo/' + id); });
     ['sh-cmd-qr-link', 'sh-open-qr-app-link', 'sh-qr-short-url', 'sh-modal-link-qr'].forEach(function(k) { setHref(k, '/qr/' + id); });
     const packUrl = '/buy/complete_dossier?target=' + encTarget + '&vault=' + id;
@@ -465,14 +518,24 @@ function renderDeliverablesClientScript() {
     if (qrImg) qrImg.src = 'https://api.qrserver.com/v1/create-qr-code/?size=160x160&color=181412&bgcolor=FFFFFF&data=' + encodeURIComponent(window.location.origin + '/qr/' + id);
   }
 
+  function shFlushVaultNow() {
+    if (!window.__SH_STATE) return;
+    try { localStorage.setItem('sh_saved_vault_v1', JSON.stringify(window.__SH_STATE)); } catch (_) {}
+    if (window.shwSaveSession) window.shwSaveSession();
+    clearTimeout(window.__shPersistTimer);
+    fetch('/api/vault/save', { method: 'POST', keepalive: true, headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ vaultId: window.__SH_STATE.vaultId || 'SH-4819', ownerEmail: window.__SH_STATE.ownerEmail || '', state: window.__SH_STATE }) }).catch(function() {});
+  }
+  document.addEventListener('mousedown', function(ev) {
+    var a = ev.target && ev.target.closest && ev.target.closest('a[href^="/print/"], a[href^="/vault/"], a[href^="/qr/"]');
+    if (a) shFlushVaultNow();
+  });
+
   function shAutoPersistVault() {
     if (!window.__SH_STATE) return;
     try { localStorage.setItem('sh_saved_vault_v1', JSON.stringify(window.__SH_STATE)); } catch (_) {}
     if (window.shwSaveSession) window.shwSaveSession();
     clearTimeout(window.__shPersistTimer);
-    window.__shPersistTimer = setTimeout(function() {
-      fetch('/api/vault/save', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ vaultId: window.__SH_STATE.vaultId || 'SH-4819', ownerEmail: window.__SH_STATE.ownerEmail || '', state: window.__SH_STATE }) }).catch(function() {});
-    }, 650);
+    window.__shPersistTimer = setTimeout(shFlushVaultNow, 450);
   }
 
   window.shOpenVaultModal = function() { const m = document.getElementById('sh-vault-modal'); if (m) m.style.display = 'flex'; };

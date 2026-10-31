@@ -87,10 +87,12 @@ function renderInteractiveScript(initialPlan) {
 
   function shMealBadge(meal) {
     const m = String(meal || '').toLowerCase();
-    if (m.includes('filet') || m.includes('beef')) return { icon: '🥩', code: '◆', color: '#8C2D19', bg: '#FDF2EE', short: 'Filet' };
-    if (m.includes('halibut') || m.includes('fish')) return { icon: '🐟', code: '●', color: '#0369A1', bg: '#F0F9FF', short: 'Halibut' };
+    if (m.includes('kid') || m.includes('tender')) return { icon: '🧒', code: '★', color: '#A16207', bg: '#FFFBEB', short: 'Kids' };
+    if (m.includes('chicken') || m.includes('poultry')) return { icon: '🍗', code: '■', color: '#92400E', bg: '#FEF3C7', short: 'Chicken' };
+    if (m.includes('halibut') || m.includes('fish') || m.includes('salmon')) return { icon: '🐟', code: '●', color: '#0369A1', bg: '#F0F9FF', short: 'Fish' };
     if (m.includes('vegan') || m.includes('risotto')) return { icon: '🌱', code: '▲', color: '#065F46', bg: '#ECFDF5', short: 'Vegan' };
-    return { icon: '🧒', code: '★', color: '#A16207', bg: '#FFFBEB', short: 'Kids' };
+    if (m.includes('vegetarian') || m.includes('mushroom') || m.includes('tart')) return { icon: '🍄', code: '◇', color: '#15803D', bg: '#F0FDF4', short: 'Veg' };
+    return { icon: '🥩', code: '◆', color: '#8C2D19', bg: '#FDF2EE', short: 'Beef' };
   }
 
   function shNormalizeShape(rawShape) {
@@ -646,9 +648,11 @@ function renderInteractiveScript(initialPlan) {
 
   window.shToggleMomSandbox = function() {
     window.__SH_SANDBOX_MOM = !window.__SH_SANDBOX_MOM;
-    const badge = document.getElementById('sh-mom-sandbox-badge');
-    if (badge) { badge.textContent = window.__SH_SANDBOX_MOM ? '👵 Family Share: ON' : '👵 Family Share: OFF'; badge.className = window.__SH_SANDBOX_MOM ? 'badge badge-amber' : 'badge badge-cyan'; }
-    shToast(window.__SH_SANDBOX_MOM ? '👵 Family Share Mode: Tables 1-3 Editable; Tables 4-8 Locked' : 'Full Edit Mode Restored');
+    const badge = document.getElementById('sh-mom-sandbox-badge'), banner = document.getElementById('sh-mom-sandbox-banner'), btn = document.getElementById('sh-toolbar-mom-btn');
+    if (badge) { badge.textContent = window.__SH_SANDBOX_MOM ? '👵 Family Share: ON' : ''; badge.style.display = window.__SH_SANDBOX_MOM ? 'inline-flex' : 'none'; badge.className = 'badge badge-amber'; }
+    if (banner) banner.style.display = window.__SH_SANDBOX_MOM ? 'flex' : 'none';
+    if (btn) btn.style.background = window.__SH_SANDBOX_MOM ? '#FEF3C7' : '';
+    shToast(window.__SH_SANDBOX_MOM ? '👵 Family Share Mode: Tables 1-3 Editable; Tables 4+ Locked' : 'Full Edit Mode Restored');
     shRenderAll();
   };
 
@@ -669,34 +673,9 @@ function renderInteractiveScript(initialPlan) {
     window.__SH_SELECTED_TABLE_IDX = tIdx;
     let tbl = window.__SH_STATE.tables[tIdx]; if (!tbl) return;
     const startLen = tbl.guests.length, startCap = tbl.capacity || 8;
-    const lower = raw.toLowerCase();
-    const meal = (lower.includes('halibut') || lower.includes('fish') || lower.includes('salmon')) ? 'Pan-Seared Halibut' : ((lower.includes('vegan') || lower.includes('risotto') || lower.includes('veg')) ? 'Vegan Risotto' : 'Filet Mignon');
-    const allergy = (lower.includes('peanut') || lower.includes('nut')) ? '🥜 SEVERE PEANUT ALLERGY' : ((lower.includes('gf') || lower.includes('celiac') || lower.includes('gluten')) ? '🌾 SEVERE CELIAC (GF)' : (lower.includes('dairy') ? 'DAIRY-FREE' : ''));
-    const access = (lower.includes('wheelchair') || lower.includes('ada')) ? '♿ REMOVE CHAIR FOR WHEELCHAIR' : (lower.includes('highchair') ? '👶 ADD HIGHCHAIR' : '');
-    const kidsMatch = raw.match(/\\+\\s*(\\d+)\\s*(?:kid|child)/i), numKids = kidsMatch ? Number(kidsMatch[1]) : 0, hasPlusGuest = /\\+\\s*(?:1\\s*)?guest\\b/i.test(raw);
-    const cleaned = raw.replace(/\\+\\s*\\d+\\s*(?:kid|child)[a-z]*/i, '').replace(/\\+\\s*(?:1\\s*)?guest\\b/i, '').replace(/\\([^)]*\\)/g, '').trim();
-    const parts = cleaned.split(/\\s*(?:&|\\band\\b|\\+)\\s*/i).map(function(s) { return s.trim(); }).filter(Boolean);
-    const tailWords = (parts[parts.length - 1] || 'Guest').split(/\\s+/), surname = shTitleCase(tailWords[tailWords.length - 1] || 'Guest');
-    const sharedGiven = tailWords.length >= 2 ? shTitleCase(tailWords.slice(-2, -1)[0]) : '', addedNames = [];
-    parts.forEach(function(p, idx) {
-      let fullName = shTitleCase(p);
-      if (/^(dr|mr|mrs|ms|prof)\\.?$/i.test(fullName)) fullName = fullName + ' ' + (sharedGiven ? (sharedGiven + ' ') : '') + surname;
-      else if (!fullName.includes(' ')) fullName = fullName + ' ' + surname;
-      const words = fullName.replace(/^(Dr|Mr|Mrs|Ms|Prof)\\.?\\s+/i, '').split(/\\s+/);
-      const initials = ((words[0] ? words[0][0] : 'G') + (words[words.length - 1] ? words[words.length - 1][0] : '')).toUpperCase();
-      tbl.guests.push({ name: fullName, initials: initials, role: 'Coupled Household', meal: meal, allergy: idx === 0 ? allergy : '', accessibility: idx === 0 ? access : '' });
-      addedNames.push(fullName);
-    });
-    if (hasPlusGuest && addedNames.length > 0) {
-      const guestName = addedNames[0] + ' (+1 Guest)';
-      tbl.guests.push({ name: guestName, initials: '+1', role: 'Plus-One (Coupled)', meal: meal, allergy: '', accessibility: '' });
-      addedNames.push(guestName);
-    }
-    for (let k = 1; k <= numKids; k++) {
-      const kidName = 'Kid ' + k + ' ' + surname;
-      tbl.guests.push({ name: kidName, initials: ('C' + k), role: 'Child (Locked)', meal: 'Kids Chicken Tenders', allergy: allergy, accessibility: k === 1 ? '👶 ADD HIGHCHAIR' : '' });
-      addedNames.push(kidName);
-    }
+    const parsed = typeof window.shParseHouseholdLine === 'function' ? window.shParseHouseholdLine(raw) : [];
+    const addedNames = [];
+    parsed.forEach(function(g) { tbl.guests.push(g); addedNames.push(g.name); });
     if (selVal === 'auto' && tbl.guests.length > startCap) {
       const n = tbl.guests.length - startLen, moved = tbl.guests.splice(startLen, n);
       let j = window.__SH_STATE.tables.findIndex(function(t, i) { return i > 0 && !t.locked && t.guests.length + n <= (t.capacity || 8); });
@@ -707,7 +686,7 @@ function renderInteractiveScript(initialPlan) {
     tbl.capacity = Math.max(tbl.capacity, tbl.guests.length);
     window.__SH_STATE.householdsCoupled = (window.__SH_STATE.householdsCoupled || 26) + 1;
     shRecomputeGeometry(tbl); if (input) input.value = '';
-    const sum2 = document.getElementById('sh-wizard-summary-2'); if (sum2) sum2.textContent = '+' + addedNames.length + ' Seated (' + addedNames[0] + ')';
+    const sum2 = document.getElementById('sh-wizard-summary-2'); if (sum2) sum2.textContent = '+' + addedNames.length + ' Seated (' + (addedNames[0] || '') + ')';
     shToast('✓ Seated & Coupled ' + addedNames.length + ' Guests (' + addedNames.join(', ') + ') at ' + tbl.name + '!');
     shRenderAll();
   };

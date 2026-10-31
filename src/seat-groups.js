@@ -61,9 +61,13 @@ function renderSeatGroupsClientScript() {
   }
   function shRuleState(r) {
     if (!r.pair) return null;
-    var A = shFindGuests(r.pair[0]), B = shFindGuests(r.pair[1]);
+    var A = shFindGuests(r.pair[0]), B = shFindGuests(r.pair[1]), tables = (window.__SH_STATE && window.__SH_STATE.tables) || [];
     if (!A.length || !B.length) return 'missing';
-    for (var i = 0; i < A.length; i++) for (var j = 0; j < B.length; j++) if (A[i].t === B[j].t && !(A[i].t === B[j].t && A[i].g === B[j].g)) return 'same';
+    for (var i = 0; i < A.length; i++) for (var j = 0; j < B.length; j++) {
+      if (A[i].t === B[j].t && A[i].g !== B[j].g) return 'same';
+      var tA = tables[A[i].t], tB = tables[B[j].t];
+      if (tA && tB && Math.hypot(tA.x - tB.x, tA.y - tB.y) < 225) return 'close';
+    }
     return 'apart';
   }
   function shConflictTables() {
@@ -75,9 +79,24 @@ function renderSeatGroupsClientScript() {
     });
     return map;
   }
+  function shLoudConflictTables() {
+    var out = [], plan = window.__SH_STATE; if (!plan || !plan.tables || !plan.landmarks) return out;
+    var louds = plan.landmarks.filter(function(l) { return /dj|band|subwoofer|speaker|stage/i.test(String(l.label || '')); });
+    if (!louds.length) return out;
+    plan.tables.forEach(function(t, ti) {
+      if (ti === 0) return;
+      var sr = (t.guests || []).find(function(g) { return /grandma|grandpa|nana|pop|elderly|senior/i.test(String(g.name || '') + ' ' + String(g.role || '')); });
+      if (!sr) return;
+      louds.forEach(function(lm) {
+        var lx = (lm.x || 0) + (lm.w || 140) / 2, ly = (lm.y || 0) + (lm.h || 50) / 2;
+        if (Math.hypot(t.x - lx, t.y - ly) < 195) out.push({ t: ti, guest: sr.name, lm: lm.label });
+      });
+    });
+    return out;
+  }
   function shSeparate(r) {
     var A = shFindGuests(r.pair[0]), B = shFindGuests(r.pair[1]), src = null, mv = null;
-    for (var i = 0; i < A.length && !mv; i++) for (var j = 0; j < B.length; j++) if (A[i].t === B[j].t) { src = A[i]; mv = B[j]; break; }
+    for (var i = 0; i < A.length && !mv; i++) for (var j = 0; j < B.length; j++) if (A[i].t === B[j].t || shRuleState(r) === 'close') { src = A[i]; mv = B[j]; break; }
     if (!mv) return false;
     var tables = window.__SH_STATE.tables, ref = tables[src.t], best = -1, bd = -1;
     tables.forEach(function(t, i) { if (i === 0 || i === src.t || t.guests.length >= (t.capacity || 0)) return; var d = Math.hypot(t.x - ref.x, t.y - ref.y); if (d > bd) { bd = d; best = i; } });
@@ -87,12 +106,30 @@ function renderSeatGroupsClientScript() {
     if (best === -1) return false;
     window.shMoveGuestToTable(mv.t, mv.g, best); window.__SH_SWAP_SOURCE = null; window.__SH_OPEN_GUEST = null; return true;
   }
+  window.shFixLoudTable = function(tIdx) {
+    var plan = window.__SH_STATE, tbl = plan && plan.tables && plan.tables[tIdx]; if (!tbl) return;
+    var sIdx = tbl.guests.findIndex(function(g) { return /grandma|grandpa|nana|pop|elderly|senior/i.test(String(g.name || '') + ' ' + String(g.role || '')); });
+    if (sIdx === -1) return;
+    var louds = (plan.landmarks || []).filter(function(l) { return /dj|band|subwoofer|speaker|stage/i.test(String(l.label || '')); });
+    var lx = louds[0] ? (louds[0].x + (louds[0].w || 140) / 2) : 900, ly = louds[0] ? (louds[0].y + (louds[0].h || 50) / 2) : 80;
+    var best = -1, bd = -1;
+    plan.tables.forEach(function(t, i) { if (i === 0 || i === tIdx) return; var d = Math.hypot(t.x - lx, t.y - ly); if (d > bd) { bd = d; best = i; } });
+    if (best === -1) return;
+    window.shSnapshot(); var nm = tbl.guests[sIdx].name; window.shMoveGuestToTable(tIdx, sIdx, best);
+    shToast('\\u2713 Moved ' + nm + ' to quiet ' + plan.tables[best].name + ' away from speakers.'); shRenderAll();
+  };
   window.shEdTopConflictHtml = function() {
     var rules = (window.__SH_STATE && window.__SH_STATE.rules) || [], h = [];
     rules.forEach(function(r, i) {
-      if (r.pair && shRuleState(r) === 'same') {
+      var st = r.pair ? shRuleState(r) : null;
+      if (st === 'same') {
         h.push('<div class="sh-ed-conflict-alert"><span>&#9888; <b>' + shEsc(r.pair[0]) + '</b> &amp; <b>' + shEsc(r.pair[1]) + '</b> are at the same table</span><button type="button" class="sh-ed-ka-btn" onclick="window.shFixKeepApart(' + i + ')">Separate</button></div>');
+      } else if (st === 'close') {
+        h.push('<div class="sh-ed-conflict-alert" style="background:#FFFBEB;border-color:#F59E0B;color:#92400E;"><span>&#9888; <b>' + shEsc(r.pair[0]) + '</b> &amp; <b>' + shEsc(r.pair[1]) + '</b> are on adjacent tables (close sightline)</span><button type="button" class="sh-ed-ka-btn" onclick="window.shFixKeepApart(' + i + ')">Move Farther Apart</button></div>');
       }
+    });
+    shLoudConflictTables().forEach(function(lc) {
+      h.push('<div class="sh-ed-conflict-alert" style="background:#FFFBEB;border-color:#F59E0B;color:#92400E;"><span>&#128266; <b>' + shEsc(lc.guest) + '</b> is seated near loud <b>' + shEsc(lc.lm) + '</b></span><button type="button" class="sh-ed-ka-btn" onclick="window.shFixLoudTable(' + lc.t + ')">Move to Quiet Zone</button></div>');
     });
     return h.join('');
   };
@@ -266,11 +303,26 @@ function renderSeatGroupsClientScript() {
     return best;
   }
   window.shDropHalo = function(plan) {
-    var out = [], cMap = shConflictTables();
-    var p1 = plan.tables && plan.tables[1], p2 = plan.tables && plan.tables[Math.min(4, plan.tables.length - 1)];
-    if (p1 && p2 && p1 !== p2 && !cMap[1] && !cMap[4]) {
-      var mx = Math.round((p1.x + p2.x) / 2), my = Math.round((p1.y + p2.y) / 2) - 22;
-      out.push('<g class="sh-peace-line" pointer-events="none"><line x1="' + p1.x + '" y1="' + p1.y + '" x2="' + p2.x + '" y2="' + p2.y + '" stroke="#065F46" stroke-width="1.6" stroke-dasharray="5 5" opacity="0.72"/><rect x="' + (mx - 104) + '" y="' + (my - 12) + '" width="208" height="24" rx="12" fill="#ECFDF5" stroke="#065F46" stroke-width="1"/><text x="' + mx + '" y="' + (my + 4) + '" text-anchor="middle" fill="#065F46" font-size="10.2" font-weight="800">&#10003; Separated Across Dance Floor</text></g>');
+    var out = [], cMap = shConflictTables(), drewRuleLine = false;
+    ((plan && plan.rules) || []).forEach(function(r) {
+      if (!r.pair || drewRuleLine) return;
+      var A = shFindGuests(r.pair[0]), B = shFindGuests(r.pair[1]);
+      if (!A.length || !B.length || A[0].t === B[0].t) return;
+      var tA = plan.tables[A[0].t], tB = plan.tables[B[0].t];
+      if (!tA || !tB) return;
+      drewRuleLine = true;
+      var dist = Math.hypot(tA.x - tB.x, tA.y - tB.y), close = dist < 225;
+      var mx = Math.round((tA.x + tB.x) / 2), my = Math.round((tA.y + tB.y) / 2) - 22;
+      var col = close ? '#B45309' : '#065F46', bg = close ? '#FFFBEB' : '#ECFDF5';
+      var lbl = close ? ('\u26A0 Close Sightline: ' + r.pair[0].split(' ')[0] + ' & ' + r.pair[1].split(' ')[0]) : ('\u2713 Separated (' + Math.max(18, Math.round(dist / 11)) + ' ft Buffer)');
+      out.push('<g class="sh-peace-line" pointer-events="none"><line x1="' + tA.x + '" y1="' + tA.y + '" x2="' + tB.x + '" y2="' + tB.y + '" stroke="' + col + '" stroke-width="1.6" stroke-dasharray="5 5" opacity="0.72"/><rect x="' + (mx - 108) + '" y="' + (my - 12) + '" width="216" height="24" rx="12" fill="' + bg + '" stroke="' + col + '" stroke-width="1"/><text x="' + mx + '" y="' + (my + 4) + '" text-anchor="middle" fill="' + col + '" font-size="10.2" font-weight="800">' + shEsc(lbl) + '</text></g>');
+    });
+    if (!drewRuleLine) {
+      var p1 = plan.tables && plan.tables[1], p2 = plan.tables && plan.tables[Math.min(4, plan.tables.length - 1)];
+      if (p1 && p2 && p1 !== p2 && !cMap[1] && !cMap[4] && (p1.guests || []).length > 0) {
+        var mx0 = Math.round((p1.x + p2.x) / 2), my0 = Math.round((p1.y + p2.y) / 2) - 22;
+        out.push('<g class="sh-peace-line" pointer-events="none"><line x1="' + p1.x + '" y1="' + p1.y + '" x2="' + p2.x + '" y2="' + p2.y + '" stroke="#065F46" stroke-width="1.6" stroke-dasharray="5 5" opacity="0.72"/><rect x="' + (mx0 - 104) + '" y="' + (my0 - 12) + '" width="208" height="24" rx="12" fill="#ECFDF5" stroke="#065F46" stroke-width="1"/><text x="' + mx0 + '" y="' + (my0 + 4) + '" text-anchor="middle" fill="#065F46" font-size="10.2" font-weight="800">&#10003; Separated Across Dance Floor</text></g>');
+      }
     }
     Object.keys(cMap).forEach(function(k) {
       var ti = Number(k), tb = plan.tables[ti]; if (!tb) return;
