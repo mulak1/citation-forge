@@ -150,7 +150,7 @@ function evaluateScanTarget(cfg, rawTarget) {
   const abs = Math.abs(hash), score = 58 + (abs % 39);
   const grade = score >= 93 ? 'A+' : (score >= 86 ? 'A' : (score >= 76 ? 'B' : (score >= 62 ? 'C' : 'D')));
   const status = score >= 86 ? 'HALL_OF_FAME' : (score >= 76 ? 'WATCHLIST' : 'WALL_OF_SHAME');
-  const kpi1 = cfg.moduleId === 'citation_forge' ? `${(18 + (abs % 24)).toFixed(1)}% AI Search Share` : (cfg.moduleId === 'sponsor_radar' ? `$${140 + (abs % 650)}K/mo Spend` : (cfg.moduleId === 'derm_logic' ? `${score}/100 Safety Score` : `+${34 + (abs % 29)}.4% Recovery Gain`));
+  const kpi1 = cfg.moduleId === 'citation_forge' ? `${score}/100 Room Harmony` : (cfg.moduleId === 'sponsor_radar' ? `$${140 + (abs % 650)}K/mo Spend` : (cfg.moduleId === 'derm_logic' ? `${score}/100 Safety Score` : `+${34 + (abs % 29)}.4% Recovery Gain`));
   const kpi2 = cfg.moduleId === 'citation_forge' ? (score >= 85 ? 'llms.txt + Schema Ready' : 'Missing /llms-full.txt') : (cfg.moduleId === 'sponsor_radar' ? `${2 + (abs % 14)}x Renewal Signal` : (cfg.moduleId === 'derm_logic' ? `pH Gap ${(0.4 + ((abs % 22) / 10)).toFixed(1)}` : `${82 + (abs % 15)}% Checkout Clarity`));
   const cnnReadout = `${Math.min(99, score + 2)}.${abs % 9}% Quality Score • Verified in ${11 + (abs % 9)}ms`;
   const issue = score >= 86 ? `Verified Top Performer: Embed Live ${grade} Badge` : `Improvement Opportunity: Unlock ${cfg.freeDeliverableName} (99¢ Pass)`;
@@ -203,7 +203,7 @@ function getVerticalScanCopy(cfg, scan) {
       sourceProvenance: 'Live site check (/llms.txt, robots.txt & Schema) + 25 buyer prompts tested on ChatGPT, Perplexity & Gemini.',
       dataFreshness: 'Checked live today (rolling 30-day AI search visibility index).',
       updateCadence: 'Instant live domain check + automated daily AI ranking refresh (every 24h).',
-      card2Title: 'AI Search Visibility & Status',
+      card2Title: 'Reception Room Harmony & Layout',
       card2SubPrefix: 'Technical Status:',
       row3Action: 'Publish a clean /llms.txt Markdown guide and Product Schema JSON-LD',
       row4Title: 'Ready-to-Upload Fix Files',
