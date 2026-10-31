@@ -445,7 +445,7 @@ function renderZone4ProofStackAndPricing() {
           <div class="bs-quote-stars">&#9733;&#9733;&#9733;&#9733;&#9733; Father of the Bride</div>
           <p class="bs-quote-body">&ldquo;The Family Table Share link saved our sanity. My wife arranged Tables 1 to 3 at midnight while Tables 4 to 12 stayed safely locked.&rdquo;</p>
           <div class="bs-quote-author">
-            <div class="bs-quote-avatar">RT</div>
+            <img src="/public/avatar-father.jpg" alt="Robert T." class="bs-quote-avatar" width="46" height="46" loading="lazy" />
             <div><strong>Robert T.</strong><span>155 Guests &bull; Boston, MA (Father of the Bride)</span></div>
           </div>
         </div>
@@ -454,7 +454,7 @@ function renderZone4ProofStackAndPricing() {
           <div class="bs-quote-stars">&#9733;&#9733;&#9733;&#9733;&#9733; Lead Wedding Coordinator</div>
           <p class="bs-quote-body">&ldquo;Handing the venue SeatHarmony&rsquo;s Clockwise 12:00 BEO and Avery 5302 tent cards made 220-guest plated service effortless.&rdquo;</p>
           <div class="bs-quote-author">
-            <div class="bs-quote-avatar">EV</div>
+            <img src="/public/avatar-coordinator.jpg" alt="Elena V." class="bs-quote-avatar" width="46" height="46" loading="lazy" />
             <div><strong>Elena V.</strong><span>220 Guests &bull; Charleston, SC (Coordinator)</span></div>
           </div>
         </div>
@@ -463,7 +463,7 @@ function renderZone4ProofStackAndPricing() {
           <div class="bs-quote-stars">&#9733;&#9733;&#9733;&#9733;&#9733; 24&Prime;&times;36&Prime; Sign + Cocktail QR</div>
           <p class="bs-quote-body">&ldquo;Everyone photographed our Obsidian &amp; Gold 24&Prime;&times;36&Prime; sign! Half our guests scanned the bar QR so there was zero doorway line.&rdquo;</p>
           <div class="bs-quote-author">
-            <div class="bs-quote-avatar">PL</div>
+            <img src="/public/avatar-priya-lukas.jpg" alt="Priya &amp; Lukas M." class="bs-quote-avatar" width="46" height="46" loading="lazy" />
             <div><strong>Priya &amp; Lukas M.</strong><span>175 Guests &bull; Austin, TX (Estate Reception)</span></div>
           </div>
         </div>
@@ -472,7 +472,7 @@ function renderZone4ProofStackAndPricing() {
           <div class="bs-quote-stars">&#9733;&#9733;&#9733;&#9733;&#9733; Divorced-Parent Buffer Solver</div>
           <p class="bs-quote-body">&ldquo;One click placed two estranged aunts on opposite sides of the dance floor while keeping every couple seated together.&rdquo;</p>
           <div class="bs-quote-author">
-            <div class="bs-quote-avatar">MJ</div>
+            <img src="/public/avatar-marcus-jenna.jpg" alt="Marcus &amp; Jenna K." class="bs-quote-avatar" width="46" height="46" loading="lazy" />
             <div><strong>Marcus &amp; Jenna K.</strong><span>130 Guests &bull; Seattle, WA (Vineyard Wedding)</span></div>
           </div>
         </div>
