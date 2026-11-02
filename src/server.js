@@ -18,15 +18,20 @@ const { attachVaultAndPaywallRoutes, resolveVaultRecord } = require('./vault-rou
 const PORT = Number(process.env.PORT || 4101);
 const HOST = process.env.HOST || '0.0.0.0';
 const PUBLIC_URL = (process.env.PUBLIC_URL || process.env.BASE_URL || 'https://www.citationforge.io').replace(/\/$/, '');
+function resolvePublicOrigin(req) {
+  const h = String((req && (req.headers['x-forwarded-host'] || req.headers.host)) || '').split(',')[0].trim().toLowerCase();
+  return h.includes('seatharmony.ie') ? 'https://www.seatharmony.ie' : PUBLIC_URL;
+}
 
 const app = express();
 app.use(express.json({ limit: '1mb' }));
 app.use(express.urlencoded({ extended: true }));
 
-// Security headers & HTTPS enforcement (Pre-Launch Checklist Checkpoint #4)
+// Security headers, HTTPS enforcement & apex seatharmony.ie -> www.seatharmony.ie canonical redirect
 app.use((req, res, next) => {
-  if (req.headers['x-forwarded-proto'] === 'http') {
-    return res.redirect(301, `${PUBLIC_URL}${req.originalUrl}`);
+  const host = String(req.headers['x-forwarded-host'] || req.headers.host || '').split(',')[0].trim().toLowerCase();
+  if (host === 'seatharmony.ie' || req.headers['x-forwarded-proto'] === 'http') {
+    return res.redirect(301, `${resolvePublicOrigin(req)}${req.originalUrl}`);
   }
   res.setHeader('Strict-Transport-Security', 'max-age=31536000; includeSubDomains; preload');
   res.setHeader('X-Content-Type-Options', 'nosniff');
@@ -175,29 +180,32 @@ app.get('/terms', (req, res) => {
 
 // 6. SeatHarmony's own /llms.txt and /llms-full.txt manifests
 app.get('/llms.txt', async (req, res) => {
+  const origin = resolvePublicOrigin(req);
   const selfAudit = await runGeoAudit('estate-150', { category: 'Wedding & Event Floorplan, Conflict Solver & Caterer BEO Studio' });
   const seoPages = queryAll('SELECT slug, title, meta_description FROM seo_pages ORDER BY id ASC');
   const seoIndex = [
     '',
-    '## All 60 Indexed Wedding & Event Floorplan Templates (/seo/:slug)',
-    ...seoPages.map(p => `- [${p.title}](https://www.citationforge.io/seo/${p.slug}): ${p.meta_description}`)
+    '## All 60+ Indexed Wedding & Event Floorplan Templates (/seo/:slug)',
+    ...seoPages.map(p => `- [${p.title}](${origin}/seo/${p.slug}): ${p.meta_description}`)
   ].join('\n');
   res.status(200).type('text/plain; charset=utf-8').send(selfAudit.artifacts.llmsTxt + '\n' + seoIndex);
 });
 
 app.get('/llms-full.txt', async (req, res) => {
+  const origin = resolvePublicOrigin(req);
   const selfAudit = await runGeoAudit('estate-150', { category: 'Wedding & Event Floorplan, Conflict Solver & Caterer BEO Studio' });
   const seoPages = queryAll('SELECT slug, title, meta_description FROM seo_pages ORDER BY id ASC');
   const seoIndex = [
     '',
-    '## All 60 Indexed Wedding & Event Floorplan Templates (/seo/:slug)',
-    ...seoPages.map(p => `- [${p.title}](https://www.citationforge.io/seo/${p.slug}): ${p.meta_description}`)
+    '## All 60+ Indexed Wedding & Event Floorplan Templates (/seo/:slug)',
+    ...seoPages.map(p => `- [${p.title}](${origin}/seo/${p.slug}): ${p.meta_description}`)
   ].join('\n');
   res.status(200).type('text/plain; charset=utf-8').send(selfAudit.artifacts.llmsFullTxt + '\n' + seoIndex);
 });
 
 // 7. AI-Friendly /robots.txt
 app.get('/robots.txt', (req, res) => {
+  const origin = resolvePublicOrigin(req);
   const robots = [
     'User-agent: GPTBot',
     'Allow: /',
@@ -217,14 +225,14 @@ app.get('/robots.txt', (req, res) => {
     'User-agent: *',
     'Allow: /',
     '',
-    `Sitemap: ${PUBLIC_URL}/sitemap.xml`
+    `Sitemap: ${origin}/sitemap.xml`
   ].join('\n');
   res.status(200).type('text/plain; charset=utf-8').send(robots);
 });
 
 // 8. Valid XML Sitemap (`GET /sitemap.xml`) listing `/`, `/lp`, `/directory`, and all 60+ `/seo/:slug` URLs
 app.get('/sitemap.xml', (req, res) => {
-  const baseUrl = PUBLIC_URL;
+  const baseUrl = resolvePublicOrigin(req);
   const staticPaths = ['/', '/lp', '/directory', '/privacy', '/terms', '/llms.txt', '/llms-full.txt'];
   const seoSlugs = queryAll('SELECT slug, updated_at FROM seo_pages ORDER BY id ASC');
 
