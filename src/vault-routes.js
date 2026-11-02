@@ -200,7 +200,7 @@ function renderTopPrintBar({ vault, activeRoute, baseUrl }) {
 }
 
 function attachVaultAndPaywallRoutes(app, publicUrl, ebStore = null) {
-  const baseUrl = String(publicUrl || 'https://www.citationforge.io').replace(/\/$/, '');
+  const baseUrl = String(publicUrl || 'https://www.seatharmony.io').replace(/\/$/, '');
 
   // 1. Save / Auto-Sync Event Vault (POST /api/vault/save)
   app.post('/api/vault/save', (req, res) => {

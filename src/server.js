@@ -17,7 +17,7 @@ const { attachVaultAndPaywallRoutes, resolveVaultRecord } = require('./vault-rou
 
 const PORT = Number(process.env.PORT || 4101);
 const HOST = process.env.HOST || '0.0.0.0';
-const PUBLIC_URL = (process.env.PUBLIC_URL || process.env.BASE_URL || 'https://www.citationforge.io').replace(/\/$/, '');
+const PUBLIC_URL = (process.env.PUBLIC_URL || process.env.BASE_URL || 'https://www.seatharmony.io').replace(/\/$/, '');
 function resolvePublicOrigin(req) {
   const h = String((req && (req.headers['x-forwarded-host'] || req.headers.host)) || '').split(',')[0].trim().toLowerCase();
   return h.includes('seatharmony.io') ? 'https://www.seatharmony.io' : PUBLIC_URL;
@@ -27,10 +27,13 @@ const app = express();
 app.use(express.json({ limit: '1mb' }));
 app.use(express.urlencoded({ extended: true }));
 
-// Security headers, HTTPS enforcement & apex seatharmony.io -> www.seatharmony.io canonical redirect
+// Security headers, HTTPS enforcement & legacy citationforge.io / apex seatharmony.io -> www.seatharmony.io 301 redirect
 app.use((req, res, next) => {
   const host = String(req.headers['x-forwarded-host'] || req.headers.host || '').split(',')[0].trim().toLowerCase();
-  if (host === 'seatharmony.io' || req.headers['x-forwarded-proto'] === 'http') {
+  if ((host === 'seatharmony.io' || host === 'citationforge.io' || host === 'www.citationforge.io') && !req.path.startsWith('/api/')) {
+    return res.redirect(301, `https://www.seatharmony.io${req.originalUrl}`);
+  }
+  if (req.headers['x-forwarded-proto'] === 'http') {
     return res.redirect(301, `${resolvePublicOrigin(req)}${req.originalUrl}`);
   }
   res.setHeader('Strict-Transport-Security', 'max-age=31536000; includeSubDomains; preload');

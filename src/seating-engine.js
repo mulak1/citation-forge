@@ -567,9 +567,9 @@ async function runGeoAudit(rawDomain = 'estate-150', options = {}) {
       '24"×36" Print Bleed': 'Allow'
     },
     llmsTxtStatus: { hasLlmsTxt: true, hasLlmsFullTxt: true },
-    schemaStatus: { hasOrganization: true, hasSoftwareApp: true, hasFaqPage: true, sameAs: ['https://www.citationforge.io'] },
+    schemaStatus: { hasOrganization: true, hasSoftwareApp: true, hasFaqPage: true, sameAs: ['https://www.seatharmony.io'] },
     leaderboard: [
-      { brand: 'SeatHarmony Studio', domain: 'seatharmony.com', csovPct: 98.4, isTarget: true },
+      { brand: 'SeatHarmony Studio', domain: 'seatharmony.io', csovPct: 98.4, isTarget: true },
       { brand: 'Zola Seating Tool', domain: 'zola.com', csovPct: 64.0, isTarget: false },
       { brand: 'Canva Manual Sign', domain: 'canva.com', csovPct: 51.5, isTarget: false },
       { brand: 'Google Sheets Grid', domain: 'docs.google.com', csovPct: 38.0, isTarget: false }

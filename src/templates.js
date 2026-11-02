@@ -26,7 +26,7 @@ function renderHead({
   jsonLd = null,
   ogSlug = 'home'
 } = {}) {
-  const baseUrl = (process.env.PUBLIC_URL || 'https://www.citationforge.io').replace(/\/$/, '');
+  const baseUrl = (process.env.PUBLIC_URL || 'https://www.seatharmony.io').replace(/\/$/, '');
   const canonicalUrl = `${baseUrl}${canonicalPath}`;
   const ogImageUrl = `${baseUrl}/api/og?slug=${encodeURIComponent(ogSlug)}`;
 
