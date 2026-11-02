@@ -564,7 +564,7 @@ function renderDeliverablesClientScript() {
     const encTarget = encodeURIComponent(coupleTitle || 'our-wedding');
     const setTxt = function(elId, txt) { const el = document.getElementById(elId); if (el) el.textContent = txt; };
     setTxt('hero-vault-code-label', '#' + id); setTxt('sh-studio-vault-code', id); setTxt('sh-btn-vault-id', id); setTxt('sh-modal-vault-code', id);
-    setTxt('sh-modal-links-vault-id', id); setTxt('sh-unlocked-vault-id', id); setTxt('sh-qr-short-url', '/qr/' + id);
+    setTxt('sh-modal-links-vault-id', id); setTxt('sh-unlocked-vault-id', id);
     setTxt('sh-tab-floorplan', 'Seating (' + totalTables + ' Tables)');
     setTxt('sh-tab-beo', 'Caterer sheet (' + totalGuests + ' Meals' + (totalAlerts ? ' · ' + totalAlerts + ' Alerts' : '') + ')');
     setTxt('sh-tab-poster', 'Welcome sign (' + totalGuests + ' Names)');
@@ -581,9 +581,10 @@ function renderDeliverablesClientScript() {
     ['sh-cmd-avery-link', 'sh-open-avery-studio-link', 'sh-avery-preview-btn', 'sh-card5-avery-studio-link', 'sh-modal-link-avery'].forEach(function(k) { setHref(k, '/print/avery-5302/' + id); });
     ['sh-cmd-beo-link', 'sh-open-beo-studio-link', 'sh-modal-link-beo'].forEach(function(k) { setHref(k, '/print/beo/' + id); });
     ['sh-cmd-qr-link', 'sh-open-qr-app-link', 'sh-qr-short-url', 'sh-modal-link-qr'].forEach(function(k) { setHref(k, '/qr/' + id); });
-    const packUrl = '/buy/complete_dossier?target=' + encTarget + '&vault=' + id;
-    const flashUrl = '/buy/flash_pass?target=' + encTarget + '&vault=' + id;
-    const proUrl = '/buy/pro_b2b?target=' + encTarget + '&vault=' + id;
+    const emailParam = (state.ownerEmail && state.ownerEmail.indexOf('@') > 0 && !/^(test|vip)@/i.test(state.ownerEmail)) ? '&email=' + encodeURIComponent(state.ownerEmail) : '';
+    const packUrl = '/buy/complete_dossier?target=' + encTarget + '&vault=' + id + emailParam;
+    const flashUrl = '/buy/flash_pass?target=' + encTarget + '&vault=' + id + emailParam;
+    const proUrl = '/buy/pro_b2b?target=' + encTarget + '&vault=' + id + emailParam;
     ['sh-card5-buy-btn', 'sh-vault-buy-pack-btn', 'sh-pane-poster-buy-link', 'sh-avery-pack-buy-btn', 'sh-carousel-unlock-cta', 'nav-primary-buy-cta', 'pricing-buy-pack', 'pricing-buy-bottom', 'sh-pane-beo-pack-upgrade-link'].forEach(function(k) { setHref(k, packUrl); });
     ['sh-pane-beo-buy-link', 'pricing-buy-flash'].forEach(function(k) { setHref(k, flashUrl); });
     ['sh-vault-buy-pro-btn', 'pricing-buy-pro'].forEach(function(k) { setHref(k, proUrl); });
@@ -615,7 +616,7 @@ function renderDeliverablesClientScript() {
     window.__shPersistTimer = setTimeout(shFlushVaultNow, 450);
   }
 
-  window.shOpenVaultModal = function() { const m = document.getElementById('sh-vault-modal'); if (m) m.style.display = 'flex'; };
+  window.shOpenVaultModal = function() { const m = document.getElementById('sh-vault-modal'); if (m) m.style.display = 'flex'; if (window.shTrackTelemetry) window.shTrackTelemetry('view_paywall', { source: 'vault_modal' }); };
   window.shCloseVaultModal = function() { const m = document.getElementById('sh-vault-modal'); if (m) m.style.display = 'none'; };
   window.__shCarouselSlide = 0;
   window.selectStudioFeatureSlide = function(idx) {
@@ -667,6 +668,43 @@ function renderDeliverablesClientScript() {
   };
   window.shLoginWithTestAccount = function(code) {
     return window.shLookupSavedVault(code || 'test@seatharmony.com');
+  };
+  window.shTrackTelemetry = function(eventType, meta) {
+    try {
+      fetch('/api/telemetry/event', { method: 'POST', keepalive: true, headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ eventType: eventType, pagePath: window.location.pathname, meta: meta || {} }) }).catch(function() {});
+    } catch (_) {}
+  };
+  window.shSaveInlineEmailLead = async function() {
+    var inp = document.getElementById('sh-inline-vault-email'), btn = document.getElementById('sh-inline-vault-save-btn');
+    var email = inp ? String(inp.value || '').trim().toLowerCase() : '';
+    if (!email || email.indexOf('@') < 1) { if (inp) inp.focus(); shToast('Enter your email to save your seating plan & download your free Caterer CSV.'); return; }
+    if (btn) btn.textContent = 'Saving...';
+    if (window.__SH_STATE) {
+      window.__SH_STATE.ownerEmail = email;
+      if (!window.__SH_STATE.vaultId || window.__SH_STATE.vaultId === 'SH-4819') {
+        window.__SH_STATE.vaultId = 'SH-' + Math.floor(1000 + Math.random() * 9000);
+      }
+    }
+    try {
+      var res = await fetch('/api/vault/save', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ vaultId: (window.__SH_STATE && window.__SH_STATE.vaultId) || 'SH-4819', ownerEmail: email, state: window.__SH_STATE }) });
+      var data = await res.json(), vid = (data && (data.vaultId || data.vault_id)) || (window.__SH_STATE && window.__SH_STATE.vaultId);
+      if (vid) shSyncVaultIdLinks(vid);
+      if (btn) { btn.textContent = '✓ Saved & CSV Ready'; btn.style.background = '#065F46'; btn.style.borderColor = '#065F46'; }
+      if (window.shExportBeoCsv) window.shExportBeoCsv();
+      shToast('✓ Saved to ' + email + ' & downloaded free Caterer BEO CSV!');
+    } catch (_) { if (btn) btn.textContent = 'Save & CSV'; }
+  };
+  window.shSubmitVocSurvey = function(choice, btn) {
+    document.querySelectorAll('#sh-voc-survey-box .sh-voc-chip').forEach(function(b) {
+      b.style.background = '#FFFFFF'; b.style.borderColor = '#D6CFC2'; b.style.color = '#181412';
+    });
+    if (btn) { btn.style.background = '#181412'; btn.style.borderColor = '#181412'; btn.style.color = '#FBF9F5'; }
+    var lbl = document.getElementById('sh-voc-survey-label');
+    if (lbl) lbl.textContent = '✓ Tailored for your wedding — click Unlock above when ready to print';
+    window.shTrackTelemetry('survey_response', { choice: choice, vaultId: (window.__SH_STATE && window.__SH_STATE.vaultId) || 'SH-4819' });
+    if ((choice === '24x36_sign' || choice === 'avery_5302') && window.shSetActiveTab) window.shSetActiveTab('poster');
+    else if (choice === 'caterer_beo' && window.shSetActiveTab) window.shSetActiveTab('beo');
+    else if (choice === 'floorplan' && window.shSetActiveTab) window.shSetActiveTab('floorplan');
   };`;
 }
 

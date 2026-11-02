@@ -199,7 +199,7 @@ function renderTopPrintBar({ vault, activeRoute, baseUrl }) {
   </header>`;
 }
 
-function attachVaultAndPaywallRoutes(app, publicUrl) {
+function attachVaultAndPaywallRoutes(app, publicUrl, ebStore = null) {
   const baseUrl = String(publicUrl || 'https://www.citationforge.io').replace(/\/$/, '');
 
   // 1. Save / Auto-Sync Event Vault (POST /api/vault/save)
@@ -207,52 +207,33 @@ function attachVaultAndPaywallRoutes(app, publicUrl) {
     try {
       const body = req.body || {};
       const state = body.state && typeof body.state === 'object' ? body.state : null;
-      if (!state || !Array.isArray(state.tables)) {
-        return res.status(400).json({ ok: false, error: 'Valid seating plan state is required.' });
-      }
-      const vaultId = normalizeVaultId(body.vaultId || body.vault_id || state.vaultId || `SH-${Math.floor(1000 + Math.random() * 9000)}`);
+      if (!state || !Array.isArray(state.tables)) return res.status(400).json({ ok: false, error: 'Valid seating plan state is required.' });
       const ownerEmail = String(body.ownerEmail || body.email || body.owner_email || state.ownerEmail || '').trim().toLowerCase().slice(0, 120);
+      const isTestOwner = /^(test|vip)@seatharmony\.com$/i.test(ownerEmail);
+      let rawId = body.vaultId || body.vault_id || state.vaultId || '';
+      if ((!rawId || String(rawId).toUpperCase() === 'SH-4819') && !isTestOwner && (state.isWizardBuilt || (ownerEmail && ownerEmail.includes('@')))) {
+        rawId = `SH-${Math.floor(1000 + Math.random() * 9000)}`;
+      }
+      const vaultId = normalizeVaultId(rawId || `SH-${Math.floor(1000 + Math.random() * 9000)}`);
       const pinCode = String(body.pinCode || body.pin_code || '').trim().slice(0, 12);
       const title = String(state.title || body.title || "Maya & Liam's Estate Reception").trim().slice(0, 120);
       const venueName = String(state.venueName || body.venue_name || 'The Conservatory at Villa Bellagio').trim().slice(0, 120);
-
       const existing = queryOne('SELECT is_unlocked, plan_tier, owner_email, stripe_session_id FROM event_vaults WHERE vault_id = ?', [vaultId]);
       const isUnlocked = existing && existing.is_unlocked ? 1 : (body.is_unlocked ? 1 : 0);
       const planTier = (existing && existing.plan_tier && existing.plan_tier !== 'free') ? existing.plan_tier : String(body.plan_tier || 'free');
       const finalEmail = ownerEmail || (existing ? existing.owner_email : '');
-
       state.vaultId = vaultId;
       if (finalEmail) state.ownerEmail = finalEmail;
-
       runInsert(
-        `INSERT OR REPLACE INTO event_vaults (
-          vault_id, owner_email, pin_code, title, venue_name,
-          plan_tier, is_unlocked, stripe_session_id, state_json, updated_at
-        ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, datetime('now'))`,
-        [
-          vaultId,
-          finalEmail,
-          pinCode,
-          title,
-          venueName,
-          planTier,
-          isUnlocked,
-          existing ? (existing.stripe_session_id || '') : '',
-          JSON.stringify(state)
-        ]
+        `INSERT OR REPLACE INTO event_vaults (vault_id, owner_email, pin_code, title, venue_name, plan_tier, is_unlocked, stripe_session_id, state_json, updated_at) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, datetime('now'))`,
+        [vaultId, finalEmail, pinCode, title, venueName, planTier, isUnlocked, existing ? (existing.stripe_session_id || '') : '', JSON.stringify(state)]
       );
-
-      return res.status(200).json({
-        ok: true,
-        vaultId,
-        vault_id: vaultId,
-        owner_email: finalEmail,
-        title,
-        venue_name: venueName,
-        is_unlocked: Boolean(isUnlocked),
-        plan_tier: planTier,
-        urls: buildVaultUrls(baseUrl, vaultId)
-      });
+      if (ebStore && finalEmail && finalEmail.includes('@') && !isTestOwner) {
+        const ua = String(req.headers['user-agent'] || '').toLowerCase(), isTestReq = /headlesschrome|playwright|puppeteer|curl\/|bot|crawler|example\.com|test/i.test(ua + ' ' + finalEmail) ? 1 : 0;
+        ebStore.recordLead({ email: finalEmail, summaryText: `Saved Reception Vault #${vaultId} (${title})`, utmSource: 'vault_save', isTest: isTestReq, clientIp: String(req.ip || '') });
+        ebStore.recordEvent({ eventType: 'lead_capture', pageUrl: '/api/vault/save', deviceType: /mobile|iphone|android/i.test(ua) ? 'mobile' : 'desktop', utmSource: 'vault_save', isTest: isTestReq, clientIp: String(req.ip || '') });
+      }
+      return res.status(200).json({ ok: true, vaultId, vault_id: vaultId, owner_email: finalEmail, title, venue_name: venueName, is_unlocked: Boolean(isUnlocked), plan_tier: planTier, urls: buildVaultUrls(baseUrl, vaultId) });
     } catch (err) {
       return res.status(500).json({ ok: false, error: err.message });
     }
@@ -586,6 +567,8 @@ function attachVaultAndPaywallRoutes(app, publicUrl) {
       }).join('');
       const posterMiniMapBlock = `<div id="poster-mini-map-wrap" style="display:${showMap ? 'block' : 'none'};margin:0 0 24px;padding:0 0 18px;border-bottom:1.5px solid ${border};background:transparent;"><div class="mono" style="display:flex;justify-content:space-between;align-items:center;margin-bottom:6px;font-size:0.70rem;font-weight:800;letter-spacing:0.14em;color:${sub};"><span>&#10022; RECEPTION TABLE LAYOUT (${tables.length} TABLES)</span><span>FIND YOUR NAME BELOW &rarr; LOCATE YOUR TABLE</span></div><svg viewBox="${vx} ${vy} ${vw} ${vh}" style="width:100%;max-height:380px;height:auto;display:block;background:transparent;border:none;">${lmSvg}${tblSvg}</svg></div>`;
 
+      const buyPackUrl = `/buy/complete_dossier?target=${encodeURIComponent(vault.title || vault.vaultId)}&vault=${encodeURIComponent(vault.vaultId)}${vault.ownerEmail ? `&email=${encodeURIComponent(vault.ownerEmail)}` : ''}`;
+      const proofWatermarkHtml = vault.isUnlocked ? '' : `<div class="proof-wm" aria-hidden="true"><span>PREVIEW PROOF &bull; UNLOCK 300-DPI PRINT PACK ($14.99) AT SEATHARMONY.COM</span></div>`;
       const html = `<!DOCTYPE html>
 <html lang="en">
 <head>
@@ -597,16 +580,19 @@ function attachVaultAndPaywallRoutes(app, publicUrl) {
     body { background: #F4EFE6; color: #181412; font-family: 'Plus Jakarta Sans', sans-serif; }
     .serif { font-family: 'Cormorant Garamond', Georgia, serif; font-weight: 700; }
     .mono { font-family: 'JetBrains Mono', monospace; }
-    .poster-sheet { max-width: 960px; min-height: 1380px; margin: 20px auto 48px; background: ${bg}; color: ${fg}; border: 3px double ${border}; padding: 48px 44px; position: relative; box-shadow: 0 22px 54px rgba(24,20,18,0.10); display: flex; flex-direction: column; justify-content: space-between; }
+    .poster-sheet { max-width: 960px; min-height: 1380px; margin: 20px auto 48px; background: ${bg}; color: ${fg}; border: 3px double ${border}; padding: 48px 44px; position: relative; box-shadow: 0 22px 54px rgba(24,20,18,0.10); display: flex; flex-direction: column; justify-content: space-between; overflow: hidden; }
     .crop-mark { position: absolute; width: 18px; height: 18px; border-color: ${border}; pointer-events: none; }
     .crop-tl { top: 10px; left: 10px; border-top: 2px solid ${border}; border-left: 2px solid ${border}; }
     .crop-tr { top: 10px; right: 10px; border-top: 2px solid ${border}; border-right: 2px solid ${border}; }
     .crop-bl { bottom: 10px; left: 10px; border-bottom: 2px solid ${border}; border-left: 2px solid ${border}; }
     .crop-br { bottom: 10px; right: 10px; border-bottom: 2px solid ${border}; border-right: 2px solid ${border}; }
+    .proof-wm { display: none; position: absolute; inset: 0; pointer-events: none; align-items: center; justify-content: center; z-index: 50; }
+    .proof-wm span { transform: rotate(-32deg); font-family: 'JetBrains Mono', monospace; font-size: 1.55rem; font-weight: 800; letter-spacing: 0.14em; color: rgba(140,45,25,0.22); border: 3px dashed rgba(140,45,25,0.28); padding: 18px 28px; border-radius: 14px; text-align: center; }
     @media print {
       @page { size: 24in 36in; margin: 0; }
       body { background: ${bg}; }
       .no-print { display: none !important; }
+      .proof-wm { display: flex !important; }
       .poster-sheet { margin: 0; max-width: none; width: 100%; min-height: 100vh; box-shadow: none; }
     }
   </style>
@@ -623,9 +609,11 @@ function attachVaultAndPaywallRoutes(app, publicUrl) {
         <span class="mono" style="font-size:0.68rem;color:#8C2D19;font-weight:800;margin-left:4px;white-space:nowrap;">THEMES:</span>
         ${themePillsHtml}
       </div>
-      <button type="button" onclick="window.print()" style="background:linear-gradient(135deg,#FDE68A,#C8A96E);color:#181412;border:1.5px solid #B89352;border-radius:10px;padding:8px 14px;font-weight:800;font-size:0.78rem;cursor:pointer;white-space:nowrap;">
-        &#128424; Print 24&Prime;&times;36&Prime; PDF
-      </button>
+      <div style="display:flex;gap:6px;align-items:center;flex-wrap:wrap;">
+        ${vault.isUnlocked
+          ? `<button type="button" onclick="window.print()" style="background:linear-gradient(135deg,#FDE68A,#C8A96E);color:#181412;border:1.5px solid #B89352;border-radius:10px;padding:8px 14px;font-weight:800;font-size:0.78rem;cursor:pointer;white-space:nowrap;">&#128424; Print 24&Prime;&times;36&Prime; PDF</button>`
+          : `<a href="${buyPackUrl}" style="background:linear-gradient(135deg,#FDE68A,#C8A96E);color:#181412;border:1.5px solid #B89352;border-radius:10px;padding:8px 14px;font-weight:800;font-size:0.78rem;text-decoration:none;white-space:nowrap;">&#128275; Unlock 300-DPI Print PDF ($14.99) &rarr;</a><button type="button" onclick="window.print()" style="background:#FAF6EE;color:#57534E;border:1px solid #D6CFC2;border-radius:10px;padding:8px 11px;font-weight:700;font-size:0.74rem;cursor:pointer;white-space:nowrap;">&#128424; Print Watermarked Proof</button>`}
+      </div>
     </div>
     <div style="display:flex;gap:10px;flex-wrap:wrap;align-items:center;font-size:0.75rem;color:#44403C;">
       <label style="display:flex;align-items:center;gap:6px;white-space:nowrap;font-weight:700;">Headline:
@@ -641,6 +629,7 @@ function attachVaultAndPaywallRoutes(app, publicUrl) {
   </div>
 
   <div class="poster-sheet">
+    ${proofWatermarkHtml}
     <div class="crop-mark crop-tl"></div><div class="crop-mark crop-tr"></div>
     <div class="crop-mark crop-bl"></div><div class="crop-mark crop-br"></div>
     <div>
@@ -718,6 +707,7 @@ function attachVaultAndPaywallRoutes(app, publicUrl) {
         </div>`;
       }).join('');
 
+      const buyPackUrl = `/buy/complete_dossier?target=${encodeURIComponent(vault.title || vault.vaultId)}&vault=${encodeURIComponent(vault.vaultId)}${vault.ownerEmail ? `&email=${encodeURIComponent(vault.ownerEmail)}` : ''}`;
       const html = `<!DOCTYPE html>
 <html lang="en">
 <head>
@@ -729,14 +719,17 @@ function attachVaultAndPaywallRoutes(app, publicUrl) {
     body { background: #F4EFE6; color: #181412; font-family: 'Plus Jakarta Sans', sans-serif; }
     .serif { font-family: 'Cormorant Garamond', Georgia, serif; font-weight: 700; }
     .mono { font-family: 'JetBrains Mono', monospace; }
-    .sheet-grid { max-width: 900px; margin: 20px auto 60px; padding: 24px; background: #FFFFFF; border: 1.5px solid #C8A96E; box-shadow: 0 16px 40px rgba(0,0,0,0.08); display: grid; grid-template-columns: repeat(2, 1fr); gap: 16px; }
+    .sheet-grid { max-width: 900px; margin: 20px auto 60px; padding: 24px; background: #FFFFFF; border: 1.5px solid #C8A96E; box-shadow: 0 16px 40px rgba(0,0,0,0.08); display: grid; grid-template-columns: repeat(2, 1fr); gap: 16px; position: relative; }
     .tent-card { border: 1.5px dashed #C8A96E; border-radius: 10px; background: #FAF8F5; overflow: hidden; break-inside: avoid; }
     .tent-back { padding: 10px 14px; background: #FFF5F5; transform: rotate(180deg); border-top: 1px solid #FECDD3; min-height: 68px; display: flex; flex-direction: column; justify-content: center; }
     .tent-fold-line { text-align: center; font-size: 0.56rem; font-family: monospace; color: #78716C; background: #EFEAE1; padding: 2px 0; letter-spacing: 0.08em; }
     .tent-front { padding: 12px 16px; background: #FFFFFF; min-height: 92px; display: flex; flex-direction: column; justify-content: space-between; }
+    .proof-wm { display: none; position: fixed; inset: 0; pointer-events: none; align-items: center; justify-content: center; z-index: 50; }
+    .proof-wm span { transform: rotate(-28deg); font-family: 'JetBrains Mono', monospace; font-size: 1.35rem; font-weight: 800; letter-spacing: 0.12em; color: rgba(140,45,25,0.22); border: 3px dashed rgba(140,45,25,0.28); padding: 14px 22px; border-radius: 12px; }
     @media print {
       body { background: #FFFFFF; }
       .no-print { display: none !important; }
+      .proof-wm { display: flex !important; }
       .sheet-grid { margin: 0; border: none; box-shadow: none; padding: 0.25in; }
     }
   </style>
@@ -748,10 +741,13 @@ function attachVaultAndPaywallRoutes(app, publicUrl) {
       <div class="mono" style="font-size:0.72rem;font-weight:800;color:#8C2D19;">AVERY 5302 / 5011 SMALL TENT CARDS &bull; ${guests.length} SEATED GUESTS</div>
       <div style="font-size:0.80rem;color:#44403C;">Legend: <strong>&#9670; Beef</strong> &bull; <strong>&#9679; Fish</strong> &bull; <strong>&#9650; Vegan</strong> &bull; <strong>&#9733; Kids</strong> &bull; Back fold rotated 180&deg; for servers</div>
     </div>
-    <button type="button" onclick="window.print()" style="background:#181412;color:#FDE68A;border:1.5px solid #C8A96E;border-radius:10px;padding:9px 16px;font-weight:800;font-size:0.80rem;cursor:pointer;white-space:nowrap;">
-      &#128424; Print All ${guests.length} Avery 5302 Cards (PDF)
-    </button>
+    <div style="display:flex;gap:6px;align-items:center;flex-wrap:wrap;">
+      ${vault.isUnlocked
+        ? `<button type="button" onclick="window.print()" style="background:#181412;color:#FDE68A;border:1.5px solid #C8A96E;border-radius:10px;padding:9px 16px;font-weight:800;font-size:0.80rem;cursor:pointer;white-space:nowrap;">&#128424; Print All ${guests.length} Avery 5302 Cards (PDF)</button>`
+        : `<a href="${buyPackUrl}" style="background:#181412;color:#FDE68A;border:1.5px solid #C8A96E;border-radius:10px;padding:9px 16px;font-weight:800;font-size:0.80rem;text-decoration:none;white-space:nowrap;">&#128275; Unlock Avery 5302 Print Pack ($14.99) &rarr;</a><button type="button" onclick="window.print()" style="background:#FAF6EE;color:#57534E;border:1px solid #D6CFC2;border-radius:10px;padding:9px 12px;font-weight:700;font-size:0.74rem;cursor:pointer;white-space:nowrap;">&#128424; Print Watermarked Proof</button>`}
+    </div>
   </div>
+  ${vault.isUnlocked ? '' : '<div class="proof-wm" aria-hidden="true"><span>PREVIEW PROOF &bull; UNLOCK AVERY 5302 PACK ($14.99) AT SEATHARMONY.COM</span></div>'}
   <div class="sheet-grid">${cardsHtml}</div>
 </body>
 </html>`;

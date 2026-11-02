@@ -273,27 +273,7 @@ function renderZone3InteractiveStudio(plan) {
                 </div>
                 <a id="sh-card5-buy-btn" href="/buy/complete_dossier?target=estate-150&amp;vault=${vId}" style="display:none;">Unlock</a>
               </div>
-              <div style="display:flex;justify-content:space-between;align-items:center;gap:8px;padding-top:8px;border-top:1px solid #EFEAE1;">
-                <button type="button" class="studio-tap-chip" onclick="window.shOpenSetupWizard()">&larr; Edit setup (names, guests, tables)</button>
-              </div>
             </div>
-          </div>
-
-          <!-- Clean Save & Export Card -->
-          <div id="sh-vault-checkout-bar" style="background:#FAF3E6;border:1.5px solid #C8A96E;border-radius:12px;padding:12px;color:#181412;display:flex;flex-direction:column;gap:8px;">
-            <div style="display:flex;align-items:center;justify-content:space-between;gap:6px;">
-              <span style="font-size:0.80rem;font-weight:800;color:#78350F;" id="sh-vault-bar-headline">&#128274; Plan Saved (#${vId})</span>
-              <button type="button" onclick="window.shOpenVaultModal()" style="cursor:pointer;background:#FFFFFF;color:#78350F;border:1px solid #C8A96E;border-radius:7px;padding:4px 9px;font-size:0.78rem;font-weight:800;">Save / Open</button>
-            </div>
-            <div style="display:flex;gap:6px;">
-              <a id="sh-vault-buy-pack-btn" href="/buy/complete_dossier?target=estate-150&amp;vault=${vId}" style="flex:1;text-align:center;background:linear-gradient(135deg,#FDE68A,#E8C77D);color:#3B2A12;border:1px solid #C8A96E;border-radius:8px;padding:8px 10px;font-size:0.82rem;font-weight:800;text-decoration:none;white-space:nowrap;">
-                Unlock Print Pack ($14.99) &rarr;
-              </a>
-              <a id="sh-vault-buy-pro-btn" href="/buy/pro_b2b?target=estate-150&amp;vault=${vId}" title="Planners: Unlimited weddings + Custom logo crest on all BEOs and signs" style="background:#FFFFFF;color:#181412;border:1px solid #D6CFC2;border-radius:8px;padding:8px 10px;font-size:0.80rem;font-weight:700;text-decoration:none;white-space:nowrap;">
-                Planner Pro ($39)
-              </a>
-            </div>
-            <div style="font-size:0.75rem;color:#78350F;text-align:center;font-weight:600;">&#10003; 30 Days Free Edits &bull; Re-export anytime if RSVPs change</div>
           </div>
         </div>
 
@@ -448,7 +428,7 @@ function renderZone3InteractiveStudio(plan) {
                     <div style="font-size:0.62rem;font-weight:800;letter-spacing:0.12em;color:#78350F;text-transform:uppercase;">8&Prime;&times;10&Prime; BAR EASEL QR CARD (LIVE SCANNABLE)</div>
                     <div class="serif-display" style="font-size:1.15rem;color:#181412;">Scan to Find Your Seat</div>
                     <img id="sh-live-qr-img" src="https://api.qrserver.com/v1/create-qr-code/?size=160x160&amp;color=181412&amp;bgcolor=FFFFFF&amp;data=${encodeURIComponent(`https://www.citationforge.io/qr/${plan.vaultId || 'SH-4819'}`)}" alt="Scannable Cocktail Hour QR Code" width="96" height="96" style="background:#FFF;padding:6px;border-radius:8px;border:1px solid #D6CBB8;" />
-                    <div style="font-size:0.70rem;color:#57534E;">Guests scan with phone camera &rarr; opens <a id="sh-qr-short-url" href="/qr/${vId}" target="_blank" style="color:#8C2D19;font-weight:800;">/qr/${vId}</a></div>
+                    <div style="font-size:0.70rem;color:#57534E;">Guests scan with phone camera &rarr; opens <a id="sh-qr-short-url" href="/qr/${vId}" target="_blank" style="color:#8C2D19;font-weight:800;">Live Guest Seat Lookup &nearr;</a></div>
                   </div>
                   <div style="display:flex;flex-direction:column;gap:8px;">
                     <label for="sh-qr-search" class="studio-field-label" style="margin-bottom:0;">Test What Guests See on Their Phones at Cocktail Hour:</label>
@@ -458,6 +438,33 @@ function renderZone3InteractiveStudio(plan) {
                 </div>
               </div>
               <pre id="compiler-code-output" style="display:none;" aria-hidden="true"># Supabase SeatHarmony Manifest\n{"@graph":[]}</pre>
+            </div>
+
+            <!-- Visible Save, 1-Field Email + Free Caterer CSV Bridge, $14.99 Unlock & 1-Tap VoC Bar -->
+            <div id="sh-vault-checkout-bar" style="background:#FAF3E6;border:1.5px solid #C8A96E;border-radius:12px;padding:12px 14px;color:#181412;display:flex;flex-direction:column;gap:8px;">
+              <div style="display:flex;flex-wrap:wrap;align-items:center;justify-content:space-between;gap:10px;">
+                <div style="display:flex;align-items:center;gap:8px;flex-wrap:wrap;">
+                  <span style="font-size:0.84rem;font-weight:800;color:#78350F;" id="sh-vault-bar-headline">&#128190; Save Your Seating Plan &amp; Export Print Files</span>
+                  <span style="font-size:0.76rem;color:#57534E;font-weight:600;">&#10003; 30 Days Free Edits if RSVPs change</span>
+                </div>
+                <div id="sh-inline-email-bridge" style="display:flex;gap:6px;align-items:center;flex:1 1 280px;max-width:440px;">
+                  <input id="sh-inline-vault-email" type="email" placeholder="Your email (saves plan + free Caterer .CSV)..." value="${escapeHtml(plan.ownerEmail && !/^(test|vip)@/i.test(plan.ownerEmail) ? plan.ownerEmail : '')}" onkeydown="if(event.key==='Enter')window.shSaveInlineEmailLead()" style="flex:1;min-width:0;padding:7px 10px;border:1px solid #C8A96E;border-radius:8px;font-size:0.82rem;background:#FFFFFF;color:#181412;" aria-label="Email address to save seating plan" />
+                  <button type="button" id="sh-inline-vault-save-btn" onclick="window.shSaveInlineEmailLead()" style="cursor:pointer;background:#065F46;color:#FFFFFF;border:1px solid #047857;border-radius:8px;padding:7px 12px;font-size:0.80rem;font-weight:800;white-space:nowrap;">Save &amp; Free CSV</button>
+                </div>
+                <div style="display:flex;gap:6px;align-items:center;flex-wrap:wrap;">
+                  <a id="sh-vault-buy-pack-btn" href="/buy/complete_dossier?target=estate-150&amp;vault=${vId}" style="text-align:center;background:linear-gradient(135deg,#FDE68A,#E8C77D);color:#3B2A12;border:1px solid #C8A96E;border-radius:8px;padding:8px 14px;font-size:0.84rem;font-weight:800;text-decoration:none;white-space:nowrap;">Unlock Print Pack ($14.99) &rarr;</a>
+                  <a id="sh-vault-buy-pro-btn" href="/buy/pro_b2b?target=estate-150&amp;vault=${vId}" title="Planners: Unlimited weddings + Custom logo crest on all BEOs and signs" style="background:#FFFFFF;color:#181412;border:1px solid #D6CFC2;border-radius:8px;padding:8px 11px;font-size:0.80rem;font-weight:700;text-decoration:none;white-space:nowrap;">Planner Pro ($39)</a>
+                </div>
+              </div>
+              <div id="sh-voc-survey-box" style="display:flex;flex-wrap:wrap;align-items:center;justify-content:space-between;gap:8px;border-top:1px solid #E2D9C8;padding-top:7px;">
+                <span id="sh-voc-survey-label" style="font-size:0.78rem;font-weight:700;color:#57534E;">Quick poll — what do you need most for your reception?</span>
+                <div style="display:flex;flex-wrap:wrap;gap:5px;">
+                  <button type="button" class="studio-tap-chip sh-voc-chip" style="padding:3px 9px;font-size:0.76rem;" onclick="window.shSubmitVocSurvey('24x36_sign',this)">24&Prime;&times;36&Prime; Welcome Sign</button>
+                  <button type="button" class="studio-tap-chip sh-voc-chip" style="padding:3px 9px;font-size:0.76rem;" onclick="window.shSubmitVocSurvey('avery_5302',this)">Avery 5302 Place Cards</button>
+                  <button type="button" class="studio-tap-chip sh-voc-chip" style="padding:3px 9px;font-size:0.76rem;" onclick="window.shSubmitVocSurvey('caterer_beo',this)">12:00 Caterer BEO</button>
+                  <button type="button" class="studio-tap-chip sh-voc-chip" style="padding:3px 9px;font-size:0.76rem;" onclick="window.shSubmitVocSurvey('floorplan',this)">Table Layout</button>
+                </div>
+              </div>
             </div>
 
             <!-- Stage Footer -->

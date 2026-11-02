@@ -566,6 +566,7 @@ function renderSetupWizardClientScript() {
   /* ---- Venue layouts & 1-click scenarios: build a populated room sized to the layout ---- */
   window.shwLoadInstantScenario = function(key, btn) {
     document.querySelectorAll('#shw-instant-scenarios button[data-instant-preset]').forEach(function(b) { b.classList.toggle('active', b.getAttribute('data-instant-preset') === key); });
+    if (window.shTrackTelemetry) window.shTrackTelemetry('calculate', { source: 'instant_scenario', preset: key });
     var savedCtx = shCaptureUserPeopleContext();
     window.__SH_SETUP.userStarted = true; window.__SH_SETUP.sample = !savedCtx; window.__SH_SETUP.cleared = false;
     if (key === 'estate-150' && window.__SH_SEED_STATE) {
@@ -662,7 +663,10 @@ function renderSetupWizardClientScript() {
     var hosts = (partners.length ? partners : ['Partner 1', 'Partner 2']).slice(0, 2).map(function(n) { return { name: n, initials: n.slice(0, 2).toUpperCase(), role: 'Couple', meal: 'Filet Mignon', allergy: '', accessibility: '' }; });
     var tables = [{ id: 'table-1', number: 1, name: 'Sweetheart Table', shape: 'sweetheart', capacity: 2, x: 560, y: 80, rotation: 0, locked: true, guests: hosts }];
     lay.pts.forEach(function(pt, i) { tables.push({ id: 'table-' + (i + 2), number: i + 2, name: 'Table ' + (i + 2), shape: lay.shape, capacity: lay.per, x: pt.x, y: pt.y, rotation: 0, locked: false, guests: [] }); });
-    var vaultId = (window.__SH_STATE && window.__SH_STATE.vaultId) || 'SH-4819';
+    var vaultId = (window.__SH_STATE && window.__SH_STATE.vaultId && window.__SH_STATE.vaultId !== 'SH-4819')
+      ? window.__SH_STATE.vaultId
+      : ('SH-' + Math.floor(1000 + Math.random() * 9000));
+    if (window.shTrackTelemetry) window.shTrackTelemetry('calculate', { source: 'wizard_build', guests: guests, tables: tables.length, vaultId: vaultId });
     var savedLandmarks = (prevState && Array.isArray(prevState.landmarks) && prevState.landmarks.length) ? prevState.landmarks : [{ id: 'lm-dance', label: 'DANCE FLOOR', x: 560, y: 230, w: 210, h: 130, zone: 'loud' }];
     window.__SH_STATE = {
       vaultId: vaultId, isWizardBuilt: true, title: (partners.length >= 2 ? couple + "'s Wedding" : couple + ' Wedding'), venueName: venue,

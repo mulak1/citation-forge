@@ -28,7 +28,9 @@ const VENUE_LAYOUT_TEMPLATES = [
   ['75-guest-destination-wedding-villa-seating', '75-Guest Destination Villa Wedding Seating Chart: Poolside Serpentine & Banquet', 'Destination Weddings', '75 Guests (Villa Courtyard)', '9×8-Top Rounds', '3×25 Olive Grove Rows', 'U-Shape Piazza Table', 99.0, 95.6, 92.3, 89.2],
   ['180-guest-museum-rotunda-wedding-floorplan', '180-Guest Art Museum & Rotunda Seating Chart: Circular Dance Floor Orbit', 'Museum & Historic Estates', '180 Guests (Concentric Orbit)', '22×8-Top Rounds', '18×10-Top Rounds', 'Gallery Wing Banquet', 98.3, 94.7, 91.0, 87.6],
   ['135-guest-rooftop-penthouse-wedding-seating', '135-Guest Rooftop & Penthouse Wedding Floorplan: Indoor/Outdoor Weather Backup', 'Rooftop & City View', '135 Guests (17×8-Tops)', 'Skyline Banquet Mix', '14×10-Top Rounds', 'Glass Pavilion Plan B', 98.0, 94.4, 90.4, 86.9],
-  ['220-guest-cultural-fusion-wedding-seating-chart', '220-Guest Cultural & Multi-Generational Wedding Seating Chart: 4-Side Family Zones', 'Multi-Generational Weddings', '220 Guests (22×10-Tops)', 'Dual Family VIP Rings', 'Halal/Vegan/Kosher BEO', 'Stage & Mandap Sightline', 98.6, 95.1, 91.7, 88.4]
+  ['220-guest-cultural-fusion-wedding-seating-chart', '220-Guest Cultural & Multi-Generational Wedding Seating Chart: 4-Side Family Zones', 'Multi-Generational Weddings', '220 Guests (22×10-Tops)', 'Dual Family VIP Rings', 'Halal/Vegan/Kosher BEO', 'Stage & Mandap Sightline', 98.6, 95.1, 91.7, 88.4],
+  ['170-guest-black-tie-ballroom-seating-chart', '170-Guest Black-Tie Ballroom Wedding Floorplan: Sweetheart Anchor, 20 Rounds & Live Band', 'Black-Tie Ballroom Weddings', '170 Guests (20×8-Tops + VIP)', '17×10-Top Rounds', 'Sweetheart + 2 Family VIP', 'Live Band Acoustic Buffer', 98.7, 94.9, 91.5, 88.8],
+  ['95-guest-restaurant-buyout-wedding-floorplan', '95-Guest Restaurant Buyout Wedding Seating Chart: Booths, Long Banquets & Patio Flow', 'Restaurant Buyout Weddings', '95 Guests (Banquet + Rounds)', '8×12 Banquet Rows', '12×8-Top Bistro Rounds', 'Main Dining + Patio Split', 98.9, 95.3, 91.9, 89.1]
 ];
 
 const HEAD_TO_HEAD_COMPARISONS = [
@@ -53,7 +55,8 @@ const HEAD_TO_HEAD_COMPARISONS = [
   ['plated-dinner-place-cards-vs-buffet-table-signs', 'Plated Dinner Meal-Coded Place Cards vs. Buffet Table Numbers: What Your Venue Requires', 'Plated Meal-Icon Place Cards', 'Plated Place Cards', 98.6, 97, 'Table Assignment Only', 'Table Numbers Only', 83.2, 82, 'Meal Service Formats'],
   ['outdoor-tent-rain-plan-b-floorplan-comparison', 'Outdoor Courtyard Floorplan vs. Indoor Rain Plan-B Layout: 1-Click Table Re-Mapping', 'Dual Weather-Synced Floorplan', 'Rain Backup Plan', 98.3, 96, 'Single Static Layout', 'Single Layout', 69.4, 71, 'Day-Of Weather Backup'],
   ['corporate-vip-dinner-rotation-vs-fixed-seating', 'Rehearsal Dinner Seat Mixing vs. Assigned Tables for Multi-Day Wedding Weekends', 'Assigned Tables With Different Neighbors', 'Multi-Event Seating', 97.5, 95, 'Same Tablemates Both Nights', 'Repeated Seating', 81.0, 82, 'Rehearsal & Welcome Dinners'],
-  ['foam-board-24x36-fedex-vs-acrylic-welcome-sign', '24"×36" Archival Foam Board (FedEx/Staples) vs. Acrylic Sign: Readability & Glare Guide', 'Matte Archival 24"×36" Board', 'Matte Foam Board', 98.4, 97, 'Clear Acrylic Sign', 'Clear Acrylic Sign', 79.0, 78, 'Print Materials']
+  ['foam-board-24x36-fedex-vs-acrylic-welcome-sign', '24"×36" Archival Foam Board (FedEx/Staples) vs. Acrylic Sign: Readability & Glare Guide', 'Matte Archival 24"×36" Board', 'Matte Foam Board', 98.4, 97, 'Clear Acrylic Sign', 'Clear Acrylic Sign', 79.0, 78, 'Print Materials'],
+  ['templett-corjl-canva-vs-seatharmony-welcome-sign', 'SeatHarmony Auto-Synced 24"×36" Sign vs. Templett, Corjl & Canva Manual Templates', 'SeatHarmony Live Floorplan Sign', 'SeatHarmony Studio', 99.2, 99, 'Static Templett / Canva Template', 'Manual Sign Template', 61.0, 64, 'Editable Sign Templates']
 ];
 
 const PLANNER_AND_BEO_GUIDES = [
@@ -74,7 +77,8 @@ const PLANNER_AND_BEO_GUIDES = [
   ['cocktail-hour-qr-code-find-my-seat-setup-guide', 'Adding a "Find My Seat" QR Code to Your Printed Welcome Sign for 150+ Guest Weddings', 'How a 1.5-Inch Corner QR Code Eliminates Lineups at the Ballroom Doors', 'Cocktail Hour Flow'],
   ['b2b-field-marketing-vip-dinner-seating-strategy', 'How to Seat Out-of-Town Family & Wedding Party at the Welcome Dinner', 'Balancing Extended Relatives, Plus-Ones, and Toast Speakers Before Wedding Day', 'Welcome Dinner Etiquette'],
   ['charity-gala-corporate-table-captain-seating-playbook', 'How Gala & Large Reception Coordinators Manage 30 Table Hosts & VIP Placement', 'Coordinating Table Hosts, Family VIPs, and Fast Cocktail-Hour Check-In', 'Large Reception Playbook'],
-  ['table-spacing-and-server-aisle-clearance-standards', 'Banquet Room Fire Code & Server Aisle Clearance Standards (60-Inch vs 72-Inch Rounds)', 'Ensuring 54-Inch Chair-to-Chair Clearance for Smooth Plated Dinner Service', 'Venue Architecture']
+  ['table-spacing-and-server-aisle-clearance-standards', 'Banquet Room Fire Code & Server Aisle Clearance Standards (60-Inch vs 72-Inch Rounds)', 'Ensuring 54-Inch Chair-to-Chair Clearance for Smooth Plated Dinner Service', 'Venue Architecture'],
+  ['24x36-welcome-sign-with-mini-floorplan-map-guide', 'How to Include a Mini Reception Table Map on Your 24"×36" Wedding Welcome Sign', 'Blending Large Serif Table Numbers Above Alphabetical A-Z Guest Lists for 5-Second Wayfinding', 'Welcome Sign Architecture']
 ];
 
 function saveDb() {
