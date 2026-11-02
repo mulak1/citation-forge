@@ -122,12 +122,13 @@ function enforceArchitecturalClearance(headTable, pts, landmarks, minRoomHeight 
 function buildVenueBlueprint(slug = '', title = '') {
   const key = String(slug || '').toLowerCase();
   const h = hashSlug(key || title);
-  const m = key.match(/^(\d{2,3})-(?:guest|person)/i) || String(title || '').match(/(\d{2,3})-(?:Guest|Person)/i);
-  const isFloorplan = Boolean(key.match(/^(\d{2,3})-(?:guest|person)/i));
+  const tentMatch = key.match(/^(\d{2})x(\d{2,3})-.*tent/i);
+  const m = key.match(/(\d{2,3})-(?:guest|guests|person)/i) || String(title || '').match(/(\d{2,3})-(?:Guest|Guests|Person)/i);
+  const isFloorplan = Boolean(key.match(/^(\d{2,3})-(?:guest|person)/i) || tentMatch || /^mixed-round-and-long-banquet/.test(key));
   const guests = m ? Number(m[1]) : (
-    /gala|300/.test(key) ? 240 : /tent|rain/.test(key) ? 160 : /8-person|10-person/.test(key) ? 140 :
+    /gala|300/.test(key) ? 240 : /tent|rain/.test(key) ? 160 : /8-person|10-person|mixed-round/.test(key) ? 140 :
     /grandparent|dj|acoustic/.test(key) ? 145 : /divorced|parents/.test(key) ? 130 :
-    /round-tables-vs-long|hybrid|zola|knot|rsvpify/.test(key) ? 120 : /kings|bridal-party/.test(key) ? 110 :
+    /round-tables-vs-long|hybrid|zola|knot|rsvpify|serpentine/.test(key) ? 120 : /kings|bridal-party/.test(key) ? 110 :
     /u-shape|rehearsal|welcome-dinner|vip-dinner/.test(key) ? 65 : 90 + (h % 7) * 10
   );
 
@@ -137,15 +138,15 @@ function buildVenueBlueprint(slug = '', title = '') {
   else if (/(?:^|-)40-guest/.test(key)) arch = 'private_dining_40';
   else if (/u-shape|60-guest-rehearsal/.test(key)) arch = 'u_shape';
   else if (/50-guest-micro|kings-table|bridal-party-plus-ones/.test(key)) arch = 'kings_feast';
-  else if (/round-tables-vs-long|120-guest/.test(key)) arch = 'hybrid_split';
-  else if (/(?:^|-)80-guest/.test(key)) arch = 'tuscan_horizontal';
+  else if (/round-tables-vs-long|120-guest(?!.*tent)/.test(key)) arch = 'hybrid_split';
+  else if (/(?:^|-)80-guest|30x60-tent/.test(key)) arch = 'tuscan_horizontal';
   else if (/130-guest-winery|tuscan|parallel-banquet/.test(key)) arch = 'tuscan_rows';
-  else if (/140-guest-barn/.test(key)) arch = 'barn_harvest';
+  else if (/140-guest-barn|mixed-round-and-long/.test(key)) arch = 'barn_harvest';
   else if (/90-guest-garden|conservatory/.test(key)) arch = 'conservatory_atrium';
-  else if (/110-guest-coastal|75-guest-destination|beach|yacht|villa/.test(key)) arch = 'coastal_arc';
+  else if (/110-guest-coastal|75-guest-destination|beach|yacht|villa|serpentine/.test(key)) arch = 'coastal_arc';
   else if (/135-guest-rooftop|penthouse/.test(key)) arch = 'rooftop_skyline';
   else if (/160-guest-industrial|loft/.test(key)) arch = 'loft_asymmetric';
-  else if (/250-guest-estate-tent|outdoor-tent|sailcloth/.test(key)) arch = 'tent_sailcloth';
+  else if (/250-guest-estate-tent|outdoor-tent|sailcloth|40x60-tent|40x80/.test(key)) arch = 'tent_sailcloth';
   else if (/220-guest-cultural/.test(key)) arch = 'cultural_quadrants';
   else if (/200-guest-hotel-ballroom/.test(key)) arch = 'ballroom_center_dance';
   else if (/300-guest|charity-gala/.test(key)) arch = 'gala_300';
@@ -504,11 +505,25 @@ function buildVenueBlueprint(slug = '', title = '') {
   }
 
   roomHeight = enforceArchitecturalClearance(headTable, pts, landmarks, roomHeight);
+  const sqft = tentMatch ? Number(tentMatch[1]) * Number(tentMatch[2]) : Math.round((guests * SQFT_PER_GUEST) / 25) * 25;
+  const roomW = tentMatch ? Number(tentMatch[1]) : (guests <= 75 ? 30 : guests <= 145 ? 40 : guests <= 210 ? 50 : 60);
+  const roomL = tentMatch ? Number(tentMatch[2]) : Math.max(roomW, Math.round(sqft / roomW / 5) * 5);
+  const dfSide = Math.max(12, Math.round(Math.sqrt(guests * 4.5) / 3) * 3);
+  const roundCount = pts.filter((p) => p.shape === 'round').length;
+  const banquetCount = pts.filter((p) => p.shape !== 'round').length + (headTable.shape !== 'round' ? 1 : 0);
 
   return {
     slug: key,
     guests,
-    sqft: Math.round((guests * SQFT_PER_GUEST) / 25) * 25,
+    sqft,
+    roomDims: `${roomW}' × ${roomL}'`,
+    tableCount: pts.length + 1,
+    roundCount,
+    banquetCount,
+    danceFloorDims: `${dfSide}' × ${dfSide}' (${dfSide * dfSide} sq ft)`,
+    averySheets: Math.ceil(guests / 10),
+    posterLayout: guests <= 115 ? '3-Column (20pt Serif · 1.4s Lookup)' : guests <= 185 ? '4-Column (18pt Serif · 1.8s Lookup)' : '5-Column (16pt Serif + Corner QR)',
+    aisleSpec: /tent/.test(key) ? '60" Main Aisle + 36" Center-Pole Buffer' : '54" Chair-to-Chair + 60" Caterer Lane',
     type: venueType(title, key),
     isFloorplan,
     arch,

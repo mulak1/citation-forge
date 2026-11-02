@@ -233,19 +233,50 @@ app.get('/robots.txt', (req, res) => {
   res.status(200).type('text/plain; charset=utf-8').send(robots);
 });
 
-// 8. Valid XML Sitemap (`GET /sitemap.xml`) listing `/`, `/lp`, `/directory`, and all 60+ `/seo/:slug` URLs
+// 8. Valid XML Sitemap (`GET /sitemap.xml`) listing `/`, `/lp`, `/directory`, and all 65+ `/seo/:slug` URLs
+const INDEXNOW_KEY = 'seatharmony2026indexnow8492a1b3c4d5';
+app.get(`/${INDEXNOW_KEY}.txt`, (req, res) => {
+  res.status(200).type('text/plain; charset=utf-8').send(INDEXNOW_KEY);
+});
+
 app.get('/sitemap.xml', (req, res) => {
   const baseUrl = resolvePublicOrigin(req);
   const staticPaths = ['/', '/lp', '/directory', '/privacy', '/terms', '/llms.txt', '/llms-full.txt'];
   const seoSlugs = queryAll('SELECT slug, updated_at FROM seo_pages ORDER BY id ASC');
 
   const urlNodes = [
-    ...staticPaths.map(p => `  <url>\n    <loc>${baseUrl}${p}</loc>\n    <lastmod>2026-10-14</lastmod>\n    <changefreq>daily</changefreq>\n    <priority>${p === '/' ? '1.0' : '0.9'}</priority>\n  </url>`),
-    ...seoSlugs.map(r => `  <url>\n    <loc>${baseUrl}/seo/${r.slug}</loc>\n    <lastmod>${r.updated_at || '2026-10-14'}</lastmod>\n    <changefreq>weekly</changefreq>\n    <priority>0.8</priority>\n  </url>`)
+    ...staticPaths.map(p => `  <url>\n    <loc>${baseUrl}${p}</loc>\n    <lastmod>2026-11-02</lastmod>\n    <changefreq>daily</changefreq>\n    <priority>${p === '/' ? '1.0' : '0.9'}</priority>\n  </url>`),
+    ...seoSlugs.map(r => `  <url>\n    <loc>${baseUrl}/seo/${r.slug}</loc>\n    <lastmod>${r.updated_at || '2026-11-02'}</lastmod>\n    <changefreq>weekly</changefreq>\n    <priority>0.8</priority>\n  </url>`)
   ].join('\n');
 
   const xml = `<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n${urlNodes}\n</urlset>`;
   res.status(200).type('application/xml; charset=utf-8').send(xml);
+});
+
+app.all('/api/seo/indexnow', async (req, res) => {
+  try {
+    const host = 'www.seatharmony.io';
+    const baseUrl = `https://${host}`;
+    const seoSlugs = queryAll('SELECT slug FROM seo_pages ORDER BY id ASC');
+    const urlList = [
+      `${baseUrl}/`,
+      `${baseUrl}/directory`,
+      ...seoSlugs.map((r) => `${baseUrl}/seo/${r.slug}`)
+    ];
+    const pingRes = await fetch('https://api.indexnow.org/indexnow', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json; charset=utf-8' },
+      body: JSON.stringify({
+        host,
+        key: INDEXNOW_KEY,
+        keyLocation: `${baseUrl}/${INDEXNOW_KEY}.txt`,
+        urlList
+      })
+    });
+    res.status(200).json({ ok: true, indexNowStatus: pingRes.status, submittedCount: urlList.length, sampleUrls: urlList.slice(0, 8) });
+  } catch (err) {
+    res.status(500).json({ ok: false, error: err.message });
+  }
 });
 
 // 9. Dynamic SVG OpenGraph Image Generator (`GET /api/og`)

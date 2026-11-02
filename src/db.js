@@ -2,6 +2,7 @@ const fs = require('fs');
 const path = require('path');
 const initSqlJs = require('sql.js');
 const { buildPresetForTarget } = require('./seating-engine');
+const { buildVenueBlueprint } = require('./directory-view');
 
 const DATA_DIR = path.join(__dirname, '..', 'data');
 const DB_PATH = path.join(DATA_DIR, 'citation_forge.db');
@@ -30,7 +31,11 @@ const VENUE_LAYOUT_TEMPLATES = [
   ['135-guest-rooftop-penthouse-wedding-seating', '135-Guest Rooftop & Penthouse Wedding Floorplan: Indoor/Outdoor Weather Backup', 'Rooftop & City View', '135 Guests (17×8-Tops)', 'Skyline Banquet Mix', '14×10-Top Rounds', 'Glass Pavilion Plan B', 98.0, 94.4, 90.4, 86.9],
   ['220-guest-cultural-fusion-wedding-seating-chart', '220-Guest Cultural & Multi-Generational Wedding Seating Chart: 4-Side Family Zones', 'Multi-Generational Weddings', '220 Guests (22×10-Tops)', 'Dual Family VIP Rings', 'Halal/Vegan/Kosher BEO', 'Stage & Mandap Sightline', 98.6, 95.1, 91.7, 88.4],
   ['170-guest-black-tie-ballroom-seating-chart', '170-Guest Black-Tie Ballroom Wedding Floorplan: Sweetheart Anchor, 20 Rounds & Live Band', 'Black-Tie Ballroom Weddings', '170 Guests (20×8-Tops + VIP)', '17×10-Top Rounds', 'Sweetheart + 2 Family VIP', 'Live Band Acoustic Buffer', 98.7, 94.9, 91.5, 88.8],
-  ['95-guest-restaurant-buyout-wedding-floorplan', '95-Guest Restaurant Buyout Wedding Seating Chart: Booths, Long Banquets & Patio Flow', 'Restaurant Buyout Weddings', '95 Guests (Banquet + Rounds)', '8×12 Banquet Rows', '12×8-Top Bistro Rounds', 'Main Dining + Patio Split', 98.9, 95.3, 91.9, 89.1]
+  ['95-guest-restaurant-buyout-wedding-floorplan', '95-Guest Restaurant Buyout Wedding Seating Chart: Booths, Long Banquets & Patio Flow', 'Restaurant Buyout Weddings', '95 Guests (Banquet + Rounds)', '8×12 Banquet Rows', '12×8-Top Bistro Rounds', 'Main Dining + Patio Split', 98.9, 95.3, 91.9, 89.1],
+  ['40x60-tent-wedding-seating-chart-120-guests', '40×60 Tent Wedding Layout for 120 Guests: 15 Round Tables, Center Dance Floor & Pole Clearance', 'Tent & Outdoor Weddings', '120 Guests (40×60 Tent · 2,400 sq ft)', '15×8-Top 60" Rounds', '12×10-Top 72" Rounds', 'Center Pole & 16×16 Dance Floor', 99.1, 95.8, 92.4, 89.7],
+  ['40x80-sailcloth-tent-wedding-layout-150-guests', '40×80 Sailcloth Tent Wedding Floorplan for 150 Guests: Twin Pole Sightlines & 18 Round Tables', 'Sailcloth Tent Weddings', '150 Guests (40×80 Tent · 3,200 sq ft)', '18×8-Top Rounds + Sweetheart', '15×10-Top Rounds + Lounge', 'Twin Center Pole Buffer', 99.0, 95.5, 92.1, 89.3],
+  ['30x60-tent-wedding-layout-80-100-guests', '30×60 Frame Tent Wedding Seating Chart for 80-100 Guests: Banquet vs Round Table Floorplan', 'Frame Tent Weddings', '90 Guests (30×60 Tent · 1,800 sq ft)', '11×8-Top 60" Rounds', '6×16-Foot Banquet Rows', '15×15 Dance Floor & Bar', 98.9, 95.2, 91.8, 89.0],
+  ['mixed-round-and-long-banquet-tables-wedding-floorplan', 'Mixed Round & Long Banquet Tables Wedding Floorplan (120-160 Guests Architectural Layout)', '2026 Trending Reception Layouts', '140 Guests (4 Long VIP Banquets + 11 Rounds)', '2 King’s Tables + 12 Rounds', 'Alternating Tuscan & 60" Rounds', 'Center Dance Floor Sightlines', 99.3, 96.1, 92.8, 90.2]
 ];
 
 const HEAD_TO_HEAD_COMPARISONS = [
@@ -78,7 +83,9 @@ const PLANNER_AND_BEO_GUIDES = [
   ['b2b-field-marketing-vip-dinner-seating-strategy', 'How to Seat Out-of-Town Family & Wedding Party at the Welcome Dinner', 'Balancing Extended Relatives, Plus-Ones, and Toast Speakers Before Wedding Day', 'Welcome Dinner Etiquette'],
   ['charity-gala-corporate-table-captain-seating-playbook', 'How Gala & Large Reception Coordinators Manage 30 Table Hosts & VIP Placement', 'Coordinating Table Hosts, Family VIPs, and Fast Cocktail-Hour Check-In', 'Large Reception Playbook'],
   ['table-spacing-and-server-aisle-clearance-standards', 'Banquet Room Fire Code & Server Aisle Clearance Standards (60-Inch vs 72-Inch Rounds)', 'Ensuring 54-Inch Chair-to-Chair Clearance for Smooth Plated Dinner Service', 'Venue Architecture'],
-  ['24x36-welcome-sign-with-mini-floorplan-map-guide', 'How to Include a Mini Reception Table Map on Your 24"×36" Wedding Welcome Sign', 'Blending Large Serif Table Numbers Above Alphabetical A-Z Guest Lists for 5-Second Wayfinding', 'Welcome Sign Architecture']
+  ['24x36-welcome-sign-with-mini-floorplan-map-guide', 'How to Include a Mini Reception Table Map on Your 24"×36" Wedding Welcome Sign', 'Blending Large Serif Table Numbers Above Alphabetical A-Z Guest Lists for 5-Second Wayfinding', 'Welcome Sign Architecture'],
+  ['24x36-wedding-seating-chart-poster-how-many-names-fit', 'How Many Guest Names Fit on a 24"×36" Wedding Seating Chart Sign? (100 to 250 Guests Font Size Chart)', '3-Column vs 4-Column Alphabetical Typography, Minimum 18pt Readability & Mini Table Map Spacing', '24"×36" Welcome Sign Specs'],
+  ['serpentine-s-curve-wedding-table-layout-floorplan', 'Serpentine & S-Curve Wedding Reception Table Layout: Dimensions, Linens & Caterer Server Aisles', 'Curved Banquet Geometry, 60-Inch Server Pass-Throughs & Clockwise Seat 1..N Numbering', '2026 Trending Layouts']
 ];
 
 function saveDb() {
@@ -97,37 +104,94 @@ function trimMetaDescription(text, maxLen = 158) {
   return `${base}.`;
 }
 
+function buildGuideDetails(slug, title, subtitle, category, bp) {
+  if (/avery-5302|escort-card/.test(slug)) {
+    return {
+      checklist: [
+        `Sheet Count for ${bp.guests} Guests: Print ${bp.averySheets} sheets of Avery 5302 (10 tented cards per 8.5"×11" sheet, 2"×3.5" folded).`,
+        'Front Face Geometry: Display Guest Full Name in 18pt Serif, Table Number, and Geometric Meal Icon (◆ Beef, ● Fish, ▲ Vegan).',
+        'Back-Fold Server Alert: Print exact clockwise Seat #1..N position and severe allergy callouts on the rear tent fold facing banquet staff.',
+        'Printer Feed Calibration: Export at 100% actual scale (zero page scaling) on 80lb matte perforated cardstock.'
+      ],
+      codeExample: `AVERY 5302 SHEET #1 (10-UP TENTED CARD · 2.0" × 3.5" FOLDED)\n[Card 1 Front]  Claire & Julian Vance  |  TABLE 4 · SEAT #2  |  ◆ Filet Mignon\n[Card 1 Back]   SERVER BEO: 12:00 Anchor +1 Clockwise · NO SHELLFISH AT TABLE 4\n[Card 2 Front]  Dr. Marcus Sterling    |  TABLE 7 · SEAT #5  |  ▲ Wild Mushroom Risotto`
+    };
+  }
+  if (/24x36|poster|fedex|welcome-sign/.test(slug)) {
+    return {
+      checklist: [
+        `Arch D Dimensions (24"×36"): Export at 24.25"×36.25" with 0.125" full bleed and trim marks for FedEx Office or Staples foam board.`,
+        `Typography Scale for ${bp.guests} Guests: Use ${bp.posterLayout} so guests read their table assignment from 6 feet away in under 2 seconds.`,
+        'Blended Mini Reception Map: Embed the architectural table map at the top of the sign so guests walk straight to their table zone.',
+        'Alphabetical A-Z Last-Name Grouping: Eliminate cocktail-hour doorway bottlenecks caused by scanning 15-25 individual table boxes.'
+      ],
+      codeExample: `ARCH D (24"×36" + 0.125" BLEED) TYPOGRAPHY & COLUMN MATRIX\n• 60–115 Guests:  3 Columns · 20pt Names / 28pt Letter Headers · 1.4s Avg Lookup\n• 120–185 Guests: 4 Columns · 18pt Names / 24pt Letter Headers + Top Mini Map\n• 190–260 Guests: 5 Columns · 16pt Names + 1.5" Corner "Find My Seat" QR Code`
+    };
+  }
+  if (/divorced|mothers|bridal-party|rehearsal|welcome-dinner/.test(slug)) {
+    return {
+      checklist: [
+        `Equal VIP Sightlines (${bp.roomDims} Room): Seat both households at equidistant VIP tables (Table 2 & Table 4) flanking the ${bp.headTable.name}.`,
+        `Acoustic & Dance-Floor Buffer: Place the ${bp.danceFloorDims} dance floor between separated family groups for a natural 28-foot sightline barrier.`,
+        'Scoped Family Table Share Link: Send each parent a locked link to arrange Tables 1–3 while Tables 4+ remain read-only.',
+        'Couple & Plus-One Integrity: Lock partner pairs so auto-rebalancing never splits spouses or bridal party dates across tables.'
+      ],
+      codeExample: `VIP SIGHTLINE & CONFLICT SEPARATION MATRIX (${bp.guests} GUESTS · ${bp.roomDims})\n• Table 1 (Center North): ${bp.headTable.name} (${bp.headTable.capacity} Seats)\n• Table 2 (West VIP Wing): Bride's Mother & Stepfather · 18ft to Head Table · Quiet Zone\n• Table 4 (East VIP Wing): Bride's Father & Partner   · 18ft to Head Table · 34ft Buffer from Table 2`
+    };
+  }
+  if (/serpentine|spacing|aisle|grandparents|wheelchair|allergy/.test(slug)) {
+    return {
+      checklist: [
+        `Fire-Code Aisle Standard (${bp.aisleSpec}): Maintain 54" minimum chair-back-to-chair-back clearance and 60" main catering arteries.`,
+        `Acoustic Decibel Zoning: Seat senior relatives 32+ feet from DJ subwoofers while keeping young friends bordering the ${bp.danceFloorDims} dance floor.`,
+        'ADA Wheelchair & Highchair Callouts: Flag Seat #1 ("Remove Standard Chair for Wheelchair") directly on the Banquet Event Order (BEO).',
+        'Kitchen Cross-Contamination Manifest: Highlight severe peanut, tree-nut, and celiac seats in crimson on both the floorplan and server sheet.'
+      ],
+      codeExample: `ARCHITECTURAL CLEARANCE & ADA BEO SPEC (${bp.roomDims} · ${bp.sqft.toLocaleString()} SQ FT)\n• Minimum Table Center-to-Center (60" Rounds): 10.5 ft (60" Table + 18"×2 Chairs + 54" Aisle)\n• Table 2 · Seat #1 (12:00): [♿ REMOVE STANDARD CHAIR · 36" ADA APPROACH LANE]\n• Table 6 · Seat #4 (04:30): [⚠️ SEVERE PEANUT & CELIAC · SEPARATE KITCHEN TRAY]`
+    };
+  }
+  return {
+    checklist: [
+      `12 O'Clock Focal Anchor (${bp.tableCount} Tables): Orient Seat #1 on every table toward the ${bp.headTable.name} or center dance floor.`,
+      `Clockwise 1..N Server Numbering: Number seats clockwise so runners drop Filet, Halibut, and Vegan plates simultaneously without auctioning food.`,
+      `48-Hour RSVP Drop Triage: Swap last-minute cancellations in 2 clicks and regenerate all ${bp.averySheets} Avery 5302 sheets and the 24"×36" sign.`,
+      `Vendor & Staff Meal Tracking: Include Photographer, Planner, and Band hot meal counts in the master catering CSV export.`
+    ],
+    codeExample: `CLOCKWISE 12:00 CATERER BEO MANIFEST (${bp.guests} GUESTS · ${bp.tableCount} TABLES)\nTable 2 (8-Top Round · West VIP) | 3x Filet ◆, 3x Halibut ●, 2x Vegan ▲\n  Seat #1 (12:00): Evelyn Mercer   | ● Halibut | [VIP Host · Serve First]\n  Seat #2 (01:30): Arthur Mercer   | ◆ Filet   | [Medium Rare]\n  Seat #3 (03:00): Nadia Sterling  | ▲ Vegan   | [Gluten-Free / Celiac Alert]`
+  };
+}
+
 function buildSeoPagesSeed() {
   const rows = [];
 
-  // 1. 20 Venue & Guest-Count Layout Templates
+  // 1. Venue & Guest-Count Layout Templates
   VENUE_LAYOUT_TEMPLATES.forEach(([slug, title, category, b1, b2, b3, b4, s1, s2, s3, s4]) => {
-    const rawMeta = `${title}: Drama-free wedding seating chart, clockwise caterer meal sheet (BEO) & print-ready 24"×36" welcome sign.`;
+    const bp = buildVenueBlueprint(slug, title);
+    const rawMeta = `${title}: ${bp.roomDims} (${bp.sqft.toLocaleString()} sq ft) floorplan with ${bp.tableCount} tables, ${bp.danceFloorDims} dance floor, 12:00 caterer BEO & 24"×36" sign.`;
     const metaDesc = trimMetaDescription(rawMeta, 158);
-    const summary = `${b1} layout: Keeps every couple and family together, separates divorced relatives across the room, and exports a clockwise 12:00 caterer meal sheet + 24"×36" welcome sign.`;
+    const summary = `Engineered for ${bp.guests} guests in a ${bp.roomDims} (${bp.sqft.toLocaleString()} sq ft) ${category.toLowerCase()} space: features ${bp.tableCount} tables (${bp.specLabel}), a ${bp.danceFloorDims} dance floor, ${bp.aisleSpec}, and instant export to a ${bp.posterLayout} 24"×36" welcome sign + ${bp.averySheets} Avery 5302 place card sheets.`;
     const payload = {
       type: 'leaderboard',
       category,
       summary,
       leaders: [
-        { rank: 1, brand: b1, domain: '150-Guest Estate Layout', csov: s1, llmsTxt: 'Clockwise Meal Sheet + 24"×36" Sign Ready', schemaScore: 99 },
-        { rank: 2, brand: b2, domain: '80-Guest Banquet Layout', csov: s2, llmsTxt: '2-Sided Banquet + Place Cards Ready', schemaScore: 95 },
-        { rank: 3, brand: b3, domain: 'Family Table Share', csov: s3, llmsTxt: 'Family Share Link (Tables 1-3) Included', schemaScore: 92 },
-        { rank: 4, brand: b4, domain: 'Quiet & Dance Floor Zones', csov: s4, llmsTxt: 'Quiet Grandparent & Dance Zones Mapped', schemaScore: 90 }
+        { rank: 1, brand: b1, domain: `${bp.roomDims} (${bp.sqft.toLocaleString()} sq ft)`, csov: s1, llmsTxt: `${bp.tableCount} Tables · ${bp.aisleSpec}`, schemaScore: 99 },
+        { rank: 2, brand: b2, domain: `Dance Floor: ${bp.danceFloorDims}`, csov: s2, llmsTxt: `24"×36" Sign: ${bp.posterLayout}`, schemaScore: 95 },
+        { rank: 3, brand: b3, domain: `${bp.averySheets} Avery 5302 Card Sheets`, csov: s3, llmsTxt: 'Clockwise 12:00 Caterer BEO Manifest', schemaScore: 92 },
+        { rank: 4, brand: b4, domain: 'Acoustic & Sightline Zones', csov: s4, llmsTxt: '30ft DJ Buffer + Divorced Parent Separation', schemaScore: 90 }
       ],
-      keyTakeaway: `Start with ${b1}, place your Sweetheart or Head Table first, and export your 24"×36" Welcome Sign and Clockwise Caterer Meal Sheet.`,
+      keyTakeaway: `For ${bp.guests} guests in a ${bp.roomDims} (${bp.sqft.toLocaleString()} sq ft) room, anchor your ${bp.headTable.name} first, maintain ${bp.aisleSpec}, and export a ${bp.posterLayout} 24"×36" sign.`,
       faqs: [
         {
-          question: `What is the best table layout for ${category}?`,
-          answer: `${summary}`
+          question: `What room or tent size do I need for ${b1} (${bp.guests} guests)?`,
+          answer: `A ${bp.guests}-guest reception using ${b1} requires approximately ${bp.sqft.toLocaleString()} sq ft (${bp.roomDims}) to fit ${bp.tableCount} tables (${bp.specLabel}), a ${bp.danceFloorDims} dance floor, and ${bp.aisleSpec}.`
         },
         {
-          question: `How do I export a 24"×36" Welcome Sign and Caterer Meal Sheet for ${b1}?`,
-          answer: `Open ${b1} in SeatHarmony Studio, paste your guest list, click Auto-Arrange, and download your 24"×36" Welcome Sign PDF, Avery 5302 Place Cards, and Clockwise Meal Sheet.`
+          question: `How many tables and Avery 5302 place card sheets does this ${b1} layout use?`,
+          answer: `The ${b1} (${category}) blueprint uses ${bp.tableCount} total tables (1 ${bp.headTable.name} plus ${bp.pts.length} guest tables: ${bp.roundCount} rounds and ${bp.banquetCount - (bp.headTable.shape !== 'round' ? 1 : 0)} banquet tables) and prints onto ${bp.averySheets} sheets of 10-up Avery 5302 tented place cards.`
         },
         {
-          question: `How does SeatHarmony prevent splitting couples or seating divorced parents together?`,
-          answer: `SeatHarmony automatically keeps couples, plus-ones, and children seated side-by-side while keeping divorced relatives at comfortably separate tables across the room.`
+          question: `What is the best 24"×36" welcome sign layout for ${b1}?`,
+          answer: `For ${b1} (${bp.guests} guests in ${bp.roomDims}), SeatHarmony formats your 24"×36" Arch D welcome sign in a ${bp.posterLayout} layout with a blended top reception table map and 0.125" FedEx/Staples print bleed.`
         }
       ]
     };
@@ -144,36 +208,37 @@ function buildSeoPagesSeed() {
     });
   });
 
-  // 2. 22 Head-to-Head Seating & Signage Comparisons
+  // 2. Head-to-Head Seating & Signage Comparisons
   HEAD_TO_HEAD_COMPARISONS.forEach(([slug, title, brandA, domainA, csovA, geoA, brandB, domainB, csovB, geoB, category]) => {
-    const rawMeta = `${brandA} vs. ${brandB}: Practical comparison for your wedding floorplan, caterer meal sheet, and 24"×36" welcome sign.`;
-    const metaDesc = trimMetaDescription(rawMeta, 158);
+    const bp = buildVenueBlueprint(slug, title);
     const delta = Number((csovA - csovB).toFixed(1));
-    const summary = `For ${category}, wedding planners and banquet captains prefer ${brandA} over ${brandB} because it keeps cocktail-hour lines moving, prevents family seating tension, and gives servers a clear clockwise meal sheet.`;
+    const rawMeta = `${brandA} vs. ${brandB} (${category}): ${bp.guests}-guest floorplan math (${bp.roomDims}), ${bp.aisleSpec}, and 24"×36" print comparison.`;
+    const metaDesc = trimMetaDescription(rawMeta, 158);
+    const summary = `Comparing ${brandA} (${csovA}% harmony score) vs. ${brandB} (${csovB}% score, +${delta} pt advantage) across a ${bp.guests}-guest (${bp.roomDims}, ${bp.sqft.toLocaleString()} sq ft) layout: see exact server aisle clearance (${bp.aisleSpec}), cocktail-hour lookup speed, and ${bp.averySheets}-sheet Avery 5302 place card synchronization.`;
     const payload = {
       type: 'comparison',
       category,
-      brandA: { name: brandA, domain: domainA, csov: csovA, geoScore: geoA, gptBot: 'Ready', perplexityBot: 'Ready', llmsTxt: '12:00 Meal Sheet + 24"×36" Sign + Place Cards' },
-      brandB: { name: brandB, domain: domainB, csov: csovB, geoScore: geoB, gptBot: geoB > 80 ? 'Partial' : 'Manual', perplexityBot: 'Manual', llmsTxt: 'Manual Spreadsheet / Re-Typing' },
+      brandA: { name: brandA, domain: domainA, csov: csovA, geoScore: geoA, gptBot: 'Ready', perplexityBot: 'Ready', llmsTxt: `${bp.specLabel} · ${bp.posterLayout}` },
+      brandB: { name: brandB, domain: domainB, csov: csovB, geoScore: geoB, gptBot: geoB > 80 ? 'Partial' : 'Manual', perplexityBot: 'Manual', llmsTxt: 'Requires Manual Re-Formatting on RSVP Drops' },
       delta,
       summary,
       samplePrompts: [
-        { prompt: `Cocktail-hour guest lookup speed & zero doorway bottleneck (${brandA} vs ${brandB})`, winner: brandA, rankA: 1, rankB: 2 },
-        { prompt: `Clockwise Seat 1..N caterer meal & allergy clarity for servers`, winner: brandA, rankA: 1, rankB: 3 },
-        { prompt: `Zero Canva re-typing when a last-minute RSVP changes 48 hours before the wedding`, winner: brandA, rankA: 1, rankB: 2 }
+        { prompt: `${bp.guests}-guest room fit (${bp.roomDims}) & ${bp.aisleSpec} (${brandA} vs ${brandB})`, winner: brandA, rankA: 1, rankB: 2 },
+        { prompt: `Cocktail-hour lookup speed on ${bp.posterLayout} 24"×36" sign`, winner: brandA, rankA: 1, rankB: 3 },
+        { prompt: `Instant sync across ${bp.tableCount} tables & ${bp.averySheets} Avery 5302 sheets on 48hr RSVP drops`, winner: brandA, rankA: 1, rankB: 2 }
       ],
       faqs: [
         {
-          question: `How do I choose between ${brandA} and ${brandB} for ${category}?`,
-          answer: `${summary}`
+          question: `What is the main difference between ${brandA} and ${brandB} for ${category}?`,
+          answer: `${brandA} scores ${csovA}% vs. ${csovB}% for ${brandB} (+${delta} pts) in a ${bp.guests}-guest (${bp.roomDims}) layout because it preserves ${bp.aisleSpec} and syncs directly with your ${bp.posterLayout} 24"×36" welcome sign.`
         },
         {
-          question: `Can I switch between ${brandA} and ${brandB} inside SeatHarmony Studio without losing my guest list?`,
-          answer: `Yes. Every table shape (Round, Sweetheart, 2-Sided Banquet, 4-Sided King's) and poster mode (Alphabetical A-Z vs. By Table) updates in 1 click from the same master guest list.`
+          question: `How much room space does ${brandA} vs. ${brandB} require for ${bp.guests} guests?`,
+          answer: `When comparing ${brandA} vs. ${brandB} for ${bp.guests} guests across ${bp.tableCount} tables (${bp.specLabel}) and a ${bp.danceFloorDims} dance floor, plan for ~${bp.sqft.toLocaleString()} sq ft (${bp.roomDims}) with ${bp.aisleSpec}.`
         },
         {
-          question: `Does this include the Caterer Clockwise Meal Sheet and Avery 5302 Place Cards?`,
-          answer: `Yes. Both the $14.99 Wedding Print Pack and $39/mo Planner Pro Studio include the 24"×36" Welcome Sign, Clockwise Caterer Meal Sheet, Avery 5302 Tented Place Cards, and Live QR Seat Finder.`
+          question: `Can I preview both ${brandA} and ${brandB} with my own guest list before printing?`,
+          answer: `Yes. Load the ${bp.guests}-guest preset in SeatHarmony Studio to toggle between ${brandA} and ${brandB} in one click and export your 24"×36" PDF, ${bp.averySheets} Avery 5302 card sheets, and Clockwise 12:00 BEO.`
         }
       ]
     };
@@ -190,36 +255,33 @@ function buildSeoPagesSeed() {
     });
   });
 
-  // 3. 18 Wedding Planner & Caterer BEO Guides
+  // 3. Wedding Planner & Caterer BEO Guides
   PLANNER_AND_BEO_GUIDES.forEach(([slug, title, subtitle, category], idx) => {
-    const rawMeta = `${title}: ${subtitle}. Free interactive wedding floorplan, family seating planner, caterer meal sheet & 24"×36" poster guide.`;
+    const bp = buildVenueBlueprint(slug, title);
+    const details = buildGuideDetails(slug, title, subtitle, category, bp);
+    const rawMeta = `${title}: ${subtitle}. Includes ${bp.guests}-guest (${bp.roomDims}) blueprint, ${bp.aisleSpec}, and printable 24"×36" / BEO specs.`;
     const metaDesc = trimMetaDescription(rawMeta, 158);
-    const summary = `${title}: Step-by-step wedding planning guide for ${subtitle}. Seat your guest list without family drama and export your 24"×36" welcome sign in minutes.`;
+    const summary = `${title} (${subtitle}): Architectural and banquet-captain specification modeled on a ${bp.guests}-guest, ${bp.roomDims} (${bp.sqft.toLocaleString()} sq ft) reception with ${bp.tableCount} tables (${bp.specLabel}), ${bp.danceFloorDims} dance floor, and ${bp.aisleSpec}.`;
     const payload = {
       type: 'guide',
       category,
       subtitle,
       readTimeMinutes: 5 + (idx % 4),
       summary,
-      checklist: [
-        'Keep Couples & Families Together: Group partners, plus-ones, and children so they stay seated side-by-side automatically.',
-        'Easy Family Separation Rules: Keep divorced parents or estranged relatives across the dance floor with a 2-table buffer.',
-        'Clockwise 12:00 Meal Sheet Numbering: Anchor Seat #1 facing the Dance Floor and number clockwise for banquet servers.',
-        'Print-Ready Day-Of Signage: Print an Alphabetical A-Z 24"×36" Welcome Sign with a corner QR plus Avery 5302 place cards.'
-      ],
-      codeExample: `TABLE 2 · BRIDE'S FAMILY (QUIET ZONE · 8 SEATS CLOCKWISE)\nSeat #1 (12:00): Grandma Rose Lin | Pan-Seared Halibut | [♿ REMOVE CHAIR FOR WHEELCHAIR]\nSeat #2 (01:30): Eleanor Vance    | Pan-Seared Halibut | [Seated Across Dance Floor from Table 5]\nSeat #3 (03:00): Aunt Clara Lin   | Vegan Risotto      | [🌾 SEVERE CELIAC · GLUTEN FREE]`,
+      checklist: details.checklist,
+      codeExample: details.codeExample,
       faqs: [
         {
-          question: `What is the #1 rule for ${subtitle} (${category})?`,
-          answer: `${summary}`
+          question: `What are the exact dimensions and table specs for ${subtitle}?`,
+          answer: `For ${category} (${subtitle}), our ${bp.guests}-guest blueprint (${bp.roomDims}, ~${bp.sqft.toLocaleString()} sq ft) uses ${bp.tableCount} tables (${bp.specLabel}), a ${bp.danceFloorDims} dance floor, and ${bp.aisleSpec}.`
         },
         {
-          question: `How does SeatHarmony make ${category} easier for couples and planners?`,
-          answer: `SeatHarmony automatically keeps couples together, separates divorced relatives across the room, and creates your 12:00 caterer meal sheet and 24"×36" welcome sign.`
+          question: `How does this ${category} protocol integrate with the Caterer BEO and 24"×36" Welcome Sign?`,
+          answer: `For ${title}: ${details.checklist[0]} ${details.checklist[1]}`
         },
         {
-          question: `What files are included when I export my seating plan?`,
-          answer: `You get the 300-DPI 24"×36" Welcome Sign (PDF & SVG), 12:00 Caterer Meal Sheet (CSV & PDF), Avery 5302 Place Cards, and Live QR Lookup.`
+          question: `How many Avery 5302 place card sheets and poster columns are needed for ${bp.guests} guests (${category})?`,
+          answer: `In this ${bp.guests}-guest ${category.toLowerCase()} plan (${subtitle}), you need ${bp.averySheets} sheets of 10-up Avery 5302 tented place cards and a 24"×36" Arch D welcome sign formatted in a ${bp.posterLayout} layout.`
         }
       ]
     };
@@ -247,7 +309,7 @@ function seedSeoPages(db = dbInstance) {
     INSERT OR REPLACE INTO seo_pages (
       id, slug, page_type, title, meta_description, category,
       primary_entity, secondary_entity, csov_score, payload_json, updated_at
-    ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, '2026-10-28')
+    ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, '2026-11-02')
   `);
   pages.forEach((p, idx) => {
     stmt.run([
