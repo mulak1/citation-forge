@@ -203,10 +203,14 @@ function attachVaultAndPaywallRoutes(app, publicUrl, ebStore = null) {
   const baseUrl = String(publicUrl || 'https://www.seatharmony.io').replace(/\/$/, '');
 
   // 1. Save / Auto-Sync Event Vault (POST /api/vault/save)
-  app.post('/api/vault/save', (req, res) => {
+  app.post('/api/vault/save', async (req, res) => {
     try {
       const body = req.body || {};
-      const state = body.state && typeof body.state === 'object' ? body.state : null;
+      let state = body.state && typeof body.state === 'object' ? body.state : null;
+      if ((!state || !Array.isArray(state.tables)) && (body.preset || body.ownerEmail || body.email)) {
+        const seeded = await runGeoAudit(String(body.preset || 'estate-150'));
+        state = seeded.seatingPlan || seeded;
+      }
       if (!state || !Array.isArray(state.tables)) return res.status(400).json({ ok: false, error: 'Valid seating plan state is required.' });
       const ownerEmail = String(body.ownerEmail || body.email || body.owner_email || state.ownerEmail || '').trim().toLowerCase().slice(0, 120);
       const isTestOwner = /^(test|vip)@seatharmony\.com$/i.test(ownerEmail);
@@ -228,10 +232,11 @@ function attachVaultAndPaywallRoutes(app, publicUrl, ebStore = null) {
         `INSERT OR REPLACE INTO event_vaults (vault_id, owner_email, pin_code, title, venue_name, plan_tier, is_unlocked, stripe_session_id, state_json, updated_at) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, datetime('now'))`,
         [vaultId, finalEmail, pinCode, title, venueName, planTier, isUnlocked, existing ? (existing.stripe_session_id || '') : '', JSON.stringify(state)]
       );
-      if (ebStore && finalEmail && finalEmail.includes('@') && !isTestOwner) {
+      if (ebStore && finalEmail && finalEmail.includes('@') && !isTestOwner && (!existing || existing.owner_email !== finalEmail)) {
         const ua = String(req.headers['user-agent'] || '').toLowerCase(), isTestReq = /headlesschrome|playwright|puppeteer|curl\/|bot|crawler|example\.com|test/i.test(ua + ' ' + finalEmail) ? 1 : 0;
-        ebStore.recordLead({ email: finalEmail, summaryText: `Saved Reception Vault #${vaultId} (${title})`, utmSource: 'vault_save', isTest: isTestReq, clientIp: String(req.ip || '') });
-        ebStore.recordEvent({ eventType: 'lead_capture', pageUrl: '/api/vault/save', deviceType: /mobile|iphone|android/i.test(ua) ? 'mobile' : 'desktop', utmSource: 'vault_save', isTest: isTestReq, clientIp: String(req.ip || '') });
+        const clientIp = String(req.headers['cf-connecting-ip'] || req.headers['x-forwarded-for'] || req.ip || '').split(',')[0].trim().replace(/^::ffff:/, '');
+        ebStore.recordLead({ email: finalEmail, summaryText: `Saved Reception Vault #${vaultId} (${title})`, utmSource: String(body.utm_source || 'vault_save'), isTest: isTestReq, clientIp });
+        ebStore.recordEvent({ eventType: 'lead_capture', pageUrl: String(body.page_url || '/api/vault/save'), deviceType: /mobile|iphone|android/i.test(ua) ? 'mobile' : 'desktop', utmSource: String(body.utm_source || 'vault_save'), isTest: isTestReq, clientIp, meta: { js_hydrated: 1, vaultId } });
       }
       return res.status(200).json({ ok: true, vaultId, vault_id: vaultId, owner_email: finalEmail, title, venue_name: venueName, is_unlocked: Boolean(isUnlocked), plan_tier: planTier, urls: buildVaultUrls(baseUrl, vaultId) });
     } catch (err) {

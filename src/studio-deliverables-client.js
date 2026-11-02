@@ -671,9 +671,91 @@ function renderDeliverablesClientScript() {
   };
   window.shTrackTelemetry = function(eventType, meta) {
     try {
-      fetch('/api/telemetry/event', { method: 'POST', keepalive: true, headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ eventType: eventType, pagePath: window.location.pathname, meta: meta || {} }) }).catch(function() {});
+      window.__shTrackedEvents = window.__shTrackedEvents || {};
+      var src = (meta && meta.source) ? String(meta.source) : '';
+      var dedupKey = eventType + ':' + src;
+      if ((eventType === 'calculate' || eventType === 'studio_interact' || eventType === 'view_paywall') && window.__shTrackedEvents[dedupKey]) return;
+      window.__shTrackedEvents[dedupKey] = 1;
+      var m = document.cookie.match(/(?:^|;\\s*)vs_vid=([^;]+)/);
+      var vid = m ? decodeURIComponent(m[1]) : '';
+      var fullMeta = Object.assign({ js_hydrated: 1, vw: window.innerWidth || 0, vh: window.innerHeight || 0, vid: vid }, meta || {});
+      fetch('/api/telemetry/event', { method: 'POST', keepalive: true, headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ event_type: eventType, eventType: eventType, page_url: window.location.pathname, pagePath: window.location.pathname, meta: fullMeta }) }).catch(function() {});
     } catch (_) {}
   };
+  window.shGateOrExportBeoCsv = function() {
+    if (window.__SH_STATE && ((window.__SH_STATE.ownerEmail && window.__SH_STATE.ownerEmail.indexOf('@') > 0 && !/^(test|vip)@/i.test(window.__SH_STATE.ownerEmail)) || window.__SH_STATE.isUnlocked)) {
+      if (window.shExportBeoCsv) window.shExportBeoCsv();
+      return;
+    }
+    window.shTrackTelemetry('view_paywall', { source: 'beo_csv_gate' });
+    var grid = document.getElementById('sh-builder-grid');
+    if (grid && grid.style.display === 'none' && typeof window.shFinishSetupWizard === 'function') window.shFinishSetupWizard();
+    var inp = document.getElementById('sh-inline-vault-email');
+    if (inp) {
+      inp.scrollIntoView({ behavior: 'smooth', block: 'center' });
+      try { inp.focus({ preventScroll: true }); } catch (_) { inp.focus(); }
+      inp.style.boxShadow = '0 0 0 3px rgba(217,119,6,0.35)';
+    }
+    shToast('Enter your email below to save your seating plan & download your free Clockwise Caterer CSV!');
+  };
+  (function() {
+    var origTab = window.shSetActiveTab;
+    if (typeof origTab === 'function') {
+      window.shSetActiveTab = function(tab) {
+        window.__shUserInteracted = true;
+        if (tab && tab !== 'floorplan') {
+          window.shTrackTelemetry('calculate', { source: 'tab_' + tab });
+          window.shTrackTelemetry('studio_interact', { source: 'tab_' + tab });
+        }
+        if (tab === 'beo' || tab === 'poster') window.shTrackTelemetry('view_paywall', { source: 'tab_' + tab });
+        return origTab.apply(this, arguments);
+      };
+    }
+    ['shRunAutoSolver', 'shSwitchPreset', 'shAddMessyHousehold'].forEach(function(fnName) {
+      var orig = window[fnName];
+      if (typeof orig === 'function') {
+        window[fnName] = function() {
+          window.__shUserInteracted = true;
+          window.shTrackTelemetry('calculate', { source: fnName });
+          window.shTrackTelemetry('studio_interact', { source: fnName });
+          return orig.apply(this, arguments);
+        };
+      }
+    });
+    document.addEventListener('DOMContentLoaded', function() {
+      ['shwPickGuests', 'shwPickTable', 'shwLoadInstantScenario', 'shwPasteSampleList'].forEach(function(wFn) {
+        var origW = window[wFn];
+        if (typeof origW === 'function') {
+          window[wFn] = function() {
+            window.__shUserInteracted = true;
+            window.shTrackTelemetry('calculate', { source: wFn });
+            window.shTrackTelemetry('studio_interact', { source: wFn });
+            return origW.apply(this, arguments);
+          };
+        }
+      });
+      var stage = document.getElementById('sh-floorplan-svg-stage');
+      if (stage) {
+        stage.addEventListener('pointerdown', function() {
+          window.__shUserInteracted = true;
+          window.shTrackTelemetry('calculate', { source: 'canvas_interact' });
+          window.shTrackTelemetry('studio_interact', { source: 'canvas_interact' });
+        }, { once: true, passive: true });
+      }
+      var vBar = document.getElementById('sh-vault-checkout-bar');
+      if (vBar && typeof IntersectionObserver !== 'undefined') {
+        var obs = new IntersectionObserver(function(entries) {
+          entries.forEach(function(en) {
+            if (en.isIntersecting && (window.scrollY > 120 || window.__shUserInteracted)) {
+              window.shTrackTelemetry('view_paywall', { source: 'vault_bar_scroll' });
+              obs.disconnect();
+            }
+          });
+        }, { threshold: 0.45 });
+        obs.observe(vBar);
+      }
+    });
+  })();
   window.shSaveInlineEmailLead = async function() {
     var inp = document.getElementById('sh-inline-vault-email'), btn = document.getElementById('sh-inline-vault-save-btn');
     var email = inp ? String(inp.value || '').trim().toLowerCase() : '';

@@ -434,7 +434,7 @@ function classifyTrafficRequest(req, extraEmail = '') {
     recent.push({ ts: now, path: req.path }); ipBurstWindow.set(clientIp, recent);
     if (recent.length >= 8 || recent.filter((x) => x.path === req.path && now - x.ts < 5000).length >= 4) isBurstScrape = true;
   }
-  const isSearchOrAiCrawler = !isMirofish && (CRAWLER_UA_REGEX.test(ua) || isPrefetch || isBurstScrape);
+  const isSearchOrAiCrawler = !isMirofish && (CRAWLER_UA_REGEX.test(ua) || /chrome\/[1-9][0-9]\./.test(ua) || isPrefetch || isBurstScrape);
   if (isMirofish || isOwnerIp || isPlaywrightHeader || isQueryTest || isSearchOrAiCrawler || !ua || ua.includes('headlesschrome') || ua.includes('playwright') || ua.includes('puppeteer') || ua.includes('cypress') || ua.includes('curl/') || ua.includes('python-requests') || ua.includes('node-fetch') || ua.includes('undici') || ua.includes('go-http-client') || ua.includes('railway') || ua.includes('bot') || ua.includes('crawler') || ua.includes('spider') || emailLower.includes('example.com') || emailLower.includes('playwright') || emailLower.includes('test')) {
     return { isTest: 1, isCrawler: isSearchOrAiCrawler ? 1 : 0, isOwnerIp: isOwnerIp ? 1 : 0, isMirofish: isMirofish ? 1 : 0, clientIp };
   }
@@ -522,7 +522,7 @@ function createTelemetryStore(dataDir, moduleId) {
       const nowMs = Date.now(), cutoffMs = nowMs - windowHours * 3600 * 1000, prevCutMs = cutoffMs - windowHours * 3600 * 1000;
       const toPstString = (iso) => new Date(new Date(iso).getTime() - 7 * 3600 * 1000).toISOString().replace('T', ' ').slice(0, 19);
       const inferRefSrc = (r) => r.includes('google.') ? 'google_organic' : (r.includes('bing.') ? 'bing_organic' : (r.includes('chatgpt.') || r.includes('openai.') ? 'chatgpt_ai' : (r.includes('perplexity.') ? 'perplexity_ai' : (r.includes('reddit.') ? 'reddit_social' : (r.includes('github.') ? 'github_dev' : '')))));
-      const baseClean = state.events.filter((e) => Number(e.is_test) === 0 && !e.is_owner && !e.is_mirofish && Boolean(e.client_ip) && !isExcludedOwnerIp(e.client_ip) && !(e.meta && /\/api\/(?:telemetry|meta-capi)/i.test(String(e.meta.ref || ''))) && !(e.event_type === 'checkout_intent' && e.meta && e.meta.method === 'GET' && !e.meta.has_referer));
+      const baseClean = state.events.filter((e) => Number(e.is_test) === 0 && !e.is_owner && !e.is_mirofish && Boolean(e.client_ip) && !isExcludedOwnerIp(e.client_ip) && !(e.meta && /\/api\/(?:telemetry|meta-capi)/i.test(String(e.meta.ref || ''))) && !(e.event_type === 'checkout_intent' && e.meta && e.meta.method === 'GET' && !e.meta.has_referer) && !(e.meta && !e.meta.ref && ((Number(e.meta.vw) === 800 && Number(e.meta.vh) === 600) || (Number(e.meta.vw) === 1024 && Number(e.meta.vh) === 1024))));
       const seoBurstUrls = new Set(baseClean.filter((e) => e.page_url && e.page_url.startsWith('/seo/') && Number(e.meta && e.meta.vw) === 1024 && !(e.meta && e.meta.ref)).filter((e, _, arr) => arr.filter((x) => x.page_url === e.page_url && Math.abs(new Date(x.created_at).getTime() - new Date(e.created_at).getTime()) <= 5000).length >= 3).map((e) => `${e.page_url}|${Math.floor(new Date(e.created_at).getTime() / 10000)}`));
       const isWrsBurst = (e) => Boolean(e.page_url && seoBurstUrls.has(`${e.page_url}|${Math.floor(new Date(e.created_at).getTime() / 10000)}`));
       const jsVerifiedIps = new Set(baseClean.filter((e) => !isWrsBurst(e) && (e.event_type === 'view_paywall' || e.event_type === 'checkout_intent' || Boolean(e.meta && (e.meta.js_hydrated || e.meta.vid)))).map((e) => e.client_ip));
@@ -811,7 +811,7 @@ function attachExactBaselinePack(app, options = {}) {
     const deviceType = /mobile|iphone|android/i.test(ua) ? 'mobile' : 'desktop';
     const { isTest, isCrawler, isOwnerIp, clientIp } = classifyTrafficRequest(req, body.email);
     if (isOwnerIp) res.setHeader('Set-Cookie', 'eb_owner_test=1; Path=/; Max-Age=31536000; SameSite=Lax');
-    store.recordEvent({ eventType: String(body.event_type || body.eventType || 'interaction'), pageUrl: String(body.page_url || body.pageUrl || '/'), deviceType: String(body.device_type || deviceType), utmSource: String(body.utm_source || ''), utmCampaign: String(body.utm_campaign || ''), isTest, isCrawler, isOwnerIp, clientIp, meta: body.meta || {} });
+    store.recordEvent({ eventType: String(body.event_type || body.eventType || 'interaction'), pageUrl: String(body.page_url || body.pageUrl || body.pagePath || '/'), deviceType: String(body.device_type || deviceType), utmSource: String(body.utm_source || ''), utmCampaign: String(body.utm_campaign || ''), isTest, isCrawler, isOwnerIp, clientIp, meta: body.meta || {} });
     res.json({ ok: true, is_test: isTest, is_owner_ip: isOwnerIp, is_crawler: isCrawler });
   });
 
