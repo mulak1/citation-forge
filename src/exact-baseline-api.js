@@ -907,7 +907,7 @@ function attachExactBaselinePack(app, options = {}) {
     const rawTarget = String(req.body?.target || req.query?.target || req.query?.brand || req.query?.q || '').replace(/[<>"']/g, '').trim().slice(0, 44);
     let { isTest, isCrawler, isOwnerIp, clientIp } = classifyTrafficRequest(req, userEmail);
     const isBrowserUa = /mozilla\/5\.0/i.test(String(req.headers['user-agent'] || '')) && !/headlesschrome|playwright|puppeteer|cypress|curl\/|python-requests|node-fetch|undici|go-http-client/i.test(String(req.headers['user-agent'] || ''));
-    const ref = String(req.headers.referer || ''), hasSameRef = ref.includes(cfg.domain.replace(/^www\./, '')) || ref.includes('seatharmony.ie'), hasValidVid = /^v_[a-z0-9_]+$/i.test(vid);
+    const ref = String(req.headers.referer || ''), hasSameRef = ref.includes(cfg.domain.replace(/^www\./, '')) || ref.includes('seatharmony.io'), hasValidVid = /^v_[a-z0-9_]+$/i.test(vid);
     if (req.method === 'GET' && (!hasSameRef || !hasValidVid)) { isTest = 1; if (!isBrowserUa) isCrawler = 1; }
     const deviceType = /mobile|iphone|android/i.test(String(req.headers['user-agent'] || '')) ? 'mobile' : 'desktop';
 
@@ -919,7 +919,7 @@ function attachExactBaselinePack(app, options = {}) {
 
     store.recordEvent({ eventType: 'checkout_intent', pageUrl: String(req.body?.pageUrl || req.originalUrl || '/'), deviceType, isTest, isCrawler, isOwnerIp, clientIp, meta: { tier: tierName, sku, price_usd: priceUsd, method: req.method, has_referer: hasSameRef, target: rawTarget, vid } });
 
-    const baseUrl = String(req.headers['x-forwarded-host'] || req.headers.host || '').toLowerCase().includes('seatharmony.ie') ? 'https://www.seatharmony.ie' : `https://${cfg.domain}`, stripeKey = process.env.STRIPE_SECRET_KEY || '', targetPrefix = rawTarget ? `${rawTarget} · ` : '';
+    const baseUrl = String(req.headers['x-forwarded-host'] || req.headers.host || '').toLowerCase().includes('seatharmony.io') ? 'https://www.seatharmony.io' : `https://${cfg.domain}`, stripeKey = process.env.STRIPE_SECRET_KEY || '', targetPrefix = rawTarget ? `${rawTarget} · ` : '';
     let checkoutUrl = `https://checkout.stripe.com/c/pay/cs_live_${cfg.moduleId}_${tierName}_${Date.now()}`, sessionId = `cs_live_${cfg.moduleId}_${Date.now()}`, f0Lbl = (cfg.deliverableFiles && cfg.deliverableFiles[0] && (cfg.deliverableFiles[0].label || cfg.deliverableFiles[0].file)) || 'Single Deliverable File';
     const prodLabel = `${cfg.brandName}: ${targetPrefix}${isMicro ? `Single-File Pass: ${f0Lbl} (99¢)` : (isFlash ? `${cfg.freeDeliverableName || 'Full 3-File Deliverable Pack'} ($1.99)` : (isUpgradeFlash ? `${cfg.coreLabel} ($${upgPrice.toFixed(2)}, $1.99 Pass Credit Applied)` : (isPlaybook ? cfg.coreLabel : (isPro ? cfg.proLabel : cfg.coreLabel))))}`;
     const filesList = (cfg.deliverableFiles || []).map(f => f.file).join(' + ') || 'Full Deliverable Pack', prodDesc = `Instant browser unlock & download for ${rawTarget || cfg.brandName}: includes ${filesList}. One-time payment, never renews.`;
@@ -981,8 +981,8 @@ function attachExactBaselinePack(app, options = {}) {
     res.send = function patchedSend(body) {
       const isHtml = typeof body === 'string' && (String(res.getHeader('Content-Type') || '').includes('text/html') || body.trim().startsWith('<!DOCTYPE html>'));
       if (isHtml && req.method === 'GET' && (req.path === '/' || req.path === '/lp' || req.path === '/directory' || req.path === '/leaderboard' || req.path === '/privacy' || req.path === '/terms' || req.path.startsWith('/dossier/sample') || req.path.startsWith('/seo/') || req.path.startsWith('/tools/') || req.path.startsWith('/compare/') || req.path.startsWith('/scan/') || req.path.startsWith('/report/'))) {
-        const isShIe = String(req.headers['x-forwarded-host'] || req.headers.host || '').toLowerCase().includes('seatharmony.ie'), activeDom = isShIe ? 'www.seatharmony.ie' : cfg.domain;
-        if (isShIe) body = body.replace(/https:\/\/www\.citationforge\.io/g, 'https://www.seatharmony.ie');
+        const isShIo = String(req.headers['x-forwarded-host'] || req.headers.host || '').toLowerCase().includes('seatharmony.io'), activeDom = isShIo ? 'www.seatharmony.io' : cfg.domain;
+        if (isShIo) body = body.replace(/https:\/\/www\.citationforge\.io/g, 'https://www.seatharmony.io');
         try { res.setHeader('X-Robots-Tag', 'all, index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1'); res.setHeader('Link', `<https://${activeDom}/llms.txt>; rel="llms-txt", <https://${activeDom}/llms-full.txt>; rel="llms-full-txt", <https://${activeDom}/openapi.json>; rel="service-desc", <https://${activeDom}/feed.xml>; rel="alternate"; type="application/rss+xml"`); } catch (_) {}
         store.recordEvent({ eventType: 'visit', pageUrl: req.originalUrl || req.path, deviceType, utmSource: String(req.query?.utm_source || ''), utmCampaign: String(req.query?.utm_campaign || ''), isTest, isCrawler, isOwnerIp, clientIp, meta: { ref: String(req.headers.referer || '').slice(0, 180), ua: String(req.headers['user-agent'] || '').slice(0, 120) } });
         if (cfg.moduleId === 'citation_forge' || body.includes('data-seatharmony-native="1"')) {

@@ -11,7 +11,7 @@ const SHOWCASE_SLIDES = [
       { num: '2', title: '1-Click A–Z or By-Table Sort' },
       { num: '3', title: 'Monogram & Scannable QR Crest' }
     ],
-    urlText: 'seatharmony.ie/print/poster/SH-4819?theme=alabaster',
+    urlText: 'seatharmony.io/print/poster/SH-4819?theme=alabaster',
     routeHref: (vId) => `/print/poster/${encodeURIComponent(vId)}?theme=alabaster`,
     ctaText: 'Open Live 24"×36" Studio ↗',
     imgSrc: '/public/showcase-poster-24x36.png?v=light3',
@@ -32,7 +32,7 @@ const SHOWCASE_SLIDES = [
       { num: '2', title: 'Entrée Prep Totals per Table' },
       { num: '3', title: 'Kitchen Allergy & ADA Alerts' }
     ],
-    urlText: 'seatharmony.ie/print/beo/SH-4819',
+    urlText: 'seatharmony.io/print/beo/SH-4819',
     routeHref: (vId) => `/print/beo/${encodeURIComponent(vId)}`,
     ctaText: 'Open Live Caterer BEO ↗',
     imgSrc: '/public/showcase-signed-beo.png?v=light3',
@@ -53,7 +53,7 @@ const SHOWCASE_SLIDES = [
       { num: '2', title: 'Meal Icons (◆ Beef · ● Fish · ▲ Vegan)' },
       { num: '3', title: 'Exact Table & Clockwise Chair #' }
     ],
-    urlText: 'seatharmony.ie/print/avery-5302/SH-4819',
+    urlText: 'seatharmony.io/print/avery-5302/SH-4819',
     routeHref: (vId) => `/print/avery-5302/${encodeURIComponent(vId)}`,
     ctaText: 'Open Live Avery 5302 Sheet ↗',
     imgSrc: '/public/showcase-avery-5302.png?v=light3',
@@ -74,7 +74,7 @@ const SHOWCASE_SLIDES = [
       { num: '2', title: 'Exact Table & Clockwise Chair #' },
       { num: '3', title: 'Live Cloud Sync for Seat Swaps' }
     ],
-    urlText: 'seatharmony.ie/qr/SH-4819',
+    urlText: 'seatharmony.io/qr/SH-4819',
     routeHref: (vId) => `/qr/${encodeURIComponent(vId)}`,
     ctaText: 'Test Live Mobile QR App ↗',
     imgSrc: '/public/showcase-mobile-qr.png?v=light3',
@@ -95,7 +95,7 @@ const SHOWCASE_SLIDES = [
       { num: '2', title: 'All 4 Print & Caterer Files' },
       { num: '3', title: 'Family Share Link (Tables 1–3 Only)' }
     ],
-    urlText: 'seatharmony.ie/vault/SH-4819?unlocked=1',
+    urlText: 'seatharmony.io/vault/SH-4819?unlocked=1',
     routeHref: (vId) => `/vault/${encodeURIComponent(vId)}?unlocked=1`,
     ctaText: 'Open Saved Wedding Files ↗',
     imgSrc: '/public/showcase-vault-command.png?v=light3',
