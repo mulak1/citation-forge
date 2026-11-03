@@ -35,7 +35,9 @@ const VENUE_LAYOUT_TEMPLATES = [
   ['40x60-tent-wedding-seating-chart-120-guests', '40×60 Tent Wedding Layout for 120 Guests: 15 Round Tables, Center Dance Floor & Pole Clearance', 'Tent & Outdoor Weddings', '120 Guests (40×60 Tent · 2,400 sq ft)', '15×8-Top 60" Rounds', '12×10-Top 72" Rounds', 'Center Pole & 16×16 Dance Floor', 99.1, 95.8, 92.4, 89.7],
   ['40x80-sailcloth-tent-wedding-layout-150-guests', '40×80 Sailcloth Tent Wedding Floorplan for 150 Guests: Twin Pole Sightlines & 18 Round Tables', 'Sailcloth Tent Weddings', '150 Guests (40×80 Tent · 3,200 sq ft)', '18×8-Top Rounds + Sweetheart', '15×10-Top Rounds + Lounge', 'Twin Center Pole Buffer', 99.0, 95.5, 92.1, 89.3],
   ['30x60-tent-wedding-layout-80-100-guests', '30×60 Frame Tent Wedding Seating Chart for 80-100 Guests: Banquet vs Round Table Floorplan', 'Frame Tent Weddings', '90 Guests (30×60 Tent · 1,800 sq ft)', '11×8-Top 60" Rounds', '6×16-Foot Banquet Rows', '15×15 Dance Floor & Bar', 98.9, 95.2, 91.8, 89.0],
-  ['mixed-round-and-long-banquet-tables-wedding-floorplan', 'Mixed Round & Long Banquet Tables Wedding Floorplan (120-160 Guests Architectural Layout)', '2026 Trending Reception Layouts', '140 Guests (4 Long VIP Banquets + 11 Rounds)', '2 King’s Tables + 12 Rounds', 'Alternating Tuscan & 60" Rounds', 'Center Dance Floor Sightlines', 99.3, 96.1, 92.8, 90.2]
+  ['mixed-round-and-long-banquet-tables-wedding-floorplan', 'Mixed Round & Long Banquet Tables Wedding Floorplan (120-160 Guests Architectural Layout)', '2026 Trending Reception Layouts', '140 Guests (4 Long VIP Banquets + 11 Rounds)', '2 King’s Tables + 12 Rounds', 'Alternating Tuscan & 60" Rounds', 'Center Dance Floor Sightlines', 99.3, 96.1, 92.8, 90.2],
+  ['40x100-tent-wedding-seating-chart-200-guests', '40×100 Tent Wedding Floorplan for 200 Guests: 24 Round Tables, Center Dance Floor & Pole Clearance', 'Large Tent Weddings', '200 Guests (40×100 Tent · 4,000 sq ft)', '24×8-Top 60" Rounds', '20×10-Top 72" Rounds', '20×20 Center Dance Floor', 99.0, 95.6, 92.2, 89.4],
+  ['20x40-tent-backyard-wedding-seating-chart-50-60-guests', '20×40 Backyard Tent Wedding Layout for 50-60 Guests: 7 Round Tables vs 2 Long Banquet Rows', 'Backyard & Micro Tent Weddings', '55 Guests (20×40 Tent · 800 sq ft)', '2×26-Guest Banquet Rows', '7×8-Top 60" Rounds', '12×12 Corner Dance Floor', 99.2, 95.9, 92.6, 89.8]
 ];
 
 const HEAD_TO_HEAD_COMPARISONS = [
@@ -61,7 +63,8 @@ const HEAD_TO_HEAD_COMPARISONS = [
   ['outdoor-tent-rain-plan-b-floorplan-comparison', 'Outdoor Courtyard Floorplan vs. Indoor Rain Plan-B Layout: 1-Click Table Re-Mapping', 'Dual Weather-Synced Floorplan', 'Rain Backup Plan', 98.3, 96, 'Single Static Layout', 'Single Layout', 69.4, 71, 'Day-Of Weather Backup'],
   ['corporate-vip-dinner-rotation-vs-fixed-seating', 'Rehearsal Dinner Seat Mixing vs. Assigned Tables for Multi-Day Wedding Weekends', 'Assigned Tables With Different Neighbors', 'Multi-Event Seating', 97.5, 95, 'Same Tablemates Both Nights', 'Repeated Seating', 81.0, 82, 'Rehearsal & Welcome Dinners'],
   ['foam-board-24x36-fedex-vs-acrylic-welcome-sign', '24"×36" Archival Foam Board (FedEx/Staples) vs. Acrylic Sign: Readability & Glare Guide', 'Matte Archival 24"×36" Board', 'Matte Foam Board', 98.4, 97, 'Clear Acrylic Sign', 'Clear Acrylic Sign', 79.0, 78, 'Print Materials'],
-  ['templett-corjl-canva-vs-seatharmony-welcome-sign', 'SeatHarmony Auto-Synced 24"×36" Sign vs. Templett, Corjl & Canva Manual Templates', 'SeatHarmony Live Floorplan Sign', 'SeatHarmony Studio', 99.2, 99, 'Static Templett / Canva Template', 'Manual Sign Template', 61.0, 64, 'Editable Sign Templates']
+  ['templett-corjl-canva-vs-seatharmony-welcome-sign', 'SeatHarmony Auto-Synced 24"×36" Sign vs. Templett, Corjl & Canva Manual Templates', 'SeatHarmony Live Floorplan Sign', 'SeatHarmony Studio', 99.2, 99, 'Static Templett / Canva Template', 'Manual Sign Template', 61.0, 64, 'Editable Sign Templates'],
+  ['18x24-vs-24x36-wedding-seating-chart-sign-size-comparison', '18"×24" vs. 24"×36" Wedding Seating Chart Sign Size: Guest Count & Font Readability Chart', '24"×36" Arch D (100-250 Guests)', '24x36 Arch D Sign', 99.1, 98, '18"×24" Arch C (Under 85 Guests)', '18x24 Arch C Sign', 82.5, 84, 'Welcome Sign Sizing']
 ];
 
 const PLANNER_AND_BEO_GUIDES = [
@@ -85,7 +88,9 @@ const PLANNER_AND_BEO_GUIDES = [
   ['table-spacing-and-server-aisle-clearance-standards', 'Banquet Room Fire Code & Server Aisle Clearance Standards (60-Inch vs 72-Inch Rounds)', 'Ensuring 54-Inch Chair-to-Chair Clearance for Smooth Plated Dinner Service', 'Venue Architecture'],
   ['24x36-welcome-sign-with-mini-floorplan-map-guide', 'How to Include a Mini Reception Table Map on Your 24"×36" Wedding Welcome Sign', 'Blending Large Serif Table Numbers Above Alphabetical A-Z Guest Lists for 5-Second Wayfinding', 'Welcome Sign Architecture'],
   ['24x36-wedding-seating-chart-poster-how-many-names-fit', 'How Many Guest Names Fit on a 24"×36" Wedding Seating Chart Sign? (100 to 250 Guests Font Size Chart)', '3-Column vs 4-Column Alphabetical Typography, Minimum 18pt Readability & Mini Table Map Spacing', '24"×36" Welcome Sign Specs'],
-  ['serpentine-s-curve-wedding-table-layout-floorplan', 'Serpentine & S-Curve Wedding Reception Table Layout: Dimensions, Linens & Caterer Server Aisles', 'Curved Banquet Geometry, 60-Inch Server Pass-Throughs & Clockwise Seat 1..N Numbering', '2026 Trending Layouts']
+  ['serpentine-s-curve-wedding-table-layout-floorplan', 'Serpentine & S-Curve Wedding Reception Table Layout: Dimensions, Linens & Caterer Server Aisles', 'Curved Banquet Geometry, 60-Inch Server Pass-Throughs & Clockwise Seat 1..N Numbering', '2026 Trending Layouts'],
+  ['60-inch-round-table-8-vs-9-vs-10-wedding-guests', 'How Many Guests Fit at a 60-Inch Round Wedding Table? (8 vs 9 vs 10 Charger Plate Spacing)', 'Elbow Room Per Guest, 13-Inch Charger Plate Clearance & Linen Drop Specifications', 'Table Capacity & Comfort'],
+  ['l-shaped-and-t-shaped-wedding-reception-table-layout', 'L-Shaped & T-Shaped Wedding Reception Table Layouts for 60-110 Guests: Intimate Venue Blueprint', 'Connecting Head Table Banquets With Perpendicular Guest Wings & 54-Inch Server Aisles', 'Intimate Venue Architecture']
 ];
 
 function saveDb() {
