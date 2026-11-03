@@ -172,7 +172,7 @@ function renderTopPrintBar({ vault, activeRoute, baseUrl }) {
   const urls = buildVaultUrls(baseUrl, vault.vaultId);
   const unlockBadge = vault.isUnlocked
     ? `<span style="background:#ECFDF5;color:#065F46;border:1px solid #A7F3D0;padding:3px 9px;border-radius:999px;font-size:0.68rem;font-weight:800;white-space:nowrap;">&#10003; UNLOCKED</span>`
-    : `<a href="/buy/complete_dossier?target=${encodeURIComponent(vault.vaultId)}&vault=${encodeURIComponent(vault.vaultId)}" style="background:linear-gradient(135deg,#FDE68A,#C8A96E);color:#181412;padding:4px 10px;border-radius:999px;font-size:0.70rem;font-weight:800;text-decoration:none;white-space:nowrap;">&#128274; Unlock Print Pack ($14.99) &rarr;</a>`;
+    : `<a href="/buy/complete_dossier?target=${encodeURIComponent(vault.vaultId)}&vault=${encodeURIComponent(vault.vaultId)}&allow_promotion_codes=false" style="background:linear-gradient(135deg,#FDE68A,#C8A96E);color:#181412;padding:4px 10px;border-radius:999px;font-size:0.70rem;font-weight:800;text-decoration:none;white-space:nowrap;">&#128274; Unlock Event Print Pack ($9) &rarr;</a>`;
 
   return `
   <header class="no-print" style="position:sticky;top:0;z-index:100;background:#FAF6EE;color:#181412;border-bottom:1.5px solid #D8C29D;padding:9px 18px;box-shadow:0 4px 14px rgba(24,20,18,0.04);">
@@ -373,15 +373,15 @@ function attachVaultAndPaywallRoutes(app, publicUrl, ebStore = null) {
             <h1 class="serif" style="font-size:2.05rem;color:#181412;line-height:1.1;">${escapeHtml(vault.title)}</h1>
             <div style="font-size:0.84rem;color:#44403C;margin-top:3px;">
               ${vault.isUnlocked
-                ? '&#10003; <strong>Complete Print &amp; Caterer Pack Unlocked:</strong> Unlimited 30-day edits &amp; 300-DPI exports active.'
-                : '&#128190; <strong>Saved Event Vault Active:</strong> Preview all 4 files below or unlock 300-DPI exports ($14.99 once).'}
+                ? '&#10003; <strong>Complete Event Print &amp; Day-Of Execution Pack Unlocked:</strong> Unlimited 30-day edits &amp; 300-DPI exports active.'
+                : '&#128190; <strong>Saved Event Vault Active:</strong> Preview all 4 files below or unlock 300-DPI print-shop exports ($9 once).'}
             </div>
           </div>
         </div>
         <div style="display:flex;gap:8px;flex-wrap:wrap;">
           <a href="${urls.studio}" class="btn btn-outline">&larr; Edit Floorplan in Studio</a>
           <a href="${urls.print_beo}" class="btn btn-gold">&#127869; Caterer BEO &amp; CSV &rarr;</a>
-          ${!vault.isUnlocked ? `<a href="/buy/complete_dossier?target=${encodeURIComponent(vault.vaultId)}&vault=${encodeURIComponent(vault.vaultId)}" class="btn btn-gold">&#10022; Unlock Print Pack ($14.99) &rarr;</a>` : ''}
+          ${!vault.isUnlocked ? `<a href="/buy/complete_dossier?target=${encodeURIComponent(vault.vaultId)}&vault=${encodeURIComponent(vault.vaultId)}&allow_promotion_codes=false" class="btn btn-gold">&#10022; Unlock Event Print Pack ($9) &rarr;</a>` : ''}
         </div>
       </div>
       <!-- At-a-Glance Kitchen & Reception KPI Strip -->

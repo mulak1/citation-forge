@@ -161,7 +161,7 @@ function renderFeatureShowcaseCarousel(vId = 'SH-4819') {
   <!-- INTERACTIVE 5-SLIDE FEATURE & TOOLING SHOWCASE CAROUSEL (SCREENSHOT-FIRST) -->
   <div id="studio-features-showcase-carousel">
     <div class="bs-section-header" style="margin-bottom:28px;">
-      <div class="bs-section-eyebrow">&#10022; INSIDE THE $14.99 WEDDING PRINT &amp; CATERER PACK &bull; 5 LIVE TOOLS</div>
+      <div class="bs-section-eyebrow">&#10022; INSIDE THE $9 EVENT PRINT &amp; DAY-OF EXECUTION PACK &bull; SAVES 6+ HRS AT FEDEX/CANVA</div>
       <h2 class="bs-section-h2">See the Exact Print &amp; Catering Tools <em>You Unlock.</em></h2>
       <p class="bs-section-sub">
         Every screen below is generated directly from your reception floorplan. Click any tool to preview what you get:
@@ -172,20 +172,20 @@ function renderFeatureShowcaseCarousel(vId = 'SH-4819') {
       ${tabsHtml}
     </div>
 
-    <div style="background:#FFFFFF;border:2px solid #C8A96E;border-radius:24px;padding:28px 28px;box-shadow:0 20px 50px rgba(24,20,18,0.08);">
+    <div style="background:#FFFFFF;border:1px solid #E5E7EB;border-radius:24px;padding:28px 28px;box-shadow:0 12px 36px rgba(0,0,0,0.05);">
       ${slidesHtml}
 
       <!-- Carousel Footer Navigation & Conversion Bar -->
-      <div style="margin-top:20px;padding-top:18px;border-top:1.5px solid #EAE2D3;display:flex;flex-wrap:wrap;justify-content:space-between;align-items:center;gap:14px;">
+      <div style="margin-top:20px;padding-top:18px;border-top:1px solid #E5E7EB;display:flex;flex-wrap:wrap;justify-content:space-between;align-items:center;gap:14px;">
         <div style="display:flex;align-items:center;gap:10px;">
           <button type="button" onclick="window.stepStudioFeatureSlide(-1)" class="btn btn-secondary" style="padding:10px 18px;font-size:0.90rem;">&larr; Prev Tool</button>
-          <span id="studio-carousel-counter" style="font-family:var(--font-mono);font-size:0.95rem;font-weight:800;color:#181412;padding:0 10px;">Tool 1 of 5</span>
+          <span id="studio-carousel-counter" style="font-family:var(--font-mono);font-size:0.95rem;font-weight:700;color:#1C1C1C;padding:0 10px;">Tool 1 of 5</span>
           <button type="button" onclick="window.stepStudioFeatureSlide(1)" class="btn btn-secondary" style="padding:10px 18px;font-size:0.90rem;">Next Tool &rarr;</button>
         </div>
         <div style="display:flex;align-items:center;gap:12px;flex-wrap:wrap;">
           <a href="#studio" class="btn btn-secondary" style="padding:11px 20px;font-size:0.92rem;">&#9998; Jump to Interactive Studio &darr;</a>
-          <a href="/buy/complete_dossier?target=estate-150&vault=${safeVid}" id="sh-carousel-unlock-cta" class="btn btn-gold-soft" style="padding:12px 24px;font-size:0.95rem;">
-            &#128275; Unlock All 5 Print &amp; Caterer Tools ($14.99) &rarr;
+          <a href="/buy/complete_dossier?target=estate-150&vault=${safeVid}&allow_promotion_codes=false" id="sh-carousel-unlock-cta" class="btn btn-gold-soft" style="padding:12px 24px;font-size:0.95rem;">
+            &#128275; Unlock Event Print &amp; Day-Of Pack ($9) &rarr;
           </a>
         </div>
       </div>
@@ -226,7 +226,7 @@ function renderZone4ProofStackAndPricing() {
             </div>
             <div class="bs-case-math-row">
               <span>SeatHarmony Pack:</span>
-              <span>$14.99 Once</span>
+              <span>$9 Once</span>
             </div>
             <div class="bs-case-math-row">
               <span>Family Seating Rules:</span>
@@ -234,7 +234,7 @@ function renderZone4ProofStackAndPricing() {
             </div>
             <div class="bs-case-math-row bs-case-math-total">
               <span>Time &amp; Cost Saved:</span>
-              <span style="color:#047857;">6.5 Hrs + $205 Saved</span>
+              <span style="color:#047857;">6.5 Hrs + $211 Saved</span>
             </div>
           </div>
           <p class="bs-case-takeaway">
@@ -347,14 +347,14 @@ function renderZone4ProofStackAndPricing() {
           <div class="bs-ba-card bs-ba-after after">
             <div class="bs-ba-card-top">
               <span class="bs-ba-pill bs-ba-pill-after">AFTER SEATHARMONY</span>
-              <span class="bs-ba-price-tag bs-ba-price-good">60 Seconds &bull; $14.99 Pack</span>
+              <span class="bs-ba-price-tag bs-ba-price-good">Saves 6+ Hrs &bull; $9 Event Print Pack</span>
             </div>
-            <h4 class="bs-ba-card-h4">Couples together, clockwise BEO &amp; FedEx-ready 24&Prime;&times;36&Prime; sign</h4>
+            <h4 class="bs-ba-card-h4">24&Prime;&times;36&Prime; 300-DPI Print-Shop Welcome Poster PDF + Folded Place Cards + Caterer BEO + Live QR</h4>
             <ul class="bs-ba-list">
               <li><span class="bs-ba-icon bs-ba-icon-good">&#10003;</span><div><strong>Couples Kept Together:</strong> Every partner, plus-one, and household stays seated side-by-side automatically.</div></li>
               <li><span class="bs-ba-icon bs-ba-icon-good">&#10003;</span><div><strong>1-Click Family Peace:</strong> Places divorced parents or exes on opposite sides of the dance floor.</div></li>
-              <li><span class="bs-ba-icon bs-ba-icon-good">&#10003;</span><div><strong>6 Luxury 24&Prime;&times;36&Prime; Signs + Avery 5302:</strong> Instant 300-DPI FedEx PDF with <code>0.125&Prime;</code> bleed and tent cards.</div></li>
-              <li><span class="bs-ba-icon bs-ba-icon-good">&#10003;</span><div><strong>Clockwise 12:00 Caterer BEO:</strong> Servers set every plate and allergy dish at the exact chair without asking.</div></li>
+              <li><span class="bs-ba-icon bs-ba-icon-good">&#10003;</span><div><strong>24&Prime;&times;36&Prime; 300-DPI Print-Shop Welcome Poster PDF + Folded Place Cards:</strong> Instant FedEx/Staples PDF with <code>0.125&Prime;</code> bleed and Avery 5302 tent cards.</div></li>
+              <li><span class="bs-ba-icon bs-ba-icon-good">&#10003;</span><div><strong>Caterer Table-by-Table Meal/Allergy BEO + Live Guest Phone QR Lookup:</strong> Servers set every plate at the exact chair and guests scan QR at the bar.</div></li>
             </ul>
           </div>
         </div>
@@ -368,7 +368,7 @@ function renderZone4ProofStackAndPricing() {
             <thead>
               <tr>
                 <th style="width:24%;">What Matters on Wedding Day</th>
-                <th class="bs-col-highlight" style="width:28%;">&#10022; SeatHarmony ($14.99 once)</th>
+                <th class="bs-col-highlight" style="width:28%;">&#10022; SeatHarmony ($9 once)</th>
                 <th style="width:24%;">Subscription Apps ($150+/yr)</th>
                 <th style="width:24%;">Excel + Canva By Hand</th>
               </tr>
@@ -376,7 +376,7 @@ function renderZone4ProofStackAndPricing() {
             <tbody>
               <tr>
                 <td><strong>Pricing Model</strong></td>
-                <td class="bs-col-highlight">$14.99 One-Time Pass</td>
+                <td class="bs-col-highlight">$9 One-Time Event Pass (or $29 Planner Pro)</td>
                 <td>$39 to $99/mo subscription</td>
                 <td>Free + $45 Etsy template</td>
               </tr>
@@ -481,7 +481,7 @@ function renderZone4ProofStackAndPricing() {
   </section>
 
   <!-- SECTION 4 OF PROOF STACK: 5-SLIDE FEATURE SHOWCASE -->
-  <section class="studio-zone-section bs-feature-showcase-section" id="bs-feature-showcase-section" style="padding:100px 0 108px;background:#F5ECE0;border-bottom:1.5px solid #E5D9C5;">
+  <section class="studio-zone-section bs-feature-showcase-section" id="bs-feature-showcase-section" style="padding:100px 0 108px;background:#FFFFFF;border-bottom:1px solid #E5E7EB;">
     <div class="container">
       ${renderFeatureShowcaseCarousel('SH-4819')}
     </div>

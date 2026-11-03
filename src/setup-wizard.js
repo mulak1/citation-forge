@@ -13,16 +13,16 @@ function renderSetupWizardHtml() {
       <span class="shw-table-sub">${sub}</span>
       <span class="shw-table-calc" data-per="${key === 'round10' ? 10 : (key === 'banquet12' ? 12 : 8)}"></span>
     </button>`;
-  const roundIcon = (n) => `<svg viewBox="0 0 64 64" width="56" height="56" aria-hidden="true"><circle cx="32" cy="32" r="14" fill="#FFFFFF" stroke="#B89352" stroke-width="2"/>${Array.from({ length: n }, (_, i) => { const a = -Math.PI / 2 + (2 * Math.PI * i) / n; return `<circle cx="${(32 + 24 * Math.cos(a)).toFixed(1)}" cy="${(32 + 24 * Math.sin(a)).toFixed(1)}" r="4.2" fill="#F5EFE6" stroke="#B89352" stroke-width="1.4"/>`; }).join('')}</svg>`;
-  const banquetIcon = `<svg viewBox="0 0 64 64" width="56" height="56" aria-hidden="true"><rect x="8" y="26" width="48" height="12" rx="3" fill="#FFFFFF" stroke="#B89352" stroke-width="2"/>${[14, 24, 34, 44, 54].map(x => `<circle cx="${x - 2}" cy="18" r="4.2" fill="#F5EFE6" stroke="#B89352" stroke-width="1.4"/><circle cx="${x - 2}" cy="46" r="4.2" fill="#F5EFE6" stroke="#B89352" stroke-width="1.4"/>`).join('')}</svg>`;
+  const roundIcon = (n) => `<svg viewBox="0 0 64 64" width="56" height="56" aria-hidden="true"><circle cx="32" cy="32" r="14" fill="#FFFFFF" stroke="#00766C" stroke-width="2"/>${Array.from({ length: n }, (_, i) => { const a = -Math.PI / 2 + (2 * Math.PI * i) / n; return `<circle cx="${(32 + 24 * Math.cos(a)).toFixed(1)}" cy="${(32 + 24 * Math.sin(a)).toFixed(1)}" r="4.2" fill="#F0FDFA" stroke="#00766C" stroke-width="1.4"/>`; }).join('')}</svg>`;
+  const banquetIcon = `<svg viewBox="0 0 64 64" width="56" height="56" aria-hidden="true"><rect x="8" y="26" width="48" height="12" rx="3" fill="#FFFFFF" stroke="#00766C" stroke-width="2"/>${[14, 24, 34, 44, 54].map(x => `<circle cx="${x - 2}" cy="18" r="4.2" fill="#F0FDFA" stroke="#00766C" stroke-width="1.4"/><circle cx="${x - 2}" cy="46" r="4.2" fill="#F0FDFA" stroke="#00766C" stroke-width="1.4"/>`).join('')}</svg>`;
 
   return `
       <div id="sh-setup-wizard" class="shw-wrap">
         <div class="shw-intro">
           <h2 class="bs-section-h2" style="text-align:center;margin:0 auto 6px;">Plan your seating in <em>2 minutes.</em></h2>
           <p class="bs-section-sub" style="text-align:center;margin:0 auto 14px;">Answer 5 quick questions below &mdash; or <strong>explore a live populated reception in 1 click</strong> first:</p>
-          <div id="shw-instant-scenarios" style="display:flex;flex-wrap:wrap;justify-content:center;gap:8px;max-width:880px;margin:0 auto 6px;padding:10px 14px;background:#FAF6EE;border:1.5px solid #D8C29D;border-radius:14px;">
-            <span style="font-size:0.74rem;font-weight:800;letter-spacing:0.06em;text-transform:uppercase;color:#8C2D19;display:inline-flex;align-items:center;margin-right:4px;">&#10024; Try a Sample Wedding:</span>
+          <div id="shw-instant-scenarios" style="display:flex;flex-wrap:wrap;justify-content:center;gap:8px;max-width:880px;margin:0 auto 6px;padding:10px 14px;background:#F8F7F4;border:1px solid #E5E7EB;border-radius:14px;">
+            <span style="font-size:0.74rem;font-weight:700;letter-spacing:0.03em;text-transform:uppercase;color:#00766C;display:inline-flex;align-items:center;margin-right:4px;">&#10024; Try a Sample Wedding:</span>
             <button type="button" class="studio-tap-chip active" data-instant-preset="estate-150" onclick="window.shwLoadInstantScenario('estate-150',this)">&#10024; 150-Guest Estate (Divorced Parents Solved)</button>
             <button type="button" class="studio-tap-chip" data-instant-preset="tuscan-banquet-80" onclick="window.shwLoadInstantScenario('tuscan-banquet-80',this)">&#127863; 80-Guest Winery Banquet (Long Tables)</button>
             <button type="button" class="studio-tap-chip" data-instant-preset="planner-beo-sandbox" onclick="window.shwLoadInstantScenario('planner-beo-sandbox',this)">&#128203; Family Table Sharing &amp; Caterer Meal Sheet (4 Allergies)</button>
@@ -121,6 +121,11 @@ function renderSetupWizardHtml() {
             <li><button type="button" class="shw-kit-item" data-kit="beo" onclick="window.shwJump(4)"><span class="shw-kit-dot"></span><span class="shw-kit-glyph" aria-hidden="true"><svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="1.15" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="4.6"/><circle cx="12" cy="12" r="2.2"/><path d="M3.5 4.5v5a1.6 1.6 0 003.2 0v-5M5.1 11v8.5M20.5 4.5c-1.9 1.2-2.6 3.4-2.6 6.2H20.5V19.5"/></svg></span><span class="shw-kit-text"><b>Caterer sheet</b><small id="shw-kit-d-beo">Needs your guest list</small></span></button></li>
             <li><button type="button" class="shw-kit-item" data-kit="qr" onclick="window.shwJump(5)"><span class="shw-kit-dot"></span><span class="shw-kit-glyph" aria-hidden="true"><svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="1.15" stroke-linecap="round" stroke-linejoin="round"><rect x="4" y="4" width="6" height="6" rx="1"/><rect x="14" y="4" width="6" height="6" rx="1"/><rect x="4" y="14" width="6" height="6" rx="1"/><path d="M14 14h2.6v2.6H14zM19 14v2M17.5 19H20M14 19.5v.5"/></svg></span><span class="shw-kit-text"><b>Guest QR lookup</b><small id="shw-kit-d-qr">Ready when you seat guests</small></span></button></li>
           </ul>
+          <div id="shw-live-specimen-proof" style="margin-top:10px;padding:10px 12px;border-radius:10px;background:#FBF9F6;border:1px solid #D6CBB8;font-size:0.76rem;color:#1C1C1C;">
+            <div style="font-size:0.65rem;font-weight:800;letter-spacing:0.06em;text-transform:uppercase;color:#00766C;margin-bottom:3px;">LIVE PERSONALIZED PRINT PROOF</div>
+            <div id="shw-proof-sign-line" style="font-weight:800;color:#1C1C1C;">24&Prime;&times;36&Prime; Sign: Maya &amp; Liam&rsquo;s Reception</div>
+            <div id="shw-proof-table1-line" style="color:#57534E;margin-top:2px;">Table 1 BEO: Seat #1 (12:00) &bull; Filet &amp; Allergy Ready</div>
+          </div>
           <div class="shw-kit-foot" id="shw-kit-foot">Each answer fills a page of your binder.</div>
         </aside>
         </div>
@@ -241,6 +246,7 @@ function renderSetupWizardClientScript() {
     var kr = shwEl('shw-kit'); if (kr) { var rr = kr.getBoundingClientRect(); S.kitInView = rr.height > 0 && rr.bottom > 70 && rr.top < window.innerHeight - 40; }
     var clr = { 1: (shwEl('shw-couple') || {}).value || (shwEl('shw-venue') || {}).value, 2: S.guests, 3: S.table, 4: shwHouseholds().length, 5: S.apart.length };
     for (var n = 1; n <= 5; n++) { var c = shwEl('shw-clear-' + n); if (c) c.hidden = !clr[n]; }
+    if (typeof window.shRenderLivePersonalizedProof === 'function') window.shRenderLivePersonalizedProof();
     shwSyncDock();
   };
 

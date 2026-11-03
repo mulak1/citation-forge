@@ -1,13 +1,6 @@
 /**
  * ExactBaseline (custom_automaton) Cumulative API, Telemetry, Monetization & GitHub Repo Upgrade Pack
- * Holistic Product, Visual Architecture & Behavioral Economics Edition:
- *  - Zero Railway SIGTERM crash reports: attaches graceful SIGTERM/SIGINT handlers & /api/health endpoint
- *  - Eliminates Zero-Price Effect cannibalization (Dan Ariely / @richardrx revenue-centric-design):
- *    Free = Instant Diagnostic + kpdecker/jsdiff Before/After Proof Preview
- *    Paid = Full Production Deliverable & Export Bundle ($1.99 Single-Audit Pass vs $4.99/$49 Complete Pack vs $19.99/$99/$199 Pro Anchor)
- *    Downsell-Only Email Capture = Exit-Intent Rescue Toast (#eb-ouibounce-toast) for abandoning visitors
- *  - 100% Persona-Authentic Vertical Copy & Comparison Matrices (zero B2B SaaS jargon on DermLogic)
- * Strictly < 1,000 lines per /code-craft rules.
+ * Holistic Product, Visual Architecture & Behavioral Economics Edition (Strictly < 1,000 lines per /code-craft rules).
  */
 
 const fs = require('fs');
@@ -38,26 +31,26 @@ const VERTICAL_CONFIGS = {
     flashPriceEnv: 'STRIPE_PRICE_FLASH_199',
     flashPriceDefault: 'price_1UQjMqIaoGnkXxS84yeYo8HG',
     corePriceEnv: 'STRIPE_PRICE_AUDIT_49',
-    corePriceUsd: 14.99,
-    coreLabel: 'Wedding Print & Caterer BEO Pack ($14.99)',
+    corePriceUsd: 9,
+    coreLabel: 'Event Print & Day-Of Execution Pack ($9)',
     proPriceEnv: 'STRIPE_PRICE_PRO_99',
-    proPriceUsd: 39,
-    proLabel: 'Planner & Venue Pro Studio ($39/mo)',
-    lockedTitle: '24"×36" Print Welcome Poster + Clockwise Caterer BEO + Avery 5302 Place Cards',
-    deliverableName: '300-DPI 24"×36" Welcome Sign (PDF/SVG) + Clockwise Caterer BEO (.CSV) + Avery 5302 Place Cards',
+    proPriceUsd: 29,
+    proLabel: 'For Wedding Planners & Venues: Unlimited Events + Custom Agency Logo on Client BEOs ($29 Pro Pass)',
+    lockedTitle: '24"×36" 300-DPI Print-Shop Welcome Poster PDF + Folded Place Cards + Caterer Table-by-Table Meal/Allergy BEO + Live Guest Phone QR Lookup',
+    deliverableName: '24"×36" 300-DPI Print-Shop Welcome Poster PDF + Folded Place Cards + Caterer Table-by-Table Meal/Allergy BEO + Live Guest Phone QR Lookup',
     freeDeliverableName: 'Single-Sheet Clockwise Caterer BEO & Allergy Export ($1.99)',
-    unlockBannerTitle: 'Print-Ready 24"×36" Welcome Sign & Caterer BEO Pack',
-    explainerText: 'Seat 150 wedding guests in 30 seconds with zero family drama, Clockwise Caterer BEO sheets, and a print-ready 24"×36" Welcome Sign',
+    unlockBannerTitle: '24"×36" 300-DPI Print-Shop Welcome Poster PDF + Folded Place Cards + Caterer BEO + Live QR',
+    explainerText: 'Save 6+ hours at FedEx/Canva with a 24"×36" 300-DPI Print-Shop Welcome Poster PDF, Folded Place Cards, Caterer Table-by-Table Meal/Allergy BEO, and Live Guest Phone QR Lookup',
     hudLabel: 'Room Harmony HUD',
     redditSub: 'weddingplanning',
     sliderLabel: 'Guests', sliderMin: 40, sliderMax: 300, sliderVal: 150,
     searchPlaceholder: 'Try preset (e.g. estate-150, tuscan-banquet-80)...',
     tier1Tag: 'SINGLE-SHEET BEO EXPRESS PASS',
     tier1Desc: 'Instantly downloads your Clockwise Seat 1..N Caterer BEO (.CSV) with entrée counts and allergy flags.',
-    tier2Tag: 'COMPLETE WEDDING PRINT & CATERER PACK ($14.99)',
-    tier2Desc: 'Unlocks your 300-DPI 24"×36" Welcome Sign (Alphabetical A-Z & By Table), Avery 5302 Place Cards, Clockwise Caterer BEO, and Live QR Lookup.',
-    tier3Tag: 'PLANNER & VENUE PRO STUDIO ($39/MO)',
-    tier3Desc: 'Unlimited active client weddings, restricted Mom Sandbox links (Tables 1-3 only), and white-label Caterer BEO exports.',
+    tier2Tag: 'EVENT PRINT & DAY-OF EXECUTION PACK ($9)',
+    tier2Desc: 'Saves 6+ hours at FedEx/Canva: 24"×36" 300-DPI Print-Shop Welcome Poster PDF + Folded Place Cards + Caterer Table-by-Table Meal/Allergy BEO + Live Guest Phone QR Lookup.',
+    tier3Tag: 'FOR WEDDING PLANNERS & VENUES ($29 PRO PASS)',
+    tier3Desc: 'For Wedding Planners & Venues: Unlimited Events + Custom Agency Logo on Client BEOs ($29 Pro Pass), restricted Mom Sandbox links, and white-label Caterer BEO exports.',
     battlecard: {
       heading: 'Why Couples & Planners Choose SeatHarmony Over Spreadsheets, Zola & Manual Canva',
       colLegacy: 'Zola / Free Portals',
@@ -121,9 +114,9 @@ const VERTICAL_CONFIGS = {
       { file: 'avery-5302-placecards.pdf', label: 'Avery 5302 Tented Place Cards (.PDF)', size: '640 KB', schema: '2-up tented escort cards with geometric server meal icons (◆/●/▲/★) & back-fold allergy alerts', status: 'VALID' }
     ],
     remediationDiff: {
-      beforeLine: 'Before: 3 family sightline conflicts, 5 hours re-typing 150 names into Canva, and unnumbered caterer meal sheets.',
-      afterLine: 'After ($14.99 Event Pack): 98/100 Harmony Score, 300-DPI 24"×36" Welcome Sign, Avery 5302 Place Cards & Clockwise Caterer BEO.',
-      roiBadge: 'Saves 6.5 Hours + $80 on Etsy/Canva'
+      beforeLine: 'Before: 3 family sightline conflicts, 6+ hours re-typing 150 names at FedEx/Canva, and unnumbered caterer meal sheets.',
+      afterLine: 'After ($9 Event Print Pack): 24"×36" 300-DPI Print-Shop Welcome Poster PDF + Folded Place Cards + Caterer Table-by-Table Meal/Allergy BEO + Live Guest Phone QR Lookup.',
+      roiBadge: 'Saves 6+ Hours at FedEx/Canva'
     }
   },
   sponsor_radar: {
@@ -872,7 +865,7 @@ function attachExactBaselinePack(app, options = {}) {
     const emailDispatched = await sendOneClickLeadEmail(email, summaryText, isTest);
     res.json({ ok: true, email, summary_sent: true, email_dispatched: emailDispatched, direct_buy_links: directBuyLinks, tripwire_offer: { tier: 'micro_pass', sku: `${cfg.moduleId}_micro_pass`, price_usd: 0.99, buy_url: directBuyLinks.micro_pass, flash_buy_url: directBuyLinks.flash_pass, headline: 'Summary Sent! Unblur All Remaining Rows + File for 99¢' } });
   }
-  app.post(['/api/leads/capture', '/api/leads/consumer', '/api/studio/trial-signup'], handleLeadCaptureAndFollowUp);
+  app.post(['/api/leads', '/api/leads/capture', '/api/leads/consumer', '/api/studio/trial-signup'], handleLeadCaptureAndFollowUp);
   let lastBackfillMs = 0;
   app.all('/api/leads/resend-backfill', async (req, res) => {
     const humanLeads = store.getHumanLeads();
@@ -894,15 +887,15 @@ function attachExactBaselinePack(app, options = {}) {
     const isMicro = rawTier.includes('micro') || rawTier.includes('099') || rawTier.includes('99c');
     const isFlash = !isMicro && (rawTier.includes('flash') && !rawTier.includes('upgrade') || rawTier === '199' || rawTier === 'pass' || rawTier === 'single_audit');
     const isUpgradeFlash = !isMicro && !isFlash && (rawTier.includes('upgrade_from_flash') || rawTier.includes('2701'));
-    const isPlaybook = !isMicro && !isFlash && !isUpgradeFlash && (rawTier.includes('playbook') || rawTier.includes('29') || rawTier === 'audit_playbook' || rawTier === 'playbook_pass');
-    const isPro = !isMicro && !isFlash && !isUpgradeFlash && !isPlaybook && (rawTier.includes('pro') || rawTier.includes('agency') || rawTier.includes('annual') || rawTier.includes('growth') || rawTier.includes('149') || rawTier.includes('99'));
+    const isPro = !isMicro && !isFlash && !isUpgradeFlash && (rawTier.includes('pro') || rawTier.includes('agency') || rawTier.includes('annual') || rawTier.includes('growth') || rawTier.includes('149') || rawTier.includes('99'));
+    const isPlaybook = !isMicro && !isFlash && !isUpgradeFlash && !isPro && (rawTier.includes('playbook') || rawTier.includes('29') || rawTier === 'audit_playbook' || rawTier === 'playbook_pass');
     const upgPrice = Math.max(1, Number(((cfg.corePriceUsd || 29) - 1.99).toFixed(2))), priceUsd = isMicro ? 0.99 : (isFlash ? 1.99 : (isUpgradeFlash ? upgPrice : (isPlaybook ? 29 : (isPro ? cfg.proPriceUsd : cfg.corePriceUsd))));
     const tierName = isMicro ? 'micro_pass' : (isFlash ? 'flash_pass' : (isUpgradeFlash ? 'upgrade_from_flash' : (isPlaybook ? 'playbook_pass' : (isPro ? 'pro_b2b' : 'complete_dossier'))));
     const sku = String(req.body?.sku || `${cfg.moduleId}_${tierName}`);
     const priceId = (isMicro || isUpgradeFlash) ? '' : (isFlash ? (process.env[cfg.flashPriceEnv] || cfg.flashPriceDefault) : (isPlaybook ? (process.env.STRIPE_PRICE_PLAYBOOK_29 || '') : (isPro ? process.env[cfg.proPriceEnv] : process.env[cfg.corePriceEnv])));
     const isOneTime = isMicro || isFlash || isUpgradeFlash || isPlaybook || (!isPro && (verticalId === 'citation_forge' || verticalId === 'derm_logic'));
 
-    const userEmail = String(req.query?.email || req.body?.email || req.body?.customerEmail || req.body?.customer_email || '').trim();
+    const userEmail = String(req.query?.customer_email || req.query?.email || req.body?.customer_email || req.body?.email || req.body?.customerEmail || '').trim();
     const vid = String(req.body?.vid || req.query?.vid || (String(req.headers.cookie || '').match(/vs_vid=([^;]+)/) || [])[1] || '');
     const rawTarget = String(req.body?.target || req.query?.target || req.query?.brand || req.query?.q || '').replace(/[<>"']/g, '').trim().slice(0, 44);
     let { isTest, isCrawler, isOwnerIp, clientIp } = classifyTrafficRequest(req, userEmail);
@@ -925,7 +918,7 @@ function attachExactBaselinePack(app, options = {}) {
     const filesList = (cfg.deliverableFiles || []).map(f => f.file).join(' + ') || 'Full Deliverable Pack', prodDesc = `Instant browser unlock & download for ${rawTarget || cfg.brandName}: includes ${filesList}. One-time payment, never renews.`;
 
     const buildInlineParams = () => {
-      const p = new URLSearchParams({ 'success_url': `${baseUrl}/?checkout=success&tier=${tierName}&target=${encodeURIComponent(rawTarget)}&session_id={CHECKOUT_SESSION_ID}`, 'cancel_url': `${baseUrl}/?checkout=cancel&tier=${tierName}&target=${encodeURIComponent(rawTarget)}`, 'mode': isOneTime ? 'payment' : 'subscription', 'line_items[0][price_data][currency]': 'usd', 'line_items[0][price_data][unit_amount]': String(Math.round(priceUsd * 100)), 'line_items[0][price_data][product_data][name]': prodLabel, 'line_items[0][price_data][product_data][description]': prodDesc, 'line_items[0][quantity]': '1', 'custom_text[submit][message]': `Instant browser redirect: your ${filesList} download automatically the second payment completes.`, 'metadata[module_id]': cfg.moduleId, 'metadata[tier]': tierName, 'metadata[target]': rawTarget, 'metadata[vid]': vid, 'metadata[is_human]': (!isCrawler && !isTest) ? '1' : '0' });
+      const p = new URLSearchParams({ 'success_url': `${baseUrl}/?checkout=success&tier=${tierName}&target=${encodeURIComponent(rawTarget)}&session_id={CHECKOUT_SESSION_ID}`, 'cancel_url': `${baseUrl}/?checkout=cancel&tier=${tierName}&target=${encodeURIComponent(rawTarget)}`, 'mode': isOneTime ? 'payment' : 'subscription', 'allow_promotion_codes': 'false', 'line_items[0][price_data][currency]': 'usd', 'line_items[0][price_data][unit_amount]': String(Math.round(priceUsd * 100)), 'line_items[0][price_data][product_data][name]': prodLabel, 'line_items[0][price_data][product_data][description]': prodDesc, 'line_items[0][quantity]': '1', 'custom_text[submit][message]': `Instant browser redirect: your ${filesList} download automatically the second payment completes.`, 'metadata[module_id]': cfg.moduleId, 'metadata[tier]': tierName, 'metadata[target]': rawTarget, 'metadata[vid]': vid, 'metadata[is_human]': (!isCrawler && !isTest) ? '1' : '0' });
       if (!isOneTime) p.set('line_items[0][price_data][recurring][interval]', verticalId === 'derm_logic' ? 'year' : 'month');
       if (userEmail && userEmail.includes('@')) p.set('customer_email', userEmail);
       return p;
@@ -936,7 +929,7 @@ function attachExactBaselinePack(app, options = {}) {
       try {
         let stData = null;
         if (!isOneTime && priceId && priceId.startsWith('price_')) {
-          const params = new URLSearchParams({ 'success_url': `${baseUrl}/?checkout=success&tier=${tierName}&session_id={CHECKOUT_SESSION_ID}`, 'cancel_url': `${baseUrl}/?checkout=cancel&tier=${tierName}`, 'mode': 'subscription', 'line_items[0][price]': priceId, 'line_items[0][quantity]': '1', 'metadata[module_id]': cfg.moduleId, 'metadata[tier]': tierName, 'metadata[vid]': vid, 'metadata[is_human]': (!isCrawler && !isTest) ? '1' : '0' });
+          const params = new URLSearchParams({ 'success_url': `${baseUrl}/?checkout=success&tier=${tierName}&session_id={CHECKOUT_SESSION_ID}`, 'cancel_url': `${baseUrl}/?checkout=cancel&tier=${tierName}`, 'mode': 'subscription', 'allow_promotion_codes': 'false', 'line_items[0][price]': priceId, 'line_items[0][quantity]': '1', 'metadata[module_id]': cfg.moduleId, 'metadata[tier]': tierName, 'metadata[vid]': vid, 'metadata[is_human]': (!isCrawler && !isTest) ? '1' : '0' });
           if (userEmail && userEmail.includes('@')) params.set('customer_email', userEmail);
           stData = await (await fetch('https://api.stripe.com/v1/checkout/sessions', { method: 'POST', headers: { Authorization: `Bearer ${stripeKey}`, 'Content-Type': 'application/x-www-form-urlencoded' }, body: params })).json();
         }
@@ -947,7 +940,7 @@ function attachExactBaselinePack(app, options = {}) {
     store.recordOrder({ tier: tierName, sku, amountUsd: priceUsd, status: 'intent', sessionId, isTest, isOwnerIp, clientIp }); res.setHeader('X-Robots-Tag', 'noindex, nofollow');
     if (req.method === 'GET' && (req.query?.source === 'creator_email' || req.query?.pub) && !req.headers['x-playwright-test']) return res.redirect(302, `/?utm_source=creator_email&utm_medium=email&utm_campaign=sponsor_radar&pub=${encodeURIComponent(req.query.pub || '')}#radar-results-container`);
     if (req.method === 'GET' && req.query?.format !== 'json') return (isBrowserHumanClick && String(req.headers.accept || '').includes('text/html') && checkoutUrl.includes('#')) ? res.status(200).type('html').send(`<!DOCTYPE html><html><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><script>window.location.replace(${JSON.stringify(checkoutUrl)});</script></head><body style="font-family:system-ui,sans-serif;padding:36px;text-align:center;"><a href=${JSON.stringify(checkoutUrl)} style="display:inline-block;padding:12px 22px;background:#C83E2B;color:#fff;border-radius:999px;text-decoration:none;font-weight:700;">Continue to Secure Stripe Checkout &rarr;</a></body></html>`) : res.redirect(303, checkoutUrl);
-    return res.status(200).json({ ok: true, success: true, tier: tierName, sku, price_usd: priceUsd, target: rawTarget, product_label: prodLabel, session_id: sessionId, checkout_url: checkoutUrl, checkoutUrl, url: checkoutUrl, direct_buy_url: `${baseUrl}/buy/${tierName}` });
+    return res.status(200).json({ ok: true, success: true, tier: tierName, sku, price_usd: priceUsd, customer_email: userEmail || null, allow_promotion_codes: false, target: rawTarget, product_label: prodLabel, session_id: sessionId, checkout_url: checkoutUrl, checkoutUrl, url: checkoutUrl, direct_buy_url: `${baseUrl}/buy/${tierName}` });
   }
   app.get(['/buy/:tier', '/api/buy/:tier'], handleTierCheckout);
   app.post([`/api/calculators/${cfg.moduleId}/checkout`, '/api/calculators/:anyMod/checkout', '/api/exact-checkout', '/api/checkout/create-session', '/api/stripe/create-checkout-session'], handleTierCheckout);
@@ -986,7 +979,7 @@ function attachExactBaselinePack(app, options = {}) {
         try { res.setHeader('X-Robots-Tag', 'all, index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1'); res.setHeader('Link', `<https://${activeDom}/llms.txt>; rel="llms-txt", <https://${activeDom}/llms-full.txt>; rel="llms-full-txt", <https://${activeDom}/openapi.json>; rel="service-desc", <https://${activeDom}/feed.xml>; rel="alternate"; type="application/rss+xml"`); } catch (_) {}
         store.recordEvent({ eventType: 'visit', pageUrl: req.originalUrl || req.path, deviceType, utmSource: String(req.query?.utm_source || ''), utmCampaign: String(req.query?.utm_campaign || ''), isTest, isCrawler, isOwnerIp, clientIp, meta: { ref: String(req.headers.referer || '').slice(0, 180), ua: String(req.headers['user-agent'] || '').slice(0, 120) } });
         if (cfg.moduleId === 'citation_forge' || body.includes('data-seatharmony-native="1"')) {
-          const shCheckoutHelper = `<script>(function(){if(!document.cookie.includes('vs_vid=')){document.cookie='vs_vid=v_'+Date.now()+'_'+Math.random().toString(36).slice(2,7)+'; Path=/; Max-Age=31536000; SameSite=Lax';}var vid=(document.cookie.match(/vs_vid=([^;]+)/)||[])[1]||'';if(!window.__ebHydratedSent){window.__ebHydratedSent=true;try{fetch('/api/telemetry/event',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({event_type:'visit_hydrated',page_url:window.location.pathname,meta:{vid:vid,js_hydrated:1,vw:window.innerWidth||0,vh:window.innerHeight||0,ref:document.referrer||''}})});}catch(_){}}window.__ebQuickBuy=window.__ebCheckout=function(tier){window.location.href='/buy/'+(tier||'complete_dossier')+'?target=estate-150&vid='+encodeURIComponent(vid);};})();</script>`;
+          const shCheckoutHelper = `<script>(function(){if(!document.cookie.includes('vs_vid=')){document.cookie='vs_vid=v_'+Date.now()+'_'+Math.random().toString(36).slice(2,7)+'; Path=/; Max-Age=31536000; SameSite=Lax';}var vid=(document.cookie.match(/vs_vid=([^;]+)/)||[])[1]||'';if(!window.__ebHydratedSent){window.__ebHydratedSent=true;try{fetch('/api/telemetry/event',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({event_type:'visit_hydrated',page_url:window.location.pathname,meta:{vid:vid,js_hydrated:1,vw:window.innerWidth||0,vh:window.innerHeight||0,ref:document.referrer||''}})});}catch(_){}}window.__ebQuickBuy=window.__ebCheckout=function(tier,em){var e=em||(document.getElementById('sh-inline-vault-email')&&document.getElementById('sh-inline-vault-email').value)||(document.getElementById('sh-vault-email-input')&&document.getElementById('sh-vault-email-input').value)||(window.localStorage&&localStorage.getItem('sh_saved_email'))||'';e=String(e||'').trim();if(e&&e.indexOf('@')!==-1){try{localStorage.setItem('sh_saved_email',e);fetch('/api/leads',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({email:e,utmSource:'two_step_checkout'}),keepalive:true});}catch(_){}}window.location.href='/buy/'+(tier||'complete_dossier')+'?target=estate-150&allow_promotion_codes=false'+(e?'&customer_email='+encodeURIComponent(e)+'&email='+encodeURIComponent(e):'')+'&vid='+encodeURIComponent(vid);};})();</script>`;
           body = body.includes('</body>') ? body.replace('</body>', `${shCheckoutHelper}</body>`) : (body + shCheckoutHelper);
         } else if (!body.includes('id="eb-bottom-conversion-suite"')) body = renderExactBaselineEnhancements(body, cfg, req.path);
       }

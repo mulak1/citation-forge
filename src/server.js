@@ -392,16 +392,16 @@ app.get('/api/meta-capi', rateLimitMiddleware, handleMetaCapi);
 async function handleCheckout(req, res) {
   const payload = req.method === 'POST' ? (req.body || {}) : (req.query || {});
   const planId = String(payload.plan_id || 'audit_49');
-  const isPro = planId === 'pro_99' || planId === 'pro_b2b';
-  const isAudit49 = planId === 'audit_49' || planId === 'complete_dossier';
+  const isPro = planId === 'pro_99' || planId === 'pro_b2b' || planId === 'pro_29';
+  const isAudit49 = planId === 'audit_49' || planId === 'complete_dossier' || planId === 'event_pack_9';
   const planName = isPro
-    ? 'SeatHarmony Planner Pro Studio (Unlimited Events + Caterer BEO + Vector CAD) ($39/mo)'
+    ? 'For Wedding Planners & Venues: Unlimited Events + Custom Agency Logo on Client BEOs ($29 Pro Pass)'
     : isAudit49
-      ? 'SeatHarmony Complete Wedding Print & Caterer Pack (24x36 Poster + Avery 5302 + BEO CSV) ($14.99)'
+      ? 'SeatHarmony Event Print & Day-Of Execution Pack: 24"×36" 300-DPI Print-Shop Welcome Poster PDF + Folded Place Cards + Caterer Table-by-Table Meal/Allergy BEO + Live Guest Phone QR Lookup ($9)'
       : 'SeatHarmony Single-Sheet Caterer BEO & QR Lookup Pass ($1.99)';
-  const amountCents = isPro ? 3900 : isAudit49 ? 1499 : 199;
+  const amountCents = isPro ? 2900 : isAudit49 ? 900 : 199;
   const targetDomain = String(payload.target_domain || 'estate-150');
-  const customerEmail = String(payload.customer_email || `couple@${targetDomain}`);
+  const customerEmail = String(payload.customer_email || payload.email || `couple@${targetDomain}`);
   const ua = String(req.headers['user-agent'] || '');
   const isAutomatedTestCheckout = Boolean(
     payload.is_test || req.query?.test === '1' ||
@@ -415,7 +415,7 @@ async function handleCheckout(req, res) {
   if (!isAutomatedTestCheckout && process.env.STRIPE_SECRET_KEY && process.env.STRIPE_SECRET_KEY.startsWith('sk_')) {
     try {
       const buildParams = (useInline) => {
-        const p = new URLSearchParams({ mode: isPro ? 'subscription' : 'payment', customer_email: customerEmail, success_url: `${PUBLIC_URL}/?checkout=success&unlocked=1&session_id={CHECKOUT_SESSION_ID}`, cancel_url: `${PUBLIC_URL}/?checkout=cancelled`, 'line_items[0][quantity]': '1' });
+        const p = new URLSearchParams({ mode: isPro ? 'subscription' : 'payment', allow_promotion_codes: 'false', customer_email: customerEmail, success_url: `${PUBLIC_URL}/?checkout=success&unlocked=1&session_id={CHECKOUT_SESSION_ID}`, cancel_url: `${PUBLIC_URL}/?checkout=cancelled`, 'line_items[0][quantity]': '1' });
         const priceId = !useInline ? (isPro ? process.env.STRIPE_PRICE_PRO_99 : isAudit49 ? process.env.STRIPE_PRICE_AUDIT_49 : process.env.STRIPE_PRICE_FLASH_199) : '';
         if (priceId) p.set('line_items[0][price]', priceId);
         else { p.set('line_items[0][price_data][currency]', 'usd'); p.set('line_items[0][price_data][unit_amount]', String(amountCents)); p.set('line_items[0][price_data][product_data][name]', planName); if (isPro) p.set('line_items[0][price_data][recurring][interval]', 'month'); }
@@ -454,6 +454,7 @@ async function handleCheckout(req, res) {
     checkout_mode: checkoutMode,
     checkout_url: checkoutUrl,
     checkoutUrl,
+    allow_promotion_codes: false,
     order: {
       session_id: sessionId,
       plan_id: planId,
@@ -462,6 +463,7 @@ async function handleCheckout(req, res) {
       currency: 'USD',
       target_domain: targetDomain,
       customer_email: customerEmail,
+      allow_promotion_codes: false,
       checkout_url: checkoutUrl,
       status: checkoutMode === 'stripe_live' ? 'stripe_session_created' : 'fulfilled_sandbox'
     }
