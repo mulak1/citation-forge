@@ -95,17 +95,29 @@ function renderHead({
     .studio-zone-title em, .bs-section-h2 em { font-style: italic; color: #00766C; font-weight: 600; }
     .studio-zone-sub, .bs-section-sub { font-size: 1.06rem; color: #4B5563; line-height: 1.56; max-width: 58ch; margin: 0 auto; text-wrap: pretty; }
     .bs-section-header { max-width: 780px; margin: 0 auto 48px; text-align: center; }
-    .studio-zone1-hero { padding: 36px 0 64px; background: linear-gradient(180deg, #F8F7F4 0%, #FFFFFF 100%); border-bottom: 1px solid #E5E7EB; }
-    .sh-zone1-stack { display: flex; flex-direction: column; align-items: center; gap: 24px; max-width: 960px; margin: 0 auto; }
-    .sh-zone1-header-block { display: flex; flex-direction: column; align-items: center; text-align: center; gap: 14px; max-width: 800px; }
-    .sh-eyebrow-pill { display: inline-flex; align-items: center; align-self: center; gap: 8px; background: #F0FDFA; border: 1px solid #CCFBF1; color: #00766C; padding: 7px 16px; border-radius: 999px; font-size: 13.5px; font-weight: 600; letter-spacing: 0.01em; text-transform: none; white-space: nowrap; }
+    .studio-zone1-hero { padding: 48px 0 68px; background: linear-gradient(180deg, #FBF9F6 0%, #FFFFFF 100%); border-bottom: 1px solid #E5E7EB; }
+    .sh-zone1-stack { display: flex; flex-direction: column; align-items: stretch; gap: 36px; max-width: 1180px; margin: 0 auto; }
+    .sh-zola-hero-split { display: grid; grid-template-columns: 1.08fr 0.92fr; gap: 44px; align-items: center; }
+    .sh-zola-hero-left { display: flex; flex-direction: column; align-items: flex-start; text-align: left; gap: 18px; }
+    .sh-zola-hero-right { width: 100%; min-width: 0; }
+    .sh-zone1-header-block { display: flex; flex-direction: column; align-items: flex-start; text-align: left; gap: 14px; max-width: 640px; }
+    .sh-eyebrow-pill { display: inline-flex; align-items: center; gap: 8px; background: #F0FDFA; border: 1px solid #CCFBF1; color: #00766C; padding: 6px 14px; border-radius: 999px; font-size: 13px; font-weight: 600; letter-spacing: 0.01em; text-transform: none; white-space: nowrap; }
     .sh-eyebrow-dot { width: 7px; height: 7px; border-radius: 50%; background: #00766C; box-shadow: 0 0 0 3px rgba(0, 118, 108, 0.14); }
-    .sh-display-h1 { font-family: var(--font-serif); font-size: clamp(2.35rem, 4vw, 3.35rem); font-weight: 700; line-height: 1.08; letter-spacing: -0.02em; color: #1C1C1C; margin: 0; text-wrap: balance; }
+    .sh-display-h1 { font-family: var(--font-serif); font-size: clamp(2.15rem, 3.35vw, 2.95rem); font-weight: 700; line-height: 1.10; letter-spacing: -0.02em; color: #1C1C1C; margin: 0; text-wrap: balance; }
     .sh-display-h1 .sh-h1-accent { color: #00766C; display: inline; }
-    .sh-lead-sub { font-size: 1.08rem; line-height: 1.56; color: #4B5563; margin: 0; max-width: 58ch; text-wrap: pretty; }
-    .sh-vsl-player-shell { width: 100%; background: #FFFFFF; color: #1C1C1C; border: 1px solid #E5E7EB; border-radius: 20px; overflow: hidden; box-shadow: 0 12px 32px -8px rgba(0, 0, 0, 0.06); }
+    .sh-lead-sub { font-size: 1.08rem; line-height: 1.58; color: #4B5563; margin: 0; max-width: 54ch; text-wrap: pretty; }
+    .sh-zola-hero-trust-list { list-style: none; margin: 4px 0 0; padding: 0; display: flex; flex-direction: column; gap: 9px; font-size: 0.95rem; color: #374151; font-weight: 500; }
+    .sh-zola-hero-trust-list li { display: flex; align-items: center; gap: 10px; line-height: 1.4; }
+    .sh-zola-trust-check { width: 20px; height: 20px; border-radius: 999px; background: #F0FDFA; border: 1px solid #CCFBF1; color: #00766C; font-size: 12px; font-weight: 800; display: inline-flex; align-items: center; justify-content: center; flex-shrink: 0; }
+    .sh-zola-showcase-card { background: #FFFFFF; border: 1px solid #E5E7EB; border-radius: 20px; padding: 18px; box-shadow: 0 16px 40px -12px rgba(28, 28, 28, 0.08); display: flex; flex-direction: column; gap: 14px; }
+    .sh-zola-showcase-photo-wrap { position: relative; border-radius: 14px; overflow: hidden; border: 1px solid #E5E7EB; background: #F8F7F4; }
+    .sh-zola-showcase-photo { width: 100%; height: 310px; object-fit: cover; object-position: center 22%; display: block; }
+    .sh-zola-floating-badges { position: absolute; left: 12px; right: 12px; bottom: 12px; display: flex; flex-wrap: wrap; gap: 8px; justify-content: space-between; align-items: center; pointer-events: none; }
+    .sh-zola-floating-pill { background: rgba(255, 255, 255, 0.95); backdrop-filter: blur(8px); border: 1px solid #E5E7EB; color: #1C1C1C; padding: 6px 12px; border-radius: 999px; font-size: 12.5px; font-weight: 700; box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08); display: inline-flex; align-items: center; gap: 6px; }
+    .sh-zola-showcase-footer { display: flex; align-items: center; justify-content: space-between; gap: 12px; flex-wrap: wrap; background: #FBF9F6; border: 1px solid #E5E7EB; border-radius: 12px; padding: 12px 14px; }
+    .sh-vsl-player-shell { width: 100%; background: #FFFFFF; color: #1C1C1C; border: 1px solid #E5E7EB; border-radius: 20px; overflow: hidden; box-shadow: 0 16px 40px -12px rgba(28, 28, 28, 0.08); }
     .sh-vsl-garland-frieze { background: #F8F7F4; border-bottom: 1px solid #E5E7EB; padding: 2px 0 0; }
-    .sh-vsl-stage { padding: 28px 30px; display: grid; align-items: center; background: #FFFFFF; }
+    .sh-vsl-stage { padding: 18px; display: block; background: #FFFFFF; }
     .sh-vsl-scene { width: 100%; grid-area: 1 / 1; visibility: hidden; }
     .sh-vsl-scene.active { visibility: visible; }
     .sh-vsl-scene-grid { display: grid; grid-template-columns: 1.04fr 0.96fr; gap: 28px; align-items: center; }
@@ -151,7 +163,7 @@ function renderHead({
     .sh-btn-secondary { background: #FFFFFF; color: #1C1C1C; border: 1.5px solid #D1D5DB; padding: 14px 22px; border-radius: 999px; font-size: 15px; font-weight: 600; cursor: pointer; text-decoration: none; transition: background-color 0.16s ease, border-color 0.16s ease; }
     .sh-btn-secondary:hover { background: #F8F7F4; border-color: #9CA3AF; }
     .sh-opener-micro-trust { display: flex; flex-wrap: wrap; justify-content: center; align-items: center; gap: 10px; font-size: 14.5px; color: #4B5563; margin-top: 4px; }
-    .sh-crease-proof-bar { display: grid; grid-template-columns: repeat(3, 1fr); gap: 22px; width: 100%; max-width: 960px; margin: 32px auto 0; background: #FFFFFF; border: 1px solid #E5E7EB; border-radius: 16px; padding: 24px 28px; box-shadow: 0 4px 14px rgba(0, 0, 0, 0.03); }
+    .sh-crease-proof-bar { display: grid; grid-template-columns: repeat(3, 1fr); gap: 22px; width: 100%; max-width: 1180px; margin: 16px auto 0; background: #FFFFFF; border: 1px solid #E5E7EB; border-radius: 16px; padding: 24px 28px; box-shadow: 0 4px 14px rgba(0, 0, 0, 0.03); }
     .sh-crease-item { display: flex; flex-direction: column; gap: 6px; border-right: 1px solid #E5E7EB; padding-right: 16px; }
     .sh-crease-item:last-child { border-right: none; padding-right: 0; }
     .sh-crease-val { font-family: var(--font-serif); font-size: 1.75rem; font-weight: 700; color: #1C1C1C; line-height: 1.15; }
@@ -496,7 +508,9 @@ function renderHead({
       .container { padding: 0 22px; }
       .btn { white-space: normal; text-align: center; max-width: 100%; line-height: 1.3; }
       .navbar .btn-primary { padding: 7px 11px !important; font-size: 0.82rem !important; white-space: nowrap !important; }
-      .sh-vsl-scene-grid, .studio-how-grid, .studio-scroll-builder-grid, .bs-case-studies-grid, .studio-proof-cases-grid, .bs-ba-split-grid, .bs-ba-grid, .bs-written-proof-grid, .studio-reviews-grid, .pricing-grid, .sh-crease-proof-bar, .studio-showcase-annotation-grid { grid-template-columns: minmax(0, 1fr); }
+      .sh-zola-hero-split, .sh-vsl-scene-grid, .studio-how-grid, .studio-scroll-builder-grid, .bs-case-studies-grid, .studio-proof-cases-grid, .bs-ba-split-grid, .bs-ba-grid, .bs-written-proof-grid, .studio-reviews-grid, .pricing-grid, .sh-crease-proof-bar, .studio-showcase-annotation-grid { grid-template-columns: minmax(0, 1fr); }
+      .sh-zola-hero-split { gap: 24px; }
+      .sh-zola-showcase-photo { height: 230px; }
       .studio-showcase-pin { display: none; }
       .studio-sticky-right-col { position: static; }
       .studio-zone1-hero { padding: 20px 0 44px; }

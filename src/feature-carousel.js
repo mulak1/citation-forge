@@ -145,7 +145,7 @@ function renderFeatureShowcaseCarousel(vId = 'SH-4819') {
       <!-- Full-Height Live Screenshot Frame (Clean Editorial Frame, No Browser Chrome / URL Bar) -->
       <div class="studio-showcase-device-frame">
         <div class="studio-showcase-img-wrap">
-          <img src="${s.imgSrc}" alt="${escapeHtml(s.imgAlt)}" width="1280" height="780" loading="${idx === 0 ? 'eager' : 'lazy'}" />
+          <img src="${s.imgSrc}" alt="${escapeHtml(s.imgAlt)}" width="1280" height="780" loading="${idx === 0 ? 'eager' : 'lazy'}" ${idx > 0 ? 'fetchpriority="low"' : ''} />
           ${s.pins.map(pin => `
             <div class="studio-showcase-pin" style="${pin.style}" title="${escapeHtml(pin.text)}">
               <span class="studio-showcase-pin-num">${escapeHtml(pin.num)}</span>
