@@ -430,66 +430,66 @@ function renderZone3InteractiveStudio(plan) {
               <pre id="compiler-code-output" style="display:none;" aria-hidden="true"># Supabase SeatHarmony Manifest\n{"@graph":[]}</pre>
             </div>
 
-            <!-- Delta 1, 2, 3, 4 & 5: Live Personalized Proof + $0 Email Save/Send Bridge + $9 Event Print Pack + $29 Planner Pro Pass -->
-            <div id="sh-vault-checkout-bar" style="background:#FBF9F6;border:1.5px solid #D6CBB8;border-radius:12px;padding:12px 14px;color:#1C1C1C;display:flex;flex-direction:column;gap:10px;">
-              <!-- Delta 3 & Delta 1: Try-Before-You-Buy Live Personalized Proof + Table 1 Escort Card & Dietary Summary Preview -->
-              <div id="sh-live-personalized-proof" style="background:#FFFFFF;border:1px solid #E6E2DC;border-radius:10px;padding:10px 12px;display:flex;flex-wrap:wrap;align-items:center;justify-content:space-between;gap:10px;">
-                <div style="min-width:0;flex:1 1 260px;">
-                  <div style="display:flex;align-items:center;gap:6px;flex-wrap:wrap;margin-bottom:3px;">
-                    <span style="font-size:0.68rem;font-weight:800;letter-spacing:0.06em;text-transform:uppercase;color:#00766C;background:#EBF6F5;border:1px solid #A7F3D0;padding:2px 7px;border-radius:999px;">LIVE PERSONALIZED PROOF &bull; TRY BEFORE YOU BUY</span>
-                    <span style="font-size:0.73rem;color:#57534E;font-weight:600;">Saves 6+ hrs at FedEx/Canva</span>
-                  </div>
-                  <div style="font-size:0.86rem;font-weight:800;color:#1C1C1C;" id="sh-proof-couple-name">${escapeHtml(plan.title || "Maya & Liam's Estate Reception")} &middot; <span id="sh-proof-venue-name" style="font-weight:600;color:#57534E;">${escapeHtml(plan.venueName || 'Rosewood Conservatory')}</span></div>
-                  <div style="font-size:0.78rem;color:#44403C;margin-top:2px;" id="sh-proof-table1-summary"><strong>Welcome Sign &amp; BEO Specimen (Table 1):</strong> Seat #1 (12:00 Anchor): Maya &amp; Liam Vance &bull; Filet Mignon &bull; 300-DPI Vector Ready</div>
-                </div>
-                <div id="sh-table1-escort-dietary-preview" data-unmasked="0" style="background:#FBF9F6;border:1px dashed #00766C;border-radius:8px;padding:8px 11px;font-size:0.76rem;color:#1C1C1C;flex:1 1 250px;max-width:420px;">
-                  <div style="display:flex;align-items:center;justify-content:space-between;gap:6px;margin-bottom:2px;">
-                    <span style="font-weight:800;color:#00766C;" id="sh-table1-preview-badge">&#128274; Sample Table 1 Escort Card &amp; Dietary Summary</span>
-                    <span style="font-size:0.68rem;font-weight:700;color:#78716C;" id="sh-table1-preview-status">Enter $0 email below to unmask</span>
-                  </div>
-                  <div id="sh-table1-preview-body" style="filter:blur(3.5px);user-select:none;transition:filter 0.25s ease;font-size:0.74rem;color:#44403C;">
-                    <strong>Escort Card #1:</strong> Maya &amp; Liam &bull; Tbl 1, Seat #1 (12:00) &bull; &#9670; Filet / &#9679; Halibut &bull; <strong>Dietary Summary:</strong> 1 Peanut Allergy, 1 Gluten-Free flagged for Kitchen
-                  </div>
-                </div>
-              </div>
-
-              <!-- Delta 1 & Delta 2: $0 Email "Save & Send to Partner/Venue" Bridge + $9 Event Print & Day-Of Execution Pack -->
-              <div style="display:flex;flex-wrap:wrap;align-items:center;justify-content:space-between;gap:10px;">
-                <div style="display:flex;flex-direction:column;gap:2px;">
-                  <span style="font-size:0.84rem;font-weight:800;color:#1C1C1C;" id="sh-vault-bar-headline">&#128190; Save &amp; Send to Partner/Venue ($0) or Unlock Print Pack ($9)</span>
-                  <span style="font-size:0.74rem;color:#57534E;font-weight:600;"><strong>$9 Pack:</strong> 24&Prime;&times;36&Prime; 300-DPI Print-Shop Welcome Poster PDF + Folded Place Cards + Caterer Table-by-Table Meal/Allergy BEO + Live Guest Phone QR Lookup</span>
-                </div>
-                <div id="sh-inline-email-bridge" style="display:flex;gap:6px;align-items:center;flex:1 1 300px;max-width:480px;">
-                  <input id="sh-inline-vault-email" type="email" placeholder="Enter email to Save &amp; Send to Partner/Venue ($0)..." value="${escapeHtml(plan.ownerEmail && !/^(test|vip)@/i.test(plan.ownerEmail) ? plan.ownerEmail : '')}" onkeydown="if(event.key==='Enter')window.shSaveInlineEmailLead()" style="flex:1;min-width:0;padding:8px 10px;border:1px solid #C8A96E;border-radius:8px;font-size:0.82rem;background:#FFFFFF;color:#1C1C1C;" aria-label="Email address to save seating plan" />
-                  <button type="button" id="sh-inline-vault-save-btn" onclick="window.shSaveInlineEmailLead()" style="cursor:pointer;background:#00766C;color:#FFFFFF;border:1px solid #005E56;border-radius:8px;padding:8px 12px;font-size:0.79rem;font-weight:800;white-space:nowrap;">Save &amp; Email My Seating Plan ($0)</button>
-                </div>
-                <div style="display:flex;gap:6px;align-items:center;flex-wrap:wrap;">
-                  <a id="sh-vault-buy-pack-btn" href="/buy/complete_dossier?target=estate-150&amp;vault=${vId}&amp;allow_promotion_codes=false" style="text-align:center;background:#1C1C1C;color:#FFFFFF;border:1px solid #1C1C1C;border-radius:8px;padding:8px 14px;font-size:0.82rem;font-weight:800;text-decoration:none;white-space:nowrap;">Unlock Event Print &amp; Day-Of Pack ($9) &rarr;</a>
-                </div>
-              </div>
-
-              <!-- Delta 5: Wedding Planner & Venue Coordinator Pro License ($29 Multi-Event White-Label Pass) -->
-              <div id="sh-planner-pro-dock-banner" style="display:flex;flex-wrap:wrap;align-items:center;justify-content:space-between;gap:8px;background:#FFFFFF;border:1px solid #E6E2DC;border-radius:8px;padding:7px 11px;">
-                <span style="font-size:0.77rem;font-weight:700;color:#1C1C1C;">&#10022; <strong>For Wedding Planners &amp; Venues:</strong> Unlimited Events + Custom Agency Logo on Client BEOs ($29 Pro Pass)</span>
-                <a id="sh-vault-buy-pro-btn" href="/buy/pro_b2b?target=estate-150&amp;vault=${vId}&amp;allow_promotion_codes=false" title="For Wedding Planners & Venues: Unlimited Events + Custom Agency Logo on Client BEOs ($29 Pro Pass)" style="background:#FBF9F6;color:#00766C;border:1px solid #00766C;border-radius:6px;padding:5px 11px;font-size:0.76rem;font-weight:800;text-decoration:none;white-space:nowrap;">For Wedding Planners &amp; Venues ($29 Pro Pass) &rarr;</a>
-              </div>
-
-              <div id="sh-voc-survey-box" style="display:flex;flex-wrap:wrap;align-items:center;justify-content:space-between;gap:8px;border-top:1px solid #E2D9C8;padding-top:7px;">
-                <span id="sh-voc-survey-label" style="font-size:0.78rem;font-weight:700;color:#57534E;">Quick poll — what do you need most for your reception?</span>
-                <div style="display:flex;flex-wrap:wrap;gap:5px;">
-                  <button type="button" class="studio-tap-chip sh-voc-chip" style="padding:3px 9px;font-size:0.76rem;" onclick="window.shSubmitVocSurvey('24x36_sign',this)">24&Prime;&times;36&Prime; Welcome Sign</button>
-                  <button type="button" class="studio-tap-chip sh-voc-chip" style="padding:3px 9px;font-size:0.76rem;" onclick="window.shSubmitVocSurvey('avery_5302',this)">Folded Place Cards</button>
-                  <button type="button" class="studio-tap-chip sh-voc-chip" style="padding:3px 9px;font-size:0.76rem;" onclick="window.shSubmitVocSurvey('caterer_beo',this)">12:00 Caterer BEO</button>
-                  <button type="button" class="studio-tap-chip sh-voc-chip" style="padding:3px 9px;font-size:0.76rem;" onclick="window.shSubmitVocSurvey('floorplan',this)">Table Layout</button>
-                </div>
-              </div>
-            </div>
-
             <!-- Stage Footer -->
             <div style="display:flex;justify-content:space-between;align-items:center;gap:8px;flex-wrap:wrap;font-size:0.78rem;color:#78716C;padding:2px 4px 0;">
               <a id="sh-footer-vault-link" href="/vault/${vId}" style="color:#065F46;font-weight:700;text-decoration:none;">All Print &amp; Caterer Files &nearr;</a>
               <a href="/directory" class="sh-venue-cta">Browse venue layouts by guests &amp; room size &rarr;</a>
             </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Delta 1, 2, 3, 4 & 5: Always-Visible Studio Deliverable Dock (Live Personalized Proof + $0 Email Save/Send Bridge + $9 Event Print Pack + $29 Planner Pro Pass) -->
+      <div id="sh-vault-checkout-bar" style="margin-top:16px;background:#FBF9F6;border:1.5px solid #D6CBB8;border-radius:12px;padding:12px 14px;color:#1C1C1C;display:flex;flex-direction:column;gap:10px;">
+        <!-- Delta 3 & Delta 1: Try-Before-You-Buy Live Personalized Proof + Table 1 Escort Card & Dietary Summary Preview -->
+        <div id="sh-live-personalized-proof" style="background:#FFFFFF;border:1px solid #E6E2DC;border-radius:10px;padding:10px 12px;display:flex;flex-wrap:wrap;align-items:center;justify-content:space-between;gap:10px;">
+          <div style="min-width:0;flex:1 1 260px;">
+            <div style="display:flex;align-items:center;gap:6px;flex-wrap:wrap;margin-bottom:3px;">
+              <span style="font-size:0.68rem;font-weight:800;letter-spacing:0.06em;text-transform:uppercase;color:#00766C;background:#EBF6F5;border:1px solid #A7F3D0;padding:2px 7px;border-radius:999px;">LIVE PERSONALIZED PROOF &bull; TRY BEFORE YOU BUY</span>
+              <span style="font-size:0.73rem;color:#57534E;font-weight:600;">Saves 6+ hrs at FedEx/Canva</span>
+            </div>
+            <div style="font-size:0.86rem;font-weight:800;color:#1C1C1C;" id="sh-proof-couple-name">${escapeHtml(plan.title || "Maya & Liam's Estate Reception")} &middot; <span id="sh-proof-venue-name" style="font-weight:600;color:#57534E;">${escapeHtml(plan.venueName || 'Rosewood Conservatory')}</span></div>
+            <div style="font-size:0.78rem;color:#44403C;margin-top:2px;" id="sh-proof-table1-summary"><strong>Welcome Sign &amp; BEO Specimen (Table 1):</strong> Seat #1 (12:00 Anchor): Maya &amp; Liam Vance &bull; Filet Mignon &bull; 300-DPI Vector Ready</div>
+          </div>
+          <div id="sh-table1-escort-dietary-preview" data-unmasked="0" style="background:#FBF9F6;border:1px dashed #00766C;border-radius:8px;padding:8px 11px;font-size:0.76rem;color:#1C1C1C;flex:1 1 250px;max-width:420px;">
+            <div style="display:flex;align-items:center;justify-content:space-between;gap:6px;margin-bottom:2px;">
+              <span style="font-weight:800;color:#00766C;" id="sh-table1-preview-badge">&#128274; Sample Table 1 Escort Card &amp; Dietary Summary</span>
+              <span style="font-size:0.68rem;font-weight:700;color:#78716C;" id="sh-table1-preview-status">Enter $0 email below to unmask</span>
+            </div>
+            <div id="sh-table1-preview-body" style="filter:blur(3.5px);user-select:none;transition:filter 0.25s ease;font-size:0.74rem;color:#44403C;">
+              <strong>Escort Card #1:</strong> Maya &amp; Liam &bull; Tbl 1, Seat #1 (12:00) &bull; &#9670; Filet / &#9679; Halibut &bull; <strong>Dietary Summary:</strong> 1 Peanut Allergy, 1 Gluten-Free flagged for Kitchen
+            </div>
+          </div>
+        </div>
+
+        <!-- Delta 1 & Delta 2: $0 Email "Save & Send to Partner/Venue" Bridge + $9 Event Print & Day-Of Execution Pack -->
+        <div style="display:flex;flex-wrap:wrap;align-items:center;justify-content:space-between;gap:10px;">
+          <div style="display:flex;flex-direction:column;gap:2px;">
+            <span style="font-size:0.84rem;font-weight:800;color:#1C1C1C;" id="sh-vault-bar-headline">&#128190; Save &amp; Send to Partner/Venue ($0) or Unlock Print Pack ($9)</span>
+            <span style="font-size:0.74rem;color:#57534E;font-weight:600;"><strong>$9 Pack:</strong> 24&Prime;&times;36&Prime; 300-DPI Print-Shop Welcome Poster PDF + Folded Place Cards + Caterer Table-by-Table Meal/Allergy BEO + Live Guest Phone QR Lookup</span>
+          </div>
+          <div id="sh-inline-email-bridge" style="display:flex;gap:6px;align-items:center;flex:1 1 300px;max-width:480px;">
+            <input id="sh-inline-vault-email" type="email" placeholder="Enter email to Save &amp; Send to Partner/Venue ($0)..." value="${escapeHtml(plan.ownerEmail && !/^(test|vip)@/i.test(plan.ownerEmail) ? plan.ownerEmail : '')}" onkeydown="if(event.key==='Enter')window.shSaveInlineEmailLead()" style="flex:1;min-width:0;padding:8px 10px;border:1px solid #C8A96E;border-radius:8px;font-size:0.82rem;background:#FFFFFF;color:#1C1C1C;" aria-label="Email address to save seating plan" />
+            <button type="button" id="sh-inline-vault-save-btn" onclick="window.shSaveInlineEmailLead()" style="cursor:pointer;background:#00766C;color:#FFFFFF;border:1px solid #005E56;border-radius:8px;padding:8px 12px;font-size:0.79rem;font-weight:800;white-space:nowrap;">Save &amp; Email My Seating Plan ($0)</button>
+          </div>
+          <div style="display:flex;gap:6px;align-items:center;flex-wrap:wrap;">
+            <a id="sh-vault-buy-pack-btn" href="/buy/complete_dossier?target=estate-150&amp;vault=${vId}&amp;allow_promotion_codes=false" style="text-align:center;background:#1C1C1C;color:#FFFFFF;border:1px solid #1C1C1C;border-radius:8px;padding:8px 14px;font-size:0.82rem;font-weight:800;text-decoration:none;white-space:nowrap;">Unlock Event Print &amp; Day-Of Pack ($9) &rarr;</a>
+          </div>
+        </div>
+
+        <!-- Delta 5: Wedding Planner & Venue Coordinator Pro License ($29 Multi-Event White-Label Pass) -->
+        <div id="sh-planner-pro-dock-banner" style="display:flex;flex-wrap:wrap;align-items:center;justify-content:space-between;gap:8px;background:#FFFFFF;border:1px solid #E6E2DC;border-radius:8px;padding:7px 11px;">
+          <span style="font-size:0.77rem;font-weight:700;color:#1C1C1C;">&#10022; <strong>For Wedding Planners &amp; Venues:</strong> Unlimited Events + Custom Agency Logo on Client BEOs ($29 Pro Pass)</span>
+          <a id="sh-vault-buy-pro-btn" href="/buy/pro_b2b?target=estate-150&amp;vault=${vId}&amp;allow_promotion_codes=false" title="For Wedding Planners & Venues: Unlimited Events + Custom Agency Logo on Client BEOs ($29 Pro Pass)" style="background:#FBF9F6;color:#00766C;border:1px solid #00766C;border-radius:6px;padding:5px 11px;font-size:0.76rem;font-weight:800;text-decoration:none;white-space:nowrap;">For Wedding Planners &amp; Venues ($29 Pro Pass) &rarr;</a>
+        </div>
+
+        <div id="sh-voc-survey-box" style="display:flex;flex-wrap:wrap;align-items:center;justify-content:space-between;gap:8px;border-top:1px solid #E2D9C8;padding-top:7px;">
+          <span id="sh-voc-survey-label" style="font-size:0.78rem;font-weight:700;color:#57534E;">Quick poll — what do you need most for your reception?</span>
+          <div style="display:flex;flex-wrap:wrap;gap:5px;">
+            <button type="button" class="studio-tap-chip sh-voc-chip" style="padding:3px 9px;font-size:0.76rem;" onclick="window.shSubmitVocSurvey('24x36_sign',this)">24&Prime;&times;36&Prime; Welcome Sign</button>
+            <button type="button" class="studio-tap-chip sh-voc-chip" style="padding:3px 9px;font-size:0.76rem;" onclick="window.shSubmitVocSurvey('avery_5302',this)">Folded Place Cards</button>
+            <button type="button" class="studio-tap-chip sh-voc-chip" style="padding:3px 9px;font-size:0.76rem;" onclick="window.shSubmitVocSurvey('caterer_beo',this)">12:00 Caterer BEO</button>
+            <button type="button" class="studio-tap-chip sh-voc-chip" style="padding:3px 9px;font-size:0.76rem;" onclick="window.shSubmitVocSurvey('floorplan',this)">Table Layout</button>
           </div>
         </div>
       </div>

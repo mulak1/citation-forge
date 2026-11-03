@@ -536,7 +536,7 @@ function renderDeliverablesClientScript() {
           '<div style="font-size:0.68rem;color:#57534E;font-weight:700;">Table ' + c.tNum + ' &middot; Seat #' + c.sNum + ' (12:00 Clockwise)</div>' +
         '</div>';
       }).join('');
-      averyEl.innerHTML = '<div style="padding:12px 14px;border-radius:12px;background:linear-gradient(135deg,#FAF3E6 0%,#F5ECE0 100%);border:1.5px solid #D8C29D;"><div style="display:flex;flex-wrap:wrap;align-items:center;justify-content:space-between;gap:10px;margin-bottom:10px;"><div><div style="font-size:0.68rem;font-weight:800;letter-spacing:0.08em;text-transform:uppercase;color:#78350F;">🎫 LIVE AVERY 5302 FOLDED TENT CARDS (' + sampleCards.length + ' CARDS SYNCED WITH FLOORPLAN)</div><div style="font-size:0.78rem;color:#44403C;">Guest front + 180&deg; server back-fold with meal symbol &amp; red kitchen allergy alert.</div></div><div style="display:flex;gap:6px;flex-wrap:wrap;"><a id="sh-avery-preview-btn" href="/print/avery-5302/' + vid + '" target="_blank" class="btn btn-secondary" style="padding:6px 11px;font-size:0.73rem;">🎫 Open Full Avery 5302 Sheet ↗</a><a id="sh-avery-pack-buy-btn" href="/buy/complete_dossier?target=estate-150&vault=' + vid + '" class="btn btn-primary" style="padding:6px 12px;font-size:0.73rem;">Unlock Print Pack ($14.99) →</a></div></div><div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(210px,1fr));gap:8px;">' + cardStripHtml + '</div></div>';
+      averyEl.innerHTML = '<div style="padding:12px 14px;border-radius:12px;background:linear-gradient(135deg,#FAF3E6 0%,#F5ECE0 100%);border:1.5px solid #D8C29D;"><div style="display:flex;flex-wrap:wrap;align-items:center;justify-content:space-between;gap:10px;margin-bottom:10px;"><div><div style="font-size:0.68rem;font-weight:800;letter-spacing:0.08em;text-transform:uppercase;color:#78350F;">🎫 LIVE AVERY 5302 FOLDED TENT CARDS (' + sampleCards.length + ' CARDS SYNCED WITH FLOORPLAN)</div><div style="font-size:0.78rem;color:#44403C;">Guest front + 180&deg; server back-fold with meal symbol &amp; red kitchen allergy alert.</div></div><div style="display:flex;gap:6px;flex-wrap:wrap;"><a id="sh-avery-preview-btn" href="/print/avery-5302/' + vid + '" target="_blank" class="btn btn-secondary" style="padding:6px 11px;font-size:0.73rem;">🎫 Open Full Avery 5302 Sheet ↗</a><a id="sh-avery-pack-buy-btn" href="/buy/complete_dossier?target=estate-150&vault=' + vid + '&allow_promotion_codes=false" class="btn btn-primary" style="padding:6px 12px;font-size:0.73rem;">Unlock Event Print Pack ($9) →</a></div></div><div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(210px,1fr));gap:8px;">' + cardStripHtml + '</div></div>';
     }
     shSyncVaultIdLinks((window.__SH_STATE && window.__SH_STATE.vaultId) || 'SH-4819');
   }
@@ -581,19 +581,21 @@ function renderDeliverablesClientScript() {
     ['sh-cmd-avery-link', 'sh-open-avery-studio-link', 'sh-avery-preview-btn', 'sh-card5-avery-studio-link', 'sh-modal-link-avery'].forEach(function(k) { setHref(k, '/print/avery-5302/' + id); });
     ['sh-cmd-beo-link', 'sh-open-beo-studio-link', 'sh-modal-link-beo'].forEach(function(k) { setHref(k, '/print/beo/' + id); });
     ['sh-cmd-qr-link', 'sh-open-qr-app-link', 'sh-qr-short-url', 'sh-modal-link-qr'].forEach(function(k) { setHref(k, '/qr/' + id); });
-    const emailParam = (state.ownerEmail && state.ownerEmail.indexOf('@') > 0 && !/^(test|vip)@/i.test(state.ownerEmail)) ? '&email=' + encodeURIComponent(state.ownerEmail) : '';
-    const packUrl = '/buy/complete_dossier?target=' + encTarget + '&vault=' + id + emailParam;
-    const flashUrl = '/buy/flash_pass?target=' + encTarget + '&vault=' + id + emailParam;
-    const proUrl = '/buy/pro_b2b?target=' + encTarget + '&vault=' + id + emailParam;
+    const savedEm = (window.localStorage && localStorage.getItem('sh_saved_email')) || (state.ownerEmail && !/^(test|vip)@/i.test(state.ownerEmail) ? state.ownerEmail : '') || '';
+    const emailParam = (savedEm && savedEm.indexOf('@') > 0) ? ('&email=' + encodeURIComponent(savedEm) + '&customer_email=' + encodeURIComponent(savedEm)) : '';
+    const packUrl = '/buy/complete_dossier?target=' + encTarget + '&vault=' + id + '&allow_promotion_codes=false' + emailParam;
+    const flashUrl = '/buy/flash_pass?target=' + encTarget + '&vault=' + id + '&allow_promotion_codes=false' + emailParam;
+    const proUrl = '/buy/pro_b2b?target=' + encTarget + '&vault=' + id + '&allow_promotion_codes=false' + emailParam;
     ['sh-card5-buy-btn', 'sh-vault-buy-pack-btn', 'sh-pane-poster-buy-link', 'sh-avery-pack-buy-btn', 'sh-carousel-unlock-cta', 'nav-primary-buy-cta', 'pricing-buy-pack', 'pricing-buy-bottom', 'sh-pane-beo-pack-upgrade-link'].forEach(function(k) { setHref(k, packUrl); });
-    ['sh-pane-beo-buy-link', 'pricing-buy-flash'].forEach(function(k) { setHref(k, flashUrl); });
+    ['sh-pane-beo-buy-link'].forEach(function(k) { setHref(k, flashUrl); });
     ['sh-vault-buy-pro-btn', 'pricing-buy-pro'].forEach(function(k) { setHref(k, proUrl); });
     const vBtn = document.getElementById('sh-vault-buy-pack-btn');
-    if (vBtn) vBtn.innerHTML = 'Unlock ' + shEsc(coupleTitle) + ' (' + totalGuests + ' Guests &middot; $14.99) &rarr;';
+    if (vBtn) vBtn.innerHTML = 'Unlock ' + shEsc(coupleTitle) + ' Print Pack (' + totalGuests + ' Guests &middot; $9) &rarr;';
     const pBtn = document.getElementById('pricing-buy-pack');
-    if (pBtn) pBtn.innerHTML = 'Unlock ' + shEsc(coupleTitle) + ' (' + totalGuests + ' Guests &middot; $14.99) &rarr;';
+    if (pBtn) pBtn.innerHTML = 'Unlock ' + shEsc(coupleTitle) + ' Print Pack (' + totalGuests + ' Guests &middot; $9) &rarr;';
     const qrImg = document.getElementById('sh-live-qr-img');
     if (qrImg) qrImg.src = 'https://api.qrserver.com/v1/create-qr-code/?size=160x160&color=181412&bgcolor=FFFFFF&data=' + encodeURIComponent(window.location.origin + '/qr/' + id);
+    if (typeof window.shRenderLivePersonalizedProof === 'function') window.shRenderLivePersonalizedProof();
   }
 
   function shFlushVaultNow() {
@@ -682,23 +684,103 @@ function renderDeliverablesClientScript() {
       fetch('/api/telemetry/event', { method: 'POST', keepalive: true, headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ event_type: eventType, eventType: eventType, page_url: window.location.pathname, pagePath: window.location.pathname, meta: fullMeta }) }).catch(function() {});
     } catch (_) {}
   };
-  window.shGateOrExportBeoCsv = function() {
-    if (window.__SH_STATE && ((window.__SH_STATE.ownerEmail && window.__SH_STATE.ownerEmail.indexOf('@') > 0 && !/^(test|vip)@/i.test(window.__SH_STATE.ownerEmail)) || window.__SH_STATE.isUnlocked)) {
-      if (window.shExportBeoCsv) window.shExportBeoCsv();
+  window.shRenderLivePersonalizedProof = function() {
+    var st = window.__SH_STATE || {};
+    var wizCouple = document.getElementById('shw-couple');
+    var wizVenue = document.getElementById('shw-venue');
+    var rawCouple = (wizCouple && wizCouple.value && wizCouple.value.trim()) || st.title || "Maya & Liam's Estate Reception";
+    var coupleDisplay = rawCouple.indexOf('Reception') === -1 && rawCouple.indexOf('Wedding') === -1 && rawCouple.indexOf('Dinner') === -1 && rawCouple.indexOf('Gala') === -1 ? (rawCouple + "'s Reception") : rawCouple;
+    var venueDisplay = (wizVenue && wizVenue.value && wizVenue.value.trim()) || st.venueName || 'Rosewood Conservatory';
+    if (wizCouple && wizCouple.value && wizCouple.value.trim() && st) {
+      st.title = coupleDisplay;
+      var ci = document.getElementById('sh-couple-title-input');
+      if (ci && document.activeElement !== ci) ci.value = coupleDisplay;
+    }
+    if (wizVenue && wizVenue.value && wizVenue.value.trim() && st) {
+      st.venueName = venueDisplay;
+      var vi = document.getElementById('sh-venue-name-input');
+      if (vi && document.activeElement !== vi) vi.value = venueDisplay;
+    }
+    var tbl1 = (st.tables && st.tables[0]) || { number: 1, name: 'Table 1 (Sweetheart)', guests: [] };
+    var tbl2 = (st.tables && st.tables[1]) || tbl1;
+    var g1 = (tbl1.guests && tbl1.guests[0]) || { name: 'Maya Vance', meal: 'Filet Mignon' };
+    var g2 = (tbl1.guests && tbl1.guests[1]) || (tbl2.guests && tbl2.guests[0]) || { name: 'Liam Vance', meal: 'Pan-Seared Halibut' };
+    var totalAllergies = 0, totalGluten = 0;
+    (st.tables || []).forEach(function(t) {
+      (t.guests || []).forEach(function(g) {
+        if (g && g.allergy) {
+          totalAllergies++;
+          if (/celiac|gluten|gf/i.test(g.allergy)) totalGluten++;
+        }
+      });
+    });
+    var pcEl = document.getElementById('sh-proof-couple-name');
+    if (pcEl) pcEl.innerHTML = shEsc(coupleDisplay) + ' &middot; <span id="sh-proof-venue-name" style="font-weight:600;color:#57534E;">' + shEsc(venueDisplay) + '</span>';
+    var ptEl = document.getElementById('sh-proof-table1-summary');
+    if (ptEl) ptEl.innerHTML = '<strong>Welcome Sign &amp; BEO Specimen (' + shEsc(tbl1.name || 'Table 1') + '):</strong> Seat #1 (12:00 Anchor): ' + shEsc(g1.name) + ' (' + shEsc(g1.meal || 'Filet Mignon') + ') &amp; ' + shEsc(g2.name) + ' &bull; 300-DPI Print Ready';
+    var wSign = document.getElementById('shw-proof-sign-line');
+    if (wSign) wSign.innerHTML = '24&Prime;&times;36&Prime; Sign: <strong>' + shEsc(coupleDisplay) + '</strong> &middot; ' + shEsc(venueDisplay);
+    var wTbl1 = document.getElementById('shw-proof-table1-line');
+    if (wTbl1) wTbl1.innerHTML = 'Table 1 BEO: Seat #1 (12:00): ' + shEsc(g1.name) + ' &amp; ' + shEsc(g2.name) + ' &bull; ' + (totalAllergies || 2) + ' Allergies Flagged';
+    var savedEmail = '';
+    try { savedEmail = localStorage.getItem('sh_saved_email') || ''; } catch (_) {}
+    if (!savedEmail && st.ownerEmail && st.ownerEmail.indexOf('@') > 0 && !/^(test|vip)@/i.test(st.ownerEmail)) savedEmail = st.ownerEmail;
+    var isUnmasked = Boolean((savedEmail && savedEmail.indexOf('@') > 0) || st.isUnlocked);
+    var prevBox = document.getElementById('sh-table1-escort-dietary-preview');
+    var prevBadge = document.getElementById('sh-table1-preview-badge');
+    var prevStatus = document.getElementById('sh-table1-preview-status');
+    var prevBody = document.getElementById('sh-table1-preview-body');
+    if (prevBody) {
+      prevBody.innerHTML = '<strong>Escort Card #1:</strong> ' + shEsc(g1.name) + ' &amp; ' + shEsc(g2.name) + ' &bull; Tbl 1, Seat #1 (12:00) &bull; &#9670; ' + shEsc(g1.meal || 'Filet Mignon') + ' &bull; <strong>Dietary Summary:</strong> ' + (totalAllergies || 2) + ' Kitchen Allergy Alerts (' + (totalGluten || 1) + ' Celiac/GF) Flagged';
+      prevBody.style.filter = isUnmasked ? 'none' : 'blur(3.5px)';
+      prevBody.style.userSelect = isUnmasked ? 'auto' : 'none';
+    }
+    if (prevBox) {
+      prevBox.setAttribute('data-unmasked', isUnmasked ? '1' : '0');
+      prevBox.style.borderStyle = isUnmasked ? 'solid' : 'dashed';
+      prevBox.style.background = isUnmasked ? '#ECFDF5' : '#FBF9F6';
+    }
+    if (prevBadge) prevBadge.innerHTML = isUnmasked ? '&#10003; Unmasked Table 1 Escort Card &amp; Dietary Summary' : '&#128274; Sample Table 1 Escort Card &amp; Dietary Summary';
+    if (prevStatus) prevStatus.textContent = isUnmasked ? ('Saved to ' + (savedEmail || 'your vault')) : 'Enter $0 email below to unmask';
+  };
+
+  window.shGateOrExportBeoCsv = function(mode) {
+    var savedEm = '';
+    try { savedEm = localStorage.getItem('sh_saved_email') || ''; } catch (_) {}
+    var hasValidEmail = Boolean((savedEm && savedEm.indexOf('@') > 0) || (window.__SH_STATE && ((window.__SH_STATE.ownerEmail && window.__SH_STATE.ownerEmail.indexOf('@') > 0 && !/^(test|vip)@/i.test(window.__SH_STATE.ownerEmail)) || window.__SH_STATE.isUnlocked)));
+    if (hasValidEmail) {
+      window.shRenderLivePersonalizedProof();
+      if (mode === 'share' && window.__shRawCopyMomSandboxLink) window.__shRawCopyMomSandboxLink();
+      else if (window.__shRawExportBeoCsv) window.__shRawExportBeoCsv();
       return;
     }
-    window.shTrackTelemetry('view_paywall', { source: 'beo_csv_gate' });
+    window.__SH_PENDING_EXPORT_MODE = mode || 'csv';
+    window.shTrackTelemetry('view_paywall', { source: 'beo_csv_gate', mode: mode || 'csv' });
     var grid = document.getElementById('sh-builder-grid');
     if (grid && grid.style.display === 'none' && typeof window.shFinishSetupWizard === 'function') window.shFinishSetupWizard();
     var inp = document.getElementById('sh-inline-vault-email');
     if (inp) {
       inp.scrollIntoView({ behavior: 'smooth', block: 'center' });
       try { inp.focus({ preventScroll: true }); } catch (_) { inp.focus(); }
-      inp.style.boxShadow = '0 0 0 3px rgba(217,119,6,0.35)';
+      inp.style.boxShadow = '0 0 0 3px rgba(0,118,108,0.32)';
     }
-    shToast('Enter your email below to save your seating plan & download your free Clockwise Caterer CSV!');
+    shToast('Enter your email ($0) below to Save & Send to Partner/Venue, unmask your Table 1 Escort Card & Dietary Summary, and export!');
   };
   (function() {
+    if (typeof window.shExportBeoCsv === 'function' && !window.__shRawExportBeoCsv) {
+      window.__shRawExportBeoCsv = window.shExportBeoCsv;
+      window.shExportBeoCsv = function(bypassGate) {
+        if (bypassGate === true) return window.__shRawExportBeoCsv();
+        return window.shGateOrExportBeoCsv('csv');
+      };
+    }
+    if (typeof window.shCopyMomSandboxLink === 'function' && !window.__shRawCopyMomSandboxLink) {
+      window.__shRawCopyMomSandboxLink = window.shCopyMomSandboxLink;
+      window.shCopyMomSandboxLink = function(bypassGate) {
+        if (bypassGate === true) return window.__shRawCopyMomSandboxLink();
+        return window.shGateOrExportBeoCsv('share');
+      };
+    }
     var origTab = window.shSetActiveTab;
     if (typeof origTab === 'function') {
       window.shSetActiveTab = function(tab) {
@@ -722,7 +804,37 @@ function renderDeliverablesClientScript() {
         };
       }
     });
+    document.addEventListener('click', function(ev) {
+      var buyLink = ev.target && ev.target.closest && ev.target.closest('a[href*="/buy/"]');
+      if (!buyLink) return;
+      var typedEmail = (document.getElementById('sh-inline-vault-email') && document.getElementById('sh-inline-vault-email').value) ||
+        (document.getElementById('sh-vault-email-input') && document.getElementById('sh-vault-email-input').value) ||
+        (document.getElementById('sh-seo-calc-email') && document.getElementById('sh-seo-calc-email').value) ||
+        (window.localStorage && localStorage.getItem('sh_saved_email')) ||
+        (window.__SH_STATE && window.__SH_STATE.ownerEmail && !/^(test|vip)@/i.test(window.__SH_STATE.ownerEmail) ? window.__SH_STATE.ownerEmail : '') || '';
+      typedEmail = String(typedEmail || '').trim().toLowerCase();
+      try {
+        var u = new URL(buyLink.href, window.location.origin);
+        u.searchParams.set('allow_promotion_codes', 'false');
+        if (typedEmail && typedEmail.indexOf('@') > 0) {
+          try { localStorage.setItem('sh_saved_email', typedEmail); } catch (_) {}
+          u.searchParams.set('email', typedEmail);
+          u.searchParams.set('customer_email', typedEmail);
+          fetch('/api/leads', { method: 'POST', keepalive: true, headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ email: typedEmail, summaryText: 'Two-Step Micro-Commitment Checkout (' + ((window.__SH_STATE && window.__SH_STATE.title) || 'SeatHarmony') + ')', utmSource: 'two_step_checkout' }) }).catch(function() {});
+        }
+        buyLink.href = u.pathname + u.search + u.hash;
+      } catch (_) {}
+    }, true);
     document.addEventListener('DOMContentLoaded', function() {
+      try {
+        var saved = localStorage.getItem('sh_saved_email');
+        if (saved && saved.indexOf('@') > 0) {
+          var inl = document.getElementById('sh-inline-vault-email');
+          if (inl && !inl.value) inl.value = saved;
+          if (window.__SH_STATE && (!window.__SH_STATE.ownerEmail || /^(test|vip)@/i.test(window.__SH_STATE.ownerEmail))) window.__SH_STATE.ownerEmail = saved;
+        }
+      } catch (_) {}
+      window.shRenderLivePersonalizedProof();
       ['shwPickGuests', 'shwPickTable', 'shwLoadInstantScenario', 'shwPasteSampleList'].forEach(function(wFn) {
         var origW = window[wFn];
         if (typeof origW === 'function') {
@@ -759,22 +871,31 @@ function renderDeliverablesClientScript() {
   window.shSaveInlineEmailLead = async function() {
     var inp = document.getElementById('sh-inline-vault-email'), btn = document.getElementById('sh-inline-vault-save-btn');
     var email = inp ? String(inp.value || '').trim().toLowerCase() : '';
-    if (!email || email.indexOf('@') < 1) { if (inp) inp.focus(); shToast('Enter your email to save your seating plan & download your free Caterer CSV.'); return; }
+    if (!email || email.indexOf('@') < 1) { if (inp) inp.focus(); shToast('Enter your email ($0) to Save & Send your seating plan & unmask your Table 1 Escort Card preview.'); return; }
     if (btn) btn.textContent = 'Saving...';
+    try { localStorage.setItem('sh_saved_email', email); } catch (_) {}
     if (window.__SH_STATE) {
       window.__SH_STATE.ownerEmail = email;
       if (!window.__SH_STATE.vaultId || window.__SH_STATE.vaultId === 'SH-4819') {
         window.__SH_STATE.vaultId = 'SH-' + Math.floor(1000 + Math.random() * 9000);
       }
     }
+    window.shRenderLivePersonalizedProof();
     try {
+      fetch('/api/leads', { method: 'POST', keepalive: true, headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ email: email, summaryText: 'Save & Email My Seating Plan ($0): ' + ((window.__SH_STATE && window.__SH_STATE.title) || 'SeatHarmony'), utmSource: 'inline_save_bridge' }) }).catch(function() {});
       var res = await fetch('/api/vault/save', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ vaultId: (window.__SH_STATE && window.__SH_STATE.vaultId) || 'SH-4819', ownerEmail: email, state: window.__SH_STATE }) });
       var data = await res.json(), vid = (data && (data.vaultId || data.vault_id)) || (window.__SH_STATE && window.__SH_STATE.vaultId);
       if (vid) shSyncVaultIdLinks(vid);
-      if (btn) { btn.textContent = '✓ Saved & CSV Ready'; btn.style.background = '#065F46'; btn.style.borderColor = '#065F46'; }
-      if (window.shExportBeoCsv) window.shExportBeoCsv();
-      shToast('✓ Saved to ' + email + ' & downloaded free Caterer BEO CSV!');
-    } catch (_) { if (btn) btn.textContent = 'Save & CSV'; }
+      if (btn) { btn.textContent = '✓ Saved & Unmasked ($0)'; btn.style.background = '#00766C'; btn.style.borderColor = '#005E56'; }
+      if (window.__SH_PENDING_EXPORT_MODE === 'share' && window.__shRawCopyMomSandboxLink) {
+        window.__SH_PENDING_EXPORT_MODE = null;
+        window.__shRawCopyMomSandboxLink();
+      } else if (window.__shRawExportBeoCsv) {
+        window.__SH_PENDING_EXPORT_MODE = null;
+        window.__shRawExportBeoCsv();
+      }
+      shToast('✓ Saved to ' + email + ', unmasked Table 1 Escort Card & Dietary Summary, and exported!');
+    } catch (_) { if (btn) btn.textContent = 'Save & Email My Seating Plan ($0)'; }
   };
   window.shSubmitVocSurvey = function(choice, btn) {
     document.querySelectorAll('#sh-voc-survey-box .sh-voc-chip').forEach(function(b) {
