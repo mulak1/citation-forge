@@ -21,12 +21,12 @@ function renderSetupWizardHtml() {
         <div class="shw-intro">
           <h2 class="bs-section-h2" style="text-align:center;margin:0 auto 6px;">Plan your seating in <em>2 minutes.</em></h2>
           <p class="bs-section-sub" style="text-align:center;margin:0 auto 14px;">Answer 5 quick questions below &mdash; or <strong>explore a live populated reception in 1 click</strong> first:</p>
-          <div id="shw-instant-scenarios" style="display:flex;flex-wrap:wrap;justify-content:center;gap:8px;max-width:880px;margin:0 auto 6px;padding:10px 14px;background:#F8F7F4;border:1px solid #E5E7EB;border-radius:14px;">
+          <div id="shw-instant-scenarios" style="display:flex;flex-wrap:wrap;justify-content:center;gap:8px;max-width:100%;min-width:0;box-sizing:border-box;width:100%;margin:0 auto 6px;padding:10px 14px;background:#F8F7F4;border:1px solid #E5E7EB;border-radius:14px;">
             <span style="font-size:0.74rem;font-weight:700;letter-spacing:0.03em;text-transform:uppercase;color:#00766C;display:inline-flex;align-items:center;margin-right:4px;">&#10024; Try a Sample Wedding:</span>
-            <button type="button" class="studio-tap-chip active" data-instant-preset="estate-150" onclick="window.shwLoadInstantScenario('estate-150',this)">&#10024; 150-Guest Estate (Divorced Parents Solved)</button>
-            <button type="button" class="studio-tap-chip" data-instant-preset="tuscan-banquet-80" onclick="window.shwLoadInstantScenario('tuscan-banquet-80',this)">&#127863; 80-Guest Winery Banquet (Long Tables)</button>
-            <button type="button" class="studio-tap-chip" data-instant-preset="planner-beo-sandbox" onclick="window.shwLoadInstantScenario('planner-beo-sandbox',this)">&#128203; Family Table Sharing &amp; Caterer Meal Sheet (4 Allergies)</button>
-            <button type="button" class="studio-tap-chip" data-instant-preset="200-guest-hotel-ballroom-seating-chart-template" onclick="window.shwLoadInstantScenario('200-guest-hotel-ballroom-seating-chart-template',this)">&#127963; 200-Guest Ballroom (20 Rounds)</button>
+            <button type="button" class="studio-tap-chip active" style="white-space:normal;max-width:100%;min-width:0;box-sizing:border-box;overflow-wrap:break-word;" data-instant-preset="estate-150" onclick="window.shwLoadInstantScenario('estate-150',this)">&#10024; 150-Guest Estate (Divorced Parents Solved)</button>
+            <button type="button" class="studio-tap-chip" style="white-space:normal;max-width:100%;min-width:0;box-sizing:border-box;overflow-wrap:break-word;" data-instant-preset="tuscan-banquet-80" onclick="window.shwLoadInstantScenario('tuscan-banquet-80',this)">&#127863; 80-Guest Winery Banquet (Long Tables)</button>
+            <button type="button" class="studio-tap-chip" style="white-space:normal;max-width:100%;min-width:0;box-sizing:border-box;overflow-wrap:break-word;" data-instant-preset="planner-beo-sandbox" onclick="window.shwLoadInstantScenario('planner-beo-sandbox',this)">&#128203; Family Table Sharing &amp; Caterer Meal Sheet (4 Allergies)</button>
+            <button type="button" class="studio-tap-chip" style="white-space:normal;max-width:100%;min-width:0;box-sizing:border-box;overflow-wrap:break-word;" data-instant-preset="200-guest-hotel-ballroom-seating-chart-template" onclick="window.shwLoadInstantScenario('200-guest-hotel-ballroom-seating-chart-template',this)">&#127963; 200-Guest Ballroom (20 Rounds)</button>
           </div>
         </div>
 

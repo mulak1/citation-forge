@@ -71,7 +71,7 @@ function renderZone1Hero(plan) {
                       <div style="font-size:13.5px;font-weight:700;color:#1C1C1C;">Want to test with a real 150-guest wedding?</div>
                       <div style="font-size:12.5px;color:#4B5563;">Pre-loaded with divorced-parent buffers, meal icons &amp; 6 sign themes</div>
                     </div>
-                    <button type="button" onclick="window.shLoadVslSceneIntoStudio && window.shLoadVslSceneIntoStudio()" style="display:inline-flex;align-items:center;gap:6px;padding:10px 16px;border-radius:999px;background:#00766C;color:#FFFFFF;font-weight:700;font-size:13.5px;border:1px solid #00766C;cursor:pointer;white-space:nowrap;box-shadow:0 2px 8px rgba(0,118,108,0.18);">
+                    <button type="button" onclick="window.shLoadVslSceneIntoStudio && window.shLoadVslSceneIntoStudio()" style="display:inline-flex;align-items:center;justify-content:center;gap:6px;padding:10px 16px;border-radius:999px;background:#00766C;color:#FFFFFF;font-weight:700;font-size:13.5px;border:1px solid #00766C;cursor:pointer;white-space:normal;max-width:100%;min-width:0;box-sizing:border-box;overflow-wrap:break-word;text-align:center;line-height:1.3;box-shadow:0 2px 8px rgba(0,118,108,0.18);">
                       <span>Load Sample 150-Guest Reception in Studio &darr;</span>
                     </button>
                   </div>
@@ -290,7 +290,7 @@ function renderZone3InteractiveStudio(plan) {
                   <div id="specimen-tagline-sub" style="display:none;"></div>
                 </div>
               </div>
-              <div style="display:flex;align-items:center;gap:8px;flex-shrink:0;">
+              <div style="display:flex;align-items:center;gap:8px;flex-wrap:wrap;min-width:0;max-width:100%;">
                 <span id="sh-mom-sandbox-badge" style="display:none;"></span>
                 <button type="button" class="sh-ed-ghost" onclick="window.shOpenSetupWizard()">&larr; Edit setup</button>
                 <a href="/directory" class="sh-ed-ghost" style="text-decoration:none;">Venue layouts</a>
@@ -444,24 +444,24 @@ function renderZone3InteractiveStudio(plan) {
         </div>
 
         <!-- Delta 1 & Delta 2: $0 Email "Save & Send to Partner/Venue" Bridge + $9 Event Print & Day-Of Execution Pack -->
-        <div style="display:flex;flex-wrap:wrap;align-items:center;justify-content:space-between;gap:10px;">
-          <div style="display:flex;flex-direction:column;gap:2px;">
+        <div style="display:flex;flex-wrap:wrap;align-items:center;justify-content:space-between;gap:10px;max-width:100%;min-width:0;box-sizing:border-box;">
+          <div style="display:flex;flex-direction:column;gap:2px;min-width:0;max-width:100%;">
             <span style="font-size:0.84rem;font-weight:800;color:#1C1C1C;" id="sh-vault-bar-headline">&#128190; Save &amp; Send to Partner/Venue ($0) or Unlock Print Pack ($9)</span>
             <span style="font-size:0.74rem;color:#4B5563;font-weight:600;"><strong>$9 Pack:</strong> 24&Prime;&times;36&Prime; 300-DPI Print-Shop Welcome Poster PDF + Folded Place Cards + Caterer Table-by-Table Meal/Allergy BEO + Live Guest Phone QR Lookup</span>
           </div>
-          <div id="sh-inline-email-bridge" style="display:flex;gap:6px;align-items:center;flex:1 1 300px;max-width:480px;">
-            <input id="sh-inline-vault-email" type="email" placeholder="Enter email to Save &amp; Send to Partner/Venue ($0)..." value="${escapeHtml(plan.ownerEmail && !/^(test|vip)@/i.test(plan.ownerEmail) ? plan.ownerEmail : '')}" onkeydown="if(event.key==='Enter')window.shSaveInlineEmailLead()" style="flex:1;min-width:0;padding:8px 10px;border:1px solid #D1D5DB;border-radius:8px;font-size:0.82rem;background:#FFFFFF;color:#1C1C1C;" aria-label="Email address to save seating plan" />
-            <button type="button" id="sh-inline-vault-save-btn" onclick="window.shSaveInlineEmailLead()" style="cursor:pointer;background:#00766C;color:#FFFFFF;border:1px solid #00766C;border-radius:8px;padding:8px 12px;font-size:0.79rem;font-weight:800;white-space:nowrap;">Save &amp; Email My Seating Plan ($0)</button>
+          <div id="sh-inline-email-bridge" style="display:flex;flex-wrap:wrap;gap:6px;align-items:center;flex:1 1 280px;max-width:100%;min-width:0;box-sizing:border-box;">
+            <input id="sh-inline-vault-email" type="email" placeholder="Enter email to Save &amp; Send to Partner/Venue ($0)..." value="${escapeHtml(plan.ownerEmail && !/^(test|vip)@/i.test(plan.ownerEmail) ? plan.ownerEmail : '')}" onkeydown="if(event.key==='Enter')window.shSaveInlineEmailLead()" style="flex:1 1 180px;min-width:0;max-width:100%;box-sizing:border-box;padding:8px 10px;border:1px solid #D1D5DB;border-radius:8px;font-size:0.82rem;background:#FFFFFF;color:#1C1C1C;" aria-label="Email address to save seating plan" />
+            <button type="button" id="sh-inline-vault-save-btn" onclick="window.shSaveInlineEmailLead()" style="cursor:pointer;background:#00766C;color:#FFFFFF;border:1px solid #00766C;border-radius:8px;padding:8px 12px;font-size:0.79rem;font-weight:800;white-space:normal;max-width:100%;min-width:0;box-sizing:border-box;overflow-wrap:break-word;text-align:center;line-height:1.3;">Save &amp; Email My Seating Plan ($0)</button>
           </div>
-          <div style="display:flex;gap:6px;align-items:center;flex-wrap:wrap;">
-            <a id="sh-vault-buy-pack-btn" href="/buy/complete_dossier?target=estate-150&amp;vault=${vId}&amp;allow_promotion_codes=false" style="text-align:center;background:#1C1C1C;color:#FFFFFF;border:1px solid #1C1C1C;border-radius:8px;padding:8px 14px;font-size:0.82rem;font-weight:800;text-decoration:none;white-space:nowrap;">Unlock Event Print &amp; Day-Of Pack ($9) &rarr;</a>
+          <div style="display:flex;gap:6px;align-items:center;flex-wrap:wrap;max-width:100%;min-width:0;box-sizing:border-box;width:auto;">
+            <a id="sh-vault-buy-pack-btn" href="/buy/complete_dossier?target=estate-150&amp;vault=${vId}&amp;allow_promotion_codes=false" style="text-align:center;background:#1C1C1C;color:#FFFFFF;border:1px solid #1C1C1C;border-radius:8px;padding:8px 14px;font-size:0.82rem;font-weight:800;text-decoration:none;white-space:normal;max-width:100%;min-width:0;box-sizing:border-box;overflow-wrap:break-word;line-height:1.3;">Unlock Event Print &amp; Day-Of Pack ($9) &rarr;</a>
           </div>
         </div>
 
         <!-- Delta 5: Wedding Planner & Venue Coordinator Pro License ($29 Multi-Event White-Label Pass) -->
-        <div id="sh-planner-pro-dock-banner" style="display:flex;flex-wrap:wrap;align-items:center;justify-content:space-between;gap:8px;background:#FFFFFF;border:1px solid #E5E7EB;border-radius:8px;padding:7px 11px;">
-          <span style="font-size:0.77rem;font-weight:700;color:#1C1C1C;">&#10022; <strong>For Wedding Planners &amp; Venues:</strong> Unlimited Events + Custom Agency Logo on Client BEOs ($29 Pro Pass)</span>
-          <a id="sh-vault-buy-pro-btn" href="/buy/pro_b2b?target=estate-150&amp;vault=${vId}&amp;allow_promotion_codes=false" title="For Wedding Planners & Venues: Unlimited Events + Custom Agency Logo on Client BEOs ($29 Pro Pass)" style="background:#F0FDFA;color:#00766C;border:1px solid #00766C;border-radius:6px;padding:5px 11px;font-size:0.76rem;font-weight:800;text-decoration:none;white-space:nowrap;">For Wedding Planners &amp; Venues ($29 Pro Pass) &rarr;</a>
+        <div id="sh-planner-pro-dock-banner" style="display:flex;flex-wrap:wrap;align-items:center;justify-content:space-between;gap:8px;background:#FFFFFF;border:1px solid #E5E7EB;border-radius:8px;padding:7px 11px;max-width:100%;min-width:0;box-sizing:border-box;">
+          <span style="font-size:0.77rem;font-weight:700;color:#1C1C1C;min-width:0;max-width:100%;overflow-wrap:break-word;">&#10022; <strong>For Wedding Planners &amp; Venues:</strong> Unlimited Events + Custom Agency Logo on Client BEOs ($29 Pro Pass)</span>
+          <a id="sh-vault-buy-pro-btn" href="/buy/pro_b2b?target=estate-150&amp;vault=${vId}&amp;allow_promotion_codes=false" title="For Wedding Planners & Venues: Unlimited Events + Custom Agency Logo on Client BEOs ($29 Pro Pass)" style="background:#F0FDFA;color:#00766C;border:1px solid #00766C;border-radius:6px;padding:5px 11px;font-size:0.76rem;font-weight:800;text-decoration:none;white-space:normal;max-width:100%;min-width:0;box-sizing:border-box;overflow-wrap:break-word;text-align:center;line-height:1.3;">For Wedding Planners &amp; Venues ($29 Pro Pass) &rarr;</a>
         </div>
 
         <div id="sh-voc-survey-box" style="display:flex;flex-wrap:wrap;align-items:center;justify-content:space-between;gap:8px;border-top:1px solid #E5E7EB;padding-top:7px;">
