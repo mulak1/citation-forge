@@ -146,7 +146,7 @@ function renderZone3InteractiveStudio(plan) {
 
   return `
   <!-- ZONE 3: SCROLL-PACED 5-CARD BUILDER + STICKY LIVE STAGE (FOLD 3) -->
-  <section class="studio-zone-section" id="studio">
+  <section class="studio-zone-section" id="studio" style="scroll-margin-top:88px;padding-top:44px;">
     <div class="container">
       <span id="sh-studio-vault-code" style="display:none;">${vId}</span>
       <div style="display:none;"><span id="sh-endowed-progress-label">Setup</span><span id="sh-endowed-progress-fill"></span><span id="sh-btn-vault-id">${vId}</span></div>
@@ -421,26 +421,18 @@ function renderZone3InteractiveStudio(plan) {
       </div>
 
       <!-- Studio Deliverable Dock -->
-      <div id="sh-vault-checkout-bar" style="max-width:914px;margin:28px auto 0;background:#FFFFFF;border:1px solid #E5E0D8;border-radius:18px;padding:26px 28px;color:#1C1C1C;display:flex;flex-direction:column;gap:22px;box-shadow:0 10px 30px rgba(24,20,18,0.05);">
-        <!-- Top Row: Live Reception Preview & Sample Place Card -->
-        <div id="sh-live-personalized-proof" style="background:#FAF8F5;border:1px solid #EAE4DC;border-radius:14px;padding:18px 20px;display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:20px;align-items:center;">
-          <div style="min-width:0;display:flex;flex-direction:column;gap:6px;">
+      <div id="sh-vault-checkout-bar" style="max-width:914px;margin:28px auto 0;background:#FFFFFF;border:1px solid #E5E0D8;border-radius:18px;padding:26px 28px;color:#1C1C1C;display:flex;flex-direction:column;gap:20px;box-shadow:0 10px 30px rgba(24,20,18,0.05);">
+        <!-- Top Row: Clean Reception Summary (No Duplicate Columns or Blurred Text) -->
+        <div id="sh-live-personalized-proof" style="background:#FAF8F5;border:1px solid #EAE4DC;border-radius:14px;padding:16px 20px;display:flex;flex-wrap:wrap;align-items:center;justify-content:space-between;gap:14px;">
+          <div style="min-width:0;flex:1 1 340px;display:flex;flex-direction:column;gap:4px;">
             <div style="display:flex;align-items:center;gap:8px;flex-wrap:wrap;">
-              <span style="font-size:0.75rem;font-weight:700;color:#00766C;background:#F0FDFA;border:1px solid #CCFBF1;padding:3px 10px;border-radius:999px;">Live Seating &amp; Print Preview</span>
-              <span style="font-size:0.80rem;color:#57534E;font-weight:500;">Ready for local print shops</span>
+              <span style="font-size:0.75rem;font-weight:700;color:#00766C;background:#F0FDFA;border:1px solid #CCFBF1;padding:3px 10px;border-radius:999px;" id="sh-table1-preview-badge">Live Seating &amp; Print Preview</span>
+              <span style="font-size:0.80rem;color:#57534E;font-weight:500;" id="sh-table1-preview-status">Updates as you edit</span>
             </div>
-            <div style="font-size:1.05rem;font-weight:800;color:#1C1C1C;line-height:1.35;" id="sh-proof-couple-name">${escapeHtml(plan.title || "Maya & Liam's Estate Reception")} &middot; <span id="sh-proof-venue-name" style="font-weight:600;color:#57534E;">${escapeHtml(plan.venueName || 'Rosewood Conservatory')}</span></div>
-            <div style="font-size:0.88rem;color:#44403C;line-height:1.45;" id="sh-proof-table1-summary"><strong>Table 1 Preview:</strong> Seat #1: Maya &amp; Liam Vance &bull; Filet Mignon</div>
+            <div style="font-size:1.05rem;font-weight:800;color:#1C1C1C;line-height:1.35;margin-top:2px;" id="sh-proof-couple-name">${escapeHtml(plan.title || "Maya & Liam's Estate Reception")} &middot; <span id="sh-proof-venue-name" style="font-weight:600;color:#57534E;">${escapeHtml(plan.venueName || 'Rosewood Conservatory')}</span></div>
+            <div style="font-size:0.88rem;color:#44403C;line-height:1.45;" id="sh-proof-table1-summary"><strong>Table 1:</strong> Maya &amp; Liam Vance &bull; Filet Mignon &bull; 6 Allergy Notes</div>
           </div>
-          <div id="sh-table1-escort-dietary-preview" data-unmasked="0" style="background:#FFFFFF;border:1px dashed #00766C;border-radius:12px;padding:14px 16px;font-size:0.84rem;color:#1C1C1C;display:flex;flex-direction:column;gap:6px;">
-            <div style="display:flex;align-items:center;justify-content:space-between;gap:10px;flex-wrap:wrap;">
-              <span style="font-weight:800;color:#00766C;font-size:0.86rem;" id="sh-table1-preview-badge">Sample Place Card &amp; Meal Summary</span>
-              <span style="font-size:0.76rem;font-weight:600;color:#6B7280;" id="sh-table1-preview-status">Email your plan below to preview</span>
-            </div>
-            <div id="sh-table1-preview-body" style="filter:blur(3.5px);user-select:none;transition:filter 0.25s ease;font-size:0.84rem;color:#374151;line-height:1.45;">
-              <strong>Place Card #1:</strong> Maya &amp; Liam &bull; Table 1, Seat #1 &bull; Filet Mignon &bull; <strong>Dietary Notes:</strong> 1 Peanut Allergy, 1 Gluten-Free
-            </div>
-          </div>
+          <div id="sh-table1-escort-dietary-preview" data-unmasked="1" style="display:none;"><div id="sh-table1-preview-body"></div></div>
         </div>
 
         <!-- Middle Row: Save for Free ($0) or Unlock Full Print Pack ($9) -->

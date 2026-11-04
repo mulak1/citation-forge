@@ -722,11 +722,11 @@ function renderDeliverablesClientScript() {
     var pcEl = document.getElementById('sh-proof-couple-name');
     if (pcEl) pcEl.innerHTML = shEsc(coupleDisplay) + ' &middot; <span id="sh-proof-venue-name" style="font-weight:600;color:#57534E;">' + shEsc(venueDisplay) + '</span>';
     var ptEl = document.getElementById('sh-proof-table1-summary');
-    if (ptEl) ptEl.innerHTML = '<strong>' + shEsc(tbl1.name || 'Table 1') + ':</strong> Seat #1: ' + shEsc(g1.name) + ' (' + shEsc(g1.meal || 'Filet Mignon') + ') &amp; ' + shEsc(g2.name);
+    if (ptEl) ptEl.innerHTML = '<strong>' + shEsc(tbl1.name || 'Table 1') + ':</strong> Seat #1: ' + shEsc(g1.name) + ' (' + shEsc(g1.meal || 'Filet Mignon') + ') &amp; ' + shEsc(g2.name) + ' &bull; ' + (totalAllergies || 2) + ' Allergy Notes';
     var wSign = document.getElementById('shw-proof-sign-line');
     if (wSign) wSign.innerHTML = '24&Prime;&times;36&Prime; Sign: <strong>' + shEsc(coupleDisplay) + '</strong> &middot; ' + shEsc(venueDisplay);
     var wTbl1 = document.getElementById('shw-proof-table1-line');
-    if (wTbl1) wTbl1.innerHTML = 'Table 1 BEO: Seat #1 (12:00): ' + shEsc(g1.name) + ' &amp; ' + shEsc(g2.name) + ' &bull; ' + (totalAllergies || 2) + ' Allergies Flagged';
+    if (wTbl1) wTbl1.innerHTML = 'Table 1: Seat #1: ' + shEsc(g1.name) + ' &amp; ' + shEsc(g2.name) + ' &bull; ' + (totalAllergies || 2) + ' Allergy Notes';
     var savedEmail = '';
     try { savedEmail = localStorage.getItem('sh_saved_email') || ''; } catch (_) {}
     if (!savedEmail && st.ownerEmail && st.ownerEmail.indexOf('@') > 0 && !/^(test|vip)@/i.test(st.ownerEmail)) savedEmail = st.ownerEmail;
@@ -737,16 +737,14 @@ function renderDeliverablesClientScript() {
     var prevBody = document.getElementById('sh-table1-preview-body');
     if (prevBody) {
       prevBody.innerHTML = '<strong>Place Card #1:</strong> ' + shEsc(g1.name) + ' &amp; ' + shEsc(g2.name) + ' &bull; Table 1, Seat #1 &bull; ' + shEsc(g1.meal || 'Filet Mignon') + ' &bull; <strong>Dietary Notes:</strong> ' + (totalAllergies || 2) + ' Allergy Notes' + (totalGluten ? ' (' + totalGluten + ' Gluten-Free)' : '');
-      prevBody.style.filter = isUnmasked ? 'none' : 'blur(3.5px)';
-      prevBody.style.userSelect = isUnmasked ? 'auto' : 'none';
+      prevBody.style.filter = 'none';
+      prevBody.style.userSelect = 'auto';
     }
     if (prevBox) {
       prevBox.setAttribute('data-unmasked', isUnmasked ? '1' : '0');
-      prevBox.style.borderStyle = isUnmasked ? 'solid' : 'dashed';
-      prevBox.style.background = isUnmasked ? '#F0FDFA' : '#FFFFFF';
     }
-    if (prevBadge) prevBadge.innerHTML = isUnmasked ? '&#10003; Table 1 Place Card &amp; Meal Summary' : 'Sample Place Card &amp; Meal Summary';
-    if (prevStatus) prevStatus.textContent = isUnmasked ? (savedEmail ? ('Saved to ' + savedEmail) : 'Saved') : 'Email your plan below to preview';
+    if (prevBadge) prevBadge.innerHTML = isUnmasked ? '&#10003; Saved Seating &amp; Print Preview' : 'Live Seating &amp; Print Preview';
+    if (prevStatus) prevStatus.textContent = isUnmasked ? (savedEmail ? ('Saved to ' + savedEmail) : 'Saved') : 'Ready for local print shops';
   };
 
   window.shGateOrExportBeoCsv = function(mode) {
