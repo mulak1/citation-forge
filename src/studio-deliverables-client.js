@@ -495,9 +495,14 @@ function renderDeliverablesClientScript() {
     if (!posterEl || !window.__SH_STATE) return;
     const themeKey = window.__SH_POSTER_THEME || window.__SH_STATE.posterTheme || 'alabaster', tSpec = SH_POSTER_THEMES[themeKey] || SH_POSTER_THEMES.alabaster;
     const bg = tSpec.bg, fg = tSpec.fg, sub = tSpec.sub, borderCol = tSpec.borderCol;
-    const rawMono = String(window.__SH_SIGN_MONOGRAM || window.__SH_STATE.signMonogram || '').trim(), partsMono = rawMono.split('·');
-    const initials = (partsMono[0] && partsMono[0].trim()) || shComputeCoupleMonogram(window.__SH_STATE.title);
-    const monoSub = (partsMono[1] && partsMono[1].trim()) || 'EST. 2026';
+    const rawMono = String(window.__SH_SIGN_MONOGRAM || window.__SH_STATE.signMonogram || '').trim(), partsMono = rawMono.split(/\s*(?:·|•|\|)\s*/).filter(Boolean);
+    let initials = (partsMono[0] && partsMono[0].trim()) || shComputeCoupleMonogram(window.__SH_STATE.title);
+    let monoSub = (partsMono.length > 1 && partsMono.slice(1).join(' · ').trim()) || 'EST. 2026';
+    if (partsMono.length === 1) {
+      const mEst = initials.match(/^(.+?)\s+(EST\.?\s*\d{2,4}.*)$/i);
+      if (mEst) { initials = mEst[1].replace(/[-–—]+$/, '').trim() || shComputeCoupleMonogram(window.__SH_STATE.title); monoSub = mEst[2].trim(); }
+    }
+    const initFontRem = initials.length > 5 ? '0.82rem' : (initials.length > 3 ? '1.02rem' : '1.22rem');
     const kickerText = window.__SH_SIGN_KICKER || window.__SH_STATE.signKicker || 'Please Find Your Seat';
     const kInp = document.getElementById('sh-inline-sign-kicker'); if (kInp && document.activeElement !== kInp) kInp.value = kickerText;
     const vInp = document.getElementById('sh-inline-sign-venue'); if (vInp && document.activeElement !== vInp) vInp.value = window.__SH_STATE.venueName || '';
@@ -514,7 +519,7 @@ function renderDeliverablesClientScript() {
     }
     const posterCrestHtml = logoUrl
       ? '<img src="' + shEsc(logoUrl) + '" alt="Couple Crest" style="width:100%;height:100%;object-fit:contain;background:#FFFFFF;padding:4px;" />'
-      : '<div id="sh-live-sign-monogram" style="display:flex;flex-direction:column;align-items:center;justify-content:center;line-height:1;"><span class="serif-display" style="font-size:1.22rem;font-weight:800;color:' + tSpec.badgeFg + ';letter-spacing:0.04em;">' + shEsc(initials) + '</span><span class="mono" style="font-size:0.44rem;font-weight:800;color:' + tSpec.badgeFg + ';opacity:0.85;letter-spacing:0.10em;margin-top:2px;">' + shEsc(monoSub) + '</span></div>';
+      : '<div id="sh-live-sign-monogram" style="display:flex;flex-direction:column;align-items:center;justify-content:center;line-height:1;max-width:100%;overflow:hidden;padding:3px;"><span class="serif-display" style="font-size:' + initFontRem + ';font-weight:800;color:' + tSpec.badgeFg + ';letter-spacing:0.04em;max-width:100%;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;">' + shEsc(initials) + '</span><span class="mono" style="font-size:0.44rem;font-weight:800;color:' + tSpec.badgeFg + ';opacity:0.85;letter-spacing:0.10em;margin-top:2px;max-width:100%;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;">' + shEsc(monoSub) + '</span></div>';
     const showMap = window.__SH_POSTER_SHOW_MAP !== false && (!window.__SH_STATE || window.__SH_STATE.posterShowMap !== false);
     const mapBtn = document.getElementById('sh-poster-map-toggle');
     if (mapBtn) { mapBtn.classList.toggle('active', showMap); mapBtn.innerHTML = '&#128506; Mini Layout: ' + (showMap ? 'ON' : 'OFF'); }

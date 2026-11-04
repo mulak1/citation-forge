@@ -20,14 +20,31 @@ function normalizeVaultId(raw) {
 }
 
 function computeMonogram(title) {
-  const clean = String(title || "Maya & Liam's Reception").replace(/['’]s.*$/i, '').trim();
+  const clean = String(title || "Maya & Liam's Reception").split(/\s*[·•|]\s*/)[0].replace(/\s+EST\.?\s*\d{4}.*$/i, '').replace(/['’]s.*$/i, '').trim();
   const parts = clean.split(/\s*(?:&|and|\+|x)\s*/i).filter(Boolean);
   if (parts.length >= 2) {
     return ((parts[0][0] || 'M') + '&' + (parts[1][0] || 'L')).toUpperCase();
   }
   const words = clean.split(/\s+/).filter(Boolean);
   if (words.length >= 2) return ((words[0][0] || 'S') + (words[1][0] || 'H')).toUpperCase();
-  return (clean.slice(0, 2) || 'SH').toUpperCase();
+  return (clean.slice(0, 3) || 'SH').toUpperCase();
+}
+
+function parseMonogramParts(rawMonogram, title) {
+  const fallbackInitials = computeMonogram(title);
+  const raw = String(rawMonogram || '').trim();
+  if (!raw) {
+    return { initials: fallbackInitials, sub: 'EST. 2026', raw: `${fallbackInitials} · EST. 2026` };
+  }
+  const parts = raw.split(/\s*(?:·|•|\|)\s*/).filter(Boolean);
+  if (parts.length >= 2) {
+    return { initials: parts[0].trim() || fallbackInitials, sub: parts.slice(1).join(' · ').trim() || 'EST. 2026', raw };
+  }
+  const estMatch = raw.match(/^(.+?)\s+(EST\.?\s*\d{2,4}.*)$/i);
+  if (estMatch) {
+    return { initials: estMatch[1].replace(/[-–—]+$/, '').trim() || fallbackInitials, sub: estMatch[2].trim(), raw };
+  }
+  return { initials: raw, sub: 'EST. 2026', raw };
 }
 
 async function resolveVaultRecord(rawVaultId, query = {}) {
@@ -510,7 +527,11 @@ function attachVaultAndPaywallRoutes(app, publicUrl, ebStore = null) {
       const guests = extractAllSeatedGuests(vault.state).sort((a, b) => a.lastName.localeCompare(b.lastName));
       const tables = Array.isArray(vault.state.tables) ? vault.state.tables : [];
       const landmarks = Array.isArray(vault.state.landmarks) ? vault.state.landmarks : [];
-      const monogram = String(req.query.monogram || (vault.state && vault.state.signMonogram) || computeMonogram(vault.title)).trim();
+      const monoParts = parseMonogramParts(req.query.monogram || (vault.state && vault.state.signMonogram), vault.title);
+      const monogram = monoParts.initials;
+      const monogramSub = monoParts.sub;
+      const monogramInputVal = monoParts.raw;
+      const monoFontRem = monogram.length > 5 ? '0.95rem' : (monogram.length > 3 ? '1.22rem' : '1.52rem');
       const qrImgUrl = buildInlineQrDataUri(urls.qr_lookup);
 
       const POSTER_THEMES = {
@@ -554,8 +575,9 @@ function attachVaultAndPaywallRoutes(app, publicUrl, ebStore = null) {
         `).join('');
       }
 
+      const extraPosterQs = `&kicker=${encodeURIComponent(customKicker)}&monogram=${encodeURIComponent(monogramInputVal)}`;
       const themePillsHtml = Object.keys(POSTER_THEMES).map(k =>
-        `<a href="${urls.print_poster}?sort=${encodeURIComponent(sortMode)}&theme=${k}&map=${showMap ? '1' : '0'}" style="padding:5px 10px;border-radius:999px;font-size:0.72rem;font-weight:800;text-decoration:none;white-space:nowrap;${theme === k ? 'background:#FAF3E3;color:#8C2D19;border:1.5px solid #8C2D19;' : 'background:#FAF6EE;color:#44403C;border:1px solid #E2D9C8;'}" title="${escapeHtml(POSTER_THEMES[k].label)}">${escapeHtml(POSTER_THEMES[k].short)}</a>`
+        `<a href="${urls.print_poster}?sort=${encodeURIComponent(sortMode)}&theme=${k}&map=${showMap ? '1' : '0'}${extraPosterQs}" style="padding:5px 10px;border-radius:999px;font-size:0.72rem;font-weight:800;text-decoration:none;white-space:nowrap;${theme === k ? 'background:#FAF3E3;color:#8C2D19;border:1.5px solid #8C2D19;' : 'background:#FAF6EE;color:#44403C;border:1px solid #E2D9C8;'}" title="${escapeHtml(POSTER_THEMES[k].label)}">${escapeHtml(POSTER_THEMES[k].short)}</a>`
       ).join('');
       let minX = 1120, maxX = 0, minY = 9999, maxY = 0;
       tables.forEach(tb => { const tx = tb.x || 250, ty = tb.y || 200; if (tx - 115 < minX) minX = tx - 115; if (tx + 115 > maxX) maxX = tx + 115; if (ty - 95 < minY) minY = ty - 95; if (ty + 95 > maxY) maxY = ty + 95; });
@@ -570,7 +592,7 @@ function attachVaultAndPaywallRoutes(app, publicUrl, ebStore = null) {
         const labelNode = isSw ? `<text x="${tx}" y="${ty - 2}" text-anchor="middle" fill="${fg}" class="serif" font-size="24" font-style="italic">Sweetheart</text><text x="${tx}" y="${ty + 17}" text-anchor="middle" fill="${sub}" font-size="12.5" font-weight="800">TABLE 1 &middot; ${(t.guests || []).length} SEATS</text>` : `<text x="${tx}" y="${ty - 17}" text-anchor="middle" fill="${sub}" font-size="11.5" font-weight="800" letter-spacing="0.16em">TABLE</text><text x="${tx}" y="${ty + 12}" text-anchor="middle" fill="${fg}" class="serif" font-size="38">${num}</text><text x="${tx}" y="${ty + 29}" text-anchor="middle" fill="${sub}" font-size="12.5" font-weight="700">${(t.guests || []).length} Guests</text>`;
         return `${shapeNode}${labelNode}`;
       }).join('');
-      const posterMiniMapBlock = `<div id="poster-mini-map-wrap" style="display:${showMap ? 'block' : 'none'};margin:0 0 24px;padding:0 0 18px;border-bottom:1.5px solid ${border};background:transparent;"><div class="mono" style="display:flex;justify-content:space-between;align-items:center;margin-bottom:6px;font-size:0.70rem;font-weight:800;letter-spacing:0.14em;color:${sub};"><span>&#10022; RECEPTION TABLE LAYOUT (${tables.length} TABLES)</span><span>FIND YOUR NAME BELOW &rarr; LOCATE YOUR TABLE</span></div><svg viewBox="${vx} ${vy} ${vw} ${vh}" style="width:100%;max-height:380px;height:auto;display:block;background:transparent;border:none;">${lmSvg}${tblSvg}</svg></div>`;
+      const posterMiniMapBlock = `<div id="poster-mini-map-wrap" style="display:${showMap ? 'block' : 'none'};margin:0 0 24px;padding:0 0 18px;border-bottom:1.5px solid ${border};background:transparent;"><div class="mono poster-mini-map-header" style="display:flex;justify-content:space-between;align-items:center;gap:8px;flex-wrap:wrap;margin-bottom:6px;font-size:0.70rem;font-weight:800;letter-spacing:0.14em;color:${sub};"><span>&#10022; RECEPTION TABLE LAYOUT (${tables.length} TABLES)</span><span>FIND YOUR NAME BELOW &rarr; LOCATE YOUR TABLE</span></div><svg viewBox="${vx} ${vy} ${vw} ${vh}" preserveAspectRatio="xMidYMid meet" style="width:100%;max-height:380px;height:auto;display:block;background:transparent;border:none;">${lmSvg}${tblSvg}</svg></div>`;
 
       const buyPackUrl = `/buy/complete_dossier?target=${encodeURIComponent(vault.title || vault.vaultId)}&vault=${encodeURIComponent(vault.vaultId)}${vault.ownerEmail ? `&email=${encodeURIComponent(vault.ownerEmail)}` : ''}`;
       const proofWatermarkHtml = vault.isUnlocked ? '' : `<div class="proof-wm" aria-hidden="true"><span>PREVIEW PROOF &bull; UNLOCK 300-DPI PRINT PACK ($14.99) AT SEATHARMONY.COM</span></div>`;
@@ -586,6 +608,9 @@ function attachVaultAndPaywallRoutes(app, publicUrl, ebStore = null) {
     .serif { font-family: 'Cormorant Garamond', Georgia, serif; font-weight: 700; }
     .mono { font-family: 'JetBrains Mono', monospace; }
     .poster-sheet { max-width: 960px; min-height: 1380px; margin: 20px auto 48px; background: ${bg}; color: ${fg}; border: 3px double ${border}; padding: 48px 44px; position: relative; box-shadow: 0 22px 54px rgba(24,20,18,0.10); display: flex; flex-direction: column; justify-content: space-between; overflow: hidden; }
+    .poster-header-row { display: flex; align-items: center; justify-content: space-between; gap: 18px; border-bottom: 2px solid ${border}; padding-bottom: 22px; margin-bottom: 26px; }
+    .poster-header-left { display: flex; align-items: center; gap: 16px; min-width: 0; flex: 1; }
+    .poster-guest-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 22px; }
     .crop-mark { position: absolute; width: 18px; height: 18px; border-color: ${border}; pointer-events: none; }
     .crop-tl { top: 10px; left: 10px; border-top: 2px solid ${border}; border-left: 2px solid ${border}; }
     .crop-tr { top: 10px; right: 10px; border-top: 2px solid ${border}; border-right: 2px solid ${border}; }
@@ -593,12 +618,20 @@ function attachVaultAndPaywallRoutes(app, publicUrl, ebStore = null) {
     .crop-br { bottom: 10px; right: 10px; border-bottom: 2px solid ${border}; border-right: 2px solid ${border}; }
     .proof-wm { display: none; position: absolute; inset: 0; pointer-events: none; align-items: center; justify-content: center; z-index: 50; }
     .proof-wm span { transform: rotate(-32deg); font-family: 'JetBrains Mono', monospace; font-size: 1.55rem; font-weight: 800; letter-spacing: 0.14em; color: rgba(140,45,25,0.22); border: 3px dashed rgba(140,45,25,0.28); padding: 18px 28px; border-radius: 14px; text-align: center; }
+    @media screen and (max-width: 760px) {
+      .poster-sheet { margin: 12px 10px 32px; padding: 24px 18px; min-height: auto; }
+      .poster-header-row { flex-direction: column; align-items: stretch; gap: 14px; }
+      .poster-header-left { width: 100%; align-items: flex-start; gap: 12px; }
+      .poster-guest-grid { grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 14px; }
+      #poster-live-h1 { font-size: clamp(1.65rem, 6vw, 2.4rem) !important; }
+    }
     @media print {
       @page { size: 24in 36in; margin: 0; }
       body { background: ${bg}; }
       .no-print { display: none !important; }
       .proof-wm { display: flex !important; }
       .poster-sheet { margin: 0; max-width: none; width: 100%; min-height: 100vh; box-shadow: none; }
+      .poster-guest-grid { grid-template-columns: repeat(3, 1fr) !important; }
     }
   </style>
 </head>
@@ -608,8 +641,8 @@ function attachVaultAndPaywallRoutes(app, publicUrl, ebStore = null) {
     <div style="display:flex;justify-content:space-between;align-items:center;gap:8px;flex-wrap:wrap;">
       <div style="display:flex;gap:5px;flex-wrap:wrap;align-items:center;">
         <span class="mono" style="font-size:0.68rem;color:#8C2D19;font-weight:800;white-space:nowrap;">SORT:</span>
-        <a href="${urls.print_poster}?sort=alphabetical&theme=${encodeURIComponent(theme)}&map=${showMap ? '1' : '0'}" style="padding:5px 10px;border-radius:999px;font-size:0.72rem;font-weight:800;text-decoration:none;white-space:nowrap;${sortMode !== 'by_table' ? 'background:#FAF3E3;color:#8C2D19;border:1.5px solid #8C2D19;' : 'background:#FAF6EE;color:#44403C;border:1px solid #E2D9C8;'}">Sort A-Z</a>
-        <a href="${urls.print_poster}?sort=by_table&theme=${encodeURIComponent(theme)}&map=${showMap ? '1' : '0'}" style="padding:5px 10px;border-radius:999px;font-size:0.72rem;font-weight:800;text-decoration:none;white-space:nowrap;${sortMode === 'by_table' ? 'background:#FAF3E3;color:#8C2D19;border:1.5px solid #8C2D19;' : 'background:#FAF6EE;color:#44403C;border:1px solid #E2D9C8;'}">By Table (1..${tables.length})</a>
+        <a href="${urls.print_poster}?sort=alphabetical&theme=${encodeURIComponent(theme)}&map=${showMap ? '1' : '0'}${extraPosterQs}" style="padding:5px 10px;border-radius:999px;font-size:0.72rem;font-weight:800;text-decoration:none;white-space:nowrap;${sortMode !== 'by_table' ? 'background:#FAF3E3;color:#8C2D19;border:1.5px solid #8C2D19;' : 'background:#FAF6EE;color:#44403C;border:1px solid #E2D9C8;'}">Sort A-Z</a>
+        <a href="${urls.print_poster}?sort=by_table&theme=${encodeURIComponent(theme)}&map=${showMap ? '1' : '0'}${extraPosterQs}" style="padding:5px 10px;border-radius:999px;font-size:0.72rem;font-weight:800;text-decoration:none;white-space:nowrap;${sortMode === 'by_table' ? 'background:#FAF3E3;color:#8C2D19;border:1.5px solid #8C2D19;' : 'background:#FAF6EE;color:#44403C;border:1px solid #E2D9C8;'}">By Table (1..${tables.length})</a>
         <button type="button" onclick="var m=document.getElementById('poster-mini-map-wrap');var on=m.style.display==='none';m.style.display=on?'block':'none';this.textContent='🗺 Mini Layout: '+(on?'ON':'OFF');" style="padding:5px 10px;border-radius:999px;font-size:0.72rem;font-weight:800;cursor:pointer;background:#FAF3E3;color:#8C2D19;border:1.5px solid #8C2D19;">&#128506; Mini Layout: ${showMap ? 'ON' : 'OFF'}</button>
         <span class="mono" style="font-size:0.68rem;color:#8C2D19;font-weight:800;margin-left:4px;white-space:nowrap;">THEMES:</span>
         ${themePillsHtml}
@@ -625,26 +658,48 @@ function attachVaultAndPaywallRoutes(app, publicUrl, ebStore = null) {
         <input type="text" value="${escapeHtml(customKicker)}" oninput="document.getElementById('poster-live-h1').textContent=this.value||'Please Find Your Seat'" style="padding:4px 8px;border-radius:6px;border:1px solid #C8A96E;background:#FAF6EE;color:#181412;font-weight:700;width:190px;" />
       </label>
       <label style="display:flex;align-items:center;gap:6px;white-space:nowrap;font-weight:700;">Crest:
-        <input type="text" value="${escapeHtml(monogram)}" oninput="document.getElementById('poster-live-mono').textContent=this.value||'M&L'" style="padding:4px 8px;border-radius:6px;border:1px solid #C8A96E;background:#FAF6EE;color:#8C2D19;font-weight:800;width:80px;" />
+        <input type="text" value="${escapeHtml(monogramInputVal)}" oninput="window.updatePosterCrest(this.value)" style="padding:4px 8px;border-radius:6px;border:1px solid #C8A96E;background:#FAF6EE;color:#8C2D19;font-weight:800;width:145px;" />
       </label>
       <label style="display:flex;align-items:center;gap:6px;white-space:nowrap;font-weight:700;">Subtitle:
         <input type="text" value="${escapeHtml(vault.title)} · ${escapeHtml(vault.venueName)}" oninput="document.getElementById('poster-live-sub').textContent=this.value" style="padding:4px 8px;border-radius:6px;border:1px solid #C8A96E;background:#FAF6EE;color:#181412;font-weight:600;width:270px;" />
       </label>
     </div>
   </div>
+  <script>
+    window.updatePosterCrest = function(rawVal) {
+      var raw = String(rawVal || '').trim();
+      var parts = raw.split(/\\s*(?:·|•|\\|)\\s*/).filter(Boolean);
+      var initStr = 'M&L', subStr = 'EST. 2026';
+      if (parts.length >= 2) {
+        initStr = parts[0].trim() || 'M&L';
+        subStr = parts.slice(1).join(' · ').trim() || 'EST. 2026';
+      } else if (raw) {
+        var m = raw.match(/^(.+?)\\s+(EST\\.?\\s*\\d{2,4}.*)$/i);
+        if (m) { initStr = m[1].replace(/[-–—]+$/, '').trim() || 'M&L'; subStr = m[2].trim(); }
+        else { initStr = raw; }
+      }
+      var mEl = document.getElementById('poster-live-mono');
+      var sEl = document.getElementById('poster-live-est');
+      if (mEl) {
+        mEl.textContent = initStr;
+        mEl.style.fontSize = initStr.length > 5 ? '0.95rem' : (initStr.length > 3 ? '1.22rem' : '1.52rem');
+      }
+      if (sEl) sEl.textContent = subStr;
+    };
+  </script>
 
   <div class="poster-sheet">
     ${proofWatermarkHtml}
     <div class="crop-mark crop-tl"></div><div class="crop-mark crop-tr"></div>
     <div class="crop-mark crop-bl"></div><div class="crop-mark crop-br"></div>
     <div>
-      <div style="display:flex;align-items:center;justify-content:space-between;gap:18px;border-bottom:2px solid ${border};padding-bottom:22px;margin-bottom:26px;">
-        <div style="display:flex;align-items:center;gap:16px;">
-          <div style="width:74px;height:74px;border-radius:16px;background:${theme === 'obsidian' ? '#181412' : '#FAF3E3'};border:2px solid ${border};color:${theme === 'obsidian' ? '#FDE68A' : accent};display:flex;flex-direction:column;align-items:center;justify-content:center;flex-shrink:0;">
-            <span id="poster-live-mono" class="serif" style="font-size:1.65rem;line-height:1;">${escapeHtml(monogram)}</span>
-            <span class="mono" style="font-size:0.52rem;color:${theme === 'obsidian' ? '#C8A96E' : sub};margin-top:3px;">EST. 2026</span>
+      <div class="poster-header-row">
+        <div class="poster-header-left">
+          <div style="width:74px;height:74px;padding:6px;border-radius:16px;background:${theme === 'obsidian' ? '#181412' : '#FAF3E3'};border:2px solid ${border};color:${theme === 'obsidian' ? '#FDE68A' : accent};display:flex;flex-direction:column;align-items:center;justify-content:center;flex-shrink:0;overflow:hidden;text-align:center;">
+            <span id="poster-live-mono" class="serif" style="font-size:${monoFontRem};line-height:1;max-width:100%;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;">${escapeHtml(monogram)}</span>
+            <span id="poster-live-est" class="mono" style="font-size:0.50rem;line-height:1.1;color:${theme === 'obsidian' ? '#C8A96E' : sub};margin-top:4px;max-width:100%;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;">${escapeHtml(monogramSub)}</span>
           </div>
-          <div>
+          <div style="min-width:0;flex:1;">
             <div class="mono" style="font-size:0.74rem;letter-spacing:0.16em;text-transform:uppercase;color:${accent};font-weight:800;">
               WELCOME TO THE RECEPTION &bull; ${escapeHtml(tSpec.label.toUpperCase())}
             </div>
@@ -658,7 +713,7 @@ function attachVaultAndPaywallRoutes(app, publicUrl, ebStore = null) {
         </div>
       </div>
       ${posterMiniMapBlock}
-      <div style="display:grid;grid-template-columns:repeat(3, 1fr);gap:22px;">${bodyGridHtml}</div>
+      <div class="poster-guest-grid">${bodyGridHtml}</div>
     </div>
     <div style="margin-top:32px;padding-top:14px;border-top:1.5px solid ${border};display:flex;justify-content:space-between;align-items:center;font-size:0.74rem;color:${sub};">
       <span>${escapeHtml(vault.title)} &bull; ${guests.length} Seated Guests Across ${tables.length} Tables</span>
