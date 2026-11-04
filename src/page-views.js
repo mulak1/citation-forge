@@ -426,19 +426,19 @@ function renderZone3InteractiveStudio(plan) {
         <div id="sh-live-personalized-proof" style="background:#FFFFFF;border:1px solid #E5E7EB;border-radius:10px;padding:10px 12px;display:flex;flex-wrap:wrap;align-items:center;justify-content:space-between;gap:10px;">
           <div style="min-width:0;flex:1 1 260px;">
             <div style="display:flex;align-items:center;gap:6px;flex-wrap:wrap;margin-bottom:3px;">
-              <span style="font-size:0.68rem;font-weight:800;letter-spacing:0.06em;text-transform:uppercase;color:#00766C;background:#F0FDFA;border:1px solid #CCFBF1;padding:2px 7px;border-radius:999px;">LIVE PERSONALIZED PROOF &bull; TRY BEFORE YOU BUY</span>
-              <span style="font-size:0.73rem;color:#4B5563;font-weight:600;">Saves 6+ hrs at FedEx/Canva</span>
+              <span style="font-size:0.68rem;font-weight:700;color:#00766C;background:#F0FDFA;border:1px solid #CCFBF1;padding:2px 7px;border-radius:999px;">Live Seating &amp; Print Preview</span>
+              <span style="font-size:0.73rem;color:#4B5563;font-weight:600;">Ready for FedEx Office or Staples</span>
             </div>
             <div style="font-size:0.86rem;font-weight:800;color:#1C1C1C;" id="sh-proof-couple-name">${escapeHtml(plan.title || "Maya & Liam's Estate Reception")} &middot; <span id="sh-proof-venue-name" style="font-weight:600;color:#4B5563;">${escapeHtml(plan.venueName || 'Rosewood Conservatory')}</span></div>
-            <div style="font-size:0.78rem;color:#374151;margin-top:2px;" id="sh-proof-table1-summary"><strong>Welcome Sign &amp; BEO Specimen (Table 1):</strong> Seat #1 (12:00 Anchor): Maya &amp; Liam Vance &bull; Filet Mignon &bull; 300-DPI Vector Ready</div>
+            <div style="font-size:0.78rem;color:#374151;margin-top:2px;" id="sh-proof-table1-summary"><strong>Table 1 Preview:</strong> Seat #1: Maya &amp; Liam Vance &bull; Filet Mignon</div>
           </div>
           <div id="sh-table1-escort-dietary-preview" data-unmasked="0" style="background:#F8F7F4;border:1px dashed #00766C;border-radius:8px;padding:8px 11px;font-size:0.76rem;color:#1C1C1C;flex:1 1 250px;max-width:420px;">
             <div style="display:flex;align-items:center;justify-content:space-between;gap:6px;margin-bottom:2px;">
-              <span style="font-weight:800;color:#00766C;" id="sh-table1-preview-badge">&#128274; Sample Table 1 Escort Card &amp; Dietary Summary</span>
-              <span style="font-size:0.68rem;font-weight:700;color:#6B7280;" id="sh-table1-preview-status">Enter $0 email below to unmask</span>
+              <span style="font-weight:800;color:#00766C;" id="sh-table1-preview-badge">Sample Place Card &amp; Allergy Summary</span>
+              <span style="font-size:0.68rem;font-weight:700;color:#6B7280;" id="sh-table1-preview-status">Email your plan below to preview</span>
             </div>
             <div id="sh-table1-preview-body" style="filter:blur(3.5px);user-select:none;transition:filter 0.25s ease;font-size:0.74rem;color:#374151;">
-              <strong>Escort Card #1:</strong> Maya &amp; Liam &bull; Tbl 1, Seat #1 (12:00) &bull; &#9670; Filet / &#9679; Halibut &bull; <strong>Dietary Summary:</strong> 1 Peanut Allergy, 1 Gluten-Free flagged for Kitchen
+              <strong>Place Card #1:</strong> Maya &amp; Liam &bull; Table 1, Seat #1 &bull; &#9670; Filet / &#9679; Halibut &bull; <strong>Allergies:</strong> 1 Peanut Allergy, 1 Gluten-Free
             </div>
           </div>
         </div>

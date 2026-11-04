@@ -7,7 +7,7 @@ const SHOWCASE_SLIDES = [
     badge: 'DELIVERABLE 1 OF 5 · 300-DPI ARCH D PDF',
     title: '24"×36" Reception Welcome Sign Studio',
     annotations: [
-      { num: '1', title: '6 Print Themes (0.125" Bleed)' },
+      { num: '1', title: '6 Wedding Color Themes' },
       { num: '2', title: '1-Click A–Z or By-Table Sort' },
       { num: '3', title: 'Monogram & Scannable QR Crest' }
     ],
@@ -15,11 +15,11 @@ const SHOWCASE_SLIDES = [
     routeHref: (vId) => `/print/poster/${encodeURIComponent(vId)}?theme=alabaster`,
     ctaText: 'Open Live 24"×36" Studio ↗',
     imgSrc: '/public/showcase-poster-24x36.png?v=light3',
-    imgAlt: 'SeatHarmony 24x36 Arch D Reception Welcome Sign Studio in Parisian Gold & Alabaster theme',
+    imgAlt: 'SeatHarmony 24x36 Reception Welcome Sign Studio in Parisian Gold & Alabaster theme',
     pins: [
       { num: '1', text: '1-Click A-Z / By-Table & Theme Switcher', style: 'top: 6%; left: 4%;' },
       { num: '2', text: 'Embedded Cocktail-Hour Seat Map QR', style: 'top: 22%; right: 6%;' },
-      { num: '3', text: '300-DPI Arch D Vector Columns (0.125" Bleed)', style: 'bottom: 6%; right: 6%;' }
+      { num: '3', text: 'Multi-Column Reception Guest List', style: 'bottom: 6%; right: 6%;' }
     ]
   },
   {
@@ -49,18 +49,18 @@ const SHOWCASE_SLIDES = [
     badge: 'DELIVERABLE 3 OF 5 · FOLDED TENT CARDS',
     title: 'Avery 5302 Meal-Coded Tent Place Cards',
     annotations: [
-      { num: '1', title: '180° Server Back-Fold Notes' },
+      { num: '1', title: 'Server Meal Notes on Back' },
       { num: '2', title: 'Meal Icons (◆ Beef · ● Fish · ▲ Vegan)' },
-      { num: '3', title: 'Exact Table & Clockwise Chair #' }
+      { num: '3', title: 'Exact Table & Chair #' }
     ],
     urlText: 'seatharmony.io/print/avery-5302/SH-4819',
     routeHref: (vId) => `/print/avery-5302/${encodeURIComponent(vId)}`,
-    ctaText: 'Open Live Avery 5302 Sheet ↗',
+    ctaText: 'Open Live Place Cards Sheet ↗',
     imgSrc: '/public/showcase-avery-5302.png?v=light3',
-    imgAlt: 'SeatHarmony Avery 5302 Folded Tent Place Cards Print Sheet with 180-degree rotated server allergy back fold',
+    imgAlt: 'SeatHarmony Folded Tent Place Cards Print Sheet with server allergy back fold',
     pins: [
-      { num: '1', text: '180° Rotated Server Back-Fold (Allergy & Seat #)', style: 'top: 25%; right: 5%;' },
-      { num: '2', text: 'Guest-Facing Monogram & Geometric Meal Symbol', style: 'top: 47%; right: 5%;' },
+      { num: '1', text: 'Server Notes on Back of Card (Allergy & Seat #)', style: 'top: 25%; right: 5%;' },
+      { num: '2', text: 'Guest-Facing Monogram & Meal Symbol', style: 'top: 47%; right: 5%;' },
       { num: '3', text: 'Red Kitchen Alert Printed on Back of Card', style: 'bottom: 12%; right: 5%;' }
     ]
   },

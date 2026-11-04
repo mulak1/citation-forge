@@ -595,12 +595,12 @@ function attachVaultAndPaywallRoutes(app, publicUrl, ebStore = null) {
       const posterMiniMapBlock = `<div id="poster-mini-map-wrap" style="display:${showMap ? 'block' : 'none'};margin:0 0 24px;padding:0 0 18px;border-bottom:1.5px solid ${border};background:transparent;"><div class="mono poster-mini-map-header" style="display:flex;justify-content:space-between;align-items:center;gap:8px;flex-wrap:wrap;margin-bottom:6px;font-size:0.70rem;font-weight:800;letter-spacing:0.14em;color:${sub};"><span>&#10022; RECEPTION TABLE LAYOUT (${tables.length} TABLES)</span><span>FIND YOUR NAME BELOW &rarr; LOCATE YOUR TABLE</span></div><svg viewBox="${vx} ${vy} ${vw} ${vh}" preserveAspectRatio="xMidYMid meet" style="width:100%;max-height:380px;height:auto;display:block;background:transparent;border:none;">${lmSvg}${tblSvg}</svg></div>`;
 
       const buyPackUrl = `/buy/complete_dossier?target=${encodeURIComponent(vault.title || vault.vaultId)}&vault=${encodeURIComponent(vault.vaultId)}${vault.ownerEmail ? `&email=${encodeURIComponent(vault.ownerEmail)}` : ''}`;
-      const proofWatermarkHtml = vault.isUnlocked ? '' : `<div class="proof-wm" aria-hidden="true"><span>PREVIEW PROOF &bull; UNLOCK 300-DPI PRINT PACK ($14.99) AT SEATHARMONY.COM</span></div>`;
+      const proofWatermarkHtml = vault.isUnlocked ? '' : `<div class="proof-wm" aria-hidden="true"><span>Preview Sample &bull; Unlock Full Print Sign at SeatHarmony.com</span></div>`;
       const html = `<!DOCTYPE html>
 <html lang="en">
 <head>
   <meta charset="UTF-8" /><meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>24"×36" Arch D Welcome Sign | ${escapeHtml(vault.title)}</title>
+  <title>24"×36" Welcome Sign | ${escapeHtml(vault.title)}</title>
   <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,600;0,700;1,600&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=JetBrains+Mono:wght@500;600;700&display=swap" rel="stylesheet" />
   <style>
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
@@ -611,13 +611,8 @@ function attachVaultAndPaywallRoutes(app, publicUrl, ebStore = null) {
     .poster-header-row { display: flex; align-items: center; justify-content: space-between; gap: 18px; border-bottom: 2px solid ${border}; padding-bottom: 22px; margin-bottom: 26px; }
     .poster-header-left { display: flex; align-items: center; gap: 16px; min-width: 0; flex: 1; }
     .poster-guest-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 22px; }
-    .crop-mark { position: absolute; width: 18px; height: 18px; border-color: ${border}; pointer-events: none; }
-    .crop-tl { top: 10px; left: 10px; border-top: 2px solid ${border}; border-left: 2px solid ${border}; }
-    .crop-tr { top: 10px; right: 10px; border-top: 2px solid ${border}; border-right: 2px solid ${border}; }
-    .crop-bl { bottom: 10px; left: 10px; border-bottom: 2px solid ${border}; border-left: 2px solid ${border}; }
-    .crop-br { bottom: 10px; right: 10px; border-bottom: 2px solid ${border}; border-right: 2px solid ${border}; }
     .proof-wm { display: none; position: absolute; inset: 0; pointer-events: none; align-items: center; justify-content: center; z-index: 50; }
-    .proof-wm span { transform: rotate(-32deg); font-family: 'JetBrains Mono', monospace; font-size: 1.55rem; font-weight: 800; letter-spacing: 0.14em; color: rgba(140,45,25,0.22); border: 3px dashed rgba(140,45,25,0.28); padding: 18px 28px; border-radius: 14px; text-align: center; }
+    .proof-wm span { transform: rotate(-32deg); font-family: 'Plus Jakarta Sans', sans-serif; font-size: 1.35rem; font-weight: 700; letter-spacing: 0.08em; color: rgba(140,45,25,0.22); border: 2px dashed rgba(140,45,25,0.28); padding: 16px 24px; border-radius: 14px; text-align: center; }
     @media screen and (max-width: 760px) {
       .poster-sheet { margin: 12px 10px 32px; padding: 24px 18px; min-height: auto; }
       .poster-header-row { flex-direction: column; align-items: stretch; gap: 14px; }
@@ -690,8 +685,6 @@ function attachVaultAndPaywallRoutes(app, publicUrl, ebStore = null) {
 
   <div class="poster-sheet">
     ${proofWatermarkHtml}
-    <div class="crop-mark crop-tl"></div><div class="crop-mark crop-tr"></div>
-    <div class="crop-mark crop-bl"></div><div class="crop-mark crop-br"></div>
     <div>
       <div class="poster-header-row">
         <div class="poster-header-left">
@@ -701,7 +694,7 @@ function attachVaultAndPaywallRoutes(app, publicUrl, ebStore = null) {
           </div>
           <div style="min-width:0;flex:1;">
             <div class="mono" style="font-size:0.74rem;letter-spacing:0.16em;text-transform:uppercase;color:${accent};font-weight:800;">
-              WELCOME TO THE RECEPTION &bull; ${escapeHtml(tSpec.label.toUpperCase())}
+              WELCOME TO OUR RECEPTION
             </div>
             <h1 id="poster-live-h1" class="serif" style="font-size:2.75rem;line-height:1.06;color:${fg};margin:2px 0;">${escapeHtml(customKicker)}</h1>
             <div id="poster-live-sub" style="font-size:1.02rem;color:${sub};font-weight:600;">${escapeHtml(vault.title)} &bull; ${escapeHtml(vault.venueName)}</div>
@@ -715,9 +708,9 @@ function attachVaultAndPaywallRoutes(app, publicUrl, ebStore = null) {
       ${posterMiniMapBlock}
       <div class="poster-guest-grid">${bodyGridHtml}</div>
     </div>
-    <div style="margin-top:32px;padding-top:14px;border-top:1.5px solid ${border};display:flex;justify-content:space-between;align-items:center;font-size:0.74rem;color:${sub};">
-      <span>${escapeHtml(vault.title)} &bull; ${guests.length} Seated Guests Across ${tables.length} Tables</span>
-      <span class="mono">ARCH D 24&Prime;&times;36&Prime; &bull; 0.125&Prime; BLEED VERIFIED &bull; VAULT #${escapeHtml(vault.vaultId)}</span>
+    <div style="margin-top:32px;padding-top:14px;border-top:1.5px solid ${border};display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:8px;font-size:0.78rem;color:${sub};">
+      <span>${escapeHtml(vault.title)} &bull; ${escapeHtml(vault.venueName)}</span>
+      <span class="serif" style="font-style:italic;font-size:0.88rem;">We are so glad you are here &bull; Dinner, Drinks &amp; Dancing</span>
     </div>
   </div>
 </body>
@@ -752,7 +745,7 @@ function attachVaultAndPaywallRoutes(app, publicUrl, ebStore = null) {
             </div>
             ${hasChairMod ? `<div style="font-size:0.68rem;font-weight:800;color:#78350F;margin-top:2px;white-space:nowrap;">&#9855; CHAIR MOD: ${escapeHtml(cleanAccess.toUpperCase())}</div>` : ''}
           </div>
-          <div class="tent-fold-line"><span>&#10022; FOLD ALONG SCORE LINE (AVERY 5302 / 5011) &#10022;</span></div>
+          <div class="tent-fold-line"></div>
           <div class="tent-front">
             <div style="display:flex;justify-content:space-between;align-items:center;">
               <span class="mono" style="font-size:0.64rem;font-weight:800;color:#8C2D19;border:1px solid #C8A96E;padding:1px 6px;border-radius:4px;">${escapeHtml(monogram)}</span>
@@ -782,7 +775,7 @@ function attachVaultAndPaywallRoutes(app, publicUrl, ebStore = null) {
     .sheet-grid { max-width: 900px; margin: 20px auto 60px; padding: 24px; background: #FFFFFF; border: 1.5px solid #C8A96E; box-shadow: 0 16px 40px rgba(0,0,0,0.08); display: grid; grid-template-columns: repeat(2, 1fr); gap: 16px; position: relative; }
     .tent-card { border: 1.5px dashed #C8A96E; border-radius: 10px; background: #FAF8F5; overflow: hidden; break-inside: avoid; }
     .tent-back { padding: 10px 14px; background: #FFF5F5; transform: rotate(180deg); border-top: 1px solid #FECDD3; min-height: 68px; display: flex; flex-direction: column; justify-content: center; }
-    .tent-fold-line { text-align: center; font-size: 0.56rem; font-family: monospace; color: #78716C; background: #EFEAE1; padding: 2px 0; letter-spacing: 0.08em; }
+    .tent-fold-line { border-top: 1px dashed #D6CFC2; height: 1px; background: transparent; }
     .tent-front { padding: 12px 16px; background: #FFFFFF; min-height: 92px; display: flex; flex-direction: column; justify-content: space-between; }
     .proof-wm { display: none; position: fixed; inset: 0; pointer-events: none; align-items: center; justify-content: center; z-index: 50; }
     .proof-wm span { transform: rotate(-28deg); font-family: 'JetBrains Mono', monospace; font-size: 1.35rem; font-weight: 800; letter-spacing: 0.12em; color: rgba(140,45,25,0.22); border: 3px dashed rgba(140,45,25,0.28); padding: 14px 22px; border-radius: 12px; }
@@ -896,9 +889,9 @@ function attachVaultAndPaywallRoutes(app, publicUrl, ebStore = null) {
   <main style="max-width:980px;margin:24px auto 64px;padding:0 18px;">
     <div style="background:linear-gradient(180deg,#FFFFFF 0%,#FAF3E3 100%);color:#181412;border:2px solid #C8A96E;border-radius:16px;padding:18px 22px;margin-bottom:16px;display:flex;justify-content:space-between;align-items:center;flex-wrap:nowrap;gap:14px;box-shadow:0 8px 24px rgba(24,20,18,0.05);">
       <div style="min-width:0;">
-        <div class="mono" style="font-size:0.68rem;color:#8C2D19;font-weight:800;white-space:nowrap;">OFFICIAL BANQUET EVENT ORDER (BEO) &bull; VAULT #${escapeHtml(vault.vaultId)}</div>
-        <h1 class="serif" style="font-size:1.72rem;color:#181412;line-height:1.15;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;">${escapeHtml(vault.title)} &bull; 12:00 Server BEO</h1>
-        <div style="font-size:0.78rem;color:#57534E;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;">${escapeHtml(vault.venueName)} &bull; ${tables.length} Tables &bull; ${guests.length} Guests &bull; ${allergies.length} Allergy Flags &bull; ${chairMods.length} Chair Mods</div>
+        <div class="mono" style="font-size:0.68rem;color:#8C2D19;font-weight:800;white-space:nowrap;">CATERING &amp; TABLE SERVICE SHEET</div>
+        <h1 class="serif" style="font-size:1.72rem;color:#181412;line-height:1.15;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;">${escapeHtml(vault.title)} &bull; Table Service Guide</h1>
+        <div style="font-size:0.78rem;color:#57534E;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;">${escapeHtml(vault.venueName)} &bull; ${tables.length} Tables &bull; ${guests.length} Guests &bull; ${allergies.length} Allergy Notes &bull; ${chairMods.length} Chair Notes</div>
       </div>
       <div class="no-print" style="display:flex;gap:8px;flex-wrap:nowrap;flex-shrink:0;">
         <button id="download-csv" type="button" onclick="window.downloadBeoCsv()" style="background:#FFFFFF;color:#78350F;border:1.5px solid #C8A96E;border-radius:10px;padding:9px 14px;font-weight:800;font-size:0.78rem;cursor:pointer;white-space:nowrap;">
@@ -1000,7 +993,7 @@ function attachVaultAndPaywallRoutes(app, publicUrl, ebStore = null) {
       <div style="display:flex;align-items:center;gap:14px;background:#FAF3E3;border:1.5px solid #C8A96E;border-radius:16px;padding:14px;margin-bottom:16px;">
         <img src="${qrImgUrl}" width="84" height="84" alt="Live Reception QR Code" style="border-radius:10px;border:1.5px solid #C8A96E;background:#FFFFFF;padding:4px;flex-shrink:0;" />
         <div style="min-width:0;">
-          <div class="mono" style="font-size:0.70rem;color:#065F46;font-weight:800;white-space:nowrap;">&#9679; LIVE SYNC ACTIVE &bull; VAULT #${escapeHtml(vault.vaultId)}</div>
+          <div class="mono" style="font-size:0.70rem;color:#065F46;font-weight:800;white-space:nowrap;">&#9679; Live Guest Table &amp; Seat Lookup</div>
           <div style="font-size:0.88rem;font-weight:800;color:#181412;margin:3px 0;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;">Instant Guest Name &amp; Table Lookup</div>
           <div style="font-size:0.76rem;color:#57534E;">Syncs automatically with last-minute seat swaps.</div>
         </div>
