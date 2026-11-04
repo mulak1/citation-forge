@@ -595,7 +595,7 @@ function renderDeliverablesClientScript() {
     ['sh-pane-beo-buy-link'].forEach(function(k) { setHref(k, flashUrl); });
     ['sh-vault-buy-pro-btn', 'pricing-buy-pro'].forEach(function(k) { setHref(k, proUrl); });
     const vBtn = document.getElementById('sh-vault-buy-pack-btn');
-    if (vBtn) vBtn.innerHTML = 'Unlock ' + shEsc(coupleTitle) + ' Print Pack (' + totalGuests + ' Guests &middot; $9) &rarr;';
+    if (vBtn) vBtn.innerHTML = 'Unlock Full Print Pack (' + totalGuests + ' Guests &middot; $9) &rarr;';
     const pBtn = document.getElementById('pricing-buy-pack');
     if (pBtn) pBtn.innerHTML = 'Unlock ' + shEsc(coupleTitle) + ' Print Pack (' + totalGuests + ' Guests &middot; $9) &rarr;';
     const qrImg = document.getElementById('sh-live-qr-img');
@@ -736,17 +736,17 @@ function renderDeliverablesClientScript() {
     var prevStatus = document.getElementById('sh-table1-preview-status');
     var prevBody = document.getElementById('sh-table1-preview-body');
     if (prevBody) {
-      prevBody.innerHTML = '<strong>Escort Card #1:</strong> ' + shEsc(g1.name) + ' &amp; ' + shEsc(g2.name) + ' &bull; Tbl 1, Seat #1 (12:00) &bull; &#9670; ' + shEsc(g1.meal || 'Filet Mignon') + ' &bull; <strong>Dietary Summary:</strong> ' + (totalAllergies || 2) + ' Kitchen Allergy Alerts (' + (totalGluten || 1) + ' Celiac/GF) Flagged';
+      prevBody.innerHTML = '<strong>Place Card #1:</strong> ' + shEsc(g1.name) + ' &amp; ' + shEsc(g2.name) + ' &bull; Table 1, Seat #1 &bull; ' + shEsc(g1.meal || 'Filet Mignon') + ' &bull; <strong>Dietary Notes:</strong> ' + (totalAllergies || 2) + ' Allergy Notes' + (totalGluten ? ' (' + totalGluten + ' Gluten-Free)' : '');
       prevBody.style.filter = isUnmasked ? 'none' : 'blur(3.5px)';
       prevBody.style.userSelect = isUnmasked ? 'auto' : 'none';
     }
     if (prevBox) {
       prevBox.setAttribute('data-unmasked', isUnmasked ? '1' : '0');
       prevBox.style.borderStyle = isUnmasked ? 'solid' : 'dashed';
-      prevBox.style.background = isUnmasked ? '#ECFDF5' : '#FBF9F6';
+      prevBox.style.background = isUnmasked ? '#F0FDFA' : '#FFFFFF';
     }
-    if (prevBadge) prevBadge.innerHTML = isUnmasked ? '&#10003; Unmasked Table 1 Escort Card &amp; Dietary Summary' : '&#128274; Sample Table 1 Escort Card &amp; Dietary Summary';
-    if (prevStatus) prevStatus.textContent = isUnmasked ? ('Saved to ' + (savedEmail || 'your vault')) : 'Enter $0 email below to unmask';
+    if (prevBadge) prevBadge.innerHTML = isUnmasked ? '&#10003; Table 1 Place Card &amp; Meal Summary' : 'Sample Place Card &amp; Meal Summary';
+    if (prevStatus) prevStatus.textContent = isUnmasked ? (savedEmail ? ('Saved to ' + savedEmail) : 'Saved') : 'Email your plan below to preview';
   };
 
   window.shGateOrExportBeoCsv = function(mode) {

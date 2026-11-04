@@ -121,10 +121,9 @@ function renderSetupWizardHtml() {
             <li><button type="button" class="shw-kit-item" data-kit="beo" onclick="window.shwJump(4)"><span class="shw-kit-dot"></span><span class="shw-kit-glyph" aria-hidden="true"><svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="1.15" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="4.6"/><circle cx="12" cy="12" r="2.2"/><path d="M3.5 4.5v5a1.6 1.6 0 003.2 0v-5M5.1 11v8.5M20.5 4.5c-1.9 1.2-2.6 3.4-2.6 6.2H20.5V19.5"/></svg></span><span class="shw-kit-text"><b>Caterer sheet</b><small id="shw-kit-d-beo">Needs your guest list</small></span></button></li>
             <li><button type="button" class="shw-kit-item" data-kit="qr" onclick="window.shwJump(5)"><span class="shw-kit-dot"></span><span class="shw-kit-glyph" aria-hidden="true"><svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="1.15" stroke-linecap="round" stroke-linejoin="round"><rect x="4" y="4" width="6" height="6" rx="1"/><rect x="14" y="4" width="6" height="6" rx="1"/><rect x="4" y="14" width="6" height="6" rx="1"/><path d="M14 14h2.6v2.6H14zM19 14v2M17.5 19H20M14 19.5v.5"/></svg></span><span class="shw-kit-text"><b>Guest QR lookup</b><small id="shw-kit-d-qr">Ready when you seat guests</small></span></button></li>
           </ul>
-          <div id="shw-live-specimen-proof" style="margin-top:10px;padding:10px 12px;border-radius:10px;background:#FBF9F6;border:1px solid #D6CBB8;font-size:0.76rem;color:#1C1C1C;">
-            <div style="font-size:0.65rem;font-weight:800;letter-spacing:0.06em;text-transform:uppercase;color:#00766C;margin-bottom:3px;">LIVE PERSONALIZED PRINT PROOF</div>
-            <div id="shw-proof-sign-line" style="font-weight:800;color:#1C1C1C;">24&Prime;&times;36&Prime; Sign: Maya &amp; Liam&rsquo;s Reception</div>
-            <div id="shw-proof-table1-line" style="color:#57534E;margin-top:2px;">Table 1 BEO: Seat #1 (12:00) &bull; Filet &amp; Allergy Ready</div>
+          <div id="shw-live-specimen-proof" style="display:none;" aria-hidden="true">
+            <div id="shw-proof-sign-line">24&Prime;&times;36&Prime; Sign: Maya &amp; Liam&rsquo;s Reception</div>
+            <div id="shw-proof-table1-line">Table 1 Meal Sheet: Seat #1 &bull; Filet &amp; Allergy Ready</div>
           </div>
           <div class="shw-kit-foot" id="shw-kit-foot">Each answer fills a page of your binder.</div>
         </aside>
