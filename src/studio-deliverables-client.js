@@ -889,7 +889,20 @@ function renderDeliverablesClientScript() {
       var res = await fetch('/api/vault/save', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ vaultId: (window.__SH_STATE && window.__SH_STATE.vaultId) || 'SH-4819', ownerEmail: email, state: window.__SH_STATE }) });
       var data = await res.json(), vid = (data && (data.vaultId || data.vault_id)) || (window.__SH_STATE && window.__SH_STATE.vaultId);
       if (vid) shSyncVaultIdLinks(vid);
-      if (btn) { btn.textContent = '✓ Saved & Unmasked ($0)'; btn.style.background = '#00766C'; btn.style.borderColor = '#005E56'; }
+      try {
+        var u = new URL(window.location.href);
+        if (vid) u.searchParams.set('vault', vid);
+        u.searchParams.set('saved', '1');
+        window.history.replaceState({}, '', u.pathname + u.search + u.hash);
+        var sl = document.getElementById('sh-stateful-share-link');
+        if (sl) sl.href = u.pathname + u.search + '#studio';
+      } catch (_) {}
+      var upBr = document.getElementById('sh-post-email-upgrade-bridge');
+      if (upBr) upBr.style.display = 'flex';
+      var upCta = document.getElementById('sh-post-email-upgrade-cta');
+      var mainBuy = document.getElementById('sh-vault-buy-pack-btn');
+      if (upCta && mainBuy && mainBuy.href) upCta.href = mainBuy.href;
+      if (btn) { btn.textContent = '✓ Saved ($0)'; btn.style.background = '#00766C'; btn.style.borderColor = '#005E56'; }
       if (window.__SH_PENDING_EXPORT_MODE === 'share' && window.__shRawCopyMomSandboxLink) {
         window.__SH_PENDING_EXPORT_MODE = null;
         window.__shRawCopyMomSandboxLink();

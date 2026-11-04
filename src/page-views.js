@@ -448,6 +448,10 @@ function renderZone3InteractiveStudio(plan) {
             </div>
             <a id="sh-vault-buy-pack-btn" href="/buy/complete_dossier?target=estate-150&amp;vault=${vId}&amp;allow_promotion_codes=false" style="display:inline-flex;align-items:center;justify-content:center;text-align:center;background:#1C1C1C;color:#FFFFFF;border:1px solid #1C1C1C;border-radius:10px;padding:11px 20px;font-size:0.90rem;font-weight:800;text-decoration:none;white-space:nowrap;line-height:1.3;">Unlock Full Print Pack ($9) &rarr;</a>
           </div>
+          <div id="sh-post-email-upgrade-bridge" style="display:none;padding:10px 14px;border-radius:10px;background:#F0FDFA;border:1px solid #99F6E4;color:#065F46;font-size:0.84rem;font-weight:600;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:10px;">
+            <span>&#10003; Saved! <a id="sh-stateful-share-link" href="/?vault=${vId}&amp;saved=1#studio" style="color:#00766C;font-weight:700;text-decoration:underline;">Shareable Return Link</a></span>
+            <a id="sh-post-email-upgrade-cta" href="/buy/complete_dossier?target=estate-150&amp;vault=${vId}&amp;allow_promotion_codes=false" style="background:#1C1C1C;color:#FFFFFF;border-radius:8px;padding:6px 12px;font-size:0.80rem;font-weight:700;text-decoration:none;">Download Full Print Pack ($9 &middot; Email Pre-Filled) &rarr;</a>
+          </div>
         </div>
 
         <!-- Bottom Row: Planner Pro Option & Quick Preview -->
@@ -466,6 +470,10 @@ function renderZone3InteractiveStudio(plan) {
             <span style="font-size:0.82rem;color:#57534E;">Wedding Planner or Venue?</span>
             <a id="sh-vault-buy-pro-btn" href="/buy/pro_b2b?target=estate-150&amp;vault=${vId}&amp;allow_promotion_codes=false" title="For Wedding Planners & Venues: Unlimited Events + Custom Agency Logo ($29 Pro Pass)" style="color:#00766C;font-size:0.82rem;font-weight:800;text-decoration:underline;">$29 Pro Pass &rarr;</a>
           </div>
+        </div>
+        <div id="sh-ecosystem-handoff-banner" style="padding-top:10px;border-top:1px solid #F3EFEA;display:flex;flex-wrap:wrap;align-items:center;justify-content:space-between;gap:8px;font-size:0.80rem;color:#78716C;">
+          <span>Also stocking your wedding reception bar?</span>
+          <a id="sh-ecosystem-handoff-link" href="https://barstock.exactbaseline.com/calculator/bar_stock?utm_source=seatharmony&amp;utm_medium=ecosystem_handoff" target="_blank" rel="noopener" style="color:#00766C;font-weight:700;text-decoration:underline;">Size your Costco or Total Wine alcohol order free on BarStock &rarr;</a>
         </div>
       </div>
     </div>
