@@ -209,9 +209,9 @@ function renderHead({
     .sh-ed-ghost:hover { border-color: #00766C; background: #F0FDFA; }
     .sh-ed-bar { display: flex; align-items: center; gap: 10px; margin-bottom: 12px; flex-wrap: wrap; }
     .sh-ed-hint { flex: 1; min-width: 200px; font-size: 0.92rem; font-weight: 600; color: #4B5563; line-height: 1.35; }
-    .sh-ed-grid { display: grid; grid-template-columns: minmax(0, 1fr) 360px; gap: 14px 16px; align-items: start; }
+    .sh-ed-grid { display: grid; grid-template-columns: minmax(0, 1fr) 360px; grid-template-rows: auto 1fr; gap: 8px 16px; align-items: start; }
     .sh-ed-grid > .sh-ed-canvas { grid-column: 1; grid-row: 1; }
-    .sh-ed-grid > #sh-vault-checkout-bar { grid-column: 1; grid-row: 2; width: 100%; max-width: 100% !important; margin: 0 !important; }
+    .sh-ed-grid > #sh-vault-checkout-bar { grid-column: 1; grid-row: 2; align-self: start; width: 100%; max-width: 100% !important; margin: 0 !important; }
     .sh-ed-grid > .sh-ed-panel { grid-column: 2; grid-row: 1 / span 2; }
     .sh-ed-grid.panel-hidden { grid-template-columns: minmax(0, 1fr); }
     .sh-ed-grid.panel-hidden .sh-ed-panel { display: none !important; }
@@ -554,16 +554,18 @@ function renderHead({
     }
     @media (max-width: 768px) {
       #sh-vault-checkout-bar, #sh-inline-email-bridge, #sh-inline-vault-save-btn, #sh-vault-buy-pack-btn, #sh-planner-pro-dock-banner, #sh-vault-buy-pro-btn, .sh-zola-showcase-footer button, .studio-tap-chip, .bs-quote-stars, .badge, .badge-amber, .bs-ba-card-top, .bs-ba-pill, .bs-ba-price-tag, .bs-case-badge, .bs-case-state-tag, .studio-carousel-tab { white-space: normal !important; max-width: 100% !important; min-width: 0 !important; box-sizing: border-box !important; overflow-wrap: break-word !important; }
-      #sh-inline-email-bridge, #sh-seo-calc-email-wrap, #sh-planner-pro-dock-banner, .sh-zola-showcase-footer, .bs-ba-card-top { flex-direction: column !important; align-items: stretch !important; width: 100% !important; max-width: 100% !important; flex: 0 0 auto !important; gap: 5px !important; }
+      #sh-inline-email-bridge, #sh-seo-calc-email-wrap, #sh-planner-pro-dock-banner, .sh-zola-showcase-footer, .bs-ba-card-top { flex-direction: column !important; align-items: stretch !important; width: 100% !important; max-width: 100% !important; flex: 0 0 auto !important; gap: 4px !important; }
       #sh-inline-vault-email, #sh-step4-inline-email, #sh-seo-calc-email { flex: 0 0 auto !important; width: 100% !important; height: 40px !important; min-height: 40px !important; max-height: 40px !important; text-align: left !important; }
-      #sh-inline-vault-save-btn, #sh-step4-inline-save-btn, #sh-seo-calc-save-btn, #sh-vault-buy-pack-btn, #sh-vault-buy-pro-btn, .sh-zola-showcase-footer button { flex: 0 0 auto !important; width: 100% !important; min-height: 40px !important; text-align: center !important; justify-content: center !important; }
-      .sh-hide-mobile-toolbar { display: none !important; }
+      #sh-inline-vault-save-btn, #sh-step4-inline-save-btn, #sh-seo-calc-save-btn, #sh-vault-buy-pack-btn, #sh-vault-buy-pro-btn, .sh-zola-showcase-footer button { flex: 0 0 auto !important; width: 100% !important; min-height: 38px !important; height: 38px !important; padding: 6px 10px !important; text-align: center !important; justify-content: center !important; }
+      .sh-hide-mobile-toolbar, #grader .sh-lead-sub, #sh-table1-preview-badge { display: none !important; }
+      #sh-proof-couple-name, #sh-proof-table1-summary { display: block !important; width: 100% !important; white-space: nowrap !important; overflow: hidden !important; text-overflow: ellipsis !important; font-size: 0.75rem !important; line-height: 1.25 !important; }
+      #sh-vault-bar-headline { font-size: 0.76rem !important; line-height: 1.2 !important; }
       #sh-canvas-micro-toolbar { gap: 4px !important; margin-bottom: 4px !important; flex-wrap: nowrap !important; overflow-x: auto !important; padding-bottom: 2px !important; }
       #sh-canvas-micro-toolbar .sh-ed-ghost { padding: 4px 8px !important; font-size: 0.76rem !important; }
       #sh-ed-legend { flex-wrap: nowrap !important; overflow-x: auto !important; margin-bottom: 4px !important; padding-bottom: 2px !important; }
       #sh-ed-legend .sh-leg { flex-shrink: 0 !important; padding: 3px 8px !important; font-size: 0.74rem !important; }
-      #sh-floorplan-svg { height: 185px !important; min-height: 185px !important; max-height: 185px !important; }
-      #sh-vault-checkout-bar { padding: 8px 10px !important; gap: 6px !important; }
+      #sh-floorplan-svg { height: 170px !important; min-height: 170px !important; max-height: 170px !important; }
+      #sh-vault-checkout-bar { padding: 6px 10px !important; gap: 4px !important; }
     }
     @media (max-width: 520px) { .sh-display-h1 { font-size: 1.56rem; } }
     @media (max-width: 1200px) { #nav-binder-btn { display: none !important; } }
