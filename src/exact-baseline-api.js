@@ -974,7 +974,7 @@ function attachExactBaselinePack(app, options = {}) {
     const origSend = res.send.bind(res);
     res.send = function patchedSend(body) {
       const isHtml = typeof body === 'string' && (String(res.getHeader('Content-Type') || '').includes('text/html') || body.trim().startsWith('<!DOCTYPE html>'));
-      if (isHtml && req.method === 'GET' && (req.path === '/' || req.path === '/lp' || req.path === '/directory' || req.path === '/leaderboard' || req.path === '/privacy' || req.path === '/terms' || req.path.startsWith('/dossier/sample') || req.path.startsWith('/seo/') || req.path.startsWith('/tools/') || req.path.startsWith('/compare/') || req.path.startsWith('/scan/') || req.path.startsWith('/report/'))) {
+      if (isHtml && req.method === 'GET' && (req.path === '/' || req.path === '/lp' || req.path === '/directory' || req.path === '/leaderboard' || req.path === '/privacy' || req.path === '/terms' || req.path.startsWith('/dossier/sample') || req.path.startsWith('/seo/') || req.path.startsWith('/tools/') || req.path.startsWith('/compare/') || req.path.startsWith('/scan/') || req.path.startsWith('/report/') || req.path.startsWith('/vault/') || req.path.startsWith('/print/') || req.path.startsWith('/qr/'))) {
         const isShIo = String(req.headers['x-forwarded-host'] || req.headers.host || '').toLowerCase().includes('seatharmony.io'), activeDom = isShIo ? 'www.seatharmony.io' : cfg.domain;
         if (isShIo) body = body.replace(/https:\/\/www\.citationforge\.io/g, 'https://www.seatharmony.io');
         body = body.replace(/\p{Extended_Pictographic}/gu, '').replace(/300-DPI/gi, 'Print-Ready').replace(/\bBEOs\b/g, 'Meal Sheets').replace(/(\s|\(|>)BEO(\b)/g, '$1Meal Sheet$2').replace(/\bSpecimen\b/gi, 'Sample');
