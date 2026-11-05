@@ -9,24 +9,19 @@ const { renderDirectoryPage, buildVenueBlueprint, renderFloorplanSvg } = require
 function renderZone1Hero(plan) {
   return `
   <!-- ZONE 1: COMPACT ABOVE-THE-FOLD HERO (DIRECT TO LIVE FLOORPLAN STUDIO) -->
-  <section class="studio-zone1-hero" id="grader">
+  <section class="studio-zone1-hero" id="grader" style="padding:8px 0 6px !important;">
     <div class="container">
-      <div style="max-width:980px;margin:0 auto;display:flex;flex-direction:column;gap:12px;">
-        <div style="display:flex;align-items:center;justify-content:space-between;gap:8px;flex-wrap:wrap;">
-          <div class="sh-eyebrow-pill"><span class="sh-eyebrow-dot"></span><span>Wedding Seating Chart, Caterer BEO &amp; 24&Prime;&times;36&Prime; Sign Studio</span></div>
-          <button type="button" id="hero-vault-pill-btn" onclick="window.shOpenVaultModal()" style="cursor:pointer;display:inline-flex;align-items:center;gap:6px;font-size:13px;font-weight:600;color:#1C1C1C;background:#FFFFFF;border:1px solid #D1D5DB;border-radius:999px;padding:5px 12px;white-space:nowrap;" title="Save or Open Your Wedding Seating Plan"><span>Open Saved Plan</span></button>
+      <div style="max-width:1280px;margin:0 auto;display:flex;flex-direction:column;gap:4px;">
+        <div style="display:flex;align-items:center;justify-content:space-between;gap:6px;flex-wrap:wrap;">
+          <div style="display:flex;align-items:center;gap:8px;flex-wrap:wrap;min-width:0;">
+            <h1 id="score-brand-title" class="sh-display-h1" style="font-size:clamp(1.25rem, 2vw, 1.65rem);line-height:1.15;margin:0;">The 6-Hour Seating Chart. <span class="sh-h1-accent">Solved in 60 Seconds, Drama-Free.</span></h1>
+          </div>
+          <div style="display:flex;align-items:center;gap:6px;flex-wrap:wrap;">
+            <button type="button" id="hero-vault-pill-btn" onclick="window.shOpenVaultModal()" style="cursor:pointer;display:inline-flex;align-items:center;gap:5px;font-size:12px;font-weight:700;color:#1C1C1C;background:#FFFFFF;border:1px solid #D1D5DB;border-radius:999px;padding:3px 10px;white-space:nowrap;" title="Save or Open Your Wedding Seating Plan"><span>Open Saved Plan</span></button>
+            <a href="/directory" class="sh-hide-mobile-toolbar" style="display:inline-flex;align-items:center;font-size:12px;font-weight:700;color:#00766C;background:#F0FDFA;border:1px solid #CCFBF1;border-radius:999px;padding:3px 10px;text-decoration:none;white-space:nowrap;">60+ Venue Layouts</a>
+          </div>
         </div>
-
-        <div class="sh-zone1-header-block" style="max-width:860px;gap:8px;">
-          <h1 id="score-brand-title" class="sh-display-h1">The 6-Hour Seating Chart. <span class="sh-h1-accent">Solved in 60 Seconds, Drama-Free.</span></h1>
-          <p class="sh-lead-sub" style="font-size:0.98rem;line-height:1.48;max-width:68ch;">Drag tables and guests below, or paste your Zola/Knot/Excel list to keep couples together, separate divorced relatives, and export your Clockwise 12:00 meal sheet &amp; 24&Prime;&times;36&Prime; welcome sign.</p>
-        </div>
-
-        <div style="display:flex;align-items:center;gap:10px;flex-wrap:wrap;">
-          <a href="#studio" class="sh-btn-primary" style="padding:10px 20px;font-size:14.5px;"><span>Start Your Free Seating Chart &darr;</span></a>
-          <button type="button" onclick="window.shOpenSetupWizard(1)" class="sh-btn-secondary" style="padding:10px 16px;font-size:14px;"><span>5-Step Guided Setup</span></button>
-          <a href="/directory" class="sh-btn-secondary" style="padding:10px 16px;font-size:14px;"><span>60+ Venue Layouts</span></a>
-        </div>
+        <p class="sh-lead-sub" style="font-size:0.84rem;line-height:1.32;max-width:92ch;margin:0;color:#4B5563;">Tap a guest count preset or drag tables below &mdash; keep couples together, separate divorced relatives, and unlock your Clockwise 12:00 meal tally &amp; 24&Prime;&times;36&Prime; welcome sign.</p>
       </div>
     </div>
   </section>`;
@@ -124,21 +119,21 @@ function renderZone3InteractiveStudio(plan) {
     </div>`).join('');
 
   return `
-  <!-- ZONE 3: SCROLL-PACED 5-CARD BUILDER + STICKY LIVE STAGE (FOLD 2) -->
-  <section class="studio-zone-section" id="studio" style="scroll-margin-top:64px;padding-top:16px;padding-bottom:32px;">
+  <!-- ZONE 3: SCROLL-PACED 5-CARD BUILDER + STICKY LIVE STAGE (FOLD 1) -->
+  <section class="studio-zone-section" id="studio" style="scroll-margin-top:58px;padding-top:6px !important;padding-bottom:28px;">
     <div class="container">
       <span id="sh-studio-vault-code" style="display:none;">${vId}</span>
       <div style="display:none;"><span id="sh-endowed-progress-label">Setup</span><span id="sh-endowed-progress-fill"></span><span id="sh-btn-vault-id">${vId}</span></div>
 
-      <div id="sh-studio-quick-preset-bar" style="display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:8px;margin-bottom:12px;padding:8px 12px;background:#F8F7F4;border:1px solid #E5E7EB;border-radius:12px;">
-        <div style="display:flex;align-items:center;gap:6px;flex-wrap:wrap;">
-          <span style="font-size:0.74rem;font-weight:800;color:#00766C;text-transform:uppercase;letter-spacing:0.04em;">&#10024; Live Floorplan:</span>
-          <button type="button" class="studio-tap-chip preset-chip active" data-preset="estate-150" data-domain="supabase.com" onclick="window.loadPresetScenario('estate-150', this)" style="padding:4px 10px;font-size:0.78rem;">150-Guest Estate</button>
-          <button type="button" class="studio-tap-chip" data-instant-preset="tuscan-banquet-80" onclick="window.loadPresetScenario('tuscan-banquet-80', this)" style="padding:4px 10px;font-size:0.78rem;">80-Guest Winery</button>
-          <button type="button" class="studio-tap-chip" data-instant-preset="planner-beo-sandbox" onclick="window.loadPresetScenario('planner-beo-sandbox', this)" style="padding:4px 10px;font-size:0.78rem;">Family Share &amp; BEO</button>
-          <button type="button" class="studio-tap-chip" data-instant-preset="200-guest-hotel-ballroom-seating-chart-template" onclick="window.loadPresetScenario('200-guest-hotel-ballroom-seating-chart-template', this)" style="padding:4px 10px;font-size:0.78rem;">200-Guest Ballroom</button>
+      <div id="sh-studio-quick-preset-bar" style="display:flex;align-items:center;justify-content:space-between;flex-wrap:nowrap;overflow-x:auto;gap:6px;margin-bottom:6px;padding:5px 10px;background:#F8F7F4;border:1px solid #E5E7EB;border-radius:10px;">
+        <div style="display:flex;align-items:center;gap:5px;flex-wrap:nowrap;flex-shrink:0;">
+          <span style="font-size:0.72rem;font-weight:800;color:#00766C;text-transform:uppercase;letter-spacing:0.04em;white-space:nowrap;">&#10024; Preset Sizer:</span>
+          <button type="button" class="studio-tap-chip preset-chip active" data-preset="estate-150" data-domain="supabase.com" onclick="window.loadPresetScenario('estate-150', this)" style="padding:3px 9px;font-size:0.75rem;white-space:nowrap;flex-shrink:0;">150-Guest Estate</button>
+          <button type="button" class="studio-tap-chip" data-instant-preset="tuscan-banquet-80" onclick="window.loadPresetScenario('tuscan-banquet-80', this)" style="padding:3px 9px;font-size:0.75rem;white-space:nowrap;flex-shrink:0;">80-Guest Winery</button>
+          <button type="button" class="studio-tap-chip" data-instant-preset="planner-beo-sandbox" onclick="window.loadPresetScenario('planner-beo-sandbox', this)" style="padding:3px 9px;font-size:0.75rem;white-space:nowrap;flex-shrink:0;">Family Share &amp; BEO</button>
+          <button type="button" class="studio-tap-chip" data-instant-preset="200-guest-hotel-ballroom-seating-chart-template" onclick="window.loadPresetScenario('200-guest-hotel-ballroom-seating-chart-template', this)" style="padding:3px 9px;font-size:0.75rem;white-space:nowrap;flex-shrink:0;">200-Guest Ballroom</button>
         </div>
-        <button type="button" class="sh-ed-ghost" onclick="window.shOpenSetupWizard(1)" style="font-size:0.78rem;padding:5px 10px;font-weight:700;color:#00766C;border-color:#00766C;background:#FFFFFF;">&#9881; Step-by-Step Setup Wizard</button>
+        <button type="button" class="sh-ed-ghost" onclick="window.shOpenSetupWizard(1)" style="font-size:0.75rem;padding:4px 9px;font-weight:700;color:#00766C;border-color:#00766C;background:#FFFFFF;white-space:nowrap;flex-shrink:0;">&#9881; Guided Setup</button>
       </div>
 
       ${renderSetupWizardHtml(plan)}
@@ -266,118 +261,111 @@ function renderZone3InteractiveStudio(plan) {
           </div>
 
           <!-- Zola Editorial Live 4-Tab Reception Stage -->
-          <div class="studio-bespoke-stage" id="studio-bespoke-artifact-stage">
+          <div class="studio-bespoke-stage" id="studio-bespoke-artifact-stage" style="padding:8px 10px;gap:6px;">
             <!-- Unified Stage Header Bar -->
-            <div id="specimen-header-block" style="display:flex;align-items:center;justify-content:space-between;gap:10px;flex-wrap:wrap;padding:4px 4px 8px;border-bottom:1px solid #E5E7EB;">
-              <div style="display:flex;align-items:center;gap:10px;min-width:0;flex:1;">
-                <div id="specimen-logo-badge" title="Couple Monogram" style="width:42px;height:42px;border-radius:10px;background:#F0FDFA;border:1px solid #CCFBF1;color:#00766C;display:flex;flex-direction:column;align-items:center;justify-content:center;flex-shrink:0;overflow:hidden;">
+            <div id="specimen-header-block" style="display:flex;align-items:center;justify-content:space-between;gap:8px;flex-wrap:nowrap;padding:2px 4px 5px;border-bottom:1px solid #E5E7EB;">
+              <div style="display:flex;align-items:center;gap:8px;min-width:0;flex:1;">
+                <div id="specimen-logo-badge" title="Couple Monogram" style="width:32px;height:32px;border-radius:8px;background:#F0FDFA;border:1px solid #CCFBF1;color:#00766C;display:flex;flex-direction:column;align-items:center;justify-content:center;flex-shrink:0;overflow:hidden;">
                   <span id="specimen-logo-monogram" style="display:flex;flex-direction:column;align-items:center;justify-content:center;line-height:1;">
-                    <span id="specimen-logo-monogram-initials" style="font-family:var(--font-serif);font-size:1.05rem;font-weight:700;color:#00766C;">M&amp;L</span>
+                    <span id="specimen-logo-monogram-initials" style="font-family:var(--font-serif);font-size:0.9rem;font-weight:700;color:#00766C;">M&amp;L</span>
                     <span id="specimen-logo-monogram-sub" style="display:none;">EST. 2026</span>
                   </span>
                   <img id="specimen-logo-img" src="" alt="Crest Logo" style="display:none;width:100%;height:100%;object-fit:contain;background:#FFFFFF;padding:2px;" />
                 </div>
-                <div style="min-width:0;flex:1;">
-                  <div style="display:flex;align-items:center;gap:8px;">
-                    <div id="specimen-client-headline" class="serif-display" style="font-size:1.18rem;color:#1C1C1C;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;">${escapeHtml(plan.title || "Maya & Liam's Estate Reception")}</div>
-                    <span id="specimen-harmony-pill" class="badge badge-emerald" style="font-size:0.76rem;padding:2px 8px;flex-shrink:0;">&#10003; Conflict-Free Plan</span>
-                  </div>
-                  <div id="specimen-meta-sub" style="font-size:0.80rem;color:#4B5563;font-weight:600;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;"><span id="sh-stage-venue-label">${escapeHtml(plan.venueName || 'Rosewood Conservatory')}</span> &middot; 62 Guests (8 Tables)</div>
+                <div style="min-width:0;flex:1;display:flex;align-items:center;gap:6px;flex-wrap:wrap;">
+                  <div id="specimen-client-headline" class="serif-display" style="font-size:1.02rem;color:#1C1C1C;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;">${escapeHtml(plan.title || "Maya & Liam's Estate Reception")}</div>
+                  <span id="specimen-harmony-pill" class="badge badge-emerald" style="font-size:0.70rem;padding:1px 7px;flex-shrink:0;">&#10003; 0 Conflicts</span>
+                  <span id="specimen-meta-sub" class="sh-hide-mobile-toolbar" style="font-size:0.76rem;color:#4B5563;font-weight:600;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;"><span id="sh-stage-venue-label">${escapeHtml(plan.venueName || 'Rosewood Conservatory')}</span> &middot; 62 Guests (8 Tables)</span>
                   <div id="specimen-salon-crest" style="display:none;"></div>
                   <div id="specimen-tagline-sub" style="display:none;"></div>
                 </div>
               </div>
-              <div style="display:flex;align-items:center;gap:8px;flex-wrap:wrap;min-width:0;max-width:100%;">
+              <div style="display:flex;align-items:center;gap:6px;flex-shrink:0;">
                 <span id="sh-mom-sandbox-badge" style="display:none;"></span>
-                <button type="button" class="sh-ed-ghost" onclick="window.shOpenSetupWizard()">&larr; Edit setup</button>
-                <a href="/directory" class="sh-ed-ghost" style="text-decoration:none;">Venue layouts</a>
-                <span id="sh-save-status" class="sh-save-status" aria-live="polite" title="Your seating saves automatically on this device">Auto-saved</span><button type="button" class="sh-ed-ghost" onclick="window.shOpenVaultModal()" title="Get a link or email so you can open this plan on any device">Save online</button>
+                <button type="button" class="sh-ed-ghost sh-hide-mobile-toolbar" style="padding:4px 9px;font-size:0.76rem;" onclick="window.shOpenSetupWizard()">&larr; Edit setup</button>
+                <span id="sh-save-status" class="sh-save-status sh-hide-mobile-toolbar" aria-live="polite" title="Your seating saves automatically on this device" style="font-size:0.75rem;">Auto-saved</span>
+                <button type="button" class="sh-ed-ghost" style="padding:4px 9px;font-size:0.76rem;" onclick="window.shOpenVaultModal()" title="Get a link or email so you can open this plan on any device">Save online</button>
               </div>
             </div>
 
             <!-- 4-Tab Switcher -->
-            <div class="studio-stage-tabs" role="tablist" aria-label="SeatHarmony 4-Tab Operational Kit">
-              <button id="sh-tab-floorplan" type="button" class="studio-stage-tab-btn tab-btn active" data-tab="llmsTxt" onclick="window.shSetActiveTab('floorplan')">Seating</button>
-              <button id="sh-tab-beo" type="button" class="studio-stage-tab-btn tab-btn" data-tab="jsonLd" onclick="window.shSetActiveTab('beo')">Caterer sheet</button>
-              <button id="sh-tab-poster" type="button" class="studio-stage-tab-btn" onclick="window.shSetActiveTab('poster')">Welcome sign</button>
-              <button id="sh-tab-qr" type="button" class="studio-stage-tab-btn" onclick="window.shSetActiveTab('qr')">Guest QR</button>
+            <div class="studio-stage-tabs" role="tablist" aria-label="SeatHarmony 4-Tab Operational Kit" style="padding:3px;gap:4px;">
+              <button id="sh-tab-floorplan" type="button" class="studio-stage-tab-btn tab-btn active" data-tab="llmsTxt" onclick="window.shSetActiveTab('floorplan')" style="padding:5px 6px;font-size:0.78rem;">Seating</button>
+              <button id="sh-tab-beo" type="button" class="studio-stage-tab-btn tab-btn" data-tab="jsonLd" onclick="window.shSetActiveTab('beo')" style="padding:5px 6px;font-size:0.78rem;">Caterer sheet</button>
+              <button id="sh-tab-poster" type="button" class="studio-stage-tab-btn" onclick="window.shSetActiveTab('poster')" style="padding:5px 6px;font-size:0.78rem;">Welcome sign</button>
+              <button id="sh-tab-qr" type="button" class="studio-stage-tab-btn" onclick="window.shSetActiveTab('qr')" style="padding:5px 6px;font-size:0.78rem;">Guest QR</button>
             </div>
 
             <!-- Foreground Specimen Card -->
-            <div class="studio-foreground-specimen" id="studio-foreground-specimen">
+            <div class="studio-foreground-specimen" id="studio-foreground-specimen" style="padding:8px;">
               <!-- PANE 1: Interactive Floorplan & Selected Table Inspector -->
               <div id="sh-pane-floorplan" style="display:block;">
                 <div id="sh-canvas-step-banner" style="display:none;"><span id="sh-canvas-step-badge"></span><span id="sh-canvas-step-hint"></span><button type="button" id="sh-canvas-step-next-btn"></button></div>
                 <div id="sh-active-swap-banner" style="display:none;"></div>
-                <div id="sh-mom-sandbox-banner" style="display:none;margin-bottom:8px;padding:8px 12px;border-radius:10px;background:#F0FDFA;border:1px solid #99F6E4;color:#00766C;font-size:0.8125rem;align-items:center;justify-content:space-between;gap:8px;flex-wrap:wrap;"><span><strong>&#128117; Family Share Mode Active:</strong> Mom can rearrange Tables 1&ndash;3 only; Tables 4+ are locked with padlocks on the floorplan.</span><span style="display:inline-flex;gap:6px;"><button type="button" class="sh-ed-ghost" style="background:#FFF;padding:3px 9px;" onclick="window.shCopyMomSandboxLink()">&#128279; Copy Family Link</button><button type="button" class="sh-ed-ghost" style="background:#FFF;padding:3px 9px;" onclick="window.shToggleMomSandbox()">Exit Family Mode</button></span></div>
+                <div id="sh-mom-sandbox-banner" style="display:none;margin-bottom:6px;padding:6px 10px;border-radius:8px;background:#F0FDFA;border:1px solid #99F6E4;color:#00766C;font-size:0.78rem;align-items:center;justify-content:space-between;gap:6px;flex-wrap:wrap;"><span><strong>&#128117; Family Share Mode Active:</strong> Mom can rearrange Tables 1&ndash;3 only; Tables 4+ are locked with padlocks on the floorplan.</span><span style="display:inline-flex;gap:6px;"><button type="button" class="sh-ed-ghost" style="background:#FFF;padding:3px 9px;" onclick="window.shCopyMomSandboxLink()">&#128279; Copy Family Link</button><button type="button" class="sh-ed-ghost" style="background:#FFF;padding:3px 9px;" onclick="window.shToggleMomSandbox()">Exit Family Mode</button></span></div>
 
                 <!-- Simple editor bar: one hint, Undo, Room & tables, Add table, Add element -->
-                <div id="sh-canvas-micro-toolbar" class="sh-ed-bar">
-                  <span id="sh-live-toast" class="sh-ed-hint sh-hide-mobile-toolbar">Tap a table to see who&rsquo;s sitting there. Drag a guest to another seat to move them.</span>
-                  <button type="button" id="sh-undo-btn" class="sh-ed-ghost" onclick="window.shUndo(1)" title="Undo last move (Ctrl+Z / Cmd+Z)">&#8630; Undo</button>
-                  <span class="sh-ed-menu-wrap sh-hide-mobile-toolbar"><button type="button" id="sh-toolbar-history-btn" class="sh-ed-ghost" aria-haspopup="true" onclick="window.shToggleHistoryMenu(event)" title="View and restore any of your last 5 moves">&#128339; Last 5 moves &#9662;</button><div id="sh-history-menu" class="sh-ed-menu" style="display:none;min-width:320px;"></div></span>
-                  <span id="sh-toolbar-zoom-wrap" style="display:inline-flex;align-items:center;background:#F8F7F4;border:1px solid #D1D5DB;border-radius:8px;padding:0 2px;" title="Scroll mouse wheel over floorplan to zoom in/out on selected table"><button type="button" id="sh-zoom-out-btn" class="sh-ed-ghost" style="border:none;background:transparent;padding:2px 6px;font-weight:800;" onclick="window.shStepCanvasZoom(-0.25)" aria-label="Zoom out">&minus;</button><button type="button" id="sh-zoom-pct-btn" class="sh-ed-ghost" style="border:none;background:transparent;padding:2px 5px;font-size:0.76rem;font-weight:800;min-width:42px;text-align:center;" onclick="window.shResetCanvasZoom()" title="Click to reset to 100% full room">100%</button><button type="button" id="sh-zoom-in-btn" class="sh-ed-ghost" style="border:none;background:transparent;padding:2px 6px;font-weight:800;" onclick="window.shStepCanvasZoom(0.25)" aria-label="Zoom in">+</button></span>
-                  <button type="button" id="sh-toolbar-snap-btn" class="sh-ed-ghost sh-hide-mobile-toolbar" style="background:#F0FDFA;border-color:#00766C;color:#00766C;" onclick="window.shToggleSnapGrid(event)" title="Snap tables to 20px grid and align with adjacent tables (hold Shift while dragging for freeform)">&#8862; Snap: ON</button>
-                  <button type="button" id="sh-toolbar-mom-btn" class="sh-ed-ghost sh-hide-mobile-toolbar" onclick="window.shToggleMomSandbox()" title="Lock Tables 4+ so Mom or family can only edit Tables 1-3">&#128117; Family Share (Tables 1&ndash;3)</button>
-                  <span class="sh-ed-menu-wrap"><button type="button" id="sh-toolbar-room-btn" class="sh-ed-ghost" aria-haspopup="true" onclick="window.shToggleRoomMenu(event)">Room &amp; tables &#9662;</button><div id="sh-room-menu" class="sh-ed-menu" style="display:none;min-width:240px;"><div class="sh-ed-menu-sec">Switch all tables (keeps guests)</div><button type="button" data-room-shape="round8" onclick="window.shSetAllTablesKind('round8')">All Round <small>8 seats</small></button><button type="button" data-room-shape="round10" onclick="window.shSetAllTablesKind('round10')">All Round <small>10 seats</small></button><button type="button" data-room-shape="banquet12" onclick="window.shSetAllTablesKind('banquet12')">All Long banquet <small>12 seats</small></button><button type="button" data-room-shape="kings8" onclick="window.shSetAllTablesKind('kings8')">All King's <small>8 seats</small></button><div class="sh-ed-menu-sec">Scale venue guest capacity</div><div class="sh-ed-cap-grid"><button type="button" data-room-cap="50" onclick="window.shScaleRoomGuests(50)">50</button><button type="button" data-room-cap="75" onclick="window.shScaleRoomGuests(75)">75</button><button type="button" data-room-cap="100" onclick="window.shScaleRoomGuests(100)">100</button><button type="button" data-room-cap="150" onclick="window.shScaleRoomGuests(150)">150</button><button type="button" data-room-cap="200" onclick="window.shScaleRoomGuests(200)">200</button><button type="button" data-room-cap="300" onclick="window.shScaleRoomGuests(300)">300</button></div><div class="sh-ed-menu-sec">Alignment &amp; cleanup</div><button type="button" data-room-align="1" onclick="window.shAlignAllTablesToGrid()">&#8862; Align all tables to grid <small>snap rows &amp; cols</small></button><button type="button" data-room-prune="1" onclick="window.shPruneEmptyTables()">Clean up empty tables <small>auto-renumber</small></button></div></span><span class="sh-ed-menu-wrap"><button type="button" id="sh-toolbar-add-table-btn" class="sh-ed-ghost" aria-haspopup="true" onclick="window.shToggleAddMenu(event)">+ Add table &#9662;</button><div id="sh-add-menu" class="sh-ed-menu" style="display:none;"><button type="button" onclick="window.shAddTableType('round8')">Round table <small>8 seats</small></button><button type="button" onclick="window.shAddTableType('round10')">Round table <small>10 seats</small></button><button type="button" onclick="window.shAddTableType('banquet12')">Long banquet <small>12 seats</small></button><button type="button" onclick="window.shAddTableType('kings8')">King's table <small>8 seats</small></button></div></span><span class="sh-ed-menu-wrap sh-hide-mobile-toolbar"><button type="button" id="sh-toolbar-add-landmark-btn" class="sh-ed-ghost" aria-haspopup="true" onclick="window.shToggleElMenu(event)">+ Add element &#9662;</button><div id="sh-el-menu" class="sh-ed-menu" style="display:none;"><button type="button" onclick="window.shAddElement('dance')">Dance floor</button><button type="button" onclick="window.shAddElement('dj')">DJ / band</button><button type="button" onclick="window.shAddElement('bar')">Bar</button><button type="button" onclick="window.shAddElement('cake')">Cake table</button><button type="button" onclick="window.shAddElement('buffet')">Buffet</button><button type="button" onclick="window.shAddElement('photo')">Photo booth</button><button type="button" onclick="window.shAddElement('stage')">Stage</button><button type="button" onclick="window.shAddElement('gifts')">Gift table</button><button type="button" onclick="window.shAddElement('custom')">Custom label</button></div></span>
-                  <button type="button" id="sh-toolbar-panel-btn" class="sh-ed-ghost sh-hide-mobile-toolbar" onclick="window.shToggleRightPanel()" title="Minimize or reopen the right-side table &amp; guest panel">&#8677; Hide panel</button>
+                <div id="sh-canvas-micro-toolbar" class="sh-ed-bar" style="margin-bottom:4px;gap:6px;">
+                  <span id="sh-live-toast" class="sh-ed-hint sh-hide-mobile-toolbar" style="font-size:0.80rem;">Tap a table to inspect or drag guests between seats.</span>
+                  <button type="button" id="sh-undo-btn" class="sh-ed-ghost" style="padding:4px 9px;font-size:0.76rem;" onclick="window.shUndo(1)" title="Undo last move (Ctrl+Z / Cmd+Z)">&#8630; Undo</button>
+                  <span class="sh-ed-menu-wrap sh-hide-mobile-toolbar"><button type="button" id="sh-toolbar-history-btn" class="sh-ed-ghost" style="padding:4px 9px;font-size:0.76rem;" aria-haspopup="true" onclick="window.shToggleHistoryMenu(event)" title="View and restore any of your last 5 moves">&#128339; History &#9662;</button><div id="sh-history-menu" class="sh-ed-menu" style="display:none;min-width:320px;"></div></span>
+                  <span id="sh-toolbar-zoom-wrap" style="display:inline-flex;align-items:center;background:#F8F7F4;border:1px solid #D1D5DB;border-radius:8px;padding:0 2px;" title="Scroll mouse wheel over floorplan to zoom in/out on selected table"><button type="button" id="sh-zoom-out-btn" class="sh-ed-ghost" style="border:none;background:transparent;padding:2px 6px;font-weight:800;" onclick="window.shStepCanvasZoom(-0.25)" aria-label="Zoom out">&minus;</button><button type="button" id="sh-zoom-pct-btn" class="sh-ed-ghost" style="border:none;background:transparent;padding:2px 5px;font-size:0.74rem;font-weight:800;min-width:38px;text-align:center;" onclick="window.shResetCanvasZoom()" title="Click to reset to 100% full room">100%</button><button type="button" id="sh-zoom-in-btn" class="sh-ed-ghost" style="border:none;background:transparent;padding:2px 6px;font-weight:800;" onclick="window.shStepCanvasZoom(0.25)" aria-label="Zoom in">+</button></span>
+                  <button type="button" id="sh-toolbar-snap-btn" class="sh-ed-ghost sh-hide-mobile-toolbar" style="background:#F0FDFA;border-color:#00766C;color:#00766C;padding:4px 9px;font-size:0.76rem;" onclick="window.shToggleSnapGrid(event)" title="Snap tables to 20px grid and align with adjacent tables (hold Shift while dragging for freeform)">&#8862; Snap: ON</button>
+                  <button type="button" id="sh-toolbar-mom-btn" class="sh-ed-ghost sh-hide-mobile-toolbar" style="padding:4px 9px;font-size:0.76rem;" onclick="window.shToggleMomSandbox()" title="Lock Tables 4+ so Mom or family can only edit Tables 1-3">&#128117; Family Share</button>
+                  <span class="sh-ed-menu-wrap"><button type="button" id="sh-toolbar-room-btn" class="sh-ed-ghost" style="padding:4px 9px;font-size:0.76rem;" aria-haspopup="true" onclick="window.shToggleRoomMenu(event)">Room &amp; tables &#9662;</button><div id="sh-room-menu" class="sh-ed-menu" style="display:none;min-width:240px;"><div class="sh-ed-menu-sec">Switch all tables (keeps guests)</div><button type="button" data-room-shape="round8" onclick="window.shSetAllTablesKind('round8')">All Round <small>8 seats</small></button><button type="button" data-room-shape="round10" onclick="window.shSetAllTablesKind('round10')">All Round <small>10 seats</small></button><button type="button" data-room-shape="banquet12" onclick="window.shSetAllTablesKind('banquet12')">All Long banquet <small>12 seats</small></button><button type="button" data-room-shape="kings8" onclick="window.shSetAllTablesKind('kings8')">All King's <small>8 seats</small></button><div class="sh-ed-menu-sec">Scale venue guest capacity</div><div class="sh-ed-cap-grid"><button type="button" data-room-cap="50" onclick="window.shScaleRoomGuests(50)">50</button><button type="button" data-room-cap="75" onclick="window.shScaleRoomGuests(75)">75</button><button type="button" data-room-cap="100" onclick="window.shScaleRoomGuests(100)">100</button><button type="button" data-room-cap="150" onclick="window.shScaleRoomGuests(150)">150</button><button type="button" data-room-cap="200" onclick="window.shScaleRoomGuests(200)">200</button><button type="button" data-room-cap="300" onclick="window.shScaleRoomGuests(300)">300</button></div><div class="sh-ed-menu-sec">Alignment &amp; cleanup</div><button type="button" data-room-align="1" onclick="window.shAlignAllTablesToGrid()">&#8862; Align all tables to grid <small>snap rows &amp; cols</small></button><button type="button" data-room-prune="1" onclick="window.shPruneEmptyTables()">Clean up empty tables <small>auto-renumber</small></button></div></span><span class="sh-ed-menu-wrap"><button type="button" id="sh-toolbar-add-table-btn" class="sh-ed-ghost" style="padding:4px 9px;font-size:0.76rem;" aria-haspopup="true" onclick="window.shToggleAddMenu(event)">+ Add table &#9662;</button><div id="sh-add-menu" class="sh-ed-menu" style="display:none;"><button type="button" onclick="window.shAddTableType('round8')">Round table <small>8 seats</small></button><button type="button" onclick="window.shAddTableType('round10')">Round table <small>10 seats</small></button><button type="button" onclick="window.shAddTableType('banquet12')">Long banquet <small>12 seats</small></button><button type="button" onclick="window.shAddTableType('kings8')">King's table <small>8 seats</small></button></div></span><span class="sh-ed-menu-wrap sh-hide-mobile-toolbar"><button type="button" id="sh-toolbar-add-landmark-btn" class="sh-ed-ghost" style="padding:4px 9px;font-size:0.76rem;" aria-haspopup="true" onclick="window.shToggleElMenu(event)">+ Add element &#9662;</button><div id="sh-el-menu" class="sh-ed-menu" style="display:none;"><button type="button" onclick="window.shAddElement('dance')">Dance floor</button><button type="button" onclick="window.shAddElement('dj')">DJ / band</button><button type="button" onclick="window.shAddElement('bar')">Bar</button><button type="button" onclick="window.shAddElement('cake')">Cake table</button><button type="button" onclick="window.shAddElement('buffet')">Buffet</button><button type="button" onclick="window.shAddElement('photo')">Photo booth</button><button type="button" onclick="window.shAddElement('stage')">Stage</button><button type="button" onclick="window.shAddElement('gifts')">Gift table</button><button type="button" onclick="window.shAddElement('custom')">Custom label</button></div></span>
+                  <button type="button" id="sh-toolbar-panel-btn" class="sh-ed-ghost sh-hide-mobile-toolbar" style="padding:4px 9px;font-size:0.76rem;" onclick="window.shToggleRightPanel()" title="Minimize or reopen the right-side table &amp; guest panel">&#8677; Hide panel</button>
                 </div>
 
-                <div id="sh-ed-legend" class="sh-ed-legend" aria-label="Guest groups. Tap a group to highlight it."></div>
-                <div id="sh-ed-grid" class="sh-ed-grid">
+                <div id="sh-ed-legend" class="sh-ed-legend" aria-label="Guest groups. Tap a group to highlight it." style="margin:0 0 4px;flex-wrap:nowrap;overflow-x:auto;"></div>
+                <div id="sh-ed-grid" class="sh-ed-grid" style="gap:8px 14px;">
                   <div class="sh-ed-canvas" id="sh-floorplan-svg-stage">
                     <button type="button" id="sh-canvas-reopen-panel-btn" class="sh-canvas-reopen-btn" onclick="window.shToggleRightPanel(false)" title="Re-open / maximize the right-side table &amp; guest panel">&#8676; Re-open right panel</button>
-                    <svg id="sh-floorplan-svg" viewBox="0 0 1120 680" style="width:100%;height:auto;display:block;touch-action:none;user-select:none;" role="img" aria-label="Wedding floorplan"></svg>
+                    <svg id="sh-floorplan-svg" viewBox="0 0 1120 680" style="width:100%;height:215px;max-height:215px;display:block;touch-action:none;user-select:none;" role="img" aria-label="Wedding floorplan"></svg>
                   </div>
 
-                  <!-- Studio Deliverable Dock (Placed directly beneath Floorplan Canvas so mobile & desktop users see Save/Email $0 & $9 Print Pack immediately before the 1,269px Table Inspector) -->
-                  <div id="sh-vault-checkout-bar" style="grid-column:1 / -1;width:100%;margin:6px 0;background:#FFFFFF;border:1.5px solid #00766C;border-radius:16px;padding:16px 18px;color:#1C1C1C;display:flex;flex-direction:column;gap:12px;box-shadow:0 8px 24px rgba(0,118,108,0.08);">
-                    <div id="sh-live-personalized-proof" style="background:#FAF8F5;border:1px solid #EAE4DC;border-radius:12px;padding:10px 14px;display:flex;flex-wrap:wrap;align-items:center;justify-content:space-between;gap:10px;">
-                      <div style="min-width:0;flex:1 1 280px;display:flex;flex-direction:column;gap:2px;">
-                        <div style="display:flex;align-items:center;gap:8px;flex-wrap:wrap;">
-                          <span style="font-size:0.72rem;font-weight:700;color:#00766C;background:#F0FDFA;border:1px solid #CCFBF1;padding:2px 8px;border-radius:999px;" id="sh-table1-preview-badge">Live Seating &amp; Print Preview</span>
-                          <span style="font-size:0.76rem;color:#57534E;font-weight:500;" id="sh-table1-preview-status">Updates as you edit</span>
-                        </div>
-                        <div style="font-size:0.95rem;font-weight:800;color:#1C1C1C;line-height:1.3;" id="sh-proof-couple-name">${escapeHtml(plan.title || "Maya & Liam's Estate Reception")} &middot; <span id="sh-proof-venue-name" style="font-weight:600;color:#57534E;">${escapeHtml(plan.venueName || 'Rosewood Conservatory')}</span></div>
-                        <div style="font-size:0.82rem;color:#44403C;line-height:1.4;" id="sh-proof-table1-summary"><strong>Table 1:</strong> Maya &amp; Liam Vance &bull; Filet Mignon &bull; 6 Allergy Notes</div>
+                  <!-- Studio Deliverable Dock (Placed directly beneath Floorplan Canvas so mobile & desktop users hit the $0 Email Gate & $9 Print Pack inside the first screen <= 820px) -->
+                  <div id="sh-vault-checkout-bar" style="grid-column:1;width:100%;margin:0;background:#FFFFFF;border:1.5px solid #00766C;border-radius:12px;padding:8px 12px;color:#1C1C1C;display:flex;flex-direction:column;gap:6px;box-shadow:0 4px 16px rgba(0,118,108,0.08);">
+                    <div id="sh-live-personalized-proof" style="background:#FAF8F5;border:1px solid #EAE4DC;border-radius:8px;padding:5px 10px;display:flex;flex-wrap:wrap;align-items:center;justify-content:space-between;gap:6px;">
+                      <div style="min-width:0;flex:1 1 240px;display:flex;align-items:center;gap:6px;flex-wrap:wrap;">
+                        <span style="font-size:0.70rem;font-weight:800;color:#00766C;background:#F0FDFA;border:1px solid #CCFBF1;padding:1px 7px;border-radius:999px;" id="sh-table1-preview-badge">Live Seating &amp; Print Preview</span>
+                        <span style="font-size:0.80rem;font-weight:800;color:#1C1C1C;" id="sh-proof-couple-name">${escapeHtml(plan.title || "Maya & Liam's Estate Reception")} &middot; <span id="sh-proof-venue-name" style="font-weight:600;color:#57534E;">${escapeHtml(plan.venueName || 'Rosewood Conservatory')}</span></span>
+                        <span style="font-size:0.76rem;color:#44403C;" id="sh-proof-table1-summary"><strong>Table 1:</strong> Maya &amp; Liam Vance &bull; Filet Mignon &bull; 6 Allergy Notes</span>
+                        <span style="display:none;" id="sh-table1-preview-status">Updates as you edit</span>
                       </div>
                       <div id="sh-table1-escort-dietary-preview" data-unmasked="1" style="display:none;"><div id="sh-table1-preview-body"></div></div>
                     </div>
 
-                    <div style="display:flex;flex-direction:column;gap:10px;">
-                      <div style="display:flex;flex-direction:column;gap:2px;">
-                        <div style="font-size:0.98rem;font-weight:800;color:#1C1C1C;" id="sh-vault-bar-headline">Save &amp; Email Your Seating Plan ($0) or Download the Full Print Pack ($9)</div>
-                        <div style="font-size:0.82rem;color:#57534E;line-height:1.4;">Includes your 24&Prime;&times;36&Prime; Welcome Sign PDF, Folded Guest Place Cards, Caterer Table Meal Sheet, and Mobile Guest Seat Finder.</div>
-                      </div>
-                      <div style="display:flex;flex-wrap:wrap;align-items:center;gap:8px;">
-                        <div id="sh-inline-email-bridge" style="display:flex;flex-wrap:wrap;gap:8px;align-items:center;flex:1 1 320px;min-width:0;">
-                          <input id="sh-inline-vault-email" type="email" placeholder="Enter your email to save &amp; send your plan ($0)..." value="${escapeHtml(plan.ownerEmail && !/^(test|vip)@/i.test(plan.ownerEmail) ? plan.ownerEmail : '')}" onkeydown="if(event.key==='Enter')window.shSaveInlineEmailLead()" style="flex:1 1 auto;min-width:0;height:44px;min-height:44px;padding:10px 14px;border:1px solid #D1D5DB;border-radius:10px;font-size:0.88rem;background:#FFFFFF;color:#1C1C1C;box-sizing:border-box;" aria-label="Email address to save seating plan" />
-                          <button type="button" id="sh-inline-vault-save-btn" onclick="window.shSaveInlineEmailLead()" style="cursor:pointer;background:#00766C;color:#FFFFFF;border:1px solid #00766C;border-radius:10px;height:44px;min-height:44px;padding:10px 16px;font-size:0.86rem;font-weight:700;white-space:nowrap;">Save &amp; Email My Plan ($0)</button>
+                    <div style="display:flex;flex-direction:column;gap:5px;">
+                      <div style="font-size:0.82rem;font-weight:800;color:#1C1C1C;line-height:1.25;" id="sh-vault-bar-headline">Unlock Your Clockwise 12:00 Meal Tally &amp; Save Plan ($0) or Get the 24&Prime;&times;36&Prime; Print Pack ($9):</div>
+                      <div style="display:flex;flex-wrap:wrap;align-items:center;gap:6px;">
+                        <div id="sh-inline-email-bridge" style="display:flex;flex-wrap:wrap;gap:6px;align-items:center;flex:1 1 300px;min-width:0;">
+                          <input id="sh-inline-vault-email" type="email" placeholder="Enter your email to save &amp; unlock meal tally ($0)..." value="${escapeHtml(plan.ownerEmail && !/^(test|vip)@/i.test(plan.ownerEmail) ? plan.ownerEmail : '')}" onkeydown="if(event.key==='Enter')window.shSaveInlineEmailLead()" style="flex:1 1 auto;min-width:0;height:40px;min-height:40px;padding:8px 12px;border:1px solid #D1D5DB;border-radius:8px;font-size:0.84rem;background:#FFFFFF;color:#1C1C1C;box-sizing:border-box;" aria-label="Email address to save seating plan" />
+                          <button type="button" id="sh-inline-vault-save-btn" onclick="window.shSaveInlineEmailLead()" style="cursor:pointer;background:#00766C;color:#FFFFFF;border:1px solid #00766C;border-radius:8px;height:40px;min-height:40px;padding:8px 14px;font-size:0.82rem;font-weight:700;white-space:nowrap;">Unlock Meal Tally ($0) &rarr;</button>
                         </div>
-                        <a id="sh-vault-buy-pack-btn" href="/buy/complete_dossier?target=estate-150&amp;vault=${vId}&amp;allow_promotion_codes=false" style="display:inline-flex;align-items:center;justify-content:center;text-align:center;background:#1C1C1C;color:#FFFFFF;border:1px solid #1C1C1C;border-radius:10px;height:44px;min-height:44px;padding:10px 18px;font-size:0.88rem;font-weight:800;text-decoration:none;white-space:nowrap;line-height:1.3;">Unlock Full Print Pack ($9) &rarr;</a>
+                        <a id="sh-vault-buy-pack-btn" href="/buy/complete_dossier?target=estate-150&amp;vault=${vId}&amp;allow_promotion_codes=false" style="display:inline-flex;align-items:center;justify-content:center;text-align:center;background:#1C1C1C;color:#FFFFFF;border:1px solid #1C1C1C;border-radius:8px;height:40px;min-height:40px;padding:8px 14px;font-size:0.82rem;font-weight:800;text-decoration:none;white-space:nowrap;line-height:1.25;">$9 Print Pack &rarr;</a>
                       </div>
-                      <div id="sh-post-email-upgrade-bridge" style="display:none;padding:10px 14px;border-radius:10px;background:#F0FDFA;border:1px solid #99F6E4;color:#065F46;font-size:0.84rem;font-weight:600;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:10px;">
+                      <div id="sh-post-email-upgrade-bridge" style="display:none;padding:8px 12px;border-radius:8px;background:#F0FDFA;border:1px solid #99F6E4;color:#065F46;font-size:0.80rem;font-weight:600;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:8px;">
                         <span>&#10003; Saved! <a id="sh-stateful-share-link" href="/?vault=${vId}&amp;saved=1#studio" style="color:#00766C;font-weight:700;text-decoration:underline;">Shareable Return Link</a></span>
-                        <a id="sh-post-email-upgrade-cta" href="/buy/complete_dossier?target=estate-150&amp;vault=${vId}&amp;allow_promotion_codes=false" style="background:#1C1C1C;color:#FFFFFF;border-radius:8px;padding:6px 12px;font-size:0.80rem;font-weight:700;text-decoration:none;">Download Full Print Pack ($9 &middot; Email Pre-Filled) &rarr;</a>
+                        <a id="sh-post-email-upgrade-cta" href="/buy/complete_dossier?target=estate-150&amp;vault=${vId}&amp;allow_promotion_codes=false" style="background:#1C1C1C;color:#FFFFFF;border-radius:8px;padding:5px 10px;font-size:0.78rem;font-weight:700;text-decoration:none;">Download Full Print Pack ($9 &middot; Email Pre-Filled) &rarr;</a>
                       </div>
                     </div>
 
-                    <div style="display:flex;flex-wrap:wrap;align-items:center;justify-content:space-between;gap:10px;padding-top:10px;border-top:1px solid #EAE4DC;">
-                      <div id="sh-voc-survey-box" style="display:flex;flex-wrap:wrap;align-items:center;gap:6px;">
-                        <span id="sh-voc-survey-label" style="font-size:0.78rem;font-weight:600;color:#57534E;">Preview deliverable:</span>
-                        <div style="display:flex;flex-wrap:wrap;gap:5px;">
-                          <button type="button" class="studio-tap-chip sh-voc-chip" style="padding:4px 10px;font-size:0.76rem;" onclick="window.shSubmitVocSurvey('24x36_sign',this)">24&Prime;&times;36&Prime; Sign</button>
-                          <button type="button" class="studio-tap-chip sh-voc-chip" style="padding:4px 10px;font-size:0.76rem;" onclick="window.shSubmitVocSurvey('avery_5302',this)">Place Cards</button>
-                          <button type="button" class="studio-tap-chip sh-voc-chip" style="padding:4px 10px;font-size:0.76rem;" onclick="window.shSubmitVocSurvey('caterer_beo',this)">Caterer Sheet</button>
-                          <button type="button" class="studio-tap-chip sh-voc-chip" style="padding:4px 10px;font-size:0.76rem;" onclick="window.shSubmitVocSurvey('floorplan',this)">Floorplan</button>
+                    <div class="sh-hide-mobile-toolbar" style="display:flex;flex-wrap:wrap;align-items:center;justify-content:space-between;gap:8px;padding-top:6px;border-top:1px solid #EAE4DC;">
+                      <div id="sh-voc-survey-box" style="display:flex;flex-wrap:wrap;align-items:center;gap:5px;">
+                        <span id="sh-voc-survey-label" style="font-size:0.74rem;font-weight:600;color:#57534E;">Preview deliverable:</span>
+                        <div style="display:flex;flex-wrap:wrap;gap:4px;">
+                          <button type="button" class="studio-tap-chip sh-voc-chip" style="padding:3px 8px;font-size:0.74rem;" onclick="window.shSubmitVocSurvey('24x36_sign',this)">24&Prime;&times;36&Prime; Sign</button>
+                          <button type="button" class="studio-tap-chip sh-voc-chip" style="padding:3px 8px;font-size:0.74rem;" onclick="window.shSubmitVocSurvey('avery_5302',this)">Place Cards</button>
+                          <button type="button" class="studio-tap-chip sh-voc-chip" style="padding:3px 8px;font-size:0.74rem;" onclick="window.shSubmitVocSurvey('caterer_beo',this)">Caterer Sheet</button>
+                          <button type="button" class="studio-tap-chip sh-voc-chip" style="padding:3px 8px;font-size:0.74rem;" onclick="window.shSubmitVocSurvey('floorplan',this)">Floorplan</button>
                         </div>
                       </div>
                       <div id="sh-planner-pro-dock-banner" style="display:flex;flex-wrap:wrap;align-items:center;gap:6px;">
-                        <span style="font-size:0.78rem;color:#57534E;">Wedding Planner or Venue?</span>
-                        <a id="sh-vault-buy-pro-btn" href="/buy/pro_b2b?target=estate-150&amp;vault=${vId}&amp;allow_promotion_codes=false" title="For Wedding Planners & Venues: Unlimited Events + Custom Agency Logo ($29 Pro Pass)" style="color:#00766C;font-size:0.78rem;font-weight:800;text-decoration:underline;">$29 Pro Pass &rarr;</a>
+                        <span style="font-size:0.74rem;color:#57534E;">Wedding Planner or Venue?</span>
+                        <a id="sh-vault-buy-pro-btn" href="/buy/pro_b2b?target=estate-150&amp;vault=${vId}&amp;allow_promotion_codes=false" title="For Wedding Planners & Venues: Unlimited Events + Custom Agency Logo ($29 Pro Pass)" style="color:#00766C;font-size:0.74rem;font-weight:800;text-decoration:underline;">$29 Pro Pass &rarr;</a>
                       </div>
                     </div>
-                    <div id="sh-ecosystem-handoff-banner" style="padding-top:6px;border-top:1px solid #F3EFEA;display:flex;flex-wrap:wrap;align-items:center;justify-content:space-between;gap:6px;font-size:0.76rem;color:#78716C;">
+                    <div id="sh-ecosystem-handoff-banner" class="sh-hide-mobile-toolbar" style="padding-top:4px;border-top:1px solid #F3EFEA;display:flex;flex-wrap:wrap;align-items:center;justify-content:space-between;gap:6px;font-size:0.74rem;color:#78716C;">
                       <span>Also stocking your wedding reception bar?</span>
                       <a id="sh-ecosystem-handoff-link" href="https://barstock.exactbaseline.com/calculator/bar_stock?utm_source=seatharmony&amp;utm_medium=ecosystem_handoff" target="_blank" rel="noopener" style="color:#00766C;font-weight:700;text-decoration:underline;">Size your Costco or Total Wine alcohol order free on BarStock &rarr;</a>
                     </div>

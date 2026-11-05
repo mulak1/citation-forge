@@ -554,16 +554,16 @@ function renderHead({
     }
     @media (max-width: 768px) {
       #sh-vault-checkout-bar, #sh-inline-email-bridge, #sh-inline-vault-save-btn, #sh-vault-buy-pack-btn, #sh-planner-pro-dock-banner, #sh-vault-buy-pro-btn, .sh-zola-showcase-footer button, .studio-tap-chip, .bs-quote-stars, .badge, .badge-amber, .bs-ba-card-top, .bs-ba-pill, .bs-ba-price-tag, .bs-case-badge, .bs-case-state-tag, .studio-carousel-tab { white-space: normal !important; max-width: 100% !important; min-width: 0 !important; box-sizing: border-box !important; overflow-wrap: break-word !important; }
-      #sh-inline-email-bridge, #sh-seo-calc-email-wrap, #sh-planner-pro-dock-banner, .sh-zola-showcase-footer, .bs-ba-card-top { flex-direction: column !important; align-items: stretch !important; width: 100% !important; max-width: 100% !important; flex: 0 0 auto !important; }
-      #sh-inline-vault-email, #sh-step4-inline-email, #sh-seo-calc-email { flex: 0 0 auto !important; width: 100% !important; height: 44px !important; min-height: 44px !important; max-height: 44px !important; text-align: left !important; }
-      #sh-inline-vault-save-btn, #sh-step4-inline-save-btn, #sh-seo-calc-save-btn, #sh-vault-buy-pack-btn, #sh-vault-buy-pro-btn, .sh-zola-showcase-footer button { flex: 0 0 auto !important; width: 100% !important; min-height: 44px !important; text-align: center !important; justify-content: center !important; }
+      #sh-inline-email-bridge, #sh-seo-calc-email-wrap, #sh-planner-pro-dock-banner, .sh-zola-showcase-footer, .bs-ba-card-top { flex-direction: column !important; align-items: stretch !important; width: 100% !important; max-width: 100% !important; flex: 0 0 auto !important; gap: 5px !important; }
+      #sh-inline-vault-email, #sh-step4-inline-email, #sh-seo-calc-email { flex: 0 0 auto !important; width: 100% !important; height: 40px !important; min-height: 40px !important; max-height: 40px !important; text-align: left !important; }
+      #sh-inline-vault-save-btn, #sh-step4-inline-save-btn, #sh-seo-calc-save-btn, #sh-vault-buy-pack-btn, #sh-vault-buy-pro-btn, .sh-zola-showcase-footer button { flex: 0 0 auto !important; width: 100% !important; min-height: 40px !important; text-align: center !important; justify-content: center !important; }
       .sh-hide-mobile-toolbar { display: none !important; }
-      #sh-canvas-micro-toolbar { gap: 6px !important; margin-bottom: 8px !important; flex-wrap: nowrap !important; overflow-x: auto !important; padding-bottom: 2px !important; }
-      #sh-canvas-micro-toolbar .sh-ed-ghost { padding: 6px 10px !important; font-size: 0.80rem !important; }
-      #sh-ed-legend { flex-wrap: nowrap !important; overflow-x: auto !important; margin-bottom: 8px !important; padding-bottom: 4px !important; }
-      #sh-ed-legend .sh-leg { flex-shrink: 0 !important; padding: 4px 10px !important; font-size: 0.78rem !important; }
-      #sh-floorplan-svg { height: 360px !important; min-height: 360px !important; }
-      #sh-vault-checkout-bar { padding: 14px 14px !important; gap: 12px !important; }
+      #sh-canvas-micro-toolbar { gap: 4px !important; margin-bottom: 4px !important; flex-wrap: nowrap !important; overflow-x: auto !important; padding-bottom: 2px !important; }
+      #sh-canvas-micro-toolbar .sh-ed-ghost { padding: 4px 8px !important; font-size: 0.76rem !important; }
+      #sh-ed-legend { flex-wrap: nowrap !important; overflow-x: auto !important; margin-bottom: 4px !important; padding-bottom: 2px !important; }
+      #sh-ed-legend .sh-leg { flex-shrink: 0 !important; padding: 3px 8px !important; font-size: 0.74rem !important; }
+      #sh-floorplan-svg { height: 185px !important; min-height: 185px !important; max-height: 185px !important; }
+      #sh-vault-checkout-bar { padding: 8px 10px !important; gap: 6px !important; }
     }
     @media (max-width: 520px) { .sh-display-h1 { font-size: 1.56rem; } }
     @media (max-width: 1200px) { #nav-binder-btn { display: none !important; } }
