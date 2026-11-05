@@ -18,7 +18,7 @@ function renderInteractiveScript(initialPlan) {
   window.__SH_SELECTED_LANDMARK_IDX = null;
   window.__SH_SANDBOX_MOM = false; window.__SH_CREST_LOGO_URL = ''; window.__SH_SIGN_KICKER = 'Please Find Your Seat';
   window.__SH_SIGN_MONOGRAM = 'M&L · EST. 2026'; window.__SH_CANVAS_ZOOM = 'room'; window.__SH_DRAG_STATE = null; window.__SH_VSL_TIMER = null;
-  window.__SH_WIZARD_STEP = 1;
+  window.__SH_WIZARD_STEP = 4;
 
   window.shLoadVslSceneIntoStudio = function() {
     window.loadPresetScenario('estate-150', document.querySelector('[data-preset="estate-150"]'));
@@ -35,6 +35,7 @@ function renderInteractiveScript(initialPlan) {
     }
     if (s < 4) { window.__SH_SWAP_SOURCE = null; window.__SH_SELECTED_LANDMARK_IDX = null; window.__SH_CANVAS_ZOOM = 'room'; }
     if (typeof window.shSyncWizardStepStage === 'function') window.shSyncWizardStepStage();
+    shSyncTableSelectAndPills();
     shRenderAll();
   };
   function shEsc(s) { return String(s == null ? '' : s).replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;').replace(/'/g, '&#39;'); }
@@ -160,6 +161,7 @@ function renderInteractiveScript(initialPlan) {
     tbl.y = Math.max(72, Math.min((window.__SH_STATE.roomHeight || 680) - 75, Math.round((tbl.y || 200) + dy)));
     shRecomputeGeometry(tbl);
     shToast('✓ Moved ' + tbl.name + ' to (' + tbl.x + ', ' + tbl.y + ')');
+    shSyncTableSelectAndPills();
     shRenderAll();
   };
 
@@ -202,6 +204,7 @@ function renderInteractiveScript(initialPlan) {
     window.__SH_SWAP_SOURCE = null;
     window.__SH_OPEN_GUEST = null;
     window.__SH_SELECTED_LANDMARK_IDX = lmIdx;
+    shSyncTableSelectAndPills();
     shRenderAll();
   };
 
@@ -253,7 +256,8 @@ function renderInteractiveScript(initialPlan) {
           multiOrig.landmarks.forEach(function(ml) { if (ml.idx === lmIdx) return; const olm = window.__SH_STATE.landmarks[ml.idx]; if (olm) { olm.x = Math.max(60, Math.min(1060, Math.round(ml.x + snapDx))); olm.y = Math.max(35, Math.min((window.__SH_STATE.roomHeight || 680) - 35, Math.round(ml.y + snapDy))); } });
         }
         shToast('✓ Moved "' + lm.label + '" to (' + lm.x + ', ' + lm.y + ')');
-        shRenderAll();
+        shSyncTableSelectAndPills();
+    shRenderAll();
       } else { window.shSelectLandmark(lmIdx); }
     };
     window.addEventListener('mousemove', onMove); window.addEventListener('mouseup', onUp);
@@ -274,6 +278,7 @@ function renderInteractiveScript(initialPlan) {
     window.__SH_SELECTED_LANDMARK_IDX = window.__SH_STATE.landmarks.length - 1;
     window.__SH_SWAP_SOURCE = null;
     shToast('✓ Added "' + pick.label + '" · Drag it anywhere or rename/remove in the bar above!');
+    shSyncTableSelectAndPills();
     shRenderAll();
   };
 
@@ -282,6 +287,7 @@ function renderInteractiveScript(initialPlan) {
     if (!lm) return;
     lm.label = String(newLabel || lm.label).trim().toUpperCase() || 'ROOM ELEMENT';
     shToast('✓ Renamed room element to "' + lm.label + '"');
+    shSyncTableSelectAndPills();
     shRenderAll();
   };
 
@@ -290,6 +296,7 @@ function renderInteractiveScript(initialPlan) {
     if (!lm) return;
     lm.w = Math.max(80, Math.min(420, (lm.w || 140) + dw));
     lm.h = Math.max(28, Math.min(260, (lm.h || 42) + dh));
+    shSyncTableSelectAndPills();
     shRenderAll();
   };
 
@@ -298,6 +305,7 @@ function renderInteractiveScript(initialPlan) {
     if (!lm) return;
     const zones = ['neutral', 'quiet', 'loud'];
     lm.zone = zones[(zones.indexOf(lm.zone || 'neutral') + 1) % zones.length];
+    shSyncTableSelectAndPills();
     shRenderAll();
   };
 
@@ -306,6 +314,7 @@ function renderInteractiveScript(initialPlan) {
     const removed = window.__SH_STATE.landmarks.splice(lmIdx, 1)[0];
     window.__SH_SELECTED_LANDMARK_IDX = null;
     shToast('✓ Removed "' + (removed ? removed.label : 'Room Element') + '"');
+    shSyncTableSelectAndPills();
     shRenderAll();
   };
 
@@ -384,7 +393,8 @@ function renderInteractiveScript(initialPlan) {
           });
         }
         shToast('✓ Moved ' + tbl.name + ' to (' + tbl.x + ', ' + tbl.y + ')' + (window.__SH_SNAP_GRID !== false ? ' · Snapped to grid' : '') + '!');
-        shRenderAll();
+        shSyncTableSelectAndPills();
+    shRenderAll();
       } else if (window.__SH_SWAP_SOURCE && window.__SH_SWAP_SOURCE.tableIdx !== tIdx) {
         const srcTbl = window.__SH_STATE.tables[window.__SH_SWAP_SOURCE.tableIdx];
         if (srcTbl && srcTbl.guests[window.__SH_SWAP_SOURCE.seatIdx]) {
@@ -410,6 +420,7 @@ function renderInteractiveScript(initialPlan) {
       window.__SH_SWAP_SOURCE.seatIdx = targetIdx;
     }
     shToast('✓ Shifted ' + (tmp ? tmp.name : 'Guest') + ' to Seat #' + (targetIdx + 1) + ' at ' + tbl.name);
+    shSyncTableSelectAndPills();
     shRenderAll();
   };
 
@@ -427,6 +438,7 @@ function renderInteractiveScript(initialPlan) {
     window.__SH_SELECTED_TABLE_IDX = targetIdx;
     window.__SH_SWAP_SOURCE = { tableIdx: targetIdx, seatIdx: dstTbl.guests.length - 1 };
     shToast('✓ Moved ' + movedGuest.name + ' → ' + dstTbl.name + ' (Seat #' + dstTbl.guests.length + ')!');
+    shSyncTableSelectAndPills();
     shRenderAll();
   };
 
@@ -440,6 +452,7 @@ function renderInteractiveScript(initialPlan) {
     const words = clean.replace(/^(Dr|Mr|Mrs|Ms|Prof)\\.?\\s+/i, '').split(/\\s+/);
     g.initials = ((words[0] ? words[0][0] : 'G') + (words[words.length - 1] ? words[words.length - 1][0] : '')).toUpperCase();
     shToast('✓ Updated guest name to "' + clean + '"');
+    shSyncTableSelectAndPills();
     shRenderAll();
   };
 
@@ -458,6 +471,7 @@ function renderInteractiveScript(initialPlan) {
     window.__SH_SWAP_SOURCE = { tableIdx: tIdx, seatIdx: tbl.guests.length - 1 };
     if (inp) inp.value = '';
     shToast('✓ Seated "' + fullName + '" at ' + tbl.name + ' (Seat #' + tbl.guests.length + ')!');
+    shSyncTableSelectAndPills();
     shRenderAll();
   };
 
@@ -478,6 +492,7 @@ function renderInteractiveScript(initialPlan) {
       window.__SH_SWAP_SOURCE = null;
     }
     shRecomputeGeometry(tbl);
+    shSyncTableSelectAndPills();
     shRenderAll();
   };
 
@@ -488,6 +503,7 @@ function renderInteractiveScript(initialPlan) {
     tbl.name = clean;
     shSyncTableSelectAndPills();
     shToast('✓ Renamed table to "' + clean + '"');
+    shSyncTableSelectAndPills();
     shRenderAll();
   };
 
@@ -503,6 +519,7 @@ function renderInteractiveScript(initialPlan) {
     if (codeOut) {
       codeOut.textContent = view === 'beo' ? JSON.stringify({ '@context': 'https://schema.org', '@graph': [{ '@type': 'Event', name: (window.__SH_STATE && window.__SH_STATE.title) || 'Supabase Reception' }] }) : '# Supabase ' + ((window.__SH_STATE && window.__SH_STATE.title) || 'SeatHarmony Manifest');
     }
+    shSyncTableSelectAndPills();
     shRenderAll();
   };
 
@@ -522,6 +539,7 @@ function renderInteractiveScript(initialPlan) {
     window.__SH_SWAP_SOURCE = null;
     const sel = document.getElementById('sh-target-table-select');
     if (sel) sel.value = String(idx);
+    shSyncTableSelectAndPills();
     shRenderAll();
   };
 
@@ -531,6 +549,7 @@ function renderInteractiveScript(initialPlan) {
     if (window.__SH_SANDBOX_MOM && window.__SH_SELECTED_TABLE_IDX >= 3) { shToast('🔒 Mom Sandbox Active: Tables 4-8 are locked by the couple.'); return; }
     tbl.shape = shNormalizeShape(newShape); shRecomputeGeometry(tbl);
     shToast('✓ Morphed ' + tbl.name + ' to ' + shFriendlyShape(tbl.shape) + ' (12:00 Seat #1 preserved).');
+    shSyncTableSelectAndPills();
     shRenderAll();
   };
 
@@ -560,7 +579,8 @@ function renderInteractiveScript(initialPlan) {
     if (srcSelTbl && srcSelTbl.guests[srcSel.seatIdx] && window.shSnapshot) window.shSnapshot();
     if ((window.__SH_WIZARD_STEP || 1) < 4) {
       shToast('Selected ' + dstTbl.name + ' · Seat-by-seat editing unlocks in Step 4 (Fine-Tune & Export)!');
-      shRenderAll();
+      shSyncTableSelectAndPills();
+    shRenderAll();
       return;
     }
     if (window.__SH_SANDBOX_MOM && tIdx >= 3 && !dstTbl.isUserAdded) { shToast('🔒 Family Share Mode: Only Tables 1-3 are editable.'); return; }
@@ -578,14 +598,16 @@ function renderInteractiveScript(initialPlan) {
       } else {
         shToast('Selected Open Seat #' + (sIdx + 1) + ' at ' + dstTbl.name + ' · Add a guest or remove this empty chair above!');
       }
-      shRenderAll();
+      shSyncTableSelectAndPills();
+    shRenderAll();
       return;
     }
 
     // Clicking the same seat again deselects it
     if (src.tableIdx === tIdx && src.seatIdx === sIdx) {
       window.__SH_SWAP_SOURCE = null;
-      shRenderAll();
+      shSyncTableSelectAndPills();
+    shRenderAll();
       return;
     }
 
@@ -596,7 +618,8 @@ function renderInteractiveScript(initialPlan) {
         const moved = srcTbl.guests.splice(src.seatIdx, 1)[0];
         srcTbl.guests.push(moved);
         shToast('✓ Moved ' + moved.name + ' to Seat #' + srcTbl.guests.length + ' at ' + dstTbl.name);
-        shRenderAll();
+        shSyncTableSelectAndPills();
+    shRenderAll();
         return;
       }
       window.shMoveGuestToTable(src.tableIdx, src.seatIdx, tIdx);
@@ -606,6 +629,7 @@ function renderInteractiveScript(initialPlan) {
     srcTbl.guests[src.seatIdx] = dstTbl.guests[sIdx];
     dstTbl.guests[sIdx] = tmp;
     shToast('✓ Swapped ' + (tmp ? tmp.name : 'Seat') + ' ↔ ' + (srcTbl.guests[src.seatIdx] ? srcTbl.guests[src.seatIdx].name : 'Seat') + ' · Meal Sheet & 24"×36" Sign synced!');
+    shSyncTableSelectAndPills();
     shRenderAll();
   };
 
@@ -621,7 +645,8 @@ function renderInteractiveScript(initialPlan) {
       window.__SH_STATE.harmonyScore = 99;
       if (btn) btn.innerHTML = '✨ Auto-Arrange All Tables (1 Click)';
       shToast('✓ All Tables Arranged: 99/100 Harmony · 0 Family Clashes · Every Couple Seated Together!');
-      shRenderAll();
+      shSyncTableSelectAndPills();
+    shRenderAll();
     }, 160);
   };
 
@@ -644,6 +669,7 @@ function renderInteractiveScript(initialPlan) {
     if (!Array.isArray(arr) || !arr[rIdx]) return;
     const rem = arr.splice(rIdx, 1)[0];
     shToast('✓ Removed Rule "' + (rem ? rem.label : 'Rule') + '"');
+    shSyncTableSelectAndPills();
     shRenderAll();
   };
 
@@ -658,6 +684,7 @@ function renderInteractiveScript(initialPlan) {
     r.type = next;
     r.detail = next === 'zone_quiet' ? 'Quiet Zone: Seated 30+ ft from DJ Speakers' : (next === 'must_sit_together' ? 'Seated Together at the Same Table' : 'Separated Across the Room (2+ Tables Apart)');
     shToast('✓ Updated rule type for "' + r.label + '"');
+    shSyncTableSelectAndPills();
     shRenderAll();
   };
 
@@ -668,6 +695,7 @@ function renderInteractiveScript(initialPlan) {
     if (banner) banner.style.display = window.__SH_SANDBOX_MOM ? 'flex' : 'none';
     if (btn) btn.style.background = window.__SH_SANDBOX_MOM ? '#FEF3C7' : '';
     shToast(window.__SH_SANDBOX_MOM ? '👵 Family Share Mode: Tables 1-3 Editable; Tables 4+ Locked' : 'Full Edit Mode Restored');
+    shSyncTableSelectAndPills();
     shRenderAll();
   };
 
@@ -710,6 +738,7 @@ function renderInteractiveScript(initialPlan) {
     shRecomputeGeometry(tbl); if (input) input.value = '';
     const sum2 = document.getElementById('sh-wizard-summary-2'); if (sum2) sum2.textContent = '+' + addedNames.length + ' Seated (' + (addedNames[0] || '') + ')';
     shToast('✓ Seated & Coupled ' + addedNames.length + ' Guests (' + addedNames.join(', ') + ') at ' + tbl.name + '!');
+    shSyncTableSelectAndPills();
     shRenderAll();
   };
 
@@ -755,7 +784,8 @@ function renderInteractiveScript(initialPlan) {
           }
         }
         shToast('✓ Opened Layout: ' + window.__SH_STATE.title);
-        shRenderAll();
+        shSyncTableSelectAndPills();
+    shRenderAll();
       }
     } catch (e) { console.error(e); }
   };
@@ -988,6 +1018,7 @@ function renderInteractiveScript(initialPlan) {
       if (sp.get('sandbox') === 'mom_tables_1_3' && !window.__SH_SANDBOX_MOM) window.shToggleMomSandbox();
       if (sp.get('checkout') === 'success' || sp.get('unlocked') === '1') { if (window.__SH_STATE) window.__SH_STATE.isUnlocked = true; }
     } catch (_) {}
+    shSyncTableSelectAndPills();
     shRenderAll();
   });
 </script>`;

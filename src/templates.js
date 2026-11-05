@@ -87,15 +87,16 @@ function renderHead({
     .btn-primary:hover { background: #005F57; border-color: #005F57; transform: translateY(-1px); }
     .btn-secondary { background: #FFFFFF; color: #1C1C1C; border: 1.5px solid #D1D5DB; }
     .btn-secondary:hover { background: #F8F7F4; border-color: #9CA3AF; }
-    .studio-zone-section, #studio, #studio-zone2-how-it-works, #beo-proof, #bs-before-after-section, #bs-written-testimonials-section, #pricing, #faq { padding: 92px 0; width: 100%; box-sizing: border-box; scroll-margin-top: 84px; }
-    #studio-bespoke-artifact-stage { padding: 18px; width: 100%; box-sizing: border-box; scroll-margin-top: 84px; }
+    .studio-zone-section, #studio, #studio-zone2-how-it-works, #beo-proof, #bs-before-after-section, #bs-written-testimonials-section, #pricing, #faq { padding: 64px 0; width: 100%; box-sizing: border-box; scroll-margin-top: 68px; }
+    #studio { padding: 24px 0 48px; }
+    #studio-bespoke-artifact-stage { padding: 14px; width: 100%; box-sizing: border-box; scroll-margin-top: 68px; }
     .mobile-jump-canvas-btn { display: none; }
     .studio-eyebrow-kicker, .bs-section-eyebrow { display: inline-flex; align-items: center; gap: 6px; font-family: var(--font-sans); font-size: 0.85rem; font-weight: 600; letter-spacing: 0.01em; text-transform: none; color: #00766C; background: #F0FDFA; border: 1px solid #CCFBF1; padding: 6px 16px; border-radius: 999px; margin-bottom: 14px; max-width: 100%; white-space: nowrap; }
     .studio-zone-title, .bs-section-h2 { font-family: var(--font-serif); font-size: clamp(2.15rem, 3.2vw, 2.85rem); font-weight: 700; color: #1C1C1C; line-height: 1.12; letter-spacing: -0.015em; margin: 0 0 14px 0; text-wrap: balance; }
     .studio-zone-title em, .bs-section-h2 em { font-style: italic; color: #00766C; font-weight: 600; }
     .studio-zone-sub, .bs-section-sub { font-size: 1.06rem; color: #4B5563; line-height: 1.56; max-width: 58ch; margin: 0 auto; text-wrap: pretty; }
     .bs-section-header { max-width: 780px; margin: 0 auto 48px; text-align: center; }
-    .studio-zone1-hero { padding: 48px 0 68px; background: linear-gradient(180deg, #FBF9F6 0%, #FFFFFF 100%); border-bottom: 1px solid #E5E7EB; }
+    .studio-zone1-hero { padding: 24px 0 28px; background: linear-gradient(180deg, #FBF9F6 0%, #FFFFFF 100%); border-bottom: 1px solid #E5E7EB; }
     .sh-zone1-stack { display: flex; flex-direction: column; align-items: stretch; gap: 36px; max-width: 1180px; margin: 0 auto; }
     .sh-zola-hero-split { display: grid; grid-template-columns: 1.08fr 0.92fr; gap: 44px; align-items: center; }
     .sh-zola-hero-left { display: flex; flex-direction: column; align-items: flex-start; text-align: left; gap: 18px; }
@@ -208,7 +209,10 @@ function renderHead({
     .sh-ed-ghost:hover { border-color: #00766C; background: #F0FDFA; }
     .sh-ed-bar { display: flex; align-items: center; gap: 10px; margin-bottom: 12px; flex-wrap: wrap; }
     .sh-ed-hint { flex: 1; min-width: 200px; font-size: 0.92rem; font-weight: 600; color: #4B5563; line-height: 1.35; }
-    .sh-ed-grid { display: grid; grid-template-columns: minmax(0, 1fr) 360px; gap: 16px; align-items: stretch; }
+    .sh-ed-grid { display: grid; grid-template-columns: minmax(0, 1fr) 360px; gap: 14px 16px; align-items: start; }
+    .sh-ed-grid > .sh-ed-canvas { grid-column: 1; grid-row: 1; }
+    .sh-ed-grid > #sh-vault-checkout-bar { grid-column: 1; grid-row: 2; width: 100%; max-width: 100% !important; margin: 0 !important; }
+    .sh-ed-grid > .sh-ed-panel { grid-column: 2; grid-row: 1 / span 2; }
     .sh-ed-grid.panel-hidden { grid-template-columns: minmax(0, 1fr); }
     .sh-ed-grid.panel-hidden .sh-ed-panel { display: none !important; }
     .sh-ed-panel-top { display: flex; align-items: center; justify-content: space-between; gap: 8px; margin-bottom: 10px; padding-bottom: 8px; border-bottom: 1px solid #E5E7EB; }
@@ -267,7 +271,12 @@ function renderHead({
     .sh-ed-remove { display: block; width: 100%; margin-top: 14px; padding: 9px; font-size: 0.90rem; font-weight: 700; color: #9F1239; background: transparent; border: 1.5px dashed #FECDD3; border-radius: 10px; cursor: pointer; }
     .sh-ed-remove:hover { background: #FFF1F2; }
     .sh-ed-free { font-size: 0.88rem; color: #9CA3AF; text-align: center; padding: 6px; }
-    @media (max-width: 1080px) { .sh-ed-grid { grid-template-columns: minmax(0, 1fr); } .sh-ed-panel { position: static; max-height: none; } .sh-ed-hint { white-space: normal; } }
+    @media (max-width: 1080px) {
+      .sh-ed-grid { grid-template-columns: minmax(0, 1fr); }
+      .sh-ed-grid > .sh-ed-canvas, .sh-ed-grid > #sh-vault-checkout-bar, .sh-ed-grid > .sh-ed-panel { grid-column: 1 !important; grid-row: auto !important; }
+      .sh-ed-panel { position: static; max-height: none; }
+      .sh-ed-hint { white-space: normal; }
+    }
     /* Readability floor: nothing meant to be read renders under 13px (poster mock-up keeps its true scale) */
     body [style*="font-size:0.6"]:not(#sh-poster-preview *), body [style*="font-size:0.7"]:not(#sh-poster-preview *), body [style*="font-size:0.80rem"]:not(#sh-poster-preview *), body [style*="font-size:0.8rem"]:not(#sh-poster-preview *) { font-size: 0.8125rem !important; }
     .shw-wrap { max-width: 920px; margin: 0 auto; }
@@ -526,11 +535,15 @@ function renderHead({
       .sh-vsl-scene-h3, .bs-honest-title { font-size: 1.22rem; line-height: 1.22; }
       .sh-crease-val { font-size: 1.45rem; }
       .studio-zone-title, .bs-section-h2 { font-size: 1.52rem; line-height: 1.18; }
-      .studio-zone-section, #studio, #studio-zone2-how-it-works, #beo-proof, #bs-before-after-section, #bs-written-testimonials-section, #pricing, #faq { padding: 64px 0; scroll-margin-top: 118px; }
+      .studio-zone-section, #studio, #studio-zone2-how-it-works, #beo-proof, #bs-before-after-section, #bs-written-testimonials-section, #pricing, #faq { padding: 48px 0; scroll-margin-top: 64px; }
+      #studio { padding: 14px 0 36px; }
+      .studio-zone1-hero { padding: 16px 0 20px; }
       .bs-ba-container, .bs-honest-table-wrap, .studio-ba-table-wrap { padding: 20px 14px; }
       .bs-honest-table th, .bs-honest-table td, .ba-table th, .ba-table td { padding: 8px 5px; font-size: 13.5px; line-height: 1.35; word-break: break-word; white-space: normal; }
-      #studio-bespoke-artifact-stage { padding: 12px; }
-      .studio-stage-tabs, .sh-wizard-stepper { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+      #studio-bespoke-artifact-stage { padding: 10px; }
+      .studio-stage-tabs { grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 4px; padding: 4px; }
+      .studio-stage-tab-btn { padding: 7px 4px; font-size: 0.78rem; }
+      .sh-wizard-stepper { grid-template-columns: repeat(2, minmax(0, 1fr)); }
       .studio-wizard-header { flex-wrap: wrap; gap: 6px; padding: 10px 12px; }
       .studio-wizard-step-title { flex-wrap: wrap; font-size: 0.88rem; }
       .studio-wizard-step-summary { white-space: normal; font-size: 0.84rem; }
@@ -541,23 +554,34 @@ function renderHead({
     }
     @media (max-width: 768px) {
       #sh-vault-checkout-bar, #sh-inline-email-bridge, #sh-inline-vault-save-btn, #sh-vault-buy-pack-btn, #sh-planner-pro-dock-banner, #sh-vault-buy-pro-btn, .sh-zola-showcase-footer button, .studio-tap-chip, .bs-quote-stars, .badge, .badge-amber, .bs-ba-card-top, .bs-ba-pill, .bs-ba-price-tag, .bs-case-badge, .bs-case-state-tag, .studio-carousel-tab { white-space: normal !important; max-width: 100% !important; min-width: 0 !important; box-sizing: border-box !important; overflow-wrap: break-word !important; }
-      #sh-inline-email-bridge, #sh-planner-pro-dock-banner, .sh-zola-showcase-footer, .bs-ba-card-top { flex-direction: column !important; align-items: stretch !important; width: 100% !important; }
-      #sh-inline-vault-email, #sh-inline-vault-save-btn, #sh-vault-buy-pack-btn, #sh-vault-buy-pro-btn, .sh-zola-showcase-footer button { width: 100% !important; text-align: center !important; justify-content: center !important; }
-      #shw-instant-scenarios { flex-direction: column !important; align-items: stretch !important; }
-      #shw-instant-scenarios .studio-tap-chip { width: 100% !important; }
+      #sh-inline-email-bridge, #sh-seo-calc-email-wrap, #sh-planner-pro-dock-banner, .sh-zola-showcase-footer, .bs-ba-card-top { flex-direction: column !important; align-items: stretch !important; width: 100% !important; max-width: 100% !important; flex: 0 0 auto !important; }
+      #sh-inline-vault-email, #sh-step4-inline-email, #sh-seo-calc-email { flex: 0 0 auto !important; width: 100% !important; height: 44px !important; min-height: 44px !important; max-height: 44px !important; text-align: left !important; }
+      #sh-inline-vault-save-btn, #sh-step4-inline-save-btn, #sh-seo-calc-save-btn, #sh-vault-buy-pack-btn, #sh-vault-buy-pro-btn, .sh-zola-showcase-footer button { flex: 0 0 auto !important; width: 100% !important; min-height: 44px !important; text-align: center !important; justify-content: center !important; }
+      .sh-hide-mobile-toolbar { display: none !important; }
+      #sh-canvas-micro-toolbar { gap: 6px !important; margin-bottom: 8px !important; flex-wrap: nowrap !important; overflow-x: auto !important; padding-bottom: 2px !important; }
+      #sh-canvas-micro-toolbar .sh-ed-ghost { padding: 6px 10px !important; font-size: 0.80rem !important; }
+      #sh-ed-legend { flex-wrap: nowrap !important; overflow-x: auto !important; margin-bottom: 8px !important; padding-bottom: 4px !important; }
+      #sh-ed-legend .sh-leg { flex-shrink: 0 !important; padding: 4px 10px !important; font-size: 0.78rem !important; }
+      #sh-floorplan-svg { height: 360px !important; min-height: 360px !important; }
+      #sh-vault-checkout-bar { padding: 14px 14px !important; gap: 12px !important; }
     }
     @media (max-width: 520px) { .sh-display-h1 { font-size: 1.56rem; } }
     @media (max-width: 1200px) { #nav-binder-btn { display: none !important; } }
     @media (max-width: 1400px) { .nav-links .nav-link:nth-child(5) { display: none; } }
     @media (max-width: 1500px) { #nav-vault-label { font-size: 0; } #nav-vault-label::after { content: 'Save'; font-size: 0.82rem; } .nav-links { gap: 9px; } }
-    @media (max-width: 820px) { .nav-links { display: none; } .mobile-subnav { display: flex; } .hide-mobile-text { display: none; } }
+    @media (max-width: 820px) {
+      .nav-links { display: none; }
+      .mobile-subnav { display: none !important; }
+      .nav-inner { height: 54px !important; }
+      .hide-mobile-text { display: none; }
+    }
   </style>
   ${jsonLd ? `<script type="application/ld+json">${typeof jsonLd === 'string' ? JSON.stringify(JSON.parse(jsonLd)).replace(/</g, '\\u003c') : JSON.stringify(jsonLd).replace(/</g, '\\u003c')}</script>` : ''}
 </head>`;
 }
 
 function renderNavbar() {
-  return `<header class="navbar" role="banner"><div class="container nav-inner"><a href="/" id="nav-brand-logo-link" class="nav-brand" aria-label="SeatHarmony Home">${renderBrandLogoSvg(28)}<span>SeatHarmony</span></a><nav class="nav-links" aria-label="Primary Navigation"><a href="/#studio" class="nav-link" style="color:var(--accent-primary);font-weight:700;">Floorplan Studio</a><a href="/#studio" onclick="if(window.shSetActiveTab){window.shSetActiveTab('beo');}" class="nav-link">Caterer Meal Sheet</a><a href="/#studio" onclick="if(window.shSetActiveTab){window.shSetActiveTab('poster');}" class="nav-link">24&Prime;&times;36&Prime; Sign &amp; QR</a><a href="/#studio-zone2-how-it-works" class="nav-link">How It Works</a><a href="/directory" class="nav-link hide-1024">Venue Layouts</a><a href="/#pricing" class="nav-link">Pricing</a></nav><div style="display:flex;align-items:center;gap:6px;flex-shrink:0;"><button type="button" id="nav-binder-btn" class="nav-binder" onclick="if(window.shwToggleBinder){window.shwToggleBinder();}" aria-label="Open your wedding binder" style="display:none;"><svg viewBox="0 0 24 24" width="17" height="17" fill="none" stroke="currentColor" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="6.5" y="3.5" width="13" height="17" rx="1.6"/><path d="M6.5 8h-2.2M6.5 12h-2.2M6.5 16h-2.2M10.5 8.5h5M10.5 12h5"/></svg><span id="nav-binder-n">0/5</span></button><button type="button" id="nav-vault-btn" onclick="if(window.shOpenVaultModal){window.shOpenVaultModal();}" class="btn btn-secondary hide-1024" style="padding:7px 12px;font-size:0.82rem;" title="Save or Resume Your Reception Plan"><span id="nav-vault-label">Saved Plans</span></button><a href="/buy/complete_dossier?target=estate-150&amp;allow_promotion_codes=false" id="nav-primary-buy-cta" class="btn btn-primary" style="padding:7px 14px;font-size:0.82rem;"><span>Get <span class="hide-mobile-text">Event Print </span>Pack ($9)</span></a></div></div><div class="mobile-subnav" aria-label="Mobile Quick Navigation"><a href="/#studio" style="color:#00766C;font-weight:700;">Floorplan Studio</a><a href="/#studio" onclick="if(window.shSetActiveTab){window.shSetActiveTab('beo');}">Caterer Meal Sheet</a><a href="/#studio" onclick="if(window.shSetActiveTab){window.shSetActiveTab('poster');}">24&Prime;&times;36&Prime; Sign</a><a href="#studio" onclick="if(window.shOpenVaultModal){window.shOpenVaultModal();return false;}">Saved Plans</a><a href="/#pricing">Pricing ($9)</a></div></header>`;
+  return `<header class="navbar" role="banner"><div class="container nav-inner"><a href="/" id="nav-brand-logo-link" class="nav-brand" aria-label="SeatHarmony Home">${renderBrandLogoSvg(26)}<span>SeatHarmony</span></a><nav class="nav-links" aria-label="Primary Navigation"><a href="/#studio" class="nav-link" style="color:var(--accent-primary);font-weight:700;">Floorplan Studio</a><a href="/#studio" onclick="if(window.shSetActiveTab){window.shSetActiveTab('beo');}" class="nav-link">Caterer Meal Sheet</a><a href="/#studio" onclick="if(window.shSetActiveTab){window.shSetActiveTab('poster');}" class="nav-link">24&Prime;&times;36&Prime; Sign &amp; QR</a><a href="/#studio-zone2-how-it-works" class="nav-link">How It Works</a><a href="/directory" class="nav-link hide-1024">Venue Layouts</a><a href="/#pricing" class="nav-link">Pricing</a></nav><div style="display:flex;align-items:center;gap:6px;flex-shrink:0;"><button type="button" id="nav-binder-btn" class="nav-binder" onclick="if(window.shwToggleBinder){window.shwToggleBinder();}" aria-label="Open your wedding binder" style="display:none;"><svg viewBox="0 0 24 24" width="17" height="17" fill="none" stroke="currentColor" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="6.5" y="3.5" width="13" height="17" rx="1.6"/><path d="M6.5 8h-2.2M6.5 12h-2.2M6.5 16h-2.2M10.5 8.5h5M10.5 12h5"/></svg><span id="nav-binder-n">0/5</span></button><a href="/#studio" class="btn btn-secondary" style="padding:6px 11px;font-size:0.80rem;">Studio</a><button type="button" id="nav-vault-btn" onclick="if(window.shOpenVaultModal){window.shOpenVaultModal();}" class="btn btn-secondary hide-1024" style="padding:7px 12px;font-size:0.82rem;" title="Save or Resume Your Reception Plan"><span id="nav-vault-label">Saved Plans</span></button><a href="/buy/complete_dossier?target=estate-150&amp;allow_promotion_codes=false" id="nav-primary-buy-cta" class="btn btn-primary" style="padding:7px 12px;font-size:0.82rem;"><span>Get <span class="hide-mobile-text">Event Print </span>Pack ($9)</span></a></div></div></header>`;
 }
 
 function renderFooter() {

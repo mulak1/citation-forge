@@ -17,7 +17,7 @@ function renderSetupWizardHtml() {
   const banquetIcon = `<svg viewBox="0 0 64 64" width="56" height="56" aria-hidden="true"><rect x="8" y="26" width="48" height="12" rx="3" fill="#FFFFFF" stroke="#00766C" stroke-width="2"/>${[14, 24, 34, 44, 54].map(x => `<circle cx="${x - 2}" cy="18" r="4.2" fill="#F0FDFA" stroke="#00766C" stroke-width="1.4"/><circle cx="${x - 2}" cy="46" r="4.2" fill="#F0FDFA" stroke="#00766C" stroke-width="1.4"/>`).join('')}</svg>`;
 
   return `
-      <div id="sh-setup-wizard" class="shw-wrap">
+      <div id="sh-setup-wizard" class="shw-wrap" style="display:none;">
         <div class="shw-intro">
           <h2 class="bs-section-h2" style="text-align:center;margin:0 auto 6px;">Plan your seating in <em>2 minutes.</em></h2>
           <p class="bs-section-sub" style="text-align:center;margin:0 auto 14px;">Answer 5 quick questions below &mdash; or <strong>explore a live populated reception in 1 click</strong> first:</p>
@@ -155,7 +155,7 @@ function renderBinderDockHtml() {
 function renderSetupWizardClientScript() {
   return `
   window.__SH_SEED_STATE = window.__SH_STATE ? JSON.parse(JSON.stringify(window.__SH_STATE)) : null;
-  window.__SH_SETUP = { step: 1, maxStep: 1, guests: 0, table: '', apart: [], kitDone: {}, built: false, sample: false, engaged: false, kitInView: false };
+  window.__SH_SETUP = { step: 1, maxStep: 1, guests: 0, table: '', apart: [], kitDone: {}, built: true, sample: true, engaged: false, kitInView: false };
   try { if (localStorage.getItem('sh_binder_engaged') === '1') window.__SH_SETUP.engaged = true; } catch (_) {}
   function shwEl(id) { return document.getElementById(id); }
   function shwHouseholds() { return String((shwEl('shw-guests') || {}).value || '').split(/\\r?\\n/).map(function(l) { return l.trim(); }).filter(function(l) { return l && !/^(name|guest|household|table)[,\\t]/i.test(l); }); }
