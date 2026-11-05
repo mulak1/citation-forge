@@ -395,13 +395,13 @@ async function handleCheckout(req, res) {
   const isPro = planId === 'pro_99' || planId === 'pro_b2b' || planId === 'pro_29';
   const isAudit49 = planId === 'audit_49' || planId === 'complete_dossier' || planId === 'event_pack_9' || planId === 'event_pack_7';
   const planName = isPro
-    ? 'For Wedding Planners & Venues: Unlimited Events + Custom Agency Logo on Client BEOs ($29 Pro Pass)'
+    ? 'For Wedding Planners & Venues: Unlimited Events + Custom Agency Logo on Client Meal Sheets ($29 Pro Pass)'
     : isAudit49
-      ? 'SeatHarmony Event Print & Day-Of Execution Pack: 24"×36" 300-DPI Print-Shop Welcome Poster PDF + Folded Place Cards + Caterer Table-by-Table Meal/Allergy BEO + Live Guest Phone QR Lookup ($7 · vs. $14 Blank Etsy Templates)'
-      : 'SeatHarmony Single-Sheet Caterer BEO & QR Lookup Pass ($1.99)';
+      ? 'SeatHarmony Event Print & Day-Of Execution Pack: 24"×36" Print-Ready Print-Shop Welcome Poster PDF + Folded Place Cards + Caterer Table-by-Table Meal/Allergy Sheet + Live Guest Phone QR Lookup ($7 · vs. $14 Blank Etsy Templates)'
+      : 'SeatHarmony Single-Sheet Caterer Meal Sheet & QR Lookup Pass ($1.99)';
   const amountCents = isPro ? 2900 : isAudit49 ? 700 : 199;
-  const targetDomain = String(payload.target_domain || 'estate-150');
-  const customerEmail = String(payload.customer_email || payload.email || `couple@${targetDomain}`);
+  const targetDomain = String(payload.target_domain || 'estate-150').replace(/[^A-Za-z0-9._-]/g, '').slice(0, 64);
+  const customerEmail = String(payload.customer_email || payload.email || `couple@${targetDomain}`).trim().slice(0, 254);
   const ua = String(req.headers['user-agent'] || '');
   const isAutomatedTestCheckout = Boolean(
     payload.is_test || req.query?.test === '1' ||
@@ -472,6 +472,25 @@ async function handleCheckout(req, res) {
 
 app.post('/api/checkout', rateLimitMiddleware, handleCheckout);
 app.get('/api/checkout', rateLimitMiddleware, handleCheckout);
+
+// 12b. Stripe Webhook Signature Verification Endpoint (`POST /api/stripe/webhook`)
+app.post('/api/stripe/webhook', (req, res) => {
+  const sig = String(req.headers['stripe-signature'] || '');
+  const secret = process.env.STRIPE_WEBHOOK_SECRET || '';
+  if (!sig) return res.status(400).json({ ok: false, error: 'Missing stripe-signature header' });
+  if (secret) {
+    const crypto = require('crypto');
+    const parts = Object.fromEntries(sig.split(',').map(p => p.split('=')));
+    const ts = parts.t || '';
+    const v1 = parts.v1 || '';
+    const rawBody = typeof req.body === 'string' ? req.body : JSON.stringify(req.body || {});
+    const expected = crypto.createHmac('sha256', secret).update(`${ts}.${rawBody}`).digest('hex');
+    if (!v1 || v1.length !== expected.length || !crypto.timingSafeEqual(Buffer.from(v1), Buffer.from(expected))) {
+      return res.status(400).json({ ok: false, error: 'Invalid stripe-signature' });
+    }
+  }
+  return res.status(200).json({ ok: true, received: true });
+});
 
 // 13. Health & Telemetry Summary Endpoint (`GET /api/health`)
 app.get('/api/health', (req, res) => {

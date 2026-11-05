@@ -84,7 +84,7 @@ function renderSetupWizardHtml() {
             <div class="shw-row-between" style="flex-wrap:wrap;gap:8px;">
               <span class="shw-hint" id="shw-guest-tally" style="margin:0;">0 households</span>
               <span style="display:inline-flex;align-items:center;gap:12px;flex-wrap:wrap;">
-                <button type="button" class="shw-link" onclick="window.shwPasteSampleList()">&#128203; Try sample list (with meals &amp; allergies)</button>
+                <button type="button" class="shw-link" onclick="window.shwPasteSampleList()"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="display:inline-block;vertical-align:-2px;margin-right:4px;" aria-hidden="true"><path d="M16 4h2a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2h2"/><rect x="8" y="2" width="8" height="4" rx="1" ry="1"/></svg>Try sample list (with meals &amp; allergies)</button>
                 <label class="shw-link" style="cursor:pointer;">Upload Zola / CSV<input type="file" accept=".csv,.txt" style="display:none;" onchange="window.shwUploadCsv(this)" /></label>
               </span>
             </div>
@@ -105,7 +105,7 @@ function renderSetupWizardHtml() {
             </div>
             <datalist id="shw-name-list"></datalist>
             <div id="shw-apart-list" class="shw-apart-list"></div>
-            <button type="button" class="shw-primary" id="shw-build-btn" onclick="window.shwBuild()">&#10024; Seat my guests</button>
+            <button type="button" class="shw-primary" id="shw-build-btn" onclick="window.shwBuild()"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="display:inline-block;vertical-align:-2px;margin-right:4px;" aria-hidden="true"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/></svg>Seat my guests</button>
           </div>
         </div>
 
@@ -189,7 +189,7 @@ function renderSetupWizardClientScript() {
     }
     var listEl = shwEl('shw-apart-list');
     if (listEl) listEl.innerHTML = window.__SH_SETUP.apart.map(function(p, i) { return '<span class="shw-chip">' + shEsc(p[0]) + ' &amp; ' + shEsc(p[1]) + ' <button type="button" aria-label="Remove" onclick="window.shwRemoveApart(' + i + ')">\\u2715</button></span>'; }).join('');
-    var btn = shwEl('shw-build-btn'); if (btn) btn.innerHTML = window.__SH_SETUP.apart.length ? '&#10024; Seat my guests' : '&#10024; No conflicts, seat my guests';
+    var btn = shwEl('shw-build-btn'); if (btn) btn.innerHTML = '<svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="display:inline-block;vertical-align:-2px;margin-right:4px;" aria-hidden="true"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/></svg>' + (window.__SH_SETUP.apart.length ? 'Seat my guests' : 'No conflicts, seat my guests');
     var focusMap = { 1: 'shw-couple', 4: 'shw-guests', 5: 'shw-apart-a' };
     var fEl = focusMap[s] && shwEl(focusMap[s]);
     if (fEl && window.__SH_SETUP.userStarted) { try { fEl.focus({ preventScroll: true }); } catch (_) {} }

@@ -6,6 +6,17 @@ const { renderZone4ProofStackAndPricing } = require('./feature-carousel');
 const { renderSetupWizardHtml, renderBinderDockHtml } = require('./setup-wizard');
 const { renderDirectoryPage, buildVenueBlueprint, renderFloorplanSvg } = require('./directory-view');
 
+const IC = {
+  lock: `<svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="display:inline-block;vertical-align:-2px;margin-right:4px;"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>`,
+  unlock: `<svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="display:inline-block;vertical-align:-2px;margin-right:4px;"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"/><path d="M7 11V7a5 5 0 0 1 9.9-1"/></svg>`,
+  users: `<svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="display:inline-block;vertical-align:-2px;margin-right:4px;"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>`,
+  bolt: `<svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="display:inline-block;vertical-align:-2px;margin-right:4px;"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/></svg>`,
+  gear: `<svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="display:inline-block;vertical-align:-2px;margin-right:4px;"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1-2.83 2.83l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-4 0v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1 0-4h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 2.83-2.83l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 4 0v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 0 4h-.09a1.65 1.65 0 0 0-1.51 1z"/></svg>`,
+  clock: `<svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="display:inline-block;vertical-align:-2px;margin-right:4px;"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>`,
+  print: `<svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="display:inline-block;vertical-align:-2px;margin-right:4px;"><polyline points="6 9 6 2 18 2 18 9"/><path d="M6 18H4a2 2 0 0 1-2-2v-5a2 2 0 0 1 2-2h16a2 2 0 0 1 2 2v5a2 2 0 0 1-2 2h-2"/><rect x="6" y="14" width="12" height="8"/></svg>`,
+  save: `<svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="display:inline-block;vertical-align:-2px;margin-right:4px;"><path d="M19 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11l5 5v11a2 2 0 0 1-2 2z"/><polyline points="17 21 17 13 7 13 7 21"/><polyline points="7 3 7 8 15 8"/></svg>`
+};
+
 function renderZone1Hero(plan) {
   return `
   <!-- ZONE 1: COMPACT ABOVE-THE-FOLD HERO (DIRECT TO LIVE FLOORPLAN STUDIO) -->
@@ -69,7 +80,7 @@ function renderZone2Walkthrough(plan = {}) {
                 <img src="/public/avatar-couple.jpg" alt="Maya and Liam" width="40" height="40" class="sh-vsl-speaker-avatar" style="width:40px;height:40px;" loading="lazy" />
                 <div>
                   <div style="font-size:14px;font-weight:700;color:#1C1C1C;line-height:1.2;">Maya &amp; Liam&rsquo;s 150-Guest Estate Reception</div>
-                  <div style="font-size:12.5px;font-weight:600;color:#00766C;">24&Prime;&times;36&Prime; Sign + Clockwise 12:00 BEO + Bar QR (${vId})</div>
+                  <div style="font-size:12.5px;font-weight:600;color:#00766C;">24&Prime;&times;36&Prime; Sign + Clockwise 12:00 Meal Sheet + Bar QR (${vId})</div>
                 </div>
               </div>
               <span style="font-size:12px;font-weight:700;color:#00766C;background:#F0FDFA;border:1px solid #CCFBF1;padding:4px 10px;border-radius:999px;white-space:nowrap;">Saved 6.5 Hrs + $220</span>
@@ -99,7 +110,7 @@ function renderZone2Walkthrough(plan = {}) {
       <div class="sh-crease-proof-bar" id="studio-crease-proof-bar">
         <div class="sh-crease-item"><div class="sh-crease-val">6.5 Hrs + $220 Saved</div><div class="sh-crease-lbl">150-GUEST AUTO-SOLVER + 24&Prime;&times;36&Prime; SIGN VS. EXCEL &amp; ETSY</div></div>
         <div class="sh-crease-item"><div class="sh-crease-val">Clockwise Seat 1&ndash;10</div><div class="sh-crease-lbl">12 O&rsquo;CLOCK SEAT #1 WITH ENTR&Eacute;E ICONS &amp; ALLERGY ALERTS</div></div>
-        <div class="sh-crease-item"><div class="sh-crease-val">6 Framed Sign Styles + QR</div><div class="sh-crease-lbl">300-DPI 24&Prime;&times;36&Prime; POSTERS, AVERY 5302 CARDS &amp; GUEST QR</div></div>
+        <div class="sh-crease-item"><div class="sh-crease-val">6 Framed Sign Styles + QR</div><div class="sh-crease-lbl">PRINT-READY 24&Prime;&times;36&Prime; POSTERS, AVERY 5302 CARDS &amp; GUEST QR</div></div>
       </div>
     </div>
   </section>`;
@@ -111,7 +122,7 @@ function renderZone3InteractiveStudio(plan) {
   const rulesHtml = activeRules.map((r, rIdx) => `
     <div style="padding:10px 12px;border-radius:10px;background:#FAF8F5;border:1px solid #E2D9C8;font-size:0.84rem;display:flex;flex-direction:column;align-items:flex-start;gap:5px;">
       <div style="display:flex;align-items:flex-start;justify-content:space-between;gap:8px;width:100%;">
-        <div style="font-weight:800;color:#181412;line-height:1.35;flex:1;">${(r.type === 'keep_apart' || r.type === 'must_keep_apart') ? '🔴 ' : (r.type === 'zone_quiet' ? '🔇 ' : '🟢 ')}${escapeHtml(r.label)}</div>
+        <div style="font-weight:800;color:#181412;line-height:1.35;flex:1;">${(r.type === 'keep_apart' || r.type === 'must_keep_apart') ? '&#9670; ' : (r.type === 'zone_quiet' ? '&#9679; ' : '&#10003; ')}${escapeHtml(r.label)}</div>
         <button type="button" title="Delete Rule" onclick="window.shRemoveRule(${rIdx},event)" style="cursor:pointer;border:1px solid #FECDD3;background:#FFF1F2;color:#9F1239;font-size:0.78rem;font-weight:800;padding:1px 6px;border-radius:5px;flex-shrink:0;">✕</button>
       </div>
       <div style="font-size:0.82rem;color:#57534E;line-height:1.42;width:100%;">${escapeHtml(r.detail)}</div>
@@ -127,14 +138,14 @@ function renderZone3InteractiveStudio(plan) {
 
       <div id="sh-studio-quick-preset-bar" style="display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:6px;margin-bottom:6px;padding:6px 12px;background:#F8F7F4;border:1px solid #E5E7EB;border-radius:10px;max-width:100%;box-sizing:border-box;">
         <div style="display:flex;align-items:center;gap:6px;flex-wrap:wrap;min-width:0;max-width:100%;">
-          <span style="font-size:13px;font-weight:800;color:#00766C;white-space:nowrap;">&#10024; Preset Sizer:</span>
+          <span style="font-size:13px;font-weight:800;color:#00766C;white-space:nowrap;">${IC.bolt}Preset Sizer:</span>
           <button type="button" class="studio-tap-chip preset-chip active" data-preset="estate-150" data-domain="supabase.com" onclick="window.loadPresetScenario('estate-150', this)" style="padding:4px 10px;font-size:13px;white-space:nowrap;">150-Guest Estate</button>
           <button type="button" class="studio-tap-chip" data-instant-preset="tuscan-banquet-80" onclick="window.loadPresetScenario('tuscan-banquet-80', this)" style="padding:4px 10px;font-size:13px;white-space:nowrap;">80-Guest Winery</button>
-          <button type="button" id="sh-conflict-solver-pill" class="studio-tap-chip" onclick="window.shRunConflictSolverDemo && window.shRunConflictSolverDemo(this)" style="padding:4px 11px;font-size:13px;font-weight:800;color:#065F46;background:#ECFDF5;border:1.5px solid #059669;white-space:nowrap;">&#9889; Test Family Conflict Auto-Solver</button>
-          <button type="button" class="studio-tap-chip" data-instant-preset="planner-beo-sandbox" onclick="window.loadPresetScenario('planner-beo-sandbox', this)" style="padding:4px 10px;font-size:13px;white-space:nowrap;">Family Share &amp; BEO</button>
+          <button type="button" id="sh-conflict-solver-pill" class="studio-tap-chip" onclick="window.shRunConflictSolverDemo && window.shRunConflictSolverDemo(this)" style="padding:4px 11px;font-size:13px;font-weight:800;color:#065F46;background:#ECFDF5;border:1.5px solid #059669;white-space:nowrap;">${IC.bolt}Test Family Conflict Auto-Solver</button>
+          <button type="button" class="studio-tap-chip" data-instant-preset="planner-beo-sandbox" onclick="window.loadPresetScenario('planner-beo-sandbox', this)" style="padding:4px 10px;font-size:13px;white-space:nowrap;">Family Share &amp; Meal Sheet</button>
           <button type="button" class="studio-tap-chip" data-instant-preset="200-guest-hotel-ballroom-seating-chart-template" onclick="window.loadPresetScenario('200-guest-hotel-ballroom-seating-chart-template', this)" style="padding:4px 10px;font-size:13px;white-space:nowrap;">200-Guest Ballroom</button>
         </div>
-        <button type="button" class="sh-ed-ghost" onclick="window.shOpenSetupWizard(1)" style="font-size:13px;padding:4px 10px;font-weight:700;color:#00766C;border-color:#00766C;background:#FFFFFF;white-space:nowrap;">&#9881; Guided Setup</button>
+        <button type="button" class="sh-ed-ghost" onclick="window.shOpenSetupWizard(1)" style="font-size:13px;padding:4px 10px;font-weight:700;color:#00766C;border-color:#00766C;background:#FFFFFF;white-space:nowrap;">${IC.gear}Guided Setup</button>
       </div>
 
       ${renderSetupWizardHtml(plan)}
@@ -182,10 +193,10 @@ function renderZone3InteractiveStudio(plan) {
                 <div class="studio-chip-group" id="sh-card4-shape-pills" style="margin-bottom:6px;">
                   <button type="button" class="studio-tap-chip active" data-shape="round" onclick="window.shMorphSelectedTable('round')">&#9679; Round</button>
                   <button type="button" class="studio-tap-chip" data-shape="banquet_2sided" onclick="window.shMorphSelectedTable('banquet_2sided')">&#9644; Banquet</button>
-                  <button type="button" class="studio-tap-chip" data-shape="sweetheart" onclick="window.shMorphSelectedTable('sweetheart')">&#128149; Sweetheart</button>
+                  <button type="button" class="studio-tap-chip" data-shape="sweetheart" onclick="window.shMorphSelectedTable('sweetheart')">&#9670; Sweetheart</button>
                   <button type="button" class="studio-tap-chip" data-shape="kings_4sided" onclick="window.shMorphSelectedTable('kings_4sided')">&#8862; King&rsquo;s</button>
                   <button type="button" class="studio-tap-chip" onclick="window.shRotateSelectedTable()">&#8635; 45&deg;</button>
-                  <button id="sh-lock-table-btn" type="button" class="studio-tap-chip" onclick="window.shToggleLockSelectedTable()">&#128274; Lock</button>
+                  <button id="sh-lock-table-btn" type="button" class="studio-tap-chip" onclick="window.shToggleLockSelectedTable()">${IC.lock}Lock</button>
                 </div>
                 <div style="display:flex;gap:5px;flex-wrap:wrap;">
                   <button id="sh-ring-harmony" type="button" class="studio-tap-chip active" onclick="window.shSetRingMode('harmony')">Family &amp; Groups View</button>
@@ -224,12 +235,12 @@ function renderZone3InteractiveStudio(plan) {
                 <div class="studio-chip-group" id="sh-card5-sort-pills">
                   <button type="button" class="studio-tap-chip active" data-sort="alphabetical" onclick="window.shSetActiveTab('poster');window.shSetPosterMode('alphabetical',null)">Sort A-Z</button>
                   <button type="button" class="studio-tap-chip" data-sort="by_table" onclick="window.shSetActiveTab('poster');window.shSetPosterMode('by_table',null)">By Table</button>
-                  <button type="button" class="studio-tap-chip" onclick="window.shGateOrExportBeoCsv ? window.shGateOrExportBeoCsv('csv') : window.shExportBeoCsv()">&#11015; BEO .CSV</button>
-                  <a id="sh-card5-poster-studio-link" href="/print/poster/${vId}" target="_blank" class="studio-tap-chip" style="text-decoration:none;font-weight:800;color:#78350F;border-color:#C8A96E;">Sign PDF &nearr;</a>
-                  <a id="sh-card5-avery-studio-link" href="/print/avery-5302/${vId}" target="_blank" class="studio-tap-chip" style="text-decoration:none;font-weight:800;color:#065F46;border-color:#10B981;">Avery 5302 &nearr;</a>
+                  <button type="button" class="studio-tap-chip" onclick="window.shGateOrExportBeoCsv ? window.shGateOrExportBeoCsv('csv') : window.shExportBeoCsv()">&darr; Meal Sheet .CSV</button>
+                  <a id="sh-card5-poster-studio-link" href="/print/poster/${vId}" target="_blank" class="studio-tap-chip" style="text-decoration:none;font-weight:800;color:#78350F;border-color:#C8A96E;">Sign PDF &rarr;</a>
+                  <a id="sh-card5-avery-studio-link" href="/print/avery-5302/${vId}" target="_blank" class="studio-tap-chip" style="text-decoration:none;font-weight:800;color:#065F46;border-color:#10B981;">Avery 5302 &rarr;</a>
                 </div>
                 <div id="sh-step4-inline-bridge" style="margin-top:10px;padding:10px 12px;border-radius:12px;background:#FAF8F5;border:1px solid #EAE4DC;display:flex;flex-direction:column;gap:8px;">
-                  <div style="font-size:0.82rem;font-weight:800;color:#1C1C1C;">&#128233; Email This Layout &amp; Caterer CSV ($0) or Unlock Print Pack ($7 &middot; vs. $14 Etsy):</div>
+                  <div style="font-size:0.82rem;font-weight:800;color:#1C1C1C;">${IC.save}Email This Layout &amp; Caterer CSV ($0) or Unlock Print Pack ($7 &middot; vs. $14 Etsy):</div>
                   <div style="display:flex;flex-wrap:wrap;gap:6px;align-items:stretch;">
                     <input id="sh-step4-inline-email" type="email" placeholder="Enter email for free template &amp; CSV ($0)..." onkeydown="if(event.key==='Enter'){var el=document.getElementById('sh-inline-vault-email');if(el)el.value=this.value;window.shSaveInlineEmailLead();}" style="flex:1 1 160px;min-width:0;padding:8px 10px;border:1px solid #D1D5DB;border-radius:8px;font-size:0.84rem;background:#FFFFFF;color:#1C1C1C;" aria-label="Email address to save floorplan and caterer CSV" />
                     <button type="button" id="sh-step4-inline-save-btn" onclick="var el=document.getElementById('sh-inline-vault-email'),s4=document.getElementById('sh-step4-inline-email');if(el&&s4)el.value=s4.value;window.shSaveInlineEmailLead();" style="cursor:pointer;background:#00766C;color:#FFFFFF;border:1px solid #00766C;border-radius:8px;padding:8px 12px;font-size:0.84rem;font-weight:700;white-space:nowrap;">Email Plan ($0)</button>
@@ -297,22 +308,22 @@ function renderZone3InteractiveStudio(plan) {
               <button id="sh-tab-qr" type="button" class="studio-stage-tab-btn" onclick="window.shSetActiveTab('qr')" style="padding:5px 6px;font-size:0.78rem;">Guest QR</button>
             </div>
 
-            <!-- Foreground Specimen Card -->
+            <!-- Foreground Sample Card -->
             <div class="studio-foreground-specimen" id="studio-foreground-specimen" style="padding:8px;">
               <!-- PANE 1: Interactive Floorplan & Selected Table Inspector -->
               <div id="sh-pane-floorplan" style="display:block;">
                 <div id="sh-canvas-step-banner" style="display:none;"><span id="sh-canvas-step-badge"></span><span id="sh-canvas-step-hint"></span><button type="button" id="sh-canvas-step-next-btn"></button></div>
                 <div id="sh-active-swap-banner" style="display:none;"></div>
-                <div id="sh-mom-sandbox-banner" style="display:none;margin-bottom:6px;padding:6px 10px;border-radius:8px;background:#F0FDFA;border:1px solid #99F6E4;color:#00766C;font-size:0.78rem;align-items:center;justify-content:space-between;gap:6px;flex-wrap:wrap;"><span><strong>&#128117; Family Share Mode Active:</strong> Mom can rearrange Tables 1&ndash;3 only; Tables 4+ are locked with padlocks on the floorplan.</span><span style="display:inline-flex;gap:6px;"><button type="button" class="sh-ed-ghost" style="background:#FFF;padding:3px 9px;" onclick="window.shCopyMomSandboxLink()">&#128279; Copy Family Link</button><button type="button" class="sh-ed-ghost" style="background:#FFF;padding:3px 9px;" onclick="window.shToggleMomSandbox()">Exit Family Mode</button></span></div>
+                <div id="sh-mom-sandbox-banner" style="display:none;margin-bottom:6px;padding:6px 10px;border-radius:8px;background:#F0FDFA;border:1px solid #99F6E4;color:#00766C;font-size:0.78rem;align-items:center;justify-content:space-between;gap:6px;flex-wrap:wrap;"><span><strong>${IC.users}Family Share Mode Active:</strong> Mom can rearrange Tables 1&ndash;3 only; Tables 4+ are locked with padlocks on the floorplan.</span><span style="display:inline-flex;gap:6px;"><button type="button" class="sh-ed-ghost" style="background:#FFF;padding:3px 9px;" onclick="window.shCopyMomSandboxLink()">Copy Family Link</button><button type="button" class="sh-ed-ghost" style="background:#FFF;padding:3px 9px;" onclick="window.shToggleMomSandbox()">Exit Family Mode</button></span></div>
 
                 <!-- Simple editor bar: one hint, Undo, Room & tables, Add table, Add element -->
                 <div id="sh-canvas-micro-toolbar" class="sh-ed-bar" style="margin-bottom:6px;gap:5px;flex-wrap:wrap;">
                   <span id="sh-live-toast" class="sh-ed-hint sh-hide-mobile-toolbar" style="font-size:0.78rem;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;min-width:120px;">Tap a table to inspect or drag guests between seats.</span>
                   <button type="button" id="sh-undo-btn" class="sh-ed-ghost" style="padding:4px 9px;font-size:0.76rem;" onclick="window.shUndo(1)" title="Undo last move (Ctrl+Z / Cmd+Z)">&#8630; Undo</button>
-                  <span class="sh-ed-menu-wrap sh-hide-mobile-toolbar"><button type="button" id="sh-toolbar-history-btn" class="sh-ed-ghost" style="padding:4px 9px;font-size:0.76rem;" aria-haspopup="true" onclick="window.shToggleHistoryMenu(event)" title="View and restore any of your last 5 moves">&#128339; History &#9662;</button><div id="sh-history-menu" class="sh-ed-menu" style="display:none;min-width:320px;"></div></span>
+                  <span class="sh-ed-menu-wrap sh-hide-mobile-toolbar"><button type="button" id="sh-toolbar-history-btn" class="sh-ed-ghost" style="padding:4px 9px;font-size:0.76rem;" aria-haspopup="true" onclick="window.shToggleHistoryMenu(event)" title="View and restore any of your last 5 moves">${IC.clock}History &#9662;</button><div id="sh-history-menu" class="sh-ed-menu" style="display:none;min-width:320px;"></div></span>
                   <span id="sh-toolbar-zoom-wrap" style="display:inline-flex;align-items:center;background:#F8F7F4;border:1px solid #D1D5DB;border-radius:8px;padding:0 2px;" title="Scroll mouse wheel over floorplan to zoom in/out on selected table"><button type="button" id="sh-zoom-out-btn" class="sh-ed-ghost" style="border:none;background:transparent;padding:2px 6px;font-weight:800;" onclick="window.shStepCanvasZoom(-0.25)" aria-label="Zoom out">&minus;</button><button type="button" id="sh-zoom-pct-btn" class="sh-ed-ghost" style="border:none;background:transparent;padding:2px 5px;font-size:0.74rem;font-weight:800;min-width:38px;text-align:center;" onclick="window.shResetCanvasZoom()" title="Click to reset to 100% full room">100%</button><button type="button" id="sh-zoom-in-btn" class="sh-ed-ghost" style="border:none;background:transparent;padding:2px 6px;font-weight:800;" onclick="window.shStepCanvasZoom(0.25)" aria-label="Zoom in">+</button></span>
                   <button type="button" id="sh-toolbar-snap-btn" class="sh-ed-ghost sh-hide-mobile-toolbar" style="background:#F0FDFA;border-color:#00766C;color:#00766C;padding:4px 9px;font-size:0.76rem;" onclick="window.shToggleSnapGrid(event)" title="Snap tables to 20px grid and align with adjacent tables (hold Shift while dragging for freeform)">&#8862; Snap: ON</button>
-                  <button type="button" id="sh-toolbar-mom-btn" class="sh-ed-ghost sh-hide-mobile-toolbar" style="padding:4px 9px;font-size:0.76rem;" onclick="window.shToggleMomSandbox()" title="Lock Tables 4+ so Mom or family can only edit Tables 1-3">&#128117; Family Share</button>
+                  <button type="button" id="sh-toolbar-mom-btn" class="sh-ed-ghost sh-hide-mobile-toolbar" style="padding:4px 9px;font-size:0.76rem;" onclick="window.shToggleMomSandbox()" title="Lock Tables 4+ so Mom or family can only edit Tables 1-3">${IC.users}Family Share</button>
                   <span class="sh-ed-menu-wrap"><button type="button" id="sh-toolbar-room-btn" class="sh-ed-ghost" style="padding:4px 9px;font-size:0.76rem;" aria-haspopup="true" onclick="window.shToggleRoomMenu(event)">Room &amp; tables &#9662;</button><div id="sh-room-menu" class="sh-ed-menu" style="display:none;min-width:240px;"><div class="sh-ed-menu-sec">Switch all tables (keeps guests)</div><button type="button" data-room-shape="round8" onclick="window.shSetAllTablesKind('round8')">All Round <small>8 seats</small></button><button type="button" data-room-shape="round10" onclick="window.shSetAllTablesKind('round10')">All Round <small>10 seats</small></button><button type="button" data-room-shape="banquet12" onclick="window.shSetAllTablesKind('banquet12')">All Long banquet <small>12 seats</small></button><button type="button" data-room-shape="kings8" onclick="window.shSetAllTablesKind('kings8')">All King's <small>8 seats</small></button><div class="sh-ed-menu-sec">Scale venue guest capacity</div><div class="sh-ed-cap-grid"><button type="button" data-room-cap="50" onclick="window.shScaleRoomGuests(50)">50</button><button type="button" data-room-cap="75" onclick="window.shScaleRoomGuests(75)">75</button><button type="button" data-room-cap="100" onclick="window.shScaleRoomGuests(100)">100</button><button type="button" data-room-cap="150" onclick="window.shScaleRoomGuests(150)">150</button><button type="button" data-room-cap="200" onclick="window.shScaleRoomGuests(200)">200</button><button type="button" data-room-cap="300" onclick="window.shScaleRoomGuests(300)">300</button></div><div class="sh-ed-menu-sec">Alignment &amp; cleanup</div><button type="button" data-room-align="1" onclick="window.shAlignAllTablesToGrid()">&#8862; Align all tables to grid <small>snap rows &amp; cols</small></button><button type="button" data-room-prune="1" onclick="window.shPruneEmptyTables()">Clean up empty tables <small>auto-renumber</small></button></div></span><span class="sh-ed-menu-wrap"><button type="button" id="sh-toolbar-add-table-btn" class="sh-ed-ghost" style="padding:4px 9px;font-size:0.76rem;" aria-haspopup="true" onclick="window.shToggleAddMenu(event)">+ Add table &#9662;</button><div id="sh-add-menu" class="sh-ed-menu" style="display:none;"><button type="button" onclick="window.shAddTableType('round8')">Round table <small>8 seats</small></button><button type="button" onclick="window.shAddTableType('round10')">Round table <small>10 seats</small></button><button type="button" onclick="window.shAddTableType('banquet12')">Long banquet <small>12 seats</small></button><button type="button" onclick="window.shAddTableType('kings8')">King's table <small>8 seats</small></button></div></span><span class="sh-ed-menu-wrap sh-hide-mobile-toolbar"><button type="button" id="sh-toolbar-add-landmark-btn" class="sh-ed-ghost" style="padding:4px 9px;font-size:0.76rem;" aria-haspopup="true" onclick="window.shToggleElMenu(event)">+ Add element &#9662;</button><div id="sh-el-menu" class="sh-ed-menu" style="display:none;"><button type="button" onclick="window.shAddElement('dance')">Dance floor</button><button type="button" onclick="window.shAddElement('dj')">DJ / band</button><button type="button" onclick="window.shAddElement('bar')">Bar</button><button type="button" onclick="window.shAddElement('cake')">Cake table</button><button type="button" onclick="window.shAddElement('buffet')">Buffet</button><button type="button" onclick="window.shAddElement('photo')">Photo booth</button><button type="button" onclick="window.shAddElement('stage')">Stage</button><button type="button" onclick="window.shAddElement('gifts')">Gift table</button><button type="button" onclick="window.shAddElement('custom')">Custom label</button></div></span>
                   <button type="button" id="sh-toolbar-panel-btn" class="sh-ed-ghost sh-hide-mobile-toolbar" style="padding:4px 9px;font-size:0.76rem;" onclick="window.shToggleRightPanel()" title="Minimize or reopen the right-side table &amp; guest panel">&#8677; Hide panel</button>
                 </div>
@@ -328,18 +339,18 @@ function renderZone3InteractiveStudio(plan) {
                 </div>
               </div>
 
-              <!-- PANE 2: Clockwise Caterer BEO Sheet -->
+              <!-- PANE 2: Clockwise Caterer Meal Sheet -->
               <div id="sh-pane-beo" style="display:none;">
                 <div style="display:flex;flex-wrap:wrap;align-items:center;justify-content:space-between;gap:8px;margin-bottom:10px;">
                   <div>
-                    <span class="badge badge-emerald" style="margin-bottom:4px;">CATERER MEAL SHEET (BEO) &middot; SEAT #1 AT 12 O&rsquo;CLOCK</span>
-                    <h3 class="serif-display" style="font-size:1.35rem;">Clockwise Caterer Meal Sheet &amp; Allergy Guide (BEO)</h3>
+                    <span class="badge badge-emerald" style="margin-bottom:4px;">CATERER MEAL SHEET &middot; SEAT #1 AT 12 O&rsquo;CLOCK</span>
+                    <h3 class="serif-display" style="font-size:1.35rem;">Clockwise Caterer Meal Sheet &amp; Allergy Guide</h3>
                   </div>
                   <div style="display:flex;gap:6px;flex-wrap:wrap;">
-                    <button type="button" id="sh-beo-mode-toggle" class="btn btn-secondary" style="padding:6px 11px;font-size:0.74rem;border-color:#C8A96E;color:#78350F;font-weight:800;" onclick="window.shToggleBeoChaosMode()">&#9889; Compare: 12:00 Server View vs. Unnumbered Chaos</button>
-                    <button type="button" class="btn btn-secondary" style="padding:6px 11px;font-size:0.74rem;" onclick="window.shGateOrExportBeoCsv ? window.shGateOrExportBeoCsv('csv') : window.shExportBeoCsv()">&#11015; Free BEO (.CSV)</button>
-                    <a id="sh-open-beo-studio-link" href="/print/beo/${vId}" target="_blank" class="btn btn-secondary" style="padding:6px 11px;font-size:0.74rem;">&#128424; Signed BEO Print View &nearr;</a>
-                    <a id="sh-pane-beo-buy-link" href="/buy/flash_pass?target=estate-150&amp;vault=${vId}&amp;allow_promotion_codes=false" class="btn btn-primary" style="padding:6px 11px;font-size:0.74rem;">Unlock Signed BEO ($1.99)</a>
+                    <button type="button" id="sh-beo-mode-toggle" class="btn btn-secondary" style="padding:6px 11px;font-size:0.74rem;border-color:#C8A96E;color:#78350F;font-weight:800;" onclick="window.shToggleBeoChaosMode()">${IC.bolt}Compare: 12:00 Server View vs. Unnumbered Chaos</button>
+                    <button type="button" class="btn btn-secondary" style="padding:6px 11px;font-size:0.74rem;" onclick="window.shGateOrExportBeoCsv ? window.shGateOrExportBeoCsv('csv') : window.shExportBeoCsv()">&darr; Free Meal Sheet (.CSV)</button>
+                    <a id="sh-open-beo-studio-link" href="/print/beo/${vId}" target="_blank" class="btn btn-secondary" style="padding:6px 11px;font-size:0.74rem;">${IC.print}Signed Meal Sheet Print View &rarr;</a>
+                    <a id="sh-pane-beo-buy-link" href="/buy/flash_pass?target=estate-150&amp;vault=${vId}&amp;allow_promotion_codes=false" class="btn btn-primary" style="padding:6px 11px;font-size:0.74rem;">Unlock Signed Meal Sheet ($1.99)</a>
                   </div>
                 </div>
                 <div id="sh-beo-container" style="max-height:480px;overflow-y:auto;"></div>
@@ -351,7 +362,7 @@ function renderZone3InteractiveStudio(plan) {
                   <div style="display:flex;gap:5px;flex-wrap:wrap;">
                     <button type="button" class="studio-tap-chip active" data-poster-sort="alphabetical" onclick="window.shSetPosterMode('alphabetical',null)">Sort A-Z</button>
                     <button type="button" class="studio-tap-chip" data-poster-sort="by_table" onclick="window.shSetPosterMode('by_table',null)">By Table</button>
-                    <button type="button" id="sh-poster-map-toggle" class="studio-tap-chip active" onclick="window.shTogglePosterMiniMap()" title="Show or hide the mini table # &amp; room layout map on the welcome sign">&#128506; Mini Layout: ON</button>
+                    <button type="button" id="sh-poster-map-toggle" class="studio-tap-chip active" onclick="window.shTogglePosterMiniMap()" title="Show or hide the mini table # &amp; room layout map on the welcome sign">&#8862; Mini Layout: ON</button>
                     <button type="button" class="studio-tap-chip active" data-poster-theme="alabaster" onclick="window.shSetPosterMode(null,'alabaster')">Parisian Gold</button>
                     <button type="button" class="studio-tap-chip" data-poster-theme="ivory" onclick="window.shSetPosterMode(null,'ivory')">Botanical Ivory</button>
                     <button type="button" class="studio-tap-chip" data-poster-theme="obsidian" onclick="window.shSetPosterMode(null,'obsidian')">Editorial Noir</button>
@@ -360,9 +371,9 @@ function renderZone3InteractiveStudio(plan) {
                     <button type="button" class="studio-tap-chip" data-poster-theme="terracotta" onclick="window.shSetPosterMode(null,'terracotta')">Villa Terracotta</button>
                   </div>
                   <div style="display:flex;gap:6px;flex-wrap:wrap;">
-                    <a id="sh-open-poster-studio-link" href="/print/poster/${vId}" target="_blank" class="btn btn-secondary" style="padding:6px 10px;font-size:0.73rem;">&#129703; 24&Prime;&times;36&Prime; Print Studio &nearr;</a>
-                    <a id="sh-open-avery-studio-link" href="/print/avery-5302/${vId}" target="_blank" class="btn btn-secondary" style="padding:6px 10px;font-size:0.73rem;">&#127915; Avery 5302 Sheet &nearr;</a>
-                    <a id="sh-pane-poster-buy-link" href="/buy/complete_dossier?target=estate-150&amp;vault=${vId}&amp;allow_promotion_codes=false" class="btn btn-primary" style="padding:6px 11px;font-size:0.8125rem;">&#11015; Unlock 24&Prime;&times;36&Prime; 300-DPI Print Pack ($7 &middot; vs. $14 Blank Etsy Templates)</a>
+                    <a id="sh-open-poster-studio-link" href="/print/poster/${vId}" target="_blank" class="btn btn-secondary" style="padding:6px 10px;font-size:0.73rem;">${IC.print}24&Prime;&times;36&Prime; Print Studio &rarr;</a>
+                    <a id="sh-open-avery-studio-link" href="/print/avery-5302/${vId}" target="_blank" class="btn btn-secondary" style="padding:6px 10px;font-size:0.73rem;">${IC.print}Avery 5302 Sheet &rarr;</a>
+                    <a id="sh-pane-poster-buy-link" href="/buy/complete_dossier?target=estate-150&amp;vault=${vId}&amp;allow_promotion_codes=false" class="btn btn-primary" style="padding:6px 11px;font-size:0.8125rem;">&darr; Unlock 24&Prime;&times;36&Prime; Print-Ready Pack ($7 &middot; vs. $14 Blank Etsy Templates)</a>
                   </div>
                 </div>
                 <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));gap:8px;margin-bottom:10px;padding:10px 12px;background:#FAF6EE;border:1px solid #E5DEC9;border-radius:10px;">
@@ -382,8 +393,8 @@ function renderZone3InteractiveStudio(plan) {
                     <h3 class="serif-display" style="font-size:1.35rem;">Cocktail-Hour QR Bar Sign &amp; Instant Guest Lookup</h3>
                   </div>
                   <div style="display:flex;gap:6px;flex-wrap:wrap;">
-                    <a id="sh-open-qr-app-link" href="/qr/${vId}" target="_blank" class="btn btn-primary" style="padding:6px 11px;font-size:0.73rem;">&#128241; Open Guest Mobile Lookup &nearr;</a>
-                    <button type="button" class="btn btn-secondary" style="padding:6px 11px;font-size:0.73rem;" onclick="window.shGateOrExportBeoCsv ? window.shGateOrExportBeoCsv('share') : window.shCopyMomSandboxLink()">&#128117; Copy Family Share Link</button>
+                    <a id="sh-open-qr-app-link" href="/qr/${vId}" target="_blank" class="btn btn-primary" style="padding:6px 11px;font-size:0.73rem;">Open Guest Mobile Lookup &rarr;</a>
+                    <button type="button" class="btn btn-secondary" style="padding:6px 11px;font-size:0.73rem;" onclick="window.shGateOrExportBeoCsv ? window.shGateOrExportBeoCsv('share') : window.shCopyMomSandboxLink()">${IC.users}Copy Family Share Link</button>
                   </div>
                 </div>
                 <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:12px;margin-bottom:10px;">
@@ -391,7 +402,7 @@ function renderZone3InteractiveStudio(plan) {
                     <div style="font-size:0.62rem;font-weight:800;letter-spacing:0.12em;color:#78350F;text-transform:uppercase;">8&Prime;&times;10&Prime; BAR EASEL QR CARD (LIVE SCANNABLE)</div>
                     <div class="serif-display" style="font-size:1.15rem;color:#181412;">Scan to Find Your Seat</div>
                     <img id="sh-live-qr-img" src="https://api.qrserver.com/v1/create-qr-code/?size=160x160&amp;color=181412&amp;bgcolor=FFFFFF&amp;data=${encodeURIComponent(`https://www.seatharmony.io/qr/${plan.vaultId || 'SH-4819'}`)}" alt="Scannable Cocktail Hour QR Code" width="96" height="96" style="background:#FFF;padding:6px;border-radius:8px;border:1px solid #D6CBB8;" />
-                    <div style="font-size:0.70rem;color:#57534E;">Guests scan with phone camera &rarr; opens <a id="sh-qr-short-url" href="/qr/${vId}" target="_blank" style="color:#8C2D19;font-weight:800;">Live Guest Seat Lookup &nearr;</a></div>
+                    <div style="font-size:0.70rem;color:#57534E;">Guests scan with phone camera &rarr; opens <a id="sh-qr-short-url" href="/qr/${vId}" target="_blank" style="color:#8C2D19;font-weight:800;">Live Guest Seat Lookup &rarr;</a></div>
                   </div>
                   <div style="display:flex;flex-direction:column;gap:8px;">
                     <label for="sh-qr-search" class="studio-field-label" style="margin-bottom:0;">Test What Guests See on Their Phones at Cocktail Hour:</label>
@@ -415,12 +426,12 @@ function renderZone3InteractiveStudio(plan) {
               <span style="display:none;" id="sh-table1-preview-badge">Live Seating &amp; Print Preview</span>
               <span style="font-size:13px;font-weight:800;color:#1C1C1C;" id="sh-proof-couple-name" class="sh-hide-mobile-toolbar">${escapeHtml(plan.title || "Maya & Liam's Estate Reception")} &middot; <span id="sh-proof-venue-name" style="font-weight:600;color:#57534E;">${escapeHtml(plan.venueName || 'Rosewood Conservatory')}</span></span>
             </div>
-            <span style="font-size:13px;color:#1C1C1C;" id="sh-proof-table1-summary"><strong>&#10003; Table 1 Specimen (Unmasked Free):</strong> Maya &amp; Liam Vance &bull; Filet Mignon &bull; 6 Allergy Notes</span>
+            <span style="font-size:13px;color:#1C1C1C;" id="sh-proof-table1-summary"><strong>&#10003; Table 1 Sample (Free):</strong> Maya &amp; Liam Vance &bull; Filet Mignon &bull; 6 Allergy Notes</span>
             <span style="display:none;" id="sh-table1-preview-status">Updates as you edit</span>
           </div>
           <div style="display:flex;flex-wrap:wrap;align-items:center;gap:6px;">
-            <button type="button" id="sh-locked-badge-beo" class="sh-locked-spec-badge" data-sh-locked-badge="beo" data-unmasked-text="&#10003; Tables 2&ndash;8 Clockwise Meal Tally Unmasked (62 Covers &middot; 12:00 Seat #1 &middot; 6 Allergy Flags)" onclick="if(window.shFocusEmailUnlockBadge){window.shFocusEmailUnlockBadge(this);}else{var e=document.getElementById('sh-inline-vault-email');if(e){e.scrollIntoView({behavior:'smooth',block:'center'});e.focus();}}" style="cursor:pointer;background:#F0FDFA;color:#065F46;border:1px solid #00766C;border-radius:999px;padding:4px 11px;font-size:13px;font-weight:700;line-height:1.25;filter:none;">&#128274; Tables 2&ndash;8 Clockwise Meal Tally &mdash; Tap to Unlock Free ($0) &uarr;</button>
-            <a id="sh-locked-badge-pack" class="sh-locked-spec-badge" href="/buy/complete_dossier?target=estate-150&amp;vault=${vId}&amp;allow_promotion_codes=false" style="cursor:pointer;background:#FAF6EE;color:#78350F;border:1px solid #C8A96E;border-radius:999px;padding:4px 11px;font-size:13px;font-weight:700;line-height:1.25;text-decoration:none;filter:none;">&#128274; 24&Prime;&times;36&Prime; Print-Shop Poster &amp; Escort Cards ($7 Pack) &uarr;</a>
+            <button type="button" id="sh-locked-badge-beo" class="sh-locked-spec-badge" data-sh-locked-badge="beo" data-unmasked-text="&#10003; Tables 2&ndash;8 Clockwise Meal Tally Unmasked (62 Covers &middot; 12:00 Seat #1 &middot; 6 Allergy Flags)" onclick="if(window.shFocusEmailUnlockBadge){window.shFocusEmailUnlockBadge(this);}else{var e=document.getElementById('sh-inline-vault-email');if(e){e.scrollIntoView({behavior:'smooth',block:'center'});e.focus();}}" style="cursor:pointer;background:#F0FDFA;color:#065F46;border:1px solid #00766C;border-radius:999px;padding:4px 11px;font-size:13px;font-weight:700;line-height:1.25;filter:none;">${IC.lock}Tables 2&ndash;8 Clockwise Meal Tally &mdash; Tap to Unlock Free ($0) &uarr;</button>
+            <a id="sh-locked-badge-pack" class="sh-locked-spec-badge" href="/buy/complete_dossier?target=estate-150&amp;vault=${vId}&amp;allow_promotion_codes=false" style="cursor:pointer;background:#FAF6EE;color:#78350F;border:1px solid #C8A96E;border-radius:999px;padding:4px 11px;font-size:13px;font-weight:700;line-height:1.25;text-decoration:none;filter:none;">${IC.lock}24&Prime;&times;36&Prime; Print-Shop Poster &amp; Escort Cards ($7 Pack) &uarr;</a>
           </div>
           <div id="sh-table1-escort-dietary-preview" data-unmasked="1" style="display:none;"><div id="sh-table1-preview-body"></div></div>
         </div>
@@ -454,7 +465,7 @@ function renderZone3InteractiveStudio(plan) {
             </div>
           </div>
           <div id="sh-planner-pro-dock-banner" style="display:flex;flex-wrap:wrap;align-items:center;gap:10px;">
-            <a id="sh-footer-vault-link" href="/vault/${vId}" style="color:#065F46;font-size:13px;font-weight:700;text-decoration:none;">All Print &amp; Caterer Files &nearr;</a>
+            <a id="sh-footer-vault-link" href="/vault/${vId}" style="color:#065F46;font-size:13px;font-weight:700;text-decoration:none;">All Print &amp; Caterer Files &rarr;</a>
             <a href="/directory" class="sh-venue-cta" style="font-size:13px;">Browse venue layouts &rarr;</a>
             <span style="font-size:13px;color:#57534E;">Wedding Planner or Venue?</span>
             <a id="sh-vault-buy-pro-btn" href="/buy/pro_b2b?target=estate-150&amp;vault=${vId}&amp;allow_promotion_codes=false" title="For Wedding Planners & Venues: Unlimited Events + Custom Agency Logo ($29 Pro Pass)" style="color:#00766C;font-size:13px;font-weight:800;text-decoration:underline;">$29 Pro Pass &rarr;</a>
@@ -472,7 +483,7 @@ function renderZone3InteractiveStudio(plan) {
       <div style="background:#FFFFFF;border:1px solid #E5E7EB;border-radius:18px;max-width:760px;width:100%;padding:24px;box-shadow:0 24px 64px rgba(0,0,0,0.28);color:#1C1C1C;max-height:92vh;overflow-y:auto;">
         <div style="display:flex;justify-content:space-between;align-items:center;gap:12px;border-bottom:1px solid #E5E7EB;padding-bottom:12px;margin-bottom:16px;">
           <div>
-            <div style="font-size:0.68rem;font-weight:800;letter-spacing:0.10em;text-transform:uppercase;color:#00766C;">&#128190; SAVE &amp; SHARE YOUR SEATING PLAN</div>
+            <div style="font-size:0.68rem;font-weight:800;letter-spacing:0.10em;text-transform:uppercase;color:#00766C;">${IC.save}SAVE &amp; SHARE YOUR SEATING PLAN</div>
             <h3 class="serif-display" style="font-size:1.55rem;margin-top:2px;">Save Your Seating Plan or Open a Saved Wedding</h3>
           </div>
           <button type="button" onclick="window.shCloseVaultModal()" style="background:#F8F7F4;border:1px solid #D1D5DB;border-radius:8px;padding:6px 12px;font-weight:700;cursor:pointer;white-space:nowrap;">&#10005; Close</button>
@@ -487,15 +498,15 @@ function renderZone3InteractiveStudio(plan) {
             <input id="sh-vault-email-input" type="email" class="grader-input" style="width:100%;margin-bottom:10px;" placeholder="maya@example.com" value="${escapeHtml(plan.ownerEmail || '')}" />
             <label for="sh-vault-pin-input" class="studio-field-label">Optional 4-Digit Edit PIN:</label>
             <input id="sh-vault-pin-input" type="text" maxlength="8" class="grader-input" style="width:100%;margin-bottom:12px;" placeholder="2026" value="2026" />
-            <button type="button" id="sh-vault-save-submit-btn" class="btn btn-primary" style="width:100%;padding:11px;" onclick="window.shSaveVaultToServer()">&#128190; Save My Seating Plan</button>
+            <button type="button" id="sh-vault-save-submit-btn" class="btn btn-primary" style="width:100%;padding:11px;" onclick="window.shSaveVaultToServer()">${IC.save}Save My Seating Plan</button>
             <div id="sh-vault-saved-links-box" style="margin-top:12px;padding:10px 12px;border-radius:10px;background:#FFFFFF;border:1px solid #E5E7EB;font-size:0.84rem;">
               <div style="font-weight:800;color:#00766C;margin-bottom:6px;">&#10003; Direct Links for Your Reception:</div>
               <div style="display:flex;flex-direction:column;gap:5px;">
-                <a id="sh-modal-link-vault" href="/vault/${vId}" style="color:#00766C;font-weight:700;text-decoration:none;">&#128275; All 5 Print &amp; Caterer Files &nearr;</a>
-                <a id="sh-modal-link-poster" href="/print/poster/${vId}" target="_blank" style="color:#1C1C1C;font-weight:700;text-decoration:none;">&#129703; 24&Prime;&times;36&Prime; Welcome Sign Studio &nearr;</a>
-                <a id="sh-modal-link-avery" href="/print/avery-5302/${vId}" target="_blank" style="color:#1C1C1C;font-weight:700;text-decoration:none;">&#127915; Avery 5302 Place Cards &nearr;</a>
-                <a id="sh-modal-link-beo" href="/print/beo/${vId}" target="_blank" style="color:#1C1C1C;font-weight:700;text-decoration:none;">&#127869; Clockwise Caterer Meal Sheet &nearr;</a>
-                <a id="sh-modal-link-qr" href="/qr/${vId}" target="_blank" style="color:#00766C;font-weight:700;text-decoration:none;">&#128241; Guest Cocktail-Hour QR Lookup &nearr;</a>
+                <a id="sh-modal-link-vault" href="/vault/${vId}" style="color:#00766C;font-weight:700;text-decoration:none;">${IC.unlock}All 5 Print &amp; Caterer Files &rarr;</a>
+                <a id="sh-modal-link-poster" href="/print/poster/${vId}" target="_blank" style="color:#1C1C1C;font-weight:700;text-decoration:none;">${IC.print}24&Prime;&times;36&Prime; Welcome Sign Studio &rarr;</a>
+                <a id="sh-modal-link-avery" href="/print/avery-5302/${vId}" target="_blank" style="color:#1C1C1C;font-weight:700;text-decoration:none;">${IC.print}Avery 5302 Place Cards &rarr;</a>
+                <a id="sh-modal-link-beo" href="/print/beo/${vId}" target="_blank" style="color:#1C1C1C;font-weight:700;text-decoration:none;">${IC.print}Clockwise Caterer Meal Sheet &rarr;</a>
+                <a id="sh-modal-link-qr" href="/qr/${vId}" target="_blank" style="color:#00766C;font-weight:700;text-decoration:none;">Guest Cocktail-Hour QR Lookup &rarr;</a>
               </div>
             </div>
           </div>
@@ -506,7 +517,7 @@ function renderZone3InteractiveStudio(plan) {
             <p style="font-size:0.86rem;color:#4B5563;margin-bottom:12px;line-height:1.45;">Enter the email address you used when saving your reception floorplan to pick up right where you left off:</p>
             <label for="sh-vault-lookup-input" class="studio-field-label">Your Saved Email Address:</label>
             <input id="sh-vault-lookup-input" type="text" class="grader-input" style="width:100%;margin-bottom:12px;" placeholder="maya@example.com" />
-            <button type="button" id="sh-vault-lookup-btn" class="btn btn-secondary" style="width:100%;padding:11px;" onclick="window.shLookupSavedVault()">&#128275; Open My Saved Seating Plan</button>
+            <button type="button" id="sh-vault-lookup-btn" class="btn btn-secondary" style="width:100%;padding:11px;" onclick="window.shLookupSavedVault()">${IC.unlock}Open My Saved Seating Plan</button>
             <div id="sh-vault-lookup-status" style="margin-top:10px;font-size:0.84rem;color:#374151;"></div>
           </div>
         </div>
@@ -536,7 +547,7 @@ function renderZone5FaqAndZone6Close(sampleSeoPages = [], plan = {}) {
         <details class="studio-faq-item" open>
           <summary><span>1. What if guests drop out 48 hours before the wedding?</span><span>&#9662;</span></summary>
           <div style="padding-top:12px;font-size:1.05rem;color:#44403C;line-height:1.65;max-width:64ch;">
-            Delete or swap them on the floorplan in 2 clicks. Your <strong>12:00 Caterer Meal Sheet (BEO)</strong>, <strong>24&Prime;&times;36&Prime; Welcome Sign</strong>, <strong>Avery 5302 Place Cards</strong>, and <strong>QR Lookup</strong> update automatically, with unlimited free re-exports for 30 days.
+            Delete or swap them on the floorplan in 2 clicks. Your <strong>12:00 Caterer Meal Sheet</strong>, <strong>24&Prime;&times;36&Prime; Welcome Sign</strong>, <strong>Avery 5302 Place Cards</strong>, and <strong>QR Lookup</strong> update automatically, with unlimited free re-exports for 30 days.
           </div>
         </details>
         <details class="studio-faq-item">
@@ -548,11 +559,11 @@ function renderZone5FaqAndZone6Close(sampleSeoPages = [], plan = {}) {
         <details class="studio-faq-item">
           <summary><span>3. Will the 24&Prime;&times;36&Prime; poster print cleanly at FedEx Office or Staples?</span><span>&#9662;</span></summary>
           <div style="padding-top:12px;font-size:1.05rem;color:#44403C;line-height:1.65;max-width:64ch;">
-            Yes. Every poster is a 300-DPI vector PDF sized to <strong>Arch D (24&Prime;&times;36&Prime;)</strong> with <code>0.125&Prime;</code> bleed and crop marks, plus <strong>Avery 5302</strong> tent card sheets.
+            Yes. Every poster is a Print-Ready vector PDF sized to <strong>Arch D (24&Prime;&times;36&Prime;)</strong> with <code>0.125&Prime;</code> bleed and crop marks, plus <strong>Avery 5302</strong> tent card sheets.
           </div>
         </details>
         <details class="studio-faq-item">
-          <summary><span>4. How does the Clockwise 12:00 Caterer Meal Sheet (BEO) work?</span><span>&#9662;</span></summary>
+          <summary><span>4. How does the Clockwise 12:00 Caterer Meal Sheet work?</span><span>&#9662;</span></summary>
           <div style="padding-top:12px;font-size:1.05rem;color:#44403C;line-height:1.65;max-width:64ch;">
             Seat #1 is anchored at <strong>12 o&rsquo;clock (red dot)</strong> and numbered clockwise so servers set down Filet, Halibut, Vegan, and Allergy plates without asking guests.
           </div>
@@ -560,7 +571,7 @@ function renderZone5FaqAndZone6Close(sampleSeoPages = [], plan = {}) {
         <details class="studio-faq-item">
           <summary><span>5. Is $7 really a one-time payment for the Event Print &amp; Day-Of Execution Pack?</span><span>&#9662;</span></summary>
           <div style="padding-top:12px;font-size:1.05rem;color:#44403C;line-height:1.65;max-width:64ch;">
-            100% yes. Pay <strong>$7 once</strong> (vs. $14 blank Etsy templates) to save 6+ hours at FedEx/Canva with your 24&Prime;&times;36&Prime; 300-DPI Print-Shop Welcome Poster PDF + Folded Place Cards + Caterer Table-by-Table Meal/Allergy BEO + Live Guest Phone QR Lookup, 30 days of free edits, and a 30-day refund guarantee.
+            100% yes. Pay <strong>$7 once</strong> (vs. $14 blank Etsy templates) to save 6+ hours at FedEx/Canva with your 24&Prime;&times;36&Prime; Print-Ready Welcome Poster PDF + Folded Place Cards + Caterer Table-by-Table Meal/Allergy Sheet + Live Guest Phone QR Lookup, 30 days of free edits, and a 30-day refund guarantee.
           </div>
         </details>
       </div>
@@ -596,9 +607,9 @@ function renderZone5FaqAndZone6Close(sampleSeoPages = [], plan = {}) {
             <h4 class="serif-display" style="font-size:1.65rem;">Event Print &amp; Day-Of Execution Pack</h4>
             <div class="tabular" style="font-size:2.35rem;font-weight:800;margin:8px 0;color:#1C1C1C;">$7 <span style="font-size:0.95rem;font-weight:600;color:#78716C;">one-time event pass &middot; vs. $14 Blank Etsy Templates</span></div>
             <ul style="list-style:none;font-size:0.98rem;color:#1C1C1C;display:flex;flex-direction:column;gap:11px;font-weight:600;margin-top:12px;line-height:1.55;">
-              <li>&#10003; <strong>24&Prime;&times;36&Prime; 300-DPI Print-Shop Welcome Poster PDF</strong> (<code>0.125&Prime;</code> Bleed)</li>
+              <li>&#10003; <strong>24&Prime;&times;36&Prime; Print-Ready Welcome Poster PDF</strong> (<code>0.125&Prime;</code> Bleed)</li>
               <li>&#10003; <strong>Folded Place Cards</strong> (Avery 5302 PDF with Server Meal Icons)</li>
-              <li>&#10003; <strong>Caterer Table-by-Table Meal/Allergy BEO</strong> (12:00 Clockwise Seat Map)</li>
+              <li>&#10003; <strong>Caterer Table-by-Table Meal/Allergy Sheet</strong> (12:00 Clockwise Seat Map)</li>
               <li>&#10003; <strong>Live Guest Phone QR Lookup</strong> (Zero Cocktail-Hour Easel Crowds)</li>
             </ul>
           </div>
@@ -610,11 +621,11 @@ function renderZone5FaqAndZone6Close(sampleSeoPages = [], plan = {}) {
               <span class="badge badge-emerald">FOR WEDDING PLANNERS &amp; VENUES</span>
               <span style="font-size:0.75rem;font-weight:800;color:#00766C;background:#EBF6F5;padding:2px 8px;border-radius:999px;">MULTI-EVENT WHITE-LABEL</span>
             </div>
-            <h4 class="serif-display" style="font-size:1.55rem;">For Wedding Planners &amp; Venues: Unlimited Events + Custom Agency Logo on Client BEOs ($29 Pro Pass)</h4>
+            <h4 class="serif-display" style="font-size:1.55rem;">For Wedding Planners &amp; Venues: Unlimited Events + Custom Agency Logo on Client Meal Sheets ($29 Pro Pass)</h4>
             <div class="tabular" style="font-size:2.35rem;font-weight:800;margin:8px 0;color:#1C1C1C;">$29 <span style="font-size:0.95rem;font-weight:600;color:#78716C;">Pro Pass</span></div>
             <ul style="list-style:none;font-size:0.98rem;color:#44403C;display:flex;flex-direction:column;gap:11px;margin-top:12px;line-height:1.55;">
               <li>&#10003; <strong>Unlimited Client Weddings &amp; 300-Guest Galas</strong></li>
-              <li>&#10003; <strong>Custom Agency / Venue Logo Crest</strong> on All Client BEOs &amp; Signs</li>
+              <li>&#10003; <strong>Custom Agency / Venue Logo Crest</strong> on All Client Meal Sheets &amp; Signs</li>
               <li>&#10003; <strong>Unlimited Mom Sandbox Links</strong> (Lock Tables 4+ per Client)</li>
             </ul>
           </div>
@@ -652,15 +663,15 @@ function renderHomePage(initialAudit, sampleSeoPages = []) {
   const jsonLd = {
     '@context': 'https://schema.org',
     '@graph': [
-      { '@type': 'SoftwareApplication', name: 'SeatHarmony Wedding & Event Floorplan Studio', applicationCategory: 'EventPlanningApplication', operatingSystem: 'Web', description: 'Drama-free wedding seating chart planner, clockwise 12:00 caterer meal sheet (BEO), and print-ready 24x36 welcome sign & Avery 5302 place card studio.', offers: { '@type': 'Offer', price: '7.00', priceCurrency: 'USD' } },
+      { '@type': 'SoftwareApplication', name: 'SeatHarmony Wedding & Event Floorplan Studio', applicationCategory: 'EventPlanningApplication', operatingSystem: 'Web', description: 'Drama-free wedding seating chart planner, clockwise 12:00 caterer meal sheet, and print-ready 24x36 welcome sign & Avery 5302 place card studio.', offers: { '@type': 'Offer', price: '7.00', priceCurrency: 'USD' } },
       { '@type': 'FAQPage', mainEntity: [
-        { '@type': 'Question', name: 'What happens when guests drop out 48 hours before the wedding?', acceptedAnswer: { '@type': 'Answer', text: 'Swap or remove the guest on the SeatHarmony canvas and re-export your 24x36 Arch D PDF, Avery 5302 place cards, and Clockwise Caterer BEO in one click.' } },
-        { '@type': 'Question', name: 'How does the Clockwise 12:00 Caterer BEO work?', acceptedAnswer: { '@type': 'Answer', text: 'SeatHarmony marks 12 o-clock (closest to the Dance Floor) as Seat #1 and numbers seats 1..N clockwise with meal icons and allergy flags for banquet servers.' } }
+        { '@type': 'Question', name: 'What happens when guests drop out 48 hours before the wedding?', acceptedAnswer: { '@type': 'Answer', text: 'Swap or remove the guest on the SeatHarmony canvas and re-export your 24x36 Arch D PDF, Avery 5302 place cards, and Clockwise Caterer Meal Sheet in one click.' } },
+        { '@type': 'Question', name: 'How does the Clockwise 12:00 Caterer Meal Sheet work?', acceptedAnswer: { '@type': 'Answer', text: 'SeatHarmony marks 12 o-clock (closest to the Dance Floor) as Seat #1 and numbers seats 1..N clockwise with meal icons and allergy flags for banquet servers.' } }
       ] }
     ]
   };
   return [
-    renderHead({ title: 'SeatHarmony: Wedding Floorplan, Conflict-Free Seating Solver & 24"×36" Poster Studio', description: 'Seat 150 wedding guests in 30 seconds without family drama. Auto-solve divorced parent table buffers, generate clockwise caterer BEO meal sheets, and export print-ready 24"×36" welcome signs & Avery 5302 place cards.', canonicalPath: '/', jsonLd, ogSlug: 'home' }),
+    renderHead({ title: 'SeatHarmony: Wedding Floorplan, Conflict-Free Seating Solver & 24"×36" Poster Studio', description: 'Seat 150 wedding guests in 30 seconds without family drama. Auto-solve divorced parent table buffers, generate clockwise caterer meal sheets, and export print-ready 24"×36" welcome signs & Avery 5302 place cards.', canonicalPath: '/', jsonLd, ogSlug: 'home' }),
     '<body>', renderNavbar(), '<main id="main-content">',
     renderZone1Hero(plan), renderZone3InteractiveStudio(plan), renderZone2Walkthrough(plan), renderZone4ProofStackAndPricing(), renderZone5FaqAndZone6Close(sampleSeoPages, plan),
     '</main>', renderFooter(), renderInteractiveScript(plan), '</body></html>'
@@ -691,7 +702,7 @@ function renderSeoDetailPage(pageRow, relatedPages = []) {
       `<div><span class="badge badge-amber" style="margin-bottom:4px;">INTERACTIVE TENT, ROOM &amp; SIGNAGE CALCULATOR</span><h2 class="serif-display" style="font-size:1.38rem;margin:0;">Calculate Your Exact Table Count, Tent Size &amp; 24&Prime;&times;36&Prime; Sign Spec</h2></div>` +
     `</div>` +
     `<div style="display:flex;align-items:center;gap:6px;flex-wrap:wrap;margin-bottom:12px;">` +
-      `<span style="font-size:0.76rem;font-weight:800;color:#78350F;">&#9889; 1-Tap Guest Count:</span>` +
+      `<span style="font-size:0.76rem;font-weight:800;color:#78350F;">${IC.bolt}1-Tap Guest Count:</span>` +
       [60, 80, 100, 150, 200].map(n => `<button type="button" class="studio-tap-chip" onclick="var g=document.getElementById('sh-calc-guests');if(g){g.value=${n};g.dispatchEvent(new Event('input'));}" style="padding:4px 10px;font-size:0.78rem;font-weight:800;">${n} Guests</button>`).join('') +
     `</div>` +
     `<div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:12px;margin-bottom:14px;">` +
@@ -706,10 +717,10 @@ function renderSeoDetailPage(pageRow, relatedPages = []) {
       `<div><div style="font-size:0.70rem;font-weight:800;color:#78716C;">AVERY 5302 + DANCE FLOOR</div><div id="sh-calc-out-avery" style="font-size:1.05rem;font-weight:800;color:#181412;">${bp.averySheets} Sheets &middot; ${escapeHtml(bp.danceFloorDims.split(' ')[0])}</div></div>` +
     `</div>` +
     `<div style="display:flex;flex-wrap:wrap;align-items:center;justify-content:space-between;gap:8px;padding:8px 12px;margin-bottom:12px;background:#FFFFFF;border:1px solid #E2D9C8;border-radius:10px;">` +
-      `<span style="font-size:13px;color:#181412;"><strong>&#10003; Table 1 Specimen (Unmasked Free):</strong> Seat #1 at 12:00 &bull; 2 Hosts &bull; Filet Mignon &amp; Halibut &bull; 0 Clashes</span>` +
+      `<span style="font-size:13px;color:#181412;"><strong>&#10003; Table 1 Sample (Free):</strong> Seat #1 at 12:00 &bull; 2 Hosts &bull; Filet Mignon &amp; Halibut &bull; 0 Clashes</span>` +
       `<div style="display:flex;flex-wrap:wrap;align-items:center;gap:6px;">` +
-        `<button type="button" id="sh-seo-locked-badge-beo" class="sh-locked-spec-badge" data-sh-locked-badge="seo-beo" onclick="var el=document.getElementById('sh-seo-calc-email');if(el){el.scrollIntoView({behavior:'smooth',block:'center'});el.focus();}" style="cursor:pointer;background:#F0FDFA;color:#065F46;border:1px solid #00766C;border-radius:999px;padding:4px 11px;font-size:13px;font-weight:700;line-height:1.25;filter:none;">&#128274; Tables 2&ndash;8 Clockwise Meal Tally &mdash; Tap to Unlock Free ($0) &uarr;</button>` +
-        `<a id="sh-seo-locked-badge-pack" class="sh-locked-spec-badge" href="/buy/complete_dossier?target=${encodeURIComponent(pageRow.slug)}&amp;allow_promotion_codes=false" style="cursor:pointer;background:#FAF6EE;color:#78350F;border:1px solid #C8A96E;border-radius:999px;padding:4px 11px;font-size:13px;font-weight:700;line-height:1.25;text-decoration:none;filter:none;">&#128274; 24&Prime;&times;36&Prime; Print-Shop Poster &amp; Escort Cards ($7 Pack) &uarr;</a>` +
+        `<button type="button" id="sh-seo-locked-badge-beo" class="sh-locked-spec-badge" data-sh-locked-badge="seo-beo" onclick="var el=document.getElementById('sh-seo-calc-email');if(el){el.scrollIntoView({behavior:'smooth',block:'center'});el.focus();}" style="cursor:pointer;background:#F0FDFA;color:#065F46;border:1px solid #00766C;border-radius:999px;padding:4px 11px;font-size:13px;font-weight:700;line-height:1.25;filter:none;">${IC.lock}Tables 2&ndash;8 Clockwise Meal Tally &mdash; Tap to Unlock Free ($0) &uarr;</button>` +
+        `<a id="sh-seo-locked-badge-pack" class="sh-locked-spec-badge" href="/buy/complete_dossier?target=${encodeURIComponent(pageRow.slug)}&amp;allow_promotion_codes=false" style="cursor:pointer;background:#FAF6EE;color:#78350F;border:1px solid #C8A96E;border-radius:999px;padding:4px 11px;font-size:13px;font-weight:700;line-height:1.25;text-decoration:none;filter:none;">${IC.lock}24&Prime;&times;36&Prime; Print-Shop Poster &amp; Escort Cards ($7 Pack) &uarr;</a>` +
       `</div>` +
     `</div>` +
     `<div style="display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:10px;">` +
@@ -773,7 +784,7 @@ function renderLegalPage(type = 'privacy') {
   return [
     renderHead({ title: `${isPrivacy ? 'Privacy Policy' : 'Terms of Service'} | SeatHarmony Studio`, description: `SeatHarmony Studio ${isPrivacy ? 'Privacy Policy' : 'Terms of Service'} and guest RSVP data protection standards.`, canonicalPath: isPrivacy ? '/privacy' : '/terms' }),
     '<body>', renderNavbar(),
-    `<main class="container" style="padding:56px 24px;max-width:760px;"><h1 class="studio-zone-title" style="margin-bottom:16px;">${isPrivacy ? 'Privacy Policy' : 'Terms of Service'}</h1><div class="panel" style="padding:24px;display:flex;flex-direction:column;gap:14px;font-size:0.9rem;color:#374151;"><p><strong>Effective Date:</strong> October 2026</p><p>SeatHarmony Studio processes guest RSVP names, dietary restrictions, and table assignments strictly to generate your reception floorplan, caterer BEO sheet, and printable signage. We never sell or share guest lists with third-party advertisers or wedding vendors.</p><p>All $7 Event Print &amp; Day-Of Execution Pack and $29 Wedding Planner &amp; Venue Pro Pass purchases are one-time payments backed by a 30-day 100% satisfaction guarantee.</p></div></main>`,
+    `<main class="container" style="padding:56px 24px;max-width:760px;"><h1 class="studio-zone-title" style="margin-bottom:16px;">${isPrivacy ? 'Privacy Policy' : 'Terms of Service'}</h1><div class="panel" style="padding:24px;display:flex;flex-direction:column;gap:14px;font-size:0.9rem;color:#374151;"><p><strong>Effective Date:</strong> October 2026</p><p>SeatHarmony Studio processes guest RSVP names, dietary restrictions, and table assignments strictly to generate your reception floorplan, caterer meal sheet, and printable signage. We never sell or share guest lists with third-party advertisers or wedding vendors.</p><p>All $7 Event Print &amp; Day-Of Execution Pack and $29 Wedding Planner &amp; Venue Pro Pass purchases are one-time payments backed by a 30-day 100% satisfaction guarantee.</p></div></main>`,
     renderFooter(), '</body></html>'
   ].join('\n');
 }

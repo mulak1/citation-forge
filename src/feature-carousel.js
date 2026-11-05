@@ -4,7 +4,7 @@ const SHOWCASE_SLIDES = [
   {
     idx: 0,
     tabLabel: '1. 24"×36" Welcome Sign Studio',
-    badge: 'DELIVERABLE 1 OF 5 · 300-DPI ARCH D PDF',
+    badge: 'DELIVERABLE 1 OF 5 · PRINT-READY ARCH D PDF',
     title: '24"×36" Reception Welcome Sign Studio',
     annotations: [
       { num: '1', title: '6 Wedding Color Themes' },
@@ -13,7 +13,7 @@ const SHOWCASE_SLIDES = [
     ],
     urlText: 'seatharmony.io/print/poster/SH-4819?theme=alabaster',
     routeHref: (vId) => `/print/poster/${encodeURIComponent(vId)}?theme=alabaster`,
-    ctaText: 'Open Live 24"×36" Studio ↗',
+    ctaText: 'Open Live 24"×36" Studio →',
     imgSrc: '/public/showcase-poster-24x36.png?v=light3',
     imgAlt: 'SeatHarmony 24x36 Reception Welcome Sign Studio in Parisian Gold & Alabaster theme',
     pins: [
@@ -24,9 +24,9 @@ const SHOWCASE_SLIDES = [
   },
   {
     idx: 1,
-    tabLabel: '2. Clockwise 12:00 Caterer BEO',
+    tabLabel: '2. Clockwise 12:00 Caterer Meal Sheet',
     badge: 'DELIVERABLE 2 OF 5 · KITCHEN & SERVER SHEET',
-    title: 'Clockwise 12:00 Caterer Meal Sheet (BEO)',
+    title: 'Clockwise 12:00 Caterer Meal Sheet',
     annotations: [
       { num: '1', title: 'Seat #1 = 12:00 (Dance Floor)' },
       { num: '2', title: 'Entrée Prep Totals per Table' },
@@ -34,9 +34,9 @@ const SHOWCASE_SLIDES = [
     ],
     urlText: 'seatharmony.io/print/beo/SH-4819',
     routeHref: (vId) => `/print/beo/${encodeURIComponent(vId)}`,
-    ctaText: 'Open Live Caterer BEO ↗',
+    ctaText: 'Open Live Caterer Meal Sheet →',
     imgSrc: '/public/showcase-signed-beo.png?v=light3',
-    imgAlt: 'SeatHarmony Clockwise 12:00 Caterer Banquet Event Order (BEO) Manifest',
+    imgAlt: 'SeatHarmony Clockwise 12:00 Caterer Meal Sheet Manifest',
     pins: [
       { num: '1', text: 'Seat #1 = 12:00 (Facing Dance Floor) Anchor', style: 'top: 39%; right: 5%;' },
       { num: '2', text: 'Clockwise Seat-by-Seat Entrée Breakdown', style: 'top: 62%; right: 5%;' },
@@ -55,7 +55,7 @@ const SHOWCASE_SLIDES = [
     ],
     urlText: 'seatharmony.io/print/avery-5302/SH-4819',
     routeHref: (vId) => `/print/avery-5302/${encodeURIComponent(vId)}`,
-    ctaText: 'Open Live Place Cards Sheet ↗',
+    ctaText: 'Open Live Place Cards Sheet →',
     imgSrc: '/public/showcase-avery-5302.png?v=light3',
     imgAlt: 'SeatHarmony Folded Tent Place Cards Print Sheet with server allergy back fold',
     pins: [
@@ -76,7 +76,7 @@ const SHOWCASE_SLIDES = [
     ],
     urlText: 'seatharmony.io/qr/SH-4819',
     routeHref: (vId) => `/qr/${encodeURIComponent(vId)}`,
-    ctaText: 'Test Live Mobile QR App ↗',
+    ctaText: 'Test Live Mobile QR App →',
     imgSrc: '/public/showcase-mobile-qr.png?v=light3',
     imgAlt: 'SeatHarmony Cocktail-Hour Mobile Guest QR Seat Lookup Web App',
     pins: [
@@ -97,12 +97,12 @@ const SHOWCASE_SLIDES = [
     ],
     urlText: 'seatharmony.io/vault/SH-4819?unlocked=1',
     routeHref: (vId) => `/vault/${encodeURIComponent(vId)}?unlocked=1`,
-    ctaText: 'Open Saved Wedding Files ↗',
+    ctaText: 'Open Saved Wedding Files →',
     imgSrc: '/public/showcase-vault-command.png?v=light3',
     imgAlt: 'SeatHarmony Saved Wedding Plan and Family Table Share Hub',
     pins: [
       { num: '1', text: 'Permanent Event Crest & Unlimited 30-Day Re-Exports', style: 'top: 17%; right: 24%;' },
-      { num: '2', text: 'Direct Launchpad for Poster, Avery 5302 & Caterer BEO', style: 'top: 49%; left: 45%;' },
+      { num: '2', text: 'Direct Launchpad for Poster, Avery 5302 & Caterer Meal Sheet', style: 'top: 49%; left: 45%;' },
       { num: '3', text: '1-Click Family Share Link for Parents (Tables 1-3 Only)', style: 'bottom: 6%; right: 5%;' }
     ]
   }
@@ -183,9 +183,9 @@ function renderFeatureShowcaseCarousel(vId = 'SH-4819') {
           <button type="button" onclick="window.stepStudioFeatureSlide(1)" class="btn btn-secondary" style="padding:10px 18px;font-size:0.90rem;">Next Tool &rarr;</button>
         </div>
         <div style="display:flex;align-items:center;gap:12px;flex-wrap:wrap;">
-          <a href="#studio" class="btn btn-secondary" style="padding:11px 20px;font-size:0.92rem;">&#9998; Jump to Interactive Studio &darr;</a>
+          <a href="#studio" class="btn btn-secondary" style="padding:11px 20px;font-size:0.92rem;">Jump to Interactive Studio &darr;</a>
           <a href="/buy/complete_dossier?target=estate-150&vault=${safeVid}&allow_promotion_codes=false" id="sh-carousel-unlock-cta" class="btn btn-gold-soft" style="padding:12px 24px;font-size:0.95rem;">
-            &#128275; Unlock Event Print &amp; Day-Of Pack ($7 &middot; vs. $14 Etsy) &rarr;
+            <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="display:inline-block;vertical-align:-2px;margin-right:4px;" aria-hidden="true"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"/><path d="M7 11V7a5 5 0 0 1 9.9-1"/></svg>Unlock Event Print &amp; Day-Of Pack ($7 &middot; vs. $14 Etsy) &rarr;
           </a>
         </div>
       </div>
@@ -202,7 +202,7 @@ function renderZone4ProofStackAndPricing() {
         <div class="bs-section-eyebrow">CASE STUDIES &bull; 3 REAL WEDDING SCENARIOS</div>
         <h2 class="bs-section-h2">How couples &amp; planners skip <em>2 AM spreadsheet chaos.</em></h2>
         <p class="bs-section-sub">
-          Three real reception layouts across 150-guest estate weddings, luxury planner BEO sheets, and 300-guest galas.
+          Three real reception layouts across 150-guest estate weddings, luxury planner meal sheets, and 300-guest galas.
         </p>
       </div>
 
@@ -238,7 +238,7 @@ function renderZone4ProofStackAndPricing() {
             </div>
           </div>
           <p class="bs-case-takeaway">
-            Replaced 3 late-night Canva re-types with an Arch D 300-DPI PDF ready for FedEx Office.
+            Replaced 3 late-night Canva re-types with an Arch D Print-Ready PDF ready for FedEx Office.
           </p>
         </article>
 
@@ -349,12 +349,12 @@ function renderZone4ProofStackAndPricing() {
               <span class="bs-ba-pill bs-ba-pill-after">AFTER SEATHARMONY</span>
               <span class="bs-ba-price-tag bs-ba-price-good">Saves 6+ Hrs &bull; $7 Event Print Pack (vs. $14 Etsy)</span>
             </div>
-            <h4 class="bs-ba-card-h4">24&Prime;&times;36&Prime; 300-DPI Print-Shop Welcome Poster PDF + Folded Place Cards + Caterer BEO + Live QR</h4>
+            <h4 class="bs-ba-card-h4">24&Prime;&times;36&Prime; Print-Ready Print-Shop Welcome Poster PDF + Folded Place Cards + Caterer Meal Sheet + Live QR</h4>
             <ul class="bs-ba-list">
               <li><span class="bs-ba-icon bs-ba-icon-good">&#10003;</span><div><strong>Couples Kept Together:</strong> Every partner, plus-one, and household stays seated side-by-side automatically.</div></li>
               <li><span class="bs-ba-icon bs-ba-icon-good">&#10003;</span><div><strong>1-Click Family Peace:</strong> Places divorced parents or exes on opposite sides of the dance floor.</div></li>
-              <li><span class="bs-ba-icon bs-ba-icon-good">&#10003;</span><div><strong>24&Prime;&times;36&Prime; 300-DPI Print-Shop Welcome Poster PDF + Folded Place Cards:</strong> Instant FedEx/Staples PDF with <code>0.125&Prime;</code> bleed and Avery 5302 tent cards.</div></li>
-              <li><span class="bs-ba-icon bs-ba-icon-good">&#10003;</span><div><strong>Caterer Table-by-Table Meal/Allergy BEO + Live Guest Phone QR Lookup:</strong> Servers set every plate at the exact chair and guests scan QR at the bar.</div></li>
+              <li><span class="bs-ba-icon bs-ba-icon-good">&#10003;</span><div><strong>24&Prime;&times;36&Prime; Print-Ready Print-Shop Welcome Poster PDF + Folded Place Cards:</strong> Instant FedEx/Staples PDF with <code>0.125&Prime;</code> bleed and Avery 5302 tent cards.</div></li>
+              <li><span class="bs-ba-icon bs-ba-icon-good">&#10003;</span><div><strong>Caterer Table-by-Table Meal/Allergy Sheet + Live Guest Phone QR Lookup:</strong> Servers set every plate at the exact chair and guests scan QR at the bar.</div></li>
             </ul>
           </div>
         </div>
@@ -387,7 +387,7 @@ function renderZone4ProofStackAndPricing() {
                 <td>Manual copy-paste errors</td>
               </tr>
               <tr>
-                <td><strong>Caterer Meal Sheet (BEO)</strong></td>
+                <td><strong>Caterer Meal Sheet</strong></td>
                 <td class="bs-col-highlight">&#10003; <code>12:00 Seat #1</code> + Allergy Flags</td>
                 <td>Generic table list only</td>
                 <td>None (servers guess seats)</td>
@@ -433,7 +433,7 @@ function renderZone4ProofStackAndPricing() {
         </div>
 
         <div class="bs-quote-card studio-review-card">
-          <div class="bs-quote-stars">&#9733;&#9733;&#9733;&#9733;&#9733; Verified Caterer BEO Manifest</div>
+          <div class="bs-quote-stars">&#9733;&#9733;&#9733;&#9733;&#9733; Verified Caterer Meal Sheet</div>
           <p class="bs-quote-body">&ldquo;Our banquet captain loved the Clockwise 12:00 Meal Sheet. Seat #1 was anchored to the dance floor with peanut allergies flagged in red.&rdquo;</p>
           <div class="bs-quote-author">
             <img src="/public/avatar-planner.jpg" alt="Claire M." class="bs-quote-avatar" width="46" height="46" loading="lazy" />
@@ -452,7 +452,7 @@ function renderZone4ProofStackAndPricing() {
 
         <div class="bs-quote-card studio-review-card">
           <div class="bs-quote-stars">&#9733;&#9733;&#9733;&#9733;&#9733; Lead Wedding Coordinator</div>
-          <p class="bs-quote-body">&ldquo;Handing the venue SeatHarmony&rsquo;s Clockwise 12:00 BEO and Avery 5302 tent cards made 220-guest plated service effortless.&rdquo;</p>
+          <p class="bs-quote-body">&ldquo;Handing the venue SeatHarmony&rsquo;s Clockwise 12:00 Meal Sheet and Avery 5302 tent cards made 220-guest plated service effortless.&rdquo;</p>
           <div class="bs-quote-author">
             <img src="/public/avatar-coordinator.jpg" alt="Elena V." class="bs-quote-avatar" width="46" height="46" loading="lazy" />
             <div><strong>Elena V.</strong><span>220 Guests &bull; Charleston, SC (Coordinator)</span></div>

@@ -82,12 +82,12 @@ function renderInteractiveScript(initialPlan) {
 
   function shMealBadge(meal) {
     const m = String(meal || '').toLowerCase();
-    if (m.includes('kid') || m.includes('tender')) return { icon: '🧒', code: '★', color: '#A16207', bg: '#FFFBEB', short: 'Kids' };
-    if (m.includes('chicken') || m.includes('poultry')) return { icon: '🍗', code: '■', color: '#92400E', bg: '#FEF3C7', short: 'Chicken' };
-    if (m.includes('halibut') || m.includes('fish') || m.includes('salmon')) return { icon: '🐟', code: '●', color: '#0369A1', bg: '#F0F9FF', short: 'Fish' };
-    if (m.includes('vegan') || m.includes('risotto')) return { icon: '🌱', code: '▲', color: '#065F46', bg: '#ECFDF5', short: 'Vegan' };
-    if (m.includes('vegetarian') || m.includes('mushroom') || m.includes('tart')) return { icon: '🍄', code: '◇', color: '#15803D', bg: '#F0FDF4', short: 'Veg' };
-    return { icon: '🥩', code: '◆', color: '#8C2D19', bg: '#FDF2EE', short: 'Beef' };
+    if (m.includes('kid') || m.includes('tender')) return { icon: '★', code: '★', color: '#A16207', bg: '#FFFBEB', short: 'Kids' };
+    if (m.includes('chicken') || m.includes('poultry')) return { icon: '■', code: '■', color: '#92400E', bg: '#FEF3C7', short: 'Chicken' };
+    if (m.includes('halibut') || m.includes('fish') || m.includes('salmon')) return { icon: '●', code: '●', color: '#0369A1', bg: '#F0F9FF', short: 'Fish' };
+    if (m.includes('vegan') || m.includes('risotto')) return { icon: '▲', code: '▲', color: '#065F46', bg: '#ECFDF5', short: 'Vegan' };
+    if (m.includes('vegetarian') || m.includes('mushroom') || m.includes('tart')) return { icon: '◇', code: '◇', color: '#15803D', bg: '#F0FDF4', short: 'Veg' };
+    return { icon: '◆', code: '◆', color: '#8C2D19', bg: '#FDF2EE', short: 'Beef' };
   }
 
   function shNormalizeShape(rawShape) {
@@ -138,7 +138,7 @@ function renderInteractiveScript(initialPlan) {
     const pctBtn = document.getElementById('sh-zoom-pct-btn');
     if (pctBtn) pctBtn.textContent = Math.round((window.__SH_ZOOM_SCALE || 1) * 100) + '%';
     shRenderFloorplanSvg();
-    shToast(window.__SH_ZOOM_SCALE > 1.01 ? ('🔍 Zoomed ' + Math.round(window.__SH_ZOOM_SCALE * 100) + '% on Selected Table · Scroll mouse wheel to zoom in/out') : '🗺️ Full Room Floorplan (100%)');
+    shToast(window.__SH_ZOOM_SCALE > 1.01 ? ('Zoomed ' + Math.round(window.__SH_ZOOM_SCALE * 100) + '% on Selected Table · Scroll mouse wheel to zoom in/out') : 'Full Room Floorplan (100%)');
   };
 
   window.shToggleFullWidthStage = function() {
@@ -155,7 +155,7 @@ function renderInteractiveScript(initialPlan) {
     const tIdx = window.__SH_SELECTED_TABLE_IDX || 0;
     const tbl = window.__SH_STATE && window.__SH_STATE.tables && window.__SH_STATE.tables[tIdx];
     if (!tbl) return;
-    if (window.__SH_SANDBOX_MOM && tIdx >= 3 && !tbl.isUserAdded) { shToast('🔒 Family Share Mode: Tables 4-8 are locked.'); return; }
+    if (window.__SH_SANDBOX_MOM && tIdx >= 3 && !tbl.isUserAdded) { shToast('Family Share Mode: Tables 4-8 are locked.'); return; }
     if (window.__SH_CANVAS_ZOOM === 'table') window.__SH_CANVAS_ZOOM = 'room';
     tbl.x = Math.max(95, Math.min(1025, Math.round((tbl.x || 250) + dx)));
     tbl.y = Math.max(72, Math.min((window.__SH_STATE.roomHeight || 680) - 75, Math.round((tbl.y || 200) + dy)));
@@ -546,7 +546,7 @@ function renderInteractiveScript(initialPlan) {
   window.shMorphSelectedTable = function(newShape) {
     const tbl = window.__SH_STATE.tables[window.__SH_SELECTED_TABLE_IDX];
     if (!tbl) return;
-    if (window.__SH_SANDBOX_MOM && window.__SH_SELECTED_TABLE_IDX >= 3) { shToast('🔒 Mom Sandbox Active: Tables 4-8 are locked by the couple.'); return; }
+    if (window.__SH_SANDBOX_MOM && window.__SH_SELECTED_TABLE_IDX >= 3) { shToast('Mom Sandbox Active: Tables 4-8 are locked by the couple.'); return; }
     tbl.shape = shNormalizeShape(newShape); shRecomputeGeometry(tbl);
     shToast('✓ Morphed ' + tbl.name + ' to ' + shFriendlyShape(tbl.shape) + ' (12:00 Seat #1 preserved).');
     shSyncTableSelectAndPills();
@@ -565,7 +565,7 @@ function renderInteractiveScript(initialPlan) {
     const tbl = window.__SH_STATE.tables[window.__SH_SELECTED_TABLE_IDX];
     if (!tbl) return;
     tbl.locked = !tbl.locked;
-    shToast((tbl.locked ? '🔒 Locked ' : '🔓 Unlocked ') + tbl.name + ' for auto-solver.'); shRenderAll();
+    shToast((tbl.locked ? 'Locked ' : 'Unlocked ') + tbl.name + ' for auto-solver.'); shRenderAll();
   };
 
   window.shSeatClick = function(tIdx, sIdx, ev) {
@@ -583,7 +583,7 @@ function renderInteractiveScript(initialPlan) {
     shRenderAll();
       return;
     }
-    if (window.__SH_SANDBOX_MOM && tIdx >= 3 && !dstTbl.isUserAdded) { shToast('🔒 Family Share Mode: Only Tables 1-3 are editable.'); return; }
+    if (window.__SH_SANDBOX_MOM && tIdx >= 3 && !dstTbl.isUserAdded) { shToast('Family Share Mode: Only Tables 1-3 are editable.'); return; }
 
     const src = window.__SH_SWAP_SOURCE;
     const srcTbl = src && window.__SH_STATE.tables[src.tableIdx];
@@ -635,7 +635,7 @@ function renderInteractiveScript(initialPlan) {
 
   window.shRunSimulatedAnnealingSolver = function() {
     const btn = document.getElementById('sh-solve-btn');
-    if (btn) btn.textContent = '⚡ Solving 2,400 Swaps...';
+    if (btn) btn.innerHTML = '<svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="display:inline-block;vertical-align:-2px;margin-right:4px;" aria-hidden="true"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/></svg>Solving 2,400 Swaps...';
     setTimeout(function() {
       window.__SH_STATE.tables.forEach(function(t, idx) {
         if (t.locked || idx === 0 || (window.__SH_SANDBOX_MOM && idx >= 3)) return;
@@ -643,7 +643,7 @@ function renderInteractiveScript(initialPlan) {
         shRecomputeGeometry(t);
       });
       window.__SH_STATE.harmonyScore = 99;
-      if (btn) btn.innerHTML = '✨ Auto-Arrange All Tables (1 Click)';
+      if (btn) btn.innerHTML = '<svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="display:inline-block;vertical-align:-2px;margin-right:4px;" aria-hidden="true"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/></svg>Auto-Arrange All Tables (1 Click)';
       shToast('✓ All Tables Arranged: 99/100 Harmony · 0 Family Clashes · Every Couple Seated Together!');
       shSyncTableSelectAndPills();
     shRenderAll();
@@ -691,10 +691,10 @@ function renderInteractiveScript(initialPlan) {
   window.shToggleMomSandbox = function() {
     window.__SH_SANDBOX_MOM = !window.__SH_SANDBOX_MOM;
     const badge = document.getElementById('sh-mom-sandbox-badge'), banner = document.getElementById('sh-mom-sandbox-banner'), btn = document.getElementById('sh-toolbar-mom-btn');
-    if (badge) { badge.textContent = window.__SH_SANDBOX_MOM ? '👵 Family Share: ON' : ''; badge.style.display = window.__SH_SANDBOX_MOM ? 'inline-flex' : 'none'; badge.className = 'badge badge-amber'; }
+    if (badge) { badge.textContent = window.__SH_SANDBOX_MOM ? 'Family Share: ON' : ''; badge.style.display = window.__SH_SANDBOX_MOM ? 'inline-flex' : 'none'; badge.className = 'badge badge-amber'; }
     if (banner) banner.style.display = window.__SH_SANDBOX_MOM ? 'flex' : 'none';
     if (btn) btn.style.background = window.__SH_SANDBOX_MOM ? '#FEF3C7' : '';
-    shToast(window.__SH_SANDBOX_MOM ? '👵 Family Share Mode: Tables 1-3 Editable; Tables 4+ Locked' : 'Full Edit Mode Restored');
+    shToast(window.__SH_SANDBOX_MOM ? 'Family Share Mode: Tables 1-3 Editable; Tables 4+ Locked' : 'Full Edit Mode Restored');
     shSyncTableSelectAndPills();
     shRenderAll();
   };
@@ -800,8 +800,8 @@ function renderInteractiveScript(initialPlan) {
       });
     });
     const blob = new Blob([rows.join('\\r\\n')], { type: 'text/csv;charset=utf-8;' }), url = URL.createObjectURL(blob), a = document.createElement('a');
-    a.href = url; a.download = 'seatharmony-clockwise-caterer-beo.csv'; document.body.appendChild(a); a.click(); a.remove();
-    shToast('✓ Downloaded Clockwise Caterer BEO (.CSV) for Banquet Kitchen!');
+    a.href = url; a.download = 'seatharmony-clockwise-caterer-meal-sheet.csv'; document.body.appendChild(a); a.click(); a.remove();
+    shToast('✓ Downloaded Clockwise Caterer Meal Sheet (.CSV) for Banquet Kitchen!');
   };
 
   window.shCopyMomSandboxLink = function() {
@@ -823,7 +823,7 @@ function renderInteractiveScript(initialPlan) {
     const rules = window.__SH_STATE.rules;
     const sum3 = document.getElementById('sh-wizard-summary-3'); if (sum3) sum3.textContent = '0 Clashes';
     listEl.innerHTML = rules.map(function(r, rIdx) {
-      const icon = (r.type === 'keep_apart' || r.type === 'must_keep_apart') ? '🔴 ' : (r.type === 'zone_quiet' ? '🔇 ' : '🟢 ');
+      const icon = (r.type === 'keep_apart' || r.type === 'must_keep_apart') ? '&bull; ' : (r.type === 'zone_quiet' ? 'Quiet: ' : '&check; ');
       return '<div style="padding:8px 10px;border-radius:8px;background:#FAF8F5;border:1px solid #E2D9C8;font-size:0.82rem;display:flex;align-items:center;justify-content:space-between;gap:8px;"><div onclick="window.shCycleRuleType(' + rIdx + ',event)" title="Click to change rule type" style="cursor:pointer;font-weight:700;color:#181412;line-height:1.3;flex:1;">' + icon + shEsc(r.label) + '</div><button type="button" title="Delete Rule" onclick="window.shRemoveRule(' + rIdx + ',event)" style="cursor:pointer;border:none;background:transparent;color:#9CA3AF;font-size:0.80rem;font-weight:800;padding:2px 5px;flex-shrink:0;">✕</button></div>';
     }).join('');
   }
@@ -871,7 +871,7 @@ function renderInteractiveScript(initialPlan) {
         const hw = Math.round(geom.tableWidth / 2), hh = Math.round(geom.tableHeight / 2);
         parts.push('<g transform="translate(' + t.x + ',' + t.y + ') rotate(' + (t.rotation || 0) + ')"><rect x="' + (-hw) + '" y="' + (-hh) + '" width="' + geom.tableWidth + '" height="' + geom.tableHeight + '" rx="10" fill="' + tblFill + '" stroke="' + strokeCol + '" stroke-width="' + strokeW + '"/></g>');
       }
-      parts.push('<text x="' + t.x + '" y="' + (t.y - 4) + '" text-anchor="middle" fill="#1C1917" font-size="12.5" font-weight="800">' + (shNormalizeShape(t.shape) === 'sweetheart' ? 'Sweetheart' : ((t.locked ? '🔒 ' : '') + 'Table ' + t.number)) + '</text><text x="' + t.x + '" y="' + (t.y + 11) + '" text-anchor="middle" fill="#78716C" font-size="9.8" font-weight="700">' + t.guests.length + '/' + t.capacity + ' Seats</text></g>');
+      parts.push('<text x="' + t.x + '" y="' + (t.y - 4) + '" text-anchor="middle" fill="#1C1917" font-size="12.5" font-weight="800">' + (shNormalizeShape(t.shape) === 'sweetheart' ? 'Sweetheart' : ((t.locked ? '[Locked] ' : '') + 'Table ' + t.number)) + '</text><text x="' + t.x + '" y="' + (t.y + 11) + '" text-anchor="middle" fill="#78716C" font-size="9.8" font-weight="700">' + t.guests.length + '/' + t.capacity + ' Seats</text></g>');
       geom.seats.forEach(function(s, sIdx) {
         const g = t.guests[sIdx];
         if (!g && !isFineTune) {
@@ -972,9 +972,9 @@ function renderInteractiveScript(initialPlan) {
     const tbl = window.__SH_STATE && window.__SH_STATE.tables && window.__SH_STATE.tables[tIdx], g = tbl && tbl.guests && tbl.guests[gIdx];
     if (!g) return;
     const states = [
-      { allergy: '', accessibility: '' }, { allergy: '🥜 SEVERE PEANUT ALLERGY', accessibility: '' },
-      { allergy: '🌾 SEVERE CELIAC (GF)', accessibility: '' }, { allergy: '', accessibility: '♿ REMOVE CHAIR FOR WHEELCHAIR' },
-      { allergy: '', accessibility: '👶 ADD HIGHCHAIR' }
+      { allergy: '', accessibility: '' }, { allergy: 'SEVERE PEANUT ALLERGY', accessibility: '' },
+      { allergy: 'SEVERE CELIAC (GF)', accessibility: '' }, { allergy: '', accessibility: 'REMOVE CHAIR FOR WHEELCHAIR' },
+      { allergy: '', accessibility: 'ADD HIGHCHAIR' }
     ];
     let cur = g.allergy && g.allergy.indexOf('PEANUT') !== -1 ? 1 : (g.allergy ? 2 : (g.accessibility && g.accessibility.indexOf('WHEELCHAIR') !== -1 ? 3 : (g.accessibility ? 4 : 0)));
     const next = states[(cur + 1) % states.length];

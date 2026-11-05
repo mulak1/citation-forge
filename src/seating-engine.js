@@ -235,7 +235,7 @@ const SEATING_PRESETS = {
       { id: 'rule_1', type: 'must_keep_apart', label: 'Eleanor Vance kept apart from Richard Vance', detail: 'Divorced Parents: 2+ tables apart across dance floor', g1: 'Eleanor Vance', g2: 'Richard Vance', status: 'Seated Apart (Tbls 2 & 5)' },
       { id: 'rule_2', type: 'must_keep_apart', label: 'Ethan Brooks kept apart from Rachel Kim', detail: 'Recent Exes: Opposite sides of Dance Floor', g1: 'Ethan Brooks', g2: 'Rachel Kim', status: 'Seated Apart (Tbls 3 & 7)' },
       { id: 'rule_3', type: 'must_keep_apart', label: 'Uncle Arthur kept apart from Cousin Leo', detail: 'Family Politics: Separate tables enforced', g1: 'Uncle Arthur', g2: 'Cousin Leo', status: 'Seated Apart (Tbls 2 & 5)' },
-      { id: 'rule_4', type: 'zone_quiet', label: 'Grandma Rose (84yo · ♿)', detail: 'Quiet Zone: >30ft from DJ & near Terrace Exit', g1: 'Grandma Rose', g2: 'Quiet Zone', status: 'Seated (Tbl 2, Seat #1)' },
+      { id: 'rule_4', type: 'zone_quiet', label: 'Grandma Rose (84yo · Wheelchair)', detail: 'Quiet Zone: >30ft from DJ & near Terrace Exit', g1: 'Grandma Rose', g2: 'Quiet Zone', status: 'Seated (Tbl 2, Seat #1)' },
       { id: 'rule_5', type: 'must_sit_together', label: '26 Couples & Families', detail: 'Couples & children stay seated together automatically', g1: 'All Households', g2: 'Same Table', status: 'Seated Together' }
     ],
     tables: [
@@ -253,9 +253,9 @@ const SEATING_PRESETS = {
       {
         id: 'tbl_2', number: 2, name: "Table 2 · Bride's Family (Eleanor)", shape: 'round', capacity: 8, x: 195, y: 215, rotation: 0, zone: 'quiet', locked: false,
         guests: [
-          { id: 'g_7', name: 'Grandma Rose Lin', initials: 'GR', partyId: 'p_gma', group: "Bride's Family", meal: 'Pan-Seared Halibut', allergy: 'LOW SODIUM', accessibility: '♿ REMOVE CHAIR FOR WHEELCHAIR', role: 'Grandmother' },
+          { id: 'g_7', name: 'Grandma Rose Lin', initials: 'GR', partyId: 'p_gma', group: "Bride's Family", meal: 'Pan-Seared Halibut', allergy: 'LOW SODIUM', accessibility: 'REMOVE CHAIR FOR WHEELCHAIR', role: 'Grandmother' },
           { id: 'g_8', name: 'Eleanor Vance', initials: 'EV', partyId: 'p_gma', group: "Bride's Family", meal: 'Pan-Seared Halibut', allergy: '', accessibility: '', role: 'Mother of Bride', conflictNote: 'Separated from Richard (Table 5)' },
-          { id: 'g_9', name: 'Aunt Clara Lin', initials: 'AC', partyId: 'p_clara', group: "Bride's Family", meal: 'Vegan Risotto', allergy: '🌾 SEVERE CELIAC (GF)', accessibility: '', role: 'Aunt' },
+          { id: 'g_9', name: 'Aunt Clara Lin', initials: 'AC', partyId: 'p_clara', group: "Bride's Family", meal: 'Vegan Risotto', allergy: 'SEVERE CELIAC (GF)', accessibility: '', role: 'Aunt' },
           { id: 'g_10', name: 'Uncle Arthur Lin', initials: 'UA', partyId: 'p_clara', group: "Bride's Family", meal: 'Filet Mignon', allergy: '', accessibility: '', role: 'Uncle', conflictNote: 'Separated from Leo (Table 5)' },
           { id: 'g_11', name: 'Grace Chen', initials: 'GC', partyId: 'p_chen', group: "Bride's Family", meal: 'Pan-Seared Halibut', allergy: '', accessibility: '', role: 'Cousin' },
           { id: 'g_12', name: 'Daniel Chen', initials: 'DC', partyId: 'p_chen', group: "Bride's Family", meal: 'Filet Mignon', allergy: '', accessibility: '', role: 'Cousin Partner' },
@@ -266,7 +266,7 @@ const SEATING_PRESETS = {
       {
         id: 'tbl_3', number: 3, name: 'Table 3 · College Crew (Dance Floor)', shape: 'round', capacity: 8, x: 910, y: 205, rotation: 0, zone: 'party', locked: false,
         guests: [
-          { id: 'g_15', name: 'Ethan Brooks', initials: 'EB', partyId: 'p_ethan', group: 'College Crew', meal: 'Filet Mignon', allergy: '🥜 SEVERE PEANUT ALLERGY', accessibility: '', role: 'College Roommate', conflictNote: 'Separated from Rachel (Table 7)' },
+          { id: 'g_15', name: 'Ethan Brooks', initials: 'EB', partyId: 'p_ethan', group: 'College Crew', meal: 'Filet Mignon', allergy: 'SEVERE PEANUT ALLERGY', accessibility: '', role: 'College Roommate', conflictNote: 'Separated from Rachel (Table 7)' },
           { id: 'g_16', name: 'Hannah Brooks', initials: 'HB', partyId: 'p_ethan', group: 'College Crew', meal: 'Vegan Risotto', allergy: '', accessibility: '', role: 'Spouse' },
           { id: 'g_17', name: 'Samir Patel', initials: 'SP', partyId: 'p_samir', group: 'College Crew', meal: 'Pan-Seared Halibut', allergy: '', accessibility: '', role: 'College Friend' },
           { id: 'g_18', name: 'Priya Nair', initials: 'PN', partyId: 'p_samir', group: 'College Crew', meal: 'Vegan Risotto', allergy: '', accessibility: '', role: 'Partner' },
@@ -283,7 +283,7 @@ const SEATING_PRESETS = {
           { id: 'g_24', name: 'David O’Connor', initials: 'DO', partyId: 'p_groom_p', group: "Groom's Family", meal: 'Filet Mignon', allergy: '', accessibility: '', role: 'Father of Groom' },
           { id: 'g_25', name: 'Jenna Miller', initials: 'JM', partyId: 'p_miller', group: "Groom's Family", meal: 'Pan-Seared Halibut', allergy: '', accessibility: '', role: 'Sister of Groom' },
           { id: 'g_26', name: 'Mark Miller', initials: 'MM', partyId: 'p_miller', group: "Groom's Family", meal: 'Filet Mignon', allergy: '', accessibility: '', role: 'Brother-in-Law' },
-          { id: 'g_27', name: 'Leo Miller (Age 3)', initials: 'LM', partyId: 'p_miller', group: "Groom's Family", meal: 'Kids Chicken Tenders', allergy: '', accessibility: '👶 ADD HIGHCHAIR', role: 'Ring Bearer (Child)' },
+          { id: 'g_27', name: 'Leo Miller (Age 3)', initials: 'LM', partyId: 'p_miller', group: "Groom's Family", meal: 'Kids Chicken Tenders', allergy: '', accessibility: 'ADD HIGHCHAIR', role: 'Ring Bearer (Child)' },
           { id: 'g_28', name: 'Aunt Bridgid Kelly', initials: 'BK', partyId: 'p_kelly', group: "Groom's Family", meal: 'Pan-Seared Halibut', allergy: '', accessibility: '', role: 'Aunt' },
           { id: 'g_29', name: 'Uncle Sean Kelly', initials: 'SK', partyId: 'p_kelly', group: "Groom's Family", meal: 'Filet Mignon', allergy: '', accessibility: '', role: 'Uncle' },
           { id: 'g_30', name: 'Nora Kelly', initials: 'NK', partyId: 'p_kelly', group: "Groom's Family", meal: 'Vegan Risotto', allergy: '', accessibility: '', role: 'Cousin' }
@@ -295,7 +295,7 @@ const SEATING_PRESETS = {
           { id: 'g_31', name: 'Richard Vance', initials: 'RV', partyId: 'p_dad', group: "Bride's Dad Side", meal: 'Filet Mignon', allergy: '', accessibility: '', role: 'Father of Bride', conflictNote: 'Separated from Eleanor (Table 2)' },
           { id: 'g_32', name: 'Vanessa Vance', initials: 'VV', partyId: 'p_dad', group: "Bride's Dad Side", meal: 'Pan-Seared Halibut', allergy: '', accessibility: '', role: 'Stepmother' },
           { id: 'g_33', name: 'Cousin Leo Vance', initials: 'LV', partyId: 'p_leo', group: "Bride's Dad Side", meal: 'Filet Mignon', allergy: '', accessibility: '', role: 'Cousin', conflictNote: 'Separated from Uncle Arthur (Table 2)' },
-          { id: 'g_34', name: 'Claire Vance', initials: 'CV', partyId: 'p_leo', group: "Bride's Dad Side", meal: 'Pan-Seared Halibut', allergy: '🐚 SHELLFISH ALLERGY', accessibility: '', role: 'Cousin Spouse' },
+          { id: 'g_34', name: 'Claire Vance', initials: 'CV', partyId: 'p_leo', group: "Bride's Dad Side", meal: 'Pan-Seared Halibut', allergy: 'SHELLFISH ALLERGY', accessibility: '', role: 'Cousin Spouse' },
           { id: 'g_35', name: 'Greg Harrison', initials: 'GH', partyId: 'p_harrison', group: "Bride's Dad Side", meal: 'Filet Mignon', allergy: '', accessibility: '', role: 'Family Friend' },
           { id: 'g_36', name: 'Diane Harrison', initials: 'DH', partyId: 'p_harrison', group: "Bride's Dad Side", meal: 'Pan-Seared Halibut', allergy: '', accessibility: '', role: 'Family Friend' },
           { id: 'g_37', name: 'Paul Vance', initials: 'PV', partyId: 'p_paul', group: "Bride's Dad Side", meal: 'Filet Mignon', allergy: '', accessibility: '', role: 'Uncle' },
@@ -331,7 +331,7 @@ const SEATING_PRESETS = {
       {
         id: 'tbl_8', number: 8, name: 'Table 8 · Out-of-Town Family & Seniors', shape: 'round', capacity: 8, x: 170, y: 515, rotation: 0, zone: 'quiet', locked: false,
         guests: [
-          { id: 'g_55', name: 'Dr. Anand Gupta', initials: 'AG', partyId: 'p_gupta', group: 'Family Friends', meal: 'Vegan Risotto', allergy: '🥜 TREE NUT ALLERGY', accessibility: '', role: 'Family Physician' },
+          { id: 'g_55', name: 'Dr. Anand Gupta', initials: 'AG', partyId: 'p_gupta', group: 'Family Friends', meal: 'Vegan Risotto', allergy: 'TREE NUT ALLERGY', accessibility: '', role: 'Family Physician' },
           { id: 'g_56', name: 'Sunita Gupta', initials: 'SG', partyId: 'p_gupta', group: 'Family Friends', meal: 'Vegan Risotto', allergy: '', accessibility: '', role: 'Spouse' },
           { id: 'g_57', name: 'Evelyn Mercer', initials: 'EM', partyId: 'p_mercer', group: "Groom's Family", meal: 'Pan-Seared Halibut', allergy: '', accessibility: '', role: 'Great Aunt' },
           { id: 'g_58', name: 'Harold Mercer', initials: 'HM', partyId: 'p_mercer', group: "Groom's Family", meal: 'Filet Mignon', allergy: '', accessibility: '', role: 'Great Uncle' },
@@ -413,7 +413,7 @@ function buildGuestPool(baseTables, targetTotal) {
     const grp = idx % 3 === 0 ? "Bride's Family" : (idx % 3 === 1 ? "Groom's Family" : 'College & Friends');
     const m1 = EXTRA_MEALS[(idx * 2) % 7];
     const m2 = EXTRA_MEALS[(idx * 2 + 1) % 7];
-    pool.push({ id: `g_ext_${pool.length + 1}`, name: `${f1} ${sur}`, initials: `${f1[0]}${sur[0]}`, partyId: hhId, hhId, group: grp, meal: m1, allergy: idx % 14 === 0 ? '🌾 CELIAC (GF)' : '', accessibility: '', role: 'Family & Friends' });
+    pool.push({ id: `g_ext_${pool.length + 1}`, name: `${f1} ${sur}`, initials: `${f1[0]}${sur[0]}`, partyId: hhId, hhId, group: grp, meal: m1, allergy: idx % 14 === 0 ? 'CELIAC (GF)' : '', accessibility: '', role: 'Family & Friends' });
     if (pool.length < targetTotal) {
       pool.push({ id: `g_ext_${pool.length + 1}`, name: `${f2} ${sur}`, initials: `${f2[0]}${sur[0]}`, partyId: hhId, hhId, group: grp, meal: m2, allergy: '', accessibility: '', role: 'Spouse / Partner' });
     }
@@ -444,7 +444,7 @@ function buildPresetForTarget(rawInput = 'estate-150') {
     ];
   } else if (key === 'planner-beo-sandbox' || key === 'mom-sandbox') {
     base.id = 'planner-beo-sandbox';
-    base.title = 'Planner BEO & "Mom Sandbox" Collaboration Workspace';
+    base.title = 'Planner Meal Sheet & "Mom Sandbox" Collaboration Workspace';
     base.subtitle = 'Tables 1-3 Unlocked for Bride’s Mom · Tables 4-8 Locked by Lead Planner Chloe Vance';
     base.tables.forEach((t, i) => { t.locked = i >= 3; });
   } else if (key && key !== 'estate-150' && key !== 'supabase.com') {

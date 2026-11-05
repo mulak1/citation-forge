@@ -443,7 +443,7 @@ function renderSeatGroupsClientScript() {
       selName = shEdTableLabel(plan.tables[window.__SH_SELECTED_TABLE_IDX || 0]);
     }
     shRenderFloorplanSvg();
-    shToast(next <= 1.01 ? '🗺️ Full Room Floorplan (100%)' : ('🔍 Zoom: ' + Math.round(next * 100) + '% · Right-click & drag to pan around the room'));
+    shToast(next <= 1.01 ? 'Full Room Floorplan (100%)' : ('Zoom: ' + Math.round(next * 100) + '% · Right-click & drag to pan around the room'));
   };
   window.shResetCanvasZoom = function() {
     window.__SH_ZOOM_SCALE = 1;
@@ -452,7 +452,7 @@ function renderSeatGroupsClientScript() {
     var pctBtn = document.getElementById('sh-zoom-pct-btn');
     if (pctBtn) { pctBtn.textContent = '100%'; pctBtn.style.color = ''; }
     shRenderFloorplanSvg();
-    shToast('🗺️ Reset zoom & pan to 100% Full Room View');
+    shToast('Reset zoom & pan to 100% Full Room View');
   };
   document.addEventListener('wheel', function(ev) {
     var svg = document.getElementById('sh-floorplan-svg');
@@ -501,7 +501,7 @@ function renderSeatGroupsClientScript() {
       window.removeEventListener('mouseup', onUp);
       svg.style.cursor = '';
       if (moved) {
-        shToast('✋ Panned floorplan view · Right-click & drag to move around (click % in toolbar to recenter)');
+        shToast('Panned floorplan view · Right-click & drag to move around (click % in toolbar to recenter)');
       }
     };
     window.addEventListener('mousemove', onMove);

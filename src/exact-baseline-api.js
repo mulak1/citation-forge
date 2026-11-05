@@ -35,22 +35,22 @@ const VERTICAL_CONFIGS = {
     coreLabel: 'Event Print & Day-Of Execution Pack ($7 · vs. $14 Blank Etsy Templates)',
     proPriceEnv: 'STRIPE_PRICE_PRO_99',
     proPriceUsd: 29,
-    proLabel: 'For Wedding Planners & Venues: Unlimited Events + Custom Agency Logo on Client BEOs ($29 Pro Pass)',
-    lockedTitle: '24"×36" 300-DPI Print-Shop Welcome Poster PDF + Folded Place Cards + Caterer Table-by-Table Meal/Allergy BEO + Live Guest Phone QR Lookup',
-    deliverableName: '24"×36" 300-DPI Print-Shop Welcome Poster PDF + Folded Place Cards + Caterer Table-by-Table Meal/Allergy BEO + Live Guest Phone QR Lookup',
-    freeDeliverableName: 'Single-Sheet Clockwise Caterer BEO & Allergy Export ($1.99)',
-    unlockBannerTitle: '24"×36" 300-DPI Print-Shop Welcome Poster PDF + Folded Place Cards + Caterer BEO + Live QR',
-    explainerText: 'Save 6+ hours at FedEx/Canva with a 24"×36" 300-DPI Print-Shop Welcome Poster PDF, Folded Place Cards, Caterer Table-by-Table Meal/Allergy BEO, and Live Guest Phone QR Lookup ($7 · vs. $14 Blank Etsy Templates)',
+    proLabel: 'For Wedding Planners & Venues: Unlimited Events + Custom Agency Logo on Client Meal Sheets ($29 Pro Pass)',
+    lockedTitle: '24"×36" Print-Ready Print-Shop Welcome Poster PDF + Folded Place Cards + Caterer Table-by-Table Meal/Allergy Sheet + Live Guest Phone QR Lookup',
+    deliverableName: '24"×36" Print-Ready Print-Shop Welcome Poster PDF + Folded Place Cards + Caterer Table-by-Table Meal/Allergy Sheet + Live Guest Phone QR Lookup',
+    freeDeliverableName: 'Single-Sheet Clockwise Caterer Meal Sheet & Allergy Export ($1.99)',
+    unlockBannerTitle: '24"×36" Print-Ready Print-Shop Welcome Poster PDF + Folded Place Cards + Caterer Meal Sheet + Live QR',
+    explainerText: 'Save 6+ hours at FedEx/Canva with a 24"×36" Print-Ready Print-Shop Welcome Poster PDF, Folded Place Cards, Caterer Table-by-Table Meal/Allergy Sheet, and Live Guest Phone QR Lookup ($7 · vs. $14 Blank Etsy Templates)',
     hudLabel: 'Room Harmony HUD',
     redditSub: 'weddingplanning',
     sliderLabel: 'Guests', sliderMin: 40, sliderMax: 300, sliderVal: 150,
     searchPlaceholder: 'Try preset (e.g. estate-150, tuscan-banquet-80)...',
-    tier1Tag: 'SINGLE-SHEET BEO EXPRESS PASS',
-    tier1Desc: 'Instantly downloads your Clockwise Seat 1..N Caterer BEO (.CSV) with entrée counts and allergy flags.',
+    tier1Tag: 'SINGLE-SHEET MEAL SHEET EXPRESS PASS',
+    tier1Desc: 'Instantly downloads your Clockwise Seat 1..N Caterer Meal Sheet (.CSV) with entrée counts and allergy flags.',
     tier2Tag: 'EVENT PRINT & DAY-OF EXECUTION PACK ($7 · VS. $14 BLANK ETSY TEMPLATES)',
-    tier2Desc: 'Saves 6+ hours at FedEx/Canva: 24"×36" 300-DPI Print-Shop Welcome Poster PDF + Folded Place Cards + Caterer Table-by-Table Meal/Allergy BEO + Live Guest Phone QR Lookup.',
+    tier2Desc: 'Saves 6+ hours at FedEx/Canva: 24"×36" Print-Ready Print-Shop Welcome Poster PDF + Folded Place Cards + Caterer Table-by-Table Meal/Allergy Sheet + Live Guest Phone QR Lookup.',
     tier3Tag: 'FOR WEDDING PLANNERS & VENUES ($29 PRO PASS)',
-    tier3Desc: 'For Wedding Planners & Venues: Unlimited Events + Custom Agency Logo on Client BEOs ($29 Pro Pass), restricted Mom Sandbox links, and white-label Caterer BEO exports.',
+    tier3Desc: 'For Wedding Planners & Venues: Unlimited Events + Custom Agency Logo on Client Meal Sheets ($29 Pro Pass), restricted Mom Sandbox links, and white-label Caterer Meal Sheet exports.',
     battlecard: {
       heading: 'Why Couples & Planners Choose SeatHarmony Over Spreadsheets, Zola & Manual Canva',
       colLegacy: 'Zola / Free Portals',
@@ -58,12 +58,12 @@ const VERTICAL_CONFIGS = {
       rows: [
         ['Family Conflict & Sightline Solver', '1-Click 35ms Solver keeps divorced parents 2+ tables apart', 'Manual drag-and-drop only', 'Late-night row shuffling'],
         ['24"×36" Print Welcome Sign', 'Live Vector Poster (A-Z or By Table) with 0.125" Bleed', 'Prints tiny utilitarian table sheet', '5-6 hours re-typing 150 names'],
-        ['Clockwise Seat 1..N Caterer BEO', '12-O’Clock Seat #1 Map + Allergy & Wheelchair Callouts', 'Basic meal totals without seat numbers', 'Requires separate BEO spreadsheet']
+        ['Clockwise Seat 1..N Caterer Meal Sheet', '12-O’Clock Seat #1 Map + Allergy & Wheelchair Callouts', 'Basic meal totals without seat numbers', 'Requires separate meal spreadsheet']
       ]
     },
     exportActions: [
       { id: 'btn-copy-shopping-list', label: 'Copy Mom Sandbox Link', type: 'copy' },
-      { id: 'btn-export-csv', label: 'Export Caterer BEO (.CSV)', href: '/api/github-upgrade/export.csv' },
+      { id: 'btn-export-csv', label: 'Export Caterer Meal Sheet (.CSV)', href: '/api/github-upgrade/export.csv' },
       { id: 'btn-export-llms', label: 'Download 24x36 Spec (.TXT)', href: '/api/github-upgrade/llms-bundle.txt' },
       { id: 'btn-export-ics', label: 'RSVP Lock Reminder (.ICS)', href: '/api/github-upgrade/skin-cycling.ics' },
       { id: 'btn-print-summary', label: 'Print 24"×36" Poster PDF', type: 'print' },
@@ -74,12 +74,12 @@ const VERTICAL_CONFIGS = {
     kpis: [
       { label: 'Room Harmony Score', val: '98/100', sub: '0 Family Conflicts' },
       { label: 'Coupled Households', val: '26/26', sub: 'Zero Split Couples' },
-      { label: 'Clockwise Caterer BEO', val: '100%', sub: '12:00 Seat #1 Indexed' },
-      { label: '24"×36" Print Poster', val: '300 DPI', sub: 'A-Z & By Table Ready' }
+      { label: 'Clockwise Caterer Meal Sheet', val: '100%', sub: '12:00 Seat #1 Indexed' },
+      { label: '24"×36" Print Poster', val: 'Print-Ready', sub: 'A-Z & By Table Ready' }
     ],
     presetKpis: {
-      'estate-150': ['98/100', '26/26', '100%', '300 DPI'],
-      'tuscan-banquet-80': ['99/100', '18/18', '100%', '300 DPI'],
+      'estate-150': ['98/100', '26/26', '100%', 'Print-Ready'],
+      'tuscan-banquet-80': ['99/100', '18/18', '100%', 'Print-Ready'],
       'planner-beo-sandbox': ['98/100', '26/26', '100%', 'Mom Sandbox'],
       'vip-exec-dinner': ['99/100', '10 AEs', '100%', 'VIP Mode'],
       'charity-gala-300': ['97/100', '30 Captains', '100%', 'Paddle #101+']
@@ -87,13 +87,13 @@ const VERTICAL_CONFIGS = {
     presets: [
       { key: 'estate-150', label: '150-Guest Estate Reception' },
       { key: 'tuscan-banquet-80', label: '80-Guest Tuscan Banquet' },
-      { key: 'planner-beo-sandbox', label: 'Planner BEO + Mom Sandbox' },
+      { key: 'planner-beo-sandbox', label: 'Planner Meal Sheet + Mom Sandbox' },
       { key: 'vip-exec-dinner', label: 'VIP Exec Dinner' },
       { key: 'charity-gala-300', label: '300-Guest Charity Gala' }
     ],
     coMarketingPills: [
       { key: 'perplexity', label: 'Divorced Parents Guard', rowText: 'Sightline Rule: Eleanor (Table 2) and Richard (Table 5) are separated by 410px across the Dance Floor.' },
-      { key: 'chatgpt', label: 'Clockwise Caterer BEO', rowText: 'Banquet Rule: Seat #1 is anchored at 12 O’Clock with 4 anaphylactic allergies and 2 chair mods flagged.' },
+      { key: 'chatgpt', label: 'Clockwise Caterer Meal Sheet', rowText: 'Banquet Rule: Seat #1 is anchored at 12 O’Clock with 4 anaphylactic allergies and 2 chair mods flagged.' },
       { key: 'gemini', label: '24"×36" Print Poster', rowText: 'Pre-Press Spec: Alphabetical A-Z & By-Table vector layouts with 0.125" bleed for FedEx/Staples.' }
     ],
     affiliates: [
@@ -104,18 +104,18 @@ const VERTICAL_CONFIGS = {
     githubRepo: {
       name: 'JWally/jsLPSolver + IjzerenHein/kiwi.js + konvajs/konva + parallax/jsPDF',
       stars: '92,400+ Combined Stars (16 Repos)', url: 'https://github.com/parallax/jsPDF',
-      badge: '16-Repo Combinatorial Solver, Polar Seat Rings & 300-DPI Print Engine',
-      title: 'Simulated Annealing Conflict Solver, Clockwise BEO & 24"×36" Poster Compiler',
+      badge: '16-Repo Combinatorial Solver, Polar Seat Rings & Print-Ready Engine',
+      title: 'Simulated Annealing Conflict Solver, Clockwise Meal Sheet & 24"×36" Poster Compiler',
       summary: 'Combines Union-Find atomic household clustering, Kempe-chain swaps, polar seat geometry, and vector PDF imposition.'
     },
     deliverableFiles: [
-      { file: '24x36-welcome-poster.pdf', label: '24"×36" Welcome Sign (PDF & SVG)', size: '1.8 MB', schema: '300-DPI Alphabetical A-Z & By-Table Welcome Poster with 0.125" bleed and corner QR code', status: 'VALID' },
-      { file: 'clockwise-caterer-beo.csv', label: 'Clockwise Caterer BEO (.CSV & PDF)', size: '42 KB', schema: '12-o’clock Seat 1..N server map with Filet/Halibut/Vegan/Kids counts, allergies & chair mods', status: 'VALID' },
-      { file: 'avery-5302-placecards.pdf', label: 'Avery 5302 Tented Place Cards (.PDF)', size: '640 KB', schema: '2-up tented escort cards with geometric server meal icons (◆/●/▲/★) & back-fold allergy alerts', status: 'VALID' }
+      { file: '24x36-welcome-poster.pdf', label: '24"×36" Welcome Sign (PDF & SVG)', size: '1.8 MB', schema: 'Print-Ready Alphabetical A-Z & By-Table Welcome Poster with 0.125" bleed and corner QR code', status: 'VALID' },
+      { file: 'clockwise-caterer-beo.csv', label: 'Clockwise Caterer Meal Sheet (.CSV & PDF)', size: '42 KB', schema: '12-o’clock Seat 1..N server map with Filet/Halibut/Vegan/Kids counts, allergies & chair mods', status: 'VALID' },
+      { file: 'avery-5302-placecards.pdf', label: 'Avery 5302 Tented Place Cards (.PDF)', size: '640 KB', schema: '2-up tented escort cards with geometric server meal icons (◆/●/▲) & back-fold allergy alerts', status: 'VALID' }
     ],
     remediationDiff: {
       beforeLine: 'Before: 3 family sightline conflicts, 6+ hours re-typing 150 names at FedEx/Canva, and unnumbered caterer meal sheets.',
-      afterLine: 'After ($9 Event Print Pack): 24"×36" 300-DPI Print-Shop Welcome Poster PDF + Folded Place Cards + Caterer Table-by-Table Meal/Allergy BEO + Live Guest Phone QR Lookup.',
+      afterLine: 'After ($7 Event Print Pack): 24"×36" Print-Ready Print-Shop Welcome Poster PDF + Folded Place Cards + Caterer Table-by-Table Meal/Allergy Sheet + Live Guest Phone QR Lookup.',
       roiBadge: 'Saves 6+ Hours at FedEx/Canva'
     }
   },
@@ -802,9 +802,10 @@ function attachExactBaselinePack(app, options = {}) {
     const body = req.body || {};
     const ua = String(req.headers['user-agent'] || '');
     const deviceType = /mobile|iphone|android/i.test(ua) ? 'mobile' : 'desktop';
-    const { isTest, isCrawler, isOwnerIp, clientIp } = classifyTrafficRequest(req, body.email);
+    const safeEmail = String(body.email || '').trim().slice(0, 254);
+    const { isTest, isCrawler, isOwnerIp, clientIp } = classifyTrafficRequest(req, safeEmail);
     if (isOwnerIp) res.setHeader('Set-Cookie', 'eb_owner_test=1; Path=/; Max-Age=31536000; SameSite=Lax');
-    store.recordEvent({ eventType: String(body.event_type || body.eventType || 'interaction'), pageUrl: String(body.page_url || body.pageUrl || body.pagePath || '/'), deviceType: String(body.device_type || deviceType), utmSource: String(body.utm_source || ''), utmCampaign: String(body.utm_campaign || ''), isTest, isCrawler, isOwnerIp, clientIp, meta: body.meta || {} });
+    store.recordEvent({ eventType: String(body.event_type || body.eventType || 'interaction').slice(0, 64), pageUrl: String(body.page_url || body.pageUrl || body.pagePath || '/').slice(0, 256), deviceType: String(body.device_type || deviceType).slice(0, 32), utmSource: String(body.utm_source || '').slice(0, 64), utmCampaign: String(body.utm_campaign || '').slice(0, 64), isTest, isCrawler, isOwnerIp, clientIp, meta: body.meta && typeof body.meta === 'object' ? body.meta : {} });
     res.json({ ok: true, is_test: isTest, is_owner_ip: isOwnerIp, is_crawler: isCrawler });
   });
 
@@ -855,9 +856,9 @@ function attachExactBaselinePack(app, options = {}) {
   }
   async function handleLeadCaptureAndFollowUp(req, res) {
     const email = String(req.body?.email || req.body?.customerEmail || '').trim();
-    const summaryText = String(req.body?.summaryText || `${cfg.brandName} Diagnostic Summary & Row #4 Reveal`).trim();
-    const utmSource = String(req.body?.utmSource || req.path.replace('/api/', '') || 'exit_downsell').trim();
-    if (!email || !email.includes('@')) return res.status(400).json({ ok: false, error: 'Please enter a valid email address.' });
+    const summaryText = String(req.body?.summaryText || `${cfg.brandName} Diagnostic Summary & Row #4 Reveal`).trim().slice(0, 500);
+    const utmSource = String(req.body?.utmSource || req.path.replace('/api/', '') || 'exit_downsell').trim().slice(0, 64);
+    if (!email || !email.includes('@') || email.length > 254) return res.status(400).json({ ok: false, error: 'Please enter a valid email address (max 254 characters).' });
     const { isTest, isCrawler, isOwnerIp, clientIp } = classifyTrafficRequest(req, email);
     const directBuyLinks = buildBuyLinks(email);
     store.recordLead({ email, summaryText: `${summaryText} [Buy: ${directBuyLinks.micro_pass}]`, utmSource, isTest, isOwnerIp, clientIp });
@@ -976,10 +977,11 @@ function attachExactBaselinePack(app, options = {}) {
       if (isHtml && req.method === 'GET' && (req.path === '/' || req.path === '/lp' || req.path === '/directory' || req.path === '/leaderboard' || req.path === '/privacy' || req.path === '/terms' || req.path.startsWith('/dossier/sample') || req.path.startsWith('/seo/') || req.path.startsWith('/tools/') || req.path.startsWith('/compare/') || req.path.startsWith('/scan/') || req.path.startsWith('/report/'))) {
         const isShIo = String(req.headers['x-forwarded-host'] || req.headers.host || '').toLowerCase().includes('seatharmony.io'), activeDom = isShIo ? 'www.seatharmony.io' : cfg.domain;
         if (isShIo) body = body.replace(/https:\/\/www\.citationforge\.io/g, 'https://www.seatharmony.io');
+        body = body.replace(/\p{Extended_Pictographic}/gu, '').replace(/300-DPI/gi, 'Print-Ready').replace(/\bBEOs\b/g, 'Meal Sheets').replace(/(\s|\(|>)BEO(\b)/g, '$1Meal Sheet$2').replace(/\bSpecimen\b/gi, 'Sample');
         try { res.setHeader('X-Robots-Tag', 'all, index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1'); res.setHeader('Link', `<https://${activeDom}/llms.txt>; rel="llms-txt", <https://${activeDom}/llms-full.txt>; rel="llms-full-txt", <https://${activeDom}/openapi.json>; rel="service-desc", <https://${activeDom}/feed.xml>; rel="alternate"; type="application/rss+xml"`); } catch (_) {}
         store.recordEvent({ eventType: 'visit', pageUrl: req.originalUrl || req.path, deviceType, utmSource: String(req.query?.utm_source || ''), utmCampaign: String(req.query?.utm_campaign || ''), isTest, isCrawler, isOwnerIp, clientIp, meta: { ref: String(req.headers.referer || '').slice(0, 180), ua: String(req.headers['user-agent'] || '').slice(0, 120) } });
         if (cfg.moduleId === 'citation_forge' || body.includes('data-seatharmony-native="1"')) {
-          const shCheckoutHelper = `<script>(function(){if(!document.cookie.includes('vs_vid=')){document.cookie='vs_vid=v_'+Date.now()+'_'+Math.random().toString(36).slice(2,7)+'; Path=/; Max-Age=31536000; SameSite=Lax';}var vid=(document.cookie.match(/vs_vid=([^;]+)/)||[])[1]||'';if(!window.__ebHydratedSent){window.__ebHydratedSent=true;try{fetch('/api/telemetry/event',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({event_type:'visit_hydrated',page_url:window.location.pathname,meta:{vid:vid,js_hydrated:1,vw:window.innerWidth||0,vh:window.innerHeight||0,ref:document.referrer||''}})});}catch(_){}}window.__ebQuickBuy=window.__ebCheckout=function(tier,em){var e=em||(document.getElementById('sh-inline-vault-email')&&document.getElementById('sh-inline-vault-email').value)||(document.getElementById('sh-vault-email-input')&&document.getElementById('sh-vault-email-input').value)||(window.localStorage&&localStorage.getItem('sh_saved_email'))||'';e=String(e||'').trim();if(e&&e.indexOf('@')!==-1){try{localStorage.setItem('sh_saved_email',e);fetch('/api/leads',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({email:e,utmSource:'two_step_checkout'}),keepalive:true});}catch(_){}}window.location.href='/buy/'+(tier||'complete_dossier')+'?target=estate-150&allow_promotion_codes=false'+(e?'&customer_email='+encodeURIComponent(e)+'&email='+encodeURIComponent(e):'')+'&vid='+encodeURIComponent(vid);};})();</script>`;
+          const shCheckoutHelper = `<script>(function(){function cleanDom(){if(!document.body)return;var w=document.createTreeWalker(document.body,NodeFilter.SHOW_TEXT);var n;while((n=w.nextNode())){var v=n.nodeValue;if(v&&(/\\p{Extended_Pictographic}/u.test(v)||/300-DPI|\\bBEOs?\\b|\\bSpecimen\\b/i.test(v))){n.nodeValue=v.replace(/\\p{Extended_Pictographic}/gu,'').replace(/300-DPI/gi,'Print-Ready').replace(/\\bBEOs\\b/g,'Meal Sheets').replace(/\\bBEO\\b/g,'Meal Sheet').replace(/\\bSpecimen\\b/gi,'Sample');}}}cleanDom();document.addEventListener('DOMContentLoaded',cleanDom);document.addEventListener('click',function(){setTimeout(cleanDom,30);});if(!document.cookie.includes('vs_vid=')){document.cookie='vs_vid=v_'+Date.now()+'_'+Math.random().toString(36).slice(2,7)+'; Path=/; Max-Age=31536000; SameSite=Lax';}var vid=(document.cookie.match(/vs_vid=([^;]+)/)||[])[1]||'';if(!window.__ebHydratedSent){window.__ebHydratedSent=true;try{fetch('/api/telemetry/event',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({event_type:'visit_hydrated',page_url:window.location.pathname,meta:{vid:vid,js_hydrated:1,vw:window.innerWidth||0,vh:window.innerHeight||0,ref:document.referrer||''}})});}catch(_){}}window.__ebQuickBuy=window.__ebCheckout=function(tier,em){var e=em||(document.getElementById('sh-inline-vault-email')&&document.getElementById('sh-inline-vault-email').value)||(document.getElementById('sh-vault-email-input')&&document.getElementById('sh-vault-email-input').value)||(window.localStorage&&localStorage.getItem('sh_saved_email'))||'';e=String(e||'').trim();if(e&&e.indexOf('@')!==-1){try{localStorage.setItem('sh_saved_email',e);fetch('/api/leads',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({email:e,utmSource:'two_step_checkout'}),keepalive:true});}catch(_){}}window.location.href='/buy/'+(tier||'complete_dossier')+'?target=estate-150&allow_promotion_codes=false'+(e?'&customer_email='+encodeURIComponent(e)+'&email='+encodeURIComponent(e):'')+'&vid='+encodeURIComponent(vid);};})();</script>`;
           body = body.includes('</body>') ? body.replace('</body>', `${shCheckoutHelper}</body>`) : (body + shCheckoutHelper);
         } else if (!body.includes('id="eb-bottom-conversion-suite"')) body = renderExactBaselineEnhancements(body, cfg, req.path);
       }
