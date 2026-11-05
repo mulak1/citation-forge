@@ -873,9 +873,12 @@ function renderDeliverablesClientScript() {
   })();
   window.shSaveInlineEmailLead = async function() {
     var inp = document.getElementById('sh-inline-vault-email'), btn = document.getElementById('sh-inline-vault-save-btn');
-    var email = inp ? String(inp.value || '').trim().toLowerCase() : '';
+    var inp4 = document.getElementById('sh-step4-inline-email'), btn4 = document.getElementById('sh-step4-inline-save-btn');
+    var email = (inp && inp.value && String(inp.value).trim()) || (inp4 && inp4.value && String(inp4.value).trim()) || '';
+    email = String(email).toLowerCase();
     if (!email || email.indexOf('@') < 1) { if (inp) inp.focus(); shToast('Enter your email ($0) to Save & Send your seating plan & unmask your Table 1 Escort Card preview.'); return; }
     if (btn) btn.textContent = 'Saving...';
+    if (btn4) btn4.textContent = 'Saving...';
     try { localStorage.setItem('sh_saved_email', email); } catch (_) {}
     if (window.__SH_STATE) {
       window.__SH_STATE.ownerEmail = email;
@@ -903,6 +906,7 @@ function renderDeliverablesClientScript() {
       var mainBuy = document.getElementById('sh-vault-buy-pack-btn');
       if (upCta && mainBuy && mainBuy.href) upCta.href = mainBuy.href;
       if (btn) { btn.textContent = '✓ Saved ($0)'; btn.style.background = '#00766C'; btn.style.borderColor = '#005E56'; }
+      if (btn4) { btn4.textContent = '✓ Saved ($0)'; btn4.style.background = '#00766C'; btn4.style.borderColor = '#005E56'; }
       if (window.__SH_PENDING_EXPORT_MODE === 'share' && window.__shRawCopyMomSandboxLink) {
         window.__SH_PENDING_EXPORT_MODE = null;
         window.__shRawCopyMomSandboxLink();
