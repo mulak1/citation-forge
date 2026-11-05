@@ -722,7 +722,7 @@ function renderDeliverablesClientScript() {
     var pcEl = document.getElementById('sh-proof-couple-name');
     if (pcEl) pcEl.innerHTML = shEsc(coupleDisplay) + ' &middot; <span id="sh-proof-venue-name" style="font-weight:600;color:#57534E;">' + shEsc(venueDisplay) + '</span>';
     var ptEl = document.getElementById('sh-proof-table1-summary');
-    if (ptEl) ptEl.innerHTML = '<strong>' + shEsc(tbl1.name || 'Table 1') + ':</strong> Seat #1: ' + shEsc(g1.name) + ' (' + shEsc(g1.meal || 'Filet Mignon') + ') &amp; ' + shEsc(g2.name) + ' &bull; ' + (totalAllergies || 2) + ' Allergy Notes';
+    if (ptEl) ptEl.innerHTML = '<strong>&#10003; ' + shEsc(tbl1.name || 'Table 1') + ' Specimen (Unmasked Free):</strong> Seat #1: ' + shEsc(g1.name) + ' (' + shEsc(g1.meal || 'Filet Mignon') + ') &amp; ' + shEsc(g2.name) + ' &bull; ' + (totalAllergies || 2) + ' Allergy Notes';
     var wSign = document.getElementById('shw-proof-sign-line');
     if (wSign) wSign.innerHTML = '24&Prime;&times;36&Prime; Sign: <strong>' + shEsc(coupleDisplay) + '</strong> &middot; ' + shEsc(venueDisplay);
     var wTbl1 = document.getElementById('shw-proof-table1-line');
@@ -730,7 +730,20 @@ function renderDeliverablesClientScript() {
     var savedEmail = '';
     try { savedEmail = localStorage.getItem('sh_saved_email') || ''; } catch (_) {}
     if (!savedEmail && st.ownerEmail && st.ownerEmail.indexOf('@') > 0 && !/^(test|vip)@/i.test(st.ownerEmail)) savedEmail = st.ownerEmail;
-    var isUnmasked = Boolean((savedEmail && savedEmail.indexOf('@') > 0) || st.isUnlocked);
+    var isUnmasked = Boolean((savedEmail && savedEmail.indexOf('@') > 0) || st.isUnlocked || window.__SH_EMAIL_UNMASKED);
+    var totalGuestsCnt = 0;
+    (st.tables || []).forEach(function(t) { totalGuestsCnt += (t.guests || []).length; });
+    var tblCount = (st.tables && st.tables.length) || 8;
+    document.querySelectorAll('[data-sh-locked-badge="beo"]').forEach(function(b) {
+      b.style.filter = 'none';
+      if (isUnmasked) {
+        b.innerHTML = '&#10003; Unmasked Free: Tables 2&ndash;' + tblCount + ' Clockwise Meal Tally (' + (totalGuestsCnt || 62) + ' Covers &middot; 12:00 Seat #1 &middot; ' + (totalAllergies || 6) + ' Allergy Flags)';
+        b.setAttribute('data-unmasked', '1');
+      } else {
+        b.innerHTML = '&#128274; Tables 2&ndash;' + tblCount + ' Clockwise Meal Tally &mdash; Tap to Unlock Free ($0) &uarr;';
+        b.setAttribute('data-unmasked', '0');
+      }
+    });
     var prevBox = document.getElementById('sh-table1-escort-dietary-preview');
     var prevBadge = document.getElementById('sh-table1-preview-badge');
     var prevStatus = document.getElementById('sh-table1-preview-status');
@@ -745,6 +758,14 @@ function renderDeliverablesClientScript() {
     }
     if (prevBadge) prevBadge.innerHTML = isUnmasked ? '&#10003; Saved Seating &amp; Print Preview' : 'Live Seating &amp; Print Preview';
     if (prevStatus) prevStatus.textContent = isUnmasked ? (savedEmail ? ('Saved to ' + savedEmail) : 'Saved') : 'Ready for local print shops';
+  };
+  window.shFocusEmailUnlockBadge = function() {
+    var inp = document.getElementById('sh-inline-vault-email') || document.getElementById('sh-seo-calc-email');
+    if (inp) {
+      inp.scrollIntoView({ behavior: 'smooth', block: 'center' });
+      try { inp.focus({ preventScroll: true }); } catch (_) { inp.focus(); }
+      inp.style.boxShadow = '0 0 0 3px rgba(0,118,108,0.32)';
+    }
   };
 
   window.shGateOrExportBeoCsv = function(mode) {
@@ -880,6 +901,7 @@ function renderDeliverablesClientScript() {
     if (btn) btn.textContent = 'Saving...';
     if (btn4) btn4.textContent = 'Saving...';
     try { localStorage.setItem('sh_saved_email', email); } catch (_) {}
+    window.__SH_EMAIL_UNMASKED = true;
     if (window.__SH_STATE) {
       window.__SH_STATE.ownerEmail = email;
       if (!window.__SH_STATE.vaultId || window.__SH_STATE.vaultId === 'SH-4819') {
@@ -887,6 +909,7 @@ function renderDeliverablesClientScript() {
       }
     }
     window.shRenderLivePersonalizedProof();
+    if (typeof shRenderBeoView === 'function') shRenderBeoView();
     try {
       fetch('/api/leads', { method: 'POST', keepalive: true, headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ email: email, summaryText: 'Save & Email My Seating Plan ($0): ' + ((window.__SH_STATE && window.__SH_STATE.title) || 'SeatHarmony'), utmSource: 'inline_save_bridge' }) }).catch(function() {});
       var res = await fetch('/api/vault/save', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ vaultId: (window.__SH_STATE && window.__SH_STATE.vaultId) || 'SH-4819', ownerEmail: email, state: window.__SH_STATE }) });

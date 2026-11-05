@@ -536,9 +536,13 @@ function renderSeatEditorClientScript() {
     var panel = document.getElementById('sh-selected-table-box');
     var canvas = grid ? grid.querySelector('.sh-ed-canvas') : null;
     if (panel && canvas && !window.__SH_PANEL_HIDDEN) {
-      var cH = Math.round(canvas.getBoundingClientRect().height || 0);
-      if (cH > 320) { panel.style.height = cH + 'px'; panel.style.maxHeight = cH + 'px'; }
-      else { panel.style.height = ''; panel.style.maxHeight = ''; }
+      if ((window.innerWidth || 1440) > 900) {
+        canvas.style.height = '580px'; canvas.style.minHeight = '580px'; canvas.style.maxHeight = '580px';
+        panel.style.height = '580px'; panel.style.minHeight = '580px'; panel.style.maxHeight = '580px';
+      } else {
+        canvas.style.height = '380px'; canvas.style.minHeight = '380px'; canvas.style.maxHeight = '380px';
+        panel.style.height = 'auto'; panel.style.minHeight = '0'; panel.style.maxHeight = '460px';
+      }
     }
     var reopenBtn = document.getElementById('sh-canvas-reopen-panel-btn');
     if (reopenBtn) {

@@ -377,7 +377,32 @@ function renderSeatGroupsClientScript() {
       var pvy = Math.max(-240, Math.min(roomH - vh + 240, Math.round(window.__SH_PAN_VIEW.vy)));
       return pvx + ' ' + pvy + ' ' + vw + ' ' + vh;
     }
-    if (scale <= 1.01) return '0 0 1120 ' + roomH;
+    if (scale <= 1.01) {
+      if (plan && plan.tables && plan.tables.length) {
+        var minX = 1120, maxX = 0, minY = roomH, maxY = 0;
+        (plan.tables || []).forEach(function(t) {
+          var rx = (t.shape === 'banquet' || t.shape === 'kings' || t.shape === 'sweetheart') ? 105 : 88;
+          var ry = 82;
+          if ((t.x || 560) - rx < minX) minX = (t.x || 560) - rx;
+          if ((t.x || 560) + rx > maxX) maxX = (t.x || 560) + rx;
+          if ((t.y || 300) - ry < minY) minY = (t.y || 300) - ry;
+          if ((t.y || 300) + ry > maxY) maxY = (t.y || 300) + ry;
+        });
+        (plan.landmarks || []).forEach(function(lm) {
+          var hw = Math.round((lm.w || 120) / 2) + 16, hh = Math.round((lm.h || 40) / 2) + 16;
+          if ((lm.x || 560) - hw < minX) minX = (lm.x || 560) - hw;
+          if ((lm.x || 560) + hw > maxX) maxX = (lm.x || 560) + hw;
+          if ((lm.y || 300) - hh < minY) minY = (lm.y || 300) - hh;
+          if ((lm.y || 300) + hh > maxY) maxY = (lm.y || 300) + hh;
+        });
+        var bx = Math.max(0, Math.round(minX - 18));
+        var by = Math.max(0, Math.round(minY - 18));
+        var bw = Math.min(1120 - bx, Math.max(680, Math.round(maxX - minX + 36)));
+        var bh = Math.max(480, Math.round(maxY - minY + 36));
+        return bx + ' ' + by + ' ' + bw + ' ' + bh;
+      }
+      return '0 0 1120 ' + roomH;
+    }
     var cx = 560, cy = Math.round(roomH / 2);
     if (window.__SH_SELECTED_LANDMARK_IDX != null && plan.landmarks && plan.landmarks[window.__SH_SELECTED_LANDMARK_IDX]) {
       var lm = plan.landmarks[window.__SH_SELECTED_LANDMARK_IDX];

@@ -848,8 +848,8 @@ function renderInteractiveScript(initialPlan) {
     shRenderActiveCrudBanner(plan);
     const parts = [
       '<defs><pattern id="sh-grid" width="40" height="40" patternUnits="userSpaceOnUse"><path d="M 40 0 L 0 0 0 40" fill="none" stroke="#EAE2D3" stroke-width="0.8"/></pattern></defs>',
-      '<rect width="1120" height="' + roomH + '" rx="12" fill="#FAF7F2" stroke="#D6CBB8" stroke-width="1.5"/>',
-      '<rect width="1120" height="' + roomH + '" rx="12" fill="url(#sh-grid)"/>'
+      '<rect x="0" y="-300" width="1120" height="' + (roomH + 600) + '" fill="#FAF7F2"/>',
+      '<rect x="0" y="-300" width="1120" height="' + (roomH + 600) + '" fill="url(#sh-grid)"/>'
     ];
     (plan.landmarks || []).forEach(function(lm, lmIdx) {
       const isLoud = lm.zone === 'loud', isQuiet = lm.zone === 'quiet', isSelLm = isFineTune && window.__SH_SELECTED_LANDMARK_IDX === lmIdx;
