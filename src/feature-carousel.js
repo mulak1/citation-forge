@@ -161,7 +161,7 @@ function renderFeatureShowcaseCarousel(vId = 'SH-4819') {
   <!-- INTERACTIVE 5-SLIDE FEATURE & TOOLING SHOWCASE CAROUSEL (SCREENSHOT-FIRST) -->
   <div id="studio-features-showcase-carousel">
     <div class="bs-section-header" style="margin-bottom:28px;">
-      <div class="bs-section-eyebrow">&#10022; INSIDE THE $9 EVENT PRINT &amp; DAY-OF EXECUTION PACK &bull; SAVES 6+ HRS AT FEDEX/CANVA</div>
+      <div class="bs-section-eyebrow">&#10022; INSIDE THE $7 EVENT PRINT &amp; DAY-OF EXECUTION PACK &bull; VS. $14 BLANK ETSY TEMPLATES</div>
       <h2 class="bs-section-h2">See the Exact Print &amp; Catering Tools <em>You Unlock.</em></h2>
       <p class="bs-section-sub">
         Every screen below is generated directly from your reception floorplan. Click any tool to preview what you get:
@@ -185,7 +185,7 @@ function renderFeatureShowcaseCarousel(vId = 'SH-4819') {
         <div style="display:flex;align-items:center;gap:12px;flex-wrap:wrap;">
           <a href="#studio" class="btn btn-secondary" style="padding:11px 20px;font-size:0.92rem;">&#9998; Jump to Interactive Studio &darr;</a>
           <a href="/buy/complete_dossier?target=estate-150&vault=${safeVid}&allow_promotion_codes=false" id="sh-carousel-unlock-cta" class="btn btn-gold-soft" style="padding:12px 24px;font-size:0.95rem;">
-            &#128275; Unlock Event Print &amp; Day-Of Pack ($9) &rarr;
+            &#128275; Unlock Event Print &amp; Day-Of Pack ($7 &middot; vs. $14 Etsy) &rarr;
           </a>
         </div>
       </div>
@@ -226,7 +226,7 @@ function renderZone4ProofStackAndPricing() {
             </div>
             <div class="bs-case-math-row">
               <span>SeatHarmony Pack:</span>
-              <span>$9 Once</span>
+              <span>$7 Once (vs. $14 Etsy)</span>
             </div>
             <div class="bs-case-math-row">
               <span>Family Seating Rules:</span>
@@ -234,7 +234,7 @@ function renderZone4ProofStackAndPricing() {
             </div>
             <div class="bs-case-math-row bs-case-math-total">
               <span>Time &amp; Cost Saved:</span>
-              <span style="color:#047857;">6.5 Hrs + $211 Saved</span>
+              <span style="color:#047857;">6.5 Hrs + $213 Saved</span>
             </div>
           </div>
           <p class="bs-case-takeaway">
@@ -347,7 +347,7 @@ function renderZone4ProofStackAndPricing() {
           <div class="bs-ba-card bs-ba-after after">
             <div class="bs-ba-card-top">
               <span class="bs-ba-pill bs-ba-pill-after">AFTER SEATHARMONY</span>
-              <span class="bs-ba-price-tag bs-ba-price-good">Saves 6+ Hrs &bull; $9 Event Print Pack</span>
+              <span class="bs-ba-price-tag bs-ba-price-good">Saves 6+ Hrs &bull; $7 Event Print Pack (vs. $14 Etsy)</span>
             </div>
             <h4 class="bs-ba-card-h4">24&Prime;&times;36&Prime; 300-DPI Print-Shop Welcome Poster PDF + Folded Place Cards + Caterer BEO + Live QR</h4>
             <ul class="bs-ba-list">
@@ -368,17 +368,17 @@ function renderZone4ProofStackAndPricing() {
             <thead>
               <tr>
                 <th style="width:24%;">What Matters on Wedding Day</th>
-                <th class="bs-col-highlight" style="width:28%;">&#10022; SeatHarmony ($9 once)</th>
+                <th class="bs-col-highlight" style="width:28%;">&#10022; SeatHarmony ($7 once)</th>
                 <th style="width:24%;">Subscription Apps ($150+/yr)</th>
-                <th style="width:24%;">Excel + Canva By Hand</th>
+                <th style="width:24%;">Excel + Blank Etsy Templates</th>
               </tr>
             </thead>
             <tbody>
               <tr>
                 <td><strong>Pricing Model</strong></td>
-                <td class="bs-col-highlight">$9 One-Time Event Pass (or $29 Planner Pro)</td>
+                <td class="bs-col-highlight">$7 One-Time Event Pass (or $29 Planner Pro)</td>
                 <td>$39 to $99/mo subscription</td>
-                <td>Free + $45 Etsy template</td>
+                <td>$14 Blank Etsy template + 6 hrs typing</td>
               </tr>
               <tr>
                 <td><strong>Family Peace Seating</strong></td>

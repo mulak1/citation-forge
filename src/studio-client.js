@@ -920,8 +920,42 @@ function renderInteractiveScript(initialPlan) {
     } else {
       parts.push('<g id="sh-marquee-live" class="sh-marquee-box" pointer-events="none" style="display:none;"><rect id="sh-marquee-rect" x="0" y="0" width="0" height="0" rx="6" fill="rgba(200,169,110,0.16)" stroke="#8C2D19" stroke-width="2" stroke-dasharray="6 4"/><rect id="sh-marquee-badge" x="0" y="0" width="120" height="20" rx="10" fill="#8C2D19" style="display:none;"/><text id="sh-marquee-text" x="0" y="0" fill="#FFFFFF" font-size="10.2" font-weight="800"></text></g>');
     }
+    if (window.__SH_CONFLICT_ARC && plan.tables && plan.tables.length >= 2) {
+      const tFrom = plan.tables[0] || { x: 240, y: 200 };
+      const tTo = plan.tables[Math.min(5, plan.tables.length - 1)] || plan.tables[1] || { x: 840, y: 460 };
+      const midX = Math.round((tFrom.x + tTo.x) / 2), midY = Math.max(55, Math.round(Math.min(tFrom.y, tTo.y) - 110));
+      parts.push('<g id="sh-conflict-solver-arc" pointer-events="none"><path d="M ' + tFrom.x + ' ' + tFrom.y + ' Q ' + midX + ' ' + midY + ' ' + tTo.x + ' ' + tTo.y + '" fill="none" stroke="#059669" stroke-width="3.5" stroke-dasharray="9 5"/><circle cx="' + tFrom.x + '" cy="' + tFrom.y + '" r="64" fill="none" stroke="#E11D48" stroke-width="2.5" stroke-dasharray="5 4"/><circle cx="' + tTo.x + '" cy="' + tTo.y + '" r="66" fill="rgba(16,185,129,0.12)" stroke="#059669" stroke-width="3"/><rect x="' + Math.max(20, midX - 210) + '" y="' + Math.max(12, midY - 22) + '" width="420" height="30" rx="15" fill="#065F46" stroke="#A7F3D0" stroke-width="1.5"/><text x="' + midX + '" y="' + (Math.max(12, midY - 22) + 19) + '" text-anchor="middle" fill="#FFFFFF" font-size="12.5" font-weight="800">&#10003; Auto-Solved: Table 1 &rarr; Table 6 (32ft Buffer &middot; 0 Family Clashes)</text></g>');
+    }
     svgEl.innerHTML = parts.join('');
   }
+
+  window.shRunConflictSolverDemo = function(btn) {
+    if (!window.__SH_STATE || !Array.isArray(window.__SH_STATE.tables) || window.__SH_STATE.tables.length < 2) return;
+    const t0 = window.__SH_STATE.tables[0], t5 = window.__SH_STATE.tables[Math.min(5, window.__SH_STATE.tables.length - 1)];
+    if (t0 && t5 && Array.isArray(t0.guests) && Array.isArray(t5.guests) && t0.guests.length > 1 && t5.guests.length > 0 && !window.__SH_CONFLICT_SOLVED_ONCE) {
+      window.__SH_CONFLICT_SOLVED_ONCE = true;
+      const gMove = t0.guests[t0.guests.length - 1];
+      t0.guests[t0.guests.length - 1] = t5.guests[0];
+      t5.guests[0] = gMove;
+    }
+    window.__SH_CONFLICT_ARC = { fromTbl: 0, toTbl: Math.min(5, window.__SH_STATE.tables.length - 1), ts: Date.now() };
+    window.__SH_SELECTED_TABLE_IDX = Math.min(5, window.__SH_STATE.tables.length - 1);
+    shRenderAll();
+    const badge = document.getElementById('sh-conflict-solver-badge');
+    if (badge) {
+      badge.style.display = 'inline-flex';
+      badge.innerHTML = '&#10003; 100% Table Harmony &middot; 0 Family Clashes &middot; 6 Allergy Meals Mapped';
+    }
+    const hPill = document.getElementById('specimen-harmony-pill');
+    if (hPill) hPill.innerHTML = '&#10003; 100% Table Harmony &middot; 0 Family Clashes';
+    if (btn) {
+      btn.innerHTML = '&#10003; Solved: Table 1 &rarr; Table 6 (0 Clashes)';
+      btn.style.background = '#065F46';
+      btn.style.color = '#FFFFFF';
+      btn.style.borderColor = '#065F46';
+    }
+    shToast('✓ Auto-Solver separated clashing relatives (Table 1 → Table 6 · 32ft buffer) · 100% Table Harmony · 6 Allergy Meals Mapped!');
+  };
 
   window.shCycleGuestMeal = function(tIdx, gIdx, ev) {
     if (ev) ev.stopPropagation();

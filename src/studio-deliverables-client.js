@@ -541,7 +541,7 @@ function renderDeliverablesClientScript() {
           '<div style="font-size:0.68rem;color:#57534E;font-weight:700;">Table ' + c.tNum + ' &middot; Seat #' + c.sNum + '</div>' +
         '</div>';
       }).join('');
-      averyEl.innerHTML = '<div style="padding:12px 14px;border-radius:12px;background:linear-gradient(135deg,#FAF3E6 0%,#F5ECE0 100%);border:1.5px solid #D8C29D;"><div style="display:flex;flex-wrap:wrap;align-items:center;justify-content:space-between;gap:10px;margin-bottom:10px;"><div><div style="font-size:0.72rem;font-weight:700;color:#78350F;">Folded Place Cards (' + sampleCards.length + ' Guests)</div><div style="font-size:0.78rem;color:#44403C;">Guest name on the front, meal choice &amp; allergy note on the back for servers.</div></div><div style="display:flex;gap:6px;flex-wrap:wrap;"><a id="sh-avery-preview-btn" href="/print/avery-5302/' + vid + '" target="_blank" class="btn btn-secondary" style="padding:6px 11px;font-size:0.73rem;">Open Full Place Card Sheet ↗</a><a id="sh-avery-pack-buy-btn" href="/buy/complete_dossier?target=estate-150&vault=' + vid + '&allow_promotion_codes=false" class="btn btn-primary" style="padding:6px 12px;font-size:0.73rem;">Unlock Event Print Pack ($9) →</a></div></div><div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(210px,1fr));gap:8px;">' + cardStripHtml + '</div></div>';
+      averyEl.innerHTML = '<div style="padding:12px 14px;border-radius:12px;background:linear-gradient(135deg,#FAF3E6 0%,#F5ECE0 100%);border:1.5px solid #D8C29D;"><div style="display:flex;flex-wrap:wrap;align-items:center;justify-content:space-between;gap:10px;margin-bottom:10px;"><div><div style="font-size:0.72rem;font-weight:700;color:#78350F;">Folded Place Cards (' + sampleCards.length + ' Guests)</div><div style="font-size:0.78rem;color:#44403C;">Guest name on the front, meal choice &amp; allergy note on the back for servers.</div></div><div style="display:flex;gap:6px;flex-wrap:wrap;"><a id="sh-avery-preview-btn" href="/print/avery-5302/' + vid + '" target="_blank" class="btn btn-secondary" style="padding:6px 11px;font-size:0.73rem;">Open Full Place Card Sheet ↗</a><a id="sh-avery-pack-buy-btn" href="/buy/complete_dossier?target=estate-150&vault=' + vid + '&allow_promotion_codes=false" class="btn btn-primary" style="padding:6px 12px;font-size:0.73rem;">Unlock Event Print Pack ($7 · vs. $14 Etsy) →</a></div></div><div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(210px,1fr));gap:8px;">' + cardStripHtml + '</div></div>';
     }
     shSyncVaultIdLinks((window.__SH_STATE && window.__SH_STATE.vaultId) || 'SH-4819');
   }
@@ -595,9 +595,9 @@ function renderDeliverablesClientScript() {
     ['sh-pane-beo-buy-link'].forEach(function(k) { setHref(k, flashUrl); });
     ['sh-vault-buy-pro-btn', 'pricing-buy-pro'].forEach(function(k) { setHref(k, proUrl); });
     const vBtn = document.getElementById('sh-vault-buy-pack-btn');
-    if (vBtn) vBtn.innerHTML = 'Unlock Full Print Pack (' + totalGuests + ' Guests &middot; $9) &rarr;';
+    if (vBtn) vBtn.innerHTML = '$7 Auto-Filled Print Pack (vs. $14 Etsy) &rarr;';
     const pBtn = document.getElementById('pricing-buy-pack');
-    if (pBtn) pBtn.innerHTML = 'Unlock ' + shEsc(coupleTitle) + ' Print Pack (' + totalGuests + ' Guests &middot; $9) &rarr;';
+    if (pBtn) pBtn.innerHTML = 'Unlock ' + shEsc(coupleTitle) + ' Print Pack (' + totalGuests + ' Guests &middot; $7 vs. $14 Etsy) &rarr;';
     const qrImg = document.getElementById('sh-live-qr-img');
     if (qrImg) qrImg.src = 'https://api.qrserver.com/v1/create-qr-code/?size=160x160&color=181412&bgcolor=FFFFFF&data=' + encodeURIComponent(window.location.origin + '/qr/' + id);
     if (typeof window.shRenderLivePersonalizedProof === 'function') window.shRenderLivePersonalizedProof();
