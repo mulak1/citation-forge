@@ -691,14 +691,31 @@ function renderDirectoryPage(seoPages = []) {
   seoPages.forEach((p) => { const f = parseFloorplan(p); if (f) plans.push([p, f]); else guides.push(p); });
   const types = Array.from(new Set(plans.map(([, f]) => f.type))).sort();
   const sizes = [['all', 'All sizes'], ['s', 'Up to 75'], ['m', '76 to 125'], ['l', '126 to 175'], ['xl', '176+']];
+  const lockSvg = '<svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="display:inline-block;vertical-align:-2px;margin-right:4px;" aria-hidden="true"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>';
   return [
     renderHead({ title: `${plans.length} Wedding Venue Floorplans & ${guides.length} Seating Playbooks | SeatHarmony`, description: 'Browse architectural wedding venue floorplans (Rotunda Orbit, Tuscan Banquet Rows, Sailcloth Tent, U-Shape, King’s Feast, Ballroom Wings) by guest count and room size.', canonicalPath: '/directory', ogSlug: 'directory' }),
     '<body>', `<style>${DIR_CSS}</style>`, renderNavbar(),
-    `<main class="container" style="padding:56px 24px 88px;">
-      <div style="max-width:740px;margin:0 auto 32px;text-align:center;">
-        <h1 class="studio-zone-title" style="text-align:center;margin-bottom:10px;">Find an architectural layout that fits your <em>venue.</em></h1>
+    `<main class="container" style="padding:36px 24px 88px;">
+      <div style="max-width:740px;margin:0 auto 20px;text-align:center;">
+        <h1 class="studio-zone-title" style="text-align:center;margin-bottom:8px;">Find an architectural layout that fits your <em>venue.</em></h1>
         <p class="studio-zone-sub" style="text-align:center;">From 40-guest U-shape rehearsal dinners and 80-guest Tuscan vineyard banquets to 180-guest museum rotundas and 300-guest galas.</p>
       </div>
+      <div id="sh-dir-vault-bar" style="background:#FFFFFF;border:1.5px solid #00766C;border-radius:14px;padding:12px 16px;margin-bottom:16px;box-shadow:0 4px 16px rgba(0,118,108,0.08);display:flex;flex-direction:column;gap:8px;">
+        <div style="display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:8px;">
+          <span style="font-size:13px;font-weight:800;color:#065F46;background:#ECFDF5;border:1px solid #A7F3D0;padding:2px 9px;border-radius:999px;">&#10003; Layout #1 Sample (Free): 150-Guest Estate &middot; Table 1 Seat #1 at 12:00 &middot; 0 Family Clashes</span>
+          <div style="display:flex;flex-wrap:wrap;align-items:center;gap:6px;">
+            <button type="button" id="sh-dir-locked-badge-beo" class="sh-locked-spec-badge" onclick="var el=document.getElementById('sh-dir-email');if(el){el.focus();}" style="cursor:pointer;background:#F0FDFA;color:#065F46;border:1px solid #00766C;border-radius:999px;padding:4px 10px;font-size:12.5px;font-weight:700;">${lockSvg}Tables 2&ndash;8 Clockwise Meal Tally &mdash; Tap to Unlock Free ($0) &darr;</button>
+            <a href="/buy/complete_dossier?target=estate-150&amp;allow_promotion_codes=false" class="sh-locked-spec-badge" style="background:#FAF6EE;color:#78350F;border:1px solid #C8A96E;border-radius:999px;padding:4px 10px;font-size:12.5px;font-weight:700;text-decoration:none;">${lockSvg}24&Prime;&times;36&Prime; Print-Shop Poster &amp; Place Cards ($7 Pack) &rarr;</a>
+          </div>
+        </div>
+        <div style="display:flex;flex-wrap:wrap;align-items:center;gap:8px;">
+          <input id="sh-dir-email" type="email" placeholder="Enter email to save any venue layout &amp; unlock meal tally ($0)..." onkeydown="if(event.key==='Enter')window.shSaveDirLead()" style="flex:1 1 240px;min-width:0;height:40px;padding:8px 12px;border:1px solid #D1D5DB;border-radius:8px;font-size:14px;background:#FFFFFF;color:#1C1C1C;" aria-label="Email address to unlock venue layouts and caterer meal tally" />
+          <button type="button" id="sh-dir-save-btn" onclick="window.shSaveDirLead()" style="cursor:pointer;background:#00766C;color:#FFFFFF;border:1px solid #00766C;border-radius:8px;height:40px;padding:8px 14px;font-size:14px;font-weight:700;white-space:nowrap;">Unlock Meal Tally ($0) &rarr;</button>
+          <a href="/buy/complete_dossier?target=estate-150&amp;allow_promotion_codes=false" style="display:inline-flex;align-items:center;justify-content:center;background:#1C1C1C;color:#FFFFFF;border:1px solid #1C1C1C;border-radius:8px;height:40px;padding:8px 14px;font-size:14px;font-weight:800;text-decoration:none;white-space:nowrap;">$7 Auto-Filled Print Pack (vs. $14 Etsy) &rarr;</a>
+        </div>
+        <div id="sh-dir-status" style="display:none;font-size:13px;font-weight:700;color:#065F46;"></div>
+      </div>
+      <script>window.shSaveDirLead=async function(){var inp=document.getElementById('sh-dir-email'),btn=document.getElementById('sh-dir-save-btn'),st=document.getElementById('sh-dir-status'),bEl=document.getElementById('sh-dir-locked-badge-beo');var em=inp?String(inp.value||'').trim().toLowerCase():'';if(!em||em.indexOf('@')<1){if(inp)inp.focus();return;}try{localStorage.setItem('sh_saved_email',em);}catch(_){}if(bEl)bEl.innerHTML='&#10003; Unmasked Free: All Venue Clockwise 12:00 Meal Sheets ('+em.replace(/[<>&"]/g,'')+')';if(btn)btn.textContent='✓ Unlocked ($0)';try{var r=await fetch('/api/vault/save',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({ownerEmail:em,preset:'estate-150',page_url:'/directory',utm_source:'directory_bar'})});var d=await r.json(),vid=(d&&(d.vaultId||d.vault_id))||'SH-4819';if(st){st.style.display='block';st.innerHTML='✓ Saved to <strong>'+em.replace(/[<>&"]/g,'')+'</strong> &mdash; <a href="/?vault='+encodeURIComponent(vid)+'#studio" style="color:#00766C;text-decoration:underline;">Open Your Interactive Studio Plan ('+vid+') &rarr;</a>';}}catch(_){}};</script>
       <div class="dir-filters" role="group" aria-label="Filter and sort venue layouts">
         <span class="dir-filter-label">Guests</span>
         <div class="dir-chips">${sizes.map(([k, l], i) => `<button type="button" class="dir-chip${i === 0 ? ' on' : ''}" data-size="${k}">${l}</button>`).join('')}</div>

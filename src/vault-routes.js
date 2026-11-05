@@ -47,15 +47,19 @@ function parseMonogramParts(rawMonogram, title) {
   return { initials: raw, sub: 'EST. 2026', raw };
 }
 
+const VR_LOCK_SVG = '<svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="display:inline-block;vertical-align:-2px;margin-right:4px;" aria-hidden="true"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>';
+const VR_PRINT_SVG = '<svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="display:inline-block;vertical-align:-2px;margin-right:4px;" aria-hidden="true"><polyline points="6 9 6 2 18 2 18 9"/><path d="M6 18H4a2 2 0 0 1-2-2v-5a2 2 0 0 1 2-2h16a2 2 0 0 1 2 2v5a2 2 0 0 1-2 2h-2"/><rect x="6" y="14" width="12" height="8"/></svg>';
+const VR_CLIP_SVG = '<svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="display:inline-block;vertical-align:-2px;margin-right:4px;" aria-hidden="true"><path d="M16 4h2a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2h2"/><rect x="8" y="2" width="8" height="4" rx="1" ry="1"/></svg>';
+
 async function resolveVaultRecord(rawVaultId, query = {}) {
   const vaultId = normalizeVaultId(rawVaultId);
-  const isVipTestVault = vaultId === 'SH-4819' || vaultId === 'SH-VIP' || vaultId === 'SH-PRO';
+  const isVipTestVault = vaultId === 'SH-VIP' || vaultId === 'SH-PRO';
   let row = null;
   try {
     row = queryOne('SELECT * FROM event_vaults WHERE vault_id = ?', [vaultId]);
   } catch (_) {}
 
-  const forceUnlock = isVipTestVault || query.unlocked === '1' || query.checkout === 'success' || Boolean(query.session_id);
+  const forceUnlock = isVipTestVault || query.unlocked === '1' || query.checkout === 'success' || Boolean(query.session_id) || Boolean(query.email && String(query.email).includes('@'));
   if (row) {
     let state = {};
     try { state = JSON.parse(row.state_json || '{}'); } catch (_) {}
@@ -76,7 +80,7 @@ async function resolveVaultRecord(rawVaultId, query = {}) {
       title: row.title || state.title || "Maya & Liam's Estate Reception",
       venueName: row.venue_name || state.venueName || 'The Conservatory at Villa Bellagio',
       planTier: row.plan_tier || (forceUnlock ? 'complete_dossier' : 'free'),
-      isUnlocked: Boolean(row.is_unlocked || forceUnlock),
+      isUnlocked: Boolean(row.is_unlocked || forceUnlock || (row.owner_email && row.owner_email.includes('@') && !/^(test|vip)@/i.test(row.owner_email))),
       updatedAt: row.updated_at || new Date().toISOString(),
       state
     };
@@ -189,7 +193,22 @@ function renderTopPrintBar({ vault, activeRoute, baseUrl }) {
   const urls = buildVaultUrls(baseUrl, vault.vaultId);
   const unlockBadge = vault.isUnlocked
     ? `<span style="background:#ECFDF5;color:#065F46;border:1px solid #A7F3D0;padding:3px 9px;border-radius:999px;font-size:0.68rem;font-weight:800;white-space:nowrap;">&#10003; UNLOCKED</span>`
-    : `<a href="/buy/complete_dossier?target=${encodeURIComponent(vault.vaultId)}&vault=${encodeURIComponent(vault.vaultId)}&allow_promotion_codes=false" style="background:linear-gradient(135deg,#FDE68A,#C8A96E);color:#181412;padding:4px 10px;border-radius:999px;font-size:0.70rem;font-weight:800;text-decoration:none;white-space:nowrap;">&#128274; Unlock Event Print Pack ($9) &rarr;</a>`;
+    : `<a href="/buy/complete_dossier?target=${encodeURIComponent(vault.vaultId)}&vault=${encodeURIComponent(vault.vaultId)}&allow_promotion_codes=false" style="background:linear-gradient(135deg,#FDE68A,#C8A96E);color:#181412;padding:4px 10px;border-radius:999px;font-size:0.70rem;font-weight:800;text-decoration:none;white-space:nowrap;">${VR_LOCK_SVG}Unlock Event Print Pack ($7) &rarr;</a>`;
+
+  const topEmailGateBar = vault.isUnlocked ? '' : `
+  <div class="no-print" id="sh-subpage-vault-bar" style="background:#FFFFFF;border-bottom:1.5px solid #00766C;padding:10px 18px;">
+    <div style="max-width:1280px;margin:0 auto;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:10px;">
+      <div style="display:flex;align-items:center;gap:8px;flex-wrap:wrap;">
+        <span style="font-size:12.5px;font-weight:800;color:#065F46;background:#ECFDF5;border:1px solid #A7F3D0;padding:2px 9px;border-radius:999px;">&#10003; Table 1 Sample (Free): Seat #1 at 12:00 &bull; 2 Hosts &bull; 0 Clashes</span>
+        <span style="font-size:12.5px;font-weight:700;color:#78350F;background:#FAF6EE;border:1px solid #C8A96E;padding:2px 9px;border-radius:999px;">${VR_LOCK_SVG}Tables 2&ndash;8 Meal Sheet &amp; 24&Prime;&times;36&Prime; Sign Locked</span>
+      </div>
+      <form onsubmit="var em=(document.getElementById('sh-subpage-email')||{}).value||'';if(em.indexOf('@')>0){try{localStorage.setItem('sh_saved_email',em);}catch(_){}window.location.href=window.location.pathname+'?email='+encodeURIComponent(em);}return false;" style="display:flex;align-items:center;gap:6px;flex-wrap:wrap;flex:1 1 320px;justify-content:flex-end;">
+        <input id="sh-subpage-email" type="email" required placeholder="Enter email to unlock Tables 2–8 free ($0)..." style="flex:1 1 200px;max-width:280px;height:36px;padding:6px 10px;border:1px solid #D1D5DB;border-radius:8px;font-size:13px;background:#FFFFFF;color:#181412;" aria-label="Email address to unlock Tables 2-8" />
+        <button type="submit" style="cursor:pointer;background:#00766C;color:#FFFFFF;border:1px solid #00766C;border-radius:8px;height:36px;padding:6px 12px;font-size:13px;font-weight:700;white-space:nowrap;">Unlock Free ($0) &rarr;</button>
+        <a href="/buy/complete_dossier?target=${encodeURIComponent(vault.vaultId)}&vault=${encodeURIComponent(vault.vaultId)}&allow_promotion_codes=false" style="display:inline-flex;align-items:center;background:#181412;color:#FFFFFF;border-radius:8px;height:36px;padding:6px 12px;font-size:13px;font-weight:800;text-decoration:none;white-space:nowrap;">$7 Print Pack (vs. $14 Etsy) &rarr;</a>
+      </form>
+    </div>
+  </div>`;
 
   return `
   <header class="no-print" style="position:sticky;top:0;z-index:100;background:#FAF6EE;color:#181412;border-bottom:1.5px solid #D8C29D;padding:9px 18px;box-shadow:0 4px 14px rgba(24,20,18,0.04);">
@@ -205,15 +224,15 @@ function renderTopPrintBar({ vault, activeRoute, baseUrl }) {
         ${unlockBadge}
       </div>
       <nav style="display:flex;align-items:center;gap:5px;flex-wrap:wrap;">
-        <a href="${urls.vault_dashboard}" style="padding:5px 10px;border-radius:8px;font-size:0.73rem;font-weight:800;text-decoration:none;white-space:nowrap;${activeRoute === 'dashboard' ? 'background:#FAF3E3;color:#8C2D19;border:1.5px solid #8C2D19;' : 'background:#FFFFFF;color:#44403C;border:1px solid #E2D9C8;'}">&#127968; Command Center</a>
-        <a href="${urls.print_poster}" style="padding:5px 10px;border-radius:8px;font-size:0.73rem;font-weight:800;text-decoration:none;white-space:nowrap;${activeRoute === 'poster' ? 'background:#FAF3E3;color:#8C2D19;border:1.5px solid #8C2D19;' : 'background:#FFFFFF;color:#44403C;border:1px solid #E2D9C8;'}">&#129703; 24&Prime;&times;36&Prime; Sign</a>
-        <a href="${urls.print_avery}" style="padding:5px 10px;border-radius:8px;font-size:0.73rem;font-weight:800;text-decoration:none;white-space:nowrap;${activeRoute === 'avery' ? 'background:#FAF3E3;color:#8C2D19;border:1.5px solid #8C2D19;' : 'background:#FFFFFF;color:#44403C;border:1px solid #E2D9C8;'}">&#127991; Avery 5302</a>
-        <a href="${urls.print_beo}" style="padding:5px 10px;border-radius:8px;font-size:0.73rem;font-weight:800;text-decoration:none;white-space:nowrap;${activeRoute === 'beo' ? 'background:#FAF3E3;color:#8C2D19;border:1.5px solid #8C2D19;' : 'background:#FFFFFF;color:#44403C;border:1px solid #E2D9C8;'}">&#127869; Caterer BEO</a>
-        <a href="${urls.qr_lookup}" style="padding:5px 10px;border-radius:8px;font-size:0.73rem;font-weight:800;text-decoration:none;white-space:nowrap;${activeRoute === 'qr' ? 'background:#FAF3E3;color:#8C2D19;border:1.5px solid #8C2D19;' : 'background:#FFFFFF;color:#44403C;border:1px solid #E2D9C8;'}">&#128241; Guest QR</a>
+        <a href="${urls.vault_dashboard}" style="padding:5px 10px;border-radius:8px;font-size:0.73rem;font-weight:800;text-decoration:none;white-space:nowrap;${activeRoute === 'dashboard' ? 'background:#FAF3E3;color:#8C2D19;border:1.5px solid #8C2D19;' : 'background:#FFFFFF;color:#44403C;border:1px solid #E2D9C8;'}">Command Center</a>
+        <a href="${urls.print_poster}" style="padding:5px 10px;border-radius:8px;font-size:0.73rem;font-weight:800;text-decoration:none;white-space:nowrap;${activeRoute === 'poster' ? 'background:#FAF3E3;color:#8C2D19;border:1.5px solid #8C2D19;' : 'background:#FFFFFF;color:#44403C;border:1px solid #E2D9C8;'}">24&Prime;&times;36&Prime; Sign</a>
+        <a href="${urls.print_avery}" style="padding:5px 10px;border-radius:8px;font-size:0.73rem;font-weight:800;text-decoration:none;white-space:nowrap;${activeRoute === 'avery' ? 'background:#FAF3E3;color:#8C2D19;border:1.5px solid #8C2D19;' : 'background:#FFFFFF;color:#44403C;border:1px solid #E2D9C8;'}">Avery 5302</a>
+        <a href="${urls.print_beo}" style="padding:5px 10px;border-radius:8px;font-size:0.73rem;font-weight:800;text-decoration:none;white-space:nowrap;${activeRoute === 'beo' ? 'background:#FAF3E3;color:#8C2D19;border:1.5px solid #8C2D19;' : 'background:#FFFFFF;color:#44403C;border:1px solid #E2D9C8;'}">Caterer Meal Sheet</a>
+        <a href="${urls.qr_lookup}" style="padding:5px 10px;border-radius:8px;font-size:0.73rem;font-weight:800;text-decoration:none;white-space:nowrap;${activeRoute === 'qr' ? 'background:#FAF3E3;color:#8C2D19;border:1.5px solid #8C2D19;' : 'background:#FFFFFF;color:#44403C;border:1px solid #E2D9C8;'}">Guest QR</a>
         <a href="${urls.studio}" style="padding:5px 10px;border-radius:8px;font-size:0.73rem;font-weight:800;text-decoration:none;background:#FFFFFF;border:1.5px solid #C8A96E;color:#78350F;white-space:nowrap;">&larr; Studio</a>
       </nav>
     </div>
-  </header>`;
+  </header>${topEmailGateBar}`;
 }
 
 function attachVaultAndPaywallRoutes(app, publicUrl, ebStore = null) {
@@ -295,7 +314,7 @@ function attachVaultAndPaywallRoutes(app, publicUrl, ebStore = null) {
 
       let state = {};
       try { state = JSON.parse(row.state_json || '{}'); } catch (_) {}
-      const isUnl = Boolean(row.is_unlocked || row.vault_id === 'SH-4819' || row.vault_id === 'SH-VIP');
+      const isUnl = Boolean(row.is_unlocked || row.vault_id === 'SH-VIP');
       return res.status(200).json({
         ok: true,
         vault_id: row.vault_id,
@@ -354,7 +373,7 @@ function attachVaultAndPaywallRoutes(app, publicUrl, ebStore = null) {
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>${escapeHtml(vault.title)} | Reception Print &amp; Caterer BEO Command Center | SeatHarmony</title>
+  <title>${escapeHtml(vault.title)} | Reception Print &amp; Caterer Meal Sheet Command Center | SeatHarmony</title>
   <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,600;0,700;1,600&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=JetBrains+Mono:wght@500;600;700&display=swap" rel="stylesheet" />
   <style>
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
@@ -385,20 +404,20 @@ function attachVaultAndPaywallRoutes(app, publicUrl, ebStore = null) {
             <div style="display:flex;gap:6px;flex-wrap:wrap;align-items:center;margin-bottom:4px;">
               <span class="mono" style="font-size:0.68rem;font-weight:800;color:#8C2D19;background:#FAF3E3;border:1px solid #C8A96E;padding:2px 8px;border-radius:999px;white-space:nowrap;">&#10022; ${escapeHtml(vault.venueName)}</span>
               <span class="mono" style="font-size:0.68rem;font-weight:800;color:#065F46;background:#ECFDF5;border:1px solid #A7F3D0;padding:2px 8px;border-radius:999px;white-space:nowrap;">${tables.length} Tables &bull; ${guests.length} Guests</span>
-              <span class="mono" style="font-size:0.68rem;font-weight:700;color:#57534E;background:#F5F2EB;border:1px solid #D6CFC2;padding:2px 8px;border-radius:999px;white-space:nowrap;">${escapeHtml(vault.ownerEmail || 'test@seatharmony.com')}</span>
+              <span class="mono" style="font-size:0.68rem;font-weight:700;color:#57534E;background:#F5F2EB;border:1px solid #D6CFC2;padding:2px 8px;border-radius:999px;white-space:nowrap;">${escapeHtml(vault.ownerEmail || 'Guest Preview')}</span>
             </div>
             <h1 class="serif" style="font-size:2.05rem;color:#181412;line-height:1.1;">${escapeHtml(vault.title)}</h1>
             <div style="font-size:0.84rem;color:#44403C;margin-top:3px;">
               ${vault.isUnlocked
-                ? '&#10003; <strong>Complete Event Print &amp; Day-Of Execution Pack Unlocked:</strong> Unlimited 30-day edits &amp; 300-DPI exports active.'
-                : '&#128190; <strong>Saved Event Vault Active:</strong> Preview all 4 files below or unlock 300-DPI print-shop exports ($9 once).'}
+                ? '&#10003; <strong>Complete Event Print &amp; Day-Of Execution Pack Unlocked:</strong> Unlimited 30-day edits &amp; Print-Ready exports active.'
+                : `${VR_LOCK_SVG}<strong>Table 1 Free Sample Active:</strong> Enter your email above ($0) to unmask Tables 2&ndash;8 Meal Sheet, or unlock the $7 Event Print Pack.`}
             </div>
           </div>
         </div>
         <div style="display:flex;gap:8px;flex-wrap:wrap;">
           <a href="${urls.studio}" class="btn btn-outline">&larr; Edit Floorplan in Studio</a>
-          <a href="${urls.print_beo}" class="btn btn-gold">&#127869; Caterer BEO &amp; CSV &rarr;</a>
-          ${!vault.isUnlocked ? `<a href="/buy/complete_dossier?target=${encodeURIComponent(vault.vaultId)}&vault=${encodeURIComponent(vault.vaultId)}&allow_promotion_codes=false" class="btn btn-gold">&#10022; Unlock Event Print Pack ($9) &rarr;</a>` : ''}
+          <a href="${urls.print_beo}" class="btn btn-gold">${VR_CLIP_SVG}Caterer Meal Sheet &amp; CSV &rarr;</a>
+          ${!vault.isUnlocked ? `<a href="/buy/complete_dossier?target=${encodeURIComponent(vault.vaultId)}&vault=${encodeURIComponent(vault.vaultId)}&allow_promotion_codes=false" class="btn btn-gold">${VR_LOCK_SVG}Unlock Event Print Pack ($7) &rarr;</a>` : ''}
         </div>
       </div>
       <!-- At-a-Glance Kitchen & Reception KPI Strip -->
@@ -407,8 +426,8 @@ function attachVaultAndPaywallRoutes(app, publicUrl, ebStore = null) {
         <div style="background:#F0F9FF;border:1px solid #BAE6FD;padding:9px 12px;border-radius:10px;"><div class="mono" style="font-size:0.65rem;font-weight:800;color:#0369A1;">&#9679; HALIBUT</div><div style="font-size:1.25rem;font-weight:800;">${fishCount} Covers</div></div>
         <div style="background:#ECFDF5;border:1px solid #A7F3D0;padding:9px 12px;border-radius:10px;"><div class="mono" style="font-size:0.65rem;font-weight:800;color:#065F46;">&#9650; VEGAN RISOTTO</div><div style="font-size:1.25rem;font-weight:800;">${veganCount} Covers</div></div>
         <div style="background:#FFFBEB;border:1px solid #FDE68A;padding:9px 12px;border-radius:10px;"><div class="mono" style="font-size:0.65rem;font-weight:800;color:#A16207;">&#9733; KIDS MEALS</div><div style="font-size:1.25rem;font-weight:800;">${kidsCount} ${kidsCount === 1 ? 'Cover' : 'Covers'}</div></div>
-        <div style="background:#FFF1F2;border:1px solid #FECDD3;padding:9px 12px;border-radius:10px;"><div class="mono" style="font-size:0.65rem;font-weight:800;color:#9F1239;">&#9888; ALLERGY ALERTS</div><div style="font-size:1.25rem;font-weight:800;color:#9F1239;">${allergyCount} Guests</div></div>
-        <div style="background:#FAF3E3;border:1px solid #C8A96E;padding:9px 12px;border-radius:10px;"><div class="mono" style="font-size:0.65rem;font-weight:800;color:#78350F;">&#9855; CHAIR MODS</div><div style="font-size:1.25rem;font-weight:800;color:#78350F;">${chairModCount} Chairs</div></div>
+        <div style="background:#FFF1F2;border:1px solid #FECDD3;padding:9px 12px;border-radius:10px;"><div class="mono" style="font-size:0.65rem;font-weight:800;color:#9F1239;">ALLERGY ALERTS</div><div style="font-size:1.25rem;font-weight:800;color:#9F1239;">${allergyCount} Guests</div></div>
+        <div style="background:#FAF3E3;border:1px solid #C8A96E;padding:9px 12px;border-radius:10px;"><div class="mono" style="font-size:0.65rem;font-weight:800;color:#78350F;">CHAIR MODS</div><div style="font-size:1.25rem;font-weight:800;color:#78350F;">${chairModCount} Chairs</div></div>
       </div>
     </div>
 
@@ -423,11 +442,11 @@ function attachVaultAndPaywallRoutes(app, publicUrl, ebStore = null) {
           </div>
           <h2 class="serif" style="font-size:1.5rem;margin-bottom:6px;">Print-Ready 24&Prime;&times;36&Prime; Welcome Poster</h2>
           <p style="font-size:0.86rem;color:#44403C;line-height:1.5;">
-            300-DPI vector poster for FedEx Office or Staples across <strong>6 Luxury Themes</strong>, with A-Z or By-Table sorting and live monogram editing.
+            Print-Ready vector poster for FedEx Office or Staples across <strong>6 Luxury Themes</strong>, with A-Z or By-Table sorting and live monogram editing.
           </p>
         </div>
         <div style="display:flex;gap:6px;flex-wrap:nowrap;">
-          <a href="${urls.print_poster}" class="btn btn-gold">&#128424; Open 24&Prime;&times;36&Prime; Studio &rarr;</a>
+          <a href="${urls.print_poster}" class="btn btn-gold">${VR_PRINT_SVG}Open 24&Prime;&times;36&Prime; Studio &rarr;</a>
           <a href="${urls.print_poster}?theme=obsidian" class="btn btn-outline" style="padding:8px 11px;">Noir</a>
           <a href="${urls.print_poster}?theme=sage" class="btn btn-outline" style="padding:8px 11px;">Tuscan Sage</a>
           <a href="${urls.print_poster}?theme=rosewater" class="btn btn-outline" style="padding:8px 11px;">Rosewater</a>
@@ -447,43 +466,43 @@ function attachVaultAndPaywallRoutes(app, publicUrl, ebStore = null) {
           </p>
         </div>
         <div style="display:flex;gap:8px;flex-wrap:wrap;">
-          <a href="${urls.print_avery}" class="btn btn-gold">&#127991; Open Avery 5302 Print Sheet (${guests.length} Cards) &rarr;</a>
+          <a href="${urls.print_avery}" class="btn btn-gold">${VR_PRINT_SVG}Open Avery 5302 Print Sheet (${guests.length} Cards) &rarr;</a>
         </div>
       </div>
 
-      <!-- Card 3: Clockwise 12:00 Caterer BEO Packet -->
+      <!-- Card 3: Clockwise 12:00 Caterer Meal Sheet Packet -->
       <div class="card" style="display:flex;flex-direction:column;justify-content:space-between;gap:14px;">
         <div>
           <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:8px;">
-            <span class="mono" style="font-size:0.68rem;font-weight:800;color:#065F46;background:#ECFDF5;border:1px solid #A7F3D0;padding:3px 10px;border-radius:999px;white-space:nowrap;">DELIVERABLE 3 &middot; CLOCKWISE 12:00 BEO</span>
+            <span class="mono" style="font-size:0.68rem;font-weight:800;color:#065F46;background:#ECFDF5;border:1px solid #A7F3D0;padding:3px 10px;border-radius:999px;white-space:nowrap;">DELIVERABLE 3 &middot; CLOCKWISE 12:00 MEAL SHEET</span>
             <span style="font-size:0.75rem;font-weight:800;color:#065F46;white-space:nowrap;">Seat #1 = 12 O&rsquo;Clock</span>
           </div>
-          <h2 class="serif" style="font-size:1.5rem;margin-bottom:6px;">Banquet Captain &amp; Kitchen BEO Packet</h2>
+          <h2 class="serif" style="font-size:1.5rem;margin-bottom:6px;">Banquet Captain &amp; Kitchen Meal Sheet Packet</h2>
           <p style="font-size:0.86rem;color:#44403C;line-height:1.5;">
             Table-by-table clockwise server manifest with protein totals, red kitchen allergy alerts, wheelchair/highchair tags, and 1-click CSV export.
           </p>
         </div>
         <div style="display:flex;gap:8px;flex-wrap:wrap;">
-          <a href="${urls.print_beo}" class="btn btn-gold">&#127869; Open Printable Caterer BEO &rarr;</a>
-          <a href="${urls.print_beo}#download-csv" class="btn btn-outline">&#11015; Export BEO (.CSV)</a>
+          <a href="${urls.print_beo}" class="btn btn-gold">${VR_CLIP_SVG}Open Printable Caterer Meal Sheet &rarr;</a>
+          <a href="${urls.print_beo}#download-csv" class="btn btn-outline">&darr; Export Meal Sheet (.CSV)</a>
         </div>
       </div>
 
-      <!-- Card 4: Cocktail-Hour Mobile QR Lookup & Mom Sandbox -->
+      <!-- Card 4: Cocktail-Hour Mobile QR Lookup & Family Share -->
       <div class="card" style="display:flex;flex-direction:column;justify-content:space-between;gap:14px;">
         <div style="display:flex;gap:14px;align-items:flex-start;">
           <img src="${qrImgUrl}" width="84" height="84" alt="Scannable Cocktail Hour QR Code" style="border-radius:10px;border:1.5px solid #C8A96E;background:#FAF6EE;padding:4px;flex-shrink:0;" />
           <div>
-            <span class="mono" style="font-size:0.68rem;font-weight:800;color:#78350F;background:#FAF3E3;border:1px solid #C8A96E;padding:2px 8px;border-radius:999px;white-space:nowrap;">DELIVERABLE 4 &middot; LIVE QR &amp; MOM SANDBOX</span>
-            <h2 class="serif" style="font-size:1.45rem;margin:4px 0;">Cocktail-Hour QR App &amp; Mom Link</h2>
+            <span class="mono" style="font-size:0.68rem;font-weight:800;color:#78350F;background:#FAF3E3;border:1px solid #C8A96E;padding:2px 8px;border-radius:999px;white-space:nowrap;">DELIVERABLE 4 &middot; LIVE QR &amp; FAMILY SHARE</span>
+            <h2 class="serif" style="font-size:1.45rem;margin:4px 0;">Cocktail-Hour QR App &amp; Family Link</h2>
             <p style="font-size:0.84rem;color:#44403C;line-height:1.48;">
-              Scan with your phone to test instant cocktail-hour guest seat lookup, or copy your restricted Mom Sandbox link (Tables 1 to 3 only).
+              Scan with your phone to test instant cocktail-hour guest seat lookup, or copy your restricted Family Share link (Tables 1 to 3 only).
             </p>
           </div>
         </div>
         <div style="display:flex;gap:8px;flex-wrap:wrap;">
-          <a href="${urls.qr_lookup}" target="_blank" class="btn btn-gold">&#128241; Open Mobile QR Lookup &nearr;</a>
-          <button type="button" class="btn btn-outline" onclick="navigator.clipboard.writeText('${urls.mom_sandbox}');this.textContent='✓ Mom Sandbox Link Copied!';">&#128117; Copy Mom Sandbox Link</button>
+          <a href="${urls.qr_lookup}" target="_blank" class="btn btn-gold">Open Mobile QR Lookup &nearr;</a>
+          <button type="button" class="btn btn-outline" onclick="navigator.clipboard.writeText('${urls.mom_sandbox}');this.textContent='✓ Family Share Link Copied!';">Copy Family Share Link</button>
         </div>
       </div>
     </div>
@@ -500,9 +519,12 @@ function attachVaultAndPaywallRoutes(app, publicUrl, ebStore = null) {
       <div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(250px,1fr));gap:12px;">
         ${tables.map((t, idx) => {
           const gList = t.guests || [];
+          if (idx >= 1 && !vault.isUnlocked) {
+            return `<div style="background:#FAF8F5;border:1px dashed #C8A96E;border-radius:12px;padding:11px 13px;"><div style="display:flex;justify-content:space-between;align-items:center;gap:6px;margin-bottom:7px;"><strong style="font-size:0.84rem;color:#181412;">${escapeHtml(t.name || `Table ${idx + 1}`)}</strong><span class="mono" style="font-size:0.68rem;color:#78350F;font-weight:800;">${VR_LOCK_SVG}${gList.length}/${t.capacity || 8} Seats</span></div><div style="font-size:0.74rem;color:#57534E;font-weight:700;">${VR_LOCK_SVG}Enter email above ($0) or unlock $7 Print Pack to view Table ${idx + 1} guest roster.</div></div>`;
+          }
           const chips = gList.slice(0, 4).map(g => `<span style="font-size:0.72rem;font-weight:600;color:#44403C;background:#FFFFFF;border:1px solid #E2D9C8;padding:2px 7px;border-radius:6px;white-space:nowrap;">${escapeHtml(g.name)}</span>`).join('');
           const moreBadge = gList.length > 4 ? `<span class="mono" style="font-size:0.68rem;font-weight:800;color:#78350F;background:#FAF3E3;border:1px solid #C8A96E;padding:2px 6px;border-radius:6px;white-space:nowrap;">+${gList.length - 4} more</span>` : '';
-          return `<div style="background:#FAF8F5;border:1px solid #E2D9C8;border-radius:12px;padding:11px 13px;"><div style="display:flex;justify-content:space-between;align-items:center;gap:6px;margin-bottom:7px;"><strong style="font-size:0.84rem;color:#181412;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;">${escapeHtml(t.name || `Table ${idx + 1}`)}</strong><span class="mono" style="font-size:0.68rem;color:#065F46;font-weight:800;white-space:nowrap;flex-shrink:0;">${gList.length}/${t.capacity || 8} Seats</span></div><div style="display:flex;flex-wrap:wrap;gap:4px;">${chips || '<span style="font-size:0.74rem;color:#78716C;">Open Table</span>'}${moreBadge}</div></div>`;
+          return `<div style="background:#FAF8F5;border:1px solid #E2D9C8;border-radius:12px;padding:11px 13px;"><div style="display:flex;justify-content:space-between;align-items:center;gap:6px;margin-bottom:7px;"><strong style="font-size:0.84rem;color:#181412;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;">${escapeHtml(t.name || `Table ${idx + 1}`)} (Free Sample)</strong><span class="mono" style="font-size:0.68rem;color:#065F46;font-weight:800;white-space:nowrap;flex-shrink:0;">${gList.length}/${t.capacity || 8} Seats</span></div><div style="display:flex;flex-wrap:wrap;gap:4px;">${chips || '<span style="font-size:0.74rem;color:#78716C;">Open Table</span>'}${moreBadge}</div></div>`;
         }).join('')}
       </div>
     </div>
@@ -547,17 +569,31 @@ function attachVaultAndPaywallRoutes(app, publicUrl, ebStore = null) {
 
       let bodyGridHtml = '';
       if (sortMode === 'by_table') {
-        bodyGridHtml = tables.map((t, idx) => `
+        bodyGridHtml = tables.map((t, idx) => {
+          if (idx >= 1 && !vault.isUnlocked) {
+            return `
+            <div style="border-bottom:1px solid rgba(200,169,110,0.35);padding-bottom:12px;">
+              <div class="serif" style="font-size:1.35rem;color:${accent};margin-bottom:6px;border-bottom:1px solid ${border};padding-bottom:3px;">
+                Table ${t.number || (idx + 1)} &middot; ${escapeHtml(t.name || '')}
+              </div>
+              <div style="font-size:0.82rem;font-weight:700;color:${sub};padding:8px;border-radius:8px;background:rgba(200,169,110,0.12);border:1px dashed ${border};">
+                ${VR_LOCK_SVG}${(t.guests || []).length} Seated Guests &mdash; Enter Email Above ($0) or Unlock $7 Print Pack
+              </div>
+            </div>`;
+          }
+          return `
           <div style="border-bottom:1px solid rgba(200,169,110,0.35);padding-bottom:12px;">
             <div class="serif" style="font-size:1.35rem;color:${accent};margin-bottom:6px;border-bottom:1px solid ${border};padding-bottom:3px;">
-              Table ${t.number || (idx + 1)} &middot; ${escapeHtml(t.name || '')}
+              Table ${t.number || (idx + 1)} &middot; ${escapeHtml(t.name || '')}${!vault.isUnlocked ? ' (Free Sample)' : ''}
             </div>
             ${(t.guests || []).map(g => `<div style="font-size:0.92rem;padding:2px 0;display:flex;justify-content:space-between;"><span>${escapeHtml(g.name)}</span><span style="font-size:0.75rem;color:${sub};">${escapeHtml(g.role || '')}</span></div>`).join('')}
           </div>
-        `).join('');
+        `;
+        }).join('');
       } else {
+        const visibleGuests = vault.isUnlocked ? guests : guests.filter(g => g.tableNumber === 1);
         const groups = {};
-        guests.forEach(g => {
+        visibleGuests.forEach(g => {
           const letter = (g.lastName[0] || 'A').toUpperCase();
           if (!groups[letter]) groups[letter] = [];
           groups[letter].push(g);
@@ -568,11 +604,11 @@ function attachVaultAndPaywallRoutes(app, publicUrl, ebStore = null) {
             ${groups[letter].map(g => `
               <div style="display:flex;justify-content:space-between;gap:8px;font-size:0.90rem;padding:2px 0;border-bottom:1px dotted rgba(200,169,110,0.3);">
                 <span><strong>${escapeHtml(g.lastName)}</strong>${g.posterRestName ? `, ${escapeHtml(g.posterRestName)}` : ''}</span>
-                <span class="mono" style="font-weight:700;color:${accent};">Table ${g.tableNumber}</span>
+                <span class="mono" style="font-weight:700;color:${accent};">Table ${g.tableNumber}${!vault.isUnlocked ? ' (Sample)' : ''}</span>
               </div>
             `).join('')}
           </div>
-        `).join('');
+        `).join('') + (!vault.isUnlocked ? `<div style="grid-column:1 / -1;padding:14px 16px;border-radius:12px;background:rgba(200,169,110,0.12);border:1.5px dashed ${border};font-size:0.86rem;font-weight:800;color:${fg};display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:10px;"><span>${VR_LOCK_SVG}Tables 2&ndash;${tables.length} Guest Names (${Math.max(0, guests.length - visibleGuests.length)} Additional Seated Guests) &mdash; Enter Email Above ($0) or Unlock $7 Print Pack</span><a href="/buy/complete_dossier?target=${encodeURIComponent(vault.vaultId)}&vault=${encodeURIComponent(vault.vaultId)}&allow_promotion_codes=false" style="background:#181412;color:#FDE68A;border:1px solid ${border};border-radius:999px;padding:6px 12px;font-size:0.78rem;text-decoration:none;">${VR_LOCK_SVG}Unlock 24&Prime;&times;36&Prime; Print Pack ($7) &rarr;</a></div>` : '');
       }
 
       const extraPosterQs = `&kicker=${encodeURIComponent(customKicker)}&monogram=${encodeURIComponent(monogramInputVal)}`;
@@ -638,14 +674,14 @@ function attachVaultAndPaywallRoutes(app, publicUrl, ebStore = null) {
         <span class="mono" style="font-size:0.68rem;color:#8C2D19;font-weight:800;white-space:nowrap;">SORT:</span>
         <a href="${urls.print_poster}?sort=alphabetical&theme=${encodeURIComponent(theme)}&map=${showMap ? '1' : '0'}${extraPosterQs}" style="padding:5px 10px;border-radius:999px;font-size:0.72rem;font-weight:800;text-decoration:none;white-space:nowrap;${sortMode !== 'by_table' ? 'background:#FAF3E3;color:#8C2D19;border:1.5px solid #8C2D19;' : 'background:#FAF6EE;color:#44403C;border:1px solid #E2D9C8;'}">Sort A-Z</a>
         <a href="${urls.print_poster}?sort=by_table&theme=${encodeURIComponent(theme)}&map=${showMap ? '1' : '0'}${extraPosterQs}" style="padding:5px 10px;border-radius:999px;font-size:0.72rem;font-weight:800;text-decoration:none;white-space:nowrap;${sortMode === 'by_table' ? 'background:#FAF3E3;color:#8C2D19;border:1.5px solid #8C2D19;' : 'background:#FAF6EE;color:#44403C;border:1px solid #E2D9C8;'}">By Table (1..${tables.length})</a>
-        <button type="button" onclick="var m=document.getElementById('poster-mini-map-wrap');var on=m.style.display==='none';m.style.display=on?'block':'none';this.textContent='🗺 Mini Layout: '+(on?'ON':'OFF');" style="padding:5px 10px;border-radius:999px;font-size:0.72rem;font-weight:800;cursor:pointer;background:#FAF3E3;color:#8C2D19;border:1.5px solid #8C2D19;">&#128506; Mini Layout: ${showMap ? 'ON' : 'OFF'}</button>
+        <button type="button" onclick="var m=document.getElementById('poster-mini-map-wrap');var on=m.style.display==='none';m.style.display=on?'block':'none';this.textContent='Mini Layout: '+(on?'ON':'OFF');" style="padding:5px 10px;border-radius:999px;font-size:0.72rem;font-weight:800;cursor:pointer;background:#FAF3E3;color:#8C2D19;border:1.5px solid #8C2D19;">&#8862; Mini Layout: ${showMap ? 'ON' : 'OFF'}</button>
         <span class="mono" style="font-size:0.68rem;color:#8C2D19;font-weight:800;margin-left:4px;white-space:nowrap;">THEMES:</span>
         ${themePillsHtml}
       </div>
       <div style="display:flex;gap:6px;align-items:center;flex-wrap:wrap;">
         ${vault.isUnlocked
-          ? `<button type="button" onclick="window.print()" style="background:linear-gradient(135deg,#FDE68A,#C8A96E);color:#181412;border:1.5px solid #B89352;border-radius:10px;padding:8px 14px;font-weight:800;font-size:0.78rem;cursor:pointer;white-space:nowrap;">&#128424; Print 24&Prime;&times;36&Prime; PDF</button>`
-          : `<a href="${buyPackUrl}" style="background:linear-gradient(135deg,#FDE68A,#C8A96E);color:#181412;border:1.5px solid #B89352;border-radius:10px;padding:8px 14px;font-weight:800;font-size:0.78rem;text-decoration:none;white-space:nowrap;">&#128275; Unlock 300-DPI Print PDF ($14.99) &rarr;</a><button type="button" onclick="window.print()" style="background:#FAF6EE;color:#57534E;border:1px solid #D6CFC2;border-radius:10px;padding:8px 11px;font-weight:700;font-size:0.74rem;cursor:pointer;white-space:nowrap;">&#128424; Print Watermarked Proof</button>`}
+          ? `<button type="button" onclick="window.print()" style="background:linear-gradient(135deg,#FDE68A,#C8A96E);color:#181412;border:1.5px solid #B89352;border-radius:10px;padding:8px 14px;font-weight:800;font-size:0.78rem;cursor:pointer;white-space:nowrap;">${VR_PRINT_SVG}Print 24&Prime;&times;36&Prime; PDF</button>`
+          : `<a href="${buyPackUrl}" style="background:linear-gradient(135deg,#FDE68A,#C8A96E);color:#181412;border:1.5px solid #B89352;border-radius:10px;padding:8px 14px;font-weight:800;font-size:0.78rem;text-decoration:none;white-space:nowrap;">${VR_LOCK_SVG}Unlock Print-Ready PDF ($7) &rarr;</a><button type="button" onclick="window.print()" style="background:#FAF6EE;color:#57534E;border:1px solid #D6CFC2;border-radius:10px;padding:8px 11px;font-weight:700;font-size:0.74rem;cursor:pointer;white-space:nowrap;">${VR_PRINT_SVG}Print Sample Proof</button>`}
       </div>
     </div>
     <div style="display:flex;gap:10px;flex-wrap:wrap;align-items:center;font-size:0.75rem;color:#44403C;">
@@ -728,22 +764,23 @@ function attachVaultAndPaywallRoutes(app, publicUrl, ebStore = null) {
       const guests = extractAllSeatedGuests(vault.state);
       const monogram = computeMonogram(vault.title);
 
-      const cardsHtml = guests.map(g => {
+      const visibleAveryGuests = vault.isUnlocked ? guests : guests.slice(0, 1);
+      const cardsHtml = visibleAveryGuests.map((g, gIdx) => {
         const mealInfo = mealSymbolInfo(g.meal);
         const hasAllergy = g.allergy && g.allergy !== 'None';
-        const cleanAccess = String(g.accessibility || '').replace(/^[♿👶\s]+/, '').trim();
+        const cleanAccess = String(g.accessibility || '').replace(/[^A-Za-z0-9\s()-]/g, '').trim();
         const hasChairMod = cleanAccess && cleanAccess !== 'Standard Chair';
         return `
         <div class="tent-card">
           <div class="tent-back">
             <div style="display:flex;justify-content:space-between;align-items:center;width:100%;">
-              <span class="mono" style="font-size:0.65rem;font-weight:800;color:#57534E;white-space:nowrap;">TBL ${g.tableNumber} &bull; SEAT #${g.seatNumber} (${escapeHtml(g.clockLabel)})</span>
+              <span class="mono" style="font-size:0.65rem;font-weight:800;color:#57534E;white-space:nowrap;">TBL ${g.tableNumber} &bull; SEAT #${g.seatNumber} (${escapeHtml(g.clockLabel)})${gIdx === 0 && !vault.isUnlocked ? ' &bull; FREE SAMPLE' : ''}</span>
               <span class="mono" style="font-size:0.68rem;font-weight:800;color:${mealInfo.color};white-space:nowrap;">${mealInfo.sym} ${escapeHtml(mealInfo.code)}</span>
             </div>
             <div style="margin-top:4px;font-size:0.74rem;font-weight:800;color:${hasAllergy ? '#B91C1C' : '#065F46'};white-space:nowrap;">
-              ${hasAllergy ? `&#9888; KITCHEN ALERT: ${escapeHtml(g.allergy.toUpperCase())}` : '&#10003; Standard Kitchen Prep (No Allergy)'}
+              ${hasAllergy ? `KITCHEN ALERT: ${escapeHtml(g.allergy.toUpperCase())}` : '&#10003; Standard Kitchen Prep (No Allergy)'}
             </div>
-            ${hasChairMod ? `<div style="font-size:0.68rem;font-weight:800;color:#78350F;margin-top:2px;white-space:nowrap;">&#9855; CHAIR MOD: ${escapeHtml(cleanAccess.toUpperCase())}</div>` : ''}
+            ${hasChairMod ? `<div style="font-size:0.68rem;font-weight:800;color:#78350F;margin-top:2px;white-space:nowrap;">CHAIR MOD: ${escapeHtml(cleanAccess.toUpperCase())}</div>` : ''}
           </div>
           <div class="tent-fold-line"></div>
           <div class="tent-front">
@@ -758,7 +795,7 @@ function attachVaultAndPaywallRoutes(app, publicUrl, ebStore = null) {
             </div>
           </div>
         </div>`;
-      }).join('');
+      }).join('') + (!vault.isUnlocked ? `<div class="tent-card" style="padding:18px;display:flex;flex-direction:column;justify-content:center;gap:8px;background:#FAF6EE;border:2px dashed #C8A96E;"><div style="font-size:0.86rem;font-weight:800;color:#78350F;">${VR_LOCK_SVG}Place Cards #2&ndash;${guests.length} (Avery 5302 Folded Tent Sheet)</div><div style="font-size:0.78rem;color:#44403C;">Card #1 shown as Free Sample Proof. Enter your email above ($0) or unlock the $7 Event Print Pack to print all ${guests.length} place cards.</div></div>` : '');
 
       const buyPackUrl = `/buy/complete_dossier?target=${encodeURIComponent(vault.title || vault.vaultId)}&vault=${encodeURIComponent(vault.vaultId)}${vault.ownerEmail ? `&email=${encodeURIComponent(vault.ownerEmail)}` : ''}`;
       const html = `<!DOCTYPE html>
@@ -796,11 +833,11 @@ function attachVaultAndPaywallRoutes(app, publicUrl, ebStore = null) {
     </div>
     <div style="display:flex;gap:6px;align-items:center;flex-wrap:wrap;">
       ${vault.isUnlocked
-        ? `<button type="button" onclick="window.print()" style="background:#181412;color:#FDE68A;border:1.5px solid #C8A96E;border-radius:10px;padding:9px 16px;font-weight:800;font-size:0.80rem;cursor:pointer;white-space:nowrap;">&#128424; Print All ${guests.length} Avery 5302 Cards (PDF)</button>`
-        : `<a href="${buyPackUrl}" style="background:#181412;color:#FDE68A;border:1.5px solid #C8A96E;border-radius:10px;padding:9px 16px;font-weight:800;font-size:0.80rem;text-decoration:none;white-space:nowrap;">&#128275; Unlock Avery 5302 Print Pack ($14.99) &rarr;</a><button type="button" onclick="window.print()" style="background:#FAF6EE;color:#57534E;border:1px solid #D6CFC2;border-radius:10px;padding:9px 12px;font-weight:700;font-size:0.74rem;cursor:pointer;white-space:nowrap;">&#128424; Print Watermarked Proof</button>`}
+        ? `<button type="button" onclick="window.print()" style="background:#181412;color:#FDE68A;border:1.5px solid #C8A96E;border-radius:10px;padding:9px 16px;font-weight:800;font-size:0.80rem;cursor:pointer;white-space:nowrap;">${VR_PRINT_SVG}Print All ${guests.length} Avery 5302 Cards (PDF)</button>`
+        : `<a href="${buyPackUrl}" style="background:#181412;color:#FDE68A;border:1.5px solid #C8A96E;border-radius:10px;padding:9px 16px;font-weight:800;font-size:0.80rem;text-decoration:none;white-space:nowrap;">${VR_LOCK_SVG}Unlock Avery 5302 Print Pack ($7) &rarr;</a><button type="button" onclick="window.print()" style="background:#FAF6EE;color:#57534E;border:1px solid #D6CFC2;border-radius:10px;padding:9px 12px;font-weight:700;font-size:0.74rem;cursor:pointer;white-space:nowrap;">${VR_PRINT_SVG}Print Sample Proof</button>`}
     </div>
   </div>
-  ${vault.isUnlocked ? '' : '<div class="proof-wm" aria-hidden="true"><span>PREVIEW PROOF &bull; UNLOCK AVERY 5302 PACK ($14.99) AT SEATHARMONY.COM</span></div>'}
+  ${vault.isUnlocked ? '' : '<div class="proof-wm" aria-hidden="true"><span>PREVIEW PROOF &bull; UNLOCK AVERY 5302 PACK ($7) AT SEATHARMONY.COM</span></div>'}
   <div class="sheet-grid">${cardsHtml}</div>
 </body>
 </html>`;
@@ -810,7 +847,7 @@ function attachVaultAndPaywallRoutes(app, publicUrl, ebStore = null) {
     }
   });
 
-  // 7. Signed Clockwise 12:00 Caterer BEO Packet (GET /print/beo/:vaultId)
+  // 7. Signed Clockwise 12:00 Caterer Meal Sheet Packet (GET /print/beo/:vaultId)
   app.get('/print/beo/:vaultId', async (req, res) => {
     try {
       const vault = await resolveVaultRecord(req.params.vaultId, req.query);
@@ -824,10 +861,22 @@ function attachVaultAndPaywallRoutes(app, publicUrl, ebStore = null) {
       const kidsCount = guests.filter(g => mealSymbolInfo(g.meal).code === 'KIDS').length;
       const csvRowsJson = JSON.stringify([
         'Table,Clockwise_Seat,Clock_Position,Guest_Name,Entree,Allergy_Alert,Chair_Setup',
-        ...guests.map(g => `"${g.tableName}",Seat #${g.seatNumber},"${g.clockLabel}","${g.name}","${g.meal}","${g.allergy}","${g.accessibility}"`)
+        ...(vault.isUnlocked ? guests : guests.filter(g => g.tableNumber === 1)).map(g => `"${g.tableName}",Seat #${g.seatNumber},"${g.clockLabel}","${g.name}","${g.meal}","${g.allergy}","${g.accessibility}"`)
       ].join('\r\n')).replace(/</g, '\\u003c');
 
       const tableSheetsHtml = tables.map((t, idx) => {
+        if (idx >= 1 && !vault.isUnlocked) {
+          return `
+          <div style="background:#FAF8F5;border:1.5px dashed #00766C;border-radius:14px;padding:16px;margin-bottom:16px;break-inside:avoid;">
+            <div style="display:flex;justify-content:space-between;align-items:center;gap:8px;flex-wrap:wrap;">
+              <div>
+                <span class="mono" style="font-size:0.72rem;font-weight:800;color:#8C2D19;">TABLE ${t.number || (idx + 1)} &bull; ${escapeHtml((t.shape || 'round').toUpperCase())}</span>
+                <h3 class="serif" style="font-size:1.35rem;">${escapeHtml(t.name || `Table ${idx + 1}`)}</h3>
+              </div>
+              <span class="mono" style="font-size:0.75rem;font-weight:800;color:#065F46;background:#F0FDFA;border:1px solid #00766C;padding:5px 12px;border-radius:999px;">${VR_LOCK_SVG}Table ${t.number || (idx + 1)} Clockwise 12:00 Meal &amp; Allergy Roster (${(t.guests || []).length} Guests) &mdash; Enter Email Above ($0) or Unlock $7 Print Pack &uarr;</span>
+            </div>
+          </div>`;
+        }
         const seats = (t.geometry && Array.isArray(t.geometry.seats)) ? t.geometry.seats : [];
         const totalInTable = (t.guests || []).length || 8;
         const rowsHtml = (t.guests || []).map((g, sIdx) => {
@@ -841,7 +890,7 @@ function attachVaultAndPaywallRoutes(app, publicUrl, ebStore = null) {
             <td class="mono" style="padding:7px 10px;font-weight:800;white-space:nowrap;color:${sIdx === 0 ? '#8C2D19' : '#181412'};">Seat #${seatNumber} (${escapeHtml(clockLabel)})</td>
             <td style="padding:7px 10px;font-weight:700;white-space:nowrap;">${escapeHtml(g.name)}</td>
             <td style="padding:7px 10px;font-weight:700;white-space:nowrap;color:${mInfo.color};">${mInfo.sym} ${escapeHtml(g.meal || 'Filet Mignon')}</td>
-            <td style="padding:7px 10px;font-weight:800;white-space:nowrap;color:${hasAllergy ? '#B91C1C' : '#065F46'};">${hasAllergy ? `&#9888; ${escapeHtml(g.allergy)}` : 'None'}</td>
+            <td style="padding:7px 10px;font-weight:800;white-space:nowrap;color:${hasAllergy ? '#B91C1C' : '#065F46'};">${hasAllergy ? `Alert: ${escapeHtml(g.allergy)}` : 'None'}</td>
             <td style="padding:7px 10px;font-size:0.78rem;white-space:nowrap;color:#57534E;">${escapeHtml(g.accessibility || 'Standard Chair')}</td>
           </tr>`;
         }).join('');
@@ -850,10 +899,10 @@ function attachVaultAndPaywallRoutes(app, publicUrl, ebStore = null) {
         <div style="background:#FFFFFF;border:1.5px solid #E2D9C8;border-radius:14px;padding:16px;margin-bottom:16px;break-inside:avoid;">
           <div style="display:flex;justify-content:space-between;align-items:center;border-bottom:1.5px solid #181412;padding-bottom:8px;margin-bottom:10px;">
             <div>
-              <span class="mono" style="font-size:0.72rem;font-weight:800;color:#8C2D19;">TABLE ${t.number || (idx + 1)} &bull; ${escapeHtml((t.shape || 'round').toUpperCase())}</span>
+              <span class="mono" style="font-size:0.72rem;font-weight:800;color:#8C2D19;">TABLE ${t.number || (idx + 1)} &bull; ${escapeHtml((t.shape || 'round').toUpperCase())}${!vault.isUnlocked ? ' &bull; FREE SAMPLE PROOF' : ''}</span>
               <h3 class="serif" style="font-size:1.35rem;">${escapeHtml(t.name || `Table ${idx + 1}`)}</h3>
             </div>
-            <span class="mono" style="font-size:0.72rem;font-weight:800;background:#FAF3E3;border:1px solid #C8A96E;padding:4px 10px;border-radius:999px;white-space:nowrap;">&#128308; Seat #1 = 12:00 (Facing Dance Floor)</span>
+            <span class="mono" style="font-size:0.72rem;font-weight:800;background:#FAF3E3;border:1px solid #C8A96E;padding:4px 10px;border-radius:999px;white-space:nowrap;">&#9679; Seat #1 = 12:00 (Facing Dance Floor)</span>
           </div>
           <table style="width:100%;border-collapse:collapse;font-size:0.82rem;text-align:left;">
             <thead>
@@ -874,7 +923,7 @@ function attachVaultAndPaywallRoutes(app, publicUrl, ebStore = null) {
 <html lang="en">
 <head>
   <meta charset="UTF-8" /><meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Clockwise 12:00 Caterer BEO | ${escapeHtml(vault.title)}</title>
+  <title>Clockwise 12:00 Caterer Meal Sheet | ${escapeHtml(vault.title)}</title>
   <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,600;0,700;1,600&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=JetBrains+Mono:wght@500;600;700&display=swap" rel="stylesheet" />
   <style>
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
@@ -895,10 +944,10 @@ function attachVaultAndPaywallRoutes(app, publicUrl, ebStore = null) {
       </div>
       <div class="no-print" style="display:flex;gap:8px;flex-wrap:nowrap;flex-shrink:0;">
         <button id="download-csv" type="button" onclick="window.downloadBeoCsv()" style="background:#FFFFFF;color:#78350F;border:1.5px solid #C8A96E;border-radius:10px;padding:9px 14px;font-weight:800;font-size:0.78rem;cursor:pointer;white-space:nowrap;">
-          &#11015; Export .CSV
+          &darr; Export .CSV
         </button>
         <button type="button" onclick="window.print()" style="background:linear-gradient(135deg,#FDE68A,#C8A96E);color:#181412;border:1.5px solid #B89352;border-radius:10px;padding:9px 16px;font-weight:800;font-size:0.80rem;cursor:pointer;white-space:nowrap;">
-          &#128424; Print Signed BEO PDF
+          ${VR_PRINT_SVG}Print Signed Meal Sheet PDF
         </button>
       </div>
     </div>
@@ -907,8 +956,8 @@ function attachVaultAndPaywallRoutes(app, publicUrl, ebStore = null) {
       <div style="background:#F0F9FF;border:1.5px solid #BAE6FD;padding:10px 12px;border-radius:12px;text-align:center;"><div class="mono" style="font-size:0.66rem;font-weight:800;color:#0369A1;white-space:nowrap;">&#9679; HALIBUT</div><div style="font-size:1.35rem;font-weight:800;">${fishCount}</div></div>
       <div style="background:#ECFDF5;border:1.5px solid #A7F3D0;padding:10px 12px;border-radius:12px;text-align:center;"><div class="mono" style="font-size:0.66rem;font-weight:800;color:#065F46;white-space:nowrap;">&#9650; VEGAN RISOTTO</div><div style="font-size:1.35rem;font-weight:800;">${veganCount}</div></div>
       <div style="background:#FFFBEB;border:1.5px solid #FDE68A;padding:10px 12px;border-radius:12px;text-align:center;"><div class="mono" style="font-size:0.66rem;font-weight:800;color:#A16207;white-space:nowrap;">&#9733; KIDS MEALS</div><div style="font-size:1.35rem;font-weight:800;">${kidsCount}</div></div>
-      <div style="background:#FFF1F2;border:1.5px solid #FECDD3;padding:10px 12px;border-radius:12px;text-align:center;"><div class="mono" style="font-size:0.66rem;font-weight:800;color:#9F1239;white-space:nowrap;">&#9888; ALLERGY ALERTS</div><div style="font-size:1.35rem;font-weight:800;color:#9F1239;">${allergies.length}</div></div>
-      <div style="background:#FAF3E3;border:1.5px solid #C8A96E;padding:10px 12px;border-radius:12px;text-align:center;"><div class="mono" style="font-size:0.66rem;font-weight:800;color:#78350F;white-space:nowrap;">&#9855; CHAIR MODS</div><div style="font-size:1.35rem;font-weight:800;color:#78350F;">${chairMods.length}</div></div>
+      <div style="background:#FFF1F2;border:1.5px solid #FECDD3;padding:10px 12px;border-radius:12px;text-align:center;"><div class="mono" style="font-size:0.66rem;font-weight:800;color:#9F1239;white-space:nowrap;">ALLERGY ALERTS</div><div style="font-size:1.35rem;font-weight:800;color:#9F1239;">${allergies.length}</div></div>
+      <div style="background:#FAF3E3;border:1.5px solid #C8A96E;padding:10px 12px;border-radius:12px;text-align:center;"><div class="mono" style="font-size:0.66rem;font-weight:800;color:#78350F;white-space:nowrap;">CHAIR MODS</div><div style="font-size:1.35rem;font-weight:800;color:#78350F;">${chairMods.length}</div></div>
     </div>
     ${tableSheetsHtml}
   </main>
@@ -918,7 +967,7 @@ function attachVaultAndPaywallRoutes(app, publicUrl, ebStore = null) {
       var blob = new Blob([csv], { type: 'text/csv;charset=utf-8;' });
       var url = URL.createObjectURL(blob);
       var a = document.createElement('a');
-      a.href = url; a.download = 'seatharmony-clockwise-beo-${escapeHtml(vault.vaultId)}.csv';
+      a.href = url; a.download = 'seatharmony-clockwise-meal-sheet-${escapeHtml(vault.vaultId)}.csv';
       document.body.appendChild(a); a.click(); a.remove();
     };
   </script>
@@ -939,7 +988,8 @@ function attachVaultAndPaywallRoutes(app, publicUrl, ebStore = null) {
       const tables = Array.isArray(vault.state.tables) ? vault.state.tables : [];
       const monogram = computeMonogram(vault.title);
       const qrImgUrl = buildInlineQrDataUri(urls.qr_lookup);
-      const safeGuestsJson = JSON.stringify(guests).replace(/</g, '\\u003c');
+      const safeGuestsJson = JSON.stringify(vault.isUnlocked ? guests : guests.slice(0, 1)).replace(/</g, '\\u003c');
+      const totalSeatedCount = guests.length;
 
       const html = `<!DOCTYPE html>
 <html lang="en">
@@ -984,6 +1034,7 @@ function attachVaultAndPaywallRoutes(app, publicUrl, ebStore = null) {
         <button type="button" class="pill-btn" onclick="document.getElementById('qr-live-input').value='Table 2';renderQrGuests('Table 2');">Table 2</button>
       </div>
       <div id="qr-guest-list"></div>
+      ${vault.isUnlocked ? '' : `<div style="margin-top:10px;padding:12px 14px;border-radius:12px;background:#FAF6EE;border:1.5px dashed #C8A96E;font-size:0.82rem;font-weight:800;color:#78350F;">${VR_LOCK_SVG}+${Math.max(0, totalSeatedCount - 1)} Additional Seated Guests (Tables 2&ndash;${tables.length} Live Phone Lookup) &mdash; Enter Email Above ($0) or Unlock $7 Print Pack &uarr;</div>`}
     </div>
 
     <div style="min-width:0;background:#FFFFFF;border:1.5px solid #D8C29D;border-radius:22px;padding:22px;color:#181412;box-shadow:0 12px 32px rgba(24,20,18,0.06);">
@@ -1011,13 +1062,13 @@ function attachVaultAndPaywallRoutes(app, publicUrl, ebStore = null) {
       var matches = nameMatches.length ? nameMatches : GUESTS.filter(function(g) { return g.tableName.toLowerCase().includes(clean) || ('table ' + g.tableNumber).includes(clean); });
       var box = document.getElementById('qr-guest-list');
       if (!matches.length) {
-        box.innerHTML = '<div style="text-align:center;padding:20px;color:#78716C;font-size:0.9rem;">No guest found matching "' + clean.replace(/[<>"']/g, '') + '".</div>';
+        box.innerHTML = '<div style="text-align:center;padding:20px;color:#78716C;font-size:0.9rem;">Guest #1 shown as Free Sample Proof. Enter your email above ($0) to unlock all seated guests.</div>';
         return;
       }
-      box.innerHTML = matches.slice(0, 8).map(function(g) {
+      box.innerHTML = matches.slice(0, 8).map(function(g, idx) {
         return '<div class="guest-card">' +
           '<div style="min-width:0;">' +
-            '<div style="font-weight:800;font-size:1rem;color:#181412;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;">' + g.name + '</div>' +
+            '<div style="font-weight:800;font-size:1rem;color:#181412;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;">' + g.name + (idx === 0 ? ' (Free Sample Proof)' : '') + '</div>' +
             '<div style="font-size:0.78rem;color:#57534E;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;">' + g.tableName + ' &bull; ' + g.meal + '</div>' +
           '</div>' +
           '<div style="text-align:right;background:#FAF3E3;color:#78350F;border:1.5px solid #C8A96E;padding:6px 12px;border-radius:10px;flex-shrink:0;white-space:nowrap;">' +

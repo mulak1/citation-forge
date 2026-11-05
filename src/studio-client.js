@@ -326,7 +326,7 @@ function renderInteractiveScript(initialPlan) {
     if (!tbl) return;
     window.__SH_SELECTED_LANDMARK_IDX = null;
     window.__SH_SELECTED_TABLE_IDX = tIdx;
-    if (window.__SH_SANDBOX_MOM && tIdx >= 3 && !tbl.isUserAdded) { shToast('🔒 Family Share Mode: Tables 4-8 are locked.'); shRenderAll(); return; }
+    if (window.__SH_SANDBOX_MOM && tIdx >= 3 && !tbl.isUserAdded) { shToast('[Locked] Family Share Mode: Tables 4-8 are locked.'); shRenderAll(); return; }
     const svgEl = document.getElementById('sh-floorplan-svg');
     window.__SH_DRAG_VIEWBOX = svgEl ? svgEl.getAttribute('viewBox') : '0 0 1120 680';
     const fastCoord = (svgEl && window.shFastSvgTransform) ? window.shFastSvgTransform(svgEl) : shSvgCoord;
@@ -428,7 +428,7 @@ function renderInteractiveScript(initialPlan) {
     if (ev) ev.stopPropagation();
     const targetIdx = Number(toTIdx);
     if (isNaN(targetIdx) || fromTIdx === targetIdx) return;
-    if (window.__SH_SANDBOX_MOM && (fromTIdx >= 3 || targetIdx >= 3)) { shToast('🔒 Mom Sandbox Active: Tables 4-8 are locked.'); return; }
+    if (window.__SH_SANDBOX_MOM && (fromTIdx >= 3 || targetIdx >= 3)) { shToast('[Locked] Family Share Mode: Tables 4-8 are locked.'); return; }
     const srcTbl = window.__SH_STATE.tables[fromTIdx], dstTbl = window.__SH_STATE.tables[targetIdx];
     if (!srcTbl || !dstTbl || !srcTbl.guests[gIdx]) return;
     const movedGuest = srcTbl.guests.splice(gIdx, 1)[0];
