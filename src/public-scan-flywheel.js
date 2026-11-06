@@ -38,13 +38,13 @@ const FLYWHEEL_SEED = {
     cnnSensorLabel: 'Reception Floorplan, Family Sightlines & Caterer BEO Check',
     inputPlaceholder: 'estate-150, tuscan-banquet-80, or venue name...',
     entities: [
-      { target: 'estate-150', grade: 'A+', score: 98, status: 'HALL_OF_FAME', kpi1: '98/100 Room Harmony', kpi2: '24"×36" Poster + BEO Ready', cnnReadout: '0 Family Sightline Conflicts • 26/26 Households Coupled', issue: 'Divorced Parents Separated 410px • Clockwise BEO Ready' },
-      { target: 'tuscan-banquet-80', grade: 'A+', score: 99, status: 'HALL_OF_FAME', kpi1: '99/100 Room Harmony', kpi2: '2-Sided Banquet + King’s', cnnReadout: '100% Coupled Households • Courtyard String-Light Geometry', issue: 'Alphabetical A-Z 24"×36" Welcome Sign Ready' },
-      { target: 'planner-beo-sandbox', grade: 'A+', score: 98, status: 'HALL_OF_FAME', kpi1: 'Mom Sandbox Active', kpi2: 'Clockwise Seat 1..N BEO', cnnReadout: 'Tables 1-3 Unlocked for Mom • Tables 4-8 Planner Locked', issue: '4 Severe Allergies & 2 Wheelchair/Highchair Mods Indexed' },
-      { target: 'vip-exec-dinner', grade: 'A', score: 97, status: 'HALL_OF_FAME', kpi1: '1 AE + 5 Buyers/Table', kpi2: '0 Competitors Together', cnnReadout: '97.4% Executive Networking Chemistry', issue: 'Between-Course Seat Rotation Enabled' },
-      { target: 'charity-gala-300', grade: 'A', score: 96, status: 'HALL_OF_FAME', kpi1: '30 Sponsor Captains', kpi2: 'Paddles #101-#300', cnnReadout: '96.2% Check-In Kiosk & QR Lookup Speed', issue: 'VIP Board Host Seats Assigned' },
-      { target: 'zola-manual-chart', grade: 'C', score: 64, status: 'WALL_OF_SHAME', kpi1: 'Manual Drag Only', kpi2: 'No 24"×36" Print Sign', cnnReadout: '58.2% Risk of Splitting Households or Sightline Clashes', issue: 'Requires 5 Hours of Manual Canva Re-Typing' },
-      { target: 'google-sheets-seating', grade: 'D', score: 44, status: 'WALL_OF_SHAME', kpi1: '3 Family Conflicts', kpi2: 'No Clockwise Seat BEO', cnnReadout: '41.0% Unnumbered Seats Confuse Banquet Servers', issue: 'Switch to SeatHarmony Visual Table Rings & BEO' }
+      { target: 'estate-150', title: '150-Guest Rosewood Estate Reception', grade: 'A+', score: 98, status: 'HALL_OF_FAME', kpi1: '98/100 Room Harmony', kpi2: '24"×36" Poster & Caterer Sheet Ready', cnnReadout: '0 Family Sightline Conflicts • 26/26 Households Coupled', issue: 'Divorced Parents Separated 410px • Clockwise BEO Ready' },
+      { target: 'tuscan-banquet-80', title: '80-Guest Tuscan Courtyard Banquet', grade: 'A+', score: 99, status: 'HALL_OF_FAME', kpi1: '99/100 Room Harmony', kpi2: '2-Sided Banquet & King’s Tables', cnnReadout: '100% Coupled Households • Courtyard String-Light Geometry', issue: 'Alphabetical A-Z 24"×36" Welcome Sign Ready' },
+      { target: 'planner-beo-sandbox', title: 'Family Share & Planner Sandbox', grade: 'A+', score: 98, status: 'HALL_OF_FAME', kpi1: 'Family Share Active', kpi2: 'Clockwise Seat #1–#8 Caterer Sheet', cnnReadout: 'Tables 1-3 Unlocked for Mom • Tables 4-8 Planner Locked', issue: '4 Severe Allergies & 2 Wheelchair/Highchair Mods Indexed' },
+      { target: 'vip-exec-dinner', title: 'VIP Executive Gala & Dinner', grade: 'A', score: 97, status: 'HALL_OF_FAME', kpi1: '1 AE + 5 Buyers/Table', kpi2: '0 Competitors Together', cnnReadout: '97.4% Executive Networking Chemistry', issue: 'Between-Course Seat Rotation Enabled' },
+      { target: 'charity-gala-300', title: '300-Guest Ballroom Charity Gala', grade: 'A', score: 96, status: 'HALL_OF_FAME', kpi1: '30 Sponsor Captains', kpi2: 'Paddles #101-#300', cnnReadout: '96.2% Check-In Kiosk & QR Lookup Speed', issue: 'VIP Board Host Seats Assigned' },
+      { target: 'zola-manual-chart', title: 'Zola Manual Seating Chart', grade: 'C', score: 64, status: 'WALL_OF_SHAME', kpi1: 'Manual Drag Only', kpi2: 'No 24"×36" Print Sign', cnnReadout: '58.2% Risk of Splitting Households or Sightline Clashes', issue: 'Requires 5 Hours of Manual Canva Re-Typing' },
+      { target: 'google-sheets-seating', title: 'Google Sheets Seating Template', grade: 'D', score: 44, status: 'WALL_OF_SHAME', kpi1: '3 Family Conflicts', kpi2: 'No Clockwise Caterer Sheet', cnnReadout: '41.0% Unnumbered Seats Confuse Banquet Servers', issue: 'Switch to SeatHarmony Visual Table Rings & BEO' }
     ]
   },
   sponsor_radar: {
@@ -94,6 +94,23 @@ const FLYWHEEL_SEED = {
 };
 
 function esc(str) { return String(str || '').replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;').replace(/'/g, '&#39;'); }
+function fmtFlywheelTitle(raw, entity) {
+  if (entity && entity.title) return entity.title;
+  const known = {
+    'estate-150': '150-Guest Rosewood Estate Reception',
+    'tuscan-banquet-80': '80-Guest Tuscan Courtyard Banquet',
+    'planner-beo-sandbox': 'Family Share & Planner Sandbox',
+    'vip-exec-dinner': 'VIP Executive Gala & Dinner',
+    'charity-gala-300': '300-Guest Ballroom Charity Gala',
+    'zola-manual-chart': 'Zola Manual Seating Chart',
+    'google-sheets-seating': 'Google Sheets Seating Template'
+  };
+  if (known[raw]) return known[raw];
+  return String(raw || '')
+    .replace(/[-_]+/g, ' ')
+    .replace(/\b\w/g, (c) => c.toUpperCase())
+    .trim();
+}
 function cleanTargetInput(raw, fallback) {
   const s = String(raw || '').replace(/^https?:\/\//i, '').replace(/\.md$/i, '').replace(/[<>"'`\r\n\t\\]/g, '').replace(/^\/+|\/+$/g, '').trim();
   return s ? (s.split('/')[0].slice(0, 48) || fallback || 'stripe.com') : (fallback || 'stripe.com');
@@ -261,7 +278,7 @@ function renderPublicScanPageHtml(cfg, scan, badgeColor) {
   const badgeUrl = `https://${cfg.domain}/badge/${encodeURIComponent(scan.target)}.svg`;
   const mdSnippet = `[![${cfg.brandName} ${scan.grade}](${badgeUrl})](${canonicalUrl})`;
   const ledger = loadPublicScanLedger(cfg).slice(0, 8);
-  const recentLinks = ledger.map((item) => `<a href="/scan/${esc(encodeURIComponent(item.target))}" style="display:inline-flex;align-items:center;gap:6px;padding:6px 12px;border-radius:999px;background:#FFFFFF;font-size:13px;font-weight:600;color:${esc(t.textPrimary)};text-decoration:none;border:1px solid #E2E8F0;"><span>${esc(item.target)}</span><span style="color:${item.score >= 86 ? '#059669' : '#E11D48'};font-weight:800;">${esc(item.grade)}</span></a>`).join(' ');
+  const recentLinks = ledger.map((item) => `<a href="/scan/${esc(encodeURIComponent(item.target))}" style="display:inline-flex;align-items:center;gap:6px;padding:6px 12px;border-radius:999px;background:#FFFFFF;font-size:13px;font-weight:600;color:${esc(t.textPrimary)};text-decoration:none;border:1px solid #E2E8F0;"><span>${esc(fmtFlywheelTitle(item.target, item))}</span><span style="color:${item.score >= 86 ? '#059669' : '#E11D48'};font-weight:800;">${esc(item.grade)}</span></a>`).join(' ');
   const filesList = (cfg.deliverableFiles && cfg.deliverableFiles.length) ? cfg.deliverableFiles : [
     { label: 'Primary Configuration & Rules', schema: 'Ready-to-use configuration tailored to this benchmark' },
     { label: 'Verified Benchmark Dataset (.CSV)', schema: 'Full comparison metrics and benchmark rows' },
@@ -275,16 +292,17 @@ function renderPublicScanPageHtml(cfg, scan, badgeColor) {
     </div>
     <div style="font-size:13px;color:${esc(t.textSecondary)};line-height:1.4;">${esc(f.schema || 'Ready-to-use file included in your $7 Event Print Pack')}</div>
   </div>`).join('');
+  const displayTitle = fmtFlywheelTitle(scan.target, scan);
 
   return `<!DOCTYPE html>
 <html lang="en">
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>${esc(scan.target)} : ${esc(cfg.brandName)} Scorecard &amp; Action Report (${esc(scan.grade)} ${scan.score}/100)</title>
-  <meta name="description" content="Live ${esc(cfg.brandName)} scorecard for ${esc(scan.target)}: Grade ${esc(scan.grade)} (${scan.score}/100), ${esc(scan.kpi1)}, ${esc(scan.kpi2)}. View full action plan and 1-click fixes." />
+  <title>${esc(displayTitle)} : ${esc(cfg.brandName)} Scorecard &amp; Action Report (${esc(scan.grade)} ${scan.score}/100)</title>
+  <meta name="description" content="Live ${esc(cfg.brandName)} scorecard for ${esc(displayTitle)}: Grade ${esc(scan.grade)} (${scan.score}/100), ${esc(scan.kpi1)}, ${esc(scan.kpi2)}. View full action plan and 1-click fixes." />
   <link rel="canonical" href="${esc(canonicalUrl)}" />
-  <meta property="og:title" content="${esc(scan.target)} : ${esc(cfg.brandName)} Scorecard (${esc(scan.grade)})" />
+  <meta property="og:title" content="${esc(displayTitle)} : ${esc(cfg.brandName)} Scorecard (${esc(scan.grade)})" />
   <meta property="og:description" content="Verified ${esc(cfg.brandName)} Results: ${esc(scan.kpi1)} • ${esc(scan.cnnReadout)}" />
   <meta property="og:url" content="${esc(canonicalUrl)}" />
   <meta property="og:image" content="https://${esc(cfg.domain)}/api/og/scorecard?target=${esc(encodeURIComponent(scan.target))}" />
@@ -296,11 +314,11 @@ function renderPublicScanPageHtml(cfg, scan, badgeColor) {
   <main id="main-content" style="max-width:1240px;margin:0 auto;padding:16px 24px 36px;display:flex;flex-direction:column;gap:12px;">
     <div>
       <nav aria-label="Breadcrumb" style="font-size:13px;color:#64748B;margin-bottom:4px;">
-        <a href="/" style="color:${esc(primaryBtnBg)};text-decoration:none;font-weight:700;">Home</a> / <a href="/leaderboard" style="color:${esc(primaryBtnBg)};text-decoration:none;font-weight:700;">Leaderboard</a> / <span id="eb-scan-bc-target">${esc(scan.target)}</span>
+        <a href="/" style="color:${esc(primaryBtnBg)};text-decoration:none;font-weight:700;">Home</a> / <a href="/leaderboard" style="color:${esc(primaryBtnBg)};text-decoration:none;font-weight:700;">Leaderboard</a> / <span id="eb-scan-bc-target">${esc(displayTitle)}</span>
       </nav>
-      <h1 id="eb-scan-h1" data-entity-name="${esc(scan.target)}" style="margin:0 0 4px 0;font-size:clamp(1.65rem,2.4vw,2.1rem);line-height:1.15;color:${esc(t.textPrimary)};">${esc(scan.target)} : ${esc(cfg.brandName)} Scorecard &amp; Action Report</h1>
+      <h1 id="eb-scan-h1" data-entity-name="${esc(scan.target)}" style="margin:0 0 4px 0;font-size:clamp(1.65rem,2.4vw,2.1rem);line-height:1.15;color:${esc(t.textPrimary)};">${esc(displayTitle)} : ${esc(cfg.brandName)} Scorecard &amp; Action Report</h1>
       <p class="pseo-lead" style="margin:0 0 8px 0;color:${esc(t.textSecondary)};font-size:14.5px;line-height:1.45;">
-        <strong style="color:${esc(t.textPrimary)};">Why you are here (<span id="eb-scan-lead-target">${esc(scan.target)}</span> &bull; <span id="eb-scan-lead-grade">Grade ${esc(scan.grade)} ${scan.score}/100</span>):</strong> ${esc(vCopy.goalText)}
+        <strong style="color:${esc(t.textPrimary)};">Why you are here (<span id="eb-scan-lead-target">${esc(displayTitle)}</span> &bull; <span id="eb-scan-lead-grade">Grade ${esc(scan.grade)} ${scan.score}/100</span>):</strong> ${esc(vCopy.goalText)}
       </p>
       <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:12px;padding:12px 16px;border-radius:10px;background:#FFFFFF;border:1px solid #E2E8F0;border-left:3px solid #059669;font-size:13px;color:${esc(t.textSecondary)};line-height:1.45;width:100%;box-sizing:border-box;">
         <div><strong style="color:#047857;">● Verified Source:</strong> ${esc(vCopy.sourceProvenance)}</div>
@@ -323,7 +341,7 @@ function renderPublicScanPageHtml(cfg, scan, badgeColor) {
         </div>
         <div style="display:flex;align-items:center;gap:6px;flex-wrap:wrap;background:#F8FAFC;padding:6px 10px;border-radius:10px;border:1px solid #E2E8F0;">
           <span style="font-size:12.5px;font-weight:700;color:#475569;margin-right:2px;">Compare:</span>
-          ${cat.entities.slice(0, 3).map((e) => `<button type="button" onclick="window.__ebRunScanWb('${esc(e.target)}')" style="padding:4px 10px;border-radius:999px;border:1px solid #CBD5E1;background:#FFFFFF;color:${esc(t.textPrimary)};font-size:12.5px;font-weight:700;cursor:pointer;white-space:nowrap;">${esc(e.target)}</button>`).join('')}
+          ${cat.entities.slice(0, 3).map((e) => `<button type="button" onclick="window.__ebRunScanWb('${esc(e.target)}')" style="padding:4px 10px;border-radius:999px;border:1px solid #CBD5E1;background:#FFFFFF;color:${esc(t.textPrimary)};font-size:12.5px;font-weight:700;cursor:pointer;white-space:nowrap;">${esc(fmtFlywheelTitle(e.target, e))}</button>`).join('')}
           <input id="eb-cnn-wb-input" type="text" placeholder="Or type another..." aria-label="Custom scan target" style="padding:5px 9px;border-radius:8px;border:1px solid #CBD5E1;background:#FFFFFF;color:${esc(t.textPrimary)};font-size:12.5px;width:145px;" />
           <button id="eb-cnn-wb-submit" type="button" onclick="window.__ebRunScanWb((document.getElementById('eb-cnn-wb-input')||{}).value||'${esc(scan.target)}')" style="padding:5px 11px;border-radius:999px;border:none;background:${esc(primaryBtnBg)};color:#FFFFFF;font-size:12.5px;font-weight:700;cursor:pointer;white-space:nowrap;">Check &rarr;</button>
           <span id="eb-live-cnn-readout" style="display:none;">${esc(scan.target)} → Grade ${esc(scan.grade)} (${scan.score}/100)</span>
@@ -363,7 +381,7 @@ function renderPublicScanPageHtml(cfg, scan, badgeColor) {
             <span style="padding:2px 9px;border-radius:999px;background:${esc(primaryBtnBg)};color:#FFFFFF;font-size:11px;font-weight:800;letter-spacing:0.05em;text-transform:uppercase;">Step 3 of 3</span>
             <span style="font-size:12.5px;font-weight:700;color:#047857;">Free Meal Tally ($0) &bull; $7 Event Print Pack</span>
           </div>
-          <h2 id="eb-scan-step3-title" style="font-size:18px;font-weight:800;margin:0;color:${esc(t.textPrimary)};line-height:1.25;">Step 3 &middot; Unlock the Clockwise Meal Sheet ($0) or 24&Prime;&times;36&Prime; Print Pack ($7) for ${esc(scan.target)}</h2>
+          <h2 id="eb-scan-step3-title" style="font-size:18px;font-weight:800;margin:0;color:${esc(t.textPrimary)};line-height:1.25;">Step 3 &middot; Unlock the Clockwise Meal Sheet ($0) or 24&Prime;&times;36&Prime; Print Pack ($7) for ${esc(displayTitle)}</h2>
         </div>
         <div id="eb-scan-row4-msg" style="display:none !important;"><input id="eb-scan-row4-email" type="email" placeholder="you@email.com" aria-label="Email to unlock Clockwise Meal Sheet" /><button id="eb-scan-row4-btn" type="button">Unlock Meal Sheet ($0) →</button></div>
         <div style="display:flex;align-items:center;gap:10px;flex-wrap:wrap;flex-shrink:0;">
@@ -400,13 +418,15 @@ function renderLeaderboardPageHtml(cfg, badgeColor) {
   const ledger = loadPublicScanLedger(cfg).slice().sort((a, b) => b.score - a.score);
   const podium = ledger.slice(0, 3);
   const medals = ['#1 Hall of Fame Leader', '#2 Verified Runner-Up', '#3 Top Category Benchmark'];
-  const podiumHtml = podium.map((item, idx) => `<div style="background:#FFFFFF;border-radius:14px;padding:16px 18px;display:flex;flex-direction:column;justify-content:space-between;gap:10px;">
+  const podiumHtml = podium.map((item, idx) => {
+    const itemTitle = fmtFlywheelTitle(item.target, item);
+    return `<div style="background:#FFFFFF;border-radius:14px;padding:16px 18px;display:flex;flex-direction:column;justify-content:space-between;gap:10px;">
     <div>
       <div style="display:flex;justify-content:space-between;align-items:center;gap:8px;margin-bottom:8px;">
         <span style="font-size:13px;font-weight:800;color:${idx === 0 ? esc(badgeColor) : '#059669'};">${medals[idx]}</span>
         <span style="padding:3px 10px;border-radius:999px;background:#ECFDF5;color:#059669;font-variant-numeric:tabular-nums;font-size:13px;font-weight:800;">${esc(item.grade)} (${item.score}/100)</span>
       </div>
-      <a href="/scan/${esc(encodeURIComponent(item.target))}" style="font-size:18px;font-weight:800;color:${esc(t.textPrimary)};text-decoration:none;display:block;margin-bottom:4px;">${esc(item.target)} ↗</a>
+      <a href="/scan/${esc(encodeURIComponent(item.target))}" style="font-size:18px;font-weight:800;color:${esc(t.textPrimary)};text-decoration:none;display:block;margin-bottom:4px;line-height:1.3;">${esc(itemTitle)} ↗</a>
       <div style="font-size:13.5px;font-weight:700;color:${esc(badgeColor)};margin-bottom:6px;">${esc(item.kpi1)} • ${esc(item.kpi2)}</div>
       <div style="width:100%;height:8px;border-radius:999px;background:#E2E8F0;overflow:hidden;margin-bottom:8px;"><div style="width:${item.score}%;height:100%;background:#10B981;border-radius:999px;"></div></div>
       <p style="font-size:13.5px;color:${esc(t.textSecondary)};margin:0;line-height:1.45;">${esc(item.cnnReadout)}</p>
@@ -415,15 +435,17 @@ function renderLeaderboardPageHtml(cfg, badgeColor) {
       <a href="/scan/${esc(encodeURIComponent(item.target))}" style="color:${esc(badgeColor)};font-weight:700;text-decoration:none;">Open Full Report →</a>
       <a href="/badge/${esc(encodeURIComponent(item.target))}.svg" target="_blank" rel="noopener" style="color:${esc(t.textSecondary)};text-decoration:underline;">Live SVG Badge</a>
     </div>
-  </div>`).join('');
+  </div>`;
+  }).join('');
 
   const rowsHtml = ledger.map((item, idx) => {
     const isTop = item.score >= 86;
     const barColor = isTop ? '#059669' : (item.score >= 75 ? '#D97706' : '#E11D48');
     const rowTier = isTop ? 'fame' : 'fix';
-    return `<tr data-lb-tier="${rowTier}" data-lb-text="${esc((item.target + ' ' + item.kpi1 + ' ' + item.kpi2 + ' ' + item.cnnReadout + ' ' + item.issue).toLowerCase())}">
+    const itemTitle = fmtFlywheelTitle(item.target, item);
+    return `<tr data-lb-tier="${rowTier}" data-lb-text="${esc((itemTitle + ' ' + item.target + ' ' + item.kpi1 + ' ' + item.kpi2 + ' ' + item.cnnReadout + ' ' + item.issue).toLowerCase())}">
     <td style="padding:12px 14px;border-bottom:1px solid ${esc(t.border)};font-variant-numeric:tabular-nums;font-weight:700;font-size:14px;">#${idx + 1}</td>
-    <th scope="row" style="padding:12px 14px;border-bottom:1px solid ${esc(t.border)};text-align:left;font-size:14px;"><a href="/scan/${esc(encodeURIComponent(item.target))}" style="color:${esc(badgeColor)};font-weight:800;text-decoration:none;">${esc(item.target)} ↗</a></th>
+    <th scope="row" style="padding:12px 14px;border-bottom:1px solid ${esc(t.border)};text-align:left;font-size:14px;"><a href="/scan/${esc(encodeURIComponent(item.target))}" style="color:${esc(badgeColor)};font-weight:800;text-decoration:none;">${esc(itemTitle)} ↗</a></th>
     <td style="padding:12px 14px;border-bottom:1px solid ${esc(t.border)};min-width:150px;"><div style="display:flex;align-items:center;gap:8px;"><span style="font-variant-numeric:tabular-nums;font-weight:800;font-size:14px;color:${barColor};">${esc(item.grade)} (${item.score})</span><div style="flex:1;min-width:56px;height:7px;background:#E2E8F0;border-radius:999px;overflow:hidden;"><div style="width:${item.score}%;height:100%;background:${barColor};"></div></div></div></td>
     <td style="padding:12px 14px;border-bottom:1px solid ${esc(t.border)};font-variant-numeric:tabular-nums;font-size:13.5px;font-weight:600;">${esc(item.kpi1)} • ${esc(item.kpi2)}</td>
     <td style="padding:12px 14px;border-bottom:1px solid ${esc(t.border)};font-size:13.5px;color:${esc(t.textSecondary)};">${esc(item.cnnReadout)}</td>

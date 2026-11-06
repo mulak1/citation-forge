@@ -731,6 +731,24 @@ function attachUniversalSeoAndAiRoutes(app, cfg, store, classifyTrafficRequest, 
   });
 }
 
+function fmtScanTitle(raw, entity) {
+  if (entity && entity.title) return entity.title;
+  const known = {
+    'estate-150': '150-Guest Rosewood Estate Reception',
+    'tuscan-banquet-80': '80-Guest Tuscan Courtyard Banquet',
+    'planner-beo-sandbox': 'Family Share & Planner Sandbox',
+    'vip-exec-dinner': 'VIP Executive Gala & Dinner',
+    'charity-gala-300': '300-Guest Ballroom Charity Gala',
+    'zola-manual-chart': 'Zola Manual Seating Chart',
+    'google-sheets-seating': 'Google Sheets Seating Template'
+  };
+  if (known[raw]) return known[raw];
+  return String(raw || '')
+    .replace(/[-_]+/g, ' ')
+    .replace(/\b\w/g, (c) => c.toUpperCase())
+    .trim();
+}
+
 function buildTopLeaderboardPodiumShowcaseHtml(cfg) {
   const t = cfg.theme;
   const ledger = loadPublicScanLedger(cfg).slice().sort((a, b) => b.score - a.score);
@@ -743,13 +761,14 @@ function buildTopLeaderboardPodiumShowcaseHtml(cfg) {
   ];
   const podiumCards = top3.map((s, i) => {
     const m = medals[i] || medals[2];
+    const displayTitle = fmtScanTitle(s.target, s);
     return `<a href="/scan/${escHtml(encodeURIComponent(s.target))}" onclick="if(window.__ebLogEvent)window.__ebLogEvent('calculate',{source:'podium_home_click',target:'${escHtml(s.target)}'})" style="display:flex;flex-direction:column;justify-content:space-between;padding:18px 20px;border-radius:${t.radiusCard};background:${t.subtleBg};text-decoration:none;color:${t.textPrimary};">
       <div>
         <div style="display:flex;justify-content:space-between;align-items:center;gap:8px;margin-bottom:8px;">
           <span style="padding:3px 9px;border-radius:${t.radiusPill};background:${m.bg};color:${m.text};font-size:13px;font-weight:800;">${m.icon}</span>
           <span style="padding:3px 10px;border-radius:${t.radiusPill};background:${t.safeSoftBg};color:${t.safeColor};font-family:${t.fontSans};font-variant-numeric:tabular-nums;font-size:13.5px;font-weight:800;">Grade ${escHtml(s.grade)} · ${s.score}/100</span>
         </div>
-        <div style="font-size:17px;font-weight:800;color:${t.textPrimary};margin-bottom:4px;">${escHtml(s.target)}</div>
+        <div style="font-size:17px;font-weight:800;color:${t.textPrimary};margin-bottom:4px;line-height:1.3;">${escHtml(displayTitle)}</div>
         <div style="font-size:14px;color:${t.textSecondary};margin-bottom:10px;">${escHtml(s.kpi1)} · ${escHtml(s.kpi2)}</div>
       </div>
       <div>
@@ -758,19 +777,22 @@ function buildTopLeaderboardPodiumShowcaseHtml(cfg) {
       </div>
     </a>`;
   }).join('');
-  const fixPills = fix2.map((s) => `<a href="/scan/${escHtml(encodeURIComponent(s.target))}" style="display:inline-flex;align-items:center;gap:8px;padding:6px 12px;border-radius:${t.radiusPill};background:#FFF1F2;color:#9F1239;font-size:13.5px;font-weight:700;text-decoration:none;"><span>${escHtml(s.target)}</span><span style="font-variant-numeric:tabular-nums;">Grade ${escHtml(s.grade)} (${s.score}/100)</span><span>See Why →</span></a>`).join('');
+  const fixPills = fix2.map((s) => {
+    const displayFixTitle = fmtScanTitle(s.target, s);
+    return `<a href="/scan/${escHtml(encodeURIComponent(s.target))}" style="display:inline-flex;align-items:center;gap:8px;padding:6px 12px;border-radius:${t.radiusPill};background:#FFF1F2;color:#9F1239;font-size:13.5px;font-weight:700;text-decoration:none;"><span>${escHtml(displayFixTitle)}</span><span style="font-variant-numeric:tabular-nums;">Grade ${escHtml(s.grade)} (${s.score}/100)</span><span>See Why →</span></a>`;
+  }).join('');
 
   return `<section id="eb-leaderboard-home-showcase" class="container" aria-label="${escHtml(cfg.brandName)} Live Industry Leaderboard Podium" style="margin:20px auto;font-family:${t.fontSans};">
     <div class="eb-panel-card" style="margin:0;padding:24px;background:${t.cardBg};">
       <div style="display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:12px;margin-bottom:16px;">
         <div>
-          <h2 style="margin:0;font-size:22px;font-family:${t.fontDisplay};font-weight:700;color:${t.textPrimary};">Top-Rated Industry Leaders</h2>
+          <h2 style="margin:0;font-size:22px;font-family:${t.fontDisplay};font-weight:700;color:${t.textPrimary};">Top-Rated Wedding &amp; Event Seating Layouts</h2>
         </div>
-        <a href="/leaderboard" style="padding:9px 18px;border-radius:${t.radiusPill};background:${t.brandPrimary};color:#FFFFFF;font-size:14px;font-weight:700;text-decoration:none;">Explore Full Interactive Leaderboard →</a>
+        <a href="/leaderboard" style="padding:9px 18px;border-radius:${t.radiusPill};background:${t.brandPrimary};color:#FFFFFF;font-size:14px;font-weight:700;text-decoration:none;">Explore All 60+ Venue Layout Benchmarks →</a>
       </div>
       <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:14px;margin-bottom:14px;">${podiumCards}</div>
       <div style="display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:10px;padding-top:12px;">
-        <div style="display:flex;align-items:center;gap:8px;flex-wrap:wrap;"><span style="font-size:13.5px;font-weight:700;color:${t.textSecondary};">Common Mistakes Analysed:</span>${fixPills}</div>
+        <div style="display:flex;align-items:center;gap:8px;flex-wrap:wrap;"><span style="font-size:13.5px;font-weight:700;color:${t.textSecondary};">Common Planning Pitfalls Analysed:</span>${fixPills}</div>
         <a href="/leaderboard" style="font-size:13.5px;font-weight:700;color:${t.brandPrimary};text-decoration:underline;"> Filter all ${ledger.length} ranked benchmarks →</a>
       </div>
     </div>
