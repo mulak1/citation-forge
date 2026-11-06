@@ -16,10 +16,10 @@ function renderFlywheelHeaderHtml(cfg, tagText, activePath = '/leaderboard') {
     return AA_VIEWS.renderUnifiedHeaderHtml(tagText);
   }
   if (CF_TEMPLATES && typeof CF_TEMPLATES.renderNavbar === 'function') {
-    return `<style>.skip-link{position:absolute;left:-9999px;top:8px;background:#0F4C81;color:#FFF;padding:8px 14px;border-radius:6px;z-index:200;font-size:.85rem;font-weight:600;}.skip-link:focus{left:16px;}.topbar{border-bottom:1px solid #E2E8F0;background:rgba(248,250,252,0.95);backdrop-filter:blur(14px);position:sticky;top:0;z-index:50;}.topbar-inner{max-width:1280px;margin:0 auto;padding:0 24px;min-height:68px;display:flex;align-items:center;justify-content:space-between;gap:12px;flex-wrap:nowrap;}.brand-mark{display:inline-flex;align-items:center;gap:10px;font-weight:800;font-size:1.08rem;letter-spacing:-0.025em;color:#0F172A;text-decoration:none;white-space:nowrap;flex-shrink:0;}.nav-links{display:flex;align-items:center;gap:14px;font-size:0.875rem;font-weight:600;color:#1E293B;white-space:nowrap;flex-wrap:nowrap;}.nav-links a{white-space:nowrap;padding:6px 2px;color:#1E293B;text-decoration:none;transition:color 150ms ease-out;}.nav-links a:hover,.nav-links a.active{color:#0F4C81;}.mobile-nav-strip{display:none;}.btn{display:inline-flex;align-items:center;justify-content:center;gap:8px;font-weight:600;border-radius:8px;text-decoration:none;white-space:nowrap;}.btn-primary{background:#0F4C81;color:#FFFFFF;}.btn-primary:hover{background:#0B3861;}.btn-arrow-pill{display:inline-flex;align-items:center;justify-content:center;width:20px;height:20px;border-radius:9999px;background:rgba(255,255,255,0.18);font-size:0.875rem;line-height:1;}@media(max-width:1140px){.hide-at-1120{display:none!important;}.nav-links{gap:10px;font-size:0.82rem;}.topbar-inner .btn-primary{padding:8px 12px!important;font-size:0.82rem!important;}}@media(max-width:900px){.nav-links{display:none;}.mobile-nav-strip{display:flex;border-top:1px solid #E2E8F0;background:#F1F5F9;padding:10px 16px;overflow-x:auto;gap:16px;font-size:0.86rem;font-weight:600;color:#1E293B;white-space:nowrap;flex-wrap:nowrap;}.mobile-nav-strip a{color:#1E293B;text-decoration:none;}}</style>${CF_TEMPLATES.renderNavbar(activePath)}`;
+    return `<style>.skip-link{position:absolute;left:-9999px;top:8px;background:#0F4C81;color:#FFF;padding:8px 14px;border-radius:6px;z-index:200;font-size:.85rem;font-weight:600;}.skip-link:focus{left:16px;}.topbar{border-bottom:1px solid #E2E8F0;background:rgba(248,250,252,0.98);position:sticky;top:0;z-index:50;}.topbar-inner{max-width:1280px;margin:0 auto;padding:0 24px;min-height:68px;display:flex;align-items:center;justify-content:space-between;gap:12px;flex-wrap:nowrap;}.brand-mark{display:inline-flex;align-items:center;gap:10px;font-weight:800;font-size:1.08rem;letter-spacing:-0.025em;color:#0F172A;text-decoration:none;white-space:nowrap;flex-shrink:0;}.nav-links{display:flex;align-items:center;gap:14px;font-size:0.875rem;font-weight:600;color:#1E293B;white-space:nowrap;flex-wrap:nowrap;}.nav-links a{white-space:nowrap;padding:6px 2px;color:#1E293B;text-decoration:none;transition:color 150ms ease-out;}.nav-links a:hover,.nav-links a.active{color:#0F4C81;}.mobile-nav-strip{display:none;}.btn{display:inline-flex;align-items:center;justify-content:center;gap:8px;font-weight:600;border-radius:8px;text-decoration:none;white-space:nowrap;}.btn-primary{background:#0F4C81;color:#FFFFFF;}.btn-primary:hover{background:#0B3861;}.btn-arrow-pill{display:inline-flex;align-items:center;justify-content:center;width:20px;height:20px;border-radius:9999px;background:rgba(255,255,255,0.18);font-size:0.875rem;line-height:1;}@media(max-width:1140px){.hide-at-1120{display:none!important;}.nav-links{gap:10px;font-size:0.82rem;}.topbar-inner .btn-primary{padding:8px 12px!important;font-size:0.82rem!important;}}@media(max-width:900px){.nav-links{display:none;}.mobile-nav-strip{display:flex;border-top:1px solid #E2E8F0;background:#F1F5F9;padding:10px 16px;overflow-x:auto;gap:16px;font-size:0.86rem;font-weight:600;color:#1E293B;white-space:nowrap;flex-wrap:nowrap;}.mobile-nav-strip a{color:#1E293B;text-decoration:none;}}</style>${CF_TEMPLATES.renderNavbar(activePath)}`;
   }
   if (SR_SHELL && typeof SR_SHELL.renderBrandLogoSvg === 'function') {
-    return `<header class="top-nav" style="position:sticky;top:0;z-index:50;background:rgba(251,248,243,0.96);backdrop-filter:blur(12px);border-bottom:1px solid #E4DEC9;"><div style="max-width:1280px;margin:0 auto;padding:0 24px;min-height:68px;display:flex;align-items:center;justify-content:space-between;gap:16px;"><a href="/" style="display:inline-flex;align-items:center;gap:10px;text-decoration:none;color:#181512;">${SR_SHELL.renderBrandLogoSvg(36)}<div><div style="font-weight:800;font-size:1.1rem;line-height:1.1;color:#181512;">SponsorRadar</div><div style="font-size:0.75rem;color:#655E54;font-weight:600;">3x+ Renewal Media Ledger</div></div></a><nav aria-label="Primary Navigation" style="display:flex;align-items:center;gap:22px;font-size:0.92rem;font-weight:600;"><a href="/#radar-tool" style="color:#181512;text-decoration:none;">Spend Radar</a><a href="/leaderboard" style="color:${activePath.startsWith('/leaderboard') ? '#C83E2B' : '#181512'};font-weight:${activePath.startsWith('/leaderboard') ? '800' : '600'};text-decoration:none;">Leaderboard</a><a href="/directory" style="color:#181512;text-decoration:none;">Spend Directory</a><a href="/#pricing" style="color:#181512;text-decoration:none;">Pricing</a></nav><div><a href="/buy/flash_pass?source=header_nav" rel="nofollow" onclick="if(window.__ebCheckout){window.__ebCheckout('flash_pass');return false;}" style="display:inline-flex;align-items:center;padding:9px 16px;border-radius:999px;background:#C83E2B;color:#FFFFFF;font-size:14px;font-weight:700;text-decoration:none;">Unlock Rate &amp; Sponsor Pack ($1.99) &rarr;</a></div></div></header>`;
+    return `<header class="top-nav" style="position:sticky;top:0;z-index:50;background:rgba(251,248,243,0.98);border-bottom:1px solid #E4DEC9;"><div style="max-width:1280px;margin:0 auto;padding:0 24px;min-height:68px;display:flex;align-items:center;justify-content:space-between;gap:16px;"><a href="/" style="display:inline-flex;align-items:center;gap:10px;text-decoration:none;color:#181512;">${SR_SHELL.renderBrandLogoSvg(36)}<div><div style="font-weight:800;font-size:1.1rem;line-height:1.1;color:#181512;">SeatHarmony</div><div style="font-size:0.75rem;color:#655E54;font-weight:600;">Reception Floorplan &amp; Caterer Meal Studio</div></div></a><nav aria-label="Primary Navigation" style="display:flex;align-items:center;gap:22px;font-size:0.92rem;font-weight:600;"><a href="/#studio" style="color:#181512;text-decoration:none;">Floorplan Studio</a><a href="/directory" style="color:#181512;text-decoration:none;">Venue Templates</a><a href="/#pricing" style="color:#181512;text-decoration:none;">Pricing</a></nav><div><a href="/buy/flash_pass?source=header_nav" rel="nofollow" onclick="if(window.__ebCheckout){window.__ebCheckout('flash_pass');return false;}" style="display:inline-flex;align-items:center;padding:9px 16px;border-radius:999px;background:#00766C;color:#FFFFFF;font-size:14px;font-weight:700;text-decoration:none;">Get Event Print Pack ($7) &rarr;</a></div></div></header>`;
   }
   if (DL_TEMPLATES && typeof DL_TEMPLATES.renderHeader === 'function') {
     return `<style>${DL_TEMPLATES.SHARED_CSS || ''}</style>${DL_TEMPLATES.renderHeader(false)}`;
@@ -151,9 +151,9 @@ function evaluateScanTarget(cfg, rawTarget) {
   const grade = score >= 93 ? 'A+' : (score >= 86 ? 'A' : (score >= 76 ? 'B' : (score >= 62 ? 'C' : 'D')));
   const status = score >= 86 ? 'HALL_OF_FAME' : (score >= 76 ? 'WATCHLIST' : 'WALL_OF_SHAME');
   const kpi1 = cfg.moduleId === 'citation_forge' ? `${score}/100 Room Harmony` : (cfg.moduleId === 'sponsor_radar' ? `$${140 + (abs % 650)}K/mo Spend` : (cfg.moduleId === 'derm_logic' ? `${score}/100 Safety Score` : `+${34 + (abs % 29)}.4% Recovery Gain`));
-  const kpi2 = cfg.moduleId === 'citation_forge' ? (score >= 85 ? 'llms.txt + Schema Ready' : 'Missing /llms-full.txt') : (cfg.moduleId === 'sponsor_radar' ? `${2 + (abs % 14)}x Renewal Signal` : (cfg.moduleId === 'derm_logic' ? `pH Gap ${(0.4 + ((abs % 22) / 10)).toFixed(1)}` : `${82 + (abs % 15)}% Checkout Clarity`));
+  const kpi2 = cfg.moduleId === 'citation_forge' ? (score >= 85 ? 'Clockwise 12:00 Meal Sheet + 24"×36" Sign Ready' : '3 Family Conflicts & Missing Seat Numbers') : (cfg.moduleId === 'sponsor_radar' ? `${2 + (abs % 14)}x Renewal Signal` : (cfg.moduleId === 'derm_logic' ? `pH Gap ${(0.4 + ((abs % 22) / 10)).toFixed(1)}` : `${82 + (abs % 15)}% Checkout Clarity`));
   const cnnReadout = `${Math.min(99, score + 2)}.${abs % 9}% Quality Score • Verified in ${11 + (abs % 9)}ms`;
-  const issue = score >= 86 ? `Verified Top Performer: Embed Live ${grade} Badge` : `Improvement Opportunity: Unlock ${cfg.freeDeliverableName} (99¢ Pass)`;
+  const issue = score >= 86 ? `Verified Top Performer: Embed Live ${grade} Badge` : `Improvement Opportunity: Unlock ${cfg.freeDeliverableName} ($7 Event Print Pack)`;
   return { target, grade, score, status, kpi1, kpi2, cnnReadout, issue, cnnModel: cat.cnnModel, cnnSensorLabel: cat.cnnSensorLabel };
 }
 
@@ -173,8 +173,7 @@ function renderAnsiTerminalScorecard(cfg, scan) {
     `${cyan}--------------------------------------------------------------------${reset}`,
     `  Public Permalink  : https://${cfg.domain}/scan/${encodeURIComponent(scan.target)}`,
     `  Live SVG Badge    : https://${cfg.domain}/badge/${encodeURIComponent(scan.target)}.svg`,
-    `  99c Instant Fix   : https://${cfg.domain}/buy/micro_pass`,
-    `  $1.99 3-File Pass : https://${cfg.domain}/buy/flash_pass`,
+    `  $7 Event Print Pack: https://${cfg.domain}/buy/flash_pass`,
     `${cyan}====================================================================${reset}\n`
   ].join('\n');
 }
@@ -183,32 +182,18 @@ function getVerticalScanCopy(cfg, scan) {
   const tgt = scan ? scan.target : cfg.brandName;
   const kpi1 = scan ? scan.kpi1 : 'Verified Benchmark';
   const kpi2 = scan ? scan.kpi2 : 'Active Signal';
-  if (cfg.moduleId === 'sponsor_radar') {
-    return {
-      goalText: `See ${tgt}'s verified sponsorship spend (${kpi1}) and renewal streak (${kpi2}) so you can benchmark fair ad rates, sponsor the same high-converting shows at -18% floor rates, or pitch their media buyer directly.`,
-      sourceProvenance: 'Tracked directly from podcast RSS feeds, YouTube ad-read transcripts, newsletter archives & active /promo links (IAB v2.1 calibrated).',
-      dataFreshness: 'Updated today (Q4 2026 rolling 90-day ledger • <24h-7d air-date lag).',
-      updateCadence: 'Scanned every 24 hours • All 88 buyer & booking rep emails verified weekly (<1.4% bounce).',
-      card2Title: 'Verified Spend & Renewal Streak',
-      card2SubPrefix: 'Renewal Signal:',
-      row3Action: 'Target host-read mid-rolls with a dedicated promo URL for highest conversion',
-      row4Title: 'Buyer Contacts & Floor Rates',
-      row4Val: '88 Contacts + 96 Floors',
-      row4Action: 'Direct media-buyer emails, -18% 3-flight rate floors & outreach scripts'
-    };
-  }
   if (cfg.moduleId === 'citation_forge') {
     return {
-      goalText: `See why ChatGPT Search and Perplexity recommend (or skip) ${tgt} (${kpi1}), and download the ready-to-upload /llms.txt guide, Schema markup, and 25-question competitor CSV to lift your own AI search rankings.`,
-      sourceProvenance: 'Live site check (/llms.txt, robots.txt & Schema) + 25 buyer prompts tested on ChatGPT, Perplexity & Gemini.',
-      dataFreshness: 'Checked live today (rolling 30-day AI search visibility index).',
-      updateCadence: 'Instant live domain check + automated daily AI ranking refresh (every 24h).',
+      goalText: `See how ${tgt} scores on reception room harmony (${kpi1}) and family sightlines (${kpi2}), unlock the Clockwise 12:00 Caterer Meal Sheet ($0), or export the 24"×36" Print-Shop Welcome Sign and Avery 5302 Escort Cards ($7).`,
+      sourceProvenance: 'Polar seat-ring geometry + simulated annealing family-conflict solver across 60+ wedding reception layouts.',
+      dataFreshness: 'Checked live today (2026 Wedding Venue & Banquet Caterer BEO Standard).',
+      updateCadence: 'Instant browser floorplan solver • Zero account required.',
       card2Title: 'Reception Room Harmony & Layout',
-      card2SubPrefix: 'Technical Status:',
-      row3Action: 'Publish a clean /llms.txt Markdown guide and Product Schema JSON-LD',
-      row4Title: 'Ready-to-Upload Fix Files',
-      row4Val: '3 Production Files',
-      row4Action: 'Drop-in /llms.txt guide, Schema JSON-LD & 25 buyer questions CSV'
+      card2SubPrefix: 'Layout Status:',
+      row3Action: 'Separate divorced relatives across sightlines and assign Clockwise 12:00 Seat #1–#10 meal tags',
+      row4Title: 'Event Print & Caterer Pack',
+      row4Val: '3 Print-Ready Files',
+      row4Action: 'Clockwise 12:00 Caterer Meal Sheet (.CSV), 24"×36" Welcome Sign Poster & Avery 5302 Escort Cards'
     };
   }
   if (cfg.moduleId === 'derm_logic') {
@@ -288,7 +273,7 @@ function renderPublicScanPageHtml(cfg, scan, badgeColor) {
       <span style="display:inline-block;width:7px;height:7px;border-radius:50%;background:${esc(primaryBtnBg)};flex-shrink:0;"></span>
       <span>File ${idx + 1}: ${esc(f.label || f.file)}</span>
     </div>
-    <div style="font-size:13px;color:${esc(t.textSecondary)};line-height:1.4;">${esc(f.schema || 'Ready-to-use file included in your $1.99 pass')}</div>
+    <div style="font-size:13px;color:${esc(t.textSecondary)};line-height:1.4;">${esc(f.schema || 'Ready-to-use file included in your $7 Event Print Pack')}</div>
   </div>`).join('');
 
   return `<!DOCTYPE html>
@@ -376,14 +361,14 @@ function renderPublicScanPageHtml(cfg, scan, badgeColor) {
         <div style="flex:1;min-width:260px;">
           <div style="display:inline-flex;align-items:center;gap:8px;margin-bottom:2px;">
             <span style="padding:2px 9px;border-radius:999px;background:${esc(primaryBtnBg)};color:#FFFFFF;font-size:11px;font-weight:800;letter-spacing:0.05em;text-transform:uppercase;">Step 3 of 3</span>
-            <span style="font-size:12.5px;font-weight:700;color:#047857;">One-Time $1.99 Pass &bull; Instant Download</span>
+            <span style="font-size:12.5px;font-weight:700;color:#047857;">Free Meal Tally ($0) &bull; $7 Event Print Pack</span>
           </div>
-          <h2 id="eb-scan-step3-title" style="font-size:18px;font-weight:800;margin:0;color:${esc(t.textPrimary)};line-height:1.25;">Step 3 &middot; Download the Ready-to-Use Action Pack for ${esc(scan.target)}</h2>
+          <h2 id="eb-scan-step3-title" style="font-size:18px;font-weight:800;margin:0;color:${esc(t.textPrimary)};line-height:1.25;">Step 3 &middot; Unlock the Clockwise Meal Sheet ($0) or 24&Prime;&times;36&Prime; Print Pack ($7) for ${esc(scan.target)}</h2>
         </div>
-        <div id="eb-scan-row4-msg" style="display:none !important;"><input id="eb-scan-row4-email" type="email" placeholder="you@company.com" aria-label="Work email to unlock Row 4" /><button id="eb-scan-row4-btn" type="button">Reveal Row #4 →</button></div>
+        <div id="eb-scan-row4-msg" style="display:none !important;"><input id="eb-scan-row4-email" type="email" placeholder="you@email.com" aria-label="Email to unlock Clockwise Meal Sheet" /><button id="eb-scan-row4-btn" type="button">Unlock Meal Sheet ($0) →</button></div>
         <div style="display:flex;align-items:center;gap:10px;flex-wrap:wrap;flex-shrink:0;">
-          <a id="eb-scan-buy-micro" href="/buy/micro_pass?target=${esc(encodeURIComponent(scan.target))}" rel="nofollow" style="padding:9px 15px;border-radius:999px;background:#F8FAFC;border:1px solid #CBD5E1;color:${esc(t.textPrimary)};font-size:13px;font-weight:700;text-decoration:none;white-space:nowrap;">99¢ Single File</a>
-          <a id="eb-scan-buy-flash" href="/buy/flash_pass?target=${esc(encodeURIComponent(scan.target))}" rel="nofollow" style="padding:10px 20px;border-radius:999px;background:${esc(primaryBtnBg)};color:#FFFFFF;font-size:14px;font-weight:800;text-decoration:none;white-space:nowrap;">Get All 3 Files ($1.99) &rarr;</a>
+          <a id="eb-scan-buy-micro" href="/#studio" rel="nofollow" style="padding:9px 15px;border-radius:999px;background:#F8FAFC;border:1px solid #CBD5E1;color:${esc(t.textPrimary)};font-size:13px;font-weight:700;text-decoration:none;white-space:nowrap;">Unlock Meal Tally ($0)</a>
+          <a id="eb-scan-buy-flash" href="/buy/flash_pass?target=${esc(encodeURIComponent(scan.target))}" rel="nofollow" style="padding:10px 20px;border-radius:999px;background:${esc(primaryBtnBg)};color:#FFFFFF;font-size:14px;font-weight:800;text-decoration:none;white-space:nowrap;">Get Event Print Pack ($7) &rarr;</a>
         </div>
       </div>
       <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:10px;">
@@ -548,7 +533,7 @@ function attachPublicScanFlywheel(app, cfg, badgeColor, renderHtmlFn, classifyFn
     if (isMd) {
       res.setHeader('Content-Type', 'text/markdown; charset=utf-8');
       res.setHeader('Link', `<https://${cfg.domain}/scan/${encodeURIComponent(scan.target)}>; rel="canonical"`);
-      return res.status(200).send(`# ${scan.target} : ${cfg.brandName} Public Audit (${scan.grade} • ${scan.score}/100)\n\n- **Primary KPI**: ${scan.kpi1} (${scan.kpi2})\n- **CNN Model**: ${scan.cnnModel}\n- **CNN Sensor Readout**: ${scan.cnnReadout}\n- **Diagnostic Verdict**: ${scan.issue}\n- **Canonical Permalink**: https://${cfg.domain}/scan/${encodeURIComponent(scan.target)}\n- **Live SVG Badge**: ![${scan.target}](https://${cfg.domain}/badge/${encodeURIComponent(scan.target)}.svg)\n- **99¢ Single-File Fix**: https://${cfg.domain}/buy/micro_pass\n- **$1.99 3-File Bundle**: https://${cfg.domain}/buy/flash_pass\n`);
+      return res.status(200).send(`# ${scan.target} : ${cfg.brandName} Public Audit (${scan.grade} • ${scan.score}/100)\n\n- **Primary KPI**: ${scan.kpi1} (${scan.kpi2})\n- **Audit Engine**: ${scan.cnnModel}\n- **Floorplan Readout**: ${scan.cnnReadout}\n- **Diagnostic Verdict**: ${scan.issue}\n- **Canonical Permalink**: https://${cfg.domain}/scan/${encodeURIComponent(scan.target)}\n- **Live SVG Badge**: ![${scan.target}](https://${cfg.domain}/badge/${encodeURIComponent(scan.target)}.svg)\n- **Free Clockwise Meal Sheet ($0)**: https://${cfg.domain}/#studio\n- **$7 Auto-Filled Event Print Pack**: https://${cfg.domain}/buy/flash_pass\n`);
     }
     if (cfg.moduleId === 'citation_forge') {
       const shSlugMap = {
@@ -572,7 +557,7 @@ function attachPublicScanFlywheel(app, cfg, badgeColor, renderHtmlFn, classifyFn
       res.setHeader('Content-Type', 'text/markdown; charset=utf-8');
       res.setHeader('Link', `<https://${cfg.domain}/leaderboard>; rel="canonical"`);
       const lines = ledger.map((e, i) => `${i + 1}. **[${e.target}](https://${cfg.domain}/scan/${encodeURIComponent(e.target)})** : Grade **${e.grade}** (${e.score}/100) | ${e.kpi1} | ${e.cnnReadout}`).join('\n');
-      return res.status(200).send(`# ${cfg.brandName} Public Leaderboard (Hall of Fame & Needs Fix)\n\n${lines}\n\n- **99¢ Single-File Pass**: https://${cfg.domain}/buy/micro_pass\n- **$1.99 3-File Bundle**: https://${cfg.domain}/buy/flash_pass\n`);
+      return res.status(200).send(`# ${cfg.brandName} Public Leaderboard (Hall of Fame & Needs Fix)\n\n${lines}\n\n- **Free Clockwise Meal Sheet ($0)**: https://${cfg.domain}/#studio\n- **$7 Auto-Filled Event Print Pack**: https://${cfg.domain}/buy/flash_pass\n`);
     }
     if (cfg.moduleId === 'citation_forge') return res.redirect(302, '/directory');
     const html = renderLeaderboardPageHtml(cfg, badgeColor);

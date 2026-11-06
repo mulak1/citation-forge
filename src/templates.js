@@ -75,7 +75,7 @@ function renderHead({
     .serif-display { font-family: var(--font-serif); font-weight: 700; letter-spacing: -0.015em; line-height: 1.12; }
     .mono { font-family: var(--font-mono); font-variant-numeric: tabular-nums; }
     .tabular { font-variant-numeric: tabular-nums; }
-    .navbar { position: sticky; top: 0; z-index: 90; overflow-x: clip; background: rgba(255, 255, 255, 0.96); backdrop-filter: blur(12px); border-bottom: 1px solid var(--border-warm); }
+    .navbar { position: sticky; top: 0; z-index: 90; overflow-x: clip; background: rgba(255, 255, 255, 0.98); border-bottom: 1px solid var(--border-warm); }
     .nav-inner { display: flex; align-items: center; justify-content: space-between; height: 56px; gap: 10px; flex-wrap: nowrap; }
     .nav-brand { display: inline-flex; align-items: center; gap: 8px; font-weight: 800; font-size: 1.05rem; color: var(--text-primary); text-decoration: none; white-space: nowrap; flex-shrink: 0; }
     .nav-links { display: flex; align-items: center; gap: 11px; flex-wrap: nowrap; white-space: nowrap; }
@@ -114,7 +114,7 @@ function renderHead({
     .sh-zola-showcase-photo-wrap { position: relative; border-radius: 14px; overflow: hidden; border: 1px solid #E5E7EB; background: #F8F7F4; }
     .sh-zola-showcase-photo { width: 100%; height: 310px; object-fit: cover; object-position: center 22%; display: block; }
     .sh-zola-floating-badges { position: absolute; left: 12px; right: 12px; bottom: 12px; display: flex; flex-wrap: wrap; gap: 8px; justify-content: space-between; align-items: center; pointer-events: none; }
-    .sh-zola-floating-pill { background: rgba(255, 255, 255, 0.95); backdrop-filter: blur(8px); border: 1px solid #E5E7EB; color: #1C1C1C; padding: 6px 12px; border-radius: 999px; font-size: 12.5px; font-weight: 700; box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08); display: inline-flex; align-items: center; gap: 6px; }
+    .sh-zola-floating-pill { background: rgba(255, 255, 255, 0.97); border: 1px solid #E5E7EB; color: #1C1C1C; padding: 6px 12px; border-radius: 999px; font-size: 12.5px; font-weight: 700; box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08); display: inline-flex; align-items: center; gap: 6px; }
     .sh-zola-showcase-footer { display: flex; align-items: center; justify-content: space-between; gap: 12px; flex-wrap: wrap; background: #FBF9F6; border: 1px solid #E5E7EB; border-radius: 12px; padding: 12px 14px; }
     .sh-vsl-player-shell { width: 100%; background: #FFFFFF; color: #1C1C1C; border: 1px solid #E5E7EB; border-radius: 20px; overflow: hidden; box-shadow: 0 16px 40px -12px rgba(28, 28, 28, 0.08); }
     .sh-vsl-garland-frieze { background: #F8F7F4; border-bottom: 1px solid #E5E7EB; padding: 2px 0 0; }

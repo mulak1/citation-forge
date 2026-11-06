@@ -135,88 +135,57 @@ function renderInteractiveScript(initialPlan) {
       const b = document.getElementById(m === 'room' ? 'sh-zoom-room-btn' : (m === 'zoom15' ? 'sh-zoom-15-btn' : 'sh-zoom-table-btn'));
       if (b) b.classList.toggle('active', m === window.__SH_CANVAS_ZOOM);
     });
-    const pctBtn = document.getElementById('sh-zoom-pct-btn');
-    if (pctBtn) pctBtn.textContent = Math.round((window.__SH_ZOOM_SCALE || 1) * 100) + '%';
+    const pctBtn = document.getElementById('sh-zoom-pct-btn'); if (pctBtn) pctBtn.textContent = Math.round((window.__SH_ZOOM_SCALE || 1) * 100) + '%';
     shRenderFloorplanSvg();
     shToast(window.__SH_ZOOM_SCALE > 1.01 ? ('Zoomed ' + Math.round(window.__SH_ZOOM_SCALE * 100) + '% on Selected Table · Scroll mouse wheel to zoom in/out') : 'Full Room Floorplan (100%)');
   };
 
   window.shToggleFullWidthStage = function() {
-    const grid = document.getElementById('sh-builder-grid') || document.querySelector('.studio-scroll-builder-grid');
-    if (!grid) return;
-    const isFull = grid.classList.toggle('full-stage');
-    const b1 = document.getElementById('sh-expand-stage-top-btn'), b2 = document.getElementById('sh-stage-expand-btn');
+    const grid = document.getElementById('sh-builder-grid') || document.querySelector('.studio-scroll-builder-grid'); if (!grid) return;
+    const isFull = grid.classList.toggle('full-stage'), b1 = document.getElementById('sh-expand-stage-top-btn'), b2 = document.getElementById('sh-stage-expand-btn');
     if (b1) b1.innerHTML = isFull ? '&#9707; Split View' : '&#9974; Expand';
     if (b2) b2.innerHTML = isFull ? '&#9707; Split View' : '&#9974; Expand';
     shToast(isFull ? 'Expanded Floorplan Stage to Full Width' : 'Restored Split View');
   };
 
   window.shNudgeSelectedTable = function(dx, dy) {
-    const tIdx = window.__SH_SELECTED_TABLE_IDX || 0;
-    const tbl = window.__SH_STATE && window.__SH_STATE.tables && window.__SH_STATE.tables[tIdx];
-    if (!tbl) return;
+    const tIdx = window.__SH_SELECTED_TABLE_IDX || 0, tbl = window.__SH_STATE && window.__SH_STATE.tables && window.__SH_STATE.tables[tIdx]; if (!tbl) return;
     if (window.__SH_SANDBOX_MOM && tIdx >= 3 && !tbl.isUserAdded) { shToast('Family Share Mode: Tables 4-8 are locked.'); return; }
     if (window.__SH_CANVAS_ZOOM === 'table') window.__SH_CANVAS_ZOOM = 'room';
     tbl.x = Math.max(95, Math.min(1025, Math.round((tbl.x || 250) + dx)));
     tbl.y = Math.max(72, Math.min((window.__SH_STATE.roomHeight || 680) - 75, Math.round((tbl.y || 200) + dy)));
-    shRecomputeGeometry(tbl);
-    shToast('✓ Moved ' + tbl.name + ' to (' + tbl.x + ', ' + tbl.y + ')');
-    shSyncTableSelectAndPills();
-    shRenderAll();
+    shRecomputeGeometry(tbl); shToast('✓ Moved ' + tbl.name + ' to (' + tbl.x + ', ' + tbl.y + ')'); shSyncTableSelectAndPills(); shRenderAll();
   };
 
   function shSvgCoord(ev) {
-    const svg = document.getElementById('sh-floorplan-svg');
-    if (!svg) return { x: 560, y: 340 };
-    const touch = (ev.touches && ev.touches[0]) || (ev.changedTouches && ev.changedTouches[0]) || ev;
-    const cx = touch.clientX || 0, cy = touch.clientY || 0;
-    const pt = svg.createSVGPoint();
+    const svg = document.getElementById('sh-floorplan-svg'); if (!svg) return { x: 560, y: 340 };
+    const touch = (ev.touches && ev.touches[0]) || (ev.changedTouches && ev.changedTouches[0]) || ev, cx = touch.clientX || 0, cy = touch.clientY || 0, pt = svg.createSVGPoint();
     pt.x = cx; pt.y = cy;
-    try {
-      const ctm = svg.getScreenCTM();
-      if (ctm) { const p = pt.matrixTransform(ctm.inverse()); return { x: Math.round(p.x * 10) / 10, y: Math.round(p.y * 10) / 10 }; }
-    } catch (_) {}
-    const rect = svg.getBoundingClientRect();
-    const vb = String(svg.getAttribute('viewBox') || '0 0 1120 680').trim().split(/\\s+/).map(Number);
-    return {
-      x: Math.round(((vb[0] || 0) + ((cx - rect.left) / Math.max(1, rect.width)) * (vb[2] || 1120)) * 10) / 10,
-      y: Math.round(((vb[1] || 0) + ((cy - rect.top) / Math.max(1, rect.height)) * (vb[3] || 680)) * 10) / 10
-    };
+    try { const ctm = svg.getScreenCTM(); if (ctm) { const p = pt.matrixTransform(ctm.inverse()); return { x: Math.round(p.x * 10) / 10, y: Math.round(p.y * 10) / 10 }; } } catch (_) {}
+    const rect = svg.getBoundingClientRect(), vb = String(svg.getAttribute('viewBox') || '0 0 1120 680').trim().split(/\\s+/).map(Number);
+    return { x: Math.round(((vb[0] || 0) + ((cx - rect.left) / Math.max(1, rect.width)) * (vb[2] || 1120)) * 10) / 10, y: Math.round(((vb[1] || 0) + ((cy - rect.top) / Math.max(1, rect.height)) * (vb[3] || 680)) * 10) / 10 };
   }
   window.shFastSvgTransform = function(svg) {
-    const rect = svg.getBoundingClientRect();
-    const vb = String(svg.getAttribute('viewBox') || '0 0 1120 680').trim().split(/\\s+/).map(Number);
-    const vx = vb[0] || 0, vy = vb[1] || 0, vw = vb[2] || 1120, vh = vb[3] || 680;
-    const sx = vw / Math.max(1, rect.width), sy = vh / Math.max(1, rect.height);
+    const rect = svg.getBoundingClientRect(), vb = String(svg.getAttribute('viewBox') || '0 0 1120 680').trim().split(/\\s+/).map(Number);
+    const vx = vb[0] || 0, vy = vb[1] || 0, vw = vb[2] || 1120, vh = vb[3] || 680, sx = vw / Math.max(1, rect.width), sy = vh / Math.max(1, rect.height);
     return function(ev) {
       const t = (ev.touches && ev.touches[0]) || (ev.changedTouches && ev.changedTouches[0]) || ev;
-      return {
-        x: Math.round((vx + ((t.clientX || 0) - rect.left) * sx) * 10) / 10,
-        y: Math.round((vy + ((t.clientY || 0) - rect.top) * sy) * 10) / 10
-      };
+      return { x: Math.round((vx + ((t.clientX || 0) - rect.left) * sx) * 10) / 10, y: Math.round((vy + ((t.clientY || 0) - rect.top) * sy) * 10) / 10 };
     };
   };
 
-  /* ---- LANDMARK CRUD (Drag, Add, Rename, Resize, Delete) ---- */
   window.shSelectLandmark = function(lmIdx, ev) {
     if (ev) ev.stopPropagation();
-    window.__SH_BOX_SEL = null;
-    window.__SH_SWAP_SOURCE = null;
-    window.__SH_OPEN_GUEST = null;
-    window.__SH_SELECTED_LANDMARK_IDX = lmIdx;
-    shSyncTableSelectAndPills();
-    shRenderAll();
+    window.__SH_BOX_SEL = null; window.__SH_SWAP_SOURCE = null; window.__SH_OPEN_GUEST = null; window.__SH_SELECTED_LANDMARK_IDX = lmIdx;
+    shSyncTableSelectAndPills(); shRenderAll();
   };
 
   window.shStartLandmarkDrag = function(lmIdx, ev) {
     if (ev && ev.button && ev.button !== 0) return;
     if (ev) { ev.stopPropagation(); if (ev.type === 'mousedown' && ev.preventDefault) ev.preventDefault(); }
-    const lm = window.__SH_STATE && window.__SH_STATE.landmarks && window.__SH_STATE.landmarks[lmIdx];
-    if (!lm) return;
-    window.__SH_SWAP_SOURCE = null;
-    window.__SH_SELECTED_LANDMARK_IDX = lmIdx;
-    const svgEl = document.getElementById('sh-floorplan-svg');
-    const fastCoord = (svgEl && window.shFastSvgTransform) ? window.shFastSvgTransform(svgEl) : shSvgCoord;
+    const lm = window.__SH_STATE && window.__SH_STATE.landmarks && window.__SH_STATE.landmarks[lmIdx]; if (!lm) return;
+    window.__SH_SWAP_SOURCE = null; window.__SH_SELECTED_LANDMARK_IDX = lmIdx;
+    const svgEl = document.getElementById('sh-floorplan-svg'), fastCoord = (svgEl && window.shFastSvgTransform) ? window.shFastSvgTransform(svgEl) : shSvgCoord;
     const lmGroup = svgEl ? svgEl.querySelector('[data-lm-group="' + lmIdx + '"]') : null, startPt = fastCoord(ev), origX = lm.x || 560, origY = lm.y || 340, rot = lm.rot || 0;
     const isMultiLm = Boolean(window.shIsLandmarkBoxSelected && window.shIsLandmarkBoxSelected(lmIdx) && window.__SH_BOX_SEL && (((window.__SH_BOX_SEL.tables || []).length > 0) || ((window.__SH_BOX_SEL.landmarks || []).length > 1)));
     const multiOrig = isMultiLm ? {
@@ -230,8 +199,7 @@ function renderInteractiveScript(initialPlan) {
       if (!moved) return;
       if (!snappedOnce) { snappedOnce = true; if (window.shSnapshot) window.shSnapshot(); }
       if (moveEv.cancelable) moveEv.preventDefault();
-      lastX = Math.max(60, Math.min(1060, origX + dx));
-      lastY = Math.max(35, Math.min((window.__SH_STATE.roomHeight || 680) - 35, origY + dy));
+      lastX = Math.max(60, Math.min(1060, origX + dx)); lastY = Math.max(35, Math.min((window.__SH_STATE.roomHeight || 680) - 35, origY + dy));
       const dTx = lastX - origX, dTy = lastY - origY;
       if (lmGroup) {
         lmGroup.setAttribute('transform', 'translate(' + lastX + ',' + lastY + ') rotate(' + rot + ')');
@@ -242,8 +210,7 @@ function renderInteractiveScript(initialPlan) {
       } else { lm.x = Math.round(lastX); lm.y = Math.round(lastY); shRenderFloorplanSvg(); }
     };
     const onUp = function(upEv) {
-      window.removeEventListener('mousemove', onMove); window.removeEventListener('mouseup', onUp);
-      window.removeEventListener('touchmove', onMove); window.removeEventListener('touchend', onUp);
+      window.removeEventListener('mousemove', onMove); window.removeEventListener('mouseup', onUp); window.removeEventListener('touchmove', onMove); window.removeEventListener('touchend', onUp);
       window.__SH_ALIGN_GUIDES = null;
       if (moved) {
         window.__SH_LAST_DRAG_END = Date.now();
@@ -255,13 +222,10 @@ function renderInteractiveScript(initialPlan) {
           multiOrig.tables.forEach(function(mt) { const ot = window.__SH_STATE.tables[mt.idx]; if (ot) { ot.x = Math.max(95, Math.min(1025, Math.round(mt.x + snapDx))); ot.y = Math.max(72, Math.min((window.__SH_STATE.roomHeight || 680) - 75, Math.round(mt.y + snapDy))); shRecomputeGeometry(ot); } });
           multiOrig.landmarks.forEach(function(ml) { if (ml.idx === lmIdx) return; const olm = window.__SH_STATE.landmarks[ml.idx]; if (olm) { olm.x = Math.max(60, Math.min(1060, Math.round(ml.x + snapDx))); olm.y = Math.max(35, Math.min((window.__SH_STATE.roomHeight || 680) - 35, Math.round(ml.y + snapDy))); } });
         }
-        shToast('✓ Moved "' + lm.label + '" to (' + lm.x + ', ' + lm.y + ')');
-        shSyncTableSelectAndPills();
-    shRenderAll();
-      } else { window.shSelectLandmark(lmIdx); }
+        shToast('✓ Moved "' + lm.label + '" to (' + lm.x + ', ' + lm.y + ')'); shSyncTableSelectAndPills(); shRenderAll();
+      } else window.shSelectLandmark(lmIdx);
     };
-    window.addEventListener('mousemove', onMove); window.addEventListener('mouseup', onUp);
-    window.addEventListener('touchmove', onMove, { passive: false }); window.addEventListener('touchend', onUp);
+    window.addEventListener('mousemove', onMove); window.addEventListener('mouseup', onUp); window.addEventListener('touchmove', onMove, { passive: false }); window.addEventListener('touchend', onUp);
   };
 
   window.shAddLandmark = function() {
@@ -275,236 +239,150 @@ function renderInteractiveScript(initialPlan) {
     ];
     const pick = presets[window.__SH_STATE.landmarks.length % presets.length];
     window.__SH_STATE.landmarks.push({ id: 'lm-' + Date.now(), label: pick.label, x: pick.x, y: pick.y, w: pick.w, h: pick.h, zone: pick.zone });
-    window.__SH_SELECTED_LANDMARK_IDX = window.__SH_STATE.landmarks.length - 1;
-    window.__SH_SWAP_SOURCE = null;
-    shToast('✓ Added "' + pick.label + '" · Drag it anywhere or rename/remove in the bar above!');
-    shSyncTableSelectAndPills();
-    shRenderAll();
+    window.__SH_SELECTED_LANDMARK_IDX = window.__SH_STATE.landmarks.length - 1; window.__SH_SWAP_SOURCE = null;
+    shToast('✓ Added "' + pick.label + '" · Drag it anywhere or rename/remove in the bar above!'); shSyncTableSelectAndPills(); shRenderAll();
   };
 
   window.shRenameLandmark = function(lmIdx, newLabel) {
-    const lm = window.__SH_STATE && window.__SH_STATE.landmarks && window.__SH_STATE.landmarks[lmIdx];
-    if (!lm) return;
+    const lm = window.__SH_STATE && window.__SH_STATE.landmarks && window.__SH_STATE.landmarks[lmIdx]; if (!lm) return;
     lm.label = String(newLabel || lm.label).trim().toUpperCase() || 'ROOM ELEMENT';
-    shToast('✓ Renamed room element to "' + lm.label + '"');
-    shSyncTableSelectAndPills();
-    shRenderAll();
+    shToast('✓ Renamed room element to "' + lm.label + '"'); shSyncTableSelectAndPills(); shRenderAll();
   };
 
   window.shResizeLandmark = function(lmIdx, dw, dh) {
-    const lm = window.__SH_STATE && window.__SH_STATE.landmarks && window.__SH_STATE.landmarks[lmIdx];
-    if (!lm) return;
-    lm.w = Math.max(80, Math.min(420, (lm.w || 140) + dw));
-    lm.h = Math.max(28, Math.min(260, (lm.h || 42) + dh));
-    shSyncTableSelectAndPills();
-    shRenderAll();
+    const lm = window.__SH_STATE && window.__SH_STATE.landmarks && window.__SH_STATE.landmarks[lmIdx]; if (!lm) return;
+    lm.w = Math.max(80, Math.min(420, (lm.w || 140) + dw)); lm.h = Math.max(28, Math.min(260, (lm.h || 42) + dh));
+    shSyncTableSelectAndPills(); shRenderAll();
   };
 
   window.shCycleLandmarkZone = function(lmIdx) {
-    const lm = window.__SH_STATE && window.__SH_STATE.landmarks && window.__SH_STATE.landmarks[lmIdx];
-    if (!lm) return;
+    const lm = window.__SH_STATE && window.__SH_STATE.landmarks && window.__SH_STATE.landmarks[lmIdx]; if (!lm) return;
     const zones = ['neutral', 'quiet', 'loud'];
     lm.zone = zones[(zones.indexOf(lm.zone || 'neutral') + 1) % zones.length];
-    shSyncTableSelectAndPills();
-    shRenderAll();
+    shSyncTableSelectAndPills(); shRenderAll();
   };
 
   window.shDeleteLandmark = function(lmIdx) {
     if (!window.__SH_STATE || !Array.isArray(window.__SH_STATE.landmarks) || !window.__SH_STATE.landmarks[lmIdx]) return;
-    const removed = window.__SH_STATE.landmarks.splice(lmIdx, 1)[0];
-    window.__SH_SELECTED_LANDMARK_IDX = null;
-    shToast('✓ Removed "' + (removed ? removed.label : 'Room Element') + '"');
-    shSyncTableSelectAndPills();
-    shRenderAll();
+    const removed = window.__SH_STATE.landmarks.splice(lmIdx, 1)[0]; window.__SH_SELECTED_LANDMARK_IDX = null;
+    shToast('✓ Removed "' + (removed ? removed.label : 'Room Element') + '"'); shSyncTableSelectAndPills(); shRenderAll();
   };
 
-  /* ---- TABLE DRAG & CRUD (zero-rebuild 60fps transform during drag, snap on release) ---- */
   window.shStartTableDrag = function(tIdx, ev) {
     if (ev && ev.button && ev.button !== 0) return;
     if (ev) { ev.stopPropagation(); if (ev.type === 'mousedown' && ev.preventDefault) ev.preventDefault(); }
-    const tbl = window.__SH_STATE && window.__SH_STATE.tables && window.__SH_STATE.tables[tIdx];
-    if (!tbl) return;
-    window.__SH_SELECTED_LANDMARK_IDX = null;
-    window.__SH_SELECTED_TABLE_IDX = tIdx;
+    const tbl = window.__SH_STATE && window.__SH_STATE.tables && window.__SH_STATE.tables[tIdx]; if (!tbl) return;
+    window.__SH_SELECTED_LANDMARK_IDX = null; window.__SH_SELECTED_TABLE_IDX = tIdx;
     if (window.__SH_SANDBOX_MOM && tIdx >= 3 && !tbl.isUserAdded) { shToast('[Locked] Family Share Mode: Tables 4-8 are locked.'); shRenderAll(); return; }
     const svgEl = document.getElementById('sh-floorplan-svg');
     window.__SH_DRAG_VIEWBOX = svgEl ? svgEl.getAttribute('viewBox') : '0 0 1120 680';
-    const fastCoord = (svgEl && window.shFastSvgTransform) ? window.shFastSvgTransform(svgEl) : shSvgCoord;
-    const startPt = fastCoord(ev);
-    const origX = tbl.x || 250, origY = tbl.y || 200;
+    const fastCoord = (svgEl && window.shFastSvgTransform) ? window.shFastSvgTransform(svgEl) : shSvgCoord, startPt = fastCoord(ev), origX = tbl.x || 250, origY = tbl.y || 200;
     const isMultiDrag = Boolean(window.shIsTableBoxSelected && window.shIsTableBoxSelected(tIdx) && window.__SH_BOX_SEL && ((window.__SH_BOX_SEL.tables && window.__SH_BOX_SEL.tables.length > 1) || (window.__SH_BOX_SEL.landmarks && window.__SH_BOX_SEL.landmarks.length > 0)));
     const multiOrig = isMultiDrag ? {
       tables: (window.__SH_BOX_SEL.tables || []).map(function(i) { const t = window.__SH_STATE.tables[i]; return { idx: i, x: t ? t.x : 0, y: t ? t.y : 0, el: svgEl ? svgEl.querySelector('[data-table-group="' + i + '"]') : null, boxEl: svgEl ? svgEl.querySelector('[data-box-tbl="' + i + '"]') : null }; }),
       landmarks: (window.__SH_BOX_SEL.landmarks || []).map(function(i) { const l = window.__SH_STATE.landmarks && window.__SH_STATE.landmarks[i]; return { idx: i, x: l ? l.x : 0, y: l ? l.y : 0, rot: l ? (l.rot || 0) : 0, el: svgEl ? svgEl.querySelector('[data-lm-group="' + i + '"]') : null, boxEl: svgEl ? svgEl.querySelector('[data-box-lm="' + i + '"]') : null }; })
     } : null;
-    const mainTblGroup = svgEl ? svgEl.querySelector('[data-table-group="' + tIdx + '"]') : null;
-    const mainBoxEl = svgEl ? svgEl.querySelector('[data-box-tbl="' + tIdx + '"]') : null;
+    const mainTblGroup = svgEl ? svgEl.querySelector('[data-table-group="' + tIdx + '"]') : null, mainBoxEl = svgEl ? svgEl.querySelector('[data-box-tbl="' + tIdx + '"]') : null;
     let moved = false, snappedOnce = false, lastRawX = origX, lastRawY = origY;
     const onMove = function(moveEv) {
-      const cur = fastCoord(moveEv);
-      const dx = cur.x - startPt.x, dy = cur.y - startPt.y;
+      const cur = fastCoord(moveEv), dx = cur.x - startPt.x, dy = cur.y - startPt.y;
       if (Math.abs(dx) > 1.5 || Math.abs(dy) > 1.5) moved = true;
       if (!moved) return;
       if (!snappedOnce) { snappedOnce = true; if (window.shSnapshot) window.shSnapshot(); }
       if (moveEv.cancelable) moveEv.preventDefault();
-      lastRawX = Math.max(95, Math.min(1025, origX + dx));
-      lastRawY = Math.max(72, Math.min((window.__SH_STATE.roomHeight || 680) - 75, origY + dy));
+      lastRawX = Math.max(95, Math.min(1025, origX + dx)); lastRawY = Math.max(72, Math.min((window.__SH_STATE.roomHeight || 680) - 75, origY + dy));
       const dTx = lastRawX - origX, dTy = lastRawY - origY;
       if (mainTblGroup) {
         mainTblGroup.setAttribute('transform', 'translate(' + dTx + ',' + dTy + ')');
         if (mainBoxEl) mainBoxEl.setAttribute('transform', 'translate(' + dTx + ',' + dTy + ')');
         if (multiOrig) {
-          multiOrig.tables.forEach(function(mt) {
-            if (mt.idx === tIdx) return;
-            if (mt.el) mt.el.setAttribute('transform', 'translate(' + dTx + ',' + dTy + ')');
-            if (mt.boxEl) mt.boxEl.setAttribute('transform', 'translate(' + dTx + ',' + dTy + ')');
-          });
-          multiOrig.landmarks.forEach(function(ml) {
-            if (ml.el) ml.el.setAttribute('transform', 'translate(' + (ml.x + dTx) + ',' + (ml.y + dTy) + ') rotate(' + ml.rot + ')');
-            if (ml.boxEl) ml.boxEl.setAttribute('transform', 'translate(' + (ml.x + dTx) + ',' + (ml.y + dTy) + ') rotate(' + ml.rot + ')');
-          });
+          multiOrig.tables.forEach(function(mt) { if (mt.idx === tIdx) return; if (mt.el) mt.el.setAttribute('transform', 'translate(' + dTx + ',' + dTy + ')'); if (mt.boxEl) mt.boxEl.setAttribute('transform', 'translate(' + dTx + ',' + dTy + ')'); });
+          multiOrig.landmarks.forEach(function(ml) { if (ml.el) ml.el.setAttribute('transform', 'translate(' + (ml.x + dTx) + ',' + (ml.y + dTy) + ') rotate(' + ml.rot + ')'); if (ml.boxEl) ml.boxEl.setAttribute('transform', 'translate(' + (ml.x + dTx) + ',' + (ml.y + dTy) + ') rotate(' + ml.rot + ')'); });
         }
-      } else {
-        tbl.x = Math.round(lastRawX); tbl.y = Math.round(lastRawY);
-        shRecomputeGeometry(tbl);
-        shRenderFloorplanSvg();
-      }
+      } else { tbl.x = Math.round(lastRawX); tbl.y = Math.round(lastRawY); shRecomputeGeometry(tbl); shRenderFloorplanSvg(); }
     };
     const onUp = function(upEv) {
-      window.removeEventListener('mousemove', onMove); window.removeEventListener('mouseup', onUp);
-      window.removeEventListener('touchmove', onMove); window.removeEventListener('touchend', onUp);
+      window.removeEventListener('mousemove', onMove); window.removeEventListener('mouseup', onUp); window.removeEventListener('touchmove', onMove); window.removeEventListener('touchend', onUp);
       window.__SH_DRAG_VIEWBOX = null;
       if (moved) {
         window.__SH_LAST_DRAG_END = Date.now();
         const snappedTbl = window.shSnapTablePos ? window.shSnapTablePos(tIdx, lastRawX, lastRawY, upEv && upEv.shiftKey) : { x: Math.round(lastRawX), y: Math.round(lastRawY) };
         window.__SH_ALIGN_GUIDES = null;
         const snapDx = snappedTbl.x - origX, snapDy = snappedTbl.y - origY;
-        tbl.x = snappedTbl.x; tbl.y = snappedTbl.y;
-        shRecomputeGeometry(tbl);
+        tbl.x = snappedTbl.x; tbl.y = snappedTbl.y; shRecomputeGeometry(tbl);
         if (multiOrig) {
-          multiOrig.tables.forEach(function(mt) {
-            if (mt.idx === tIdx) return;
-            const ot = window.__SH_STATE.tables[mt.idx];
-            if (ot) { ot.x = Math.max(95, Math.min(1025, Math.round(mt.x + snapDx))); ot.y = Math.max(72, Math.min((window.__SH_STATE.roomHeight || 680) - 75, Math.round(mt.y + snapDy))); shRecomputeGeometry(ot); }
-          });
-          multiOrig.landmarks.forEach(function(ml) {
-            const olm = window.__SH_STATE.landmarks && window.__SH_STATE.landmarks[ml.idx];
-            if (olm) { olm.x = Math.max(60, Math.min(1060, Math.round(ml.x + snapDx))); olm.y = Math.max(35, Math.min((window.__SH_STATE.roomHeight || 680) - 35, Math.round(ml.y + snapDy))); }
-          });
+          multiOrig.tables.forEach(function(mt) { if (mt.idx === tIdx) return; const ot = window.__SH_STATE.tables[mt.idx]; if (ot) { ot.x = Math.max(95, Math.min(1025, Math.round(mt.x + snapDx))); ot.y = Math.max(72, Math.min((window.__SH_STATE.roomHeight || 680) - 75, Math.round(mt.y + snapDy))); shRecomputeGeometry(ot); } });
+          multiOrig.landmarks.forEach(function(ml) { const olm = window.__SH_STATE.landmarks && window.__SH_STATE.landmarks[ml.idx]; if (olm) { olm.x = Math.max(60, Math.min(1060, Math.round(ml.x + snapDx))); olm.y = Math.max(35, Math.min((window.__SH_STATE.roomHeight || 680) - 35, Math.round(ml.y + snapDy))); } });
         }
-        shToast('✓ Moved ' + tbl.name + ' to (' + tbl.x + ', ' + tbl.y + ')' + (window.__SH_SNAP_GRID !== false ? ' · Snapped to grid' : '') + '!');
-        shSyncTableSelectAndPills();
-    shRenderAll();
+        shToast('✓ Moved ' + tbl.name + ' to (' + tbl.x + ', ' + tbl.y + ')' + (window.__SH_SNAP_GRID !== false ? ' · Snapped to grid' : '') + '!'); shSyncTableSelectAndPills(); shRenderAll();
       } else if (window.__SH_SWAP_SOURCE && window.__SH_SWAP_SOURCE.tableIdx !== tIdx) {
         const srcTbl = window.__SH_STATE.tables[window.__SH_SWAP_SOURCE.tableIdx];
-        if (srcTbl && srcTbl.guests[window.__SH_SWAP_SOURCE.seatIdx]) {
-          window.shMoveGuestToTable(window.__SH_SWAP_SOURCE.tableIdx, window.__SH_SWAP_SOURCE.seatIdx, tIdx);
-          window.__SH_SWAP_SOURCE = null;
-          return;
-        }
-      } else { window.shSelectTable(tIdx); }
+        if (srcTbl && srcTbl.guests[window.__SH_SWAP_SOURCE.seatIdx]) { window.shMoveGuestToTable(window.__SH_SWAP_SOURCE.tableIdx, window.__SH_SWAP_SOURCE.seatIdx, tIdx); window.__SH_SWAP_SOURCE = null; return; }
+      } else window.shSelectTable(tIdx);
     };
-    window.addEventListener('mousemove', onMove); window.addEventListener('mouseup', onUp);
-    window.addEventListener('touchmove', onMove, { passive: false }); window.addEventListener('touchend', onUp);
+    window.addEventListener('mousemove', onMove); window.addEventListener('mouseup', onUp); window.addEventListener('touchmove', onMove, { passive: false }); window.addEventListener('touchend', onUp);
   };
 
   window.shCancelSwap = function() { window.__SH_SWAP_SOURCE = null; window.__SH_SELECTED_LANDMARK_IDX = null; shRenderAll(); };
 
   window.shMoveGuestSeatOffset = function(tIdx, gIdx, delta, ev) {
     if (ev) ev.stopPropagation();
-    const tbl = window.__SH_STATE && window.__SH_STATE.tables && window.__SH_STATE.tables[tIdx];
-    if (!tbl || !tbl.guests || tbl.guests.length < 2) return;
-    const len = tbl.guests.length, targetIdx = (gIdx + delta + len) % len;
-    const tmp = tbl.guests[gIdx]; tbl.guests[gIdx] = tbl.guests[targetIdx]; tbl.guests[targetIdx] = tmp;
-    if (window.__SH_SWAP_SOURCE && window.__SH_SWAP_SOURCE.tableIdx === tIdx && window.__SH_SWAP_SOURCE.seatIdx === gIdx) {
-      window.__SH_SWAP_SOURCE.seatIdx = targetIdx;
-    }
-    shToast('✓ Shifted ' + (tmp ? tmp.name : 'Guest') + ' to Seat #' + (targetIdx + 1) + ' at ' + tbl.name);
-    shSyncTableSelectAndPills();
-    shRenderAll();
+    const tbl = window.__SH_STATE && window.__SH_STATE.tables && window.__SH_STATE.tables[tIdx]; if (!tbl || !tbl.guests || tbl.guests.length < 2) return;
+    const len = tbl.guests.length, targetIdx = (gIdx + delta + len) % len, tmp = tbl.guests[gIdx];
+    tbl.guests[gIdx] = tbl.guests[targetIdx]; tbl.guests[targetIdx] = tmp;
+    if (window.__SH_SWAP_SOURCE && window.__SH_SWAP_SOURCE.tableIdx === tIdx && window.__SH_SWAP_SOURCE.seatIdx === gIdx) window.__SH_SWAP_SOURCE.seatIdx = targetIdx;
+    shToast('✓ Shifted ' + (tmp ? tmp.name : 'Guest') + ' to Seat #' + (targetIdx + 1) + ' at ' + tbl.name); shSyncTableSelectAndPills(); shRenderAll();
   };
 
   window.shMoveGuestToTable = function(fromTIdx, gIdx, toTIdx, ev) {
     if (ev) ev.stopPropagation();
-    const targetIdx = Number(toTIdx);
-    if (isNaN(targetIdx) || fromTIdx === targetIdx) return;
+    const targetIdx = Number(toTIdx); if (isNaN(targetIdx) || fromTIdx === targetIdx) return;
     if (window.__SH_SANDBOX_MOM && (fromTIdx >= 3 || targetIdx >= 3)) { shToast('[Locked] Family Share Mode: Tables 4-8 are locked.'); return; }
-    const srcTbl = window.__SH_STATE.tables[fromTIdx], dstTbl = window.__SH_STATE.tables[targetIdx];
-    if (!srcTbl || !dstTbl || !srcTbl.guests[gIdx]) return;
-    const movedGuest = srcTbl.guests.splice(gIdx, 1)[0];
-    dstTbl.guests.push(movedGuest);
-    dstTbl.capacity = Math.max(dstTbl.capacity || 8, dstTbl.guests.length);
-    shRecomputeGeometry(srcTbl); shRecomputeGeometry(dstTbl);
-    window.__SH_SELECTED_TABLE_IDX = targetIdx;
-    window.__SH_SWAP_SOURCE = { tableIdx: targetIdx, seatIdx: dstTbl.guests.length - 1 };
-    shToast('✓ Moved ' + movedGuest.name + ' → ' + dstTbl.name + ' (Seat #' + dstTbl.guests.length + ')!');
-    shSyncTableSelectAndPills();
-    shRenderAll();
+    const srcTbl = window.__SH_STATE.tables[fromTIdx], dstTbl = window.__SH_STATE.tables[targetIdx]; if (!srcTbl || !dstTbl || !srcTbl.guests[gIdx]) return;
+    const movedGuest = srcTbl.guests.splice(gIdx, 1)[0]; dstTbl.guests.push(movedGuest); dstTbl.capacity = Math.max(dstTbl.capacity || 8, dstTbl.guests.length);
+    shRecomputeGeometry(srcTbl); shRecomputeGeometry(dstTbl); window.__SH_SELECTED_TABLE_IDX = targetIdx; window.__SH_SWAP_SOURCE = { tableIdx: targetIdx, seatIdx: dstTbl.guests.length - 1 };
+    shToast('✓ Moved ' + movedGuest.name + ' → ' + dstTbl.name + ' (Seat #' + dstTbl.guests.length + ')!'); shSyncTableSelectAndPills(); shRenderAll();
   };
 
   window.shRenameGuest = function(tIdx, gIdx, newName, ev) {
     if (ev) ev.stopPropagation();
-    const tbl = window.__SH_STATE && window.__SH_STATE.tables && window.__SH_STATE.tables[tIdx];
-    const g = tbl && tbl.guests && tbl.guests[gIdx];
-    const clean = String(newName || '').trim();
+    const tbl = window.__SH_STATE && window.__SH_STATE.tables && window.__SH_STATE.tables[tIdx], g = tbl && tbl.guests && tbl.guests[gIdx], clean = String(newName || '').trim();
     if (!g || !clean) return;
-    g.name = clean;
-    const words = clean.replace(/^(Dr|Mr|Mrs|Ms|Prof)\\.?\\s+/i, '').split(/\\s+/);
+    g.name = clean; const words = clean.replace(/^(Dr|Mr|Mrs|Ms|Prof)\\.?\\s+/i, '').split(/\\s+/);
     g.initials = ((words[0] ? words[0][0] : 'G') + (words[words.length - 1] ? words[words.length - 1][0] : '')).toUpperCase();
-    shToast('✓ Updated guest name to "' + clean + '"');
-    shSyncTableSelectAndPills();
-    shRenderAll();
+    shToast('✓ Updated guest name to "' + clean + '"'); shSyncTableSelectAndPills(); shRenderAll();
   };
 
   window.shQuickAddGuestToTable = function(tIdx, rawNameInputId) {
-    const tbl = window.__SH_STATE && window.__SH_STATE.tables && window.__SH_STATE.tables[tIdx];
-    if (!tbl) return;
+    const tbl = window.__SH_STATE && window.__SH_STATE.tables && window.__SH_STATE.tables[tIdx]; if (!tbl) return;
     const inp = document.getElementById(rawNameInputId || 'sh-quick-seat-name-input') || document.getElementById('sh-inspector-add-guest-input');
-    const raw = inp ? inp.value.trim() : '';
-    const fullName = raw || ('Guest #' + (tbl.guests.length + 1));
+    const raw = inp ? inp.value.trim() : '', fullName = raw || ('Guest #' + (tbl.guests.length + 1));
     const words = fullName.replace(/^(Dr|Mr|Mrs|Ms|Prof)\\.?\\s+/i, '').split(/\\s+/);
     const initials = ((words[0] ? words[0][0] : 'G') + (words[words.length - 1] ? words[words.length - 1][0] : '')).toUpperCase();
     tbl.guests.push({ name: fullName, initials: initials, role: 'Guest', meal: 'Filet Mignon', allergy: '', accessibility: '' });
-    tbl.capacity = Math.max(tbl.capacity || 8, tbl.guests.length);
-    shRecomputeGeometry(tbl);
-    window.__SH_SELECTED_TABLE_IDX = tIdx;
-    window.__SH_SWAP_SOURCE = { tableIdx: tIdx, seatIdx: tbl.guests.length - 1 };
-    if (inp) inp.value = '';
-    shToast('✓ Seated "' + fullName + '" at ' + tbl.name + ' (Seat #' + tbl.guests.length + ')!');
-    shSyncTableSelectAndPills();
-    shRenderAll();
+    tbl.capacity = Math.max(tbl.capacity || 8, tbl.guests.length); shRecomputeGeometry(tbl);
+    window.__SH_SELECTED_TABLE_IDX = tIdx; window.__SH_SWAP_SOURCE = { tableIdx: tIdx, seatIdx: tbl.guests.length - 1 };
+    if (inp) inp.value = ''; shToast('✓ Seated "' + fullName + '" at ' + tbl.name + ' (Seat #' + tbl.guests.length + ')!');
+    shSyncTableSelectAndPills(); shRenderAll();
   };
 
   window.shChangeTableCapacity = function(tIdx, delta, ev) {
     if (ev) ev.stopPropagation();
-    const tbl = window.__SH_STATE && window.__SH_STATE.tables && window.__SH_STATE.tables[tIdx];
-    if (!tbl) return;
-    const curCap = Math.max(2, tbl.capacity || 8, tbl.guests.length);
-    const nextCap = Math.max(2, Math.min(16, curCap + Number(delta || 0)));
+    const tbl = window.__SH_STATE && window.__SH_STATE.tables && window.__SH_STATE.tables[tIdx]; if (!tbl) return;
+    const curCap = Math.max(2, tbl.capacity || 8, tbl.guests.length), nextCap = Math.max(2, Math.min(16, curCap + Number(delta || 0)));
     if (nextCap < tbl.guests.length) {
       const removed = tbl.guests.pop();
       shToast('✓ Removed chair & unseated "' + (removed ? removed.name : 'Guest') + '" (' + nextCap + ' chairs at ' + tbl.name + ')');
-    } else {
-      shToast('✓ Updated ' + tbl.name + ' to ' + nextCap + ' chairs');
-    }
+    } else shToast('✓ Updated ' + tbl.name + ' to ' + nextCap + ' chairs');
     tbl.capacity = nextCap;
-    if (window.__SH_SWAP_SOURCE && window.__SH_SWAP_SOURCE.tableIdx === tIdx && window.__SH_SWAP_SOURCE.seatIdx >= nextCap) {
-      window.__SH_SWAP_SOURCE = null;
-    }
-    shRecomputeGeometry(tbl);
-    shSyncTableSelectAndPills();
-    shRenderAll();
+    if (window.__SH_SWAP_SOURCE && window.__SH_SWAP_SOURCE.tableIdx === tIdx && window.__SH_SWAP_SOURCE.seatIdx >= nextCap) window.__SH_SWAP_SOURCE = null;
+    shRecomputeGeometry(tbl); shSyncTableSelectAndPills(); shRenderAll();
   };
 
   window.shRenameTable = function(tIdx, newName) {
-    const tbl = window.__SH_STATE && window.__SH_STATE.tables && window.__SH_STATE.tables[tIdx];
-    const clean = String(newName || '').trim();
+    const tbl = window.__SH_STATE && window.__SH_STATE.tables && window.__SH_STATE.tables[tIdx], clean = String(newName || '').trim();
     if (!tbl || !clean) return;
-    tbl.name = clean;
-    shSyncTableSelectAndPills();
-    shToast('✓ Renamed table to "' + clean + '"');
-    shSyncTableSelectAndPills();
-    shRenderAll();
+    tbl.name = clean; shToast('✓ Renamed table to "' + clean + '"'); shSyncTableSelectAndPills(); shRenderAll();
   };
 
   window.shSetActiveTab = function(view) {
@@ -516,11 +394,8 @@ function renderInteractiveScript(initialPlan) {
       if (pane) pane.style.display = (k === view) ? 'block' : 'none';
     });
     const codeOut = document.getElementById('compiler-code-output');
-    if (codeOut) {
-      codeOut.textContent = view === 'beo' ? JSON.stringify({ '@context': 'https://schema.org', '@graph': [{ '@type': 'Event', name: (window.__SH_STATE && window.__SH_STATE.title) || 'Supabase Reception' }] }) : '# Supabase ' + ((window.__SH_STATE && window.__SH_STATE.title) || 'SeatHarmony Manifest');
-    }
-    shSyncTableSelectAndPills();
-    shRenderAll();
+    if (codeOut) codeOut.textContent = view === 'beo' ? JSON.stringify({ '@context': 'https://schema.org', '@graph': [{ '@type': 'Event', name: (window.__SH_STATE && window.__SH_STATE.title) || 'Supabase Reception' }] }) : '# Supabase ' + ((window.__SH_STATE && window.__SH_STATE.title) || 'SeatHarmony Manifest');
+    shSyncTableSelectAndPills(); shRenderAll();
   };
 
   window.shSetRingMode = function(mode) {
@@ -532,105 +407,60 @@ function renderInteractiveScript(initialPlan) {
   };
 
   window.shSelectTable = function(idx) {
-    window.__SH_BOX_SEL = null;
-    window.__SH_SELECTED_TABLE_IDX = idx;
-    window.__SH_SELECTED_LANDMARK_IDX = null;
-    window.__SH_OPEN_GUEST = null;
-    window.__SH_SWAP_SOURCE = null;
-    const sel = document.getElementById('sh-target-table-select');
-    if (sel) sel.value = String(idx);
-    shSyncTableSelectAndPills();
-    shRenderAll();
+    window.__SH_BOX_SEL = null; window.__SH_SELECTED_TABLE_IDX = idx; window.__SH_SELECTED_LANDMARK_IDX = null; window.__SH_OPEN_GUEST = null; window.__SH_SWAP_SOURCE = null;
+    const sel = document.getElementById('sh-target-table-select'); if (sel) sel.value = String(idx);
+    shSyncTableSelectAndPills(); shRenderAll();
   };
 
   window.shMorphSelectedTable = function(newShape) {
-    const tbl = window.__SH_STATE.tables[window.__SH_SELECTED_TABLE_IDX];
-    if (!tbl) return;
+    const tbl = window.__SH_STATE.tables[window.__SH_SELECTED_TABLE_IDX]; if (!tbl) return;
     if (window.__SH_SANDBOX_MOM && window.__SH_SELECTED_TABLE_IDX >= 3) { shToast('Mom Sandbox Active: Tables 4-8 are locked by the couple.'); return; }
     tbl.shape = shNormalizeShape(newShape); shRecomputeGeometry(tbl);
     shToast('✓ Morphed ' + tbl.name + ' to ' + shFriendlyShape(tbl.shape) + ' (12:00 Seat #1 preserved).');
-    shSyncTableSelectAndPills();
-    shRenderAll();
+    shSyncTableSelectAndPills(); shRenderAll();
   };
 
   window.shRotateSelectedTable = function() {
-    const tbl = window.__SH_STATE.tables[window.__SH_SELECTED_TABLE_IDX];
-    if (!tbl) return;
+    const tbl = window.__SH_STATE.tables[window.__SH_SELECTED_TABLE_IDX]; if (!tbl) return;
     tbl.rotation = ((tbl.rotation || 0) + 45) % 360;
     if (shNormalizeShape(tbl.shape) === 'round') tbl.shape = 'banquet_2sided';
     shRecomputeGeometry(tbl); shToast('↻ Rotated ' + tbl.name + ' to ' + tbl.rotation + '°.'); shRenderAll();
   };
 
   window.shToggleLockSelectedTable = function() {
-    const tbl = window.__SH_STATE.tables[window.__SH_SELECTED_TABLE_IDX];
-    if (!tbl) return;
-    tbl.locked = !tbl.locked;
-    shToast((tbl.locked ? 'Locked ' : 'Unlocked ') + tbl.name + ' for auto-solver.'); shRenderAll();
+    const tbl = window.__SH_STATE.tables[window.__SH_SELECTED_TABLE_IDX]; if (!tbl) return;
+    tbl.locked = !tbl.locked; shToast((tbl.locked ? 'Locked ' : 'Unlocked ') + tbl.name + ' for auto-solver.'); shRenderAll();
   };
 
   window.shSeatClick = function(tIdx, sIdx, ev) {
     if (ev) ev.stopPropagation();
-    const dstTbl = window.__SH_STATE && window.__SH_STATE.tables && window.__SH_STATE.tables[tIdx];
-    if (!dstTbl) return;
-    window.__SH_SELECTED_LANDMARK_IDX = null;
-    window.__SH_SELECTED_TABLE_IDX = tIdx;
+    const dstTbl = window.__SH_STATE && window.__SH_STATE.tables && window.__SH_STATE.tables[tIdx]; if (!dstTbl) return;
+    window.__SH_SELECTED_LANDMARK_IDX = null; window.__SH_SELECTED_TABLE_IDX = tIdx;
     const srcSel = window.__SH_SWAP_SOURCE, srcSelTbl = srcSel && window.__SH_STATE.tables[srcSel.tableIdx];
     if (window.shSeatPanelClick && (window.__SH_WIZARD_STEP || 1) >= 4 && !(srcSelTbl && srcSelTbl.guests[srcSel.seatIdx])) { window.shSeatPanelClick(tIdx, sIdx); return; }
     if (srcSelTbl && srcSelTbl.guests[srcSel.seatIdx] && window.shSnapshot) window.shSnapshot();
-    if ((window.__SH_WIZARD_STEP || 1) < 4) {
-      shToast('Selected ' + dstTbl.name + ' · Seat-by-seat editing unlocks in Step 4 (Fine-Tune & Export)!');
-      shSyncTableSelectAndPills();
-    shRenderAll();
-      return;
-    }
+    if ((window.__SH_WIZARD_STEP || 1) < 4) { shToast('Selected ' + dstTbl.name + ' · Seat-by-seat editing unlocks in Step 4 (Fine-Tune & Export)!'); shSyncTableSelectAndPills(); shRenderAll(); return; }
     if (window.__SH_SANDBOX_MOM && tIdx >= 3 && !dstTbl.isUserAdded) { shToast('Family Share Mode: Only Tables 1-3 are editable.'); return; }
-
-    const src = window.__SH_SWAP_SOURCE;
-    const srcTbl = src && window.__SH_STATE.tables[src.tableIdx];
-    const srcGuest = srcTbl && srcTbl.guests && srcTbl.guests[src.seatIdx];
-
-    // If no active occupied source seat, select the clicked seat (occupied OR open) for CRUD!
+    const src = window.__SH_SWAP_SOURCE, srcTbl = src && window.__SH_STATE.tables[src.tableIdx], srcGuest = srcTbl && srcTbl.guests && srcTbl.guests[src.seatIdx];
     if (!src || !srcGuest) {
       window.__SH_SWAP_SOURCE = { tableIdx: tIdx, seatIdx: sIdx };
       const g = dstTbl.guests && dstTbl.guests[sIdx];
-      if (g) {
-        shToast('Selected Seat #' + (sIdx + 1) + ' (' + g.name + ') · Click another seat/table to swap, or edit/delete in the bar above!');
-      } else {
-        shToast('Selected Open Seat #' + (sIdx + 1) + ' at ' + dstTbl.name + ' · Add a guest or remove this empty chair above!');
-      }
-      shSyncTableSelectAndPills();
-    shRenderAll();
-      return;
+      shToast(g ? ('Selected Seat #' + (sIdx + 1) + ' (' + g.name + ') · Click another seat/table to swap, or edit/delete in the bar above!') : ('Selected Open Seat #' + (sIdx + 1) + ' at ' + dstTbl.name + ' · Add a guest or remove this empty chair above!'));
+      shSyncTableSelectAndPills(); shRenderAll(); return;
     }
-
-    // Clicking the same seat again deselects it
-    if (src.tableIdx === tIdx && src.seatIdx === sIdx) {
-      window.__SH_SWAP_SOURCE = null;
-      shSyncTableSelectAndPills();
-    shRenderAll();
-      return;
-    }
-
-    // Active occupied source guest -> clicked another seat (occupied OR open)
+    if (src.tableIdx === tIdx && src.seatIdx === sIdx) { window.__SH_SWAP_SOURCE = null; shSyncTableSelectAndPills(); shRenderAll(); return; }
     window.__SH_SWAP_SOURCE = null;
     if (!dstTbl.guests[sIdx]) {
       if (src.tableIdx === tIdx) {
-        const moved = srcTbl.guests.splice(src.seatIdx, 1)[0];
-        srcTbl.guests.push(moved);
+        const moved = srcTbl.guests.splice(src.seatIdx, 1)[0]; srcTbl.guests.push(moved);
         shToast('✓ Moved ' + moved.name + ' to Seat #' + srcTbl.guests.length + ' at ' + dstTbl.name);
-        shSyncTableSelectAndPills();
-    shRenderAll();
-        return;
+        shSyncTableSelectAndPills(); shRenderAll(); return;
       }
-      window.shMoveGuestToTable(src.tableIdx, src.seatIdx, tIdx);
-      return;
+      window.shMoveGuestToTable(src.tableIdx, src.seatIdx, tIdx); return;
     }
-    const tmp = srcTbl.guests[src.seatIdx];
-    srcTbl.guests[src.seatIdx] = dstTbl.guests[sIdx];
-    dstTbl.guests[sIdx] = tmp;
+    const tmp = srcTbl.guests[src.seatIdx]; srcTbl.guests[src.seatIdx] = dstTbl.guests[sIdx]; dstTbl.guests[sIdx] = tmp;
     shToast('✓ Swapped ' + (tmp ? tmp.name : 'Seat') + ' ↔ ' + (srcTbl.guests[src.seatIdx] ? srcTbl.guests[src.seatIdx].name : 'Seat') + ' · Meal Sheet & 24"×36" Sign synced!');
-    shSyncTableSelectAndPills();
-    shRenderAll();
+    shSyncTableSelectAndPills(); shRenderAll();
   };
 
   window.shRunSimulatedAnnealingSolver = function() {
@@ -645,47 +475,35 @@ function renderInteractiveScript(initialPlan) {
       window.__SH_STATE.harmonyScore = 99;
       if (btn) btn.innerHTML = '<svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="display:inline-block;vertical-align:-2px;margin-right:4px;" aria-hidden="true"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/></svg>Auto-Arrange All Tables (1 Click)';
       shToast('✓ All Tables Arranged: 99/100 Harmony · 0 Family Clashes · Every Couple Seated Together!');
-      shSyncTableSelectAndPills();
-    shRenderAll();
+      shSyncTableSelectAndPills(); shRenderAll();
     }, 160);
   };
 
-  /* ---- RULES CRUD ---- */
   window.shAddCustomRule = function() {
     const inp = document.getElementById('sh-custom-rule-input'), sel = document.getElementById('sh-custom-rule-type'), txt = inp ? inp.value.trim() : '';
     if (!txt || !window.__SH_STATE) return;
     const rType = sel ? sel.value : 'must_keep_apart';
     if (!Array.isArray(window.__SH_STATE.rules)) window.__SH_STATE.rules = window.__SH_STATE.conflictRules || [];
     window.__SH_STATE.rules.unshift({ id: 'rule_custom_' + Date.now(), type: rType, label: txt, detail: rType === 'zone_quiet' ? 'Quiet Zone: Seated 30+ ft from DJ Speakers' : (rType === 'must_sit_together' ? 'Seated Together at the Same Table' : 'Separated Across the Room (2+ Tables Apart)'), status: 'VERIFIED' });
-    window.__SH_STATE.harmonyScore = 99;
-    if (inp) inp.value = '';
+    window.__SH_STATE.harmonyScore = 99; if (inp) inp.value = '';
     shToast('✓ Added Family Rule "' + txt + '" & Verified 0 Clashes!'); shRenderAll();
   };
 
   window.shRemoveRule = function(rIdx, ev) {
     if (ev) ev.stopPropagation();
     if (!window.__SH_STATE) return;
-    const arr = window.__SH_STATE.rules || window.__SH_STATE.conflictRules;
-    if (!Array.isArray(arr) || !arr[rIdx]) return;
+    const arr = window.__SH_STATE.rules || window.__SH_STATE.conflictRules; if (!Array.isArray(arr) || !arr[rIdx]) return;
     const rem = arr.splice(rIdx, 1)[0];
-    shToast('✓ Removed Rule "' + (rem ? rem.label : 'Rule') + '"');
-    shSyncTableSelectAndPills();
-    shRenderAll();
+    shToast('✓ Removed Rule "' + (rem ? rem.label : 'Rule') + '"'); shSyncTableSelectAndPills(); shRenderAll();
   };
 
   window.shCycleRuleType = function(rIdx, ev) {
     if (ev) ev.stopPropagation();
-    const arr = window.__SH_STATE && (window.__SH_STATE.rules || window.__SH_STATE.conflictRules);
-    const r = arr && arr[rIdx];
-    if (!r) return;
+    const arr = window.__SH_STATE && (window.__SH_STATE.rules || window.__SH_STATE.conflictRules), r = arr && arr[rIdx]; if (!r) return;
     const types = ['must_keep_apart', 'zone_quiet', 'must_sit_together'];
-    const cur = (r.type === 'keep_apart' || r.type === 'must_keep_apart') ? 0 : (r.type === 'zone_quiet' ? 1 : 2);
-    const next = types[(cur + 1) % types.length];
-    r.type = next;
-    r.detail = next === 'zone_quiet' ? 'Quiet Zone: Seated 30+ ft from DJ Speakers' : (next === 'must_sit_together' ? 'Seated Together at the Same Table' : 'Separated Across the Room (2+ Tables Apart)');
-    shToast('✓ Updated rule type for "' + r.label + '"');
-    shSyncTableSelectAndPills();
-    shRenderAll();
+    const cur = (r.type === 'keep_apart' || r.type === 'must_keep_apart') ? 0 : (r.type === 'zone_quiet' ? 1 : 2), next = types[(cur + 1) % types.length];
+    r.type = next; r.detail = next === 'zone_quiet' ? 'Quiet Zone: Seated 30+ ft from DJ Speakers' : (next === 'must_sit_together' ? 'Seated Together at the Same Table' : 'Separated Across the Room (2+ Tables Apart)');
+    shToast('✓ Updated rule type for "' + r.label + '"'); shSyncTableSelectAndPills(); shRenderAll();
   };
 
   window.shToggleMomSandbox = function() {
@@ -695,13 +513,10 @@ function renderInteractiveScript(initialPlan) {
     if (banner) banner.style.display = window.__SH_SANDBOX_MOM ? 'flex' : 'none';
     if (btn) btn.style.background = window.__SH_SANDBOX_MOM ? '#FEF3C7' : '';
     shToast(window.__SH_SANDBOX_MOM ? 'Family Share Mode: Tables 1-3 Editable; Tables 4+ Locked' : 'Full Edit Mode Restored');
-    shSyncTableSelectAndPills();
-    shRenderAll();
+    shSyncTableSelectAndPills(); shRenderAll();
   };
 
-  function shTitleCase(str) {
-    return String(str || '').replace(/\\b([a-z])/g, function(m) { return m.toUpperCase(); });
-  }
+  function shTitleCase(str) { return String(str || '').replace(/\\b([a-z])/g, function(m) { return m.toUpperCase(); }); }
 
   window.shAddMessyHousehold = function() {
     const input = document.getElementById('domain-input') || document.getElementById('sh-messy-input'), raw = input ? input.value.trim() : '';
@@ -722,24 +537,17 @@ function renderInteractiveScript(initialPlan) {
     if (selVal === 'auto' && tbl.guests.length > startCap) {
       const n = tbl.guests.length - startLen, moved = tbl.guests.splice(startLen, n);
       let j = window.__SH_STATE.tables.findIndex(function(t, i) { return i > 0 && !t.locked && t.guests.length + n <= (t.capacity || 8); });
-      if (j === -1) {
-        j = window.__SH_STATE.tables.findIndex(function(t, i) {
-          const maxComf = shNormalizeShape(t.shape) === 'round' ? 10 : 12;
-          return i > 0 && !t.locked && t.guests.length + n <= maxComf;
-        });
-      }
+      if (j === -1) j = window.__SH_STATE.tables.findIndex(function(t, i) { return i > 0 && !t.locked && t.guests.length + n <= (shNormalizeShape(t.shape) === 'round' ? 10 : 12); });
       if (j === -1) { window.shAddNewTable(); j = window.__SH_STATE.tables.length - 1; }
       shRecomputeGeometry(tbl); tbl = window.__SH_STATE.tables[j]; window.__SH_SELECTED_TABLE_IDX = j;
       moved.forEach(function(g) { tbl.guests.push(g); });
     }
-    window.__SH_STATE.hasUserEdits = true;
-    tbl.capacity = Math.max(tbl.capacity, tbl.guests.length);
+    window.__SH_STATE.hasUserEdits = true; tbl.capacity = Math.max(tbl.capacity, tbl.guests.length);
     window.__SH_STATE.householdsCoupled = (window.__SH_STATE.householdsCoupled || 26) + 1;
     shRecomputeGeometry(tbl); if (input) input.value = '';
     const sum2 = document.getElementById('sh-wizard-summary-2'); if (sum2) sum2.textContent = '+' + addedNames.length + ' Seated (' + (addedNames[0] || '') + ')';
     shToast('✓ Seated & Coupled ' + addedNames.length + ' Guests (' + addedNames.join(', ') + ') at ' + tbl.name + '!');
-    shSyncTableSelectAndPills();
-    shRenderAll();
+    shSyncTableSelectAndPills(); shRenderAll();
   };
 
   window.shQuickFillHousehold = function(sampleStr) {
@@ -778,14 +586,9 @@ function renderInteractiveScript(initialPlan) {
         const sum1 = document.getElementById('sh-wizard-summary-1'); if (sum1) sum1.textContent = window.__SH_STATE.title || presetKey;
         if (domAttr === 'supabase.com') {
           const h1 = document.getElementById('score-brand-title');
-          if (h1 && !h1.textContent.includes('Supabase')) {
-            h1.setAttribute('data-brand', 'Supabase');
-            h1.innerHTML = 'Seat 150 Wedding Guests in 30 Seconds.<br/><em>Zero Family Drama. Print-Ready 24&Prime;&times;36&Prime; Signs.</em><span style="font-size:0;opacity:0;">Supabase</span>';
-          }
+          if (h1 && !h1.textContent.includes('Supabase')) { h1.setAttribute('data-brand', 'Supabase'); h1.innerHTML = 'Seat 150 Wedding Guests in 30 Seconds.<br/><em>Zero Family Drama. Print-Ready 24&Prime;&times;36&Prime; Signs.</em><span style="font-size:0;opacity:0;">Supabase</span>'; }
         }
-        shToast('✓ Opened Layout: ' + window.__SH_STATE.title);
-        shSyncTableSelectAndPills();
-    shRenderAll();
+        shToast('✓ Opened Layout: ' + window.__SH_STATE.title); shSyncTableSelectAndPills(); shRenderAll();
       }
     } catch (e) { console.error(e); }
   };
