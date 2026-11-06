@@ -161,7 +161,7 @@ function renderTopPrintBar({ vault, activeRoute, baseUrl }) {
         <span style="font-size:12.5px;font-weight:700;color:#78350F;background:#FAF6EE;border:1px solid #C8A96E;padding:2px 9px;border-radius:999px;">${VR_LOCK_SVG}${vault.isMealUnlocked ? '24&Prime;&times;36&Prime; Print-Shop Poster, Avery 5302 Cards &amp; QR Locked ($7 Pack)' : 'Tables 2&ndash;8 Meal Sheet ($0) &amp; 24&Prime;&times;36&Prime; Sign ($7) Locked'}</span>
       </div>
       <form onsubmit="var em=(document.getElementById('sh-subpage-email')||{}).value||'';if(em.indexOf('@')>0){try{localStorage.setItem('sh_saved_email',em);fetch('/api/leads/capture',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({email:em,pageUrl:window.location.pathname,utmSource:'subpage_vault_bar'}),keepalive:true});}catch(_){}setTimeout(function(){window.location.href=window.location.pathname+'?email='+encodeURIComponent(em);},120);}return false;" style="display:flex;align-items:center;gap:6px;flex-wrap:wrap;flex:1 1 320px;justify-content:flex-end;">
-        ${vault.isMealUnlocked ? '' : `<input id="sh-subpage-email" type="email" required placeholder="Enter email to unlock Meal Sheet free ($0)..." style="flex:1 1 200px;max-width:280px;height:36px;padding:6px 10px;border:1px solid #D1D5DB;border-radius:8px;font-size:13px;background:#FFFFFF;color:#181412;" aria-label="Email address to unlock Tables 2-8 Meal Sheet" /><button type="submit" style="cursor:pointer;background:#00766C;color:#FFFFFF;border:1px solid #00766C;border-radius:8px;height:36px;padding:6px 12px;font-size:13px;font-weight:700;white-space:nowrap;">Unlock Meal Sheet ($0) &rarr;</button>`}
+        ${vault.isMealUnlocked ? '' : `<input id="sh-subpage-email" type="email" required placeholder="Enter email to unlock Meal Sheet free ($0)..." style="flex:1 1 200px;max-width:280px;height:36px;padding:6px 10px;border:1px solid #D1D5DB;border-radius:8px;font-size:16px;background:#FFFFFF;color:#181412;" aria-label="Email address to unlock Tables 2-8 Meal Sheet" /><button type="submit" style="cursor:pointer;background:#00766C;color:#FFFFFF;border:1px solid #00766C;border-radius:8px;height:36px;padding:6px 12px;font-size:13px;font-weight:700;white-space:nowrap;">Unlock Meal Sheet ($0) &rarr;</button>`}
         <a href="/buy/complete_dossier?target=${encodeURIComponent(vault.vaultId)}&vault=${encodeURIComponent(vault.vaultId)}&allow_promotion_codes=false" style="display:inline-flex;align-items:center;background:#181412;color:#FFFFFF;border-radius:8px;height:36px;padding:6px 12px;font-size:13px;font-weight:800;text-decoration:none;white-space:nowrap;">$7 Print Pack (vs. $14 Etsy) &rarr;</a>
       </form>
     </div>
@@ -548,13 +548,13 @@ function attachVaultAndPaywallRoutes(app, publicUrl, ebStore = null) {
     </div>
     <div style="display:flex;gap:10px;flex-wrap:wrap;align-items:center;font-size:0.75rem;color:#44403C;">
       <label style="display:flex;align-items:center;gap:6px;white-space:nowrap;font-weight:700;">Headline:
-        <input type="text" value="${escapeHtml(customKicker)}" oninput="document.getElementById('poster-live-h1').textContent=this.value||'Please Find Your Seat'" style="padding:4px 8px;border-radius:6px;border:1px solid #C8A96E;background:#FAF6EE;color:#181412;font-weight:700;width:190px;" />
+        <input type="text" value="${escapeHtml(customKicker)}" oninput="document.getElementById('poster-live-h1').textContent=this.value||'Please Find Your Seat'" style="padding:4px 8px;border-radius:6px;border:1px solid #C8A96E;background:#FAF6EE;color:#181412;font-weight:700;font-size:16px;width:190px;" />
       </label>
       <label style="display:flex;align-items:center;gap:6px;white-space:nowrap;font-weight:700;">Crest:
-        <input type="text" value="${escapeHtml(monogramInputVal)}" oninput="window.updatePosterCrest(this.value)" style="padding:4px 8px;border-radius:6px;border:1px solid #C8A96E;background:#FAF6EE;color:#8C2D19;font-weight:800;width:145px;" />
+        <input type="text" value="${escapeHtml(monogramInputVal)}" oninput="window.updatePosterCrest(this.value)" style="padding:4px 8px;border-radius:6px;border:1px solid #C8A96E;background:#FAF6EE;color:#8C2D19;font-weight:800;font-size:16px;width:145px;" />
       </label>
       <label style="display:flex;align-items:center;gap:6px;white-space:nowrap;font-weight:700;">Subtitle:
-        <input type="text" value="${escapeHtml(vault.title)} · ${escapeHtml(vault.venueName)}" oninput="document.getElementById('poster-live-sub').textContent=this.value" style="padding:4px 8px;border-radius:6px;border:1px solid #C8A96E;background:#FAF6EE;color:#181412;font-weight:600;width:270px;" />
+        <input type="text" value="${escapeHtml(vault.title)} · ${escapeHtml(vault.venueName)}" oninput="document.getElementById('poster-live-sub').textContent=this.value" style="padding:4px 8px;border-radius:6px;border:1px solid #C8A96E;background:#FAF6EE;color:#181412;font-weight:600;font-size:16px;width:270px;" />
       </label>
     </div>
   </div>

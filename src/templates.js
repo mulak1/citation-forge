@@ -196,7 +196,7 @@ function renderHead({
     .sh-ed-ka-btn { padding: 5px 10px; font-size: 13px; font-weight: 700; color: #9F1239; background: #FFF1F2; border: 1px solid #FECDD3; border-radius: 8px; cursor: pointer; font-family: inherit; }
     .sh-ed-ka-x { border: none; background: transparent; font-size: 1.2rem; line-height: 1; color: #9CA3AF; cursor: pointer; padding: 0 4px; }
     .sh-ed-ka-form { display: grid; grid-template-columns: 1fr 1fr auto; gap: 6px; margin-top: 6px; }
-    .sh-ed-ka-form input { min-width: 0; padding: 9px 10px; font-size: 14px; border: 1.5px solid #D1D5DB; border-radius: 9px; background: #FFFFFF; font-family: inherit; outline: none; } .sh-ed-ka-form input:focus { border-color: #00766C; }
+    .sh-ed-ka-form input { min-width: 0; padding: 9px 10px; font-size: 16px; border: 1.5px solid #D1D5DB; border-radius: 9px; background: #FFFFFF; font-family: inherit; outline: none; } .sh-ed-ka-form input:focus { border-color: #00766C; }
     .sh-ed-ka-form button { padding: 0 14px; font-size: 14px; font-weight: 700; color: #FFFFFF; background: #00766C; border: 1.5px solid #00766C; border-radius: 9px; cursor: pointer; font-family: inherit; }
     .sh-ed-menu-wrap { position: relative; display: inline-block; }
     .sh-ed-menu { position: absolute; right: 0; top: calc(100% + 6px); z-index: 30; min-width: 210px; background: #FFFFFF; border: 1px solid #E5E7EB; border-radius: 12px; padding: 6px; box-shadow: 0 18px 40px -18px rgba(0,0,0,0.2); }
@@ -231,7 +231,7 @@ function renderHead({
     .sh-ed-stepper { display: inline-flex; align-items: center; gap: 6px; } .sh-ed-stepper b { font-size: 0.86rem; color: #374151; min-width: 66px; text-align: center; }
     .sh-ed-stepper button { width: 30px; height: 30px; border-radius: 999px; border: 1px solid #D1D5DB; background: #FFFFFF; font-size: 1.05rem; font-weight: 700; color: #374151; cursor: pointer; }
     .sh-ed-add { display: flex; gap: 8px; margin-bottom: 10px; }
-    .sh-ed-add input, .sh-ed-input { flex: 1; min-width: 0; width: 100%; padding: 9px 12px; font-size: 0.94rem; border: 1px solid #D1D5DB; border-radius: 10px; background: #FFFFFF; outline: none; font-family: inherit; }
+    .sh-ed-add input, .sh-ed-input { flex: 1; min-width: 0; width: 100%; padding: 9px 12px; font-size: 16px; border: 1px solid #D1D5DB; border-radius: 10px; background: #FFFFFF; outline: none; font-family: inherit; }
     .sh-ed-add input:focus, .sh-ed-input:focus { border-color: #00766C; box-shadow: 0 0 0 3px rgba(0, 118, 108, 0.14); }
     .sh-ed-add button { padding: 0 14px; font-size: 0.92rem; font-weight: 700; color: #FFFFFF; background: #00766C; border: 1px solid #00766C; border-radius: 10px; cursor: pointer; }
     .sh-ed-list { display: flex; flex-direction: column; gap: 6px; }
