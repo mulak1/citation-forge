@@ -242,7 +242,7 @@ function renderZone3InteractiveStudio(plan) {
                 <div id="sh-step4-inline-bridge" style="margin-top:10px;padding:10px 12px;border-radius:12px;background:#FAF8F5;border:1px solid #EAE4DC;display:flex;flex-direction:column;gap:8px;">
                   <div style="font-size:0.82rem;font-weight:800;color:#1C1C1C;">${IC.save}Email This Layout &amp; Caterer CSV ($0) or Unlock Print Pack ($7 &middot; vs. $14 Etsy):</div>
                   <div style="display:flex;flex-wrap:wrap;gap:6px;align-items:stretch;">
-                    <input id="sh-step4-inline-email" type="email" placeholder="Enter email for free template &amp; CSV ($0)..." onkeydown="if(event.key==='Enter'){var el=document.getElementById('sh-inline-vault-email');if(el)el.value=this.value;window.shSaveInlineEmailLead();}" style="flex:1 1 160px;min-width:0;padding:8px 10px;border:1px solid #D1D5DB;border-radius:8px;font-size:0.84rem;background:#FFFFFF;color:#1C1C1C;" aria-label="Email address to save floorplan and caterer CSV" />
+                    <input id="sh-step4-inline-email" type="email" placeholder="Enter email for free template &amp; CSV ($0)..." onkeydown="if(event.key==='Enter'){var el=document.getElementById('sh-inline-vault-email');if(el)el.value=this.value;window.shSaveInlineEmailLead();}" style="flex:1 1 160px;min-width:0;min-height:42px;padding:8px 10px;border:1px solid #D1D5DB;border-radius:8px;font-size:16px;background:#FFFFFF;color:#1C1C1C;" aria-label="Email address to save floorplan and caterer CSV" />
                     <button type="button" id="sh-step4-inline-save-btn" onclick="var el=document.getElementById('sh-inline-vault-email'),s4=document.getElementById('sh-step4-inline-email');if(el&&s4)el.value=s4.value;window.shSaveInlineEmailLead();" style="cursor:pointer;background:#00766C;color:#FFFFFF;border:1px solid #00766C;border-radius:8px;padding:8px 12px;font-size:0.84rem;font-weight:700;white-space:nowrap;">Email Plan ($0)</button>
                   </div>
                   <a id="sh-card5-buy-btn" href="/buy/complete_dossier?target=estate-150&amp;vault=${vId}&amp;allow_promotion_codes=false" style="display:inline-flex;align-items:center;justify-content:center;text-align:center;background:#1C1C1C;color:#FFFFFF;border:1px solid #1C1C1C;border-radius:8px;padding:8px 12px;font-size:0.88rem;font-weight:800;text-decoration:none;">Unlock Full Print Pack ($7 &middot; vs. $14 Etsy) &rarr;</a>
@@ -433,7 +433,7 @@ function renderZone3InteractiveStudio(plan) {
             <button type="button" id="sh-locked-badge-beo" class="sh-locked-spec-badge" data-sh-locked-badge="beo" data-unmasked-text="&#10003; Tables 2&ndash;8 Clockwise Meal Tally Unmasked (62 Covers &middot; 12:00 Seat #1 &middot; 6 Allergy Flags)" onclick="if(window.shFocusEmailUnlockBadge){window.shFocusEmailUnlockBadge(this);}else{var e=document.getElementById('sh-inline-vault-email');if(e){e.scrollIntoView({behavior:'smooth',block:'center'});e.focus();}}" style="cursor:pointer;background:#F0FDFA;color:#065F46;border:1px solid #00766C;border-radius:999px;padding:4px 11px;font-size:13px;font-weight:700;line-height:1.25;filter:none;">${IC.lock}Tables 2&ndash;8 Clockwise Meal Tally &mdash; Tap to Unlock Free ($0) &uarr;</button>
             <a id="sh-locked-badge-pack" class="sh-locked-spec-badge" href="/buy/complete_dossier?target=estate-150&amp;vault=${vId}&amp;allow_promotion_codes=false" style="cursor:pointer;background:#FAF6EE;color:#78350F;border:1px solid #C8A96E;border-radius:999px;padding:4px 11px;font-size:13px;font-weight:700;line-height:1.25;text-decoration:none;filter:none;">${IC.lock}24&Prime;&times;36&Prime; Print-Shop Poster &amp; Escort Cards ($7 Pack) &uarr;</a>
           </div>
-          <div id="sh-table1-escort-dietary-preview" data-unmasked="1" style="display:none;"><div id="sh-table1-preview-body"></div></div>
+          <div id="sh-table1-escort-dietary-preview" data-unmasked="1" style="display:block;font-size:12.5px;color:#374151;background:#FFFFFF;border:1px dashed #D6CFC2;border-radius:7px;padding:5px 10px;"><div id="sh-table1-preview-body"><strong>Place Card #1 Sample:</strong> Maya Vance &amp; Liam Vance &bull; Table 1, Seat #1 (12:00) &bull; Filet Mignon &bull; <strong>Dietary Notes:</strong> 6 Allergy Notes</div></div>
         </div>
 
         <div style="display:flex;flex-direction:column;gap:6px;">
@@ -495,9 +495,9 @@ function renderZone3InteractiveStudio(plan) {
             <h4 class="serif-display" style="font-size:1.22rem;margin-bottom:6px;">Save Your Seating Plan Online</h4>
             <p style="font-size:0.86rem;color:#4B5563;margin-bottom:12px;line-height:1.45;">Save your tables and guest list online to edit from any device or print 48 hours out.</p>
             <label for="sh-vault-email-input" class="studio-field-label">Your Email Address:</label>
-            <input id="sh-vault-email-input" type="email" class="grader-input" style="width:100%;margin-bottom:10px;" placeholder="maya@example.com" value="${escapeHtml(plan.ownerEmail || '')}" />
+            <input id="sh-vault-email-input" type="email" class="grader-input" style="width:100%;margin-bottom:10px;font-size:16px;" placeholder="maya@example.com" value="${escapeHtml(plan.ownerEmail || '')}" />
             <label for="sh-vault-pin-input" class="studio-field-label">Optional 4-Digit Edit PIN:</label>
-            <input id="sh-vault-pin-input" type="text" maxlength="8" class="grader-input" style="width:100%;margin-bottom:12px;" placeholder="2026" value="2026" />
+            <input id="sh-vault-pin-input" type="text" maxlength="8" class="grader-input" style="width:100%;margin-bottom:12px;font-size:16px;" placeholder="2026" value="2026" />
             <button type="button" id="sh-vault-save-submit-btn" class="btn btn-primary" style="width:100%;padding:11px;" onclick="window.shSaveVaultToServer()">${IC.save}Save My Seating Plan</button>
             <div id="sh-vault-saved-links-box" style="margin-top:12px;padding:10px 12px;border-radius:10px;background:#FFFFFF;border:1px solid #E5E7EB;font-size:0.84rem;">
               <div style="font-weight:800;color:#00766C;margin-bottom:6px;">&#10003; Direct Links for Your Reception:</div>
@@ -516,7 +516,7 @@ function renderZone3InteractiveStudio(plan) {
             <h4 class="serif-display" style="font-size:1.22rem;margin-bottom:6px;">Return to a Saved Seating Plan</h4>
             <p style="font-size:0.86rem;color:#4B5563;margin-bottom:12px;line-height:1.45;">Enter the email address you used when saving your reception floorplan to pick up right where you left off:</p>
             <label for="sh-vault-lookup-input" class="studio-field-label">Your Saved Email Address:</label>
-            <input id="sh-vault-lookup-input" type="text" class="grader-input" style="width:100%;margin-bottom:12px;" placeholder="maya@example.com" />
+            <input id="sh-vault-lookup-input" type="text" class="grader-input" style="width:100%;margin-bottom:12px;font-size:16px;" placeholder="maya@example.com" />
             <button type="button" id="sh-vault-lookup-btn" class="btn btn-secondary" style="width:100%;padding:11px;" onclick="window.shLookupSavedVault()">${IC.unlock}Open My Saved Seating Plan</button>
             <div id="sh-vault-lookup-status" style="margin-top:10px;font-size:0.84rem;color:#374151;"></div>
           </div>

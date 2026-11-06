@@ -483,7 +483,8 @@ function renderDeliverablesClientScript() {
     const kInp = document.getElementById('sh-inline-sign-kicker'); if (kInp && document.activeElement !== kInp) kInp.value = kickerText;
     const vInp = document.getElementById('sh-inline-sign-venue'); if (vInp && document.activeElement !== vInp) vInp.value = window.__SH_STATE.venueName || '';
     const logoUrl = window.__SH_CREST_LOGO_URL || '';
-    const isUnmasked = shIsDeliverableUnmasked();
+    const isUnmasked = Boolean(window.__SH_STATE && window.__SH_STATE.isUnlocked);
+    const hasEmailSaved = shIsDeliverableUnmasked();
     const vid = shEsc((window.__SH_STATE && window.__SH_STATE.vaultId) || 'SH-4819');
     let bodyHtml = '';
     const tablesArr = window.__SH_STATE.tables || [];
@@ -491,7 +492,7 @@ function renderDeliverablesClientScript() {
     const tbl1Count = (tablesArr[0] && tablesArr[0].guests && tablesArr[0].guests.length) || 2;
     const lockedGuestsCount = Math.max(0, totalGuestsCount - tbl1Count);
     const posterLockedBannerHtml = !isUnmasked
-      ? '<div style="margin-top:12px;padding:10px 14px;border-radius:10px;background:#FAF8F5;border:1.5px dashed #C8A96E;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:8px;text-align:left;"><span style="font-size:0.80rem;font-weight:800;color:#78350F;">' + SH_LOCK_SVG + 'Tables 2&ndash;' + tablesArr.length + ' Guest Names (' + lockedGuestsCount + ' Additional Guests) &mdash; Sample Shows Table 1 Only</span><div style="display:flex;gap:6px;flex-wrap:wrap;"><button type="button" class="sh-locked-spec-badge" onclick="window.shFocusInlineVaultEmail()" style="cursor:pointer;background:#F0FDFA;color:#065F46;border:1px solid #00766C;border-radius:999px;padding:4px 10px;font-size:0.74rem;font-weight:800;">' + SH_LOCK_SVG + 'Enter Email Below ($0) &darr;</button><a href="/buy/complete_dossier?target=estate-150&amp;vault=' + vid + '&amp;allow_promotion_codes=false" class="sh-locked-spec-badge" style="background:#181412;color:#FDE68A;border:1px solid #C8A96E;border-radius:999px;padding:4px 10px;font-size:0.74rem;font-weight:800;text-decoration:none;">' + SH_LOCK_SVG + 'Unlock 24&Prime;&times;36&Prime; Print Pack ($7) &rarr;</a></div></div>'
+      ? '<div style="margin-top:12px;padding:10px 14px;border-radius:10px;background:#FAF8F5;border:1.5px dashed #C8A96E;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:8px;text-align:left;"><span style="font-size:0.80rem;font-weight:800;color:#78350F;">' + SH_LOCK_SVG + 'Tables 2&ndash;' + tablesArr.length + ' Guest Names (' + lockedGuestsCount + ' Additional Guests) &mdash; Sample Shows Table 1 Only</span><div style="display:flex;gap:6px;flex-wrap:wrap;">' + (!hasEmailSaved ? '<button type="button" class="sh-locked-spec-badge" onclick="window.shFocusInlineVaultEmail()" style="cursor:pointer;background:#F0FDFA;color:#065F46;border:1px solid #00766C;border-radius:999px;padding:4px 10px;font-size:0.74rem;font-weight:800;">' + SH_LOCK_SVG + 'Save &amp; Unlock Meal Sheet ($0) &darr;</button>' : '') + '<a href="/buy/complete_dossier?target=estate-150&amp;vault=' + vid + '&amp;allow_promotion_codes=false" class="sh-locked-spec-badge" style="background:#181412;color:#FDE68A;border:1px solid #C8A96E;border-radius:999px;padding:4px 10px;font-size:0.74rem;font-weight:800;text-decoration:none;">' + SH_LOCK_SVG + 'Unlock 24&Prime;&times;36&Prime; Print Pack ($7) &rarr;</a></div></div>'
       : '';
     if ((window.__SH_POSTER_MODE || window.__SH_STATE.posterSort) === 'by_table') {
       bodyHtml = '<div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(175px,1fr));gap:12px;text-align:left;">' +
@@ -542,7 +543,7 @@ function renderDeliverablesClientScript() {
   window.shFilterQrLookup = function() {
     const qInput = document.getElementById('sh-qr-search'), out = document.getElementById('sh-qr-results');
     if (!out || !window.__SH_STATE) return;
-    const isUnmasked = shIsDeliverableUnmasked();
+    const isUnmasked = Boolean(window.__SH_STATE && window.__SH_STATE.isUnlocked);
     const vid = shEsc((window.__SH_STATE && window.__SH_STATE.vaultId) || 'SH-4819');
     const q = (qInput ? qInput.value : '').trim().toLowerCase(), matches = [];
     (window.__SH_STATE.tables || []).forEach(function(t) { t.guests.forEach(function(g, idx) { if (!q || g.name.toLowerCase().indexOf(q) !== -1 || t.name.toLowerCase().indexOf(q) !== -1) matches.push({ guest: g, table: t, seatNumber: idx + 1 }); }); });
@@ -880,12 +881,12 @@ function renderDeliverablesClientScript() {
       if (vBar && typeof IntersectionObserver !== 'undefined') {
         var obs = new IntersectionObserver(function(entries) {
           entries.forEach(function(en) {
-            if (en.isIntersecting && (window.scrollY > 120 || window.__shUserInteracted)) {
+            if (en.isIntersecting) {
               window.shTrackTelemetry('view_paywall', { source: 'vault_bar_scroll' });
               obs.disconnect();
             }
           });
-        }, { threshold: 0.45 });
+        }, { threshold: 0.35 });
         obs.observe(vBar);
       }
     });
