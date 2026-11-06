@@ -22,28 +22,19 @@ function normalizeVaultId(raw) {
 function computeMonogram(title) {
   const clean = String(title || "Maya & Liam's Reception").split(/\s*[·•|]\s*/)[0].replace(/\s+EST\.?\s*\d{4}.*$/i, '').replace(/['’]s.*$/i, '').trim();
   const parts = clean.split(/\s*(?:&|and|\+|x)\s*/i).filter(Boolean);
-  if (parts.length >= 2) {
-    return ((parts[0][0] || 'M') + '&' + (parts[1][0] || 'L')).toUpperCase();
-  }
+  if (parts.length >= 2) return ((parts[0][0] || 'M') + '&' + (parts[1][0] || 'L')).toUpperCase();
   const words = clean.split(/\s+/).filter(Boolean);
   if (words.length >= 2) return ((words[0][0] || 'S') + (words[1][0] || 'H')).toUpperCase();
   return (clean.slice(0, 3) || 'SH').toUpperCase();
 }
 
 function parseMonogramParts(rawMonogram, title) {
-  const fallbackInitials = computeMonogram(title);
-  const raw = String(rawMonogram || '').trim();
-  if (!raw) {
-    return { initials: fallbackInitials, sub: 'EST. 2026', raw: `${fallbackInitials} · EST. 2026` };
-  }
+  const fallbackInitials = computeMonogram(title), raw = String(rawMonogram || '').trim();
+  if (!raw) return { initials: fallbackInitials, sub: 'EST. 2026', raw: `${fallbackInitials} · EST. 2026` };
   const parts = raw.split(/\s*(?:·|•|\|)\s*/).filter(Boolean);
-  if (parts.length >= 2) {
-    return { initials: parts[0].trim() || fallbackInitials, sub: parts.slice(1).join(' · ').trim() || 'EST. 2026', raw };
-  }
+  if (parts.length >= 2) return { initials: parts[0].trim() || fallbackInitials, sub: parts.slice(1).join(' · ').trim() || 'EST. 2026', raw };
   const estMatch = raw.match(/^(.+?)\s+(EST\.?\s*\d{2,4}.*)$/i);
-  if (estMatch) {
-    return { initials: estMatch[1].replace(/[-–—]+$/, '').trim() || fallbackInitials, sub: estMatch[2].trim(), raw };
-  }
+  if (estMatch) return { initials: estMatch[1].replace(/[-–—]+$/, '').trim() || fallbackInitials, sub: estMatch[2].trim(), raw };
   return { initials: raw, sub: 'EST. 2026', raw };
 }
 
@@ -52,65 +43,50 @@ const VR_PRINT_SVG = '<svg width="13" height="13" viewBox="0 0 24 24" fill="none
 const VR_CLIP_SVG = '<svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="display:inline-block;vertical-align:-2px;margin-right:4px;" aria-hidden="true"><path d="M16 4h2a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2h2"/><rect x="8" y="2" width="8" height="4" rx="1" ry="1"/></svg>';
 
 async function resolveVaultRecord(rawVaultId, query = {}) {
-  const vaultId = normalizeVaultId(rawVaultId);
-  const isVipTestVault = vaultId === 'SH-VIP' || vaultId === 'SH-PRO';
+  const vaultId = normalizeVaultId(rawVaultId), isVipTestVault = vaultId === 'SH-VIP' || vaultId === 'SH-PRO';
   let row = null;
-  try {
-    row = queryOne('SELECT * FROM event_vaults WHERE vault_id = ?', [vaultId]);
-  } catch (_) {}
-
-  const forceUnlock = isVipTestVault || query.unlocked === '1' || query.checkout === 'success' || Boolean(query.session_id) || Boolean(query.email && String(query.email).includes('@'));
+  try { row = queryOne('SELECT * FROM event_vaults WHERE vault_id = ?', [vaultId]); } catch (_) {}
+  const hasQueryEmail = Boolean(query.email && String(query.email).includes('@'));
+  const forcePaidUnlock = isVipTestVault || query.unlocked === '1' || query.checkout === 'success' || Boolean(query.session_id);
   if (row) {
     let state = {};
     try { state = JSON.parse(row.state_json || '{}'); } catch (_) {}
-    if (forceUnlock && !row.is_unlocked) {
+    if (forcePaidUnlock && !row.is_unlocked) {
       const tier = String(query.tier || row.plan_tier || (vaultId === 'SH-VIP' ? 'pro_b2b' : 'complete_dossier'));
       try {
-        runInsert(
-          `UPDATE event_vaults SET is_unlocked = 1, plan_tier = ?, stripe_session_id = ?, updated_at = datetime('now') WHERE vault_id = ?`,
-          [tier, String(query.session_id || row.stripe_session_id || ''), vaultId]
-        );
-        row.is_unlocked = 1;
-        row.plan_tier = tier;
+        runInsert(`UPDATE event_vaults SET is_unlocked = 1, plan_tier = ?, stripe_session_id = ?, updated_at = datetime('now') WHERE vault_id = ?`, [tier, String(query.session_id || row.stripe_session_id || ''), vaultId]);
+        row.is_unlocked = 1; row.plan_tier = tier;
       } catch (_) {}
     }
+    const isPaid = Boolean(row.is_unlocked || forcePaidUnlock);
+    const hasSavedEmail = Boolean(hasQueryEmail || (row.owner_email && row.owner_email.includes('@') && !/^(test|vip)@/i.test(row.owner_email)));
     return {
-      vaultId,
-      ownerEmail: row.owner_email || (isVipTestVault ? 'test@seatharmony.com' : ''),
+      vaultId, ownerEmail: row.owner_email || (hasQueryEmail ? String(query.email).trim() : (isVipTestVault ? 'test@seatharmony.com' : '')),
       title: row.title || state.title || "Maya & Liam's Estate Reception",
       venueName: row.venue_name || state.venueName || 'The Conservatory at Villa Bellagio',
-      planTier: row.plan_tier || (forceUnlock ? 'complete_dossier' : 'free'),
-      isUnlocked: Boolean(row.is_unlocked || forceUnlock || (row.owner_email && row.owner_email.includes('@') && !/^(test|vip)@/i.test(row.owner_email))),
-      updatedAt: row.updated_at || new Date().toISOString(),
-      state
+      planTier: row.plan_tier || (isPaid ? 'complete_dossier' : (hasSavedEmail ? 'meal_sheet_free' : 'free')),
+      isUnlocked: isPaid, isMealUnlocked: Boolean(isPaid || hasSavedEmail),
+      updatedAt: row.updated_at || new Date().toISOString(), state
     };
   }
-
-  // Fallback: seed from deterministic preset so SH-4819 or preset vaults always work immediately
   const presetKey = String(query.preset || query.target || (vaultId === 'SH-VIP' ? 'tuscan-banquet-80' : 'estate-150'));
-  const audit = await runGeoAudit(presetKey);
-  const state = audit.seatingPlan || audit;
+  const audit = await runGeoAudit(presetKey), state = audit.seatingPlan || audit;
   return {
-    vaultId,
-    ownerEmail: isVipTestVault ? 'test@seatharmony.com' : '',
+    vaultId, ownerEmail: hasQueryEmail ? String(query.email).trim() : (isVipTestVault ? 'test@seatharmony.com' : ''),
     title: state.title || "Maya & Liam's Estate Reception",
     venueName: state.venueName || 'The Conservatory at Villa Bellagio',
-    planTier: forceUnlock ? String(query.tier || 'complete_dossier') : 'free',
-    isUnlocked: forceUnlock,
-    updatedAt: new Date().toISOString(),
-    state
+    planTier: forcePaidUnlock ? String(query.tier || 'complete_dossier') : (hasQueryEmail ? 'meal_sheet_free' : 'free'),
+    isUnlocked: forcePaidUnlock, isMealUnlocked: Boolean(forcePaidUnlock || hasQueryEmail),
+    updatedAt: new Date().toISOString(), state
   };
 }
 
 function buildVaultUrls(baseUrl, vaultId) {
   const enc = encodeURIComponent(vaultId);
   return {
-    studio: `${baseUrl}/?vault=${enc}#studio`,
-    vault_dashboard: `${baseUrl}/vault/${enc}`,
-    print_poster: `${baseUrl}/print/poster/${enc}`,
-    print_avery: `${baseUrl}/print/avery-5302/${enc}`,
-    print_beo: `${baseUrl}/print/beo/${enc}`,
-    qr_lookup: `${baseUrl}/qr/${enc}`,
+    studio: `${baseUrl}/?vault=${enc}#studio`, vault_dashboard: `${baseUrl}/vault/${enc}`,
+    print_poster: `${baseUrl}/print/poster/${enc}`, print_avery: `${baseUrl}/print/avery-5302/${enc}`,
+    print_beo: `${baseUrl}/print/beo/${enc}`, qr_lookup: `${baseUrl}/qr/${enc}`,
     mom_sandbox: `${baseUrl}/?vault=${enc}&sandbox=mom_tables_1_3#studio`
   };
 }
@@ -119,42 +95,24 @@ function computeClockLabel(seatIdx, totalSeats) {
   if (seatIdx === 0) return '12:00 Anchor';
   const clockPoints8 = ['12:00 Anchor', '1:30 CW', '3:00 CW', '4:30 CW', '6:00 CW', '7:30 CW', '9:00 CW', '10:30 CW'];
   if (totalSeats === 8 && clockPoints8[seatIdx]) return clockPoints8[seatIdx];
-  const hours = Math.round((seatIdx / Math.max(1, totalSeats)) * 12) || 12;
-  return `${hours}:00 CW`;
+  return `${Math.round((seatIdx / Math.max(1, totalSeats)) * 12) || 12}:00 CW`;
 }
 
 function extractAllSeatedGuests(state) {
-  const tables = Array.isArray(state.tables) ? state.tables : [];
-  const all = [];
+  const tables = Array.isArray(state.tables) ? state.tables : [], all = [];
   tables.forEach((t, tIdx) => {
-    const seats = (t.geometry && Array.isArray(t.geometry.seats)) ? t.geometry.seats : [];
-    const guests = Array.isArray(t.guests) ? t.guests : [];
+    const seats = (t.geometry && Array.isArray(t.geometry.seats)) ? t.geometry.seats : [], guests = Array.isArray(t.guests) ? t.guests : [];
     guests.forEach((g, sIdx) => {
-      const seatMeta = seats[sIdx] || {};
-      const rawName = String(g.name || 'Guest').trim();
-      const parenMatch = rawName.match(/\(([^)]+)\)\s*$/);
-      const noteSuffix = parenMatch ? ` (${parenMatch[1]})` : '';
-      const cleanBaseName = rawName.replace(/\s*\([^)]*\)\s*/g, ' ').trim();
-      const parts = cleanBaseName.split(/\s+/).filter(Boolean);
-      const lastName = parts.length > 1 ? parts[parts.length - 1] : (parts[0] || 'Guest');
-      const firstAndMiddle = parts.length > 1 ? parts.slice(0, -1).join(' ') : '';
-      const posterRestName = (firstAndMiddle + noteSuffix).trim();
-      const clockLabel = seatMeta.clockLabel || computeClockLabel(sIdx, guests.length || 8);
+      const seatMeta = seats[sIdx] || {}, rawName = String(g.name || 'Guest').trim(), parenMatch = rawName.match(/\(([^)]+)\)\s*$/);
+      const noteSuffix = parenMatch ? ` (${parenMatch[1]})` : '', cleanBaseName = rawName.replace(/\s*\([^)]*\)\s*/g, ' ').trim();
+      const parts = cleanBaseName.split(/\s+/).filter(Boolean), lastName = parts.length > 1 ? parts[parts.length - 1] : (parts[0] || 'Guest');
+      const firstAndMiddle = parts.length > 1 ? parts.slice(0, -1).join(' ') : '', posterRestName = (firstAndMiddle + noteSuffix).trim();
       all.push({
-        name: rawName,
-        lastName,
-        posterRestName,
-        role: g.role || 'Guest',
-        meal: g.meal || 'Filet Mignon',
-        allergy: g.allergy || 'None',
-        accessibility: g.accessibility || 'Standard Chair',
-        householdLabel: g.householdLabel || rawName || 'Household',
-        tableNumber: t.number || (tIdx + 1),
-        tableName: t.name || `Table ${tIdx + 1}`,
-        tableShape: t.shape || 'round',
-        tableZone: t.zone || 'center',
-        seatNumber: seatMeta.seatNumber || (sIdx + 1),
-        clockLabel
+        name: rawName, lastName, posterRestName, role: g.role || 'Guest', meal: g.meal || 'Filet Mignon',
+        allergy: g.allergy || 'None', accessibility: g.accessibility || 'Standard Chair',
+        householdLabel: g.householdLabel || rawName || 'Household', tableNumber: t.number || (tIdx + 1),
+        tableName: t.name || `Table ${tIdx + 1}`, tableShape: t.shape || 'round', tableZone: t.zone || 'center',
+        seatNumber: seatMeta.seatNumber || (sIdx + 1), clockLabel: seatMeta.clockLabel || computeClockLabel(sIdx, guests.length || 8)
       });
     });
   });
@@ -194,33 +152,26 @@ function renderTopPrintBar({ vault, activeRoute, baseUrl }) {
   const unlockBadge = vault.isUnlocked
     ? `<span style="background:#ECFDF5;color:#065F46;border:1px solid #A7F3D0;padding:3px 9px;border-radius:999px;font-size:0.68rem;font-weight:800;white-space:nowrap;">&#10003; UNLOCKED</span>`
     : `<a href="/buy/complete_dossier?target=${encodeURIComponent(vault.vaultId)}&vault=${encodeURIComponent(vault.vaultId)}&allow_promotion_codes=false" style="background:linear-gradient(135deg,#FDE68A,#C8A96E);color:#181412;padding:4px 10px;border-radius:999px;font-size:0.70rem;font-weight:800;text-decoration:none;white-space:nowrap;">${VR_LOCK_SVG}Unlock Event Print Pack ($7) &rarr;</a>`;
-
-  const topEmailGateBar = vault.isUnlocked ? '' : `
+  const hideEmailBar = vault.isUnlocked || (activeRoute === 'beo' && vault.isMealUnlocked);
+  const topEmailGateBar = hideEmailBar ? '' : `
   <div class="no-print" id="sh-subpage-vault-bar" style="background:#FFFFFF;border-bottom:1.5px solid #00766C;padding:10px 18px;">
     <div style="max-width:1280px;margin:0 auto;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:10px;">
       <div style="display:flex;align-items:center;gap:8px;flex-wrap:wrap;">
-        <span style="font-size:12.5px;font-weight:800;color:#065F46;background:#ECFDF5;border:1px solid #A7F3D0;padding:2px 9px;border-radius:999px;">&#10003; Table 1 Sample (Free): Seat #1 at 12:00 &bull; 2 Hosts &bull; 0 Clashes</span>
-        <span style="font-size:12.5px;font-weight:700;color:#78350F;background:#FAF6EE;border:1px solid #C8A96E;padding:2px 9px;border-radius:999px;">${VR_LOCK_SVG}Tables 2&ndash;8 Meal Sheet &amp; 24&Prime;&times;36&Prime; Sign Locked</span>
+        <span style="font-size:12.5px;font-weight:800;color:#065F46;background:#ECFDF5;border:1px solid #A7F3D0;padding:2px 9px;border-radius:999px;">&#10003; ${vault.isMealUnlocked ? 'Meal Sheet Unlocked ($0)' : 'Table 1 Sample (Free): Seat #1 at 12:00 &bull; 2 Hosts &bull; 0 Clashes'}</span>
+        <span style="font-size:12.5px;font-weight:700;color:#78350F;background:#FAF6EE;border:1px solid #C8A96E;padding:2px 9px;border-radius:999px;">${VR_LOCK_SVG}${vault.isMealUnlocked ? '24&Prime;&times;36&Prime; Print-Shop Poster, Avery 5302 Cards &amp; QR Locked ($7 Pack)' : 'Tables 2&ndash;8 Meal Sheet ($0) &amp; 24&Prime;&times;36&Prime; Sign ($7) Locked'}</span>
       </div>
       <form onsubmit="var em=(document.getElementById('sh-subpage-email')||{}).value||'';if(em.indexOf('@')>0){try{localStorage.setItem('sh_saved_email',em);fetch('/api/leads/capture',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({email:em,pageUrl:window.location.pathname,utmSource:'subpage_vault_bar'}),keepalive:true});}catch(_){}setTimeout(function(){window.location.href=window.location.pathname+'?email='+encodeURIComponent(em);},120);}return false;" style="display:flex;align-items:center;gap:6px;flex-wrap:wrap;flex:1 1 320px;justify-content:flex-end;">
-        <input id="sh-subpage-email" type="email" required placeholder="Enter email to unlock Tables 2–8 free ($0)..." style="flex:1 1 200px;max-width:280px;height:36px;padding:6px 10px;border:1px solid #D1D5DB;border-radius:8px;font-size:13px;background:#FFFFFF;color:#181412;" aria-label="Email address to unlock Tables 2-8" />
-        <button type="submit" style="cursor:pointer;background:#00766C;color:#FFFFFF;border:1px solid #00766C;border-radius:8px;height:36px;padding:6px 12px;font-size:13px;font-weight:700;white-space:nowrap;">Unlock Free ($0) &rarr;</button>
+        ${vault.isMealUnlocked ? '' : `<input id="sh-subpage-email" type="email" required placeholder="Enter email to unlock Meal Sheet free ($0)..." style="flex:1 1 200px;max-width:280px;height:36px;padding:6px 10px;border:1px solid #D1D5DB;border-radius:8px;font-size:13px;background:#FFFFFF;color:#181412;" aria-label="Email address to unlock Tables 2-8 Meal Sheet" /><button type="submit" style="cursor:pointer;background:#00766C;color:#FFFFFF;border:1px solid #00766C;border-radius:8px;height:36px;padding:6px 12px;font-size:13px;font-weight:700;white-space:nowrap;">Unlock Meal Sheet ($0) &rarr;</button>`}
         <a href="/buy/complete_dossier?target=${encodeURIComponent(vault.vaultId)}&vault=${encodeURIComponent(vault.vaultId)}&allow_promotion_codes=false" style="display:inline-flex;align-items:center;background:#181412;color:#FFFFFF;border-radius:8px;height:36px;padding:6px 12px;font-size:13px;font-weight:800;text-decoration:none;white-space:nowrap;">$7 Print Pack (vs. $14 Etsy) &rarr;</a>
       </form>
     </div>
   </div>`;
-
   return `
   <header class="no-print" style="position:sticky;top:0;z-index:100;background:#FAF6EE;color:#181412;border-bottom:1.5px solid #D8C29D;padding:9px 18px;box-shadow:0 4px 14px rgba(24,20,18,0.04);">
     <div style="max-width:1280px;margin:0 auto;display:flex;align-items:center;justify-content:space-between;gap:10px;flex-wrap:wrap;">
       <div style="display:flex;align-items:center;gap:8px;flex-wrap:nowrap;">
-        <a href="${urls.studio}" style="display:inline-flex;align-items:center;gap:7px;color:#181412;text-decoration:none;font-weight:800;font-size:0.92rem;white-space:nowrap;">
-          ${renderBrandLogoSvg(22)}
-          <span>SeatHarmony</span>
-        </a>
-        <span style="color:#78350F;font-family:monospace;font-size:0.72rem;font-weight:800;background:#FAF3E3;padding:3px 8px;border-radius:6px;border:1px solid #C8A96E;white-space:nowrap;">
-          #${escapeHtml(vault.vaultId)}
-        </span>
+        <a href="${urls.studio}" style="display:inline-flex;align-items:center;gap:7px;color:#181412;text-decoration:none;font-weight:800;font-size:0.92rem;white-space:nowrap;">${renderBrandLogoSvg(22)}<span>SeatHarmony</span></a>
+        <span style="color:#78350F;font-family:monospace;font-size:0.72rem;font-weight:800;background:#FAF3E3;padding:3px 8px;border-radius:6px;border:1px solid #C8A96E;white-space:nowrap;">#${escapeHtml(vault.vaultId)}</span>
         ${unlockBadge}
       </div>
       <nav style="display:flex;align-items:center;gap:5px;flex-wrap:wrap;">
@@ -238,36 +189,26 @@ function renderTopPrintBar({ vault, activeRoute, baseUrl }) {
 function attachVaultAndPaywallRoutes(app, publicUrl, ebStore = null) {
   const baseUrl = String(publicUrl || 'https://www.seatharmony.io').replace(/\/$/, '');
 
-  // 1. Save / Auto-Sync Event Vault (POST /api/vault/save)
   app.post('/api/vault/save', async (req, res) => {
     try {
       const body = req.body || {};
       let state = body.state && typeof body.state === 'object' ? body.state : null;
       if ((!state || !Array.isArray(state.tables)) && (body.preset || body.ownerEmail || body.email)) {
-        const seeded = await runGeoAudit(String(body.preset || 'estate-150'));
-        state = seeded.seatingPlan || seeded;
+        const seeded = await runGeoAudit(String(body.preset || 'estate-150')); state = seeded.seatingPlan || seeded;
       }
       if (!state || !Array.isArray(state.tables)) return res.status(400).json({ ok: false, error: 'Valid seating plan state is required.' });
       const ownerEmail = String(body.ownerEmail || body.email || body.owner_email || state.ownerEmail || '').trim().toLowerCase().slice(0, 120);
       const isTestOwner = /^(test|vip)@seatharmony\.com$/i.test(ownerEmail);
       let rawId = body.vaultId || body.vault_id || state.vaultId || '';
-      if ((!rawId || String(rawId).toUpperCase() === 'SH-4819') && !isTestOwner && (state.isWizardBuilt || (ownerEmail && ownerEmail.includes('@')))) {
-        rawId = `SH-${Math.floor(1000 + Math.random() * 9000)}`;
-      }
-      const vaultId = normalizeVaultId(rawId || `SH-${Math.floor(1000 + Math.random() * 9000)}`);
-      const pinCode = String(body.pinCode || body.pin_code || '').trim().slice(0, 12);
-      const title = String(state.title || body.title || "Maya & Liam's Estate Reception").trim().slice(0, 120);
-      const venueName = String(state.venueName || body.venue_name || 'The Conservatory at Villa Bellagio').trim().slice(0, 120);
+      if ((!rawId || String(rawId).toUpperCase() === 'SH-4819') && !isTestOwner && (state.isWizardBuilt || (ownerEmail && ownerEmail.includes('@')))) rawId = `SH-${Math.floor(1000 + Math.random() * 9000)}`;
+      const vaultId = normalizeVaultId(rawId || `SH-${Math.floor(1000 + Math.random() * 9000)}`), pinCode = String(body.pinCode || body.pin_code || '').trim().slice(0, 12);
+      const title = String(state.title || body.title || "Maya & Liam's Estate Reception").trim().slice(0, 120), venueName = String(state.venueName || body.venue_name || 'The Conservatory at Villa Bellagio').trim().slice(0, 120);
       const existing = queryOne('SELECT is_unlocked, plan_tier, owner_email, stripe_session_id FROM event_vaults WHERE vault_id = ?', [vaultId]);
       const isUnlocked = existing && existing.is_unlocked ? 1 : (body.is_unlocked ? 1 : 0);
       const planTier = (existing && existing.plan_tier && existing.plan_tier !== 'free') ? existing.plan_tier : String(body.plan_tier || 'free');
       const finalEmail = ownerEmail || (existing ? existing.owner_email : '');
-      state.vaultId = vaultId;
-      if (finalEmail) state.ownerEmail = finalEmail;
-      runInsert(
-        `INSERT OR REPLACE INTO event_vaults (vault_id, owner_email, pin_code, title, venue_name, plan_tier, is_unlocked, stripe_session_id, state_json, updated_at) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, datetime('now'))`,
-        [vaultId, finalEmail, pinCode, title, venueName, planTier, isUnlocked, existing ? (existing.stripe_session_id || '') : '', JSON.stringify(state)]
-      );
+      state.vaultId = vaultId; if (finalEmail) state.ownerEmail = finalEmail;
+      runInsert(`INSERT OR REPLACE INTO event_vaults (vault_id, owner_email, pin_code, title, venue_name, plan_tier, is_unlocked, stripe_session_id, state_json, updated_at) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, datetime('now'))`, [vaultId, finalEmail, pinCode, title, venueName, planTier, isUnlocked, existing ? (existing.stripe_session_id || '') : '', JSON.stringify(state)]);
       if (ebStore && finalEmail && finalEmail.includes('@') && !isTestOwner && (!existing || existing.owner_email !== finalEmail)) {
         const ua = String(req.headers['user-agent'] || '').toLowerCase(), isTestReq = /headlesschrome|playwright|puppeteer|curl\/|bot|crawler|example\.com|test/i.test(ua + ' ' + finalEmail) ? 1 : 0;
         const clientIp = String(req.headers['cf-connecting-ip'] || req.headers['x-forwarded-for'] || req.ip || '').split(',')[0].trim().replace(/^::ffff:/, '');
@@ -275,25 +216,19 @@ function attachVaultAndPaywallRoutes(app, publicUrl, ebStore = null) {
         ebStore.recordEvent({ eventType: 'lead_capture', pageUrl: String(body.page_url || '/api/vault/save'), deviceType: /mobile|iphone|android/i.test(ua) ? 'mobile' : 'desktop', utmSource: String(body.utm_source || 'vault_save'), isTest: isTestReq, clientIp, meta: { js_hydrated: 1, vaultId } });
       }
       return res.status(200).json({ ok: true, vaultId, vault_id: vaultId, owner_email: finalEmail, title, venue_name: venueName, is_unlocked: Boolean(isUnlocked), plan_tier: planTier, urls: buildVaultUrls(baseUrl, vaultId) });
-    } catch (err) {
-      return res.status(500).json({ ok: false, error: err.message });
-    }
+    } catch (err) { return res.status(500).json({ ok: false, error: err.message }); }
   });
 
-  // 2. Lookup / Resume Saved Event by Email or Vault Code (POST /api/vault/lookup)
   app.post('/api/vault/lookup', async (req, res) => {
     try {
       const q = String(req.body?.emailOrVaultId || req.body?.query || req.body?.email || req.body?.vault_id || '').trim();
       if (!q) return res.status(400).json({ ok: false, error: 'Enter your Email Address or Vault Code (e.g. SH-4819).' });
-
-      let row = null;
-      const lowerQ = q.toLowerCase();
+      let row = null; const lowerQ = q.toLowerCase();
       if (q.includes('@')) {
         const rows = queryAll('SELECT * FROM event_vaults WHERE lower(owner_email) = ? ORDER BY updated_at DESC LIMIT 5', [lowerQ]);
         row = rows[0] || null;
         if (!row && /^(test|vip|maya|admin|demo)@/i.test(lowerQ)) {
-          const fallbackVid = lowerQ.startsWith('vip@') ? 'SH-VIP' : 'SH-4819';
-          const v = await resolveVaultRecord(fallbackVid, { unlocked: '1' });
+          const v = await resolveVaultRecord(lowerQ.startsWith('vip@') ? 'SH-VIP' : 'SH-4819', { unlocked: '1' });
           return res.status(200).json({ ok: true, vault_id: v.vaultId, owner_email: lowerQ, title: v.title, venue_name: v.venueName, is_unlocked: true, plan_tier: v.planTier || 'complete_dossier', updated_at: v.updatedAt, urls: buildVaultUrls(baseUrl, v.vaultId), state: v.state });
         }
       } else {
@@ -304,52 +239,18 @@ function attachVaultAndPaywallRoutes(app, publicUrl, ebStore = null) {
           return res.status(200).json({ ok: true, vault_id: v.vaultId, owner_email: v.ownerEmail || 'test@seatharmony.com', title: v.title, venue_name: v.venueName, is_unlocked: true, plan_tier: v.planTier || 'complete_dossier', updated_at: v.updatedAt, urls: buildVaultUrls(baseUrl, v.vaultId), state: v.state });
         }
       }
-
-      if (!row) {
-        return res.status(404).json({
-          ok: false,
-          error: `No saved event found for "${q}". Tip: Use test@seatharmony.com or SH-4819 (PIN: 2026) to test the unlocked account.`
-        });
-      }
-
-      let state = {};
-      try { state = JSON.parse(row.state_json || '{}'); } catch (_) {}
+      if (!row) return res.status(404).json({ ok: false, error: `No saved event found for "${q}". Tip: Use test@seatharmony.com or SH-4819 (PIN: 2026) to test the unlocked account.` });
+      let state = {}; try { state = JSON.parse(row.state_json || '{}'); } catch (_) {}
       const isUnl = Boolean(row.is_unlocked || row.vault_id === 'SH-VIP');
-      return res.status(200).json({
-        ok: true,
-        vault_id: row.vault_id,
-        owner_email: row.owner_email || '',
-        title: row.title,
-        venue_name: row.venue_name,
-        is_unlocked: isUnl,
-        plan_tier: row.plan_tier || (isUnl ? 'complete_dossier' : 'free'),
-        updated_at: row.updated_at,
-        urls: buildVaultUrls(baseUrl, row.vault_id),
-        state
-      });
-    } catch (err) {
-      return res.status(500).json({ ok: false, error: err.message });
-    }
+      return res.status(200).json({ ok: true, vault_id: row.vault_id, owner_email: row.owner_email || '', title: row.title, venue_name: row.venue_name, is_unlocked: isUnl, plan_tier: row.plan_tier || (isUnl ? 'complete_dossier' : 'free'), updated_at: row.updated_at, urls: buildVaultUrls(baseUrl, row.vault_id), state });
+    } catch (err) { return res.status(500).json({ ok: false, error: err.message }); }
   });
 
-  // 3. Fetch Saved Vault JSON (GET /api/vault/:vaultId)
   app.get('/api/vault/:vaultId', async (req, res) => {
     try {
       const vault = await resolveVaultRecord(req.params.vaultId, req.query);
-      return res.status(200).json({
-        ok: true,
-        vault_id: vault.vaultId,
-        owner_email: vault.ownerEmail,
-        title: vault.title,
-        venue_name: vault.venueName,
-        is_unlocked: vault.isUnlocked,
-        plan_tier: vault.planTier,
-        urls: buildVaultUrls(baseUrl, vault.vaultId),
-        state: vault.state
-      });
-    } catch (err) {
-      return res.status(500).json({ ok: false, error: err.message });
-    }
+      return res.status(200).json({ ok: true, vault_id: vault.vaultId, owner_email: vault.ownerEmail, title: vault.title, venue_name: vault.venueName, is_unlocked: vault.isUnlocked, is_meal_unlocked: vault.isMealUnlocked, plan_tier: vault.planTier, urls: buildVaultUrls(baseUrl, vault.vaultId), state: vault.state });
+    } catch (err) { return res.status(500).json({ ok: false, error: err.message }); }
   });
 
   // 4. Inside-the-Paywall Fulfillment & Event Vault Command Center (GET /vault/:vaultId)
@@ -519,12 +420,12 @@ function attachVaultAndPaywallRoutes(app, publicUrl, ebStore = null) {
       <div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(250px,1fr));gap:12px;">
         ${tables.map((t, idx) => {
           const gList = t.guests || [];
-          if (idx >= 1 && !vault.isUnlocked) {
+          if (idx >= 1 && !vault.isMealUnlocked) {
             return `<div style="background:#FAF8F5;border:1px dashed #C8A96E;border-radius:12px;padding:11px 13px;"><div style="display:flex;justify-content:space-between;align-items:center;gap:6px;margin-bottom:7px;"><strong style="font-size:0.84rem;color:#181412;">${escapeHtml(t.name || `Table ${idx + 1}`)}</strong><span class="mono" style="font-size:0.68rem;color:#78350F;font-weight:800;">${VR_LOCK_SVG}${gList.length}/${t.capacity || 8} Seats</span></div><div style="font-size:0.74rem;color:#57534E;font-weight:700;">${VR_LOCK_SVG}Enter email above ($0) or unlock $7 Print Pack to view Table ${idx + 1} guest roster.</div></div>`;
           }
           const chips = gList.slice(0, 4).map(g => `<span style="font-size:0.72rem;font-weight:600;color:#44403C;background:#FFFFFF;border:1px solid #E2D9C8;padding:2px 7px;border-radius:6px;white-space:nowrap;">${escapeHtml(g.name)}</span>`).join('');
           const moreBadge = gList.length > 4 ? `<span class="mono" style="font-size:0.68rem;font-weight:800;color:#78350F;background:#FAF3E3;border:1px solid #C8A96E;padding:2px 6px;border-radius:6px;white-space:nowrap;">+${gList.length - 4} more</span>` : '';
-          return `<div style="background:#FAF8F5;border:1px solid #E2D9C8;border-radius:12px;padding:11px 13px;"><div style="display:flex;justify-content:space-between;align-items:center;gap:6px;margin-bottom:7px;"><strong style="font-size:0.84rem;color:#181412;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;">${escapeHtml(t.name || `Table ${idx + 1}`)} (Free Sample)</strong><span class="mono" style="font-size:0.68rem;color:#065F46;font-weight:800;white-space:nowrap;flex-shrink:0;">${gList.length}/${t.capacity || 8} Seats</span></div><div style="display:flex;flex-wrap:wrap;gap:4px;">${chips || '<span style="font-size:0.74rem;color:#78716C;">Open Table</span>'}${moreBadge}</div></div>`;
+          return `<div style="background:#FAF8F5;border:1px solid #E2D9C8;border-radius:12px;padding:11px 13px;"><div style="display:flex;justify-content:space-between;align-items:center;gap:6px;margin-bottom:7px;"><strong style="font-size:0.84rem;color:#181412;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;">${escapeHtml(t.name || `Table ${idx + 1}`)}${!vault.isMealUnlocked ? ' (Free Sample)' : ''}</strong><span class="mono" style="font-size:0.68rem;color:#065F46;font-weight:800;white-space:nowrap;flex-shrink:0;">${gList.length}/${t.capacity || 8} Seats</span></div><div style="display:flex;flex-wrap:wrap;gap:4px;">${chips || '<span style="font-size:0.74rem;color:#78716C;">Open Table</span>'}${moreBadge}</div></div>`;
         }).join('')}
       </div>
     </div>
@@ -532,29 +433,21 @@ function attachVaultAndPaywallRoutes(app, publicUrl, ebStore = null) {
 </body>
 </html>`;
       return res.status(200).type('html').send(html);
-    } catch (err) {
-      return res.status(500).send('Internal Server Error');
-    }
+    } catch (err) { return res.status(500).send('Internal Server Error'); }
   });
 
-  // 5. Print-Ready 24"x36" Arch D Welcome Poster Studio (GET /print/poster/:vaultId)
   app.get('/print/poster/:vaultId', async (req, res) => {
     try {
-      const vault = await resolveVaultRecord(req.params.vaultId, req.query);
-      const urls = buildVaultUrls(baseUrl, vault.vaultId);
+      const vault = await resolveVaultRecord(req.params.vaultId, req.query), urls = buildVaultUrls(baseUrl, vault.vaultId);
       const theme = String(req.query.theme || (vault.state && vault.state.posterTheme) || 'alabaster').toLowerCase();
       const sortMode = String(req.query.sort || (vault.state && vault.state.posterSort) || 'alphabetical').toLowerCase();
       const showMap = req.query.map !== '0' && (!vault.state || vault.state.posterShowMap !== false);
       const customKicker = String(req.query.kicker || (vault.state && vault.state.signKicker) || 'Please Find Your Seat').trim();
       const guests = extractAllSeatedGuests(vault.state).sort((a, b) => a.lastName.localeCompare(b.lastName));
-      const tables = Array.isArray(vault.state.tables) ? vault.state.tables : [];
-      const landmarks = Array.isArray(vault.state.landmarks) ? vault.state.landmarks : [];
+      const tables = Array.isArray(vault.state.tables) ? vault.state.tables : [], landmarks = Array.isArray(vault.state.landmarks) ? vault.state.landmarks : [];
       const monoParts = parseMonogramParts(req.query.monogram || (vault.state && vault.state.signMonogram), vault.title);
-      const monogram = monoParts.initials;
-      const monogramSub = monoParts.sub;
-      const monogramInputVal = monoParts.raw;
-      const monoFontRem = monogram.length > 5 ? '0.95rem' : (monogram.length > 3 ? '1.22rem' : '1.52rem');
-      const qrImgUrl = buildInlineQrDataUri(urls.qr_lookup);
+      const monogram = monoParts.initials, monogramSub = monoParts.sub, monogramInputVal = monoParts.raw;
+      const monoFontRem = monogram.length > 5 ? '0.95rem' : (monogram.length > 3 ? '1.22rem' : '1.52rem'), qrImgUrl = buildInlineQrDataUri(urls.qr_lookup);
 
       const POSTER_THEMES = {
         alabaster: { label: 'Parisian Gold', short: 'Gold', bg: '#FAF6EE', fg: '#181412', sub: '#57534E', accent: '#8C2D19', border: '#C8A96E' },
@@ -564,51 +457,20 @@ function attachVaultAndPaywallRoutes(app, publicUrl, ebStore = null) {
         rosewater: { label: 'Blush Rosewater', short: 'Rosewater', bg: '#FDF4F5', fg: '#3B1821', sub: '#7D4250', accent: '#6B2134', border: '#D48C96' },
         terracotta: { label: 'Villa Terracotta', short: 'Terracotta', bg: '#FDF6F0', fg: '#2E160B', sub: '#7C4327', accent: '#7C2D12', border: '#B45309' }
       };
-      const tSpec = POSTER_THEMES[theme] || POSTER_THEMES.alabaster;
-      const { bg, fg, sub, accent, border } = tSpec;
+      const tSpec = POSTER_THEMES[theme] || POSTER_THEMES.alabaster, { bg, fg, sub, accent, border } = tSpec;
 
       let bodyGridHtml = '';
       if (sortMode === 'by_table') {
         bodyGridHtml = tables.map((t, idx) => {
           if (idx >= 1 && !vault.isUnlocked) {
-            return `
-            <div style="border-bottom:1px solid rgba(200,169,110,0.35);padding-bottom:12px;">
-              <div class="serif" style="font-size:1.35rem;color:${accent};margin-bottom:6px;border-bottom:1px solid ${border};padding-bottom:3px;">
-                Table ${t.number || (idx + 1)} &middot; ${escapeHtml(t.name || '')}
-              </div>
-              <div style="font-size:0.82rem;font-weight:700;color:${sub};padding:8px;border-radius:8px;background:rgba(200,169,110,0.12);border:1px dashed ${border};">
-                ${VR_LOCK_SVG}${(t.guests || []).length} Seated Guests &mdash; Enter Email Above ($0) or Unlock $7 Print Pack
-              </div>
-            </div>`;
+            return `<div style="border-bottom:1px solid rgba(200,169,110,0.35);padding-bottom:12px;"><div class="serif" style="font-size:1.35rem;color:${accent};margin-bottom:6px;border-bottom:1px solid ${border};padding-bottom:3px;">Table ${t.number || (idx + 1)} &middot; ${escapeHtml(t.name || '')}</div><div style="font-size:0.82rem;font-weight:700;color:${sub};padding:8px;border-radius:8px;background:rgba(200,169,110,0.12);border:1px dashed ${border};">${VR_LOCK_SVG}${(t.guests || []).length} Seated Guests &mdash; Unlock 24&Prime;&times;36&Prime; Print Pack ($7)</div></div>`;
           }
-          return `
-          <div style="border-bottom:1px solid rgba(200,169,110,0.35);padding-bottom:12px;">
-            <div class="serif" style="font-size:1.35rem;color:${accent};margin-bottom:6px;border-bottom:1px solid ${border};padding-bottom:3px;">
-              Table ${t.number || (idx + 1)} &middot; ${escapeHtml(t.name || '')}${!vault.isUnlocked ? ' (Free Sample)' : ''}
-            </div>
-            ${(t.guests || []).map(g => `<div style="font-size:0.92rem;padding:2px 0;display:flex;justify-content:space-between;"><span>${escapeHtml(g.name)}</span><span style="font-size:0.75rem;color:${sub};">${escapeHtml(g.role || '')}</span></div>`).join('')}
-          </div>
-        `;
+          return `<div style="border-bottom:1px solid rgba(200,169,110,0.35);padding-bottom:12px;"><div class="serif" style="font-size:1.35rem;color:${accent};margin-bottom:6px;border-bottom:1px solid ${border};padding-bottom:3px;">Table ${t.number || (idx + 1)} &middot; ${escapeHtml(t.name || '')}${!vault.isUnlocked ? ' (Free Sample)' : ''}</div>${(t.guests || []).map(g => `<div style="font-size:0.92rem;padding:2px 0;display:flex;justify-content:space-between;"><span>${escapeHtml(g.name)}</span><span style="font-size:0.75rem;color:${sub};">${escapeHtml(g.role || '')}</span></div>`).join('')}</div>`;
         }).join('');
       } else {
-        const visibleGuests = vault.isUnlocked ? guests : guests.filter(g => g.tableNumber === 1);
-        const groups = {};
-        visibleGuests.forEach(g => {
-          const letter = (g.lastName[0] || 'A').toUpperCase();
-          if (!groups[letter]) groups[letter] = [];
-          groups[letter].push(g);
-        });
-        bodyGridHtml = Object.keys(groups).sort().map(letter => `
-          <div style="margin-bottom:10px;break-inside:avoid;">
-            <div class="serif" style="font-size:1.35rem;color:${accent};border-bottom:1.5px solid ${border};margin-bottom:4px;">${escapeHtml(letter)}</div>
-            ${groups[letter].map(g => `
-              <div style="display:flex;justify-content:space-between;gap:8px;font-size:0.90rem;padding:2px 0;border-bottom:1px dotted rgba(200,169,110,0.3);">
-                <span><strong>${escapeHtml(g.lastName)}</strong>${g.posterRestName ? `, ${escapeHtml(g.posterRestName)}` : ''}</span>
-                <span class="mono" style="font-weight:700;color:${accent};">Table ${g.tableNumber}${!vault.isUnlocked ? ' (Sample)' : ''}</span>
-              </div>
-            `).join('')}
-          </div>
-        `).join('') + (!vault.isUnlocked ? `<div style="grid-column:1 / -1;padding:14px 16px;border-radius:12px;background:rgba(200,169,110,0.12);border:1.5px dashed ${border};font-size:0.86rem;font-weight:800;color:${fg};display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:10px;"><span>${VR_LOCK_SVG}Tables 2&ndash;${tables.length} Guest Names (${Math.max(0, guests.length - visibleGuests.length)} Additional Seated Guests) &mdash; Enter Email Above ($0) or Unlock $7 Print Pack</span><a href="/buy/complete_dossier?target=${encodeURIComponent(vault.vaultId)}&vault=${encodeURIComponent(vault.vaultId)}&allow_promotion_codes=false" style="background:#181412;color:#FDE68A;border:1px solid ${border};border-radius:999px;padding:6px 12px;font-size:0.78rem;text-decoration:none;">${VR_LOCK_SVG}Unlock 24&Prime;&times;36&Prime; Print Pack ($7) &rarr;</a></div>` : '');
+        const visibleGuests = vault.isUnlocked ? guests : guests.filter(g => g.tableNumber === 1), groups = {};
+        visibleGuests.forEach(g => { const letter = (g.lastName[0] || 'A').toUpperCase(); if (!groups[letter]) groups[letter] = []; groups[letter].push(g); });
+        bodyGridHtml = Object.keys(groups).sort().map(letter => `<div style="margin-bottom:10px;break-inside:avoid;"><div class="serif" style="font-size:1.35rem;color:${accent};border-bottom:1.5px solid ${border};margin-bottom:4px;">${escapeHtml(letter)}</div>${groups[letter].map(g => `<div style="display:flex;justify-content:space-between;gap:8px;font-size:0.90rem;padding:2px 0;border-bottom:1px dotted rgba(200,169,110,0.3);"><span><strong>${escapeHtml(g.lastName)}</strong>${g.posterRestName ? `, ${escapeHtml(g.posterRestName)}` : ''}</span><span class="mono" style="font-weight:700;color:${accent};">Table ${g.tableNumber}${!vault.isUnlocked ? ' (Sample)' : ''}</span></div>`).join('')}</div>`).join('') + (!vault.isUnlocked ? `<div style="grid-column:1 / -1;padding:14px 16px;border-radius:12px;background:rgba(200,169,110,0.12);border:1.5px dashed ${border};font-size:0.86rem;font-weight:800;color:${fg};display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:10px;"><span>${VR_LOCK_SVG}Tables 2&ndash;${tables.length} Guest Names (${Math.max(0, guests.length - visibleGuests.length)} Additional Seated Guests) &mdash; Unlock 24&Prime;&times;36&Prime; Print-Shop Poster ($7 Pack)</span><a href="/buy/complete_dossier?target=${encodeURIComponent(vault.vaultId)}&vault=${encodeURIComponent(vault.vaultId)}&allow_promotion_codes=false" style="background:#181412;color:#FDE68A;border:1px solid ${border};border-radius:999px;padding:6px 12px;font-size:0.78rem;text-decoration:none;">${VR_LOCK_SVG}Unlock 24&Prime;&times;36&Prime; Print Pack ($7) &rarr;</a></div>` : '');
       }
 
       const extraPosterQs = `&kicker=${encodeURIComponent(customKicker)}&monogram=${encodeURIComponent(monogramInputVal)}`;
@@ -851,72 +713,26 @@ function attachVaultAndPaywallRoutes(app, publicUrl, ebStore = null) {
   app.get('/print/beo/:vaultId', async (req, res) => {
     try {
       const vault = await resolveVaultRecord(req.params.vaultId, req.query);
-      const guests = extractAllSeatedGuests(vault.state);
-      const tables = Array.isArray(vault.state.tables) ? vault.state.tables : [];
-      const allergies = guests.filter(g => g.allergy && g.allergy !== 'None');
-      const chairMods = guests.filter(g => g.accessibility && g.accessibility !== 'Standard Chair');
-      const filetCount = guests.filter(g => mealSymbolInfo(g.meal).code === 'BEEF').length;
-      const fishCount = guests.filter(g => mealSymbolInfo(g.meal).code === 'FISH').length;
-      const veganCount = guests.filter(g => mealSymbolInfo(g.meal).code === 'VEGAN').length;
-      const kidsCount = guests.filter(g => mealSymbolInfo(g.meal).code === 'KIDS').length;
+      const guests = extractAllSeatedGuests(vault.state), tables = Array.isArray(vault.state.tables) ? vault.state.tables : [];
+      const allergies = guests.filter(g => g.allergy && g.allergy !== 'None'), chairMods = guests.filter(g => g.accessibility && g.accessibility !== 'Standard Chair');
+      const filetCount = guests.filter(g => mealSymbolInfo(g.meal).code === 'BEEF').length, fishCount = guests.filter(g => mealSymbolInfo(g.meal).code === 'FISH').length;
+      const veganCount = guests.filter(g => mealSymbolInfo(g.meal).code === 'VEGAN').length, kidsCount = guests.filter(g => mealSymbolInfo(g.meal).code === 'KIDS').length;
       const csvRowsJson = JSON.stringify([
         'Table,Clockwise_Seat,Clock_Position,Guest_Name,Entree,Allergy_Alert,Chair_Setup',
-        ...(vault.isUnlocked ? guests : guests.filter(g => g.tableNumber === 1)).map(g => `"${g.tableName}",Seat #${g.seatNumber},"${g.clockLabel}","${g.name}","${g.meal}","${g.allergy}","${g.accessibility}"`)
+        ...(vault.isMealUnlocked ? guests : guests.filter(g => g.tableNumber === 1)).map(g => `"${g.tableName}",Seat #${g.seatNumber},"${g.clockLabel}","${g.name}","${g.meal}","${g.allergy}","${g.accessibility}"`)
       ].join('\r\n')).replace(/</g, '\\u003c');
 
       const tableSheetsHtml = tables.map((t, idx) => {
-        if (idx >= 1 && !vault.isUnlocked) {
-          return `
-          <div style="background:#FAF8F5;border:1.5px dashed #00766C;border-radius:14px;padding:16px;margin-bottom:16px;break-inside:avoid;">
-            <div style="display:flex;justify-content:space-between;align-items:center;gap:8px;flex-wrap:wrap;">
-              <div>
-                <span class="mono" style="font-size:0.72rem;font-weight:800;color:#8C2D19;">TABLE ${t.number || (idx + 1)} &bull; ${escapeHtml((t.shape || 'round').toUpperCase())}</span>
-                <h3 class="serif" style="font-size:1.35rem;">${escapeHtml(t.name || `Table ${idx + 1}`)}</h3>
-              </div>
-              <span class="mono" style="font-size:0.75rem;font-weight:800;color:#065F46;background:#F0FDFA;border:1px solid #00766C;padding:5px 12px;border-radius:999px;">${VR_LOCK_SVG}Table ${t.number || (idx + 1)} Clockwise 12:00 Meal &amp; Allergy Roster (${(t.guests || []).length} Guests) &mdash; Enter Email Above ($0) or Unlock $7 Print Pack &uarr;</span>
-            </div>
-          </div>`;
+        if (idx >= 1 && !vault.isMealUnlocked) {
+          return `<div style="background:#FAF8F5;border:1.5px dashed #00766C;border-radius:14px;padding:16px;margin-bottom:16px;break-inside:avoid;"><div style="display:flex;justify-content:space-between;align-items:center;gap:8px;flex-wrap:wrap;"><div><span class="mono" style="font-size:0.72rem;font-weight:800;color:#8C2D19;">TABLE ${t.number || (idx + 1)} &bull; ${escapeHtml((t.shape || 'round').toUpperCase())}</span><h3 class="serif" style="font-size:1.35rem;">${escapeHtml(t.name || `Table ${idx + 1}`)}</h3></div><span class="mono" style="font-size:0.75rem;font-weight:800;color:#065F46;background:#F0FDFA;border:1px solid #00766C;padding:5px 12px;border-radius:999px;">${VR_LOCK_SVG}Table ${t.number || (idx + 1)} Clockwise 12:00 Meal &amp; Allergy Roster (${(t.guests || []).length} Guests) &mdash; Enter Email Above ($0) or Unlock $7 Print Pack &uarr;</span></div></div>`;
         }
-        const seats = (t.geometry && Array.isArray(t.geometry.seats)) ? t.geometry.seats : [];
-        const totalInTable = (t.guests || []).length || 8;
+        const seats = (t.geometry && Array.isArray(t.geometry.seats)) ? t.geometry.seats : [], totalInTable = (t.guests || []).length || 8;
         const rowsHtml = (t.guests || []).map((g, sIdx) => {
-          const seatMeta = seats[sIdx] || {};
-          const seatNumber = seatMeta.seatNumber || (sIdx + 1);
-          const clockLabel = seatMeta.clockLabel || computeClockLabel(sIdx, totalInTable);
-          const mInfo = mealSymbolInfo(g.meal);
-          const hasAllergy = g.allergy && g.allergy !== 'None';
-          return `
-          <tr style="border-bottom:1px solid #EFEAE1;${hasAllergy ? 'background:#FFF1F2;' : ''}">
-            <td class="mono" style="padding:7px 10px;font-weight:800;white-space:nowrap;color:${sIdx === 0 ? '#8C2D19' : '#181412'};">Seat #${seatNumber} (${escapeHtml(clockLabel)})</td>
-            <td style="padding:7px 10px;font-weight:700;white-space:nowrap;">${escapeHtml(g.name)}</td>
-            <td style="padding:7px 10px;font-weight:700;white-space:nowrap;color:${mInfo.color};">${mInfo.sym} ${escapeHtml(g.meal || 'Filet Mignon')}</td>
-            <td style="padding:7px 10px;font-weight:800;white-space:nowrap;color:${hasAllergy ? '#B91C1C' : '#065F46'};">${hasAllergy ? `Alert: ${escapeHtml(g.allergy)}` : 'None'}</td>
-            <td style="padding:7px 10px;font-size:0.78rem;white-space:nowrap;color:#57534E;">${escapeHtml(g.accessibility || 'Standard Chair')}</td>
-          </tr>`;
+          const seatMeta = seats[sIdx] || {}, seatNumber = seatMeta.seatNumber || (sIdx + 1), clockLabel = seatMeta.clockLabel || computeClockLabel(sIdx, totalInTable);
+          const mInfo = mealSymbolInfo(g.meal), hasAllergy = g.allergy && g.allergy !== 'None';
+          return `<tr style="border-bottom:1px solid #EFEAE1;${hasAllergy ? 'background:#FFF1F2;' : ''}"><td class="mono" style="padding:7px 10px;font-weight:800;white-space:nowrap;color:${sIdx === 0 ? '#8C2D19' : '#181412'};">Seat #${seatNumber} (${escapeHtml(clockLabel)})</td><td style="padding:7px 10px;font-weight:700;white-space:nowrap;">${escapeHtml(g.name)}</td><td style="padding:7px 10px;font-weight:700;white-space:nowrap;color:${mInfo.color};">${mInfo.sym} ${escapeHtml(g.meal || 'Filet Mignon')}</td><td style="padding:7px 10px;font-weight:800;white-space:nowrap;color:${hasAllergy ? '#B91C1C' : '#065F46'};">${hasAllergy ? `Alert: ${escapeHtml(g.allergy)}` : 'None'}</td><td style="padding:7px 10px;font-size:0.78rem;white-space:nowrap;color:#57534E;">${escapeHtml(g.accessibility || 'Standard Chair')}</td></tr>`;
         }).join('');
-
-        return `
-        <div style="background:#FFFFFF;border:1.5px solid #E2D9C8;border-radius:14px;padding:16px;margin-bottom:16px;break-inside:avoid;">
-          <div style="display:flex;justify-content:space-between;align-items:center;border-bottom:1.5px solid #181412;padding-bottom:8px;margin-bottom:10px;">
-            <div>
-              <span class="mono" style="font-size:0.72rem;font-weight:800;color:#8C2D19;">TABLE ${t.number || (idx + 1)} &bull; ${escapeHtml((t.shape || 'round').toUpperCase())}${!vault.isUnlocked ? ' &bull; FREE SAMPLE PROOF' : ''}</span>
-              <h3 class="serif" style="font-size:1.35rem;">${escapeHtml(t.name || `Table ${idx + 1}`)}</h3>
-            </div>
-            <span class="mono" style="font-size:0.72rem;font-weight:800;background:#FAF3E3;border:1px solid #C8A96E;padding:4px 10px;border-radius:999px;white-space:nowrap;">&#9679; Seat #1 = 12:00 (Facing Dance Floor)</span>
-          </div>
-          <table style="width:100%;border-collapse:collapse;font-size:0.82rem;text-align:left;">
-            <thead>
-              <tr style="background:#FAF6EE;color:#57534E;font-size:0.70rem;text-transform:uppercase;">
-                <th style="padding:6px 10px;white-space:nowrap;">Clockwise Seat</th>
-                <th style="padding:6px 10px;white-space:nowrap;">Guest Name</th>
-                <th style="padding:6px 10px;white-space:nowrap;">Entr&eacute;e</th>
-                <th style="padding:6px 10px;white-space:nowrap;">Allergy / Kitchen Alert</th>
-                <th style="padding:6px 10px;white-space:nowrap;">Chair Setup</th>
-              </tr>
-            </thead>
-            <tbody>${rowsHtml}</tbody>
-          </table>
-        </div>`;
+        return `<div style="background:#FFFFFF;border:1.5px solid #E2D9C8;border-radius:14px;padding:16px;margin-bottom:16px;break-inside:avoid;"><div style="display:flex;justify-content:space-between;align-items:center;border-bottom:1.5px solid #181412;padding-bottom:8px;margin-bottom:10px;"><div><span class="mono" style="font-size:0.72rem;font-weight:800;color:#8C2D19;">TABLE ${t.number || (idx + 1)} &bull; ${escapeHtml((t.shape || 'round').toUpperCase())}${!vault.isMealUnlocked ? ' &bull; FREE SAMPLE PROOF' : ''}</span><h3 class="serif" style="font-size:1.35rem;">${escapeHtml(t.name || `Table ${idx + 1}`)}</h3></div><span class="mono" style="font-size:0.72rem;font-weight:800;background:#FAF3E3;border:1px solid #C8A96E;padding:4px 10px;border-radius:999px;white-space:nowrap;">&#9679; Seat #1 = 12:00 (Facing Dance Floor)</span></div><table style="width:100%;border-collapse:collapse;font-size:0.82rem;text-align:left;"><thead><tr style="background:#FAF6EE;color:#57534E;font-size:0.70rem;text-transform:uppercase;"><th style="padding:6px 10px;white-space:nowrap;">Clockwise Seat</th><th style="padding:6px 10px;white-space:nowrap;">Guest Name</th><th style="padding:6px 10px;white-space:nowrap;">Entr&eacute;e</th><th style="padding:6px 10px;white-space:nowrap;">Allergy / Kitchen Alert</th><th style="padding:6px 10px;white-space:nowrap;">Chair Setup</th></tr></thead><tbody>${rowsHtml}</tbody></table></div>`;
       }).join('');
 
       const html = `<!DOCTYPE html>
@@ -943,12 +759,8 @@ function attachVaultAndPaywallRoutes(app, publicUrl, ebStore = null) {
         <div style="font-size:0.78rem;color:#57534E;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;">${escapeHtml(vault.venueName)} &bull; ${tables.length} Tables &bull; ${guests.length} Guests &bull; ${allergies.length} Allergy Notes &bull; ${chairMods.length} Chair Notes</div>
       </div>
       <div class="no-print" style="display:flex;gap:8px;flex-wrap:nowrap;flex-shrink:0;">
-        <button id="download-csv" type="button" onclick="window.downloadBeoCsv()" style="background:#FFFFFF;color:#78350F;border:1.5px solid #C8A96E;border-radius:10px;padding:9px 14px;font-weight:800;font-size:0.78rem;cursor:pointer;white-space:nowrap;">
-          &darr; Export .CSV
-        </button>
-        <button type="button" onclick="window.print()" style="background:linear-gradient(135deg,#FDE68A,#C8A96E);color:#181412;border:1.5px solid #B89352;border-radius:10px;padding:9px 16px;font-weight:800;font-size:0.80rem;cursor:pointer;white-space:nowrap;">
-          ${VR_PRINT_SVG}Print Signed Meal Sheet PDF
-        </button>
+        <button id="download-csv" type="button" onclick="window.downloadBeoCsv()" style="background:#FFFFFF;color:#78350F;border:1.5px solid #C8A96E;border-radius:10px;padding:9px 14px;font-weight:800;font-size:0.78rem;cursor:pointer;white-space:nowrap;">&darr; Export .CSV</button>
+        <button type="button" onclick="window.print()" style="background:linear-gradient(135deg,#FDE68A,#C8A96E);color:#181412;border:1.5px solid #B89352;border-radius:10px;padding:9px 16px;font-weight:800;font-size:0.80rem;cursor:pointer;white-space:nowrap;">${VR_PRINT_SVG}Print Signed Meal Sheet PDF</button>
       </div>
     </div>
     <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(135px,1fr));gap:10px;margin-bottom:18px;">
@@ -963,33 +775,22 @@ function attachVaultAndPaywallRoutes(app, publicUrl, ebStore = null) {
   </main>
   <script>
     window.downloadBeoCsv = function() {
-      var csv = ${csvRowsJson};
-      var blob = new Blob([csv], { type: 'text/csv;charset=utf-8;' });
-      var url = URL.createObjectURL(blob);
-      var a = document.createElement('a');
-      a.href = url; a.download = 'seatharmony-clockwise-meal-sheet-${escapeHtml(vault.vaultId)}.csv';
-      document.body.appendChild(a); a.click(); a.remove();
+      var csv = ${csvRowsJson}, blob = new Blob([csv], { type: 'text/csv;charset=utf-8;' }), url = URL.createObjectURL(blob), a = document.createElement('a');
+      a.href = url; a.download = 'seatharmony-clockwise-meal-sheet-${escapeHtml(vault.vaultId)}.csv'; document.body.appendChild(a); a.click(); a.remove();
     };
   </script>
 </body>
 </html>`;
       return res.status(200).type('html').send(html);
-    } catch (err) {
-      return res.status(500).send('Internal Server Error');
-    }
+    } catch (err) { return res.status(500).send('Internal Server Error'); }
   });
 
-  // 8. Standalone Cocktail-Hour Mobile Guest QR Seat Lookup Web App (GET /qr/:vaultId)
   app.get('/qr/:vaultId', async (req, res) => {
     try {
-      const vault = await resolveVaultRecord(req.params.vaultId, req.query);
-      const urls = buildVaultUrls(baseUrl, vault.vaultId);
-      const guests = extractAllSeatedGuests(vault.state).sort((a, b) => a.name.localeCompare(b.name));
-      const tables = Array.isArray(vault.state.tables) ? vault.state.tables : [];
-      const monogram = computeMonogram(vault.title);
-      const qrImgUrl = buildInlineQrDataUri(urls.qr_lookup);
-      const safeGuestsJson = JSON.stringify(vault.isUnlocked ? guests : guests.slice(0, 1)).replace(/</g, '\\u003c');
-      const totalSeatedCount = guests.length;
+      const vault = await resolveVaultRecord(req.params.vaultId, req.query), urls = buildVaultUrls(baseUrl, vault.vaultId);
+      const guests = extractAllSeatedGuests(vault.state).sort((a, b) => a.name.localeCompare(b.name)), tables = Array.isArray(vault.state.tables) ? vault.state.tables : [];
+      const monogram = computeMonogram(vault.title), qrImgUrl = buildInlineQrDataUri(urls.qr_lookup);
+      const safeGuestsJson = JSON.stringify(vault.isUnlocked ? guests : guests.slice(0, 1)).replace(/</g, '\\u003c'), totalSeatedCount = guests.length;
 
       const html = `<!DOCTYPE html>
 <html lang="en">
@@ -1016,15 +817,11 @@ function attachVaultAndPaywallRoutes(app, publicUrl, ebStore = null) {
   <div class="qr-page-wrap">
     <div class="qr-shell">
       <div style="text-align:center;border-bottom:1.5px solid #E2D9C8;padding-bottom:16px;">
-        <div style="width:58px;height:58px;border-radius:14px;background:#FAF3E3;border:2px solid #C8A96E;color:#8C2D19;display:inline-flex;flex-direction:column;align-items:center;justify-content:center;margin-bottom:8px;">
-          <span class="serif" style="font-size:1.3rem;line-height:1;">${escapeHtml(monogram)}</span>
-          <span class="mono" style="font-size:0.46rem;color:#78350F;">WELCOME</span>
-        </div>
+        <div style="width:58px;height:58px;border-radius:14px;background:#FAF3E3;border:2px solid #C8A96E;color:#8C2D19;display:inline-flex;flex-direction:column;align-items:center;justify-content:center;margin-bottom:8px;"><span class="serif" style="font-size:1.3rem;line-height:1;">${escapeHtml(monogram)}</span><span class="mono" style="font-size:0.46rem;color:#78350F;">WELCOME</span></div>
         <div class="mono" style="font-size:0.68rem;font-weight:800;color:#8C2D19;letter-spacing:0.12em;text-transform:uppercase;">${escapeHtml(vault.venueName)}</div>
         <h1 class="serif" style="font-size:2.05rem;line-height:1.1;margin:2px 0;">Find Your Seat</h1>
         <div style="font-size:0.86rem;color:#57534E;">${escapeHtml(vault.title)} &bull; ${guests.length} Guests Seated</div>
       </div>
-
       <input id="qr-live-input" type="search" class="search-input" placeholder="Search your name (e.g. Eleanor, Chen)..." autofocus oninput="renderQrGuests(this.value)" />
       <div style="display:flex;gap:6px;flex-wrap:wrap;margin-bottom:14px;">
         <button type="button" class="pill-btn" onclick="document.getElementById('qr-live-input').value='';renderQrGuests('');">All (${guests.length})</button>
@@ -1034,20 +831,15 @@ function attachVaultAndPaywallRoutes(app, publicUrl, ebStore = null) {
         <button type="button" class="pill-btn" onclick="document.getElementById('qr-live-input').value='Table 2';renderQrGuests('Table 2');">Table 2</button>
       </div>
       <div id="qr-guest-list"></div>
-      ${vault.isUnlocked ? '' : `<div style="margin-top:10px;padding:12px 14px;border-radius:12px;background:#FAF6EE;border:1.5px dashed #C8A96E;font-size:0.82rem;font-weight:800;color:#78350F;">${VR_LOCK_SVG}+${Math.max(0, totalSeatedCount - 1)} Additional Seated Guests (Tables 2&ndash;${tables.length} Live Phone Lookup) &mdash; Enter Email Above ($0) or Unlock $7 Print Pack &uarr;</div>`}
+      ${vault.isUnlocked ? '' : `<div style="margin-top:10px;padding:12px 14px;border-radius:12px;background:#FAF6EE;border:1.5px dashed #C8A96E;font-size:0.82rem;font-weight:800;color:#78350F;">${VR_LOCK_SVG}+${Math.max(0, totalSeatedCount - 1)} Additional Seated Guests (Tables 2&ndash;${tables.length} Live Phone Lookup) &mdash; Unlock $7 Event Print Pack &uarr;</div>`}
     </div>
-
     <div style="min-width:0;background:#FFFFFF;border:1.5px solid #D8C29D;border-radius:22px;padding:22px;color:#181412;box-shadow:0 12px 32px rgba(24,20,18,0.06);">
       <div class="mono" style="font-size:0.70rem;font-weight:800;color:#8C2D19;letter-spacing:0.08em;text-transform:uppercase;margin-bottom:6px;">COCKTAIL-HOUR FOYER QR DISPLAY</div>
       <h2 class="serif" style="font-size:1.65rem;color:#181412;line-height:1.15;margin-bottom:10px;">Guests Scan at the Bar. Zero Easel Crowds.</h2>
       <p style="font-size:0.86rem;color:#57534E;line-height:1.5;margin-bottom:16px;">Print this QR on bar signs or the corner of your 24&Prime;&times;36&Prime; welcome sign so guests find their table and clockwise seat in 3 seconds.</p>
       <div style="display:flex;align-items:center;gap:14px;background:#FAF3E3;border:1.5px solid #C8A96E;border-radius:16px;padding:14px;margin-bottom:16px;">
         <img src="${qrImgUrl}" width="84" height="84" alt="Live Reception QR Code" style="border-radius:10px;border:1.5px solid #C8A96E;background:#FFFFFF;padding:4px;flex-shrink:0;" />
-        <div style="min-width:0;">
-          <div class="mono" style="font-size:0.70rem;color:#065F46;font-weight:800;white-space:nowrap;">&#9679; Live Guest Table &amp; Seat Lookup</div>
-          <div style="font-size:0.88rem;font-weight:800;color:#181412;margin:3px 0;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;">Instant Guest Name &amp; Table Lookup</div>
-          <div style="font-size:0.76rem;color:#57534E;">Syncs automatically with last-minute seat swaps.</div>
-        </div>
+        <div style="min-width:0;"><div class="mono" style="font-size:0.70rem;color:#065F46;font-weight:800;white-space:nowrap;">&#9679; Live Guest Table &amp; Seat Lookup</div><div style="font-size:0.88rem;font-weight:800;color:#181412;margin:3px 0;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;">Instant Guest Name &amp; Table Lookup</div><div style="font-size:0.76rem;color:#57534E;">Syncs automatically with last-minute seat swaps.</div></div>
       </div>
       <div style="border-top:1px solid #E2D9C8;padding-top:12px;display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:8px;">
         ${tables.slice(0, 6).map((t, idx) => `<div style="min-width:0;background:#FAF8F5;border:1px solid #E2D9C8;border-radius:10px;padding:8px 10px;"><div class="mono" style="font-size:0.66rem;color:#8C2D19;font-weight:800;">TABLE ${t.number || (idx + 1)}</div><div style="font-size:0.80rem;font-weight:700;color:#181412;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;">${escapeHtml(t.name || `Table ${idx + 1}`)}</div><div style="font-size:0.70rem;color:#57534E;">${(t.guests || []).length} Seated Guests</div></div>`).join('')}
@@ -1061,21 +853,9 @@ function attachVaultAndPaywallRoutes(app, publicUrl, ebStore = null) {
       var nameMatches = GUESTS.filter(function(g) { return !clean || g.name.toLowerCase().includes(clean); });
       var matches = nameMatches.length ? nameMatches : GUESTS.filter(function(g) { return g.tableName.toLowerCase().includes(clean) || ('table ' + g.tableNumber).includes(clean); });
       var box = document.getElementById('qr-guest-list');
-      if (!matches.length) {
-        box.innerHTML = '<div style="text-align:center;padding:20px;color:#78716C;font-size:0.9rem;">Guest #1 shown as Free Sample Proof. Enter your email above ($0) to unlock all seated guests.</div>';
-        return;
-      }
+      if (!matches.length) { box.innerHTML = '<div style="text-align:center;padding:20px;color:#78716C;font-size:0.9rem;">Guest #1 shown as Free Sample Proof. Unlock the $7 Event Print Pack above to enable live phone lookup for all seated guests.</div>'; return; }
       box.innerHTML = matches.slice(0, 8).map(function(g, idx) {
-        return '<div class="guest-card">' +
-          '<div style="min-width:0;">' +
-            '<div style="font-weight:800;font-size:1rem;color:#181412;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;">' + g.name + (idx === 0 ? ' (Free Sample Proof)' : '') + '</div>' +
-            '<div style="font-size:0.78rem;color:#57534E;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;">' + g.tableName + ' &bull; ' + g.meal + '</div>' +
-          '</div>' +
-          '<div style="text-align:right;background:#FAF3E3;color:#78350F;border:1.5px solid #C8A96E;padding:6px 12px;border-radius:10px;flex-shrink:0;white-space:nowrap;">' +
-            '<div class="serif" style="font-size:1.15rem;line-height:1;color:#8C2D19;">Table ' + g.tableNumber + '</div>' +
-            '<div class="mono" style="font-size:0.65rem;color:#78350F;margin-top:2px;">Seat #' + g.seatNumber + ' (' + g.clockLabel + ')</div>' +
-          '</div>' +
-        '</div>';
+        return '<div class="guest-card"><div style="min-width:0;"><div style="font-weight:800;font-size:1rem;color:#181412;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;">' + g.name + (idx === 0 ? ' (Free Sample Proof)' : '') + '</div><div style="font-size:0.78rem;color:#57534E;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;">' + g.tableName + ' &bull; ' + g.meal + '</div></div><div style="text-align:right;background:#FAF3E3;color:#78350F;border:1.5px solid #C8A96E;padding:6px 12px;border-radius:10px;flex-shrink:0;white-space:nowrap;"><div class="serif" style="font-size:1.15rem;line-height:1;color:#8C2D19;">Table ' + g.tableNumber + '</div><div class="mono" style="font-size:0.65rem;color:#78350F;margin-top:2px;">Seat #' + g.seatNumber + ' (' + g.clockLabel + ')</div></div></div>';
       }).join('');
     }
     renderQrGuests('');
@@ -1083,15 +863,8 @@ function attachVaultAndPaywallRoutes(app, publicUrl, ebStore = null) {
 </body>
 </html>`;
       return res.status(200).type('html').send(html);
-    } catch (err) {
-      return res.status(500).send('Internal Server Error');
-    }
+    } catch (err) { return res.status(500).send('Internal Server Error'); }
   });
 }
 
-module.exports = {
-  normalizeVaultId,
-  resolveVaultRecord,
-  buildVaultUrls,
-  attachVaultAndPaywallRoutes
-};
+module.exports = { normalizeVaultId, resolveVaultRecord, buildVaultUrls, attachVaultAndPaywallRoutes };
