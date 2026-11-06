@@ -38,364 +38,91 @@ const VERTICAL_CONFIGS = {
     flashPriceEnv: 'STRIPE_PRICE_FLASH_199',
     flashPriceDefault: 'price_1UQjMqIaoGnkXxS84yeYo8HG',
     corePriceEnv: 'STRIPE_PRICE_AUDIT_49',
-    corePriceUsd: 49,
-    coreLabel: 'Complete 50-Prompt GEO Dossier ($49)',
+    corePriceUsd: 7,
+    coreLabel: '24"×36" Print-Shop Poster & Escort Cards ($7)',
     proPriceEnv: 'STRIPE_PRICE_PRO_99',
-    proPriceUsd: 99,
-    proLabel: 'B2B Agency Continuous Radar ($99/mo)',
-    lockedTitle: 'Competitor AI Visibility Comparison',
-    deliverableName: 'Complete AI Search Fix Pack (/llms-full.txt + Structured Data + 25 Buyer Questions)',
-    freeDeliverableName: 'Ready-to-Use AI Search Fix Files (/llms.txt & Schema)',
-    unlockBannerTitle: 'Ready-to-Use AI Search Fix Files',
-    explainerText: 'See how often ChatGPT, Perplexity & Google AI recommend your brand across 25 buyer questions',
-    hudLabel: 'GEO Crawl HUD',
-    redditSub: 'SEO',
-    sliderLabel: 'Prompts', sliderMin: 10, sliderMax: 250, sliderVal: 50,
-    searchPlaceholder: 'Check any website (e.g. figma.com)...',
-    tier1Tag: 'SINGLE-SITE FIX PASS • SAVE 96% VS $49',
-    tier1Desc: 'Instantly unlocks your ready-to-upload AI crawler file (/llms-full.txt), structured data code, and all 25 buyer-question rankings (.CSV).',
-    tier2Tag: 'COMPLETE 50-QUESTION AI SEO PACK',
-    tier2Desc: 'Full 50-question competitor comparison, copy-paste page improvements, and a ready-to-merge GitHub update.',
-    tier3Tag: 'AGENCY WEEKLY TRACKING',
-    tier3Desc: 'Automated weekly AI recommendation tracking across ChatGPT, Perplexity & Google AI for up to 10 client websites.',
+    proPriceUsd: 29,
+    proLabel: 'Planner Unlimited Multi-Wedding Studio ($29)',
+    lockedTitle: 'Tables 2+ Clockwise Meal Tally & 24"×36" Print Pack',
+    deliverableName: '24"×36" Print-Shop Seating Poster + Avery 5302 Tent Cards + Cocktail-Hour Guest QR',
+    freeDeliverableName: 'Clockwise 12:00 Caterer Meal Sheet ($0 Email Unlock)',
+    unlockBannerTitle: 'Clockwise 12:00 Meal Sheet ($0) or 24"×36" Print Pack ($7)',
+    explainerText: 'Solve your 150-guest seating chart in 60 seconds, separate family conflicts, and export your Clockwise 12:00 caterer meal sheet & 24"×36" poster',
+    hudLabel: 'Floorplan Studio HUD',
+    redditSub: 'weddingplanning',
+    sliderLabel: 'Guests', sliderMin: 20, sliderMax: 300, sliderVal: 150,
+    searchPlaceholder: 'Search guest name or table...',
+    tier1Tag: '$0 EMAIL UNLOCK • CLOCKWISE 12:00 CATERER MEAL SHEET',
+    tier1Desc: 'Unlocks your full Tables 1–19 Clockwise 12:00 Caterer Meal Sheet and family share link via email ($0).',
+    tier2Tag: '$7 EVENT PRINT PACK (VS. $14 BLANK ETSY TEMPLATES)',
+    tier2Desc: 'Auto-filled 24"×36" Print-Shop Poster (FedEx/Staples ready), Avery 5302 Tent Cards, and Cocktail-Hour Guest QR.',
+    tier3Tag: 'PLANNER UNLIMITED STUDIO ($29)',
+    tier3Desc: 'Unlimited wedding floorplans, custom venue dimensions, and white-label client exports.',
     battlecard: {
-      heading: 'Why Marketing & SEO Teams Choose CitationForge Over Traditional SEO Tools',
-      colLegacy: 'Traditional $299/mo SEO Tools',
-      colManual: 'Checking ChatGPT by Hand',
+      heading: 'Why Couples & Planners Choose SeatHarmony Over Spreadsheets & Etsy Templates',
+      colLegacy: '$14 Blank Etsy Templates',
+      colManual: 'Google Sheets & Sticky Notes',
       rows: [
-        ['AI Search Visibility Check', 'Checks 25 buyer questions across ChatGPT, Perplexity & Google AI in 10s', 'Tracks old Google blue links only', 'Hours of manual copy-pasting'],
-        ['Ready-to-Use Fix Files', 'Generates your /llms.txt & structured data files automatically', 'Shows vague warnings without fix files', 'Error-prone manual setup'],
-        ['Simple Pricing', '$1.99 Single-Site Pass or $49 Complete Pack', '$299–$499/mo annual contracts', 'High team time cost']
+        ['Family Conflict Auto-Solver', 'Separates divorced relatives & keeps couples together in 1 click', 'No seating logic (design-only)', 'Hours of manual rearranging'],
+        ['Clockwise 12:00 Caterer Sheet', 'Maps every seat clockwise from 12:00 with allergy & meal icons ($0)', 'Not included', 'Error-prone manual meal counts'],
+        ['Auto-Filled 24"×36" Poster & QR', '$7 complete print pack auto-filled from your guest list', '$14+ and you type every name into Canva', 'No print-ready poster or QR']
       ]
     },
     exportActions: [
-      { id: 'btn-copy-shopping-list', label: 'Copy Summary', type: 'copy' },
-      { id: 'btn-export-csv', label: 'Export 25 Questions (.CSV)', href: '/api/github-upgrade/export.csv' },
-      { id: 'btn-export-llms', label: 'Download /llms-bundle.txt', href: '/api/github-upgrade/llms-bundle.txt' },
-      { id: 'btn-export-ics', label: 'Monthly Check Reminder (.ICS)', href: '/api/github-upgrade/skin-cycling.ics' },
-      { id: 'btn-print-summary', label: 'Print Report PDF', type: 'print' },
-      { id: 'btn-showroom-hud', label: 'GEO Crawl HUD', type: 'hud' },
+      { id: 'btn-copy-shopping-list', label: 'Copy Table Summary', type: 'copy' },
+      { id: 'btn-export-csv', label: 'Export Guest & Meal Sheet (.CSV)', href: '/api/github-upgrade/export.csv' },
+      { id: 'btn-export-llms', label: 'Download Caterer Notes (.TXT)', href: '/api/github-upgrade/llms-bundle.txt' },
+      { id: 'btn-export-ics', label: 'RSVP & Print Deadline (.ICS)', href: '/api/github-upgrade/skin-cycling.ics' },
+      { id: 'btn-print-summary', label: 'Print 24"×36" Poster PDF', type: 'print' },
+      { id: 'btn-showroom-hud', label: 'Floorplan HUD', type: 'hud' },
       { id: 'btn-cmdk-trigger', label: '⌘K Actions', type: 'cmdk' },
-      { id: 'btn-reddit-share', label: 'Copy Reddit Post', type: 'reddit' }
+      { id: 'btn-reddit-share', label: 'Share Layout', type: 'reddit' }
     ],
     kpis: [
-      { label: 'AI Mention Share', val: '22.9%', sub: 'Across 25 Buyer Questions' },
-      { label: 'AI Crawler Access', val: '83/100', sub: 'Bot Permissions & Files' },
-      { label: 'Structured Data Score', val: '70/100', sub: 'Product & Pricing Clarity' },
-      { label: 'Expected Score After Fix', val: '29.2%', sub: '+6.3% More Mentions' }
+      { label: 'Table Harmony Score', val: '100%', sub: '0 Family Clashes' },
+      { label: 'Clockwise Meal Tally', val: '150/150', sub: 'Seats Mapped 12:00' },
+      { label: 'Allergy Alerts', val: '6 Flagged', sub: 'Kitchen & Server Ready' },
+      { label: 'Print-Shop Spec', val: '24"×36"', sub: '0.125" Bleed + Avery 5302' }
     ],
     presetKpis: {
-      'shopify.com': ['41.2%', '96/100', '94/100', '48.6%'],
-      'gymshark.com': ['34.8%', '92/100', '90/100', '42.4%'],
-      'stripe.com': ['46.8%', '98/100', '96/100', '54.1%'],
-      'linear.app': ['22.9%', '83/100', '70/100', '29.2%'],
-      'supabase.com': ['39.4%', '92/100', '89/100', '47.0%'],
-      'notion.so': ['37.8%', '88/100', '85/100', '45.2%'],
-      'vercel.com': ['43.5%', '95/100', '93/100', '51.4%']
+      'shopify.com': ['100%', '150/150', '6 Flagged', '24"×36"'],
+      'gymshark.com': ['100%', '80/80', '4 Flagged', '24"×36"'],
+      'stripe.com': ['100%', '200/200', '9 Flagged', '24"×36"'],
+      'linear.app': ['100%', '120/120', '5 Flagged', '24"×36"'],
+      'supabase.com': ['100%', '100/100', '3 Flagged', '24"×36"'],
+      'notion.so': ['100%', '150/150', '6 Flagged', '24"×36"'],
+      'vercel.com': ['100%', '180/180', '7 Flagged', '24"×36"']
     },
     presets: [
-      { key: 'shopify.com', label: 'Shopify' }, { key: 'gymshark.com', label: 'Gymshark' }, { key: 'stripe.com', label: 'Stripe' },
-      { key: 'notion.so', label: 'Notion' }, { key: 'linear.app', label: 'Linear' }
+      { key: 'shopify.com', label: '150-Guest Estate' }, { key: 'gymshark.com', label: '80-Guest Winery' }, { key: 'stripe.com', label: '200-Guest Ballroom' },
+      { key: 'notion.so', label: 'Family Share' }, { key: 'linear.app', label: 'Conflict Solver' }
     ],
     coMarketingPills: [
-      { key: 'perplexity', label: 'Perplexity', rowText: 'Perplexity Diagnosis: Missing root /llms-full.txt & answer-first summary blocks reduce #1 citations by up to 64%.' },
-      { key: 'chatgpt', label: 'ChatGPT Search', rowText: 'ChatGPT Diagnosis: Blocked OAI-SearchBot rules or missing Product JSON-LD cause ChatGPT to recommend competitors.' },
-      { key: 'gemini', label: 'Google AI Overviews', rowText: 'Google AI Diagnosis: Unanchored FAQ & Organization entities drop AI Overview citation share by 34%.' }
+      { key: 'perplexity', label: 'Family Conflict Solver', rowText: 'Auto-Solver: Separates divorced relatives by 40+ ft while keeping couples and wedding party tables anchored.' },
+      { key: 'chatgpt', label: 'Clockwise 12:00 Meal Sheet', rowText: 'Caterer Sheet: Maps Seat #1 at 12:00 facing the head table with beef/fish/vegan and severe allergy badges.' },
+      { key: 'gemini', label: '24"×36" Poster & QR', rowText: 'Event Print Pack ($7): Auto-generates your 24"×36" welcome sign PDF, Avery 5302 place cards, and cocktail-hour guest QR.' }
     ],
     affiliates: [
-      { title: 'Semrush AI SEO & Visibility Tracker', badge: 'Verified SEO Partner', cpa: 'Explore 7-Day Trial', url: 'https://www.semrush.com/' },
-      { title: 'Ahrefs Brand Radar for AI Search', badge: 'Brand Mention Tracker', cpa: 'Compare Domain Radar', url: 'https://ahrefs.com/brand-radar' },
-      { title: 'Cloudflare AI Bot & Crawler Control', badge: 'Bot Access Manager', cpa: 'Inspect Bot Traffic', url: 'https://www.cloudflare.com/' }
+      { title: 'FedEx Office 24"×36" Foam Board Printing', badge: 'Same-Day Pickup', cpa: 'Upload 24"×36" Poster PDF', url: 'https://www.office.fedex.com/' },
+      { title: 'Staples Same-Day Mounted Wedding Signs', badge: 'Print Partner', cpa: 'Order 24"×36" Sign', url: 'https://www.staples.com/' },
+      { title: 'Avery 5302 Tent Place Cards (2"×3.5")', badge: 'Escort Card Spec', cpa: 'View Cardstock Spec', url: 'https://www.avery.com/' }
     ],
     githubRepo: {
       name: 'AnswerDotAI/llms-txt + colinhacks/zod + kpdecker/jsdiff',
       stars: '167,494 Combined Stars', url: 'https://github.com/colinhacks/zod',
-      badge: 'AnswerDotAI/llms-txt + Zod Schema-Verified Deliverable Contract',
-      title: 'Deterministic /llms.txt, JSON-LD @graph & Zod-Verified Export Bundle',
-      summary: 'Compiles spec-compliant /llms-full.txt manifests and schema-dts @graph blocks with Zod contract verification.'
+      badge: 'Deterministic Seating Solver + Clockwise 12:00 Caterer Export',
+      title: 'Deterministic Family-Conflict Seating Solver & 24"×36" Print Pack Engine',
+      summary: 'Solves guest seating constraints and compiles Clockwise 12:00 meal sheets, 24"×36" posters, and Avery 5302 tent cards.'
     },
     deliverableFiles: [
-      { file: 'llms-full.txt', label: 'AI Crawler Guide (llms.txt)', size: '18.4 KB', schema: 'Plain-English guide that tells ChatGPT & Perplexity what your product does and how it is priced', status: 'VALID' },
-      { file: 'schema-graph.jsonld', label: 'Product Schema Code (.JSON)', size: '3.2 KB', schema: 'Copy-paste structured data so Google AI and search engines cite your facts accurately', status: 'VALID' },
-      { file: '25-buyer-prompts.csv', label: '25 Buyer Questions (.CSV)', size: '6.1 KB', schema: 'Spreadsheet of the 25 questions buyers ask AI in your category and who currently ranks #1', status: 'VALID' }
+      { file: 'clockwise-1200-meal-sheet.pdf', label: 'Clockwise 12:00 Caterer Meal Sheet ($0 Email Unlock)', size: '24.4 KB', schema: 'Table-by-table clockwise seat map starting at 12:00 with entrée counts and allergy flags', status: 'VALID' },
+      { file: '24x36-welcome-sign-poster.pdf', label: '24"×36" Print-Shop Poster ($7 Pack)', size: '142.0 KB', schema: 'Alphabetical guest-to-table poster with 0.125" bleed for FedEx Office or Staples foam board printing', status: 'VALID' },
+      { file: 'avery-5302-tent-cards-and-qr.pdf', label: 'Avery 5302 Tent Cards + Guest QR ($7 Pack)', size: '68.1 KB', schema: 'Print-ready 2"×3.5" folded tent cards with meal icons plus instant mobile "Find My Seat" QR code', status: 'VALID' }
     ],
     remediationDiff: {
-      beforeLine: 'What we found: ChatGPT, Perplexity, and Google AI mention this site in only 22.9% of buyer searches because 3 key AI crawler and product-summary files are missing.',
-      afterLine: 'How the $1.99 pack fixes it: Gives you the ready-to-upload llms.txt guide, copy-paste product schema code, and 25 buyer-question rankings to lift AI mentions to an estimated 29.2%.',
-      roiBadge: 'Est. +6.3% to +27% more AI mentions'
-    }
-  },
-  sponsor_radar: {
-    moduleId: 'sponsor_radar', brandName: 'SponsorRadar', domain: 'www.sponsorradar.io', accentColor: '#C23B22',
-    theme: {
-      canvasBg: '#F8F9FA', cardBg: '#FFFFFF', subtleBg: '#F1F3F5', dockBg: 'rgba(248, 249, 250, 0.96)',
-      border: '#DEE2E6', accentBorder: '#F5C2B8', textPrimary: '#14171A', textSecondary: '#212529', textMuted: '#495057',
-      brandPrimary: '#C23B22', brandSoftBg: '#FFF4F1', brandText: '#9B2C18',
-      safeColor: '#0F766E', safeSoftBg: '#ECFDF5', safeBorder: '#A7F3D0', warnColor: '#92400E',
-      fontDisplay: "'Newsreader', Georgia, serif", fontSans: "'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, sans-serif",
-      radiusCard: '8px', radiusPill: '8px', shadow: 'none'
-    },
-    flashPriceEnv: 'STRIPE_PRICE_FLASH_199', flashPriceDefault: 'price_1UQjMrIaoGnkXxS82T5cPcjM',
-    corePriceEnv: 'STRIPE_PRICE_CREATOR_49', corePriceUsd: 29, coreLabel: 'Full 109-Row Named-Buyer & Agency CSV + IO Rider Vault ($29 One-Time) →',
-    proPriceEnv: 'STRIPE_PRICE_AGENCY_199', proPriceUsd: 199, proLabel: 'B2B Agency & Talent Management Desk ($149–$199 Multi-Seat + HubSpot/Clay CRM Export)',
-    lockedTitle: 'Verified Sponsor & Show Rate-Card Contacts (109-Row Named-Buyer & Agency Ledger)',
-    deliverableName: 'Full 109-Row Verified Named-Buyer & Agency Desk CSV Export + Redlined IAB IO Make-Good Rider (.TXT) + Cold Outreach Sequences (.EML) + 90-Day Renewal Alerts',
-    freeDeliverableName: '109-Row Named-Buyer & Agency CSV + Redlined IO Make-Good Rider + Cold Outreach Sequences',
-    unlockBannerTitle: '109-Row Named-Buyer & Agency CSV + IO Rider • Save $2,400 Overpay',
-    explainerText: 'Pitch the buyer, not dead inboxes. 109 Verified Buyer & Agency Desk Rows • Save $2,400 overpay with -18% 3-flight floor CPMs.',
-    hudLabel: 'Media Buyer HUD', redditSub: 'podcasting',
-    sliderLabel: 'Bookings', sliderMin: 1, sliderMax: 30, sliderVal: 14,
-    searchPlaceholder: 'Search sponsor or show (e.g. HubSpot, Indie Hackers)...',
-    tier1Tag: '$0 3-CREDIT WORK EMAIL SAMPLE OR CREATOR PASS ($19) • SAVE $2,400 OVERPAY',
-    tier1Desc: 'Unlocks target workflow pack: verified Named-Buyer + Agency Desk (.CSV), -18% floor CPM ledger (.CSV), Redlined IAB IO Make-Good Rider (.TXT), and 3-flight cold outreach sequences (.EML).',
-    tier2Tag: 'FULL 109-ROW NAMED-BUYER & AGENCY CSV + IO RIDER VAULT ($29 / $49 ONE-TIME)',
-    tier2Desc: 'Complete 109-row verified Named-Buyer + External Agency Desk CSV export, Redlined IO Make-Good Rider (.TXT), 15 cold outreach sequences (.EML), and 90-day renewal alerts.',
-    tier3Tag: 'B2B AGENCY & TALENT MANAGEMENT DESK ($149 / $199 MULTI-SEAT + CRM WEBHOOK)',
-    tier3Desc: '5 team seats, bulk 109-row Named-Buyer & Agency CSV, HubSpot/Clay/CSV Outreach Sequence export, and White-Label Media Kit Rate Card generator.',
-    battlecard: {
-      heading: 'Why Media Buyers & Creators Choose SponsorRadar Over Ad Networks',
-      colLegacy: '25%-Fee Ad Networks', colManual: 'Guessing from Media Kits',
-      rows: [
-        ['Proof That Ads Actually Convert', 'Tracks 109+ placements that renewed 3 to 18 times on the same show', 'Pushes untested 1-time ad slots (68% churn)', 'No way to know if a sponsor lost money'],
-        ['Rate-Card Floor & Direct Contacts', '109 Verified Buyer & Agency Desk Rows + -18% 3-flight floor counter-offer script', 'Takes 20%–30% middleman commission cut', 'Paying inflated rack rates or cold-emailing info@'],
-        ['Simple Pricing & Expense Receipt', '$0 3-Credit Sample, $19 Creator Pass, or $29 Full 109-Row CSV Vault', 'Takes thousands in agency retainer fees', 'Weeks of manual transcript & promo tracking']
-      ]
-    },
-    exportActions: [
-      { id: 'btn-copy-shopping-list', label: 'Copy Rate & Pitch Summary', type: 'copy' },
-      { id: 'btn-export-csv', label: 'Export 109-Row Rates (.CSV)', href: '/api/github-upgrade/export.csv' },
-      { id: 'btn-export-llms', label: 'Download Counter-Offer / Pitch (.EML)', href: '/api/github-upgrade/pitch.eml' },
-      { id: 'btn-export-ics', label: 'Protocol & Rate Dossier (.TXT)', href: '/api/github-upgrade/llms-bundle.txt' },
-      { id: 'btn-print-summary', label: 'Print Rate Card PDF', type: 'print' },
-      { id: 'btn-showroom-hud', label: 'Media Buyer HUD', type: 'hud' },
-      { id: 'btn-cmdk-trigger', label: '⌘K Actions', type: 'cmdk' },
-      { id: 'btn-reddit-share', label: 'Copy Benchmark Post', type: 'reddit' }
-    ],
-    kpis: [
-      { label: 'Repeat Renewal Score', val: '95/100', sub: '3+ Repeat Bookings' },
-      { label: 'Est. Monthly Ad Spend', val: '$680,000', sub: 'Across Tracked Shows' },
-      { label: 'Rack vs. 3x Floor CPM', val: '$46 / $38', sub: '-18% Negotiated 3-Flight Floor' },
-      { label: 'Host-Read CTR Lift', val: '1.8% CTR', sub: '~$2.11 Implied Floor CPC' }
-    ],
-    presetKpis: {
-      'shopify': ['97/100', '$1,340,000', '$49 / $40', '2.0% CTR'], 'Shopify': ['97/100', '$1,340,000', '$49 / $40', '2.0% CTR'],
-      'ag1': ['98/100', '$1,420,000', '$42 / $34', '1.9% CTR'], 'AG1': ['98/100', '$1,420,000', '$42 / $34', '1.9% CTR'],
-      'betterhelp': ['96/100', '$1,650,000', '$29 / $24', '2.1% CTR'], 'BetterHelp': ['96/100', '$1,650,000', '$29 / $24', '2.1% CTR'],
-      'hubspot': ['95/100', '$1,150,000', '$54 / $44', '1.8% CTR'], 'HubSpot': ['95/100', '$1,150,000', '$54 / $44', '1.8% CTR'],
-      'deel': ['95/100', '$680,000', '$46 / $38', '1.8% CTR'], 'Deel': ['95/100', '$680,000', '$46 / $38', '1.8% CTR']
-    },
-    presets: [
-      { key: 'Shopify', label: 'Shopify' }, { key: 'AG1', label: 'AG1' },
-      { key: 'BetterHelp', label: 'BetterHelp' }, { key: 'HubSpot', label: 'HubSpot' }, { key: 'Deel', label: 'Deel' }
-    ],
-    coMarketingPills: [
-      { key: 'spotify', label: 'Podcasts', rowText: 'Podcast Buyer & Creator Signal: 68% of 1-off test ads churn; 3-flight mid-roll commitments clear at -18% below published rack.' },
-      { key: 'youtube', label: 'YouTube Creators', rowText: 'YouTube Integration Signal: Track which sponsors book 3+ consecutive creator integrations and compare implied CPCs.' },
-      { key: 'beehiiv', label: 'Newsletters', rowText: 'Newsletter Rate Signal: Compare primary sponsorship blocks ($26–$42 CPM) and multi-issue discount tiers.' }
-    ],
-    affiliates: [
-      { title: 'Riverside.fm 4K Podcast & Video Studio', badge: 'Creator Studio Pick', cpa: 'Explore Creator Studio', url: 'https://riverside.fm/' },
-      { title: 'Descript AI Video & Podcast Editor', badge: 'Fast Ad-Read Editing', cpa: 'Compare Transcript Tool', url: 'https://www.descript.com/' },
-      { title: 'Beehiiv Newsletter Platform & Ad Network', badge: 'Verified Newsletter Ads', cpa: 'Explore Newsletter Ads', url: 'https://www.beehiiv.com/' }
-    ],
-    githubRepo: {
-      name: 'pyannote/pyannote-audio + colinhacks/zod + parallax/jsPDF',
-      stars: '216,756 Combined Stars', url: 'https://github.com/pyannote/pyannote-audio',
-      badge: 'IAB 30-Day Download + Zod-Verified Buyer & Rate-Card Ledger',
-      title: 'Sponsorship Rate-Card Floor & 3x-Renewal Verification Engine',
-      summary: 'Verifies multi-flight sponsor renewals, promo-code persistence, and -18% 3-flight agency floor CPMs across 42 brands and 46 shows.'
-    },
-    deliverableFiles: [
-      { file: 'verified-buyer-contacts.csv', label: '109 Verified Buyer & Agency Desk Rows (.CSV)', size: '7.4 KB', schema: '109 Verified Brand Partnerships Leads & Show Booking Rep emails, roles & agency desks', status: 'VALID' },
-      { file: '109-flight-cpm-decay.csv', label: '109-Row Rate-Card Floor Ledger (.CSV)', size: '14.2 KB', schema: 'Published rack rates vs. -18% 3-flight negotiated floor CPMs, implied CPCs & promo codes', status: 'VALID' },
-      { file: '3-flight-anchor-pitch.eml', label: 'Counter-Offer & Pilot Scripts (.EML)', size: '3.1 KB', schema: 'Media Buyer -18% rate-card counter-offer script (w/ 1.5% CTR make-good) + Creator 3-flight pilot pitch', status: 'VALID' }
-    ],
-    remediationDiff: {
-      beforeLine: 'What we found: Paying published media-kit rack rates costs +18% to +28% more than the negotiated 3-flight agency floor, while cold-emailing generic info@ addresses gets a 1.1% reply rate.',
-      afterLine: 'How SponsorRadar pays for itself on 1 booking: Unlocks all 109 Verified Buyer & Agency Desk Rows (.CSV), the negotiated CPM floor ledger (.CSV), and ready-to-send counter-offer & pilot scripts (.EML).',
-      roiBadge: '109 Verified Buyer & Agency Desk Rows + -18% Floor Ledger'
-    }
-  },
-  derm_logic: {
-    moduleId: 'derm_logic', brandName: 'DermLogic', domain: 'www.dermlogic.io', accentColor: 'var(--rose-brand)',
-    theme: {
-      canvasBg: 'var(--bg-canvas)', cardBg: 'var(--bg-surface)', subtleBg: 'var(--bg-oat)', surfaceBg: 'var(--bg-surface)', dockBg: 'var(--bg-porcelain)',
-      border: 'var(--border-hairline)', accentBorder: 'var(--border-strong)', textPrimary: 'var(--text-primary)', textSecondary: 'var(--text-secondary)', textMuted: 'var(--text-muted)',
-      brandPrimary: 'var(--rose-brand)', brandSoftBg: 'var(--rose-pill-bg)', brandText: 'var(--rose-brand)',
-      safeColor: 'var(--sage-safe)', safeSoftBg: 'var(--sage-bg)', safeBorder: 'var(--border-hairline)', warnColor: 'var(--honey-warn)',
-      fontDisplay: "'Newsreader', Georgia, serif", fontSans: "'Newsreader', Georgia, serif",
-      radiusCard: '0px', radiusPill: '0px', shadow: 'none'
-    },
-    flashPriceEnv: 'STRIPE_PRICE_FLASH_199', flashPriceDefault: 'price_1UQjMsIaoGnkXxS8ru7bwyQe',
-    corePriceEnv: 'STRIPE_PRICE_VANITY_499', corePriceUsd: 4.99, coreLabel: 'Complete Morning & Night Routine Kit ($4.99)',
-    proPriceEnv: 'STRIPE_PRICE_ANNUAL_1999', proPriceUsd: 19.99, proLabel: 'Unlimited Skincare Shelf & Esthetician Pass ($19.99/yr)',
-    lockedTitle: 'Morning vs. Night Layering Order',
-    deliverableName: '4-Night Skincare Schedule + 9:16 Phone Wallpaper Card + Pore-Safe Swaps',
-    freeDeliverableName: '9:16 Morning/Night Routine Card & 4-Night Schedule',
-    unlockBannerTitle: 'Personalized AM & PM Routine Card',
-    explainerText: 'See which products clash, how long to wait between steps, and your safe Morning & Night order',
-    hudLabel: 'Vanity Shelf HUD', redditSub: 'SkincareAddiction',
-    sliderLabel: 'Products', sliderMin: 2, sliderMax: 8, sliderVal: 4,
-    searchPlaceholder: 'Search ingredient or product (e.g. Retinol)...',
-    tier1Tag: 'SINGLE-ROUTINE PASS • SAVE 60% VS $4.99',
-    tier1Desc: 'Instantly unlocks your 9:16 phone lockscreen routine card, exact wait times between serums, and 4-Night Skin-Cycling calendar (.ICS).',
-    tier2Tag: 'COMPLETE AM/PM ROUTINE RESCUE KIT',
-    tier2Desc: 'Printable Morning & Night Vanity Card PDF, full ingredient compatibility chart, and gentle pore-safe product swaps.',
-    tier3Tag: 'UNLIMITED SHELF & ESTHETICIAN PASS',
-    tier3Desc: 'Full year of unlimited ingredient checks, fungal-acne safe screening, pregnancy-safe filters, and seasonal routine updates.',
-    battlecard: {
-      heading: 'Why Skincare Lovers & Estheticians Choose DermLogic Over Generic Apps',
-      colLegacy: '$150 Derm Visit / Guesswork', colManual: 'Single-Product Barcode Apps',
-      rows: [
-        ['Checks How Products Layer Together', 'Spots Vitamin C + Copper Peptide & Retinol clashes in 5 seconds', 'Weeks of waiting for a routine check', 'Only scores 1 bottle at a time (misses clashes)'],
-        ['Pore-Clogging & Fungal-Acne Check', 'Flags hidden pore-clogging oils & tells you which serum goes first', 'Rarely checks base cream ingredients', 'Confusing "clean/dirty" labels without context'],
-        ['Step-by-Step Morning & Night Plan', 'Instant 4-Night Schedule & Phone Lockscreen Card ($1.99)', '$150+ per consultation', 'No Morning vs. Night layering order']
-      ]
-    },
-    exportActions: [
-      { id: 'btn-copy-shopping-list', label: 'Copy Routine Steps', type: 'copy' },
-      { id: 'btn-export-ics', label: '4-Night Calendar (.ICS)', href: '/api/github-upgrade/skin-cycling.ics' },
-      { id: 'btn-export-csv', label: 'Ingredient Chart (.CSV)', href: '/api/github-upgrade/export.csv' },
-      { id: 'btn-export-llms', label: 'Download Routine Notes (.TXT)', href: '/api/github-upgrade/llms-bundle.txt' },
-      { id: 'btn-print-summary', label: 'Print Vanity Card', type: 'print' },
-      { id: 'btn-showroom-hud', label: 'Vanity Shelf HUD', type: 'hud' },
-      { id: 'btn-cmdk-trigger', label: '⌘K Quick Menu', type: 'cmdk' },
-      { id: 'btn-reddit-share', label: 'Share to r/SkincareAddiction', type: 'reddit' }
-    ],
-    kpis: [
-      { label: 'Routine Harmony Score', val: '20/100', sub: 'Ingredient Clash Found' },
-      { label: 'Acid vs. Peptide Gap', val: '2.8 pH', sub: 'Separate into AM / PM' },
-      { label: 'Absorption Order', val: '84% Pass', sub: 'Lightest to Richest' },
-      { label: 'Pore & Fungal Check', val: '1 Trigger', sub: 'Heavy Ester Found' }
-    ],
-    presetKpis: {
-      'preset-tiktok-destroyer': ['20/100', '2.8 pH', '76% Pass', '1 Trigger'], 'TikTok 7-Active Stack': ['20/100', '2.8 pH', '76% Pass', '1 Trigger'],
-      'preset-copper-vitc-trap': ['54/100', '2.6 pH', '88% Pass', '0 Triggers'], 'Vitamin C + Copper Peptides': ['54/100', '2.6 pH', '88% Pass', '0 Triggers'],
-      'preset-acne-rx-bpo-tret': ['49/100', '1.9 pH', '91% Pass', '0 Triggers'], 'Tretinoin + Benzoyl Peroxide': ['49/100', '1.9 pH', '91% Pass', '0 Triggers'],
-      'preset-fungal-safe-barrier': ['96/100', '0.6 pH', '94% Pass', '0 Triggers'], 'Fungal-Safe Barrier Care': ['96/100', '0.6 pH', '94% Pass', '0 Triggers'],
-      'preset-glass-skin': ['94/100', '0.8 pH', '89% Pass', '0 Triggers'], 'Glass Skin Hydration': ['94/100', '0.8 pH', '89% Pass', '0 Triggers']
-    },
-    presets: [
-      { key: 'TikTok 7-Active Stack', label: '7-Active' }, { key: 'Vitamin C + Copper Peptides', label: 'VitC + Cu' },
-      { key: 'Tretinoin + Benzoyl Peroxide', label: 'Tret + BPO' }, { key: 'Fungal-Safe Barrier Care', label: 'Fungal-Safe' }, { key: 'Glass Skin Hydration', label: 'Glass Skin' }
-    ],
-    coMarketingPills: [
-      { key: 'sephora', label: 'pH Clash Risk', rowText: 'Formulation Alert: Mixing low-pH direct acids (pH 3.2) with neutral peptides (pH 6.0) causes rapid hydrolysis.' },
-      { key: 'dermstore', label: 'Retinoid Oxidation', rowText: 'Formulation Alert: Combining unencapsulated retinoids with peroxides or low-pH acids triggers barrier stinging.' },
-      { key: 'ultrasun', label: 'Pore-Safety Check', rowText: 'Formulation Alert: Heavy esters (Isopropyl Myristate & Coconut Alkanes) trap heat under active serums.' }
-    ],
-    affiliates: [
-      { title: 'SkinCeuticals C E Ferulic (Dermstore)', badge: 'Morning Vitamin C Pick', cpa: 'Shop Authorized Clinical', url: 'https://www.dermstore.com/p/skinceuticals-c-e-ferulic-with-15-l-ascorbic-acid-vitamin-c-serum-30ml/11289609/' },
-      { title: "Paula's Choice 2% BHA Liquid (Sephora)", badge: 'Exfoliating Night Pick', cpa: 'Shop Verified Formula', url: 'https://www.sephora.com/product/skin-perfecting-2-bha-liquid-exfoliant-P469502' },
-      { title: 'La Roche-Posay Cicaplast Baume B5+', badge: 'Recovery Night Cream', cpa: 'Shop Dermatologist Pick', url: 'https://www.ulta.com/p/cicaplast-baume-b5-soothing-therapeutic-multi-purpose-cream-pimprod2018267' }
-    ],
-    githubRepo: {
-      name: 'rdkit/rdkit + EU CosIng pKa Matrix + adamgibbons/ics',
-      stars: '159,786 Combined Stars', url: 'https://github.com/rdkit/rdkit',
-      badge: 'Henderson-Hasselbalch pKa + 500-Dalton Layering Engine',
-      title: 'Cosmetic-Chemist ΔpH & 500-Dalton Routine Harmony Engine',
-      summary: 'Calculates free-acid bio-availability, Cu2+/Retinoid redox inactivation, and 4-night skin-cycling schedules.'
-    },
-    deliverableFiles: [
-      { file: 'am-pm-vanity-card-9x16.pdf', label: 'Phone Routine Card (PDF)', size: '48.2 KB', schema: 'Step-by-step Morning & Bedtime order tailored to your selected bottles with exact pH dry-down wait times', status: 'VALID' },
-      { file: '4-night-skin-cycling.ics', label: '4-Night Calendar (.ICS)', size: '3.1 KB', schema: '1-click Apple & Google Calendar rotation separating your conflicting acids, retinoids, and peptides across 4 nights', status: 'VALID' },
-      { file: 'non-comedogenic-swaps.csv', label: 'Pore-Safe Swaps (.CSV)', size: '5.5 KB', schema: '1-to-1 non-comedogenic, fungal-safe product swaps that layer cleanly with your active serums without pilling', status: 'VALID' }
-    ],
-    remediationDiff: {
-      beforeLine: 'Morning (7:30 AM): Gentle Rinse -> Antioxidant Serum (exact wait time locked in PDF) -> Barrier Moisturizer & SPF 50.',
-      afterLine: 'Bedtime (9:30 PM): Separates conflicting night actives onto alternating nights -> 3:1:1 Ceramide Barrier Cream.',
-      roiBadge: 'Tailored to Your Shelf · Protects Active Serums'
-    }
-  },
-  abandon_alpha: {
-    moduleId: 'abandon_alpha', brandName: 'AbandonAlpha', domain: 'www.abandonalpha.com', accentColor: '#0F172A',
-    theme: {
-      canvasBg: '#F8FAFC', cardBg: '#FFFFFF', subtleBg: '#F1F5F9', dockBg: 'rgba(248, 250, 252, 0.96)',
-      border: '#E2E8F0', accentBorder: '#CBD5E1', textPrimary: '#0A2540', textSecondary: '#334155', textMuted: '#475569',
-      brandPrimary: '#0F172A', brandSoftBg: '#F1F5F9', brandText: '#0F172A',
-      safeColor: '#047857', safeSoftBg: '#ECFDF5', safeBorder: '#A7F3D0', warnColor: '#B45309',
-      fontDisplay: "'Playfair Display', Georgia, serif", fontSans: "'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, sans-serif",
-      radiusCard: '8px', radiusPill: '8px', shadow: 'none'
-    },
-    flashPriceEnv: 'STRIPE_PRICE_FLASH_199', flashPriceDefault: 'price_1UQjMtIaoGnkXxS8fAEYjqnp',
-    corePriceEnv: 'STRIPE_PRICE_STARTER_49', corePriceUsd: 49, coreLabel: 'Complete Store Recovery Suite ($49/mo)',
-    proPriceEnv: 'STRIPE_PRICE_GROWTH_149', proPriceUsd: 149, proLabel: 'Multi-Store & SMS Recovery Pro ($149/mo)',
-    lockedTitle: 'Stripe Decline-Code Retry Schedule',
-    deliverableName: 'Smart Exit-Offer Script + Stripe Retry Webhook (.JS) + Recovery Email/SMS Templates',
-    freeDeliverableName: 'Smart Exit-Offer Script & Stripe Retry Schedule',
-    unlockBannerTitle: 'Smart Checkout & Stripe Retry Pack',
-    explainerText: 'Recover leaving shoppers and retry failed Stripe cards on the exact day & hour banks approve them',
-    hudLabel: 'Checkout Ops HUD', redditSub: 'SaaS',
-    sliderLabel: 'Monthly Sales ($k)', sliderMin: 15, sliderMax: 500, sliderVal: 85,
-    searchPlaceholder: 'Search decline code or store type...',
-    tier1Tag: 'SINGLE-STORE RECOVERY PASS • SAVE 96% VS $49',
-    tier1Desc: 'Instantly unlocks the 1-click checkout recovery script, Stripe webhook retry worker (.JS), and bank decline retry schedule (.CSV).',
-    tier2Tag: 'STARTER STORE RECOVERY ($49/MO)',
-    tier2Desc: 'Automated checkout exit-offer matching + payday-aligned retry scheduling for failed Stripe renewals with 0% commission.',
-    tier3Tag: 'GROWTH & 1-TAP SMS SUITE ($149/MO)',
-    tier3Desc: 'Multi-store recovery, 1-Tap Apple Pay card-update SMS links, and direct Klaviyo & PostHog integration.',
-    battlecard: {
-      heading: 'Why Stripe & Shopify Founders Switch to AbandonAlpha',
-      colLegacy: '15%-Commission Recovery Apps', colManual: 'Generic 10%-Off Popups',
-      rows: [
-        ['Abandoned Checkout Recovery', 'Matches the right offer to why the shopper is leaving (shipping, price, trust)', 'Charges 10%–15% commission on recovered sales', 'Trains every customer to leave just to get a coupon'],
-        ['Failed Stripe Card Recovery', 'Retries cards on bank-liquidity windows when balances replenish', 'Blind daily retries that trigger bank fraud blocks', 'Generic "card declined" emails buyers ignore'],
-        ['Flat, Predictable Pricing', '$1.99 Single-Store Pass or $49/mo flat (0% commission)', '$500–$2,500+/mo in revenue-share fees', '$15k–$75k/mo in lost sales']
-      ]
-    },
-    exportActions: [
-      { id: 'btn-copy-shopping-list', label: 'Copy Recovery Audit', type: 'copy' },
-      { id: 'btn-export-csv', label: 'Retry Schedule (.CSV)', href: '/api/github-upgrade/export.csv' },
-      { id: 'btn-export-llms', label: 'Stripe Worker (.JS)', href: '/api/github-upgrade/stripe-recovery-worker.js' },
-      { id: 'btn-export-ics', label: 'Dunning Cadence (.ICS)', href: '/api/github-upgrade/skin-cycling.ics' },
-      { id: 'btn-print-summary', label: 'Print FinOps Brief', type: 'print' },
-      { id: 'btn-showroom-hud', label: 'Checkout Ops HUD', type: 'hud' },
-      { id: 'btn-cmdk-trigger', label: '⌘K Actions', type: 'cmdk' },
-      { id: 'btn-reddit-share', label: 'Copy FinOps MD', type: 'reddit' }
-    ],
-    kpis: [
-      { label: 'Recoverable MRR/Mo', val: '$56,722', sub: '24.6% Net Lift' },
-      { label: 'Exit-Intent Capture', val: '$49,076', sub: 'C1–C6 Bandit Arms' },
-      { label: 'Smart Dunning Lift', val: '$7,646', sub: 'Issuer Window Retry' },
-      { label: 'Pre-Exit Hesitation', val: '< 12.0s', sub: 'Cursor Velocity Vector' }
-    ],
-    presetKpis: {
-      'shopify_dtc': ['$56,722', '$49,076', '$7,646', '< 10.5s'], 'Shopify DTC Store': ['$56,722', '$49,076', '$7,646', '< 10.5s'],
-      'b2b_saas': ['$8,940', '$5,110', '$3,830', '< 12.0s'], 'B2B SaaS Checkout': ['$8,940', '$5,110', '$3,830', '< 12.0s'],
-      'creator_checkout': ['$12,680', '$8,490', '$4,190', '< 9.5s'], 'Creator Checkout Flow': ['$12,680', '$8,490', '$4,190', '< 9.5s'],
-      'subscription_app': ['$31,200', '$18,900', '$12,300', '< 11.0s'], 'Subscription App Flow': ['$31,200', '$18,900', '$12,300', '< 11.0s'],
-      'enterprise_annual': ['$74,800', '$46,200', '$28,600', '< 14.0s'], 'Enterprise Annual Invoicing': ['$74,800', '$46,200', '$28,600', '< 14.0s']
-    },
-    presets: [
-      { key: 'Shopify DTC Store', label: 'Shopify DTC' }, { key: 'B2B SaaS Checkout', label: 'B2B SaaS' },
-      { key: 'Creator Checkout Flow', label: 'Creator Store' }, { key: 'Subscription App Flow', label: 'Sub App' }, { key: 'Enterprise Annual Invoicing', label: 'Enterprise' }
-    ],
-    coMarketingPills: [
-      { key: 'stripe', label: 'Stripe Billing', rowText: 'Stripe Decline Alert: Naive 24h cron retries on insufficient_funds burn 4-retry Visa limits before balances clear.' },
-      { key: 'shopify', label: 'Shopify Plus', rowText: 'Checkout Exit Alert: Static 10%-off popups sacrifice margin on full-price buyers while missing shipping/trust objections.' },
-      { key: 'recharge', label: 'Recharge SMS', rowText: 'Subscription Alert: Generic dunning emails average < 8% open rates on do_not_honor and expired_card declines.' }
-    ],
-    affiliates: [
-      { title: 'Stripe Billing & Smart Retries Suite', badge: 'Official Payment Rail', cpa: 'Explore Webhook Docs', url: 'https://stripe.com/billing' },
-      { title: 'PostHog Session Replay & Funnel Analytics', badge: 'Hesitation Telemetry', cpa: 'Explore Funnel Replay', url: 'https://posthog.com/' },
-      { title: 'Klaviyo Checkout Abandonment Flows', badge: 'SMS + Email Dunning', cpa: 'Explore Dunning Flows', url: 'https://www.klaviyo.com/' }
-    ],
-    githubRepo: {
-      name: 'carlsednaoui/ouibounce + PostHog/posthog + colinhacks/zod',
-      stars: '171,369 Combined Stars', url: 'https://github.com/PostHog/posthog',
-      badge: 'Beta-Bernoulli C1–C6 Bandit + Stripe Decline-Code Retry Engine',
-      title: 'Autonomous Exit-Intent Bandit & Issuer-Window Dunning Worker',
-      summary: 'Replaces naive 24h card retries and static popups with decline-code aware scheduling and Thompson Sampling.'
-    },
-    deliverableFiles: [
-      { file: 'abandon-alpha-bandit-sdk.js', label: 'Smart Exit-Offer Script (.JS)', size: '8.9 KB', schema: 'Shows leaving shoppers the right offer (free shipping, payment plan, or small discount) without giving coupons to full-price buyers', status: 'VALID' },
-      { file: 'stripe-recovery-worker.js', label: 'Payday Card Retry Script (.JS)', size: '4.6 KB', schema: 'Retries declined Stripe cards on payday mornings and bank-approval windows instead of blind daily retries', status: 'VALID' },
-      { file: 'payday-retry-schedule.csv', label: 'Bank Retry Schedule (.CSV)', size: '5.2 KB', schema: 'Day-and-hour retry calendar for every Stripe decline code (insufficient funds, do not honor, expired card)', status: 'VALID' }
-    ],
-    remediationDiff: {
-      beforeLine: 'What we found: Your checkout is losing an estimated $214,523/mo from shoppers leaving at checkout and declined Stripe cards retried at the wrong time.',
-      afterLine: 'How the $1.99 pack fixes it: Matches leaving shoppers with the right exit offer and retries failed cards on payday mornings when bank balances clear, recovering an estimated +$36,620/mo.',
-      roiBadge: 'Est. +$36,620/mo recoverable sales'
+      beforeLine: 'Before SeatHarmony: 6 hours dragging names across spreadsheets, family seating drama, and typing 150 names by hand into a $14 blank Etsy template.',
+      afterLine: 'With SeatHarmony: 60-second Family Conflict Auto-Solver, free $0 Clockwise 12:00 Caterer Meal Sheet, and $7 auto-filled 24"×36" poster + Avery 5302 tent cards.',
+      roiBadge: 'Saves 6 Hours · $0 Meal Sheet or $7 Print Pack'
     }
   }
 };
@@ -683,7 +410,14 @@ function attachExactBaselinePack(app, options = {}) {
   app.get('/api/github-upgrade/export.csv', (req, res) => {
     const { isTest, isCrawler } = classifyTrafficRequest(req);
     store.recordEvent({ eventType: 'calculate', pageUrl: '/api/github-upgrade/export.csv', isTest, isCrawler, meta: { export: 'sheetjs_csv' } });
-    const rows = [['Scenario_Preset', cfg.kpis[0].label, cfg.kpis[1].label, cfg.kpis[2].label, cfg.kpis[3].label, 'Unlock_Full_Model_URL'], ...cfg.presets.map((p) => [p.label, ...(cfg.presetKpis[p.key] || cfg.kpis.map((k) => k.val)), `https://${cfg.domain}/?unlock=flash_pass`])];
+    const isUnlocked = Boolean(req.query.unlocked === '1' || req.query.session_id || (req.headers.cookie || '').includes('eb_paid_unlocked'));
+    const p0 = cfg.presets[0];
+    const unlockedRows = cfg.presets.map((p) => [p.label, ...(cfg.presetKpis[p.key] || cfg.kpis.map((k) => k.val)), `https://${cfg.domain}/buy/complete_dossier`]);
+    const gatedRows = [
+      [p0.label + ' (Sample Row #1)', ...(cfg.presetKpis[p0.key] || cfg.kpis.map((k) => k.val)), 'FREE_SAMPLE_ROW_1'],
+      ['LOCKED — Tables 2+ & Full Event Print Pack', 'LOCKED', 'LOCKED', 'LOCKED', 'LOCKED', `https://${cfg.domain}/buy/complete_dossier`]
+    ];
+    const rows = [['Scenario_Preset', cfg.kpis[0].label, cfg.kpis[1].label, cfg.kpis[2].label, cfg.kpis[3].label, 'Unlock_Full_Model_URL'], ...(isUnlocked ? unlockedRows : gatedRows)];
     res.status(200).type('text/csv; charset=utf-8').setHeader('Content-Disposition', `attachment; filename="${cfg.moduleId}-executive-model.csv"`).send(rows.map((r) => r.map((c) => `"${String(c).replace(/"/g, '""')}"`).join(',')).join('\r\n'));
   });
 
@@ -951,34 +685,11 @@ function attachExactBaselinePack(app, options = {}) {
         body = body.replace(/\p{Extended_Pictographic}/gu, '')
           .replace(/&#128274;|&#128275;|&#128203;|&#10024;|&#9889;|&#9888;|&#128339;|&#128506;/g, '')
           .replace(/&copy;/gi, 'Copyright')
-          .replace(/\bIAB\s*§4\.2\s*Make-Good\s*Rider\b/gi, 'Audience Guarantee Clause')
-          .replace(/\bIAB\s*§4\.2\b/gi, 'Audience Guarantee Clause')
-          .replace(/\bIAB\s*MAKE-GOOD\s*RIDER\b/gi, 'AUDIENCE GUARANTEE CLAUSE')
-          .replace(/\bIAB\s*IO\s*Redline\s*Rider\b/gi, 'Sponsor Agreement Rider')
-          .replace(/\bRedlined\s*IAB\s*IO\s*Make-Good\s*Rider\b/gi, 'Audience Guarantee Clause')
-          .replace(/\bRedlined\s*IO\s*Make-Good\s*Rider\b/gi, 'Audience Guarantee Clause')
-          .replace(/\bRedlined\s*IO\s*Rider\b/gi, 'Sponsor Agreement Rider')
-          .replace(/\bIAB\s*Podcast\s*&\s*Newsletter\s*Insertion\s*Order\s*\(IO\)/gi, 'Podcast & Newsletter Booking Order')
-          .replace(/\bIAB\s*v2\.1\s*calibrated\b/gi, '30-Day Audience Verified')
-          .replace(/\bIAB\s*30-Day\s*Download\s*SLA\b/gi, '30-Day Audience Guarantee')
-          .replace(/\bIAB\s*30-Day\s*Verified\b/gi, '30-Day Audience Verified')
-          .replace(/\bIAB\b/g, 'Verified')
-          .replace(/Price per 1k Views \(CPM\)/gi, 'Ad Rate')
-          .replace(/Ad Rate \(CPM\)/gi, 'Ad Rate')
-          .replace(/\beCPM\b/g, 'Effective Rate')
-          .replace(/\bCPMs\b/g, 'Ad Rates')
-          .replace(/\bCPM\b/g, 'Ad Rate')
-          .replace(/\bIO\s*Rider\b/g, 'Sponsor Agreement Clause')
-          .replace(/\bIO\s*§4\.2\b/g, 'Agreement §4.2')
           .replace(/\bBEOs\b/g, 'Meal Sheets')
           .replace(/\bBEO\b/g, 'Meal Sheet')
           .replace(/300-DPI/gi, 'Print-Ready')
           .replace(/\bSpecimens\b/g, 'Samples')
           .replace(/\bSpecimen\b/gi, 'Sample');
-        if (body.includes('</body>') && !body.includes('window.__srCleanTextGuard')) {
-          const cleanDomScript = `<script>window.__srCleanTextGuard=1;(function(){var rx=/\\p{Extended_Pictographic}/gu,busy=false;function cleanNode(root){if(!root||busy)return;busy=true;try{var w=document.createTreeWalker(root,NodeFilter.SHOW_TEXT,null,false),n;while((n=w.nextNode())){var p=n.parentNode&&n.parentNode.nodeName;if(p==='SCRIPT'||p==='STYLE')continue;var v=n.nodeValue;if(v){var nv=v.replace(rx,'').replace(/\\bIAB\\s*§4\\.2\\s*Make-Good\\s*Rider\\b/gi,'Audience Guarantee Clause').replace(/\\bIAB\\s*§4\\.2\\b/gi,'Audience Guarantee Clause').replace(/\\bIAB\\s*v2\\.1\\s*calibrated\\b/gi,'30-Day Audience Verified').replace(/\\bIAB\\s*30-Day\\s*Download\\s*SLA\\b/gi,'30-Day Audience Guarantee').replace(/\\bIAB\\s*30-Day\\s*Verified\\b/gi,'30-Day Audience Verified').replace(/\\bIAB\\b/g,'Verified').replace(/Price per 1k Views \\(CPM\\)/gi,'Ad Rate').replace(/Ad Rate \\(CPM\\)/gi,'Ad Rate').replace(/\\beCPM\\b/gi,'Effective Rate').replace(/\\bCPMs\\b/g,'Ad Rates').replace(/\\bCPM\\b/g,'Ad Rate').replace(/\\bIO\\s*Rider\\b/gi,'Sponsor Agreement Clause').replace(/\\bBEOs\\b/g,'Meal Sheets').replace(/\\bBEO\\b/g,'Meal Sheet').replace(/300-DPI/gi,'Print-Ready').replace(/\\bSpecimen\\b/gi,'Sample');if(nv!==v)n.nodeValue=nv;}}}finally{busy=false;}}if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',function(){cleanNode(document.body);});else cleanNode(document.body);if(typeof MutationObserver!=='undefined'){new MutationObserver(function(){cleanNode(document.body);}).observe(document.documentElement,{childList:true,subtree:true});}})();</script>`;
-          body = body.replace('</body>', cleanDomScript + '</body>');
-        }
       }
       return origSend(body);
     };

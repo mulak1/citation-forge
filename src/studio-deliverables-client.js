@@ -901,9 +901,7 @@ function renderDeliverablesClientScript() {
     window.__SH_EMAIL_UNMASKED = true;
     if (window.__SH_STATE) {
       window.__SH_STATE.ownerEmail = email;
-      if (!window.__SH_STATE.vaultId || window.__SH_STATE.vaultId === 'SH-4819') {
-        window.__SH_STATE.vaultId = 'SH-' + Math.floor(1000 + Math.random() * 9000);
-      }
+      if (!window.__SH_STATE.vaultId || window.__SH_STATE.vaultId === 'SH-4819') window.__SH_STATE.vaultId = 'SH-' + Math.floor(1000 + Math.random() * 9000);
     }
     window.shRenderLivePersonalizedProof();
     if (typeof shRenderBeoView === 'function') shRenderBeoView();
@@ -915,37 +913,24 @@ function renderDeliverablesClientScript() {
       var data = await res.json(), vid = (data && (data.vaultId || data.vault_id)) || (window.__SH_STATE && window.__SH_STATE.vaultId);
       if (vid) shSyncVaultIdLinks(vid);
       try {
-        var u = new URL(window.location.href);
-        if (vid) u.searchParams.set('vault', vid);
-        u.searchParams.set('saved', '1');
+        var u = new URL(window.location.href); if (vid) u.searchParams.set('vault', vid); u.searchParams.set('saved', '1');
         window.history.replaceState({}, '', u.pathname + u.search + u.hash);
-        var sl = document.getElementById('sh-stateful-share-link');
-        if (sl) sl.href = u.pathname + u.search + '#studio';
+        var sl = document.getElementById('sh-stateful-share-link'); if (sl) sl.href = u.pathname + u.search + '#studio';
       } catch (_) {}
-      var upBr = document.getElementById('sh-post-email-upgrade-bridge');
-      if (upBr) upBr.style.display = 'flex';
-      var upCta = document.getElementById('sh-post-email-upgrade-cta');
-      var mainBuy = document.getElementById('sh-vault-buy-pack-btn');
+      var upBr = document.getElementById('sh-post-email-upgrade-bridge'); if (upBr) upBr.style.display = 'flex';
+      var upCta = document.getElementById('sh-post-email-upgrade-cta'), mainBuy = document.getElementById('sh-vault-buy-pack-btn');
       if (upCta && mainBuy && mainBuy.href) upCta.href = mainBuy.href;
       if (btn) { btn.textContent = '✓ Saved ($0)'; btn.style.background = '#00766C'; btn.style.borderColor = '#005E56'; }
       if (btn4) { btn4.textContent = '✓ Saved ($0)'; btn4.style.background = '#00766C'; btn4.style.borderColor = '#005E56'; }
-      if (window.__SH_PENDING_EXPORT_MODE === 'share' && window.__shRawCopyMomSandboxLink) {
-        window.__SH_PENDING_EXPORT_MODE = null;
-        window.__shRawCopyMomSandboxLink();
-      } else if (window.__shRawExportBeoCsv) {
-        window.__SH_PENDING_EXPORT_MODE = null;
-        window.__shRawExportBeoCsv();
-      }
-      shToast('✓ Saved to ' + email + ', unmasked Table 1 Escort Card & Dietary Summary, and exported!');
+      if (window.__SH_PENDING_EXPORT_MODE === 'share' && window.__shRawCopyMomSandboxLink) { window.__SH_PENDING_EXPORT_MODE = null; window.__shRawCopyMomSandboxLink(); }
+      else if (window.__shRawExportBeoCsv) { window.__SH_PENDING_EXPORT_MODE = null; window.__shRawExportBeoCsv(); }
+      shToast('✓ Saved to ' + email + ', unlocked Clockwise 12:00 Meal Sheet, and exported!');
     } catch (_) { if (btn) btn.textContent = 'Save & Email My Seating Plan ($0)'; }
   };
   window.shSubmitVocSurvey = function(choice, btn) {
-    document.querySelectorAll('#sh-voc-survey-box .sh-voc-chip').forEach(function(b) {
-      b.style.background = '#FFFFFF'; b.style.borderColor = '#D6CFC2'; b.style.color = '#181412';
-    });
+    document.querySelectorAll('#sh-voc-survey-box .sh-voc-chip').forEach(function(b) { b.style.background = '#FFFFFF'; b.style.borderColor = '#D6CFC2'; b.style.color = '#181412'; });
     if (btn) { btn.style.background = '#181412'; btn.style.borderColor = '#181412'; btn.style.color = '#FBF9F5'; }
-    var lbl = document.getElementById('sh-voc-survey-label');
-    if (lbl) lbl.textContent = '✓ Tailored for your wedding — click Unlock above when ready to print';
+    var lbl = document.getElementById('sh-voc-survey-label'); if (lbl) lbl.textContent = '✓ Tailored for your wedding — click Unlock above when ready to print';
     window.shTrackTelemetry('survey_response', { choice: choice, vaultId: (window.__SH_STATE && window.__SH_STATE.vaultId) || 'SH-4819' });
     if ((choice === '24x36_sign' || choice === 'avery_5302') && window.shSetActiveTab) window.shSetActiveTab('poster');
     else if (choice === 'caterer_beo' && window.shSetActiveTab) window.shSetActiveTab('beo');
