@@ -94,72 +94,53 @@ function renderDeliverablesClientScript() {
   window.shFindAndAddNonOverlappingTable = function(opts) {
     opts = opts || {};
     if (!window.__SH_STATE || !window.__SH_STATE.tables) return;
-    var plan = window.__SH_STATE, num = plan.tables.length + 1;
-    var roomH = Math.max(680, Number(plan.roomHeight) || 680);
-    var newR = opts.shape && opts.shape !== 'round' ? 124 : 92;
+    var plan = window.__SH_STATE, num = plan.tables.length + 1, roomH = Math.max(680, Number(plan.roomHeight) || 680), newR = opts.shape && opts.shape !== 'round' ? 124 : 92;
     var checkClearance = function(pt) {
       var minC = 9999;
       (plan.tables || []).forEach(function(t) {
         if (!t.geometry) shRecomputeGeometry(t);
         if (shNormalizeShape(t.shape) === 'round') {
-          var tr = (t.geometry.tableWidth / 2) + 42;
-          var c = Math.hypot((t.x || 0) - pt.x, (t.y || 0) - pt.y) - (tr + newR);
+          var tr = (t.geometry.tableWidth / 2) + 42, c = Math.hypot((t.x || 0) - pt.x, (t.y || 0) - pt.y) - (tr + newR);
           if (c < minC) minC = c;
         } else {
-          var hw = (t.geometry.tableWidth / 2) + 34, hh = (t.geometry.tableHeight / 2) + 44;
-          var cx = Math.max(Math.abs((t.x || 0) - pt.x) - (hw + newR), Math.abs((t.y || 0) - pt.y) - (hh + newR));
+          var hw = (t.geometry.tableWidth / 2) + 34, hh = (t.geometry.tableHeight / 2) + 44, cx = Math.max(Math.abs((t.x || 0) - pt.x) - (hw + newR), Math.abs((t.y || 0) - pt.y) - (hh + newR));
           if (cx < minC) minC = cx;
         }
       });
       (plan.landmarks || []).forEach(function(lm) {
-        var lhw = ((lm.w || 150) / 2) + 14, lhh = ((lm.h || 42) / 2) + 14;
-        var cl = Math.max(Math.abs((lm.x || 0) - pt.x) - (lhw + newR), Math.abs((lm.y || 0) - pt.y) - (lhh + newR));
+        var lhw = ((lm.w || 150) / 2) + 14, lhh = ((lm.h || 42) / 2) + 14, cl = Math.max(Math.abs((lm.x || 0) - pt.x) - (lhw + newR), Math.abs((lm.y || 0) - pt.y) - (lhh + newR));
         if (cl < minC) minC = cl;
       });
       return minC;
     };
-    var bestPt = null, bestC = -9999;
-    var xs = [190, 375, 560, 745, 930];
+    var bestPt = null, bestC = -9999, xs = [190, 375, 560, 745, 930];
     for (var y = 125; y <= roomH - 110; y += 70) {
       for (var xi = 0; xi < xs.length; xi++) {
-        var pt = { x: xs[xi], y: y };
-        var c = checkClearance(pt);
+        var pt = { x: xs[xi], y: y }, c = checkClearance(pt);
         if (c > bestC) { bestC = c; bestPt = pt; }
       }
     }
     if (!bestPt || bestC < -4) {
-      roomH += 210;
-      plan.roomHeight = roomH;
-      var newRowY = roomH - 115;
-      bestPt = null;
-      [190, 435, 685, 930].forEach(function(rx) {
-        if (bestPt) return;
-        var rpt = { x: rx, y: newRowY };
-        if (checkClearance(rpt) >= 0) bestPt = rpt;
-      });
+      roomH += 210; plan.roomHeight = roomH; var newRowY = roomH - 115; bestPt = null;
+      [190, 435, 685, 930].forEach(function(rx) { if (!bestPt && checkClearance({ x: rx, y: newRowY }) >= 0) bestPt = { x: rx, y: newRowY }; });
       if (!bestPt) bestPt = { x: 435, y: newRowY };
     }
     var newTbl = { id: 'table-' + num, number: num, name: 'Table ' + num, shape: opts.shape || 'round', capacity: opts.capacity || 8, x: bestPt.x, y: bestPt.y, rotation: 0, locked: false, isUserAdded: true, guests: [] };
     shRecomputeGeometry(newTbl); plan.tables.push(newTbl); window.__SH_SELECTED_TABLE_IDX = plan.tables.length - 1;
     if (window.__SH_CANVAS_ZOOM === 'table') window.shSetCanvasZoom('room');
-    shSyncTableSelectAndPills();
-    shToast('\u2713 Added Table ' + num + ' (' + plan.tables.length + ' tables in room) \u00b7 Drag to arrange or click Step 2');
-    shRenderAll();
+    shSyncTableSelectAndPills(); shToast('\u2713 Added Table ' + num + ' (' + plan.tables.length + ' tables in room) \u00b7 Drag to arrange or click Step 2'); shRenderAll();
   };
 
   window.shStartBlankList = function() {
     if (!window.__SH_STATE || !window.__SH_STATE.tables) return;
-    window.__SH_STATE.tables = window.__SH_STATE.tables.slice(0, 8);
-    window.__SH_STATE.roomHeight = 680;
+    window.__SH_STATE.tables = window.__SH_STATE.tables.slice(0, 8); window.__SH_STATE.roomHeight = 680;
     window.__SH_STATE.tables.forEach(function(t, idx) {
       t.guests = idx === 0 ? [{ name: 'Bride / Host 1', initials: 'H1', role: 'Host', meal: 'Filet Mignon', allergy: '', accessibility: '' }, { name: 'Groom / Host 2', initials: 'H2', role: 'Host', meal: 'Pan-Seared Halibut', allergy: '', accessibility: '' }] : [];
       shRecomputeGeometry(t);
     });
     window.__SH_STATE.householdsCoupled = 1; window.__SH_SELECTED_TABLE_IDX = 1; window.__SH_SWAP_SOURCE = null;
     const drawer = document.getElementById('sh-bulk-csv-drawer'); if (drawer) drawer.style.display = 'block';
-    shSyncTableSelectAndPills();
-    shToast('\u2728 Started blank room (8 tables) \u00b7 Add/remove tables or continue to Step 2');
-    shRenderAll();
+    shSyncTableSelectAndPills(); shToast('\u2728 Started blank room (8 tables) \u00b7 Add/remove tables or continue to Step 2'); shRenderAll();
   };
   window.shToggleBulkCsvDrawer = function() { const d = document.getElementById('sh-bulk-csv-drawer'); if (d) d.style.display = d.style.display === 'none' ? 'block' : 'none'; };
   window.shHandleCsvFileUpload = function(inputEl) {
@@ -192,49 +173,18 @@ function renderDeliverablesClientScript() {
     if (window.__SH_SELECTED_LANDMARK_IDX != null && plan.landmarks && plan.landmarks[window.__SH_SELECTED_LANDMARK_IDX]) {
       const lmIdx = window.__SH_SELECTED_LANDMARK_IDX, lm = plan.landmarks[lmIdx];
       swapBanner.style.display = 'flex';
-      swapBanner.innerHTML =
-        '<div style="display:flex;flex-wrap:wrap;align-items:center;gap:6px;flex:1;">' +
-          '<span style="font-size:0.82rem;font-weight:800;color:#78350F;">ROOM ELEMENT:</span>' +
-          '<input type="text" value="' + shEsc(lm.label) + '" onchange="window.shRenameLandmark(' + lmIdx + ',this.value)" style="padding:4px 8px;border:1px solid #C8A96E;border-radius:6px;font-size:0.82rem;font-weight:800;background:#FFFFFF;color:#181412;width:185px;" aria-label="Rename Room Element" />' +
-          '<button type="button" onclick="window.shResizeLandmark(' + lmIdx + ',-20,-8)" style="background:#FFFFFF;border:1px solid #D6CFC2;border-radius:6px;padding:4px 8px;font-size:0.80rem;font-weight:800;cursor:pointer;">- Size</button>' +
-          '<button type="button" onclick="window.shResizeLandmark(' + lmIdx + ',20,8)" style="background:#FFFFFF;border:1px solid #D6CFC2;border-radius:6px;padding:4px 8px;font-size:0.80rem;font-weight:800;cursor:pointer;">+ Size</button>' +
-          '<button type="button" onclick="window.shCycleLandmarkZone(' + lmIdx + ')" style="background:#FFFFFF;border:1px solid #D6CFC2;border-radius:6px;padding:4px 8px;font-size:0.80rem;font-weight:800;cursor:pointer;">Zone: ' + shEsc((lm.zone || 'neutral').toUpperCase()) + '</button>' +
-          '<button type="button" onclick="window.shDeleteLandmark(' + lmIdx + ')" style="background:#FFF1F2;border:1px solid #FECDD3;color:#9F1239;border-radius:6px;padding:4px 9px;font-size:0.80rem;font-weight:800;cursor:pointer;">✕ Delete Element</button>' +
-        '</div>' +
-        '<button type="button" onclick="window.shCancelSwap()" style="background:#FFFFFF;border:1px solid #D97706;border-radius:6px;padding:4px 9px;font-size:0.80rem;font-weight:800;cursor:pointer;color:#78350F;">Done</button>';
+      swapBanner.innerHTML = '<div style="display:flex;flex-wrap:wrap;align-items:center;gap:6px;flex:1;"><span style="font-size:0.82rem;font-weight:800;color:#78350F;">ROOM ELEMENT:</span><input type="text" value="' + shEsc(lm.label) + '" onchange="window.shRenameLandmark(' + lmIdx + ',this.value)" style="padding:4px 8px;border:1px solid #C8A96E;border-radius:6px;font-size:0.82rem;font-weight:800;background:#FFFFFF;color:#181412;width:185px;" aria-label="Rename Room Element" /><button type="button" onclick="window.shResizeLandmark(' + lmIdx + ',-20,-8)" style="background:#FFFFFF;border:1px solid #D6CFC2;border-radius:6px;padding:4px 8px;font-size:0.80rem;font-weight:800;cursor:pointer;">- Size</button><button type="button" onclick="window.shResizeLandmark(' + lmIdx + ',20,8)" style="background:#FFFFFF;border:1px solid #D6CFC2;border-radius:6px;padding:4px 8px;font-size:0.80rem;font-weight:800;cursor:pointer;">+ Size</button><button type="button" onclick="window.shCycleLandmarkZone(' + lmIdx + ')" style="background:#FFFFFF;border:1px solid #D6CFC2;border-radius:6px;padding:4px 8px;font-size:0.80rem;font-weight:800;cursor:pointer;">Zone: ' + shEsc((lm.zone || 'neutral').toUpperCase()) + '</button><button type="button" onclick="window.shDeleteLandmark(' + lmIdx + ')" style="background:#FFF1F2;border:1px solid #FECDD3;color:#9F1239;border-radius:6px;padding:4px 9px;font-size:0.80rem;font-weight:800;cursor:pointer;">✕ Delete Element</button></div><button type="button" onclick="window.shCancelSwap()" style="background:#FFFFFF;border:1px solid #D97706;border-radius:6px;padding:4px 9px;font-size:0.80rem;font-weight:800;cursor:pointer;color:#78350F;">Done</button>';
       return;
     }
     if (window.__SH_SWAP_SOURCE) {
-      const tIdx = window.__SH_SWAP_SOURCE.tableIdx, sIdx = window.__SH_SWAP_SOURCE.seatIdx;
-      const sTbl = plan.tables[tIdx], sG = sTbl && sTbl.guests && sTbl.guests[sIdx];
+      const tIdx = window.__SH_SWAP_SOURCE.tableIdx, sIdx = window.__SH_SWAP_SOURCE.seatIdx, sTbl = plan.tables[tIdx], sG = sTbl && sTbl.guests && sTbl.guests[sIdx];
       if (!sTbl) { swapBanner.style.display = 'none'; return; }
       swapBanner.style.display = 'flex';
       if (sG) {
-        const mb = shMealBadge(sG.meal);
-        const tblOpts = (plan.tables || []).map(function(cand, cIdx) {
-          return '<option value="' + cIdx + '"' + (cIdx === tIdx ? ' selected' : '') + '>⇄ Move to Tbl ' + cand.number + '</option>';
-        }).join('');
-        swapBanner.innerHTML =
-          '<div style="display:flex;flex-wrap:wrap;align-items:center;gap:6px;flex:1;">' +
-            '<span style="font-size:0.82rem;font-weight:800;color:#8C2D19;">Seat #' + (sIdx + 1) + ':</span>' +
-            '<input type="text" value="' + shEsc(sG.name) + '" onchange="window.shRenameGuest(' + tIdx + ',' + sIdx + ',this.value,event)" style="padding:4px 8px;border:1px solid #C8A96E;border-radius:6px;font-size:0.82rem;font-weight:800;background:#FFFFFF;color:#181412;width:155px;" aria-label="Edit Guest Name" />' +
-            '<button type="button" title="Move Seat Counter-Clockwise" onclick="window.shMoveGuestSeatOffset(' + tIdx + ',' + sIdx + ',-1,event)" style="background:#FFFFFF;border:1px solid #D6CFC2;border-radius:6px;padding:4px 8px;font-size:0.80rem;font-weight:800;cursor:pointer;">&#9664;</button>' +
-            '<button type="button" title="Move Seat Clockwise" onclick="window.shMoveGuestSeatOffset(' + tIdx + ',' + sIdx + ',1,event)" style="background:#FFFFFF;border:1px solid #D6CFC2;border-radius:6px;padding:4px 8px;font-size:0.80rem;font-weight:800;cursor:pointer;">&#9654;</button>' +
-            '<select aria-label="Move guest to table" onchange="window.shMoveGuestToTable(' + tIdx + ',' + sIdx + ',this.value,event)" style="background:#FFFFFF;border:1px solid #C8A96E;border-radius:6px;padding:4px 6px;font-size:0.80rem;font-weight:800;color:#78350F;cursor:pointer;">' + tblOpts + '</select>' +
-            '<button type="button" onclick="window.shCycleGuestMeal(' + tIdx + ',' + sIdx + ',event)" style="background:' + mb.bg + ';border:1px solid ' + mb.color + ';color:' + mb.color + ';border-radius:6px;padding:4px 8px;font-size:0.80rem;font-weight:800;cursor:pointer;">' + mb.short + '</button>' +
-            '<button type="button" onclick="window.shCycleGuestAllergy(' + tIdx + ',' + sIdx + ',event)" style="background:#FFFFFF;border:1px solid #D6CFC2;color:#44403C;border-radius:6px;padding:4px 8px;font-size:0.80rem;font-weight:800;cursor:pointer;">+ Dietary / ADA</button>' +
-            '<button type="button" onclick="window.shRemoveGuest(' + tIdx + ',' + sIdx + ',event);window.__SH_SWAP_SOURCE=null;shRenderAll();" style="background:#FFF1F2;border:1px solid #FECDD3;color:#9F1239;border-radius:6px;padding:4px 9px;font-size:0.80rem;font-weight:800;cursor:pointer;">✕ Remove</button>' +
-          '</div>' +
-          '<button type="button" onclick="window.shCancelSwap()" style="background:#FFFFFF;border:1px solid #D97706;border-radius:6px;padding:4px 9px;font-size:0.80rem;font-weight:800;cursor:pointer;color:#78350F;">Done</button>';
+        const mb = shMealBadge(sG.meal), tblOpts = (plan.tables || []).map(function(cand, cIdx) { return '<option value="' + cIdx + '"' + (cIdx === tIdx ? ' selected' : '') + '>⇄ Move to Tbl ' + cand.number + '</option>'; }).join('');
+        swapBanner.innerHTML = '<div style="display:flex;flex-wrap:wrap;align-items:center;gap:6px;flex:1;"><span style="font-size:0.82rem;font-weight:800;color:#8C2D19;">Seat #' + (sIdx + 1) + ':</span><input type="text" value="' + shEsc(sG.name) + '" onchange="window.shRenameGuest(' + tIdx + ',' + sIdx + ',this.value,event)" style="padding:4px 8px;border:1px solid #C8A96E;border-radius:6px;font-size:0.82rem;font-weight:800;background:#FFFFFF;color:#181412;width:155px;" aria-label="Edit Guest Name" /><button type="button" title="Move Seat Counter-Clockwise" onclick="window.shMoveGuestSeatOffset(' + tIdx + ',' + sIdx + ',-1,event)" style="background:#FFFFFF;border:1px solid #D6CFC2;border-radius:6px;padding:4px 8px;font-size:0.80rem;font-weight:800;cursor:pointer;">&#9664;</button><button type="button" title="Move Seat Clockwise" onclick="window.shMoveGuestSeatOffset(' + tIdx + ',' + sIdx + ',1,event)" style="background:#FFFFFF;border:1px solid #D6CFC2;border-radius:6px;padding:4px 8px;font-size:0.80rem;font-weight:800;cursor:pointer;">&#9654;</button><select aria-label="Move guest to table" onchange="window.shMoveGuestToTable(' + tIdx + ',' + sIdx + ',this.value,event)" style="background:#FFFFFF;border:1px solid #C8A96E;border-radius:6px;padding:4px 6px;font-size:0.80rem;font-weight:800;color:#78350F;cursor:pointer;">' + tblOpts + '</select><button type="button" onclick="window.shCycleGuestMeal(' + tIdx + ',' + sIdx + ',event)" style="background:' + mb.bg + ';border:1px solid ' + mb.color + ';color:' + mb.color + ';border-radius:6px;padding:4px 8px;font-size:0.80rem;font-weight:800;cursor:pointer;">' + mb.short + '</button><button type="button" onclick="window.shCycleGuestAllergy(' + tIdx + ',' + sIdx + ',event)" style="background:#FFFFFF;border:1px solid #D6CFC2;color:#44403C;border-radius:6px;padding:4px 8px;font-size:0.80rem;font-weight:800;cursor:pointer;">+ Dietary / ADA</button><button type="button" onclick="window.shRemoveGuest(' + tIdx + ',' + sIdx + ',event);window.__SH_SWAP_SOURCE=null;shRenderAll();" style="background:#FFF1F2;border:1px solid #FECDD3;color:#9F1239;border-radius:6px;padding:4px 9px;font-size:0.80rem;font-weight:800;cursor:pointer;">✕ Remove</button></div><button type="button" onclick="window.shCancelSwap()" style="background:#FFFFFF;border:1px solid #D97706;border-radius:6px;padding:4px 9px;font-size:0.80rem;font-weight:800;cursor:pointer;color:#78350F;">Done</button>';
       } else {
-        swapBanner.innerHTML =
-          '<div style="display:flex;flex-wrap:wrap;align-items:center;gap:6px;flex:1;">' +
-            '<span style="font-size:0.82rem;font-weight:800;color:#78350F;">Open Chair #' + (sIdx + 1) + ' (' + shEsc(sTbl.name) + '):</span>' +
-            '<input id="sh-quick-seat-name-input" type="text" placeholder="Type guest name (e.g. Uncle Bob)..." onkeydown="if(event.key===\\'Enter\\')window.shQuickAddGuestToTable(' + tIdx + ',\\'sh-quick-seat-name-input\\')" style="padding:4px 8px;border:1px solid #C8A96E;border-radius:6px;font-size:0.82rem;background:#FFFFFF;color:#181412;width:210px;" aria-label="New Guest Name" />' +
-            '<button type="button" onclick="window.shQuickAddGuestToTable(' + tIdx + ',\\'sh-quick-seat-name-input\\')" style="background:#065F46;color:#FFFFFF;border:1px solid #10B981;border-radius:6px;padding:4px 10px;font-size:0.80rem;font-weight:800;cursor:pointer;">+ Seat Guest Here</button>' +
-            '<button type="button" onclick="window.shChangeTableCapacity(' + tIdx + ',-1,event)" style="background:#FFF1F2;border:1px solid #FECDD3;color:#9F1239;border-radius:6px;padding:4px 9px;font-size:0.80rem;font-weight:800;cursor:pointer;">✕ Remove Empty Chair</button>' +
-          '</div>' +
-          '<button type="button" onclick="window.shCancelSwap()" style="background:#FFFFFF;border:1px solid #D97706;border-radius:6px;padding:4px 9px;font-size:0.80rem;font-weight:800;cursor:pointer;color:#78350F;">Close</button>';
+        swapBanner.innerHTML = '<div style="display:flex;flex-wrap:wrap;align-items:center;gap:6px;flex:1;"><span style="font-size:0.82rem;font-weight:800;color:#78350F;">Open Chair #' + (sIdx + 1) + ' (' + shEsc(sTbl.name) + '):</span><input id="sh-quick-seat-name-input" type="text" placeholder="Type guest name (e.g. Uncle Bob)..." onkeydown="if(event.key===\\'Enter\\')window.shQuickAddGuestToTable(' + tIdx + ',\\'sh-quick-seat-name-input\\')" style="padding:4px 8px;border:1px solid #C8A96E;border-radius:6px;font-size:0.82rem;background:#FFFFFF;color:#181412;width:210px;" aria-label="New Guest Name" /><button type="button" onclick="window.shQuickAddGuestToTable(' + tIdx + ',\\'sh-quick-seat-name-input\\')" style="background:#065F46;color:#FFFFFF;border:1px solid #10B981;border-radius:6px;padding:4px 10px;font-size:0.80rem;font-weight:800;cursor:pointer;">+ Seat Guest Here</button><button type="button" onclick="window.shChangeTableCapacity(' + tIdx + ',-1,event)" style="background:#FFF1F2;border:1px solid #FECDD3;color:#9F1239;border-radius:6px;padding:4px 9px;font-size:0.80rem;font-weight:800;cursor:pointer;">✕ Remove Empty Chair</button></div><button type="button" onclick="window.shCancelSwap()" style="background:#FFFFFF;border:1px solid #D97706;border-radius:6px;padding:4px 9px;font-size:0.80rem;font-weight:800;cursor:pointer;color:#78350F;">Close</button>';
       }
       return;
     }
