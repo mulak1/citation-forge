@@ -749,6 +749,29 @@ function fmtScanTitle(raw, entity) {
     .trim();
 }
 
+const VENUE_THUMBNAILS = {
+  'tuscan-banquet-80': {
+    img: '/public/venue-tuscan-courtyard.jpg',
+    tag: 'Courtyard Banquet'
+  },
+  'estate-150': {
+    img: '/public/venue-rosewood-estate.jpg',
+    tag: 'Private Country Estate'
+  },
+  'planner-beo-sandbox': {
+    img: '/public/venue-winery-sandbox.jpg',
+    tag: 'Winery & Loft Terrace'
+  },
+  'vip-exec-dinner': {
+    img: '/public/venue-winery-sandbox.jpg',
+    tag: 'Executive Gala'
+  },
+  'charity-gala-300': {
+    img: '/public/venue-rosewood-estate.jpg',
+    tag: 'Grand Ballroom'
+  }
+};
+
 function buildTopLeaderboardPodiumShowcaseHtml(cfg) {
   const t = cfg.theme;
   const ledger = loadPublicScanLedger(cfg).slice().sort((a, b) => b.score - a.score);
@@ -762,14 +785,21 @@ function buildTopLeaderboardPodiumShowcaseHtml(cfg) {
   const podiumCards = top3.map((s, i) => {
     const m = medals[i] || medals[2];
     const displayTitle = fmtScanTitle(s.target, s);
-    return `<a href="/scan/${escHtml(encodeURIComponent(s.target))}" onclick="if(window.__ebLogEvent)window.__ebLogEvent('calculate',{source:'podium_home_click',target:'${escHtml(s.target)}'})" style="display:flex;flex-direction:column;justify-content:space-between;padding:18px 20px;border-radius:${t.radiusCard};background:${t.subtleBg};text-decoration:none;color:${t.textPrimary};">
+    const venue = VENUE_THUMBNAILS[s.target];
+    const venueImg = (venue && venue.img) || '/public/editorial-hero.jpg';
+    const venueTag = (venue && venue.tag) || 'Venue Benchmark';
+    return `<a href="/scan/${escHtml(encodeURIComponent(s.target))}" onclick="if(window.__ebLogEvent)window.__ebLogEvent('calculate',{source:'podium_home_click',target:'${escHtml(s.target)}'})" style="display:flex;flex-direction:column;justify-content:space-between;padding:16px 18px;border-radius:${t.radiusCard};background:${t.subtleBg};text-decoration:none;color:${t.textPrimary};transition:transform 180ms ease, box-shadow 180ms ease;">
       <div>
-        <div style="display:flex;justify-content:space-between;align-items:center;gap:8px;margin-bottom:8px;">
-          <span style="padding:3px 9px;border-radius:${t.radiusPill};background:${m.bg};color:${m.text};font-size:13px;font-weight:800;">${m.icon}</span>
-          <span style="padding:3px 10px;border-radius:${t.radiusPill};background:${t.safeSoftBg};color:${t.safeColor};font-family:${t.fontSans};font-variant-numeric:tabular-nums;font-size:13.5px;font-weight:800;">Grade ${escHtml(s.grade)} · ${s.score}/100</span>
+        <div style="height:124px;border-radius:${t.radiusCard};overflow:hidden;margin-bottom:12px;position:relative;background:#E2E8F0;">
+          <img src="${venueImg}" alt="${escHtml(displayTitle)} setting" style="width:100%;height:100%;object-fit:cover;" loading="lazy" />
+          <div style="position:absolute;top:8px;left:8px;display:flex;gap:6px;">
+            <span style="padding:3px 9px;border-radius:${t.radiusPill};background:${m.bg};color:${m.text};font-size:12px;font-weight:800;box-shadow:0 1px 3px rgba(0,0,0,0.12);">${m.icon}</span>
+            <span style="padding:3px 8px;border-radius:${t.radiusPill};background:rgba(15,23,42,0.72);color:#FFFFFF;font-size:11.5px;font-weight:600;">${venueTag}</span>
+          </div>
+          <span style="position:absolute;top:8px;right:8px;padding:3px 9px;border-radius:${t.radiusPill};background:rgba(255,255,255,0.95);color:${t.safeColor};font-family:${t.fontSans};font-variant-numeric:tabular-nums;font-size:12.5px;font-weight:800;box-shadow:0 1px 3px rgba(0,0,0,0.1);">${escHtml(s.grade)} · ${s.score}/100</span>
         </div>
         <div style="font-size:17px;font-weight:800;color:${t.textPrimary};margin-bottom:4px;line-height:1.3;">${escHtml(displayTitle)}</div>
-        <div style="font-size:14px;color:${t.textSecondary};margin-bottom:10px;">${escHtml(s.kpi1)} · ${escHtml(s.kpi2)}</div>
+        <div style="font-size:13.5px;color:${t.textSecondary};margin-bottom:10px;">${escHtml(s.kpi1)} · ${escHtml(s.kpi2)}</div>
       </div>
       <div>
         <div style="width:100%;height:7px;background:#E2E8F0;border-radius:${t.radiusPill};overflow:hidden;margin-bottom:6px;"><div style="width:${s.score}%;height:100%;background:${t.safeColor};border-radius:${t.radiusPill};"></div></div>
@@ -794,6 +824,24 @@ function buildTopLeaderboardPodiumShowcaseHtml(cfg) {
       <div style="display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:10px;padding-top:12px;">
         <div style="display:flex;align-items:center;gap:8px;flex-wrap:wrap;"><span style="font-size:13.5px;font-weight:700;color:${t.textSecondary};">Common Planning Pitfalls Analysed:</span>${fixPills}</div>
         <a href="/leaderboard" style="font-size:13.5px;font-weight:700;color:${t.brandPrimary};text-decoration:underline;"> Filter all ${ledger.length} ranked benchmarks →</a>
+      </div>
+      <div style="margin-top:20px;padding-top:18px;border-top:1px solid #E2E8F0;display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:14px;">
+        <div style="display:flex;align-items:center;gap:12px;background:#F8FAFC;padding:12px 14px;border-radius:${t.radiusCard};border:1px solid #E2E8F0;">
+          <img src="/public/ugc-welcome-sign-easel.jpg" alt="Real 24x36 wedding seating sign on easel at reception" style="width:72px;height:72px;border-radius:8px;object-fit:cover;flex-shrink:0;" loading="lazy" />
+          <div>
+            <div style="font-size:12px;font-weight:700;color:#047857;margin-bottom:2px;">★ Real Reception Story · Sunstone Winery, CA</div>
+            <p style="font-size:13px;color:${t.textPrimary};line-height:1.35;margin:0 0 2px 0;">&ldquo;Seated 4 separated relatives with 0 drama. Printed the 24&Prime;&times;36&Prime; chart at FedEx for \$14.&rdquo;</p>
+            <span style="font-size:11.5px;color:${t.textSecondary};">&mdash; Sarah &amp; Mateo (140 Guests)</span>
+          </div>
+        </div>
+        <div style="display:flex;align-items:center;gap:12px;background:#F8FAFC;padding:12px 14px;border-radius:${t.radiusCard};border:1px solid #E2E8F0;">
+          <img src="/public/ugc-place-card-table.jpg" alt="Avery place cards on reception dinner table" style="width:72px;height:72px;border-radius:8px;object-fit:cover;flex-shrink:0;" loading="lazy" />
+          <div>
+            <div style="font-size:12px;font-weight:700;color:#047857;margin-bottom:2px;">★ Coordinator Verified · Napa Valley, CA</div>
+            <p style="font-size:13px;color:${t.textPrimary};line-height:1.35;margin:0 0 2px 0;">&ldquo;The clockwise 12:00 caterer sheet saved our team 25 mins of table confusion during dinner service.&rdquo;</p>
+            <span style="font-size:11.5px;color:${t.textSecondary};">&mdash; Elena Vance (Lead Event Planner)</span>
+          </div>
+        </div>
       </div>
     </div>
   </section>`;
