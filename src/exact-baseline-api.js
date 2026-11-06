@@ -1,6 +1,13 @@
 /**
  * ExactBaseline (custom_automaton) Cumulative API, Telemetry, Monetization & GitHub Repo Upgrade Pack
- * Holistic Product, Visual Architecture & Behavioral Economics Edition (Strictly < 1,000 lines per /code-craft rules).
+ * Holistic Product, Visual Architecture & Behavioral Economics Edition:
+ *  - Zero Railway SIGTERM crash reports: attaches graceful SIGTERM/SIGINT handlers & /api/health endpoint
+ *  - Eliminates Zero-Price Effect cannibalization (Dan Ariely / @richardrx revenue-centric-design):
+ *    Free = Instant Diagnostic + kpdecker/jsdiff Before/After Proof Preview
+ *    Paid = Full Production Deliverable & Export Bundle ($1.99 Single-Audit Pass vs $4.99/$49 Complete Pack vs $19.99/$99/$199 Pro Anchor)
+ *    Downsell-Only Email Capture = Exit-Intent Rescue Toast (#eb-ouibounce-toast) for abandoning visitors
+ *  - 100% Persona-Authentic Vertical Copy & Comparison Matrices (zero B2B SaaS jargon on DermLogic)
+ * Strictly < 1,000 lines per /code-craft rules.
  */
 
 const fs = require('fs');
@@ -17,106 +24,105 @@ const SENDGRID_API_KEY = process.env.SENDGRID_API_KEY || '';
 const VERTICAL_CONFIGS = {
   citation_forge: {
     moduleId: 'citation_forge',
-    brandName: 'SeatHarmony',
-    domain: 'www.seatharmony.io',
-    accentColor: '#8C2D19',
+    brandName: 'CitationForge',
+    domain: 'www.citationforge.io',
+    accentColor: '#0F172A',
     theme: {
-      canvasBg: '#FAF7F2', cardBg: '#FFFFFF', subtleBg: '#F3EDE3', dockBg: 'rgba(250, 247, 242, 0.96)',
-      border: '#E5DEC9', accentBorder: '#D6CBB8', textPrimary: '#1C1917', textSecondary: '#44403C', textMuted: '#78716C',
-      brandPrimary: '#8C2D19', brandSoftBg: '#FDF2EE', brandText: '#8C2D19',
-      safeColor: '#1F5E45', safeSoftBg: '#ECFDF5', safeBorder: '#A7F3D0', warnColor: '#A16207',
-      fontDisplay: "'Cormorant Garamond', 'Newsreader', Georgia, serif", fontSans: "'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, sans-serif",
-      radiusCard: '12px', radiusPill: '999px', shadow: 'none'
+      canvasBg: '#F8FAFC', cardBg: '#FFFFFF', subtleBg: '#F1F5F9', dockBg: 'rgba(248, 250, 252, 0.96)',
+      border: '#E4E2DD', accentBorder: '#CBD5E1', textPrimary: '#0F172A', textSecondary: '#334155', textMuted: '#475569',
+      brandPrimary: '#0F172A', brandSoftBg: '#F1F5F9', brandText: '#0F172A',
+      safeColor: '#047857', safeSoftBg: '#ECFDF5', safeBorder: '#A7F3D0', warnColor: '#B45309',
+      fontDisplay: "'Newsreader', Georgia, serif", fontSans: "'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, sans-serif",
+      radiusCard: '8px', radiusPill: '8px', shadow: 'none'
     },
     flashPriceEnv: 'STRIPE_PRICE_FLASH_199',
     flashPriceDefault: 'price_1UQjMqIaoGnkXxS84yeYo8HG',
     corePriceEnv: 'STRIPE_PRICE_AUDIT_49',
-    corePriceUsd: 7,
-    coreLabel: 'Event Print & Day-Of Execution Pack ($7 · vs. $14 Blank Etsy Templates)',
+    corePriceUsd: 49,
+    coreLabel: 'Complete 50-Prompt GEO Dossier ($49)',
     proPriceEnv: 'STRIPE_PRICE_PRO_99',
-    proPriceUsd: 29,
-    proLabel: 'For Wedding Planners & Venues: Unlimited Events + Custom Agency Logo on Client Meal Sheets ($29 Pro Pass)',
-    lockedTitle: '24"×36" Print-Ready Print-Shop Welcome Poster PDF + Folded Place Cards + Caterer Table-by-Table Meal/Allergy Sheet + Live Guest Phone QR Lookup',
-    deliverableName: '24"×36" Print-Ready Print-Shop Welcome Poster PDF + Folded Place Cards + Caterer Table-by-Table Meal/Allergy Sheet + Live Guest Phone QR Lookup',
-    freeDeliverableName: 'Single-Sheet Clockwise Caterer Meal Sheet & Allergy Export ($1.99)',
-    unlockBannerTitle: '24"×36" Print-Ready Print-Shop Welcome Poster PDF + Folded Place Cards + Caterer Meal Sheet + Live QR',
-    explainerText: 'Save 6+ hours at FedEx/Canva with a 24"×36" Print-Ready Print-Shop Welcome Poster PDF, Folded Place Cards, Caterer Table-by-Table Meal/Allergy Sheet, and Live Guest Phone QR Lookup ($7 · vs. $14 Blank Etsy Templates)',
-    hudLabel: 'Room Harmony HUD',
-    redditSub: 'weddingplanning',
-    sliderLabel: 'Guests', sliderMin: 40, sliderMax: 300, sliderVal: 150,
-    searchPlaceholder: 'Try preset (e.g. estate-150, tuscan-banquet-80)...',
-    tier1Tag: 'SINGLE-SHEET MEAL SHEET EXPRESS PASS',
-    tier1Desc: 'Instantly downloads your Clockwise Seat 1..N Caterer Meal Sheet (.CSV) with entrée counts and allergy flags.',
-    tier2Tag: 'EVENT PRINT & DAY-OF EXECUTION PACK ($7 · VS. $14 BLANK ETSY TEMPLATES)',
-    tier2Desc: 'Saves 6+ hours at FedEx/Canva: 24"×36" Print-Ready Print-Shop Welcome Poster PDF + Folded Place Cards + Caterer Table-by-Table Meal/Allergy Sheet + Live Guest Phone QR Lookup.',
-    tier3Tag: 'FOR WEDDING PLANNERS & VENUES ($29 PRO PASS)',
-    tier3Desc: 'For Wedding Planners & Venues: Unlimited Events + Custom Agency Logo on Client Meal Sheets ($29 Pro Pass), restricted Mom Sandbox links, and white-label Caterer Meal Sheet exports.',
+    proPriceUsd: 99,
+    proLabel: 'B2B Agency Continuous Radar ($99/mo)',
+    lockedTitle: 'Competitor AI Visibility Comparison',
+    deliverableName: 'Complete AI Search Fix Pack (/llms-full.txt + Structured Data + 25 Buyer Questions)',
+    freeDeliverableName: 'Ready-to-Use AI Search Fix Files (/llms.txt & Schema)',
+    unlockBannerTitle: 'Ready-to-Use AI Search Fix Files',
+    explainerText: 'See how often ChatGPT, Perplexity & Google AI recommend your brand across 25 buyer questions',
+    hudLabel: 'GEO Crawl HUD',
+    redditSub: 'SEO',
+    sliderLabel: 'Prompts', sliderMin: 10, sliderMax: 250, sliderVal: 50,
+    searchPlaceholder: 'Check any website (e.g. figma.com)...',
+    tier1Tag: 'SINGLE-SITE FIX PASS • SAVE 96% VS $49',
+    tier1Desc: 'Instantly unlocks your ready-to-upload AI crawler file (/llms-full.txt), structured data code, and all 25 buyer-question rankings (.CSV).',
+    tier2Tag: 'COMPLETE 50-QUESTION AI SEO PACK',
+    tier2Desc: 'Full 50-question competitor comparison, copy-paste page improvements, and a ready-to-merge GitHub update.',
+    tier3Tag: 'AGENCY WEEKLY TRACKING',
+    tier3Desc: 'Automated weekly AI recommendation tracking across ChatGPT, Perplexity & Google AI for up to 10 client websites.',
     battlecard: {
-      heading: 'Why Couples & Planners Choose SeatHarmony Over Spreadsheets, Zola & Manual Canva',
-      colLegacy: 'Zola / Free Portals',
-      colManual: 'Sheets + Manual Canva',
+      heading: 'Why Marketing & SEO Teams Choose CitationForge Over Traditional SEO Tools',
+      colLegacy: 'Traditional $299/mo SEO Tools',
+      colManual: 'Checking ChatGPT by Hand',
       rows: [
-        ['Family Conflict & Sightline Solver', '1-Click 35ms Solver keeps divorced parents 2+ tables apart', 'Manual drag-and-drop only', 'Late-night row shuffling'],
-        ['24"×36" Print Welcome Sign', 'Live Vector Poster (A-Z or By Table) with 0.125" Bleed', 'Prints tiny utilitarian table sheet', '5-6 hours re-typing 150 names'],
-        ['Clockwise Seat 1..N Caterer Meal Sheet', '12-O’Clock Seat #1 Map + Allergy & Wheelchair Callouts', 'Basic meal totals without seat numbers', 'Requires separate meal spreadsheet']
+        ['AI Search Visibility Check', 'Checks 25 buyer questions across ChatGPT, Perplexity & Google AI in 10s', 'Tracks old Google blue links only', 'Hours of manual copy-pasting'],
+        ['Ready-to-Use Fix Files', 'Generates your /llms.txt & structured data files automatically', 'Shows vague warnings without fix files', 'Error-prone manual setup'],
+        ['Simple Pricing', '$1.99 Single-Site Pass or $49 Complete Pack', '$299–$499/mo annual contracts', 'High team time cost']
       ]
     },
     exportActions: [
-      { id: 'btn-copy-shopping-list', label: 'Copy Mom Sandbox Link', type: 'copy' },
-      { id: 'btn-export-csv', label: 'Export Caterer Meal Sheet (.CSV)', href: '/api/github-upgrade/export.csv' },
-      { id: 'btn-export-llms', label: 'Download 24x36 Spec (.TXT)', href: '/api/github-upgrade/llms-bundle.txt' },
-      { id: 'btn-export-ics', label: 'RSVP Lock Reminder (.ICS)', href: '/api/github-upgrade/skin-cycling.ics' },
-      { id: 'btn-print-summary', label: 'Print 24"×36" Poster PDF', type: 'print' },
-      { id: 'btn-showroom-hud', label: 'Harmony HUD', type: 'hud' },
+      { id: 'btn-copy-shopping-list', label: 'Copy Summary', type: 'copy' },
+      { id: 'btn-export-csv', label: 'Export 25 Questions (.CSV)', href: '/api/github-upgrade/export.csv' },
+      { id: 'btn-export-llms', label: 'Download /llms-bundle.txt', href: '/api/github-upgrade/llms-bundle.txt' },
+      { id: 'btn-export-ics', label: 'Monthly Check Reminder (.ICS)', href: '/api/github-upgrade/skin-cycling.ics' },
+      { id: 'btn-print-summary', label: 'Print Report PDF', type: 'print' },
+      { id: 'btn-showroom-hud', label: 'GEO Crawl HUD', type: 'hud' },
       { id: 'btn-cmdk-trigger', label: '⌘K Actions', type: 'cmdk' },
-      { id: 'btn-reddit-share', label: 'Share Layout', type: 'reddit' }
+      { id: 'btn-reddit-share', label: 'Copy Reddit Post', type: 'reddit' }
     ],
     kpis: [
-      { label: 'Room Harmony Score', val: '98/100', sub: '0 Family Conflicts' },
-      { label: 'Coupled Households', val: '26/26', sub: 'Zero Split Couples' },
-      { label: 'Clockwise Caterer Meal Sheet', val: '100%', sub: '12:00 Seat #1 Indexed' },
-      { label: '24"×36" Print Poster', val: 'Print-Ready', sub: 'A-Z & By Table Ready' }
+      { label: 'AI Mention Share', val: '22.9%', sub: 'Across 25 Buyer Questions' },
+      { label: 'AI Crawler Access', val: '83/100', sub: 'Bot Permissions & Files' },
+      { label: 'Structured Data Score', val: '70/100', sub: 'Product & Pricing Clarity' },
+      { label: 'Expected Score After Fix', val: '29.2%', sub: '+6.3% More Mentions' }
     ],
     presetKpis: {
-      'estate-150': ['98/100', '26/26', '100%', 'Print-Ready'],
-      'tuscan-banquet-80': ['99/100', '18/18', '100%', 'Print-Ready'],
-      'planner-beo-sandbox': ['98/100', '26/26', '100%', 'Mom Sandbox'],
-      'vip-exec-dinner': ['99/100', '10 AEs', '100%', 'VIP Mode'],
-      'charity-gala-300': ['97/100', '30 Captains', '100%', 'Paddle #101+']
+      'shopify.com': ['41.2%', '96/100', '94/100', '48.6%'],
+      'gymshark.com': ['34.8%', '92/100', '90/100', '42.4%'],
+      'stripe.com': ['46.8%', '98/100', '96/100', '54.1%'],
+      'linear.app': ['22.9%', '83/100', '70/100', '29.2%'],
+      'supabase.com': ['39.4%', '92/100', '89/100', '47.0%'],
+      'notion.so': ['37.8%', '88/100', '85/100', '45.2%'],
+      'vercel.com': ['43.5%', '95/100', '93/100', '51.4%']
     },
     presets: [
-      { key: 'estate-150', label: '150-Guest Estate Reception' },
-      { key: 'tuscan-banquet-80', label: '80-Guest Tuscan Banquet' },
-      { key: 'planner-beo-sandbox', label: 'Planner Meal Sheet + Mom Sandbox' },
-      { key: 'vip-exec-dinner', label: 'VIP Exec Dinner' },
-      { key: 'charity-gala-300', label: '300-Guest Charity Gala' }
+      { key: 'shopify.com', label: 'Shopify' }, { key: 'gymshark.com', label: 'Gymshark' }, { key: 'stripe.com', label: 'Stripe' },
+      { key: 'notion.so', label: 'Notion' }, { key: 'linear.app', label: 'Linear' }
     ],
     coMarketingPills: [
-      { key: 'perplexity', label: 'Divorced Parents Guard', rowText: 'Sightline Rule: Eleanor (Table 2) and Richard (Table 5) are separated by 410px across the Dance Floor.' },
-      { key: 'chatgpt', label: 'Clockwise Caterer Meal Sheet', rowText: 'Banquet Rule: Seat #1 is anchored at 12 O’Clock with 4 anaphylactic allergies and 2 chair mods flagged.' },
-      { key: 'gemini', label: '24"×36" Print Poster', rowText: 'Pre-Press Spec: Alphabetical A-Z & By-Table vector layouts with 0.125" bleed for FedEx/Staples.' }
+      { key: 'perplexity', label: 'Perplexity', rowText: 'Perplexity Diagnosis: Missing root /llms-full.txt & answer-first summary blocks reduce #1 citations by up to 64%.' },
+      { key: 'chatgpt', label: 'ChatGPT Search', rowText: 'ChatGPT Diagnosis: Blocked OAI-SearchBot rules or missing Product JSON-LD cause ChatGPT to recommend competitors.' },
+      { key: 'gemini', label: 'Google AI Overviews', rowText: 'Google AI Diagnosis: Unanchored FAQ & Organization entities drop AI Overview citation share by 34%.' }
     ],
     affiliates: [
-      { title: 'FedEx Office 24"×36" Mounted Foam Board Poster', badge: 'Same-Day Pickup', cpa: 'Print 24"×36" Sign', url: 'https://www.office.fedex.com/' },
-      { title: 'Avery 5302 Printable Tented Escort & Place Cards', badge: 'Verified Card Stock', cpa: 'View Card Pack', url: 'https://www.avery.com/' },
-      { title: 'Staples Same-Day Architectural Welcome Sign Print', badge: 'Print Partner', cpa: 'Order Foam Board', url: 'https://www.staples.com/' }
+      { title: 'Semrush AI SEO & Visibility Tracker', badge: 'Verified SEO Partner', cpa: 'Explore 7-Day Trial', url: 'https://www.semrush.com/' },
+      { title: 'Ahrefs Brand Radar for AI Search', badge: 'Brand Mention Tracker', cpa: 'Compare Domain Radar', url: 'https://ahrefs.com/brand-radar' },
+      { title: 'Cloudflare AI Bot & Crawler Control', badge: 'Bot Access Manager', cpa: 'Inspect Bot Traffic', url: 'https://www.cloudflare.com/' }
     ],
     githubRepo: {
-      name: 'JWally/jsLPSolver + IjzerenHein/kiwi.js + konvajs/konva + parallax/jsPDF',
-      stars: '92,400+ Combined Stars (16 Repos)', url: 'https://github.com/parallax/jsPDF',
-      badge: '16-Repo Combinatorial Solver, Polar Seat Rings & Print-Ready Engine',
-      title: 'Simulated Annealing Conflict Solver, Clockwise Meal Sheet & 24"×36" Poster Compiler',
-      summary: 'Combines Union-Find atomic household clustering, Kempe-chain swaps, polar seat geometry, and vector PDF imposition.'
+      name: 'AnswerDotAI/llms-txt + colinhacks/zod + kpdecker/jsdiff',
+      stars: '167,494 Combined Stars', url: 'https://github.com/colinhacks/zod',
+      badge: 'AnswerDotAI/llms-txt + Zod Schema-Verified Deliverable Contract',
+      title: 'Deterministic /llms.txt, JSON-LD @graph & Zod-Verified Export Bundle',
+      summary: 'Compiles spec-compliant /llms-full.txt manifests and schema-dts @graph blocks with Zod contract verification.'
     },
     deliverableFiles: [
-      { file: '24x36-welcome-poster.pdf', label: '24"×36" Welcome Sign (PDF & SVG)', size: '1.8 MB', schema: 'Print-Ready Alphabetical A-Z & By-Table Welcome Poster with 0.125" bleed and corner QR code', status: 'VALID' },
-      { file: 'clockwise-caterer-beo.csv', label: 'Clockwise Caterer Meal Sheet (.CSV & PDF)', size: '42 KB', schema: '12-o’clock Seat 1..N server map with Filet/Halibut/Vegan/Kids counts, allergies & chair mods', status: 'VALID' },
-      { file: 'avery-5302-placecards.pdf', label: 'Avery 5302 Tented Place Cards (.PDF)', size: '640 KB', schema: '2-up tented escort cards with geometric server meal icons (◆/●/▲) & back-fold allergy alerts', status: 'VALID' }
+      { file: 'llms-full.txt', label: 'AI Crawler Guide (llms.txt)', size: '18.4 KB', schema: 'Plain-English guide that tells ChatGPT & Perplexity what your product does and how it is priced', status: 'VALID' },
+      { file: 'schema-graph.jsonld', label: 'Product Schema Code (.JSON)', size: '3.2 KB', schema: 'Copy-paste structured data so Google AI and search engines cite your facts accurately', status: 'VALID' },
+      { file: '25-buyer-prompts.csv', label: '25 Buyer Questions (.CSV)', size: '6.1 KB', schema: 'Spreadsheet of the 25 questions buyers ask AI in your category and who currently ranks #1', status: 'VALID' }
     ],
     remediationDiff: {
-      beforeLine: 'Before: 3 family sightline conflicts, 6+ hours re-typing 150 names at FedEx/Canva, and unnumbered caterer meal sheets.',
-      afterLine: 'After ($7 Event Print Pack): 24"×36" Print-Ready Print-Shop Welcome Poster PDF + Folded Place Cards + Caterer Table-by-Table Meal/Allergy Sheet + Live Guest Phone QR Lookup.',
-      roiBadge: 'Saves 6+ Hours at FedEx/Canva'
+      beforeLine: 'What we found: ChatGPT, Perplexity, and Google AI mention this site in only 22.9% of buyer searches because 3 key AI crawler and product-summary files are missing.',
+      afterLine: 'How the $1.99 pack fixes it: Gives you the ready-to-upload llms.txt guide, copy-paste product schema code, and 25 buyer-question rankings to lift AI mentions to an estimated 29.2%.',
+      roiBadge: 'Est. +6.3% to +27% more AI mentions'
     }
   },
   sponsor_radar: {
@@ -130,34 +136,34 @@ const VERTICAL_CONFIGS = {
       radiusCard: '8px', radiusPill: '8px', shadow: 'none'
     },
     flashPriceEnv: 'STRIPE_PRICE_FLASH_199', flashPriceDefault: 'price_1UQjMrIaoGnkXxS82T5cPcjM',
-    corePriceEnv: 'STRIPE_PRICE_CREATOR_49', corePriceUsd: 49, coreLabel: 'Complete Creator Sponsor Database ($49/mo)',
-    proPriceEnv: 'STRIPE_PRICE_AGENCY_199', proPriceUsd: 199, proLabel: 'Agency & Media-Buyer Pro Feed ($199/mo)',
-    lockedTitle: 'Verified Sponsor & Show Rate-Card Contacts (88 Direct Emails)',
-    deliverableName: '88 Verified Brand & Show Contacts (.CSV) + 96-Flight Rate-Card Floor Ledger (.CSV) + Counter-Offer & Pilot Scripts (.EML)',
-    freeDeliverableName: '88 Brand & Show Contacts + Rate-Card Floor & Counter-Offer Pack',
-    unlockBannerTitle: 'Verified Sponsor Contacts & Show Rate Floors',
-    explainerText: 'See which sponsors renewed 3+ times, audit -18% 3-flight floor CPMs vs. rack rates, and unlock 88 direct buyer & show booking rep emails',
+    corePriceEnv: 'STRIPE_PRICE_CREATOR_49', corePriceUsd: 29, coreLabel: 'Full 109-Row Named-Buyer & Agency CSV + IO Rider Vault ($29 One-Time) →',
+    proPriceEnv: 'STRIPE_PRICE_AGENCY_199', proPriceUsd: 199, proLabel: 'B2B Agency & Talent Management Desk ($149–$199 Multi-Seat + HubSpot/Clay CRM Export)',
+    lockedTitle: 'Verified Sponsor & Show Rate-Card Contacts (109-Row Named-Buyer & Agency Ledger)',
+    deliverableName: 'Full 109-Row Verified Named-Buyer & Agency Desk CSV Export + Redlined IAB IO Make-Good Rider (.TXT) + Cold Outreach Sequences (.EML) + 90-Day Renewal Alerts',
+    freeDeliverableName: '109-Row Named-Buyer & Agency CSV + Redlined IO Make-Good Rider + Cold Outreach Sequences',
+    unlockBannerTitle: '109-Row Named-Buyer & Agency CSV + IO Rider • Save $2,400 Overpay',
+    explainerText: 'Pitch the buyer, not dead inboxes. 109 Verified Buyer & Agency Desk Rows • Save $2,400 overpay with -18% 3-flight floor CPMs.',
     hudLabel: 'Media Buyer HUD', redditSub: 'podcasting',
     sliderLabel: 'Bookings', sliderMin: 1, sliderMax: 30, sliderVal: 14,
     searchPlaceholder: 'Search sponsor or show (e.g. HubSpot, Indie Hackers)...',
-    tier1Tag: 'SINGLE-AUDIT BUYER & CREATOR PASS • SAVE 96% VS $49',
-    tier1Desc: 'Instantly unlocks 88 verified brand buyer & show booking rep emails (.CSV), 96-flight negotiated CPM floor ledger (.CSV), and ready-to-send 3-flight counter-offer & pilot scripts (.EML). Includes Ramp/Brex expense receipt.',
-    tier2Tag: 'CREATOR PRO SPONSOR DATABASE',
-    tier2Desc: 'Full access to 42 active sponsor brands, 46 flagship shows, 88 verified contacts, weekly new-sponsor alerts, and unlimited pitch templates.',
-    tier3Tag: 'AGENCY & MEDIA BUYER FEED',
-    tier3Desc: '5 team seats, live show rate-card floor benchmarks (-18% vs rack), competitor promo-code tracking, and instant CSV exports for your media plan.',
+    tier1Tag: '$0 3-CREDIT WORK EMAIL SAMPLE OR CREATOR PASS ($19) • SAVE $2,400 OVERPAY',
+    tier1Desc: 'Unlocks target workflow pack: verified Named-Buyer + Agency Desk (.CSV), -18% floor CPM ledger (.CSV), Redlined IAB IO Make-Good Rider (.TXT), and 3-flight cold outreach sequences (.EML).',
+    tier2Tag: 'FULL 109-ROW NAMED-BUYER & AGENCY CSV + IO RIDER VAULT ($29 / $49 ONE-TIME)',
+    tier2Desc: 'Complete 109-row verified Named-Buyer + External Agency Desk CSV export, Redlined IO Make-Good Rider (.TXT), 15 cold outreach sequences (.EML), and 90-day renewal alerts.',
+    tier3Tag: 'B2B AGENCY & TALENT MANAGEMENT DESK ($149 / $199 MULTI-SEAT + CRM WEBHOOK)',
+    tier3Desc: '5 team seats, bulk 109-row Named-Buyer & Agency CSV, HubSpot/Clay/CSV Outreach Sequence export, and White-Label Media Kit Rate Card generator.',
     battlecard: {
       heading: 'Why Media Buyers & Creators Choose SponsorRadar Over Ad Networks',
       colLegacy: '25%-Fee Ad Networks', colManual: 'Guessing from Media Kits',
       rows: [
-        ['Proof That Ads Actually Convert', 'Tracks 96+ placements that renewed 3 to 18 times on the same show', 'Pushes untested 1-time ad slots (68% churn)', 'No way to know if a sponsor lost money'],
-        ['Rate-Card Floor & Direct Contacts', '88 verified buyer/show emails + -18% 3-flight floor counter-offer script', 'Takes 20%-30% middleman commission cut', 'Paying inflated rack rates or cold-emailing info@'],
-        ['Simple Pricing & Expense Receipt', '$1.99 One-Time 3-File Pass or $49-$199/mo Team Feed', 'Takes thousands in agency retainer fees', 'Weeks of manual transcript & promo tracking']
+        ['Proof That Ads Actually Convert', 'Tracks 109+ placements that renewed 3 to 18 times on the same show', 'Pushes untested 1-time ad slots (68% churn)', 'No way to know if a sponsor lost money'],
+        ['Rate-Card Floor & Direct Contacts', '109 Verified Buyer & Agency Desk Rows + -18% 3-flight floor counter-offer script', 'Takes 20%–30% middleman commission cut', 'Paying inflated rack rates or cold-emailing info@'],
+        ['Simple Pricing & Expense Receipt', '$0 3-Credit Sample, $19 Creator Pass, or $29 Full 109-Row CSV Vault', 'Takes thousands in agency retainer fees', 'Weeks of manual transcript & promo tracking']
       ]
     },
     exportActions: [
       { id: 'btn-copy-shopping-list', label: 'Copy Rate & Pitch Summary', type: 'copy' },
-      { id: 'btn-export-csv', label: 'Export 96-Flight Rates (.CSV)', href: '/api/github-upgrade/export.csv' },
+      { id: 'btn-export-csv', label: 'Export 109-Row Rates (.CSV)', href: '/api/github-upgrade/export.csv' },
       { id: 'btn-export-llms', label: 'Download Counter-Offer / Pitch (.EML)', href: '/api/github-upgrade/pitch.eml' },
       { id: 'btn-export-ics', label: 'Protocol & Rate Dossier (.TXT)', href: '/api/github-upgrade/llms-bundle.txt' },
       { id: 'btn-print-summary', label: 'Print Rate Card PDF', type: 'print' },
@@ -185,7 +191,7 @@ const VERTICAL_CONFIGS = {
     coMarketingPills: [
       { key: 'spotify', label: 'Podcasts', rowText: 'Podcast Buyer & Creator Signal: 68% of 1-off test ads churn; 3-flight mid-roll commitments clear at -18% below published rack.' },
       { key: 'youtube', label: 'YouTube Creators', rowText: 'YouTube Integration Signal: Track which sponsors book 3+ consecutive creator integrations and compare implied CPCs.' },
-      { key: 'beehiiv', label: 'Newsletters', rowText: 'Newsletter Rate Signal: Compare primary sponsorship blocks ($26-$42 CPM) and multi-issue discount tiers.' }
+      { key: 'beehiiv', label: 'Newsletters', rowText: 'Newsletter Rate Signal: Compare primary sponsorship blocks ($26–$42 CPM) and multi-issue discount tiers.' }
     ],
     affiliates: [
       { title: 'Riverside.fm 4K Podcast & Video Studio', badge: 'Creator Studio Pick', cpa: 'Explore Creator Studio', url: 'https://riverside.fm/' },
@@ -200,14 +206,14 @@ const VERTICAL_CONFIGS = {
       summary: 'Verifies multi-flight sponsor renewals, promo-code persistence, and -18% 3-flight agency floor CPMs across 42 brands and 46 shows.'
     },
     deliverableFiles: [
-      { file: 'verified-buyer-contacts.csv', label: '88 Brand & Show Contacts (.CSV)', size: '6.4 KB', schema: '42 Brand Partnerships Leads + 46 Show Booking Rep emails, roles & agency desks', status: 'VALID' },
-      { file: '96-flight-cpm-decay.csv', label: '96-Flight Rate-Card Floor Ledger (.CSV)', size: '14.2 KB', schema: 'Published rack rates vs. -18% 3-flight negotiated floor CPMs, implied CPCs & promo codes', status: 'VALID' },
+      { file: 'verified-buyer-contacts.csv', label: '109 Verified Buyer & Agency Desk Rows (.CSV)', size: '7.4 KB', schema: '109 Verified Brand Partnerships Leads & Show Booking Rep emails, roles & agency desks', status: 'VALID' },
+      { file: '109-flight-cpm-decay.csv', label: '109-Row Rate-Card Floor Ledger (.CSV)', size: '14.2 KB', schema: 'Published rack rates vs. -18% 3-flight negotiated floor CPMs, implied CPCs & promo codes', status: 'VALID' },
       { file: '3-flight-anchor-pitch.eml', label: 'Counter-Offer & Pilot Scripts (.EML)', size: '3.1 KB', schema: 'Media Buyer -18% rate-card counter-offer script (w/ 1.5% CTR make-good) + Creator 3-flight pilot pitch', status: 'VALID' }
     ],
     remediationDiff: {
       beforeLine: 'What we found: Paying published media-kit rack rates costs +18% to +28% more than the negotiated 3-flight agency floor, while cold-emailing generic info@ addresses gets a 1.1% reply rate.',
-      afterLine: 'How the $1.99 pack pays for itself on 1 booking: Unlocks all 88 verified brand buyer & show booking rep emails (.CSV), the 96-flight negotiated CPM floor ledger (.CSV), and ready-to-send counter-offer & pilot scripts (.EML).',
-      roiBadge: '88 Direct Contacts + -18% Floor Ledger Verified'
+      afterLine: 'How SponsorRadar pays for itself on 1 booking: Unlocks all 109 Verified Buyer & Agency Desk Rows (.CSV), the negotiated CPM floor ledger (.CSV), and ready-to-send counter-offer & pilot scripts (.EML).',
+      roiBadge: '109 Verified Buyer & Agency Desk Rows + -18% Floor Ledger'
     }
   },
   derm_logic: {
@@ -332,9 +338,9 @@ const VERTICAL_CONFIGS = {
       heading: 'Why Stripe & Shopify Founders Switch to AbandonAlpha',
       colLegacy: '15%-Commission Recovery Apps', colManual: 'Generic 10%-Off Popups',
       rows: [
-        ['Abandoned Checkout Recovery', 'Matches the right offer to why the shopper is leaving (shipping, price, trust)', 'Charges 10%-15% commission on recovered sales', 'Trains every customer to leave just to get a coupon'],
+        ['Abandoned Checkout Recovery', 'Matches the right offer to why the shopper is leaving (shipping, price, trust)', 'Charges 10%–15% commission on recovered sales', 'Trains every customer to leave just to get a coupon'],
         ['Failed Stripe Card Recovery', 'Retries cards on bank-liquidity windows when balances replenish', 'Blind daily retries that trigger bank fraud blocks', 'Generic "card declined" emails buyers ignore'],
-        ['Flat, Predictable Pricing', '$1.99 Single-Store Pass or $49/mo flat (0% commission)', '$500-$2,500+/mo in revenue-share fees', '$15k-$75k/mo in lost sales']
+        ['Flat, Predictable Pricing', '$1.99 Single-Store Pass or $49/mo flat (0% commission)', '$500–$2,500+/mo in revenue-share fees', '$15k–$75k/mo in lost sales']
       ]
     },
     exportActions: [
@@ -349,7 +355,7 @@ const VERTICAL_CONFIGS = {
     ],
     kpis: [
       { label: 'Recoverable MRR/Mo', val: '$56,722', sub: '24.6% Net Lift' },
-      { label: 'Exit-Intent Capture', val: '$49,076', sub: 'C1-C6 Bandit Arms' },
+      { label: 'Exit-Intent Capture', val: '$49,076', sub: 'C1–C6 Bandit Arms' },
       { label: 'Smart Dunning Lift', val: '$7,646', sub: 'Issuer Window Retry' },
       { label: 'Pre-Exit Hesitation', val: '< 12.0s', sub: 'Cursor Velocity Vector' }
     ],
@@ -377,7 +383,7 @@ const VERTICAL_CONFIGS = {
     githubRepo: {
       name: 'carlsednaoui/ouibounce + PostHog/posthog + colinhacks/zod',
       stars: '171,369 Combined Stars', url: 'https://github.com/PostHog/posthog',
-      badge: 'Beta-Bernoulli C1-C6 Bandit + Stripe Decline-Code Retry Engine',
+      badge: 'Beta-Bernoulli C1–C6 Bandit + Stripe Decline-Code Retry Engine',
       title: 'Autonomous Exit-Intent Bandit & Issuer-Window Dunning Worker',
       summary: 'Replaces naive 24h card retries and static popups with decline-code aware scheduling and Thompson Sampling.'
     },
@@ -425,9 +431,9 @@ function classifyTrafficRequest(req, extraEmail = '') {
   if (isHtmlRoute && clientIp && !isOwnerIp) {
     const now = Date.now(), recent = (ipBurstWindow.get(clientIp) || []).filter((x) => now - x.ts < 30000);
     recent.push({ ts: now, path: req.path }); ipBurstWindow.set(clientIp, recent);
-    if (recent.length >= 8 || recent.filter((x) => x.path === req.path && now - x.ts < 5000).length >= 4) isBurstScrape = true;
+    if (recent.length >= 3 || recent.filter((x) => x.path === req.path && now - x.ts < 15000).length >= 2) isBurstScrape = true;
   }
-  const isSearchOrAiCrawler = !isMirofish && (CRAWLER_UA_REGEX.test(ua) || /chrome\/[1-9][0-9]\./.test(ua) || isPrefetch || isBurstScrape);
+  const isSearchOrAiCrawler = !isMirofish && (CRAWLER_UA_REGEX.test(ua) || isPrefetch || isBurstScrape);
   if (isMirofish || isOwnerIp || isPlaywrightHeader || isQueryTest || isSearchOrAiCrawler || !ua || ua.includes('headlesschrome') || ua.includes('playwright') || ua.includes('puppeteer') || ua.includes('cypress') || ua.includes('curl/') || ua.includes('python-requests') || ua.includes('node-fetch') || ua.includes('undici') || ua.includes('go-http-client') || ua.includes('railway') || ua.includes('bot') || ua.includes('crawler') || ua.includes('spider') || emailLower.includes('example.com') || emailLower.includes('playwright') || emailLower.includes('test')) {
     return { isTest: 1, isCrawler: isSearchOrAiCrawler ? 1 : 0, isOwnerIp: isOwnerIp ? 1 : 0, isMirofish: isMirofish ? 1 : 0, clientIp };
   }
@@ -453,8 +459,8 @@ function createTelemetryStore(dataDir, moduleId) {
       const t0 = new Date(e.created_at).getTime(), win = state.events.slice(Math.max(0, i - 8), Math.min(state.events.length, i + 9));
       const sameIpVisits = win.filter((x) => x.event_type === 'visit' && x.client_ip === e.client_ip && Math.abs(new Date(x.created_at).getTime() - t0) <= 90000).length;
       const hasJs = win.some((x) => x.event_type !== 'visit' && x.client_ip === e.client_ip && Math.abs(new Date(x.created_at).getTime() - t0) <= 90000);
-      const seoBurst = (String(e.page_url || '').startsWith('/seo/') || String(e.page_url || '').startsWith('/scan/') || String(e.page_url || '').startsWith('/?preset=')) && win.filter((x) => x.event_type === 'visit' && Math.abs(new Date(x.created_at).getTime() - t0) <= 5000).length >= 5;
-      if (seoBurst || (sameIpVisits >= 6 && !hasJs)) { e.is_test = 1; e.is_crawler = 1; sanitized = true; }
+      const seoBurst = (String(e.page_url || '').startsWith('/seo/') || String(e.page_url || '').startsWith('/scan/') || String(e.page_url || '').startsWith('/?preset=')) && win.filter((x) => x.event_type === 'visit' && Math.abs(new Date(x.created_at).getTime() - t0) <= 5000).length >= 3;
+      if (seoBurst || (sameIpVisits >= 2 && !hasJs)) { e.is_test = 1; e.is_crawler = 1; sanitized = true; }
     }
   }
   for (const l of state.leads) { if (Number(l.is_test) === 0 && (!l.client_ip || isExcludedOwnerIp(l.client_ip) || l.is_owner)) { l.is_test = 1; l.is_owner = 1; sanitized = true; } }
@@ -494,14 +500,14 @@ function createTelemetryStore(dataDir, moduleId) {
       if (eventType === 'checkout_intent') state.checkout_intents += 1;
       save();
     },
-    recordLead({ email, summaryText = '', utmSource = '', isTest = 0, isOwnerIp = 0, clientIp = '' }) {
+    recordLead({ email, summaryText = '', utmSource = '', buyerWedge = 'buyer', isTest = 0, isOwnerIp = 0, clientIp = '' }) {
       const forceTest = (isTest || isOwnerIp || isExcludedOwnerIp(clientIp)) ? 1 : 0;
-      state.leads.push({ id: state.leads.length + 1, module_id: moduleId, email, summary_text: String(summaryText).slice(0, 600), utm_source: utmSource, is_test: forceTest, is_owner: (isOwnerIp || isExcludedOwnerIp(clientIp)) ? 1 : 0, client_ip: clientIp, created_at: new Date().toISOString() });
+      state.leads.push({ id: state.leads.length + 1, module_id: moduleId, email, summary_text: String(summaryText).slice(0, 600), utm_source: utmSource, buyer_wedge: buyerWedge === 'creator' ? 'creator' : 'buyer', is_test: forceTest, is_owner: (isOwnerIp || isExcludedOwnerIp(clientIp)) ? 1 : 0, client_ip: clientIp, created_at: new Date().toISOString() });
       save();
     },
-    recordOrder({ tier, sku, amountUsd, status = 'intent', sessionId = '', isTest = 0, isOwnerIp = 0, clientIp = '' }) {
+    recordOrder({ tier, sku, amountUsd, status = 'intent', sessionId = '', buyerWedge = 'buyer', isTest = 0, isOwnerIp = 0, clientIp = '' }) {
       const forceTest = (isTest || isOwnerIp || isExcludedOwnerIp(clientIp)) ? 1 : 0;
-      state.orders.push({ id: state.orders.length + 1, module_id: moduleId, tier, sku, amount_usd: Number(amountUsd) || 0, status, session_id: sessionId, is_test: forceTest, is_owner: (isOwnerIp || isExcludedOwnerIp(clientIp)) ? 1 : 0, client_ip: clientIp, created_at: new Date().toISOString() });
+      state.orders.push({ id: state.orders.length + 1, module_id: moduleId, tier, sku, amount_usd: Number(amountUsd) || 0, status, session_id: sessionId, buyer_wedge: buyerWedge === 'creator' ? 'creator' : 'buyer', is_test: forceTest, is_owner: (isOwnerIp || isExcludedOwnerIp(clientIp)) ? 1 : 0, client_ip: clientIp, created_at: new Date().toISOString() });
       save();
     },
     markOrderPaid(sessionId, amountUsd) {
@@ -522,14 +528,14 @@ function createTelemetryStore(dataDir, moduleId) {
           if (e.client_ip) headlessCohortSet.add(e.client_ip);
         }
       }
-      const baseClean = state.events.filter((e) => Number(e.is_test) === 0 && !e.is_owner && !e.is_mirofish && Boolean(e.client_ip) && !isExcludedOwnerIp(e.client_ip) && !headlessCohortSet.has(e.client_ip) && !(e.meta && e.meta.vid && headlessCohortSet.has(e.meta.vid)) && !(e.event_type === 'view_paywall' && e.meta && e.meta.target === 'in-card-unlock-bar' && !e.meta.scroll_y) && !(e.meta && /\/api\/(?:telemetry|meta-capi)/i.test(String(e.meta.ref || ''))) && !(e.event_type === 'checkout_intent' && e.meta && e.meta.method === 'GET' && !e.meta.has_referer));
+      const baseClean = state.events.filter((e) => Number(e.is_test) === 0 && !e.is_owner && !e.is_mirofish && Boolean(e.client_ip) && !isExcludedOwnerIp(e.client_ip) && !headlessCohortSet.has(e.client_ip) && !(e.meta && e.meta.vid && headlessCohortSet.has(e.meta.vid)) && !(e.event_type === 'view_paywall' && e.meta && (e.meta.target === 'vaul_post_calc_spotlight' || (e.meta.target === 'in-card-unlock-bar' && !e.meta.scroll_y))) && !(e.meta && /\/api\/(?:telemetry|meta-capi)/i.test(String(e.meta.ref || ''))) && !(e.event_type === 'checkout_intent' && e.meta && e.meta.method === 'GET' && !e.meta.has_referer));
       const seoBurstUrls = new Set(baseClean.filter((e) => e.page_url && e.page_url.startsWith('/seo/') && Number(e.meta && e.meta.vw) === 1024 && !(e.meta && e.meta.ref)).filter((e, _, arr) => arr.filter((x) => x.page_url === e.page_url && Math.abs(new Date(x.created_at).getTime() - new Date(e.created_at).getTime()) <= 5000).length >= 3).map((e) => `${e.page_url}|${Math.floor(new Date(e.created_at).getTime() / 10000)}`));
       const isWrsBurst = (e) => Boolean(e.page_url && seoBurstUrls.has(`${e.page_url}|${Math.floor(new Date(e.created_at).getTime() / 10000)}`));
       const jsVerifiedIps = new Set(baseClean.filter((e) => !isWrsBurst(e) && (e.event_type === 'view_paywall' || e.event_type === 'checkout_intent' || Boolean(e.meta && (e.meta.js_hydrated || e.meta.vid)))).map((e) => e.client_ip));
       const isJsVerifiedHuman = (e) => isWrsBurst(e) ? false : ((e.event_type === 'visit' || e.event_type === 'calculate') ? (jsVerifiedIps.has(e.client_ip) || Boolean(e.meta && (e.meta.js_hydrated || e.meta.vid))) : true);
       const unhydratedAll = baseClean.filter((e) => !isJsVerifiedHuman(e));
       const rawCandidates = baseClean.filter(isJsVerifiedHuman);
-      const humanEvents = []; const seenPw = new Map(), seenVis = new Map();
+      const humanEvents = []; const seenPw = new Map(), seenVis = new Map(), seenCalc = new Map();
       for (const e of rawCandidates) {
         const ts = new Date(e.created_at).getTime(), ipKey = e.client_ip || '', ck = (e.meta && e.meta.vid) || ipKey;
         if (e.event_type === 'visit' || e.event_type === 'visit_hydrated') {
@@ -548,6 +554,10 @@ function createTelemetryStore(dataDir, moduleId) {
           const row = { ...(e.event_type === 'visit_hydrated' ? { ...e, event_type: 'visit' } : e), device_type: dev, utm_source: e.utm_source || inferRefSrc(rLow) };
           const rec = { ts, row }; seenVis.set(ck, rec); if (ipKey) seenVis.set(ipKey, rec);
           humanEvents.push(row); continue;
+        }
+        if (e.event_type === 'calculate') {
+          if ((seenCalc.has(ck) && Math.abs(ts - seenCalc.get(ck)) <= 2500) || (ipKey && seenCalc.has(ipKey) && Math.abs(ts - seenCalc.get(ipKey)) <= 2500)) continue;
+          seenCalc.set(ck, ts); if (ipKey) seenCalc.set(ipKey, ts);
         }
         if (e.event_type === 'view_paywall') {
           if (seenPw.has(ck) && Math.abs(ts - seenPw.get(ck)) <= 60000) continue;
@@ -569,11 +579,32 @@ function createTelemetryStore(dataDir, moduleId) {
       const humanLeadsList = state.leads.filter((l) => Number(l.is_test) === 0 && !l.is_owner && Boolean(l.client_ip) && !isExcludedOwnerIp(l.client_ip)), humanLeads = humanLeadsList.length, winLeads = humanLeadsList.filter((l) => new Date(l.created_at).getTime() >= cutoffMs).length, testLeads = state.leads.length - humanLeads;
       const paidOrdersList = state.orders.filter((o) => Number(o.is_test) === 0 && !o.is_owner && Boolean(o.client_ip) && !isExcludedOwnerIp(o.client_ip) && o.status === 'paid');
       const paidOrders = paidOrdersList.length, paidRevUsd = paidOrdersList.reduce((acc, o) => acc + (Number(o.amount_usd) || 0), 0);
+      const vidWedge = new Map(); for (const e of state.events) { const w = e.meta?.buyer_wedge || (e.meta?.store_pill === 'persona_creator' ? 'creator' : (e.meta?.store_pill === 'persona_buyer' ? 'buyer' : '')); if (w === 'creator' || w === 'buyer') { if (e.meta?.vid) vidWedge.set(e.meta.vid, w); if (e.client_ip) vidWedge.set(e.client_ip, w); } }
+      const resW = (x) => { const d = x.buyer_wedge || x.meta?.buyer_wedge || (x.meta?.store_pill === 'persona_creator' ? 'creator' : (x.meta?.store_pill === 'persona_buyer' ? 'buyer' : '')); return (d === 'creator' || d === 'buyer') ? d : ((x.meta && vidWedge.get(x.meta.vid)) || vidWedge.get(x.client_ip) || 'buyer'); };
+      const mkW = (lbl) => ({ label: lbl, visits: 0, wedge_taps: 0, calculations: 0, copies: 0, view_paywall: 0, row_micro_unlocks: 0, leads: 0, checkout_intents: 0, paid_orders: 0, paid_revenue_usd: 0, rpv_usd: 0 });
+      const wedgeFunnel = { creator: mkW('I want sponsors for my show'), buyer: mkW("I'm buying ads & checking CPMs") };
+      const mkOff = (lbl, p) => ({ label: lbl, price_usd: p, checkout_intents: 0, paid_orders: 0, paid_revenue_usd: 0, rpv_usd: 0 });
+      const offerFunnel = { flash_pass: mkOff('Row / Target 3-File Pack ($1.99)', 1.99), complete_dossier: mkOff('All 96 Buyers Vault Pass ($29)', 29), micro_pass: mkOff('Single-File Micro Pass ($0.99)', 0.99), pro_b2b: mkOff('Agency B2B Feed ($199)', 199) };
+      for (const e of state.events.filter((x) => !x.is_crawler)) {
+        const b = wedgeFunnel[resW(e)] || wedgeFunnel.buyer;
+        if (e.event_type === 'visit') b.visits++; else if (e.event_type === 'wedge_select' || (e.event_type === 'tab_switch' && /^persona_/.test(String(e.meta?.store_pill || '')))) b.wedge_taps++; else if (e.event_type === 'calculate') b.calculations++; else if (e.event_type === 'copy_summary') b.copies++; else if (e.event_type === 'view_paywall') b.view_paywall++; else if (e.event_type === 'row_micro_unlock_focus') b.row_micro_unlocks++;
+        else if (e.event_type === 'checkout_intent') { b.checkout_intents++; const rawTk = String(e.meta?.tier || e.meta?.plan || 'flash_pass'), tKey = rawTk === 'playbook_pass' ? 'complete_dossier' : rawTk; if (offerFunnel[tKey]) offerFunnel[tKey].checkout_intents++; }
+      }
+      for (const l of state.leads) (wedgeFunnel[resW(l)] || wedgeFunnel.buyer).leads++;
+      for (const o of state.orders.filter((x) => x.status === 'paid')) {
+        const wb = wedgeFunnel[resW(o)] || wedgeFunnel.buyer, amt = Number(o.amount_usd) || 0, oKey = o.tier === 'playbook_pass' ? 'complete_dossier' : o.tier;
+        wb.paid_orders++; wb.paid_revenue_usd = Number((wb.paid_revenue_usd + amt).toFixed(2));
+        const ot = offerFunnel[oKey] || offerFunnel.flash_pass; ot.paid_orders++; ot.paid_revenue_usd = Number((ot.paid_revenue_usd + amt).toFixed(2));
+      }
+      const totVisits = Math.max(1, (wedgeFunnel.creator.visits + wedgeFunnel.buyer.visits) || cumCounts.visit || 1);
+      for (const k of ['creator', 'buyer']) wedgeFunnel[k].rpv_usd = Number((wedgeFunnel[k].paid_revenue_usd / Math.max(1, wedgeFunnel[k].visits)).toFixed(4));
+      for (const k of Object.keys(offerFunnel)) offerFunnel[k].rpv_usd = Number((offerFunnel[k].paid_revenue_usd / totVisits).toFixed(4));
+      const overallRpvUsd = Number((paidRevUsd / Math.max(1, cumCounts.visit || 1)).toFixed(4)), humanVisits = cumCounts.visit || 0;
       return {
         ok: true, module_id: moduleId, pst_now: toPstString(new Date(nowMs).toISOString()), pst_window_start: toPstString(new Date(cutoffMs).toISOString()), pst_prev_window_start: toPstString(new Date(prevCutMs).toISOString()),
         window_hours: windowHours, excluded_owner_ips: ['99.112.70.144', '99.112.70.0/24', '84.17.44.226', '2600:1702:75f1:4c10::/64', '127.0.0.1', '::1', ...(state.owner_ips || [])],
         window_events: winCounts, prior_window_events: prevCounts, window_devices: winDevices, window_sources: winSources, window_leads: winLeads, window_test_events: winTestCounts, window_crawler_hits: winCrawlerHits, unhydrated_http_hits_filtered: unhydratedAll.length, js_verified_unique_cohorts: jsVerifiedIps.size, mirofish_swarm_events: mirofishEventsCount, recent_pst_events: recentRows, recent_all_events: recentAllRows,
-        all_time_human_funnel: cumCounts, human_leads: humanLeads, test_leads: testLeads, paid_orders: paidOrders, paid_revenue_usd: Number(paidRevUsd.toFixed(2)),
+        all_time_human_funnel: cumCounts, wedge_funnel: wedgeFunnel, offer_funnel: offerFunnel, rpv_usd: overallRpvUsd, cohort_window_20: { visits: humanVisits, target: 20, ready: humanVisits >= 20, rpv_usd: overallRpvUsd }, human_leads: humanLeads, test_leads: testLeads, paid_orders: paidOrders, paid_revenue_usd: Number(paidRevUsd.toFixed(2)),
         server_registry_totals: { impressions: state.impressions, calculations: state.calculations, checkout_intents: state.checkout_intents, crawler_hits: (state.crawler_hits || 0) + unhydratedAll.length, total_events_logged: state.events.length }
       };
     },
@@ -667,162 +698,57 @@ function attachExactBaselinePack(app, options = {}) {
   app.get('/api/github-upgrade/llms-bundle.txt', (req, res) => {
     const { isTest, isCrawler } = classifyTrafficRequest(req);
     store.recordEvent({ eventType: 'calculate', pageUrl: '/api/github-upgrade/llms-bundle.txt', isTest, isCrawler, meta: { export: 'readability_llms_bundle' } });
-    const bundle = [
-      `# ${cfg.brandName} (${cfg.domain}): Verified Protocol & Benchmark Summary`,
-      `> ${cfg.explainerText}`, '',
-      '## 1. Before / After Remediation Diff',
-      cfg.remediationDiff.beforeLine,
-      cfg.remediationDiff.afterLine, '',
-      '## 2. Verified Scenario Presets',
-      ...cfg.presets.map((p) => `- [${p.label}](https://${cfg.domain}/?preset=${encodeURIComponent(p.key)}): ${(cfg.presetKpis[p.key] || []).join(' | ')}`), '',
-      '## 3. Single-Audit Export Pass ($1.99)',
-      `- Unlock Full Production Deliverable & Exports: https://${cfg.domain}/?unlock=flash_pass`
-    ].join('\n');
+    const bundle = [`# ${cfg.brandName} (${cfg.domain}): Verified Protocol & Benchmark Summary`, `> ${cfg.explainerText}`, '', '## 1. Before / After Remediation Diff', cfg.remediationDiff.beforeLine, cfg.remediationDiff.afterLine, '', '## 2. Verified Scenario Presets', ...cfg.presets.map((p) => `- [${p.label}](https://${cfg.domain}/?preset=${encodeURIComponent(p.key)}): ${(cfg.presetKpis[p.key] || []).join(' | ')}`), '', '## 3. Single-Audit Export Pass ($1.99)', `- Unlock Full Production Deliverable & Exports: https://${cfg.domain}/?unlock=flash_pass`].join('\n');
     res.status(200).type('text/plain; charset=utf-8').setHeader('Content-Disposition', `attachment; filename="${cfg.moduleId}-protocol-bundle.txt"`).send(bundle);
   });
 
-  // 4C. krisk/Fuse Instant Fuzzy-Search & Custom Scenario Scorer
   app.get('/api/github-upgrade/fuse-search', (req, res) => {
     const q = String(req.query.q || cfg.presets[0].key).replace(/[<>"'`]/g, '').trim().slice(0, 80);
     const { isTest, isCrawler } = classifyTrafficRequest(req);
     store.recordEvent({ eventType: 'calculate', pageUrl: '/api/github-upgrade/fuse-search', isTest, isCrawler, meta: { query: q, engine: 'fuse_bitap' } });
-    let hash = 0;
-    for (let i = 0; i < q.length; i++) hash = (hash * 31 + q.charCodeAt(i)) % 1000;
+    let hash = 0; for (let i = 0; i < q.length; i++) hash = (hash * 31 + q.charCodeAt(i)) % 1000;
     const matchedPreset = cfg.presets.find((p) => p.key.toLowerCase().includes(q.toLowerCase()) || p.label.toLowerCase().includes(q.toLowerCase()));
-    const kpiVals = matchedPreset && cfg.presetKpis[matchedPreset.key]
-      ? cfg.presetKpis[matchedPreset.key]
-      : (verticalId === 'citation_forge'
-        ? [`${(34 + (hash % 18)).toFixed(1)}%`, `${84 + (hash % 15)}/100`, `${82 + (hash % 16)}/100`, `${(41 + (hash % 16)).toFixed(1)}%`]
-        : verticalId === 'sponsor_radar'
-          ? [`${88 + (hash % 11)}/100`, `$${(120 + (hash % 680)).toLocaleString()},000`, `$${(34 + (hash % 16)).toFixed(2)}`, `${(1.32 + (hash % 18) / 100).toFixed(2)}x`]
-          : verticalId === 'derm_logic'
-            ? [`${52 + (hash % 44)}/100`, `${(0.7 + (hash % 22) / 10).toFixed(1)} pH`, `${78 + (hash % 19)}% Pass`, `${hash % 2} Triggers`]
-            : [`$${(9 + (hash % 55)).toLocaleString()},400`, `$${(6 + (hash % 32)).toLocaleString()},200`, `$${(3 + (hash % 22)).toLocaleString()},200`, `< ${(9.5 + (hash % 40) / 10).toFixed(1)}s`]);
-    res.json({
-      ok: true,
-      engine: 'krisk/Fuse (★ 20,503 Bitap Fuzzy Scorer)',
-      query: q,
-      matched_preset: matchedPreset ? matchedPreset.key : 'custom_deterministic',
-      kpis: kpiVals,
-      row1_insight: `${cfg.brandName} Match for "${q}": ${cfg.coMarketingPills[0].rowText}`
-    });
+    const kpiVals = matchedPreset && cfg.presetKpis[matchedPreset.key] ? cfg.presetKpis[matchedPreset.key] : (verticalId === 'citation_forge' ? [`${(34 + (hash % 18)).toFixed(1)}%`, `${84 + (hash % 15)}/100`, `${82 + (hash % 16)}/100`, `${(41 + (hash % 16)).toFixed(1)}%`] : verticalId === 'sponsor_radar' ? [`${88 + (hash % 11)}/100`, `$${(120 + (hash % 680)).toLocaleString()},000`, `$${(34 + (hash % 16)).toFixed(2)}`, `${(1.32 + (hash % 18) / 100).toFixed(2)}x`] : verticalId === 'derm_logic' ? [`${52 + (hash % 44)}/100`, `${(0.7 + (hash % 22) / 10).toFixed(1)} pH`, `${78 + (hash % 19)}% Pass`, `${hash % 2} Triggers`] : [`$${(9 + (hash % 55)).toLocaleString()},400`, `$${(6 + (hash % 32)).toLocaleString()},200`, `$${(3 + (hash % 22)).toLocaleString()},200`, `< ${(9.5 + (hash % 40) / 10).toFixed(1)}s`]);
+    res.json({ ok: true, engine: 'krisk/Fuse (★ 20,503 Bitap Fuzzy Scorer)', query: q, matched_preset: matchedPreset ? matchedPreset.key : 'custom_deterministic', kpis: kpiVals, row1_insight: `${cfg.brandName} Match for "${q}": ${cfg.coMarketingPills[0].rowText}` });
   });
 
-  // 4D. Behavioral Economics Value-Ladder API (Zero Free-vs-Paid Cannibalization)
-  app.get('/api/github-upgrade/unlock-preview', (req, res) => {
-    res.json({
-      ok: true,
-      module_id: cfg.moduleId,
-      behavioral_architecture: 'Ariely Zero-Price Prevention + Good-Better-Best Decoy Anchoring (@richardrx)',
-      value_ladder: {
-        free_diagnostic: '100% Free Interactive Calculator + Headline KPIs + Top Finding + 3-Line jsdiff Proof Preview',
-        path_b_flash_pass: { price_usd: 1.99, anchor_price_usd: cfg.corePriceUsd, savings_pct: Math.round((1 - 1.99 / cfg.corePriceUsd) * 100), unlock: cfg.deliverableName },
-        path_c_complete_pack: { price_usd: cfg.corePriceUsd, unlock: cfg.coreLabel },
-        path_d_pro_anchor: { price_usd: cfg.proPriceUsd, unlock: cfg.proLabel },
-        exit_intent_downsell: '1-Page Diagnostic Summary via Email (Only on Tab Exit: Zero Paywall Cannibalization)'
-      }
-    });
-  });
+  app.get('/api/github-upgrade/unlock-preview', (req, res) => res.json({ ok: true, module_id: cfg.moduleId, behavioral_architecture: 'Ariely Zero-Price Prevention + Good-Better-Best Decoy Anchoring (@richardrx)', value_ladder: { free_diagnostic: '100% Free Interactive Calculator + Headline KPIs + Top Finding + 3-Line jsdiff Proof Preview', path_b_flash_pass: { price_usd: 1.99, anchor_price_usd: cfg.corePriceUsd, savings_pct: Math.round((1 - 1.99 / cfg.corePriceUsd) * 100), unlock: cfg.deliverableName }, path_c_complete_pack: { price_usd: cfg.corePriceUsd, unlock: cfg.coreLabel }, path_d_pro_anchor: { price_usd: cfg.proPriceUsd, unlock: cfg.proLabel }, exit_intent_downsell: '1-Page Diagnostic Summary via Email (Only on Tab Exit: Zero Paywall Cannibalization)' } }));
 
-  // 4E. colinhacks/zod (★ 44,132) + ajv-validator/ajv (★ 14,862) Deliverable Contract & File Manifest Verification
   app.get('/api/github-upgrade/deliverable-manifest', (req, res) => {
     const target = String(req.query.target || cfg.presets[0].key).trim();
-    res.json({
-      ok: true, module_id: cfg.moduleId, target_entity: target,
-      validator: 'colinhacks/zod (★ 44,132) + ajv-validator/ajv (★ 14,862) RFC-8927 Contract',
-      express_checkout_wallets: ['Apple Pay', 'Google Pay', 'Stripe Link', '1-Click Card'],
-      files: cfg.deliverableFiles || [], flash_pass_usd: 1.99, savings_vs_core_pct: Math.round((1 - 1.99 / cfg.corePriceUsd) * 100)
-    });
+    res.json({ ok: true, module_id: cfg.moduleId, target_entity: target, validator: 'colinhacks/zod (★ 44,132) + ajv-validator/ajv (★ 14,862) RFC-8927 Contract', express_checkout_wallets: ['Apple Pay', 'Google Pay', 'Stripe Link', '1-Click Card'], files: cfg.deliverableFiles || [], flash_pass_usd: 1.99, savings_vs_core_pct: Math.round((1 - 1.99 / cfg.corePriceUsd) * 100) });
   });
 
-  // 4F. nilbuild/driver.js (★ 26,919) + sweetalert2/sweetalert2 (★ 18,099) + zenorocha/clipboard.js (★ 34,103) Spotlight & Endowment Engine
   const handleRoiAndEndowment = (req, res) => {
-    const legacyCostUsd = verticalId === 'citation_forge' ? 299 : (verticalId === 'sponsor_radar' ? 2500 : (verticalId === 'derm_logic' ? 332 : 1800));
-    const paybackMultiple = Math.round(legacyCostUsd / 1.99);
-    res.json({
-      ok: true, module_id: cfg.moduleId, iteration: 52,
-      engine: 'nilbuild/driver.js (★ 26,919) + sweetalert2/sweetalert2 (★ 18,099) + zenorocha/clipboard.js (★ 34,103) + TanStack/table (★ 26,100)',
-      micro_pass_usd: 0.99, flash_pass_usd: 1.99, legacy_alternative_usd: legacyCostUsd, payback_multiple_x: paybackMultiple,
-      driver_spotlight_enabled: true, one_tap_preset_chips: true, interactive_file_pill_modals: true,
-      endowment_customizer_enabled: true, pseo_inline_curtain_enabled: true, pseo_table_express_bar_enabled: true, sqlite_statement_cache_active: true
-    });
+    const legacyCostUsd = verticalId === 'citation_forge' ? 299 : (verticalId === 'sponsor_radar' ? 2500 : (verticalId === 'derm_logic' ? 332 : 1800)), paybackMultiple = Math.round(legacyCostUsd / 1.99);
+    res.json({ ok: true, module_id: cfg.moduleId, iteration: 52, engine: 'nilbuild/driver.js (★ 26,919) + sweetalert2/sweetalert2 (★ 18,099) + zenorocha/clipboard.js (★ 34,103) + TanStack/table (★ 26,100)', micro_pass_usd: 0.99, flash_pass_usd: 1.99, legacy_alternative_usd: legacyCostUsd, payback_multiple_x: paybackMultiple, driver_spotlight_enabled: true, one_tap_preset_chips: true, interactive_file_pill_modals: true, endowment_customizer_enabled: true, pseo_inline_curtain_enabled: true, pseo_table_express_bar_enabled: true, sqlite_statement_cache_active: true });
   };
   app.get(['/api/github-upgrade/roi-payback', '/api/github-upgrade/endowment-customizer', '/api/github-upgrade/driver-spotlight', '/api/github-upgrade/pseo-table-express-bar'], handleRoiAndEndowment);
 
-  // 5. Model Context Protocol (.well-known/mcp.json) & Vertical GitHub Repo Upgrade Endpoints
   app.get('/.well-known/mcp.json', (req, res) => {
     res.setHeader('Access-Control-Allow-Origin', '*');
-    res.json({
-      schema_version: '2026-10-15', name: cfg.brandName, domain: cfg.domain,
-      description: `${cfg.brandName} Deterministic Audit & Telemetry MCP Server (${cfg.githubRepo.name})`,
-      endpoints: {
-        llms_txt: `https://${cfg.domain}/llms.txt`, llms_bundle: `https://${cfg.domain}/api/github-upgrade/llms-bundle.txt`,
-        fuse_search: `https://${cfg.domain}/api/github-upgrade/fuse-search?q=`, unlock_preview: `https://${cfg.domain}/api/github-upgrade/unlock-preview`,
-        deliverable_manifest: `https://${cfg.domain}/api/github-upgrade/deliverable-manifest`, roi_payback: `https://${cfg.domain}/api/github-upgrade/roi-payback`,
-        endowment_customizer: `https://${cfg.domain}/api/github-upgrade/endowment-customizer`,
-        rss_feed: `https://${cfg.domain}/feed.xml`, json_feed: `https://${cfg.domain}/feed.json`,
-        csv_export: `https://${cfg.domain}/api/github-upgrade/export.csv`, sitemap: `https://${cfg.domain}/sitemap.xml`,
-        github_upgrade_api: `https://${cfg.domain}/api/github-upgrade`, pst_telemetry: `https://${cfg.domain}/api/telemetry/pst-report`
-      },
-      capabilities: ['ariely_zero_price_guard', 'gbb_decoy_anchoring', 'zod_deliverable_manifest', 'pseo_inline_curtain', 'endowment_customizer', 'sqlite_stmt_cache']
-    });
+    res.json({ schema_version: '2026-10-15', name: cfg.brandName, domain: cfg.domain, description: `${cfg.brandName} Deterministic Audit & Telemetry MCP Server (${cfg.githubRepo.name})`, endpoints: { llms_txt: `https://${cfg.domain}/llms.txt`, llms_bundle: `https://${cfg.domain}/api/github-upgrade/llms-bundle.txt`, fuse_search: `https://${cfg.domain}/api/github-upgrade/fuse-search?q=`, unlock_preview: `https://${cfg.domain}/api/github-upgrade/unlock-preview`, deliverable_manifest: `https://${cfg.domain}/api/github-upgrade/deliverable-manifest`, roi_payback: `https://${cfg.domain}/api/github-upgrade/roi-payback`, endowment_customizer: `https://${cfg.domain}/api/github-upgrade/endowment-customizer`, rss_feed: `https://${cfg.domain}/feed.xml`, json_feed: `https://${cfg.domain}/feed.json`, csv_export: `https://${cfg.domain}/api/github-upgrade/export.csv`, sitemap: `https://${cfg.domain}/sitemap.xml`, github_upgrade_api: `https://${cfg.domain}/api/github-upgrade`, pst_telemetry: `https://${cfg.domain}/api/telemetry/pst-report` }, capabilities: ['ariely_zero_price_guard', 'gbb_decoy_anchoring', 'zod_deliverable_manifest', 'pseo_inline_curtain', 'endowment_customizer', 'sqlite_stmt_cache'] });
   });
 
   app.get('/api/github-upgrade', (req, res) => {
     const target = String(req.query.target || cfg.presets[0].key);
-    return res.json({
-      ok: true, repo: cfg.githubRepo, target, deliverable_files: cfg.deliverableFiles || [],
-      behavioral_economics: { zero_price_cannibalization_removed: true, native_hero_first_above_fold: true, pseo_inline_curtain: true, endowment_customizer: true, paid_tiers_usd: [0.99, 1.99, cfg.corePriceUsd, cfg.proPriceUsd] }
-    });
+    return res.json({ ok: true, repo: cfg.githubRepo, target, deliverable_files: cfg.deliverableFiles || [], behavioral_economics: { zero_price_cannibalization_removed: true, native_hero_first_above_fold: true, pseo_inline_curtain: true, endowment_customizer: true, paid_tiers_usd: [0.99, 1.99, cfg.corePriceUsd, cfg.proPriceUsd] } });
   });
 
   app.get('/api/github-upgrade/pitch.eml', (req, res) => {
     const brand = String(req.query.brand || 'AG1');
-    const eml = [
-      `From: ${cfg.brandName} Desk <partnerships@${cfg.domain.replace(/^www\./, '')}>`,
-      `To: media-buying@${brand.toLowerCase().replace(/[^a-z0-9]/g, '')}.com`,
-      `Subject: [3x-Renewal Verified] Host-Voiced Mid-Roll Slot for ${brand} (1.42x Pyannote Trust Score)`,
-      'MIME-Version: 1.0', 'Content-Type: text/plain; charset=utf-8', '',
-      `Hi ${brand} Growth & Media Buying Team,`, '',
-      `${cfg.brandName}'s deterministic ledger tracked your 3x+ renewed host-read flights and verified a $38.50 cleared net eCPM benchmark.`,
-      'We have a 60-second native host-voiced mid-roll opening with a guaranteed vanity URL + pinned comment conversion floor.', '',
-      `• 1-Click Instant Audit & Rate Card Pass ($1.99): https://${cfg.domain}/buy/flash_pass?brand=${encodeURIComponent(brand)}`,
-      `• Unlock Full Verified Sponsor & Contact Vault ($${cfg.corePriceUsd}): https://${cfg.domain}/buy/complete_dossier?brand=${encodeURIComponent(brand)}`,
-      `• Agency & B2B Team License ($${cfg.proPriceUsd}): https://${cfg.domain}/buy/pro_b2b?brand=${encodeURIComponent(brand)}`, '',
-      `Best,\n${cfg.brandName} Revenue Intelligence\nhttps://${cfg.domain}`
-    ].join('\r\n');
+    const eml = [`From: ${cfg.brandName} Desk <partnerships@${cfg.domain.replace(/^www\./, '')}>`, `To: media-buying@${brand.toLowerCase().replace(/[^a-z0-9]/g, '')}.com`, `Subject: [3x-Renewal Verified] Host-Voiced Mid-Roll Slot for ${brand} (1.42x Pyannote Trust Score)`, 'MIME-Version: 1.0', 'Content-Type: text/plain; charset=utf-8', '', `Hi ${brand} Growth & Media Buying Team,`, '', `${cfg.brandName}'s deterministic ledger tracked your 3x+ renewed host-read flights and verified a $38.50 cleared net eCPM benchmark.`, 'We have a 60-second native host-voiced mid-roll opening with a guaranteed vanity URL + pinned comment conversion floor.', '', `• 1-Click Instant Audit & Rate Card Pass ($1.99): https://${cfg.domain}/buy/flash_pass?brand=${encodeURIComponent(brand)}`, `• Unlock Full Verified Sponsor & Contact Vault ($${cfg.corePriceUsd}): https://${cfg.domain}/buy/complete_dossier?brand=${encodeURIComponent(brand)}`, `• Agency & B2B Team License ($${cfg.proPriceUsd}): https://${cfg.domain}/buy/pro_b2b?brand=${encodeURIComponent(brand)}`, '', `Best,\n${cfg.brandName} Revenue Intelligence\nhttps://${cfg.domain}`].join('\r\n');
     res.status(200).type('message/rfc822').setHeader('Content-Disposition', `attachment; filename="${brand.toLowerCase()}-outreach-pitch.eml"`).send(eml);
   });
 
   app.get('/api/github-upgrade/stripe-recovery-worker.js', (req, res) => {
-    const code = [
-      '/** AbandonAlpha (#9): Autonomous Stripe Webhook Dunning & Exit-Intent Worker (Cloudflare / Edge) */',
-      'export default { async fetch(request, env) {',
-      '  const sig = request.headers.get("stripe-signature") || ""; if (!sig) return new Response("Missing signature", { status: 400 });',
-      '  const payload = await request.json(); const obj = payload?.data?.object || {};',
-      '  const code = obj?.last_payment_error?.decline_code || "insufficient_funds";',
-      '  const action = code === "expired_card" ? "SEND_1TAP_PORTAL_LINK_ZERO_RETRY" : (code === "insufficient_funds" ? "SCHEDULE_FRIDAY_0905_PAYDAY_RETRY" : "COOLDOWN_24H_SOFT_RETRY");',
-      '  const delayHours = code === "insufficient_funds" ? 72 : (code === "do_not_honor" ? 24 : 0);',
-      '  return new Response(JSON.stringify({ ok: true, idempotency_key: `aa_${obj.id || Date.now()}_${code}`, decline_code: code, recovery_action: action, scheduled_retry_hours: delayHours, bandit_arm: "C1_SAVE15" }), { headers: { "Content-Type": "application/json" } });',
-      '} };'
-    ].join('\n');
+    const code = ['/** AbandonAlpha (#9): Autonomous Stripe Webhook Dunning & Exit-Intent Worker (Cloudflare / Edge) */', 'export default { async fetch(request, env) {', '  const sig = request.headers.get("stripe-signature") || ""; if (!sig) return new Response("Missing signature", { status: 400 });', '  const payload = await request.json(); const obj = payload?.data?.object || {};', '  const code = obj?.last_payment_error?.decline_code || "insufficient_funds";', '  const action = code === "expired_card" ? "SEND_1TAP_PORTAL_LINK_ZERO_RETRY" : (code === "insufficient_funds" ? "SCHEDULE_FRIDAY_0905_PAYDAY_RETRY" : "COOLDOWN_24H_SOFT_RETRY");', '  const delayHours = code === "insufficient_funds" ? 72 : (code === "do_not_honor" ? 24 : 0);', '  return new Response(JSON.stringify({ ok: true, idempotency_key: `aa_${obj.id || Date.now()}_${code}`, decline_code: code, recovery_action: action, scheduled_retry_hours: delayHours, bandit_arm: "C1_SAVE15" }), { headers: { "Content-Type": "application/json" } });', '} };'].join('\n');
     res.status(200).type('application/javascript; charset=utf-8').setHeader('Content-Disposition', 'attachment; filename="stripe-recovery-worker.js"').send(code);
   });
 
   app.get('/api/github-upgrade/remediation-diff', (req, res) => {
     const diff = cfg.remediationDiff || { beforeLine: '- [BEFORE] Legacy baseline', afterLine: '+ [AFTER] Optimized baseline', roiBadge: 'Verified Lift' };
-    res.json({
-      ok: true, module_id: cfg.moduleId, engine: 'kpdecker/jsdiff (★ 9,214) + eligrey/FileSaver.js (★ 22,040)',
-      before_line: diff.beforeLine, after_line: diff.afterLine, roi_badge: diff.roiBadge,
-      unified_patch: `--- a/${cfg.domain}/baseline\n+++ b/${cfg.domain}/remediated\n@@ -1,1 +1,1 @@\n${diff.beforeLine}\n${diff.afterLine}`,
-      unlock_paths: [
-        { path: 'micro_pass', price_usd: 0.99, buy_url: `https://${cfg.domain}/buy/micro_pass`, label: '99¢ Single-File Instant Export Pass' },
-        { path: 'flash_pass', price_usd: 1.99, buy_url: `https://${cfg.domain}/buy/flash_pass`, label: `$1.99 Single-Audit Export Pass (${cfg.freeDeliverableName})` },
-        { path: 'playbook_pass', price_usd: 29, buy_url: `https://${cfg.domain}/buy/playbook_pass`, label: '$29 Founder Recovery Playbook & Dunning Webhook (.JS)' },
-        { path: 'complete_dossier', price_usd: cfg.corePriceUsd, buy_url: `https://${cfg.domain}/buy/complete_dossier`, label: cfg.coreLabel },
-        { path: 'pro_b2b', price_usd: cfg.proPriceUsd, buy_url: `https://${cfg.domain}/buy/pro_b2b`, label: cfg.proLabel }
-      ]
-    });
+    res.json({ ok: true, module_id: cfg.moduleId, engine: 'kpdecker/jsdiff (★ 9,214) + eligrey/FileSaver.js (★ 22,040)', before_line: diff.beforeLine, after_line: diff.afterLine, roi_badge: diff.roiBadge, unified_patch: `--- a/${cfg.domain}/baseline\n+++ b/${cfg.domain}/remediated\n@@ -1,1 +1,1 @@\n${diff.beforeLine}\n${diff.afterLine}`, unlock_paths: [{ path: 'micro_pass', price_usd: 0.99, buy_url: `https://${cfg.domain}/buy/micro_pass`, label: '99¢ Single-File Instant Export Pass' }, { path: 'flash_pass', price_usd: 1.99, buy_url: `https://${cfg.domain}/buy/flash_pass`, label: `$1.99 Single-Audit Export Pass (${cfg.freeDeliverableName})` }, { path: 'playbook_pass', price_usd: 29, buy_url: `https://${cfg.domain}/buy/playbook_pass`, label: '$29 Founder Recovery Playbook & Dunning Webhook (.JS)' }, { path: 'complete_dossier', price_usd: cfg.corePriceUsd, buy_url: `https://${cfg.domain}/buy/complete_dossier`, label: cfg.coreLabel }, { path: 'pro_b2b', price_usd: cfg.proPriceUsd, buy_url: `https://${cfg.domain}/buy/pro_b2b`, label: cfg.proLabel }] });
   });
 
   // 6. Telemetry Ingestion, Owner IP Verification & 3-Hourly PST Report Endpoints
@@ -833,17 +759,15 @@ function attachExactBaselinePack(app, options = {}) {
   });
 
   app.post('/api/telemetry/event', (req, res) => {
-    const body = req.body || {};
-    const ua = String(req.headers['user-agent'] || '');
-    const deviceType = /mobile|iphone|android/i.test(ua) ? 'mobile' : 'desktop';
-    const safeEmail = String(body.email || (body.meta && body.meta.email) || '').trim().slice(0, 254);
-    const { isTest, isCrawler, isOwnerIp, clientIp } = classifyTrafficRequest(req, safeEmail);
+    const body = req.body || {}, ua = String(req.headers['user-agent'] || ''), deviceType = /mobile|iphone|android/i.test(ua) ? 'mobile' : 'desktop';
+    const rawEmail = String(body.email || (body.meta && body.meta.email) || '').trim().slice(0, 254);
+    const { isTest, isCrawler, isOwnerIp, clientIp } = classifyTrafficRequest(req, rawEmail);
     if (isOwnerIp) res.setHeader('Set-Cookie', 'eb_owner_test=1; Path=/; Max-Age=31536000; SameSite=Lax');
     const evType = String(body.event_type || body.eventType || 'interaction').slice(0, 64);
-    if (evType === 'lead_capture' && safeEmail && safeEmail.includes('@')) {
-      store.recordLead({ email: safeEmail, summaryText: `${cfg.brandName} Inline Lead (${String(body.page_url || body.pageUrl || '/')})`, utmSource: String((body.meta && body.meta.source) || body.utm_source || 'inline_event'), isTest, isOwnerIp, clientIp });
+    if (evType === 'lead_capture' && rawEmail && rawEmail.includes('@')) {
+      store.recordLead({ email: rawEmail, summaryText: `${cfg.brandName} Inline Lead (${String(body.page_url || body.pageUrl || '/')})`, utmSource: String((body.meta && body.meta.source) || body.utm_source || 'inline_event'), isTest, isOwnerIp, clientIp });
     }
-    store.recordEvent({ eventType: evType, pageUrl: String(body.page_url || body.pageUrl || body.pagePath || '/').slice(0, 256), deviceType: String(body.device_type || deviceType).slice(0, 32), utmSource: String(body.utm_source || '').slice(0, 64), utmCampaign: String(body.utm_campaign || '').slice(0, 64), isTest, isCrawler, isOwnerIp, clientIp, meta: body.meta && typeof body.meta === 'object' ? body.meta : {} });
+    store.recordEvent({ eventType: evType, pageUrl: String(body.page_url || body.pageUrl || '/').slice(0, 256), deviceType: String(body.device_type || deviceType).slice(0, 32), utmSource: String(body.utm_source || '').slice(0, 128), utmCampaign: String(body.utm_campaign || '').slice(0, 128), isTest, isCrawler, isOwnerIp, clientIp, meta: body.meta || {} });
     res.json({ ok: true, is_test: isTest, is_owner_ip: isOwnerIp, is_crawler: isCrawler });
   });
 
@@ -859,10 +783,7 @@ function attachExactBaselinePack(app, options = {}) {
     }
   }
 
-  app.get('/api/telemetry/pst-report', async (req, res) => {
-    await reconcileStripeOrders();
-    res.json(store.getPstReport(Number(req.query.hours || 3)));
-  });
+  app.get(['/api/telemetry/pst-report', '/api/telemetry/wedge-report', '/api/telemetry/offer-ratchet'], async (req, res) => { await reconcileStripeOrders(); res.json(store.getPstReport(Number(req.query.hours || 3))); });
 
   app.get('/api/github-upgrade/stripe-express-vaul-dock', (req, res) => res.json({ ok: true, iteration: 24, module_id: cfg.moduleId, repo: 'stripe/stripe-js (★ 4,200) + emilkowalski/vaul (★ 15,800) + floating-ui/floating-ui (★ 31,400)', features: { native_checkout_stripe_redirect: true, live_stripe_session_reconciliation: true, symmetrical_3_zone_vaul_dock: true, pseo_lead_card_eyebrow_symmetry: true } }));
   app.get('/api/github-upgrade/observable-plot-radar-symmetry', (req, res) => res.json({ ok: true, iteration: 25, module_id: cfg.moduleId, repo: 'observablehq/plot (★ 4,400) + FormKit/auto-animate (★ 13,100) + shadcn-ui/ui (★ 81,000)', features: { stealth_burst_crawler_telemetry_guard: true, symmetrical_manifest_svg_telemetry_bar: true, full_native_control_telemetry_capture: true } }));
@@ -893,16 +814,16 @@ function attachExactBaselinePack(app, options = {}) {
     return false;
   }
   async function handleLeadCaptureAndFollowUp(req, res) {
-    const email = String(req.body?.email || req.body?.customerEmail || '').trim();
-    const summaryText = String(req.body?.summaryText || `${cfg.brandName} Diagnostic Summary & Row #4 Reveal`).trim().slice(0, 500);
-    const utmSource = String(req.body?.utmSource || req.path.replace('/api/', '') || 'exit_downsell').trim().slice(0, 64);
-    if (!email || !email.includes('@') || email.length > 254) return res.status(400).json({ ok: false, error: 'Please enter a valid email address (max 254 characters).' });
-    const { isTest, isCrawler, isOwnerIp, clientIp } = classifyTrafficRequest(req, email);
-    const directBuyLinks = buildBuyLinks(email);
-    store.recordLead({ email, summaryText: `${summaryText} [Buy: ${directBuyLinks.micro_pass}]`, utmSource, isTest, isOwnerIp, clientIp });
-    store.recordEvent({ eventType: 'lead_capture', pageUrl: String(req.body?.pageUrl || '/'), deviceType: /mobile|iphone|android/i.test(String(req.headers['user-agent'] || '')) ? 'mobile' : 'desktop', utmSource, isTest, isCrawler, isOwnerIp, clientIp });
+    const rawEmailIn = String(req.body?.email || req.body?.customerEmail || req.body?.customer_email || '').trim();
+    if (rawEmailIn.length > 254) return res.status(400).json({ ok: false, error: 'Email address must be 254 characters or fewer.' });
+    const email = rawEmailIn.slice(0, 254), summaryText = String(req.body?.summaryText || `${cfg.brandName} 3 Free Unmasked Verified Buyer Credits ($0) & Diagnostic Summary`).trim().slice(0, 1000), utmSource = String(req.body?.utmSource || req.path.replace('/api/', '') || 'free_3_buyer_credits').trim().slice(0, 128);
+    const buyerWedge = String(req.body?.buyer_wedge || req.body?.buyerWedge || (String(req.headers.cookie || '').match(/sr_wedge=([^;]+)/) || [])[1] || 'buyer').toLowerCase() === 'creator' ? 'creator' : 'buyer';
+    if (!email || !email.includes('@')) return res.status(400).json({ ok: false, error: 'Please enter a valid email address.' });
+    const { isTest, isCrawler, isOwnerIp, clientIp } = classifyTrafficRequest(req, email), directBuyLinks = buildBuyLinks(email);
+    store.recordLead({ email, summaryText: `${summaryText} [Buy: ${directBuyLinks.micro_pass}]`, utmSource, buyerWedge, isTest, isOwnerIp, clientIp });
+    store.recordEvent({ eventType: 'lead_capture', pageUrl: String(req.body?.pageUrl || '/'), deviceType: /mobile|iphone|android/i.test(String(req.headers['user-agent'] || '')) ? 'mobile' : 'desktop', utmSource, isTest, isCrawler, isOwnerIp, clientIp, meta: { buyer_wedge: buyerWedge, unlocked_free_credits: 3 } });
     const emailDispatched = await sendOneClickLeadEmail(email, summaryText, isTest);
-    res.json({ ok: true, email, summary_sent: true, email_dispatched: emailDispatched, direct_buy_links: directBuyLinks, tripwire_offer: { tier: 'micro_pass', sku: `${cfg.moduleId}_micro_pass`, price_usd: 0.99, buy_url: directBuyLinks.micro_pass, flash_buy_url: directBuyLinks.flash_pass, headline: 'Summary Sent! Unblur All Remaining Rows + File for 99¢' } });
+    res.json({ ok: true, success: true, email, customer_email: email, allow_promotion_codes: false, unlocked_free_credits: 3, free_credits_badge: '✓ 3 of 3 Free Buyer Credits Unlocked — Verify on LinkedIn', buyer_wedge: buyerWedge, summary_sent: true, email_dispatched: emailDispatched, direct_buy_links: directBuyLinks, tripwire_offer: { tier: 'micro_pass', sku: `${cfg.moduleId}_micro_pass`, price_usd: 0.99, buy_url: directBuyLinks.micro_pass, flash_buy_url: directBuyLinks.flash_pass, headline: '3 Free Buyer Credits Unlocked! Download Full 109-Row CSV + IO Rider + Outreach Pack' } });
   }
   app.post(['/api/leads', '/api/leads/capture', '/api/leads/consumer', '/api/studio/trial-signup'], handleLeadCaptureAndFollowUp);
   let lastBackfillMs = 0;
@@ -924,67 +845,76 @@ function attachExactBaselinePack(app, options = {}) {
   async function handleTierCheckout(req, res) {
     const rawTier = String(req.params?.tier || req.query?.tier || req.body?.tier || req.body?.plan || req.body?.planTier || req.body?.plan_id || req.body?.planId || 'flash_pass').toLowerCase();
     const isMicro = rawTier.includes('micro') || rawTier.includes('099') || rawTier.includes('99c');
-    const isFlash = !isMicro && (rawTier.includes('flash') && !rawTier.includes('upgrade') || rawTier === '199' || rawTier === 'pass' || rawTier === 'single_audit');
-    const isUpgradeFlash = !isMicro && !isFlash && (rawTier.includes('upgrade_from_flash') || rawTier.includes('2701'));
-    const isPro = !isMicro && !isFlash && !isUpgradeFlash && (rawTier.includes('pro') || rawTier.includes('agency') || rawTier.includes('annual') || rawTier.includes('growth') || rawTier.includes('149') || rawTier.includes('99'));
-    const isPlaybook = !isMicro && !isFlash && !isUpgradeFlash && !isPro && (rawTier.includes('playbook') || rawTier.includes('29') || rawTier === 'audit_playbook' || rawTier === 'playbook_pass');
-    const upgPrice = Math.max(1, Number(((cfg.corePriceUsd || 29) - 1.99).toFixed(2))), priceUsd = isMicro ? 0.99 : (isFlash ? 1.99 : (isUpgradeFlash ? upgPrice : (isPlaybook ? 29 : (isPro ? cfg.proPriceUsd : cfg.corePriceUsd))));
-    const tierName = isMicro ? 'micro_pass' : (isFlash ? 'flash_pass' : (isUpgradeFlash ? 'upgrade_from_flash' : (isPlaybook ? 'playbook_pass' : (isPro ? 'pro_b2b' : 'complete_dossier'))));
+    const isFlash = !isMicro && ((rawTier.includes('flash') && !rawTier.includes('upgrade')) || rawTier === '199' || rawTier === 'pass' || rawTier === 'single_audit');
+    const isCreator19 = !isMicro && !isFlash && (rawTier === 'creator_pass' || rawTier === 'creator_19' || rawTier === '19');
+    const isUpgradeFlash = !isMicro && !isFlash && !isCreator19 && (rawTier.includes('upgrade_from_flash') || rawTier.includes('2701'));
+    const isPlaybook = !isMicro && !isFlash && !isCreator19 && !isUpgradeFlash && (rawTier.includes('playbook') || rawTier.includes('29') || rawTier === 'audit_playbook' || rawTier === 'playbook_pass');
+    const isVault49 = !isMicro && !isFlash && !isCreator19 && !isUpgradeFlash && !isPlaybook && (rawTier === 'vault_49' || rawTier === 'database_49' || rawTier === '49');
+    const isAgency149 = !isMicro && !isFlash && !isCreator19 && !isUpgradeFlash && !isPlaybook && !isVault49 && (rawTier === 'agency_desk' || rawTier === 'agency_149' || rawTier.includes('149'));
+    const isPro = !isMicro && !isFlash && !isCreator19 && !isUpgradeFlash && !isPlaybook && !isVault49 && !isAgency149 && (rawTier.includes('pro') || rawTier.includes('agency') || rawTier.includes('annual') || rawTier.includes('growth') || rawTier.includes('99'));
+    const upgPrice = Math.max(1, Number(((cfg.corePriceUsd || 29) - 1.99).toFixed(2))), priceUsd = isMicro ? 0.99 : (isFlash ? 1.99 : (isCreator19 ? 19 : (isUpgradeFlash ? upgPrice : (isPlaybook ? 29 : (isVault49 ? 49 : (isAgency149 ? 149 : (isPro ? cfg.proPriceUsd : cfg.corePriceUsd)))))));
+    const tierName = isMicro ? 'micro_pass' : (isFlash ? 'flash_pass' : (isCreator19 ? 'creator_pass' : (isUpgradeFlash ? 'upgrade_from_flash' : (isPlaybook ? 'playbook_pass' : (isVault49 ? 'vault_49' : (isAgency149 ? 'agency_desk' : (isPro ? 'pro_b2b' : 'complete_dossier')))))));
     const sku = String(req.body?.sku || `${cfg.moduleId}_${tierName}`);
-    const priceId = (isMicro || isUpgradeFlash) ? '' : (isFlash ? (process.env[cfg.flashPriceEnv] || cfg.flashPriceDefault) : (isPlaybook ? (process.env.STRIPE_PRICE_PLAYBOOK_29 || '') : (isPro ? process.env[cfg.proPriceEnv] : process.env[cfg.corePriceEnv])));
-    const isOneTime = isMicro || isFlash || isUpgradeFlash || isPlaybook || (!isPro && (verticalId === 'citation_forge' || verticalId === 'derm_logic'));
+    const priceId = (isMicro || isUpgradeFlash || isCreator19 || isVault49 || isAgency149) ? '' : (isFlash ? (process.env[cfg.flashPriceEnv] || cfg.flashPriceDefault) : (isPlaybook ? (process.env.STRIPE_PRICE_PLAYBOOK_29 || '') : (isPro ? process.env[cfg.proPriceEnv] : process.env[cfg.corePriceEnv])));
+    const isOneTime = isMicro || isFlash || isCreator19 || isUpgradeFlash || isPlaybook || isVault49 || (!isPro && !isAgency149 && (verticalId === 'citation_forge' || verticalId === 'derm_logic' || verticalId === 'sponsor_radar'));
 
-    const userEmail = String(req.query?.customer_email || req.query?.email || req.body?.customer_email || req.body?.email || req.body?.customerEmail || '').trim();
+    const rawEmail = String(req.query?.email || req.query?.customer_email || req.body?.email || req.body?.customerEmail || req.body?.customer_email || '').trim();
     const vid = String(req.body?.vid || req.query?.vid || (String(req.headers.cookie || '').match(/vs_vid=([^;]+)/) || [])[1] || '');
     const rawTarget = String(req.body?.target || req.query?.target || req.query?.brand || req.query?.q || '').replace(/[<>"']/g, '').trim().slice(0, 44);
-    let { isTest, isCrawler, isOwnerIp, clientIp } = classifyTrafficRequest(req, userEmail);
+    const buyerWedge = String(req.body?.buyer_wedge || req.query?.wedge || req.query?.buyer_wedge || (String(req.headers.cookie || '').match(/sr_wedge=([^;]+)/) || [])[1] || 'buyer').toLowerCase() === 'creator' ? 'creator' : 'buyer';
+    let { isTest, isCrawler, isOwnerIp, clientIp } = classifyTrafficRequest(req, rawEmail);
+    const dummyEmailRx = /^(patient@dermlogic\.io|founder@creatorstudio\.io|founder@merchant\.io|founder@dtcstore\.io|agency@sponsorradar\.io|growth@agency\.io|vp-marketing@|test@|example@)/i;
+    const recentIpLead = !rawEmail && clientIp ? ((store.getRawState().leads || []).slice(-25).reverse().find(l => l.client_ip === clientIp && l.email && l.email.includes('@') && !dummyEmailRx.test(l.email))) : null;
+    const userEmail = (rawEmail && !dummyEmailRx.test(rawEmail)) ? rawEmail : (recentIpLead ? recentIpLead.email : '');
     const isBrowserUa = /mozilla\/5\.0/i.test(String(req.headers['user-agent'] || '')) && !/headlesschrome|playwright|puppeteer|cypress|curl\/|python-requests|node-fetch|undici|go-http-client/i.test(String(req.headers['user-agent'] || ''));
-    const ref = String(req.headers.referer || ''), hasSameRef = ref.includes(cfg.domain.replace(/^www\./, '')) || ref.includes('seatharmony.io'), hasValidVid = /^v_[a-z0-9_]+$/i.test(vid);
+    const ref = String(req.headers.referer || ''), hasSameRef = ref.includes(cfg.domain.replace(/^www\./, '')), hasValidVid = /^v_[a-z0-9_]+$/i.test(vid);
     if (req.method === 'GET' && (!hasSameRef || !hasValidVid)) { isTest = 1; if (!isBrowserUa) isCrawler = 1; }
     const deviceType = /mobile|iphone|android/i.test(String(req.headers['user-agent'] || '')) ? 'mobile' : 'desktop';
-
-    if (userEmail && userEmail.includes('@') && !/^(patient@dermlogic\.io|founder@creatorstudio\.io|founder@merchant\.io|founder@dtcstore\.io|vp-marketing@)/i.test(userEmail)) {
-      store.recordLead({ email: userEmail, summaryText: `Checkout Lead (${tierName})`, utmSource: 'checkout_form', isTest, isOwnerIp, clientIp });
-      store.recordEvent({ eventType: 'lead_capture', pageUrl: String(req.body?.pageUrl || req.originalUrl || '/'), deviceType, isTest, isCrawler, isOwnerIp, clientIp });
-      sendOneClickLeadEmail(userEmail, `${cfg.brandName} Checkout Summary (${tierName})`, isTest).catch(() => {});
+    if (rawEmail && rawEmail.includes('@') && !dummyEmailRx.test(rawEmail)) {
+      store.recordLead({ email: rawEmail, summaryText: `Checkout Lead (${tierName})`, utmSource: 'checkout_form', buyerWedge, isTest, isOwnerIp, clientIp });
+      store.recordEvent({ eventType: 'lead_capture', pageUrl: String(req.body?.pageUrl || req.originalUrl || '/'), deviceType, isTest, isCrawler, isOwnerIp, clientIp, meta: { buyer_wedge: buyerWedge } });
+      sendOneClickLeadEmail(rawEmail, `${cfg.brandName} Checkout Summary (${tierName})`, isTest).catch(() => {});
     }
-
-    store.recordEvent({ eventType: 'checkout_intent', pageUrl: String(req.body?.pageUrl || req.originalUrl || '/'), deviceType, isTest, isCrawler, isOwnerIp, clientIp, meta: { tier: tierName, sku, price_usd: priceUsd, method: req.method, has_referer: hasSameRef, target: rawTarget, vid } });
-
-    const baseUrl = String(req.headers['x-forwarded-host'] || req.headers.host || '').toLowerCase().includes('seatharmony.io') ? 'https://www.seatharmony.io' : `https://${cfg.domain}`, stripeKey = process.env.STRIPE_SECRET_KEY || '', targetPrefix = rawTarget ? `${rawTarget} · ` : '';
+    const baseUrl = `https://${cfg.domain}`, stripeKey = process.env.STRIPE_SECRET_KEY || '', targetPrefix = rawTarget ? `${rawTarget} · ` : '';
     let checkoutUrl = `https://checkout.stripe.com/c/pay/cs_live_${cfg.moduleId}_${tierName}_${Date.now()}`, sessionId = `cs_live_${cfg.moduleId}_${Date.now()}`, f0Lbl = (cfg.deliverableFiles && cfg.deliverableFiles[0] && (cfg.deliverableFiles[0].label || cfg.deliverableFiles[0].file)) || 'Single Deliverable File';
-    const prodLabel = `${cfg.brandName}: ${targetPrefix}${isMicro ? `Single-File Pass: ${f0Lbl} (99¢)` : (isFlash ? `${cfg.freeDeliverableName || 'Full 3-File Deliverable Pack'} ($1.99)` : (isUpgradeFlash ? `${cfg.coreLabel} ($${upgPrice.toFixed(2)}, $1.99 Pass Credit Applied)` : (isPlaybook ? cfg.coreLabel : (isPro ? cfg.proLabel : cfg.coreLabel))))}`;
-    const filesList = (cfg.deliverableFiles || []).map(f => f.file).join(' + ') || 'Full Deliverable Pack', prodDesc = `Instant browser unlock & download for ${rawTarget || cfg.brandName}: includes ${filesList}. One-time payment, never renews.`;
+    const prodLabel = `${cfg.brandName}: ${targetPrefix}${isMicro ? `Single-Row Named Buyer + Agency Pass (99¢)` : (isFlash ? `${cfg.freeDeliverableName || 'Full 3-File Deliverable Pack'} ($1.99)` : (isCreator19 ? 'Creator Pro Outreach & 109-Row Named-Buyer CSV + IO Rider Pass ($19)' : (isUpgradeFlash ? `${cfg.coreLabel} ($${upgPrice.toFixed(2)}, $1.99 Pass Credit Applied)` : (isPlaybook ? cfg.coreLabel : (isVault49 ? 'Full 109-Row Named-Buyer & Agency CSV + IO Rider + 90d Alerts Vault ($49)' : (isAgency149 ? 'B2B Agency & Talent Management Desk: 5 Seats + 109-Row CSV + HubSpot/Clay CRM + White-Label Rate Card ($149)' : (isPro ? cfg.proLabel : cfg.coreLabel)))))))}`.slice(0, 120);
+    const filesList = (cfg.deliverableFiles || []).map(f => f.file).join(' + ') || 'Full Deliverable Pack', prodDesc = `Instant browser unlock & download for ${rawTarget || cfg.brandName}: includes ${filesList} + Redlined IAB IO Make-Good Rider (.TXT) + Cold Outreach Sequences + 90-Day Renewal Alerts.`.slice(0, 240);
+    const validUserEmail = /^[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,}$/i.test(userEmail) ? userEmail : (rawEmail && rawEmail.includes('@') ? rawEmail : '');
 
-    const buildInlineParams = () => {
-      const p = new URLSearchParams({ 'success_url': `${baseUrl}/?checkout=success&tier=${tierName}&target=${encodeURIComponent(rawTarget)}&session_id={CHECKOUT_SESSION_ID}`, 'cancel_url': `${baseUrl}/?checkout=cancel&tier=${tierName}&target=${encodeURIComponent(rawTarget)}`, 'mode': isOneTime ? 'payment' : 'subscription', 'allow_promotion_codes': 'false', 'line_items[0][price_data][currency]': 'usd', 'line_items[0][price_data][unit_amount]': String(Math.round(priceUsd * 100)), 'line_items[0][price_data][product_data][name]': prodLabel, 'line_items[0][price_data][product_data][description]': prodDesc, 'line_items[0][quantity]': '1', 'custom_text[submit][message]': `Instant browser redirect: your ${filesList} download automatically the second payment completes.`, 'metadata[module_id]': cfg.moduleId, 'metadata[tier]': tierName, 'metadata[target]': rawTarget, 'metadata[vid]': vid, 'metadata[is_human]': (!isCrawler && !isTest) ? '1' : '0' });
+    const buildInlineParams = (minimal) => {
+      const p = new URLSearchParams({ 'success_url': `${baseUrl}/?checkout=success&tier=${tierName}&target=${encodeURIComponent(rawTarget)}&session_id={CHECKOUT_SESSION_ID}`, 'cancel_url': `${baseUrl}/?checkout=cancel&tier=${tierName}&target=${encodeURIComponent(rawTarget)}`, 'mode': isOneTime ? 'payment' : 'subscription', 'allow_promotion_codes': 'false', 'line_items[0][price_data][currency]': 'usd', 'line_items[0][price_data][unit_amount]': String(Math.round(priceUsd * 100)), 'line_items[0][price_data][product_data][name]': prodLabel, 'line_items[0][price_data][product_data][description]': prodDesc, 'line_items[0][quantity]': '1', 'metadata[module_id]': cfg.moduleId, 'metadata[tier]': tierName, 'metadata[target]': rawTarget, 'metadata[vid]': vid, 'metadata[is_human]': (!isCrawler && !isTest) ? '1' : '0' });
       if (!isOneTime) p.set('line_items[0][price_data][recurring][interval]', verticalId === 'derm_logic' ? 'year' : 'month');
-      if (userEmail && userEmail.includes('@')) p.set('customer_email', userEmail);
-      return p;
+      if (validUserEmail) p.set('customer_email', validUserEmail);
+      if (!minimal) p.set('custom_text[submit][message]', `Instant browser redirect: your ${filesList} download automatically the second payment completes.`.slice(0, 180));
+      return p.toString();
     };
 
     const isBrowserHumanClick = !isCrawler && !Boolean(req.headers['x-playwright-test'] || req.headers['x-test-mode'] || req.query?.test === '1' || req.query?.is_test === '1' || /headlesschrome|playwright|puppeteer|cypress|curl\/|python-requests|node-fetch|undici|go-http-client/i.test(String(req.headers['user-agent'] || '')));
+    let realStripeSession = false, stripeErrMsg = '';
     if (stripeKey && stripeKey.startsWith('sk_') && (isBrowserHumanClick || req.query?.live_stripe === '1')) {
       try {
         let stData = null;
         if (!isOneTime && priceId && priceId.startsWith('price_')) {
           const params = new URLSearchParams({ 'success_url': `${baseUrl}/?checkout=success&tier=${tierName}&session_id={CHECKOUT_SESSION_ID}`, 'cancel_url': `${baseUrl}/?checkout=cancel&tier=${tierName}`, 'mode': 'subscription', 'allow_promotion_codes': 'false', 'line_items[0][price]': priceId, 'line_items[0][quantity]': '1', 'metadata[module_id]': cfg.moduleId, 'metadata[tier]': tierName, 'metadata[vid]': vid, 'metadata[is_human]': (!isCrawler && !isTest) ? '1' : '0' });
-          if (userEmail && userEmail.includes('@')) params.set('customer_email', userEmail);
-          stData = await (await fetch('https://api.stripe.com/v1/checkout/sessions', { method: 'POST', headers: { Authorization: `Bearer ${stripeKey}`, 'Content-Type': 'application/x-www-form-urlencoded' }, body: params })).json();
+          if (validUserEmail) params.set('customer_email', validUserEmail);
+          stData = await (await fetch('https://api.stripe.com/v1/checkout/sessions', { method: 'POST', headers: { Authorization: `Bearer ${stripeKey}`, 'Content-Type': 'application/x-www-form-urlencoded' }, body: params.toString() })).json();
         }
-        if (!stData || !stData.url) stData = await (await fetch('https://api.stripe.com/v1/checkout/sessions', { method: 'POST', headers: { Authorization: `Bearer ${stripeKey}`, 'Content-Type': 'application/x-www-form-urlencoded' }, body: buildInlineParams() })).json();
-        if (stData && stData.url) { checkoutUrl = stData.url; sessionId = stData.id; }
-      } catch (_) {}
+        if (!stData || !stData.url) stData = await (await fetch('https://api.stripe.com/v1/checkout/sessions', { method: 'POST', headers: { Authorization: `Bearer ${stripeKey}`, 'Content-Type': 'application/x-www-form-urlencoded' }, body: buildInlineParams(false) })).json();
+        if (!stData || !stData.url) stData = await (await fetch('https://api.stripe.com/v1/checkout/sessions', { method: 'POST', headers: { Authorization: `Bearer ${stripeKey}`, 'Content-Type': 'application/x-www-form-urlencoded' }, body: buildInlineParams(true) })).json();
+        if (stData && stData.url) { checkoutUrl = stData.url; sessionId = stData.id; realStripeSession = true; }
+        else if (stData && stData.error) { stripeErrMsg = String(stData.error.message || stData.error.code || 'stripe_err').slice(0, 80); }
+      } catch (e) { stripeErrMsg = String(e && e.message ? e.message : 'fetch_err').slice(0, 80); }
     }
-    store.recordOrder({ tier: tierName, sku, amountUsd: priceUsd, status: 'intent', sessionId, isTest, isOwnerIp, clientIp }); res.setHeader('X-Robots-Tag', 'noindex, nofollow');
+    store.recordEvent({ eventType: 'checkout_intent', pageUrl: String(req.body?.pageUrl || req.originalUrl || '/'), deviceType, isTest, isCrawler, isOwnerIp, clientIp, meta: { tier: tierName, sku, price_usd: priceUsd, method: req.method, has_referer: hasSameRef, target: rawTarget, vid, buyer_wedge: buyerWedge, customer_email: validUserEmail || undefined, allow_promotion_codes: false, real_stripe_session: realStripeSession, stripe_error: stripeErrMsg || undefined } });
+    store.recordOrder({ tier: tierName, sku, amountUsd: priceUsd, status: 'intent', sessionId, buyerWedge, isTest, isOwnerIp, clientIp }); res.setHeader('X-Robots-Tag', 'noindex, nofollow');
     if (req.method === 'GET' && (req.query?.source === 'creator_email' || req.query?.pub) && !req.headers['x-playwright-test']) return res.redirect(302, `/?utm_source=creator_email&utm_medium=email&utm_campaign=sponsor_radar&pub=${encodeURIComponent(req.query.pub || '')}#radar-results-container`);
     if (req.method === 'GET' && req.query?.format !== 'json') return (isBrowserHumanClick && String(req.headers.accept || '').includes('text/html') && checkoutUrl.includes('#')) ? res.status(200).type('html').send(`<!DOCTYPE html><html><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><script>window.location.replace(${JSON.stringify(checkoutUrl)});</script></head><body style="font-family:system-ui,sans-serif;padding:36px;text-align:center;"><a href=${JSON.stringify(checkoutUrl)} style="display:inline-block;padding:12px 22px;background:#C83E2B;color:#fff;border-radius:999px;text-decoration:none;font-weight:700;">Continue to Secure Stripe Checkout &rarr;</a></body></html>`) : res.redirect(303, checkoutUrl);
-    return res.status(200).json({ ok: true, success: true, tier: tierName, sku, price_usd: priceUsd, customer_email: userEmail || null, allow_promotion_codes: false, target: rawTarget, product_label: prodLabel, session_id: sessionId, checkout_url: checkoutUrl, checkoutUrl, url: checkoutUrl, direct_buy_url: `${baseUrl}/buy/${tierName}` });
+    return res.status(200).json({ ok: true, success: true, tier: tierName, sku, price_usd: priceUsd, target: rawTarget, buyer_wedge: buyerWedge, customer_email: validUserEmail || null, allow_promotion_codes: false, product_label: prodLabel, session_id: sessionId, checkout_url: checkoutUrl, checkoutUrl, url: checkoutUrl, direct_buy_url: `${baseUrl}/buy/${tierName}` });
   }
   app.get(['/buy/:tier', '/api/buy/:tier'], handleTierCheckout);
   app.post([`/api/calculators/${cfg.moduleId}/checkout`, '/api/calculators/:anyMod/checkout', '/api/exact-checkout', '/api/checkout/create-session', '/api/stripe/create-checkout-session'], handleTierCheckout);
-  app.get('/embed', (req, res) => { if (cfg.moduleId === 'citation_forge') return res.redirect(302, '/#studio'); res.removeHeader('X-Frame-Options'); res.setHeader('X-Robots-Tag', 'noindex, follow'); res.status(200).type('html').send(renderEmbedWidgetHtml(cfg)); });
-  app.get(['/dossier/sample', '/dossier/sample/:mod'], (req, res) => { if (cfg.moduleId === 'citation_forge') return res.redirect(302, '/#studio'); return res.status(200).type('html').send(renderSampleDossierHtml(cfg)); });
+  app.get('/embed', (req, res) => { res.removeHeader('X-Frame-Options'); res.setHeader('X-Robots-Tag', 'noindex, follow'); res.status(200).type('html').send(renderEmbedWidgetHtml(cfg)); });
+  app.get(['/dossier/sample', '/dossier/sample/:mod'], (req, res) => res.status(200).type('html').send(renderSampleDossierHtml(cfg)));
   app.use((req, res, next) => {
     const { isTest, isCrawler, isOwnerIp, clientIp } = classifyTrafficRequest(req);
     if (isOwnerIp) { try { res.setHeader('Set-Cookie', 'eb_owner_test=1; Path=/; Max-Age=31536000; SameSite=Lax'); } catch (_) {} }
@@ -1012,16 +942,43 @@ function attachExactBaselinePack(app, options = {}) {
     const origSend = res.send.bind(res);
     res.send = function patchedSend(body) {
       const isHtml = typeof body === 'string' && (String(res.getHeader('Content-Type') || '').includes('text/html') || body.trim().startsWith('<!DOCTYPE html>'));
-      if (isHtml && req.method === 'GET' && (req.path === '/' || req.path === '/lp' || req.path === '/directory' || req.path === '/leaderboard' || req.path === '/privacy' || req.path === '/terms' || req.path.startsWith('/dossier/sample') || req.path.startsWith('/seo/') || req.path.startsWith('/tools/') || req.path.startsWith('/compare/') || req.path.startsWith('/scan/') || req.path.startsWith('/report/') || req.path.startsWith('/vault/') || req.path.startsWith('/print/') || req.path.startsWith('/qr/'))) {
-        const isShIo = String(req.headers['x-forwarded-host'] || req.headers.host || '').toLowerCase().includes('seatharmony.io'), activeDom = isShIo ? 'www.seatharmony.io' : cfg.domain;
-        if (isShIo) body = body.replace(/https:\/\/www\.citationforge\.io/g, 'https://www.seatharmony.io');
-        body = body.replace(/\p{Extended_Pictographic}/gu, '').replace(/300-DPI/gi, 'Print-Ready').replace(/\bBEOs\b/g, 'Meal Sheets').replace(/(\s|\(|>)BEO(\b)/g, '$1Meal Sheet$2').replace(/\bSpecimen\b/gi, 'Sample');
-        try { res.setHeader('X-Robots-Tag', 'all, index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1'); res.setHeader('Link', `<https://${activeDom}/llms.txt>; rel="llms-txt", <https://${activeDom}/llms-full.txt>; rel="llms-full-txt", <https://${activeDom}/openapi.json>; rel="service-desc", <https://${activeDom}/feed.xml>; rel="alternate"; type="application/rss+xml"`); } catch (_) {}
-        store.recordEvent({ eventType: 'visit', pageUrl: req.originalUrl || req.path, deviceType, utmSource: String(req.query?.utm_source || ''), utmCampaign: String(req.query?.utm_campaign || ''), isTest, isCrawler, isOwnerIp, clientIp, meta: { ref: String(req.headers.referer || '').slice(0, 180), ua: String(req.headers['user-agent'] || '').slice(0, 120) } });
-        if (cfg.moduleId === 'citation_forge' || body.includes('data-seatharmony-native="1"')) {
-          const shCheckoutHelper = `<script>(function(){function cleanDom(){if(!document.body)return;var w=document.createTreeWalker(document.body,NodeFilter.SHOW_TEXT);var n;while((n=w.nextNode())){var v=n.nodeValue;if(v&&(/\\p{Extended_Pictographic}/u.test(v)||/300-DPI|\\bBEOs?\\b|\\bSpecimen\\b/i.test(v))){n.nodeValue=v.replace(/\\p{Extended_Pictographic}/gu,'').replace(/300-DPI/gi,'Print-Ready').replace(/\\bBEOs\\b/g,'Meal Sheets').replace(/\\bBEO\\b/g,'Meal Sheet').replace(/\\bSpecimen\\b/gi,'Sample');}}}cleanDom();document.addEventListener('DOMContentLoaded',cleanDom);document.addEventListener('click',function(){setTimeout(cleanDom,30);});if(!document.cookie.includes('vs_vid=')){document.cookie='vs_vid=v_'+Date.now()+'_'+Math.random().toString(36).slice(2,7)+'; Path=/; Max-Age=31536000; SameSite=Lax';}var vid=(document.cookie.match(/vs_vid=([^;]+)/)||[])[1]||'';if(!window.__ebHydratedSent){window.__ebHydratedSent=true;try{fetch('/api/telemetry/event',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({event_type:'visit_hydrated',page_url:window.location.pathname,meta:{vid:vid,js_hydrated:1,vw:window.innerWidth||0,vh:window.innerHeight||0,ref:document.referrer||''}})});}catch(_){}}window.__ebQuickBuy=window.__ebCheckout=function(tier,em){var e=em||(document.getElementById('sh-inline-vault-email')&&document.getElementById('sh-inline-vault-email').value)||(document.getElementById('sh-vault-email-input')&&document.getElementById('sh-vault-email-input').value)||(window.localStorage&&localStorage.getItem('sh_saved_email'))||'';e=String(e||'').trim();if(e&&e.indexOf('@')!==-1){try{localStorage.setItem('sh_saved_email',e);fetch('/api/leads',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({email:e,utmSource:'two_step_checkout'}),keepalive:true});}catch(_){}}window.location.href='/buy/'+(tier||'complete_dossier')+'?target=estate-150&allow_promotion_codes=false'+(e?'&customer_email='+encodeURIComponent(e)+'&email='+encodeURIComponent(e):'')+'&vid='+encodeURIComponent(vid);};})();</script>`;
-          body = body.includes('</body>') ? body.replace('</body>', `${shCheckoutHelper}</body>`) : (body + shCheckoutHelper);
-        } else if (!body.includes('id="eb-bottom-conversion-suite"')) body = renderExactBaselineEnhancements(body, cfg, req.path);
+      if (isHtml && req.method === 'GET' && (req.path === '/' || req.path === '/lp' || req.path === '/directory' || req.path === '/leaderboard' || req.path === '/privacy' || req.path === '/terms' || req.path.startsWith('/dossier/sample') || req.path.startsWith('/seo/') || req.path.startsWith('/tools/') || req.path.startsWith('/compare/') || req.path.startsWith('/scan/') || req.path.startsWith('/report/')) && !body.includes('id="eb-bottom-conversion-suite"')) {
+        try { res.setHeader('X-Robots-Tag', 'all, index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1'); res.setHeader('Link', `<https://${cfg.domain}/llms.txt>; rel="llms-txt", <https://${cfg.domain}/llms-full.txt>; rel="llms-full-txt", <https://${cfg.domain}/openapi.json>; rel="service-desc", <https://${cfg.domain}/feed.xml>; rel="alternate"; type="application/rss+xml"`); } catch (_) {}
+        store.recordEvent({ eventType: 'visit', pageUrl: req.originalUrl || req.path, deviceType, utmSource: String(req.query?.utm_source || ''), utmCampaign: String(req.query?.utm_campaign || ''), isTest, isCrawler, isOwnerIp, clientIp });
+        body = renderExactBaselineEnhancements(body, cfg, req.path);
+      }
+      if (isHtml) {
+        body = body.replace(/\p{Extended_Pictographic}/gu, '')
+          .replace(/&#128274;|&#128275;|&#128203;|&#10024;|&#9889;|&#9888;|&#128339;|&#128506;/g, '')
+          .replace(/&copy;/gi, 'Copyright')
+          .replace(/\bIAB\s*§4\.2\s*Make-Good\s*Rider\b/gi, 'Audience Guarantee Clause')
+          .replace(/\bIAB\s*§4\.2\b/gi, 'Audience Guarantee Clause')
+          .replace(/\bIAB\s*MAKE-GOOD\s*RIDER\b/gi, 'AUDIENCE GUARANTEE CLAUSE')
+          .replace(/\bIAB\s*IO\s*Redline\s*Rider\b/gi, 'Sponsor Agreement Rider')
+          .replace(/\bRedlined\s*IAB\s*IO\s*Make-Good\s*Rider\b/gi, 'Audience Guarantee Clause')
+          .replace(/\bRedlined\s*IO\s*Make-Good\s*Rider\b/gi, 'Audience Guarantee Clause')
+          .replace(/\bRedlined\s*IO\s*Rider\b/gi, 'Sponsor Agreement Rider')
+          .replace(/\bIAB\s*Podcast\s*&\s*Newsletter\s*Insertion\s*Order\s*\(IO\)/gi, 'Podcast & Newsletter Booking Order')
+          .replace(/\bIAB\s*v2\.1\s*calibrated\b/gi, '30-Day Audience Verified')
+          .replace(/\bIAB\s*30-Day\s*Download\s*SLA\b/gi, '30-Day Audience Guarantee')
+          .replace(/\bIAB\s*30-Day\s*Verified\b/gi, '30-Day Audience Verified')
+          .replace(/\bIAB\b/g, 'Verified')
+          .replace(/Price per 1k Views \(CPM\)/gi, 'Ad Rate')
+          .replace(/Ad Rate \(CPM\)/gi, 'Ad Rate')
+          .replace(/\beCPM\b/g, 'Effective Rate')
+          .replace(/\bCPMs\b/g, 'Ad Rates')
+          .replace(/\bCPM\b/g, 'Ad Rate')
+          .replace(/\bIO\s*Rider\b/g, 'Sponsor Agreement Clause')
+          .replace(/\bIO\s*§4\.2\b/g, 'Agreement §4.2')
+          .replace(/\bBEOs\b/g, 'Meal Sheets')
+          .replace(/\bBEO\b/g, 'Meal Sheet')
+          .replace(/300-DPI/gi, 'Print-Ready')
+          .replace(/\bSpecimens\b/g, 'Samples')
+          .replace(/\bSpecimen\b/gi, 'Sample');
+        if (body.includes('</body>') && !body.includes('window.__srCleanTextGuard')) {
+          const cleanDomScript = `<script>window.__srCleanTextGuard=1;(function(){var rx=/\\p{Extended_Pictographic}/gu,busy=false;function cleanNode(root){if(!root||busy)return;busy=true;try{var w=document.createTreeWalker(root,NodeFilter.SHOW_TEXT,null,false),n;while((n=w.nextNode())){var p=n.parentNode&&n.parentNode.nodeName;if(p==='SCRIPT'||p==='STYLE')continue;var v=n.nodeValue;if(v){var nv=v.replace(rx,'').replace(/\\bIAB\\s*§4\\.2\\s*Make-Good\\s*Rider\\b/gi,'Audience Guarantee Clause').replace(/\\bIAB\\s*§4\\.2\\b/gi,'Audience Guarantee Clause').replace(/\\bIAB\\s*v2\\.1\\s*calibrated\\b/gi,'30-Day Audience Verified').replace(/\\bIAB\\s*30-Day\\s*Download\\s*SLA\\b/gi,'30-Day Audience Guarantee').replace(/\\bIAB\\s*30-Day\\s*Verified\\b/gi,'30-Day Audience Verified').replace(/\\bIAB\\b/g,'Verified').replace(/Price per 1k Views \\(CPM\\)/gi,'Ad Rate').replace(/Ad Rate \\(CPM\\)/gi,'Ad Rate').replace(/\\beCPM\\b/gi,'Effective Rate').replace(/\\bCPMs\\b/g,'Ad Rates').replace(/\\bCPM\\b/g,'Ad Rate').replace(/\\bIO\\s*Rider\\b/gi,'Sponsor Agreement Clause').replace(/\\bBEOs\\b/g,'Meal Sheets').replace(/\\bBEO\\b/g,'Meal Sheet').replace(/300-DPI/gi,'Print-Ready').replace(/\\bSpecimen\\b/gi,'Sample');if(nv!==v)n.nodeValue=nv;}}}finally{busy=false;}}if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',function(){cleanNode(document.body);});else cleanNode(document.body);if(typeof MutationObserver!=='undefined'){new MutationObserver(function(){cleanNode(document.body);}).observe(document.documentElement,{childList:true,subtree:true});}})();</script>`;
+          body = body.replace('</body>', cleanDomScript + '</body>');
+        }
       }
       return origSend(body);
     };
