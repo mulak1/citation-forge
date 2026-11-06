@@ -24,8 +24,8 @@ const SENDGRID_API_KEY = process.env.SENDGRID_API_KEY || '';
 const VERTICAL_CONFIGS = {
   citation_forge: {
     moduleId: 'citation_forge',
-    brandName: 'CitationForge',
-    domain: 'www.citationforge.io',
+    brandName: 'SeatHarmony',
+    domain: 'www.seatharmony.io',
     accentColor: '#0F172A',
     theme: {
       canvasBg: '#F8FAFC', cardBg: '#FFFFFF', subtleBg: '#F1F5F9', dockBg: 'rgba(248, 250, 252, 0.96)',
@@ -531,8 +531,8 @@ function attachExactBaselinePack(app, options = {}) {
   const buildBuyLinks = (email) => ({ micro_pass: `https://${cfg.domain}/buy/micro_pass?email=${encodeURIComponent(email)}`, flash_pass: `https://${cfg.domain}/buy/flash_pass?email=${encodeURIComponent(email)}`, complete_dossier: `https://${cfg.domain}/buy/complete_dossier?email=${encodeURIComponent(email)}`, pro_b2b: `https://${cfg.domain}/buy/pro_b2b?email=${encodeURIComponent(email)}` });
   async function sendOneClickLeadEmail(email, summaryText, isTest) {
     const links = buildBuyLinks(email), safeSum = escMailHtml(summaryText);
-    const textMail = `${summaryText}\n\n1-Click Direct Stripe Checkout Links (No Login Required):\n• 99¢ Single-File Instant Export Pass: ${links.micro_pass}\n• $1.99 Single-Audit Export Bundle (${cfg.freeDeliverableName}): ${links.flash_pass}\n• $${cfg.corePriceUsd} ${cfg.coreLabel}: ${links.complete_dossier}\n• $${cfg.proPriceUsd} ${cfg.proLabel}: ${links.pro_b2b}\n`;
-    const htmlMail = `<div style="font-family:sans-serif;max-width:560px;color:#0F172A;"><h2>${escMailHtml(cfg.brandName)}: Diagnostic Summary &amp; 1-Click Export Links</h2><p>${safeSum}</p><p><strong>Instant 1-Click Stripe Checkout (Apple Pay / Link Ready):</strong></p><ul><li><a href="${links.micro_pass}"><strong>99¢ Single-File Instant Export Pass →</strong></a></li><li><a href="${links.flash_pass}"><strong>$1.99 Single-Audit Export Bundle (${escMailHtml(cfg.freeDeliverableName)}) →</strong></a></li><li><a href="${links.complete_dossier}"><strong>$${cfg.corePriceUsd} ${escMailHtml(cfg.coreLabel)} →</strong></a></li><li><a href="${links.pro_b2b}"><strong>$${cfg.proPriceUsd} ${escMailHtml(cfg.proLabel)} →</strong></a></li></ul></div>`;
+    const textMail = `${summaryText}\n\n1-Click Direct Stripe Checkout Links (No Login Required):\n• $${cfg.corePriceUsd} ${cfg.coreLabel}: ${links.flash_pass}\n• $${cfg.proPriceUsd} ${cfg.proLabel}: ${links.pro_b2b}\n`;
+    const htmlMail = `<div style="font-family:sans-serif;max-width:560px;color:#0F172A;"><h2>${escMailHtml(cfg.brandName)}: Clockwise 12:00 Caterer Meal Sheet &amp; Print Pack Links</h2><p>${safeSum}</p><p><strong>Instant 1-Click Stripe Checkout (Apple Pay / Link Ready):</strong></p><ul><li><a href="${links.flash_pass}"><strong>$${cfg.corePriceUsd} ${escMailHtml(cfg.coreLabel)} →</strong></a></li><li><a href="${links.pro_b2b}"><strong>$${cfg.proPriceUsd} ${escMailHtml(cfg.proLabel)} →</strong></a></li></ul></div>`;
     const resendKey = process.env.RESEND_API_KEY || '';
     if (SENDGRID_API_KEY && SENDGRID_API_KEY.startsWith('SG.') && !isTest) {
       try {
@@ -550,14 +550,14 @@ function attachExactBaselinePack(app, options = {}) {
   async function handleLeadCaptureAndFollowUp(req, res) {
     const rawEmailIn = String(req.body?.email || req.body?.customerEmail || req.body?.customer_email || '').trim();
     if (rawEmailIn.length > 254) return res.status(400).json({ ok: false, error: 'Email address must be 254 characters or fewer.' });
-    const email = rawEmailIn.slice(0, 254), summaryText = String(req.body?.summaryText || `${cfg.brandName} 3 Free Unmasked Verified Buyer Credits ($0) & Diagnostic Summary`).trim().slice(0, 1000), utmSource = String(req.body?.utmSource || req.path.replace('/api/', '') || 'free_3_buyer_credits').trim().slice(0, 128);
+    const email = rawEmailIn.slice(0, 254), summaryText = String(req.body?.summaryText || `${cfg.brandName} Clockwise 12:00 Caterer Meal Sheet & Family Share Link ($0)`).trim().slice(0, 1000), utmSource = String(req.body?.utmSource || req.path.replace('/api/', '') || 'free_caterer_meal_sheet').trim().slice(0, 128);
     const buyerWedge = String(req.body?.buyer_wedge || req.body?.buyerWedge || (String(req.headers.cookie || '').match(/sr_wedge=([^;]+)/) || [])[1] || 'buyer').toLowerCase() === 'creator' ? 'creator' : 'buyer';
     if (!email || !email.includes('@')) return res.status(400).json({ ok: false, error: 'Please enter a valid email address.' });
     const { isTest, isCrawler, isOwnerIp, clientIp } = classifyTrafficRequest(req, email), directBuyLinks = buildBuyLinks(email);
-    store.recordLead({ email, summaryText: `${summaryText} [Buy: ${directBuyLinks.micro_pass}]`, utmSource, buyerWedge, isTest, isOwnerIp, clientIp });
+    store.recordLead({ email, summaryText: `${summaryText} [Buy: ${directBuyLinks.flash_pass}]`, utmSource, buyerWedge, isTest, isOwnerIp, clientIp });
     store.recordEvent({ eventType: 'lead_capture', pageUrl: String(req.body?.pageUrl || '/'), deviceType: /mobile|iphone|android/i.test(String(req.headers['user-agent'] || '')) ? 'mobile' : 'desktop', utmSource, isTest, isCrawler, isOwnerIp, clientIp, meta: { buyer_wedge: buyerWedge, unlocked_free_credits: 3 } });
     const emailDispatched = await sendOneClickLeadEmail(email, summaryText, isTest);
-    res.json({ ok: true, success: true, email, customer_email: email, allow_promotion_codes: false, unlocked_free_credits: 3, free_credits_badge: '✓ 3 of 3 Free Buyer Credits Unlocked — Verify on LinkedIn', buyer_wedge: buyerWedge, summary_sent: true, email_dispatched: emailDispatched, direct_buy_links: directBuyLinks, tripwire_offer: { tier: 'micro_pass', sku: `${cfg.moduleId}_micro_pass`, price_usd: 0.99, buy_url: directBuyLinks.micro_pass, flash_buy_url: directBuyLinks.flash_pass, headline: '3 Free Buyer Credits Unlocked! Download Full 109-Row CSV + IO Rider + Outreach Pack' } });
+    res.json({ ok: true, success: true, email, customer_email: email, allow_promotion_codes: false, unlocked_free_credits: 3, free_credits_badge: '✓ Clockwise 12:00 Caterer Meal Sheet Unlocked ($0)', buyer_wedge: buyerWedge, summary_sent: true, email_dispatched: emailDispatched, direct_buy_links: directBuyLinks, tripwire_offer: { tier: 'flash_pass', sku: `${cfg.moduleId}_flash_pass`, price_usd: 7.00, buy_url: directBuyLinks.flash_pass, flash_buy_url: directBuyLinks.flash_pass, headline: 'Clockwise 12:00 Meal Tally Unlocked! Get Auto-Filled 24"×36" Print Pack ($7)' } });
   }
   app.post(['/api/leads', '/api/leads/capture', '/api/leads/consumer', '/api/studio/trial-signup'], handleLeadCaptureAndFollowUp);
   let lastBackfillMs = 0;
@@ -579,18 +579,18 @@ function attachExactBaselinePack(app, options = {}) {
   async function handleTierCheckout(req, res) {
     const rawTier = String(req.params?.tier || req.query?.tier || req.body?.tier || req.body?.plan || req.body?.planTier || req.body?.plan_id || req.body?.planId || 'flash_pass').toLowerCase();
     const isMicro = rawTier.includes('micro') || rawTier.includes('099') || rawTier.includes('99c');
-    const isFlash = !isMicro && ((rawTier.includes('flash') && !rawTier.includes('upgrade')) || rawTier === '199' || rawTier === 'pass' || rawTier === 'single_audit');
+    const isFlash = !isMicro && ((rawTier.includes('flash') && !rawTier.includes('upgrade')) || rawTier === '199' || rawTier === 'pass' || rawTier === 'single_audit' || rawTier === '7');
     const isCreator19 = !isMicro && !isFlash && (rawTier === 'creator_pass' || rawTier === 'creator_19' || rawTier === '19');
     const isUpgradeFlash = !isMicro && !isFlash && !isCreator19 && (rawTier.includes('upgrade_from_flash') || rawTier.includes('2701'));
     const isPlaybook = !isMicro && !isFlash && !isCreator19 && !isUpgradeFlash && (rawTier.includes('playbook') || rawTier.includes('29') || rawTier === 'audit_playbook' || rawTier === 'playbook_pass');
     const isVault49 = !isMicro && !isFlash && !isCreator19 && !isUpgradeFlash && !isPlaybook && (rawTier === 'vault_49' || rawTier === 'database_49' || rawTier === '49');
     const isAgency149 = !isMicro && !isFlash && !isCreator19 && !isUpgradeFlash && !isPlaybook && !isVault49 && (rawTier === 'agency_desk' || rawTier === 'agency_149' || rawTier.includes('149'));
     const isPro = !isMicro && !isFlash && !isCreator19 && !isUpgradeFlash && !isPlaybook && !isVault49 && !isAgency149 && (rawTier.includes('pro') || rawTier.includes('agency') || rawTier.includes('annual') || rawTier.includes('growth') || rawTier.includes('99'));
-    const upgPrice = Math.max(1, Number(((cfg.corePriceUsd || 29) - 1.99).toFixed(2))), priceUsd = isMicro ? 0.99 : (isFlash ? 1.99 : (isCreator19 ? 19 : (isUpgradeFlash ? upgPrice : (isPlaybook ? 29 : (isVault49 ? 49 : (isAgency149 ? 149 : (isPro ? cfg.proPriceUsd : cfg.corePriceUsd)))))));
+    const upgPrice = Math.max(1, Number(((cfg.corePriceUsd || 7) - 1.99).toFixed(2))), priceUsd = isPro || isPlaybook ? (cfg.proPriceUsd || 29) : (cfg.corePriceUsd || 7);
     const tierName = isMicro ? 'micro_pass' : (isFlash ? 'flash_pass' : (isCreator19 ? 'creator_pass' : (isUpgradeFlash ? 'upgrade_from_flash' : (isPlaybook ? 'playbook_pass' : (isVault49 ? 'vault_49' : (isAgency149 ? 'agency_desk' : (isPro ? 'pro_b2b' : 'complete_dossier')))))));
     const sku = String(req.body?.sku || `${cfg.moduleId}_${tierName}`);
-    const priceId = (isMicro || isUpgradeFlash || isCreator19 || isVault49 || isAgency149) ? '' : (isFlash ? (process.env[cfg.flashPriceEnv] || cfg.flashPriceDefault) : (isPlaybook ? (process.env.STRIPE_PRICE_PLAYBOOK_29 || '') : (isPro ? process.env[cfg.proPriceEnv] : process.env[cfg.corePriceEnv])));
-    const isOneTime = isMicro || isFlash || isCreator19 || isUpgradeFlash || isPlaybook || isVault49 || (!isPro && !isAgency149 && (verticalId === 'citation_forge' || verticalId === 'derm_logic' || verticalId === 'sponsor_radar'));
+    const priceId = (isPro || isPlaybook) ? (process.env[cfg.proPriceEnv] || '') : (process.env[cfg.corePriceEnv] || '');
+    const isOneTime = true;
 
     const rawEmail = String(req.query?.email || req.query?.customer_email || req.body?.email || req.body?.customerEmail || req.body?.customer_email || '').trim();
     const vid = String(req.body?.vid || req.query?.vid || (String(req.headers.cookie || '').match(/vs_vid=([^;]+)/) || [])[1] || '');
@@ -601,7 +601,7 @@ function attachExactBaselinePack(app, options = {}) {
     const recentIpLead = !rawEmail && clientIp ? ((store.getRawState().leads || []).slice(-25).reverse().find(l => l.client_ip === clientIp && l.email && l.email.includes('@') && !dummyEmailRx.test(l.email))) : null;
     const userEmail = (rawEmail && !dummyEmailRx.test(rawEmail)) ? rawEmail : (recentIpLead ? recentIpLead.email : '');
     const isBrowserUa = /mozilla\/5\.0/i.test(String(req.headers['user-agent'] || '')) && !/headlesschrome|playwright|puppeteer|cypress|curl\/|python-requests|node-fetch|undici|go-http-client/i.test(String(req.headers['user-agent'] || ''));
-    const ref = String(req.headers.referer || ''), hasSameRef = ref.includes(cfg.domain.replace(/^www\./, '')), hasValidVid = /^v_[a-z0-9_]+$/i.test(vid);
+    const ref = String(req.headers.referer || ''), hasSameRef = ref.includes(cfg.domain.replace(/^www\./, '')) || ref.includes('citationforge.io') || ref.includes('seatharmony.io'), hasValidVid = /^v_[a-z0-9_]+$/i.test(vid);
     if (req.method === 'GET' && (!hasSameRef || !hasValidVid)) { isTest = 1; if (!isBrowserUa) isCrawler = 1; }
     const deviceType = /mobile|iphone|android/i.test(String(req.headers['user-agent'] || '')) ? 'mobile' : 'desktop';
     if (rawEmail && rawEmail.includes('@') && !dummyEmailRx.test(rawEmail)) {
@@ -611,8 +611,8 @@ function attachExactBaselinePack(app, options = {}) {
     }
     const baseUrl = `https://${cfg.domain}`, stripeKey = process.env.STRIPE_SECRET_KEY || '', targetPrefix = rawTarget ? `${rawTarget} · ` : '';
     let checkoutUrl = `https://checkout.stripe.com/c/pay/cs_live_${cfg.moduleId}_${tierName}_${Date.now()}`, sessionId = `cs_live_${cfg.moduleId}_${Date.now()}`, f0Lbl = (cfg.deliverableFiles && cfg.deliverableFiles[0] && (cfg.deliverableFiles[0].label || cfg.deliverableFiles[0].file)) || 'Single Deliverable File';
-    const prodLabel = `${cfg.brandName}: ${targetPrefix}${isMicro ? `Single-Row Named Buyer + Agency Pass (99¢)` : (isFlash ? `${cfg.freeDeliverableName || 'Full 3-File Deliverable Pack'} ($1.99)` : (isCreator19 ? 'Creator Pro Outreach & 109-Row Named-Buyer CSV + IO Rider Pass ($19)' : (isUpgradeFlash ? `${cfg.coreLabel} ($${upgPrice.toFixed(2)}, $1.99 Pass Credit Applied)` : (isPlaybook ? cfg.coreLabel : (isVault49 ? 'Full 109-Row Named-Buyer & Agency CSV + IO Rider + 90d Alerts Vault ($49)' : (isAgency149 ? 'B2B Agency & Talent Management Desk: 5 Seats + 109-Row CSV + HubSpot/Clay CRM + White-Label Rate Card ($149)' : (isPro ? cfg.proLabel : cfg.coreLabel)))))))}`.slice(0, 120);
-    const filesList = (cfg.deliverableFiles || []).map(f => f.file).join(' + ') || 'Full Deliverable Pack', prodDesc = `Instant browser unlock & download for ${rawTarget || cfg.brandName}: includes ${filesList} + Redlined IAB IO Make-Good Rider (.TXT) + Cold Outreach Sequences + 90-Day Renewal Alerts.`.slice(0, 240);
+    const prodLabel = `${cfg.brandName}: ${targetPrefix}${(isPro || isPlaybook) ? cfg.proLabel : 'Auto-Filled 24"×36" Print-Shop Poster + Avery 5302 Tent Cards + Guest QR ($7)'}`.slice(0, 120);
+    const filesList = (cfg.deliverableFiles || []).map(f => f.file).join(' + ') || '24"×36" Print-Shop Poster + Avery 5302 Escort Cards + Caterer Meal Sheet', prodDesc = `Instant browser unlock & download for ${rawTarget || cfg.brandName}: includes Auto-Filled 24"×36" Print-Shop Poster PDF + Avery 5302 Escort Cards + Clockwise 12:00 Caterer Meal Sheet + Cocktail-Hour Guest QR.`.slice(0, 240);
     const validUserEmail = /^[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,}$/i.test(userEmail) ? userEmail : (rawEmail && rawEmail.includes('@') ? rawEmail : '');
 
     const buildInlineParams = (minimal) => {

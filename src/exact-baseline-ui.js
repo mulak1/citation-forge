@@ -572,13 +572,13 @@ function buildClientRuntimeScript(cfg) {
     }
   };
   window.__srFocusRowUnlock = function(rowNum, entityName) {
-    var rNum = Number(rowNum) || 2, ent = cleanEnt(entityName || window.__ebActiveEntity || 'Target Brand', 32);
+    var rNum = Number(rowNum) || 2, ent = cleanEnt(entityName || window.__ebActiveEntity || 'Wedding Reception', 32);
     window.__ebActiveEntity = ent; window.__ebUserInteracted = true;
     var hdrSpan = document.getElementById('eb-curtain-title-span'), lHook = document.getElementById('eb-curtain-loss-hook'), cBtn = document.getElementById('btn-curtain-flash-pass'), vBtn = document.getElementById('btn-curtain-vault-pass'), curt = document.getElementById('eb-deliverable-curtain');
-    if (hdrSpan) hdrSpan.textContent = 'Row #' + rNum + ' Unlock vs. 109-Row Vault (' + ent + ')';
-    if (lHook) lHook.textContent = 'Unmask 3 Free Verified Buyer Emails ($0) above, or unlock the Creator Pass ($19) / Full 109-Row CSV + IO Rider Vault ($29).';
-    if (cBtn) cBtn.textContent = 'Creator Pass ($19) →';
-    if (vBtn) vBtn.textContent = 'Full 109-Row CSV + IO Rider Vault ($29) →';
+    if (hdrSpan) hdrSpan.textContent = 'Table #' + rNum + ' Meal Tally & 24"×36" Print Pack (' + ent + ')';
+    if (lHook) lHook.textContent = 'Enter your email above ($0) to unlock your Clockwise 12:00 Caterer Meal Sheet, or get the Auto-Filled 24"×36" Print Pack ($7).';
+    if (cBtn) cBtn.textContent = 'Get Event Print Pack ($7) →';
+    if (vBtn) vBtn.textContent = 'Planner Unlimited Studio ($29) →';
     window.__ebLogEvent('row_micro_unlock_focus', { row_num: rNum, target: ent, buyer_wedge: window.__ebGetBuyerWedge() });
     if (curt && curt.scrollIntoView) { try { curt.scrollIntoView({ behavior: 'smooth', block: 'center' }); curt.style.boxShadow = '0 0 0 3px ' + CFG.theme.brandPrimary + ', 0 12px 28px rgba(15,23,42,0.14)'; } catch (_) {} }
   };
@@ -870,9 +870,9 @@ function buildClientRuntimeScript(cfg) {
     window.__ebSavedEmail = em; try { localStorage.setItem('eb_lead_email', em); localStorage.setItem('sr_free_credits_unlocked', '3'); } catch (_) {}
     Array.prototype.slice.call(document.querySelectorAll('tr[data-free-credit-row="1"], tr.eb-blurred-deliverable')).slice(0, 3).forEach(function(tr) { tr.classList.remove('eb-blurred-deliverable'); tr.setAttribute('data-row4-unlocked', '1'); tr.style.filter = 'none'; tr.style.background = CFG.theme.safeSoftBg; });
     Array.prototype.slice.call(document.querySelectorAll('[data-free-credit-unmasked], [data-row4-unmasked]')).forEach(function(el) { el.innerHTML = el.getAttribute('data-free-credit-unmasked') || el.getAttribute('data-row4-unmasked'); });
-    var bdg = document.getElementById('sr-free-credits-badge'); if (bdg) { bdg.style.display = 'inline-flex'; bdg.textContent = '✓ 3 of 3 Free Buyer Credits Unlocked — Verify on LinkedIn'; }
-    var uBtn = document.getElementById('btn-unlock-free-credits'); if (uBtn) { uBtn.textContent = '✓ 3 of 3 Free Buyer Credits Unlocked'; uBtn.style.background = '#047857'; uBtn.style.color = '#FFFFFF'; }
-    if (window.__ebLastCapturedEmail !== em) { window.__ebLastCapturedEmail = em; origFetch('/api/leads', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ email: em, customer_email: em, pageUrl: window.location.pathname, utmSource: src || 'free_3_buyer_credits', buyer_wedge: window.__ebGetBuyerWedge() }) }).catch(function(){}); }
+    var bdg = document.getElementById('sr-free-credits-badge'); if (bdg) { bdg.style.display = 'inline-flex'; bdg.textContent = '✓ Clockwise 12:00 Caterer Meal Sheet Unlocked ($0)'; }
+    var uBtn = document.getElementById('btn-unlock-free-credits'); if (uBtn) { uBtn.textContent = '✓ Clockwise 12:00 Meal Sheet Unlocked'; uBtn.style.background = '#047857'; uBtn.style.color = '#FFFFFF'; }
+    if (window.__ebLastCapturedEmail !== em) { window.__ebLastCapturedEmail = em; origFetch('/api/leads', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ email: em, customer_email: em, pageUrl: window.location.pathname, utmSource: src || 'free_caterer_meal_sheet', buyer_wedge: window.__ebGetBuyerWedge() }) }).catch(function(){}); }
     return em;
   };
   ['blur', 'change'].forEach(function(evName) { document.addEventListener(evName, function(e) { var t = e.target; if (t && t.type === 'email' && t.value) window.__ebCaptureEmailLead(t.value, t.id || 'email_input_' + evName); }, true); });
