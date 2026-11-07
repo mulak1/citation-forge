@@ -86,12 +86,8 @@ function renderZone2Walkthrough(plan = {}) {
               <span style="font-size:12px;font-weight:700;color:#00766C;background:#F0FDFA;border:1px solid #CCFBF1;padding:4px 10px;border-radius:999px;white-space:nowrap;">Saved 6.5 Hrs + $220</span>
             </div>
 
-            <div class="sh-zola-showcase-photo-wrap">
-              <img src="/public/editorial-segment-1.jpg" alt="Framed 24x36 Find Your Seat wedding welcome sign on easel at reception" width="640" height="420" class="sh-zola-showcase-photo" loading="lazy" />
-              <div class="sh-zola-floating-badges">
-                <span class="sh-zola-floating-pill"><span style="color:#00766C;font-weight:800;">&#10003;</span> 0 Family Conflicts &bull; Couples Seated Together</span>
-                <span class="sh-zola-floating-pill"><span style="color:#00766C;font-weight:800;">&#9679;</span> Clockwise 12:00 Caterer Meal Sheet</span>
-              </div>
+            <div class="sh-zola-showcase-photo-wrap" style="border-radius:16px;overflow:hidden;border:1px solid var(--border-warm);background:var(--bg-surface);">
+              <img src="/public/ugc-welcome-sign-easel.jpg" alt="Framed 24x36 Find Your Seat wedding welcome sign on easel at reception" width="640" height="420" class="sh-zola-showcase-photo" style="width:100%;height:auto;display:block;object-fit:cover;" loading="lazy" />
             </div>
 
             <div class="sh-zola-showcase-footer">
