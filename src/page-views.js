@@ -756,9 +756,8 @@ function renderSeoDetailPage(pageRow, relatedPages = []) {
       `<span><strong style="color:#1F1B18;">Venue Setting:</strong> ${escapeHtml(venueVisual.name)}</span>` +
       `<span style="color:#1B4D3E;font-weight:700;background:#EBF4F0;padding:3px 12px;border-radius:999px;border:1px solid #C4DFD5;">${guestCount} Guests &middot; ${escapeHtml(bp.roomDims)} &middot; Authentic Table Clearance</span>` +
     `</div>` +
-    `<div style="height:280px;max-height:42vw;min-height:200px;overflow:hidden;background:#F5EFE6;position:relative;">` +
+    `<div style="height:280px;max-height:42vw;min-height:200px;overflow:hidden;background:#F5EFE6;">` +
       `<img src="${venueVisual.img}" alt="${escapeHtml(pageRow.title)} venue reception setting" style="width:100%;height:100%;object-fit:cover;object-position:center 35%;display:block;" loading="eager" />` +
-      `<div style="position:absolute;bottom:0;left:0;right:0;background:linear-gradient(to top, rgba(31,27,24,0.7), transparent);padding:24px 18px 12px;color:#FFFFFF;font-family:var(--font-serif);font-size:1.15rem;font-style:italic;">${escapeHtml(venueVisual.name)}</div>` +
     `</div>` +
   `</div>`;
   const specGridHtml = `<div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(165px,1fr));gap:12px;margin-bottom:20px;">` +
