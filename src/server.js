@@ -1,3 +1,4 @@
+const path = require('path');
 const express = require('express');
 const { initDb, queryAll, queryOne, runInsert } = require('./db');
 const { runGeoAudit, redactAuditForPublicPreview } = require('./geo-engine');
@@ -24,6 +25,7 @@ function resolvePublicOrigin(req) {
 }
 
 const app = express();
+app.use('/public', express.static(path.join(__dirname, '..', 'public')));
 app.use(express.json({ limit: '1mb' }));
 app.use(express.urlencoded({ extended: true }));
 
