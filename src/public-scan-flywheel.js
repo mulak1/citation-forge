@@ -285,7 +285,7 @@ function renderPublicScanPageHtml(cfg, scan, badgeColor) {
   const canonicalUrl = `https://${cfg.domain}/scan/${encodeURIComponent(scan.target)}`;
   const badgeUrl = `https://${cfg.domain}/badge/${encodeURIComponent(scan.target)}.svg`;
   const mdSnippet = `[![${cfg.brandName} ${scan.grade}](${badgeUrl})](${canonicalUrl})`;
-  const ledger = loadPublicScanLedger(cfg).slice(0, 8);
+  const ledger = loadPublicScanLedger(cfg).slice(0, 4);
   const recentLinks = ledger.map((item) => `<a href="/scan/${esc(encodeURIComponent(item.target))}" style="display:inline-flex;align-items:center;gap:6px;padding:6px 12px;border-radius:999px;background:#FFFFFF;font-size:13px;font-weight:600;color:${esc(t.textPrimary)};text-decoration:none;border:1px solid #E2E8F0;"><span>${esc(fmtFlywheelTitle(item.target, item))}</span><span style="color:${item.score >= 86 ? '#059669' : '#E11D48'};font-weight:800;">${esc(item.grade)}</span></a>`).join(' ');
   const filesList = (cfg.deliverableFiles && cfg.deliverableFiles.length) ? cfg.deliverableFiles : [
     { label: 'Primary Configuration & Rules', schema: 'Ready-to-use configuration tailored to this benchmark' },

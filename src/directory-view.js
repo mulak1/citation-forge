@@ -721,14 +721,6 @@ function renderDirectoryPage(seoPages = []) {
         <div id="sh-dir-status" style="display:none;width:100%;font-size:13px;font-weight:700;color:#047857;"></div>
       </div>
       <script>window.shSaveDirLead=async function(){var inp=document.getElementById('sh-dir-email'),btn=document.getElementById('sh-dir-save-btn'),st=document.getElementById('sh-dir-status');var em=inp?String(inp.value||'').trim().toLowerCase():'';if(!em||em.indexOf('@')<1){if(inp)inp.focus();return;}try{localStorage.setItem('sh_saved_email',em);}catch(_){}if(btn)btn.textContent='✓ Saved ($0)';try{var r=await fetch('/api/vault/save',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({ownerEmail:em,preset:'estate-150',page_url:'/directory',utm_source:'directory_bar'})});var d=await r.json(),vid=(d&&(d.vaultId||d.vault_id))||'SH-4819';if(st){st.style.display='block';st.innerHTML='✓ Saved to <strong>'+em.replace(/[<>&"]/g,'')+'</strong> &mdash; <a href="/?vault='+encodeURIComponent(vid)+'#studio" style="color:#00766C;text-decoration:underline;">Open Your Interactive Studio Plan ('+vid+') &rarr;</a>';}}catch(_){}};</script>
-      <div class="dir-filters" role="group" aria-label="Filter and sort venue layouts">
-        <span class="dir-filter-label">Guests</span>
-        <div class="dir-chips">${sizes.map(([k, l], i) => `<button type="button" class="dir-chip${i === 0 ? ' on' : ''}" data-size="${k}">${l}</button>`).join('')}</div>
-        <span class="dir-filter-label" style="margin-left:6px;">Venue</span>
-        <select id="dir-type" class="dir-select" aria-label="Venue type"><option value="all">All venue types</option>${types.map((t) => `<option value="${escapeHtml(t)}">${escapeHtml(t)}</option>`).join('')}</select>
-        <span class="dir-filter-label" style="margin-left:6px;">Sort</span>
-        <select id="dir-sort" class="dir-select" aria-label="Sort"><option value="small">Smallest room first</option><option value="large">Largest room first</option><option value="type">Venue type</option></select>
-      </div>
       <div class="dir-meta"><span id="dir-count">${plans.length} architectural layouts</span><span>Each layout models authentic table geometry, server aisles &amp; venue landmarks at ${SQFT_PER_GUEST} sq ft/guest.</span></div>
       <div class="dir-grid" id="dir-grid">${plans.map(([p, f]) => floorplanCard(p, f)).join('')}</div>
       <div class="dir-empty" id="dir-empty">No layouts match those filters. <button type="button" class="shw-link" onclick="dirReset()">Clear filters</button></div>
