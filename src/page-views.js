@@ -417,64 +417,54 @@ function renderZone3InteractiveStudio(plan) {
         </div>
       </div>
 
-      <!-- Full-Width Studio Footer Bar (Placed directly BELOW #sh-builder-grid spanning 100% width) -->
-      <div id="sh-vault-checkout-bar" style="width:100%;margin:10px 0 0;background:#FFFFFF;border:1.5px solid #00766C;border-radius:12px;padding:12px 16px;color:#1C1C1C;display:flex;flex-direction:column;gap:6px;box-shadow:0 4px 16px rgba(0,118,108,0.08);box-sizing:border-box;">
-        <div id="sh-live-personalized-proof" style="background:#FAF8F5;border:1px solid #EAE4DC;border-radius:8px;padding:7px 12px;display:flex;flex-direction:column;gap:6px;">
-          <div style="min-width:0;width:100%;display:flex;align-items:center;justify-content:space-between;gap:8px;flex-wrap:wrap;">
-            <div style="display:flex;align-items:center;gap:8px;flex-wrap:wrap;min-width:0;">
-              <span id="sh-conflict-solver-badge" style="font-size:13px;font-weight:800;color:#065F46;background:#ECFDF5;border:1px solid #A7F3D0;padding:2px 9px;border-radius:999px;">&#10003; 100% Table Harmony &middot; 0 Family Clashes &middot; 6 Allergy Meals Mapped</span>
-              <span style="display:none;" id="sh-table1-preview-badge">Live Seating &amp; Print Preview</span>
-              <span style="font-size:13px;font-weight:800;color:#1C1C1C;" id="sh-proof-couple-name" class="sh-hide-mobile-toolbar">${escapeHtml(plan.title || "Maya & Liam's Estate Reception")} &middot; <span id="sh-proof-venue-name" style="font-weight:600;color:#57534E;">${escapeHtml(plan.venueName || 'Rosewood Conservatory')}</span></span>
-            </div>
-            <span style="font-size:13px;color:#1C1C1C;" id="sh-proof-table1-summary"><strong>&#10003; Table 1 Sample (Free):</strong> Maya &amp; Liam Vance &bull; Filet Mignon &bull; 6 Allergy Notes</span>
-            <span style="display:none;" id="sh-table1-preview-status">Updates as you edit</span>
+      <!-- Full-Width Studio Footer Bar: Calm, Anti-Bombardment (1 Primary CTA + 1 Secondary Action) -->
+      <div id="sh-vault-checkout-bar" style="width:100%;margin:16px 0 0;background:#FFFFFF;border:1px solid #E2E8F0;border-radius:12px;padding:16px 20px;color:#0F172A;display:flex;flex-direction:column;gap:12px;box-shadow:0 2px 10px rgba(0,0,0,0.04);box-sizing:border-box;">
+        <div id="sh-live-personalized-proof" style="display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:8px;padding-bottom:12px;border-bottom:1px solid #F1F5F9;font-size:13.5px;">
+          <div style="display:flex;align-items:center;gap:8px;flex-wrap:wrap;min-width:0;">
+            <span style="display:inline-block;width:8px;height:8px;border-radius:999px;background:#059669;"></span>
+            <span style="font-weight:700;color:#0F172A;" id="sh-proof-couple-name">${escapeHtml(plan.title || "Maya & Liam's Estate Reception")}</span>
+            <span style="color:#64748B;" id="sh-proof-venue-name">&middot; ${escapeHtml(plan.venueName || 'Rosewood Conservatory')}</span>
+            <span id="sh-conflict-solver-badge" style="font-size:12px;font-weight:700;color:#047857;background:#ECFDF5;border:1px solid #A7F3D0;padding:2px 8px;border-radius:999px;">100% Harmony</span>
+            <span style="display:none;" id="sh-table1-preview-badge"></span>
+            <span style="display:none;" id="sh-table1-preview-status"></span>
           </div>
-          <div style="display:flex;flex-wrap:wrap;align-items:center;gap:6px;">
-            <button type="button" id="sh-locked-badge-beo" class="sh-locked-spec-badge" data-sh-locked-badge="beo" data-unmasked-text="&#10003; Tables 2&ndash;8 Clockwise Meal Tally Unmasked (62 Covers &middot; 12:00 Seat #1 &middot; 6 Allergy Flags)" onclick="if(window.shFocusEmailUnlockBadge){window.shFocusEmailUnlockBadge(this);}else{var e=document.getElementById('sh-inline-vault-email');if(e){e.scrollIntoView({behavior:'smooth',block:'center'});e.focus();}}" style="cursor:pointer;background:#F0FDFA;color:#065F46;border:1px solid #00766C;border-radius:999px;padding:4px 11px;font-size:13px;font-weight:700;line-height:1.25;filter:none;">${IC.lock}Tables 2&ndash;8 Clockwise Meal Tally &mdash; Tap to Unlock Free ($0) &uarr;</button>
-            <a id="sh-locked-badge-pack" class="sh-locked-spec-badge" href="/buy/complete_dossier?target=estate-150&amp;vault=${vId}&amp;allow_promotion_codes=false" style="cursor:pointer;background:#FAF6EE;color:#78350F;border:1px solid #C8A96E;border-radius:999px;padding:4px 11px;font-size:13px;font-weight:700;line-height:1.25;text-decoration:none;filter:none;">${IC.lock}24&Prime;&times;36&Prime; Print-Shop Poster &amp; Escort Cards ($7 Pack) &uarr;</a>
+          <div style="font-size:13px;color:#64748B;">
+            <span id="sh-proof-table1-summary">Table 1 Sample Included Free</span>
+            <button type="button" id="sh-locked-badge-beo" class="sh-locked-spec-badge" data-sh-locked-badge="beo" style="display:none;"></button>
+            <a id="sh-locked-badge-pack" class="sh-locked-spec-badge" href="/buy/complete_dossier?target=estate-150&amp;vault=${vId}&amp;allow_promotion_codes=false" style="display:none;"></a>
+            <div id="sh-table1-escort-dietary-preview" data-unmasked="1" style="display:none;"><div id="sh-table1-preview-body"></div></div>
           </div>
-          <div id="sh-table1-escort-dietary-preview" data-unmasked="1" style="display:block;font-size:12.5px;color:#374151;background:#FFFFFF;border:1px dashed #D6CFC2;border-radius:7px;padding:5px 10px;"><div id="sh-table1-preview-body"><strong>Place Card #1 Sample:</strong> Maya Vance &amp; Liam Vance &bull; Table 1, Seat #1 (12:00) &bull; Filet Mignon &bull; <strong>Dietary Notes:</strong> 6 Allergy Notes</div></div>
         </div>
 
-        <div style="display:flex;flex-direction:column;gap:6px;">
+        <div style="display:flex;flex-direction:column;gap:8px;">
           <div style="display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:6px;">
-            <div style="font-size:13.5px;font-weight:800;color:#1C1C1C;line-height:1.25;" id="sh-vault-bar-headline">Unlock Clockwise 12:00 Meal Tally ($0) or 24&Prime;&times;36&Prime; Print Pack ($7):</div>
-            <span id="sh-rival-anchor-badge" style="font-size:13px;font-weight:800;color:#00766C;background:#F0FDFA;border:1px solid #CCFBF1;padding:2px 9px;border-radius:999px;">$7 Auto-Filled 24&Prime;&times;36&Prime; Poster &amp; Caterer Sheet &middot; vs. $14 Blank Etsy Templates</span>
+            <label for="sh-inline-vault-email" style="font-size:14px;font-weight:700;color:#0F172A;" id="sh-vault-bar-headline">Save Your Seating Plan &amp; Meal Tally:</label>
+            <span id="sh-rival-anchor-badge" style="display:none;"></span>
           </div>
-          <div style="display:flex;flex-wrap:wrap;align-items:center;gap:6px;">
-            <div id="sh-inline-email-bridge" style="display:flex;flex-wrap:wrap;gap:6px;align-items:center;flex:1 1 280px;min-width:0;">
-              <input id="sh-inline-vault-email" type="email" placeholder="Enter your email to save &amp; unlock meal tally ($0)..." value="${escapeHtml(plan.ownerEmail && !/^(test|vip)@/i.test(plan.ownerEmail) ? plan.ownerEmail : '')}" onkeydown="if(event.key==='Enter')window.shSaveInlineEmailLead()" style="flex:1 1 auto;min-width:0;height:40px;min-height:40px;padding:8px 12px;border:1px solid #D1D5DB;border-radius:8px;font-size:16px;background:#FFFFFF;color:#1C1C1C;box-sizing:border-box;" aria-label="Email address to save seating plan" />
-              <button type="button" id="sh-inline-vault-save-btn" onclick="window.shSaveInlineEmailLead()" style="cursor:pointer;background:#00766C;color:#FFFFFF;border:1px solid #00766C;border-radius:8px;height:40px;min-height:40px;padding:8px 14px;font-size:14px;font-weight:700;white-space:nowrap;">Unlock Meal Tally ($0) &rarr;</button>
+          <div style="display:flex;flex-wrap:wrap;align-items:center;gap:10px;">
+            <div id="sh-inline-email-bridge" style="display:flex;flex-wrap:wrap;gap:8px;align-items:center;flex:1 1 300px;min-width:0;">
+              <input id="sh-inline-vault-email" type="email" placeholder="Enter your email to save your plan..." value="${escapeHtml(plan.ownerEmail && !/^(test|vip)@/i.test(plan.ownerEmail) ? plan.ownerEmail : '')}" onkeydown="if(event.key==='Enter')window.shSaveInlineEmailLead()" style="flex:1 1 auto;min-width:0;height:42px;padding:8px 14px;border:1px solid #CBD5E1;border-radius:8px;font-size:15px;background:#FFFFFF;color:#0F172A;box-sizing:border-box;" aria-label="Email address to save seating plan" />
+              <button type="button" id="sh-inline-vault-save-btn" onclick="window.shSaveInlineEmailLead()" style="cursor:pointer;background:#0F172A;color:#FFFFFF;border:none;border-radius:8px;height:42px;padding:8px 18px;font-size:14px;font-weight:700;white-space:nowrap;">Save Free ($0) &rarr;</button>
             </div>
-            <a id="sh-vault-buy-pack-btn" href="/buy/complete_dossier?target=estate-150&amp;vault=${vId}&amp;allow_promotion_codes=false" style="display:inline-flex;align-items:center;justify-content:center;text-align:center;background:#1C1C1C;color:#FFFFFF;border:1px solid #1C1C1C;border-radius:8px;height:40px;min-height:40px;padding:8px 14px;font-size:14px;font-weight:800;text-decoration:none;white-space:nowrap;line-height:1.25;">$7 Auto-Filled Print Pack (vs. $14 Etsy) &rarr;</a>
+            <a id="sh-vault-buy-pack-btn" href="/buy/complete_dossier?target=estate-150&amp;vault=${vId}&amp;allow_promotion_codes=false" style="display:inline-flex;align-items:center;justify-content:center;text-align:center;background:#FFFFFF;color:#047857;border:1.5px solid #059669;border-radius:8px;height:42px;padding:8px 16px;font-size:14px;font-weight:700;text-decoration:none;white-space:nowrap;box-sizing:border-box;">Get 24&Prime;&times;36&Prime; Print Pack ($7) &rarr;</a>
           </div>
-          <div id="sh-post-email-upgrade-bridge" style="display:none;padding:8px 12px;border-radius:8px;background:#F0FDFA;border:1px solid #99F6E4;color:#065F46;font-size:13px;font-weight:600;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:8px;">
-            <span>&#10003; Saved! <a id="sh-stateful-share-link" href="/?vault=${vId}&amp;saved=1#studio" style="color:#00766C;font-weight:700;text-decoration:underline;">Shareable Return Link</a></span>
-            <a id="sh-post-email-upgrade-cta" href="/buy/complete_dossier?target=estate-150&amp;vault=${vId}&amp;allow_promotion_codes=false" style="background:#1C1C1C;color:#FFFFFF;border-radius:8px;padding:6px 12px;font-size:14px;font-weight:700;text-decoration:none;">Download Full Print Pack ($7 &middot; vs. $14 Etsy &middot; Email Pre-Filled) &rarr;</a>
+          <div id="sh-post-email-upgrade-bridge" style="display:none;padding:10px 14px;border-radius:8px;background:#F0FDF4;border:1px solid #BBF7D0;color:#166534;font-size:13.5px;font-weight:600;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:8px;">
+            <span>&#10003; Plan saved! <a id="sh-stateful-share-link" href="/?vault=${vId}&amp;saved=1#studio" style="color:#047857;font-weight:700;text-decoration:underline;">Shareable Return Link</a></span>
+            <a id="sh-post-email-upgrade-cta" href="/buy/complete_dossier?target=estate-150&amp;vault=${vId}&amp;allow_promotion_codes=false" style="background:#0F172A;color:#FFFFFF;border-radius:8px;padding:7px 14px;font-size:13.5px;font-weight:700;text-decoration:none;">Download 24&Prime;&times;36&Prime; Print Pack ($7) &rarr;</a>
           </div>
         </div>
 
-        <div class="sh-hide-mobile-toolbar" style="display:flex;flex-wrap:wrap;align-items:center;justify-content:space-between;gap:8px;padding-top:6px;border-top:1px solid #EAE4DC;">
-          <div id="sh-voc-survey-box" style="display:flex;flex-wrap:wrap;align-items:center;gap:5px;">
-            <span id="sh-voc-survey-label" style="font-size:13px;font-weight:600;color:#57534E;">Preview deliverable:</span>
-            <div style="display:flex;flex-wrap:wrap;gap:4px;">
-              <button type="button" class="studio-tap-chip sh-voc-chip" style="padding:3px 9px;font-size:13px;" onclick="window.shSubmitVocSurvey('24x36_sign',this)">24&Prime;&times;36&Prime; Sign</button>
-              <button type="button" class="studio-tap-chip sh-voc-chip" style="padding:3px 9px;font-size:13px;" onclick="window.shSubmitVocSurvey('avery_5302',this)">Place Cards</button>
-              <button type="button" class="studio-tap-chip sh-voc-chip" style="padding:3px 9px;font-size:13px;" onclick="window.shSubmitVocSurvey('caterer_beo',this)">Caterer Sheet</button>
-              <button type="button" class="studio-tap-chip sh-voc-chip" style="padding:3px 9px;font-size:13px;" onclick="window.shSubmitVocSurvey('floorplan',this)">Floorplan</button>
-            </div>
+        <div class="sh-hide-mobile-toolbar" style="display:flex;flex-wrap:wrap;align-items:center;justify-content:space-between;gap:8px;padding-top:8px;border-top:1px solid #F1F5F9;font-size:12.5px;color:#64748B;">
+          <div id="sh-voc-survey-box" style="display:flex;align-items:center;gap:6px;">
+            <span id="sh-voc-survey-label">Included deliverables:</span>
+            <span>24&Prime;&times;36&Prime; Welcome Poster &middot; Avery 5302 Place Cards &middot; Clockwise Caterer BEO</span>
           </div>
-          <div id="sh-planner-pro-dock-banner" style="display:flex;flex-wrap:wrap;align-items:center;gap:10px;">
-            <a id="sh-footer-vault-link" href="/vault/${vId}" style="color:#065F46;font-size:13px;font-weight:700;text-decoration:none;">All Print &amp; Caterer Files &rarr;</a>
-            <a href="/directory" class="sh-venue-cta" style="font-size:13px;">Browse venue layouts &rarr;</a>
-            <span style="font-size:13px;color:#57534E;">Wedding Planner or Venue?</span>
-            <a id="sh-vault-buy-pro-btn" href="/buy/pro_b2b?target=estate-150&amp;vault=${vId}&amp;allow_promotion_codes=false" title="For Wedding Planners & Venues: Unlimited Events + Custom Agency Logo ($29 Pro Pass)" style="color:#00766C;font-size:13px;font-weight:800;text-decoration:underline;">$29 Pro Pass &rarr;</a>
+          <div id="sh-planner-pro-dock-banner" style="display:flex;align-items:center;gap:12px;">
+            <a id="sh-footer-vault-link" href="/vault/${vId}" style="color:#64748B;text-decoration:none;">View all files &rarr;</a>
+            <a id="sh-vault-buy-pro-btn" href="/buy/pro_b2b?target=estate-150&amp;vault=${vId}&amp;allow_promotion_codes=false" style="color:#0F172A;font-weight:700;text-decoration:underline;">Planner Pro Pass ($29) &rarr;</a>
           </div>
         </div>
-        <div id="sh-ecosystem-handoff-banner" style="display:none;">
-          <span>Also stocking your wedding reception bar?</span>
-          <a id="sh-ecosystem-handoff-link" href="https://barstock.exactbaseline.com/calculator/bar_stock?utm_source=seatharmony&amp;utm_medium=ecosystem_handoff" target="_blank" rel="noopener">Size your Costco or Total Wine alcohol order free on BarStock &rarr;</a>
-        </div>
+        <div id="sh-ecosystem-handoff-banner" style="display:none;"></div>
       </div>
     </div>
 
@@ -718,10 +708,9 @@ function renderSeoDetailPage(pageRow, relatedPages = []) {
     `</div>` +
     `<div style="display:flex;flex-wrap:wrap;align-items:center;justify-content:space-between;gap:8px;padding:8px 12px;margin-bottom:12px;background:#FFFFFF;border:1px solid #E2D9C8;border-radius:10px;">` +
       `<span style="font-size:13px;color:#181412;"><strong>&#10003; Table 1 Sample (Free):</strong> Seat #1 at 12:00 &bull; 2 Hosts &bull; Filet Mignon &amp; Halibut &bull; 0 Clashes</span>` +
-      `<div style="display:flex;flex-wrap:wrap;align-items:center;gap:6px;">` +
-        `<button type="button" id="sh-seo-locked-badge-beo" class="sh-locked-spec-badge" data-sh-locked-badge="seo-beo" onclick="try{fetch('/api/telemetry/event',{method:'POST',keepalive:true,headers:{'Content-Type':'application/json'},body:JSON.stringify({event_type:'view_paywall',eventType:'view_paywall',page_url:window.location.pathname,meta:{js_hydrated:1,source:'seo_locked_badge_beo'}})}).catch(function(){});}catch(_){}var el=document.getElementById('sh-seo-calc-email');if(el){el.scrollIntoView({behavior:'smooth',block:'center'});el.focus();}" style="cursor:pointer;background:#F0FDFA;color:#065F46;border:1px solid #00766C;border-radius:999px;padding:4px 11px;font-size:13px;font-weight:700;line-height:1.25;filter:none;">${IC.lock}Tables 2&ndash;8 Clockwise Meal Tally &mdash; Tap to Unlock Free ($0) &uarr;</button>` +
-        `<a id="sh-seo-locked-badge-pack" class="sh-locked-spec-badge" href="/buy/complete_dossier?target=${encodeURIComponent(pageRow.slug)}&amp;allow_promotion_codes=false" style="cursor:pointer;background:#FAF6EE;color:#78350F;border:1px solid #C8A96E;border-radius:999px;padding:4px 11px;font-size:13px;font-weight:700;line-height:1.25;text-decoration:none;filter:none;">${IC.lock}24&Prime;&times;36&Prime; Print-Shop Poster &amp; Escort Cards ($7 Pack) &uarr;</a>` +
-      `</div>` +
+      `<span style="font-size:12.5px;color:#78716C;">Included in free save</span>` +
+      `<button type="button" id="sh-seo-locked-badge-beo" class="sh-locked-spec-badge" data-sh-locked-badge="seo-beo" style="display:none;"></button>` +
+      `<a id="sh-seo-locked-badge-pack" class="sh-locked-spec-badge" href="/buy/complete_dossier?target=${encodeURIComponent(pageRow.slug)}&amp;allow_promotion_codes=false" style="display:none;"></a>` +
     `</div>` +
     `<div style="display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:10px;">` +
       `<div id="sh-seo-calc-email-wrap" style="display:flex;gap:8px;align-items:center;flex:1 1 280px;max-width:480px;">` +
