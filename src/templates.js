@@ -59,12 +59,12 @@ function renderHead({
   <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,600;0,700;1,600&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
   <style>
     :root {
-      --bg-primary: #FAF7F2; --bg-elevated: #FFFFFF; --bg-surface: #F5EFE6; --bg-obsidian: #1F1B18;
-      --text-primary: #1F1B18; --text-secondary: #574F49; --text-muted: #7D746D;
-      --accent-primary: #1B4D3E; --accent-primary-hover: #14382D; --accent-primary-soft: #EBF4F0;
-      --accent-gold: #B8860B; --accent-gold-soft: #FAF4E6; --accent-gold-dark: #8A6508;
-      --accent-emerald: #1B4D3E; --accent-rose: #A34838; --accent-rose-soft: #FDF1ED;
-      --border-warm: #E4DCD0; --border-subtle: #EFE8DD;
+      --bg-primary: #FCFAF7; --bg-elevated: #FFFFFF; --bg-surface: #F6F1EB; --bg-obsidian: #111827;
+      --text-primary: #111827; --text-secondary: #4B5563; --text-muted: #6B7280;
+      --accent-primary: #134E3F; --accent-primary-hover: #0E392E; --accent-primary-soft: #ECFDF5;
+      --accent-gold: #C59B27; --accent-gold-soft: #FFFBEB; --accent-gold-dark: #8A6508;
+      --accent-emerald: #134E3F; --accent-rose: #B43444; --accent-rose-soft: #FDF2F4;
+      --border-warm: #E5E0D8; --border-subtle: #EDE8E1;
       --font-serif: 'Cormorant Garamond', Georgia, serif;
       --font-sans: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, sans-serif;
       --font-mono: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, sans-serif;
