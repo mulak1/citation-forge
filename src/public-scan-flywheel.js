@@ -432,19 +432,21 @@ function renderLeaderboardPageHtml(cfg, badgeColor) {
     const venue = VENUE_THUMBNAILS[item.target];
     const venueImg = (venue && venue.img) || '/public/editorial-hero.jpg';
     const venueTag = (venue && venue.tag) || 'Venue Benchmark';
-    return `<div style="background:#FFFFFF;border-radius:14px;padding:16px 18px;display:flex;flex-direction:column;justify-content:space-between;gap:10px;box-shadow:0 1px 3px rgba(0,0,0,0.05);">
+    return `<div style="background:#FFFFFF;border-radius:14px;padding:18px 20px;display:flex;flex-direction:column;justify-content:space-between;gap:12px;box-shadow:0 1px 3px rgba(0,0,0,0.05);">
     <div>
-      <div style="height:124px;border-radius:10px;overflow:hidden;margin-bottom:12px;position:relative;background:#E2E8F0;">
-        <img src="${venueImg}" alt="${esc(itemTitle)} setting" style="width:100%;height:100%;object-fit:cover;" loading="lazy" />
-        <div style="position:absolute;top:8px;left:8px;display:flex;gap:6px;">
-          <span style="font-size:12px;font-weight:800;padding:3px 9px;border-radius:999px;background:#FFFBEB;color:#92400E;box-shadow:0 1px 3px rgba(0,0,0,0.12);">${medals[idx]}</span>
-          <span style="font-size:11.5px;font-weight:600;padding:3px 8px;border-radius:999px;background:rgba(15,23,42,0.72);color:#FFFFFF;">${venueTag}</span>
+      <div style="display:flex;justify-content:space-between;align-items:center;gap:8px;margin-bottom:12px;">
+        <div style="display:flex;align-items:center;gap:6px;">
+          <span style="font-size:12px;font-weight:800;padding:3px 9px;border-radius:999px;background:#FFFBEB;color:#92400E;">${medals[idx]}</span>
+          <span style="font-size:12px;font-weight:600;color:${esc(t.textSecondary)};">${venueTag}</span>
         </div>
-        <span style="position:absolute;top:8px;right:8px;padding:3px 10px;border-radius:999px;background:rgba(255,255,255,0.95);color:#059669;font-variant-numeric:tabular-nums;font-size:12.5px;font-weight:800;box-shadow:0 1px 3px rgba(0,0,0,0.1);">${esc(item.grade)} (${item.score}/100)</span>
+        <span style="font-variant-numeric:tabular-nums;font-size:12.5px;font-weight:800;color:#059669;">${esc(item.grade)} (${item.score}/100)</span>
+      </div>
+      <div style="height:140px;border-radius:10px;overflow:hidden;margin-bottom:12px;background:#E2E8F0;">
+        <img src="${venueImg}" alt="${esc(itemTitle)} setting" style="width:100%;height:100%;object-fit:cover;display:block;" loading="lazy" />
       </div>
       <a href="/scan/${esc(encodeURIComponent(item.target))}" style="font-size:18px;font-weight:800;color:${esc(t.textPrimary)};text-decoration:none;display:block;margin-bottom:4px;line-height:1.3;">${esc(itemTitle)} ↗</a>
       <div style="font-size:13.5px;font-weight:700;color:${esc(badgeColor)};margin-bottom:6px;">${esc(item.kpi1)} • ${esc(item.kpi2)}</div>
-      <div style="width:100%;height:8px;border-radius:999px;background:#E2E8F0;overflow:hidden;margin-bottom:8px;"><div style="width:${item.score}%;height:100%;background:#10B981;border-radius:999px;"></div></div>
+      <div style="width:100%;height:6px;border-radius:999px;background:#E2E8F0;overflow:hidden;margin-bottom:8px;"><div style="width:${item.score}%;height:100%;background:#10B981;border-radius:999px;"></div></div>
       <p style="font-size:13.5px;color:${esc(t.textSecondary)};margin:0;line-height:1.45;">${esc(item.cnnReadout)}</p>
     </div>
     <div style="display:flex;justify-content:space-between;align-items:center;padding-top:8px;border-top:1px solid ${esc(t.border)};font-size:13px;">
