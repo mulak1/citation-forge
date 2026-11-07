@@ -700,22 +700,27 @@ function renderDirectoryPage(seoPages = []) {
         <h1 class="studio-zone-title" style="text-align:center;margin-bottom:8px;">Find an architectural layout that fits your <em>venue.</em></h1>
         <p class="studio-zone-sub" style="text-align:center;">From 40-guest U-shape rehearsal dinners and 80-guest Tuscan vineyard banquets to 180-guest museum rotundas and 300-guest galas.</p>
       </div>
-      <div id="sh-dir-vault-bar" style="background:#FFFFFF;border:1.5px solid #00766C;border-radius:14px;padding:12px 16px;margin-bottom:16px;box-shadow:0 4px 16px rgba(0,118,108,0.08);display:flex;flex-direction:column;gap:8px;">
-        <div style="display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:8px;">
-          <span style="font-size:13px;font-weight:800;color:#065F46;background:#ECFDF5;border:1px solid #A7F3D0;padding:2px 9px;border-radius:999px;">&#10003; Layout #1 Sample (Free): 150-Guest Estate &middot; Table 1 Seat #1 at 12:00 &middot; 0 Family Clashes</span>
-          <div style="display:flex;flex-wrap:wrap;align-items:center;gap:6px;">
-            <button type="button" id="sh-dir-locked-badge-beo" class="sh-locked-spec-badge" onclick="var el=document.getElementById('sh-dir-email');if(el){el.focus();}" style="cursor:pointer;background:#F0FDFA;color:#065F46;border:1px solid #00766C;border-radius:999px;padding:4px 10px;font-size:12.5px;font-weight:700;">${lockSvg}Tables 2&ndash;8 Clockwise Meal Tally &mdash; Tap to Unlock Free ($0) &darr;</button>
-            <a href="/buy/complete_dossier?target=estate-150&amp;allow_promotion_codes=false" class="sh-locked-spec-badge" style="background:#FAF6EE;color:#78350F;border:1px solid #C8A96E;border-radius:999px;padding:4px 10px;font-size:12.5px;font-weight:700;text-decoration:none;">${lockSvg}24&Prime;&times;36&Prime; Print-Shop Poster &amp; Place Cards ($7 Pack) &rarr;</a>
-          </div>
-        </div>
-        <div style="display:flex;flex-wrap:wrap;align-items:center;gap:8px;">
-          <input id="sh-dir-email" type="email" placeholder="Enter email to save any venue layout &amp; unlock meal tally ($0)..." onkeydown="if(event.key==='Enter')window.shSaveDirLead()" style="flex:1 1 240px;min-width:0;height:40px;padding:8px 12px;border:1px solid #D1D5DB;border-radius:8px;font-size:14px;background:#FFFFFF;color:#1C1C1C;" aria-label="Email address to unlock venue layouts and caterer meal tally" />
-          <button type="button" id="sh-dir-save-btn" onclick="window.shSaveDirLead()" style="cursor:pointer;background:#00766C;color:#FFFFFF;border:1px solid #00766C;border-radius:8px;height:40px;padding:8px 14px;font-size:14px;font-weight:700;white-space:nowrap;">Unlock Meal Tally ($0) &rarr;</button>
-          <a href="/buy/complete_dossier?target=estate-150&amp;allow_promotion_codes=false" style="display:inline-flex;align-items:center;justify-content:center;background:#1C1C1C;color:#FFFFFF;border:1px solid #1C1C1C;border-radius:8px;height:40px;padding:8px 14px;font-size:14px;font-weight:800;text-decoration:none;white-space:nowrap;">$7 Auto-Filled Print Pack (vs. $14 Etsy) &rarr;</a>
-        </div>
-        <div id="sh-dir-status" style="display:none;font-size:13px;font-weight:700;color:#065F46;"></div>
+      <div class="dir-filters" role="group" aria-label="Filter and sort venue layouts">
+        <span class="dir-filter-label">Guests</span>
+        <div class="dir-chips">${sizes.map(([k, l], i) => `<button type="button" class="dir-chip${i === 0 ? ' on' : ''}" data-size="${k}">${l}</button>`).join('')}</div>
+        <span class="dir-filter-label" style="margin-left:6px;">Venue</span>
+        <select id="dir-type" class="dir-select" aria-label="Venue type"><option value="all">All venue types</option>${types.map((t) => `<option value="${escapeHtml(t)}">${escapeHtml(t)}</option>`).join('')}</select>
+        <span class="dir-filter-label" style="margin-left:6px;">Sort</span>
+        <select id="dir-sort" class="dir-select" aria-label="Sort"><option value="small">Smallest room first</option><option value="large">Largest room first</option><option value="type">Venue type</option></select>
       </div>
-      <script>window.shSaveDirLead=async function(){var inp=document.getElementById('sh-dir-email'),btn=document.getElementById('sh-dir-save-btn'),st=document.getElementById('sh-dir-status'),bEl=document.getElementById('sh-dir-locked-badge-beo');var em=inp?String(inp.value||'').trim().toLowerCase():'';if(!em||em.indexOf('@')<1){if(inp)inp.focus();return;}try{localStorage.setItem('sh_saved_email',em);}catch(_){}if(bEl)bEl.innerHTML='&#10003; Unmasked Free: All Venue Clockwise 12:00 Meal Sheets ('+em.replace(/[<>&"]/g,'')+')';if(btn)btn.textContent='✓ Unlocked ($0)';try{var r=await fetch('/api/vault/save',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({ownerEmail:em,preset:'estate-150',page_url:'/directory',utm_source:'directory_bar'})});var d=await r.json(),vid=(d&&(d.vaultId||d.vault_id))||'SH-4819';if(st){st.style.display='block';st.innerHTML='✓ Saved to <strong>'+em.replace(/[<>&"]/g,'')+'</strong> &mdash; <a href="/?vault='+encodeURIComponent(vid)+'#studio" style="color:#00766C;text-decoration:underline;">Open Your Interactive Studio Plan ('+vid+') &rarr;</a>';}}catch(_){}};</script>
+      <div id="sh-dir-vault-bar" style="background:#FFFFFF;border:1px solid #E2E8F0;border-radius:12px;padding:12px 18px;margin-bottom:14px;box-shadow:0 2px 8px rgba(0,0,0,0.03);display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:12px;">
+        <div style="flex:1 1 260px;min-width:0;">
+          <div style="font-weight:700;color:#0F172A;font-size:13.5px;">Save Any Venue Layout &amp; Unlock Meal Tally ($0)</div>
+          <div style="font-size:12.5px;color:#64748B;">Includes Table 1 sample, guest dietary flags, and 24&Prime;&times;36&Prime; sign spec</div>
+        </div>
+        <div style="display:flex;flex-wrap:wrap;align-items:center;gap:8px;flex:1 1 320px;">
+          <input id="sh-dir-email" type="email" placeholder="Enter your email to save..." onkeydown="if(event.key==='Enter')window.shSaveDirLead()" style="flex:1 1 180px;min-width:0;height:38px;padding:6px 12px;border:1px solid #CBD5E1;border-radius:8px;font-size:14px;background:#FFFFFF;color:#0F172A;" aria-label="Email address to save venue layouts" />
+          <button type="button" id="sh-dir-save-btn" onclick="window.shSaveDirLead()" style="cursor:pointer;background:#00766C;color:#FFFFFF;border:none;border-radius:8px;height:38px;padding:6px 14px;font-size:13.5px;font-weight:700;white-space:nowrap;">Save Free ($0) &rarr;</button>
+          <a href="/buy/complete_dossier?target=estate-150&amp;allow_promotion_codes=false" style="display:inline-flex;align-items:center;height:38px;padding:6px 12px;font-size:13px;font-weight:600;color:#475569;text-decoration:none;white-space:nowrap;">Get Print Pack ($7) &rarr;</a>
+        </div>
+        <div id="sh-dir-status" style="display:none;width:100%;font-size:13px;font-weight:700;color:#047857;"></div>
+      </div>
+      <script>window.shSaveDirLead=async function(){var inp=document.getElementById('sh-dir-email'),btn=document.getElementById('sh-dir-save-btn'),st=document.getElementById('sh-dir-status');var em=inp?String(inp.value||'').trim().toLowerCase():'';if(!em||em.indexOf('@')<1){if(inp)inp.focus();return;}try{localStorage.setItem('sh_saved_email',em);}catch(_){}if(btn)btn.textContent='✓ Saved ($0)';try{var r=await fetch('/api/vault/save',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({ownerEmail:em,preset:'estate-150',page_url:'/directory',utm_source:'directory_bar'})});var d=await r.json(),vid=(d&&(d.vaultId||d.vault_id))||'SH-4819';if(st){st.style.display='block';st.innerHTML='✓ Saved to <strong>'+em.replace(/[<>&"]/g,'')+'</strong> &mdash; <a href="/?vault='+encodeURIComponent(vid)+'#studio" style="color:#00766C;text-decoration:underline;">Open Your Interactive Studio Plan ('+vid+') &rarr;</a>';}}catch(_){}};</script>
       <div class="dir-filters" role="group" aria-label="Filter and sort venue layouts">
         <span class="dir-filter-label">Guests</span>
         <div class="dir-chips">${sizes.map(([k, l], i) => `<button type="button" class="dir-chip${i === 0 ? ' on' : ''}" data-size="${k}">${l}</button>`).join('')}</div>

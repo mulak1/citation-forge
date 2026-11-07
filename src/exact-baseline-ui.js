@@ -20,7 +20,7 @@ function buildExactBaselineStyles(cfg) {
   button:active, .preset-chip:active, .store-preview-pill:active, .eb-action-btn:active, .cta-btn:active { transform: scale(0.98) !important; }
   .metric-box-value, .matrix-price, .eb-kpi-val, .eb-tabular { font-variant-numeric: tabular-nums !important; }
   .eb-blurred-deliverable { filter: none !important; opacity: 1 !important; cursor: pointer !important; transition: background-color 200ms ease; }
-  #eb-deliverable-curtain { margin-top: 28px; padding: 32px 36px; border-radius: ${t.radiusCard}; background: ${t.cardBg}; border: none; box-shadow: none; color: ${t.textPrimary}; font-family: ${t.fontSans}; position: relative; z-index: 20; text-transform: none !important; letter-spacing: normal !important; font-style: normal !important; font-weight: 400 !important; }
+  #eb-deliverable-curtain, #eb-pseo-quick-bar, #eb-mobile-firstfold-bar, #eb-pseo-hero-split { display: none !important; }
   #eb-prism-proof-preview { background: ${t.cardBg}; color: ${t.textPrimary}; border-radius: 10px; padding: 14px 18px; font-family: ${t.fontSans}; font-size: 14px; line-height: 1.5; margin: 0; overflow-x: auto; white-space: normal; display: flex; flex-direction: column; justify-content: space-between; gap: 8px; text-transform: none !important; letter-spacing: normal !important; }
   .eb-proof-row { display: grid; grid-template-columns: minmax(125px, 1.05fr) minmax(0, 2.2fr) auto; gap: 10px; align-items: center; padding: 8px 12px; border-radius: 9px; background: ${t.canvasBg}; }
   @media (max-width: 640px) { .eb-proof-row { grid-template-columns: 1fr; gap: 4px; } }
@@ -458,6 +458,11 @@ function buildClientRuntimeScript(cfg) {
       var homeInp = document.getElementById('lookup-query') || document.getElementById('domain-input') || document.getElementById('res-brand-name');
       var homeVal = homeInp ? (homeInp.value || homeInp.textContent || '').trim() : '';
       if (homeVal) window.__ebActiveEntity = homeVal;
+    }
+    if (CFG.moduleId === 'citation_forge') {
+      // SeatHarmony has bespoke in-page studio tooling, venue photos, and directory filters.
+      // Suppress generic deliverable curtains and quick-bars to prevent dual-mounting collisions.
+      return;
     }
     var sparkPillHtml = '<div id="eb-hero-sparkline-pill" style="display:' + (isDerm ? 'none' : 'inline-flex') + ';" onclick="window.__ebCycleHeroScenario(event)" title="Tap to preview example"><span style="width:6px;height:6px;border-radius:50%;background:' + CFG.theme.safeColor + ';"></span><svg aria-hidden="true" width="42" height="14" viewBox="0 0 42 14" fill="none" style="overflow:visible;"><path id="eb-sparkline-path" d="M1 11 C 9 10, 14 4, 22 6 C 29 8, 34 2, 41 2" stroke="' + CFG.theme.brandPrimary + '" stroke-width="1.8" stroke-linecap="round"/><circle cx="41" cy="2" r="2.2" fill="' + CFG.theme.safeColor + '"/></svg><span id="eb-hero-sparkline-label" class="eb-tabular" style="font-size:13px !important;font-weight:700 !important;color:#0F172A;white-space:nowrap;">Live Preview</span></div>';
     var pHash = 0; for (var hi = 0; hi < pName.length; hi++) pHash = (pHash * 31 + pName.charCodeAt(hi)) & 0x7fffffff;
