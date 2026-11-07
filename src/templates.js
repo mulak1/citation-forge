@@ -593,11 +593,56 @@ function renderFooter() {
   return `<footer class="footer" role="contentinfo"><div class="container"><div style="display:flex;flex-wrap:wrap;justify-content:space-between;gap:24px;padding-bottom:24px;border-bottom:1px solid var(--border-warm);"><div style="max-width:420px;"><div style="display:flex;align-items:center;gap:10px;font-weight:800;font-size:1.05rem;color:var(--text-primary);margin-bottom:8px;">${renderBrandLogoSvg(26)}<span>SeatHarmony Studio</span></div><p style="font-size:0.88rem;color:var(--text-secondary);line-height:1.5;">Reception seating studio for couples and planners. Seat households together, export a Clockwise 12:00 Caterer Meal Sheet, and print 24&Prime;&times;36&Prime; welcome signs in minutes.</p></div><div style="display:flex;gap:36px;flex-wrap:wrap;"><div><div style="font-weight:800;color:var(--text-primary);margin-bottom:8px;font-size:0.82rem;text-transform:uppercase;letter-spacing:0.06em;">Reception Deliverables</div><div style="display:flex;flex-direction:column;gap:6px;"><a href="/#studio" style="color:var(--text-secondary);text-decoration:none;">Interactive Reception Floorplan</a><a href="/#studio" onclick="if(window.shSetActiveTab){window.shSetActiveTab('beo');}" style="color:var(--text-secondary);text-decoration:none;">Clockwise Caterer Meal Sheet</a><a href="/#studio" onclick="if(window.shSetActiveTab){window.shSetActiveTab('poster');}" style="color:var(--text-secondary);text-decoration:none;">24&Prime;&times;36&Prime; Easel Sign &amp; Avery 5302 Cards</a><a href="/directory" style="color:var(--text-secondary);text-decoration:none;">60+ Venue Floorplan Templates</a></div></div><div><div style="font-weight:800;color:var(--text-primary);margin-bottom:8px;font-size:0.82rem;text-transform:uppercase;letter-spacing:0.06em;">Legal &amp; Specs</div><div style="display:flex;flex-direction:column;gap:6px;"><a href="/privacy" style="color:var(--text-secondary);text-decoration:none;">Privacy Policy</a><a href="/terms" style="color:var(--text-secondary);text-decoration:none;">Terms of Service</a><a href="/#faq" style="color:var(--text-secondary);text-decoration:none;">Print &amp; Refund FAQ</a><a href="/sitemap.xml" style="color:var(--text-secondary);text-decoration:none;">XML Sitemap</a></div></div></div></div><div style="display:flex;flex-wrap:wrap;justify-content:space-between;gap:12px;padding-top:18px;font-size:0.82rem;color:var(--text-muted);"><span>Copyright ${new Date().getFullYear()} SeatHarmony Studio. FedEx &amp; Staples Print-Ready PDFs, Place Cards &amp; Caterer Meal Sheets.</span><span>Couples Kept Together &bull; Clockwise Seat #1 Catering &bull; Avery 5302 Verified</span></div></div></footer>`;
 }
 
+function getVenueVisual(slug = '', title = '', category = '') {
+  const s = `${slug} ${title} ${category}`.toLowerCase();
+  if (/tent|sailcloth|marquee|outdoor|lawn|rain|canopy/i.test(s)) {
+    return {
+      img: '/public/venue-sailcloth-tent.jpg',
+      tag: 'Sailcloth Tent & Garden',
+      name: 'Open-Air Sailcloth Tent & Garden Lawn'
+    };
+  }
+  if (/ballroom|hotel|gala|grand|formal|black-tie/i.test(s)) {
+    return {
+      img: '/public/venue-grand-ballroom.jpg',
+      tag: 'Grand Ballroom',
+      name: 'Grand Ballroom & Chandelier Banquet Hall'
+    };
+  }
+  if (/loft|industrial|warehouse|rooftop|penthouse|urban|modern|contemporary/i.test(s)) {
+    return {
+      img: '/public/venue-modern-loft.jpg',
+      tag: 'Industrial Loft & Rooftop',
+      name: 'Brick & Timber Industrial Loft'
+    };
+  }
+  if (/tuscan|courtyard|patio|al fresco|terrace|mediterranean|italian|olive/i.test(s)) {
+    return {
+      img: '/public/venue-tuscan-courtyard.jpg',
+      tag: 'Tuscan Courtyard Banquet',
+      name: 'Villa Cipressi Olive Grove Courtyard'
+    };
+  }
+  if (/winery|vineyard|barn|rustic|ranch|farm|harvest/i.test(s)) {
+    return {
+      img: '/public/venue-winery-sandbox.jpg',
+      tag: 'Winery & Vineyard Terrace',
+      name: 'Oak Ridge Winery & Barrel Room'
+    };
+  }
+  return {
+    img: '/public/venue-rosewood-estate.jpg',
+    tag: 'Private Estate & Conservatory',
+    name: 'The Conservatory at Rosewood Estate'
+  };
+}
+
 module.exports = {
   escapeHtml,
   renderBrandLogoSvg,
   renderHead,
   renderNavbar,
   renderFooter,
-  renderInteractiveScript
+  renderInteractiveScript,
+  getVenueVisual
 };

@@ -2,7 +2,7 @@
  * SeatHarmony - Venue Floorplan Directory (/directory) & Shared Architectural Blueprint Engine
  * Generates distinct, non-overlapping room geometries (12 architectural archetypes) for all 60+ pages.
  */
-const { escapeHtml, renderHead, renderNavbar, renderFooter } = require('./templates');
+const { escapeHtml, renderHead, renderNavbar, renderFooter, getVenueVisual } = require('./templates');
 
 const SQFT_PER_GUEST = 15;
 const fmt = (n) => Number(n || 0).toLocaleString('en-US');
@@ -721,6 +721,24 @@ function renderDirectoryPage(seoPages = []) {
         <div id="sh-dir-status" style="display:none;width:100%;font-size:13px;font-weight:700;color:#047857;"></div>
       </div>
       <script>window.shSaveDirLead=async function(){var inp=document.getElementById('sh-dir-email'),btn=document.getElementById('sh-dir-save-btn'),st=document.getElementById('sh-dir-status');var em=inp?String(inp.value||'').trim().toLowerCase():'';if(!em||em.indexOf('@')<1){if(inp)inp.focus();return;}try{localStorage.setItem('sh_saved_email',em);}catch(_){}if(btn)btn.textContent='✓ Saved ($0)';try{var r=await fetch('/api/vault/save',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({ownerEmail:em,preset:'estate-150',page_url:'/directory',utm_source:'directory_bar'})});var d=await r.json(),vid=(d&&(d.vaultId||d.vault_id))||'SH-4819';if(st){st.style.display='block';st.innerHTML='✓ Saved to <strong>'+em.replace(/[<>&"]/g,'')+'</strong> &mdash; <a href="/?vault='+encodeURIComponent(vid)+'#studio" style="color:#00766C;text-decoration:underline;">Open Your Interactive Studio Plan ('+vid+') &rarr;</a>';}}catch(_){}};</script>
+      <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:14px;margin-bottom:20px;">
+        <div style="display:flex;align-items:center;gap:14px;background:#FFFFFF;border:1px solid #E2E8F0;border-radius:12px;padding:12px 16px;box-shadow:0 1px 3px rgba(0,0,0,0.03);">
+          <img src="/public/ugc-welcome-sign-easel.jpg" alt="Real 24x36 wedding seating sign on easel at reception" style="width:72px;height:72px;border-radius:8px;object-fit:cover;flex-shrink:0;" loading="lazy" />
+          <div>
+            <div style="font-size:0.74rem;font-weight:800;color:#047857;letter-spacing:0.04em;text-transform:uppercase;">Real Reception Proof &middot; Sunstone Winery, CA</div>
+            <p style="font-size:0.83rem;color:#181412;line-height:1.4;margin:2px 0;">&ldquo;Printed the 24&Prime;&times;36&Prime; chart at FedEx for \$14. Seated 140 guests with zero table bottleneck.&rdquo;</p>
+            <span style="font-size:0.73rem;color:#78716C;">&mdash; Sarah &amp; Mateo (140 Guests)</span>
+          </div>
+        </div>
+        <div style="display:flex;align-items:center;gap:14px;background:#FFFFFF;border:1px solid #E2E8F0;border-radius:12px;padding:12px 16px;box-shadow:0 1px 3px rgba(0,0,0,0.03);">
+          <img src="/public/ugc-place-card-table.jpg" alt="Avery place cards on reception dinner table" style="width:72px;height:72px;border-radius:8px;object-fit:cover;flex-shrink:0;" loading="lazy" />
+          <div>
+            <div style="font-size:0.74rem;font-weight:800;color:#047857;letter-spacing:0.04em;text-transform:uppercase;">Coordinator Verified &middot; Napa Valley, CA</div>
+            <p style="font-size:0.83rem;color:#181412;line-height:1.4;margin:2px 0;">&ldquo;The clockwise 12:00 caterer sheet saved our team 25 mins of dinner confusion during meal service.&rdquo;</p>
+            <span style="font-size:0.73rem;color:#78716C;">&mdash; Elena Vance (Lead Event Planner)</span>
+          </div>
+        </div>
+      </div>
       <div class="dir-meta"><span id="dir-count">${plans.length} architectural layouts</span><span>Each layout models authentic table geometry, server aisles &amp; venue landmarks at ${SQFT_PER_GUEST} sq ft/guest.</span></div>
       <div class="dir-grid" id="dir-grid">${plans.map(([p, f]) => floorplanCard(p, f)).join('')}</div>
       <div class="dir-empty" id="dir-empty">No layouts match those filters. <button type="button" class="shw-link" onclick="dirReset()">Clear filters</button></div>
