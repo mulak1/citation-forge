@@ -734,12 +734,13 @@ function renderDeliverablesClientScript() {
     var tblCount = (st.tables && st.tables.length) || 8;
     var lockSvg = '<svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="display:inline-block;vertical-align:-2px;margin-right:4px;" aria-hidden="true"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>';
     document.querySelectorAll('[data-sh-locked-badge="beo"]').forEach(function(b) {
+      b.style.display = 'none';
       b.style.filter = 'none';
       if (isUnmasked) {
-        b.innerHTML = '&#10003; Unmasked Free: Tables 2&ndash;' + tblCount + ' Clockwise Meal Tally (' + (totalGuestsCnt || 62) + ' Covers &middot; 12:00 Seat #1 &middot; ' + (totalAllergies || 6) + ' Allergy Flags)';
+        b.innerHTML = '&#10003; Unmasked Free: Tables 2&ndash;' + tblCount + ' Clockwise Meal Tally';
         b.setAttribute('data-unmasked', '1');
       } else {
-        b.innerHTML = lockSvg + 'Tables 2&ndash;' + tblCount + ' Clockwise Meal Tally &mdash; Tap to Unlock Free ($0) &uarr;';
+        b.innerHTML = lockSvg + 'Tables 2&ndash;' + tblCount + ' Clockwise Meal Tally';
         b.setAttribute('data-unmasked', '0');
       }
     });

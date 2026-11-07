@@ -113,7 +113,7 @@ function renderHead({
     .sh-zola-showcase-card { background: #FFFFFF; border: 1px solid #E5E7EB; border-radius: 20px; padding: 18px; box-shadow: 0 16px 40px -12px rgba(28, 28, 28, 0.08); display: flex; flex-direction: column; gap: 14px; }
     .sh-zola-showcase-photo-wrap { position: relative; border-radius: 14px; overflow: hidden; border: 1px solid #E5E7EB; background: #F8F7F4; }
     .sh-zola-showcase-photo { width: 100%; height: 310px; object-fit: cover; object-position: center 22%; display: block; }
-    .sh-zola-floating-badges { position: absolute; left: 12px; right: 12px; bottom: 12px; display: flex; flex-wrap: wrap; gap: 8px; justify-content: space-between; align-items: center; pointer-events: none; }
+    .sh-zola-floating-badges { display: none !important; }
     .sh-zola-floating-pill { background: rgba(255, 255, 255, 0.97); border: 1px solid #E5E7EB; color: #1C1C1C; padding: 6px 12px; border-radius: 999px; font-size: 12.5px; font-weight: 700; box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08); display: inline-flex; align-items: center; gap: 6px; }
     .sh-zola-showcase-footer { display: flex; align-items: center; justify-content: space-between; gap: 12px; flex-wrap: wrap; background: #FBF9F6; border: 1px solid #E5E7EB; border-radius: 12px; padding: 12px 14px; }
     .sh-vsl-player-shell { width: 100%; background: #FFFFFF; color: #1C1C1C; border: 1px solid #E5E7EB; border-radius: 20px; overflow: hidden; box-shadow: 0 16px 40px -12px rgba(28, 28, 28, 0.08); }
