@@ -432,17 +432,20 @@ function renderZone3InteractiveStudio(plan) {
           </div>
         </div>
 
-        <div style="display:flex;flex-direction:column;gap:10px;">
+        <div style="display:flex;flex-direction:column;gap:12px;">
           <div style="display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:8px;">
-            <label for="sh-inline-vault-email" style="font-size:14.5px;font-weight:700;color:#1F1B18;" id="sh-vault-bar-headline">Save Your Seating Plan &amp; Download Caterer Sheet:</label>
+            <label for="sh-inline-vault-email" style="font-size:15px;font-weight:700;color:#1F1B18;" id="sh-vault-bar-headline">Save Your Seating Plan &amp; Download Caterer Sheet:</label>
             <span style="font-size:13px;color:#7D746D;">Instant browser link &middot; Zero watermark &middot; Free forever</span>
           </div>
-          <div style="display:flex;flex-wrap:wrap;align-items:center;gap:12px;">
-            <div id="sh-inline-email-bridge" style="display:flex;flex-wrap:wrap;gap:10px;align-items:center;flex:1 1 340px;min-width:0;">
-              <input id="sh-inline-vault-email" type="email" placeholder="Enter your email to save your plan..." value="${escapeHtml(plan.ownerEmail && !/^(test|vip)@/i.test(plan.ownerEmail) ? plan.ownerEmail : '')}" onkeydown="if(event.key==='Enter')window.shSaveInlineEmailLead()" style="flex:1 1 auto;min-width:0;height:44px;padding:8px 16px;border:1px solid #D6CBB8;border-radius:10px;font-size:15px;background:#FAF7F2;color:#1F1B18;box-sizing:border-box;" aria-label="Email address to save seating plan" />
-              <button type="button" id="sh-inline-vault-save-btn" onclick="window.shSaveInlineEmailLead()" style="cursor:pointer;background:#1B4D3E;color:#FFFFFF;border:none;border-radius:10px;height:44px;padding:8px 22px;font-size:14px;font-weight:700;white-space:nowrap;box-shadow:0 2px 8px rgba(27,77,62,0.2);">Save Free ($0) &rarr;</button>
+          <div style="display:flex;flex-direction:column;gap:10px;">
+            <div id="sh-inline-email-bridge" style="display:flex;flex-wrap:wrap;gap:10px;align-items:center;width:100%;">
+              <input id="sh-inline-vault-email" type="email" placeholder="Enter your email to save your plan..." value="${escapeHtml(plan.ownerEmail && !/^(test|vip)@/i.test(plan.ownerEmail) ? plan.ownerEmail : '')}" onkeydown="if(event.key==='Enter')window.shSaveInlineEmailLead()" style="flex:1 1 280px;min-width:0;height:44px;padding:8px 16px;border:1.5px solid #D6CBB8;border-radius:10px;font-size:15px;background:#FAF7F2;color:#1F1B18;box-sizing:border-box;" aria-label="Email address to save seating plan" />
+              <button type="button" id="sh-inline-vault-save-btn" onclick="window.shSaveInlineEmailLead()" style="cursor:pointer;background:#1B4D3E;color:#FFFFFF;border:none;border-radius:10px;height:44px;padding:8px 24px;font-size:14px;font-weight:700;white-space:nowrap;box-shadow:0 2px 8px rgba(27,77,62,0.2);">Save Free ($0) &rarr;</button>
             </div>
-            <a id="sh-vault-buy-pack-btn" href="/buy/complete_dossier?target=estate-150&amp;vault=${vId}&amp;allow_promotion_codes=false" style="display:inline-flex;align-items:center;justify-content:center;text-align:center;background:#FFFFFF;color:#1B4D3E;border:1.5px solid #1B4D3E;border-radius:10px;height:44px;padding:8px 18px;font-size:14px;font-weight:700;text-decoration:none;white-space:nowrap;box-sizing:border-box;">Get 24&Prime;&times;36&Prime; Print Pack ($7) &rarr;</a>
+            <div style="display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:8px;font-size:13.5px;">
+              <span style="color:#7D746D;">Need print-shop signage? <a id="sh-vault-buy-pack-btn" href="/buy/complete_dossier?target=estate-150&amp;vault=${vId}&amp;allow_promotion_codes=false" style="color:#1B4D3E;font-weight:700;text-decoration:underline;">Get Auto-Filled 24&Prime;&times;36&Prime; Print Pack ($7) &rarr;</a></span>
+              <a id="sh-footer-vault-link" href="/vault/${vId}" style="color:#574F49;text-decoration:none;">View all 5 event files &rarr;</a>
+            </div>
           </div>
           <div id="sh-post-email-upgrade-bridge" style="display:none;padding:12px 16px;border-radius:10px;background:#EBF4F0;border:1px solid #C4DFD5;color:#1B4D3E;font-size:14px;font-weight:600;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:10px;">
             <span>&#10003; Plan saved! <a id="sh-stateful-share-link" href="/?vault=${vId}&amp;saved=1#studio" style="color:#1B4D3E;font-weight:700;text-decoration:underline;">Shareable Return Link</a></span>
@@ -456,8 +459,7 @@ function renderZone3InteractiveStudio(plan) {
             <span>24&Prime;&times;36&Prime; Welcome Poster &middot; Avery 5302 Tent Cards &middot; Clockwise Caterer Sheet &middot; Live Guest QR</span>
           </div>
           <div id="sh-planner-pro-dock-banner" style="display:flex;align-items:center;gap:14px;">
-            <a id="sh-footer-vault-link" href="/vault/${vId}" style="color:#574F49;text-decoration:none;">View all files &rarr;</a>
-            <a id="sh-vault-buy-pro-btn" href="/buy/pro_b2b?target=estate-150&amp;vault=${vId}&amp;allow_promotion_codes=false" style="color:#1B4D3E;font-weight:700;text-decoration:underline;">Planner Pro Pass ($29) &rarr;</a>
+            <a id="sh-vault-buy-pro-btn" href="/buy/pro_b2b?target=estate-150&amp;vault=${vId}&amp;allow_promotion_codes=false" style="color:#1B4D3E;font-weight:700;text-decoration:underline;">Wedding Planner Pro Pass ($29) &rarr;</a>
           </div>
         </div>
         <div id="sh-ecosystem-handoff-banner" style="display:none;"></div>

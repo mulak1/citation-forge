@@ -593,7 +593,7 @@ function renderDeliverablesClientScript() {
     ['sh-pane-beo-buy-link'].forEach(function(k) { setHref(k, flashUrl); });
     ['sh-vault-buy-pro-btn', 'pricing-buy-pro'].forEach(function(k) { setHref(k, proUrl); });
     const vBtn = document.getElementById('sh-vault-buy-pack-btn');
-    if (vBtn) vBtn.innerHTML = '$7 Auto-Filled Print Pack (vs. $14 Etsy) &rarr;';
+    if (vBtn) vBtn.innerHTML = 'Get Auto-Filled 24&Prime;&times;36&Prime; Print Pack ($7) &rarr;';
     const pBtn = document.getElementById('pricing-buy-pack');
     if (pBtn) pBtn.innerHTML = 'Unlock ' + shEsc(coupleTitle) + ' Print Pack (' + totalGuests + ' Guests &middot; $7 vs. $14 Etsy) &rarr;';
     const qrImg = document.getElementById('sh-live-qr-img');
