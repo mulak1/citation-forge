@@ -77,7 +77,7 @@ function renderZone2Walkthrough(plan = {}) {
           <div class="sh-zola-showcase-card" style="padding:0;border:none;box-shadow:none;">
             <div style="display:flex;align-items:center;justify-content:space-between;gap:10px;flex-wrap:wrap;">
               <div style="display:flex;align-items:center;gap:10px;">
-                <img src="/public/avatar-couple.jpg" alt="Maya and Liam" width="40" height="40" class="sh-vsl-speaker-avatar" style="width:40px;height:40px;" loading="lazy" />
+                <img src="/public/editorial-customer.jpg" alt="Maya and Liam" width="40" height="40" class="sh-vsl-speaker-avatar" style="width:40px;height:40px;object-fit:cover;border-radius:999px;" loading="lazy" />
                 <div>
                   <div style="font-size:14px;font-weight:700;color:#1C1C1C;line-height:1.2;">Maya &amp; Liam&rsquo;s 150-Guest Estate Reception</div>
                   <div style="font-size:12.5px;font-weight:600;color:#00766C;">24&Prime;&times;36&Prime; Sign + Clockwise 12:00 Meal Sheet + Bar QR (${vId})</div>
