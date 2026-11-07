@@ -503,6 +503,7 @@ app.get('/api/health', (req, res) => {
 
   res.status(200).json({
     ok: true,
+    version: 'v1.2-anti-bombardment-bypass',
     service: 'SeatHarmony (#2) Wedding & Event Floorplan, Conflict Solver & Caterer BEO Studio',
     port: PORT,
     counts: {
