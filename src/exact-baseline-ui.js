@@ -528,6 +528,7 @@ function buildClientRuntimeScript(cfg) {
         if (window.__ebPaywallObserver) window.__ebPaywallObserver.observe(pcCta);
       }
     }
+    if (CFG.moduleId === 'citation_forge') return;
     var wbAnchor = document.getElementById('eb-onnx-cnn-workbench'), tBarAnchor = document.getElementById('eb-tanstack-table-bar'), homeFullGrid = (CFG.moduleId === 'citation_forge' && pName === '/' && document.getElementById('matrix')) ? document.getElementById('matrix') : document.querySelector('main .bento-grid, main .checker-split, main .hero-split, main .hero-grid');
     var seoTargetEl = isPseoOrDir ? ((CFG.moduleId === 'sponsor_radar' && document.getElementById('sr-biz-model-proof-bar')) || document.getElementById('eb-inline-row4-unlock') || document.getElementById('sr-seo-quote-auditor') || document.getElementById('sr-seo-kpi-strip') || document.getElementById('leaderboard-filter-bar') || existingHeroSplit || document.getElementById('eb-pseo-hero-split') || homeFullGrid || document.querySelector('main .table-wrap, article .table-wrap, main .posterior-table-wrap') || tBarAnchor || targetEl || document.getElementById('in-card-unlock-bar') || h1Node) : null;
     var mountAnchor = isPseoOrDir ? seoTargetEl : (wbAnchor || homeFullGrid || tBarAnchor || targetEl || document.getElementById('eb-doppelrand-hero-card') || document.getElementById('in-card-unlock-bar'));
@@ -927,7 +928,7 @@ function renderExactBaselineEnhancements(html, cfg, reqPath) {
     else if (/<\/main>/i.test(out)) out = out.replace(/<\/main>/i, (m) => `${podiumHtml}\n${m}`);
   }
   const isDirOrCompare = reqPath === '/directory' || reqPath === '/layouts' || (reqPath && reqPath.startsWith('/compare/'));
-  if (!isDirOrCompare) {
+  if (!isDirOrCompare && cfg.moduleId !== 'citation_forge') {
     const bottomSuite = buildBottomConversionSuiteHtml(cfg, reqPath);
     if (/<\/main>/i.test(out)) out = out.replace(/<\/main>/i, (m) => `${bottomSuite}\n${m}`);
     else if (out.includes('</body>')) out = out.replace('</body>', () => `${bottomSuite}\n</body>`);

@@ -137,8 +137,8 @@ app.get('/lp', async (req, res) => {
   }
 });
 
-// 3. Programmatic SEO Directory (`GET /directory`)
-app.get('/directory', (req, res) => {
+// 3. Programmatic SEO Directory (`GET /directory` and `GET /layouts`)
+app.get(['/directory', '/layouts'], (req, res) => {
   const seoPages = queryAll('SELECT slug, page_type, title, meta_description, category, primary_entity, secondary_entity, csov_score FROM seo_pages ORDER BY id ASC');
   res.status(200).type('html').send(renderDirectoryPage(seoPages));
 });
