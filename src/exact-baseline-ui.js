@@ -918,17 +918,21 @@ function buildClientRuntimeScript(cfg) {
 }
 function renderExactBaselineEnhancements(html, cfg, reqPath) {
   let out = enhanceHtmlForSearchAndAiBots(html, cfg, reqPath);
-  const styles = buildExactBaselineStyles(cfg), bottomSuite = buildBottomConversionSuiteHtml(cfg, reqPath), clientJs = buildClientRuntimeScript(cfg);
+  const styles = buildExactBaselineStyles(cfg), clientJs = buildClientRuntimeScript(cfg);
   out = out.includes('</head>') ? out.replace('</head>', () => `${styles}\n</head>`) : styles + out;
   const isHomeRoute = !reqPath || reqPath === '/' || reqPath === '/index.html';
-  if (isHomeRoute && !out.includes('eb-leaderboard-home-showcase')) {
+  if (isHomeRoute && !out.includes('eb-leaderboard-home-showcase') && cfg.moduleId !== 'citation_forge') {
     const podiumHtml = buildTopLeaderboardPodiumShowcaseHtml(cfg);
     if (/<main[\s\S]*?<\/section>/i.test(out)) out = out.replace(/(<main[\s\S]*?<\/section>)/i, (m) => `${m}\n${podiumHtml}`);
     else if (/<\/main>/i.test(out)) out = out.replace(/<\/main>/i, (m) => `${podiumHtml}\n${m}`);
   }
-  if (/<\/main>/i.test(out)) out = out.replace(/<\/main>/i, (m) => `${bottomSuite}\n${m}`);
-  else if (out.includes('</body>')) out = out.replace('</body>', () => `${bottomSuite}\n</body>`);
-  else out = `${out}\n${bottomSuite}`;
+  const isDirOrCompare = reqPath === '/directory' || reqPath === '/layouts' || (reqPath && reqPath.startsWith('/compare/'));
+  if (!isDirOrCompare) {
+    const bottomSuite = buildBottomConversionSuiteHtml(cfg, reqPath);
+    if (/<\/main>/i.test(out)) out = out.replace(/<\/main>/i, (m) => `${bottomSuite}\n${m}`);
+    else if (out.includes('</body>')) out = out.replace('</body>', () => `${bottomSuite}\n</body>`);
+    else out = `${out}\n${bottomSuite}`;
+  }
   return out.includes('</body>') ? out.replace('</body>', () => `${clientJs}\n</body>`) : `${out}\n${clientJs}`;
 }
 function renderEmbedWidgetHtml(cfg) {

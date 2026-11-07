@@ -26,14 +26,14 @@ const VERTICAL_CONFIGS = {
     moduleId: 'citation_forge',
     brandName: 'SeatHarmony',
     domain: 'www.seatharmony.io',
-    accentColor: '#0F172A',
+    accentColor: '#1B4D3E',
     theme: {
-      canvasBg: '#F8FAFC', cardBg: '#FFFFFF', subtleBg: '#F1F5F9', dockBg: 'rgba(248, 250, 252, 0.96)',
-      border: '#E4E2DD', accentBorder: '#CBD5E1', textPrimary: '#0F172A', textSecondary: '#334155', textMuted: '#475569',
-      brandPrimary: '#0F172A', brandSoftBg: '#F1F5F9', brandText: '#0F172A',
-      safeColor: '#047857', safeSoftBg: '#ECFDF5', safeBorder: '#A7F3D0', warnColor: '#B45309',
-      fontDisplay: "'Newsreader', Georgia, serif", fontSans: "'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, sans-serif",
-      radiusCard: '8px', radiusPill: '8px', shadow: 'none'
+      canvasBg: '#FAF7F2', cardBg: '#FFFFFF', subtleBg: '#F5EFE6', dockBg: 'rgba(250, 247, 242, 0.98)',
+      border: '#E4DCD0', accentBorder: '#C4DFD5', textPrimary: '#1F1B18', textSecondary: '#574F49', textMuted: '#7D746D',
+      brandPrimary: '#1B4D3E', brandSoftBg: '#EBF4F0', brandText: '#1B4D3E',
+      safeColor: '#1B4D3E', safeSoftBg: '#EBF4F0', safeBorder: '#A7F3D0', warnColor: '#B8860B',
+      fontDisplay: "'Cormorant Garamond', Georgia, serif", fontSans: "'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, sans-serif",
+      radiusCard: '14px', radiusPill: '999px', shadow: '0 4px 18px rgba(31, 27, 24, 0.05)'
     },
     flashPriceEnv: 'STRIPE_PRICE_FLASH_199',
     flashPriceDefault: 'price_1UQjMqIaoGnkXxS84yeYo8HG',
