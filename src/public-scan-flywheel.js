@@ -122,8 +122,8 @@ const VENUE_THUMBNAILS = {
   'tuscan-banquet-80': { img: '/public/venue-tuscan-courtyard.jpg', tag: 'Courtyard Banquet' },
   'estate-150': { img: '/public/venue-rosewood-estate.jpg', tag: 'Private Estate' },
   'planner-beo-sandbox': { img: '/public/venue-winery-sandbox.jpg', tag: 'Winery & Loft' },
-  'vip-exec-dinner': { img: '/public/venue-winery-sandbox.jpg', tag: 'Executive Gala' },
-  'charity-gala-300': { img: '/public/venue-rosewood-estate.jpg', tag: 'Grand Ballroom' }
+  'vip-exec-dinner': { img: '/public/venue-modern-loft.jpg', tag: 'Executive Gala' },
+  'charity-gala-300': { img: '/public/venue-grand-ballroom.jpg', tag: 'Grand Ballroom' }
 };
 
 function loadPublicScanLedger(cfg) {
@@ -328,7 +328,16 @@ function renderPublicScanPageHtml(cfg, scan, badgeColor) {
       <p class="pseo-lead" style="margin:0 0 8px 0;color:${esc(t.textSecondary)};font-size:14.5px;line-height:1.45;">
         <strong style="color:${esc(t.textPrimary)};">Why you are here (<span id="eb-scan-lead-target">${esc(displayTitle)}</span> &bull; <span id="eb-scan-lead-grade">Grade ${esc(scan.grade)} ${scan.score}/100</span>):</strong> ${esc(vCopy.goalText)}
       </p>
-      ${VENUE_THUMBNAILS[scan.target] ? `<div style="height:140px;border-radius:12px;overflow:hidden;position:relative;background:#E2E8F0;margin-bottom:10px;"><img src="${VENUE_THUMBNAILS[scan.target].img}" alt="${esc(displayTitle)} setting" style="width:100%;height:100%;object-fit:cover;" loading="lazy" /><div style="position:absolute;bottom:10px;left:12px;display:flex;gap:6px;align-items:center;"><span style="padding:4px 10px;border-radius:999px;background:rgba(15,23,42,0.88);color:#FFFFFF;font-size:12px;font-weight:700;">${VENUE_THUMBNAILS[scan.target].tag}</span><span style="padding:4px 10px;border-radius:999px;background:rgba(255,255,255,0.92);color:#047857;font-size:12px;font-weight:800;">Grade ${esc(scan.grade)} · ${scan.score}/100 Room Harmony</span></div></div>` : ''}
+      ${VENUE_THUMBNAILS[scan.target] ? `
+      <div style="margin:12px 0 16px;border-radius:12px;overflow:hidden;background:#F8FAFC;border:1px solid #E2E8F0;box-shadow:0 2px 8px rgba(0,0,0,0.03);">
+        <div style="display:flex;justify-content:space-between;align-items:center;padding:8px 14px;background:#F8FAFC;border-bottom:1px solid #E2E8F0;font-size:12.5px;color:#475569;flex-wrap:wrap;gap:6px;">
+          <span><strong style="color:#0F172A;">Venue Architecture:</strong> ${esc(VENUE_THUMBNAILS[scan.target].tag)}</span>
+          <span style="color:#047857;font-weight:700;">Grade ${esc(scan.grade)} &middot; ${scan.score}/100 Room Harmony</span>
+        </div>
+        <div style="height:220px;max-height:36vw;min-height:160px;overflow:hidden;background:#E2E8F0;">
+          <img src="${VENUE_THUMBNAILS[scan.target].img}" alt="${esc(displayTitle)} setting" style="width:100%;height:100%;object-fit:cover;object-position:center;display:block;" loading="eager" />
+        </div>
+      </div>` : ''}
       <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:12px;padding:12px 16px;border-radius:10px;background:#FFFFFF;border:1px solid #E2E8F0;border-left:3px solid #059669;font-size:13px;color:${esc(t.textSecondary)};line-height:1.45;width:100%;box-sizing:border-box;">
         <div><strong style="color:#047857;">● Verified Source:</strong> ${esc(vCopy.sourceProvenance)}</div>
         <div><strong style="color:#047857;">● Last Verified:</strong> ${esc(vCopy.dataFreshness)}</div>

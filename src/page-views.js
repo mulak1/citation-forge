@@ -668,6 +668,50 @@ function renderHomePage(initialAudit, sampleSeoPages = []) {
   ].join('\n');
 }
 
+function getVenueVisual(slug = '', title = '', category = '') {
+  const s = `${slug} ${title} ${category}`.toLowerCase();
+  if (/tent|sailcloth|marquee|outdoor|lawn|rain|canopy/i.test(s)) {
+    return {
+      img: '/public/venue-sailcloth-tent.jpg',
+      tag: 'Sailcloth Tent & Garden',
+      name: 'Open-Air Sailcloth Tent & Garden Lawn'
+    };
+  }
+  if (/ballroom|hotel|gala|grand|formal|black-tie/i.test(s)) {
+    return {
+      img: '/public/venue-grand-ballroom.jpg',
+      tag: 'Grand Ballroom',
+      name: 'Grand Ballroom & Chandelier Banquet Hall'
+    };
+  }
+  if (/loft|industrial|warehouse|rooftop|penthouse|urban|modern|contemporary/i.test(s)) {
+    return {
+      img: '/public/venue-modern-loft.jpg',
+      tag: 'Industrial Loft & Rooftop',
+      name: 'Brick & Timber Industrial Loft'
+    };
+  }
+  if (/tuscan|courtyard|patio|al fresco|terrace|mediterranean|italian|olive/i.test(s)) {
+    return {
+      img: '/public/venue-tuscan-courtyard.jpg',
+      tag: 'Tuscan Courtyard Banquet',
+      name: 'Villa Cipressi Olive Grove Courtyard'
+    };
+  }
+  if (/winery|vineyard|barn|rustic|ranch|farm|harvest/i.test(s)) {
+    return {
+      img: '/public/venue-winery-sandbox.jpg',
+      tag: 'Winery & Vineyard Terrace',
+      name: 'Oak Ridge Winery & Barrel Room'
+    };
+  }
+  return {
+    img: '/public/venue-rosewood-estate.jpg',
+    tag: 'Private Estate & Conservatory',
+    name: 'The Conservatory at Rosewood Estate'
+  };
+}
+
 function renderLandingPage(initialAudit) { return renderHomePage(initialAudit, []); }
 
 function renderSeoDetailPage(pageRow, relatedPages = []) {
@@ -678,6 +722,16 @@ function renderSeoDetailPage(pageRow, relatedPages = []) {
   const sqFt = bp.sqft.toLocaleString();
   const leaders = Array.isArray(payload.leaders) ? payload.leaders : [];
   const comfortTags = ['Recommended Setup', 'Great Guest Flow', 'Spacious Aisles', 'Cozy Conversation'];
+  const venueVisual = getVenueVisual(pageRow.slug, pageRow.title, pageRow.category);
+  const venueHeroHtml = `<div style="margin:14px 0 20px;border-radius:12px;overflow:hidden;background:#F8FAFC;border:1px solid #E2E8F0;box-shadow:0 2px 10px rgba(0,0,0,0.03);">` +
+    `<div style="display:flex;justify-content:space-between;align-items:center;padding:8px 14px;background:#F8FAFC;border-bottom:1px solid #E2E8F0;font-size:12.5px;color:#475569;flex-wrap:wrap;gap:6px;">` +
+      `<span><strong style="color:#0F172A;">Venue Architecture:</strong> ${escapeHtml(venueVisual.name)}</span>` +
+      `<span style="color:#047857;font-weight:700;">${guestCount} Guests &middot; ${escapeHtml(bp.roomDims)} &middot; Authentic Layout</span>` +
+    `</div>` +
+    `<div style="height:240px;max-height:36vw;min-height:170px;overflow:hidden;background:#E2E8F0;">` +
+      `<img src="${venueVisual.img}" alt="${escapeHtml(pageRow.title)} venue reception setting" style="width:100%;height:100%;object-fit:cover;object-position:center;display:block;" loading="eager" />` +
+    `</div>` +
+  `</div>`;
   const specGridHtml = `<div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(165px,1fr));gap:8px;margin-bottom:14px;">` +
     `<div style="background:#FAF6EE;border:1px solid #E5D9C5;border-radius:9px;padding:8px 11px;"><div style="font-size:0.68rem;font-weight:800;color:#8A6A2E;letter-spacing:0.06em;">ROOM / TENT SIZE</div><div style="font-size:0.94rem;font-weight:800;color:#181412;">${escapeHtml(bp.roomDims)} (~${sqFt} sq ft)</div></div>` +
     `<div style="background:#FAF6EE;border:1px solid #E5D9C5;border-radius:9px;padding:8px 11px;"><div style="font-size:0.68rem;font-weight:800;color:#8A6A2E;letter-spacing:0.06em;">TABLE COUNT</div><div style="font-size:0.94rem;font-weight:800;color:#181412;">${bp.tableCount} Tables (${bp.roundCount}R / ${bp.banquetCount}B)</div></div>` +
@@ -763,7 +817,7 @@ function renderSeoDetailPage(pageRow, relatedPages = []) {
   return [
     renderHead({ title: `${pageRow.title} | SeatHarmony Studio`, description: pageRow.meta_description, canonicalPath: `/seo/${pageRow.slug}`, ogSlug: pageRow.slug, jsonLd }),
     '<body>', renderNavbar(),
-    `<main class="container" style="padding:18px 18px 64px;"><div style="max-width:860px;margin:0 auto;"><div style="display:flex;gap:8px;align-items:center;margin-bottom:6px;flex-wrap:wrap;"><a href="/directory" style="font-size:0.78rem;font-weight:700;color:#8C2D19;text-decoration:none;">&larr; All 65+ Floorplans</a><span class="badge badge-emerald" style="font-size:0.72rem;padding:2px 8px;">${escapeHtml(pageRow.category)}</span></div><h1 class="studio-zone-title" style="font-size:clamp(1.45rem,4.5vw,2.2rem);line-height:1.15;margin-bottom:6px;">${escapeHtml(pageRow.title)}</h1><p style="font-size:0.92rem;color:#44403C;line-height:1.45;margin-bottom:12px;max-width:65ch;">Size your ${guestCount}-guest room, table count, and 24&Prime;&times;36&Prime; welcome sign below, then open the interactive floorplan free.</p>${leadersHtml}<p style="font-size:0.96rem;color:#44403C;line-height:1.58;margin-bottom:20px;max-width:65ch;">${escapeHtml(payload.summary || pageRow.meta_description)}</p>${compHtml}${guideHtml}<div class="panel" style="padding:24px;margin-bottom:28px;background:#FAF6EE;border-color:#C8A96E;"><h2 class="serif-display" style="font-size:1.5rem;margin-bottom:6px;">Try This ${guestCount}-Guest Layout With Sample Guests (Free)</h2><p style="font-size:0.92rem;color:#44403C;line-height:1.5;margin-bottom:16px;max-width:62ch;">Open this layout pre-filled with sample wedding families, divorced-parent separation across the dance floor, Clockwise 12:00 Caterer Meal Sheets, and 24&Prime;&times;36&Prime; welcome sign previews.</p><div style="display:flex;gap:12px;flex-wrap:wrap;"><a href="/?preset=${encodeURIComponent(pageRow.slug)}#studio" class="btn btn-primary">Open This Layout in the Seating Studio &rarr;</a><a href="/directory" class="btn btn-secondary">Browse All 65+ Venue Templates</a></div></div>${faqHtml ? `<h2 class="serif-display" style="font-size:1.6rem;margin-bottom:12px;">Common Questions About This Layout</h2><div style="display:flex;flex-direction:column;gap:10px;margin-bottom:32px;">${faqHtml}</div>` : ''}<h3 class="serif-display" style="font-size:1.4rem;margin-bottom:12px;">Related Reception &amp; Event Floorplans</h3><div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(240px,1fr));gap:12px;">${relHtml}</div></div></main>`,
+    `<main class="container" style="padding:18px 18px 64px;"><div style="max-width:860px;margin:0 auto;"><div style="display:flex;gap:8px;align-items:center;margin-bottom:6px;flex-wrap:wrap;"><a href="/directory" style="font-size:0.78rem;font-weight:700;color:#8C2D19;text-decoration:none;">&larr; All 65+ Floorplans</a><span class="badge badge-emerald" style="font-size:0.72rem;padding:2px 8px;">${escapeHtml(pageRow.category)}</span></div><h1 class="studio-zone-title" style="font-size:clamp(1.45rem,4.5vw,2.2rem);line-height:1.15;margin-bottom:6px;">${escapeHtml(pageRow.title)}</h1><p style="font-size:0.92rem;color:#44403C;line-height:1.45;margin-bottom:12px;max-width:65ch;">Size your ${guestCount}-guest room, table count, and 24&Prime;&times;36&Prime; welcome sign below, then open the interactive floorplan free.</p>${venueHeroHtml}${leadersHtml}<p style="font-size:0.96rem;color:#44403C;line-height:1.58;margin-bottom:20px;max-width:65ch;">${escapeHtml(payload.summary || pageRow.meta_description)}</p>${compHtml}${guideHtml}<div class="panel" style="padding:24px;margin-bottom:28px;background:#FAF6EE;border-color:#C8A96E;"><h2 class="serif-display" style="font-size:1.5rem;margin-bottom:6px;">Try This ${guestCount}-Guest Layout With Sample Guests (Free)</h2><p style="font-size:0.92rem;color:#44403C;line-height:1.5;margin-bottom:16px;max-width:62ch;">Open this layout pre-filled with sample wedding families, divorced-parent separation across the dance floor, Clockwise 12:00 Caterer Meal Sheets, and 24&Prime;&times;36&Prime; welcome sign previews.</p><div style="display:flex;gap:12px;flex-wrap:wrap;"><a href="/?preset=${encodeURIComponent(pageRow.slug)}#studio" class="btn btn-primary">Open This Layout in the Seating Studio &rarr;</a><a href="/directory" class="btn btn-secondary">Browse All 65+ Venue Templates</a></div></div>${faqHtml ? `<h2 class="serif-display" style="font-size:1.6rem;margin-bottom:12px;">Common Questions About This Layout</h2><div style="display:flex;flex-direction:column;gap:10px;margin-bottom:32px;">${faqHtml}</div>` : ''}<h3 class="serif-display" style="font-size:1.4rem;margin-bottom:12px;">Related Reception &amp; Event Floorplans</h3><div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(240px,1fr));gap:12px;">${relHtml}</div></div></main>`,
     renderFooter(), '</body></html>'
   ].join('\n');
 }

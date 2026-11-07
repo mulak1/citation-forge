@@ -721,12 +721,12 @@ const VENUE_THUMBNAILS = {
     tag: 'Winery & Loft Terrace'
   },
   'vip-exec-dinner': {
-    img: '/public/venue-winery-sandbox.jpg',
-    tag: 'Executive Gala'
+    img: '/public/venue-modern-loft.jpg',
+    tag: 'Executive Gala Loft'
   },
   'charity-gala-300': {
-    img: '/public/venue-rosewood-estate.jpg',
-    tag: 'Grand Ballroom'
+    img: '/public/venue-grand-ballroom.jpg',
+    tag: 'Grand Ballroom & Gala'
   }
 };
 function buildTopLeaderboardPodiumShowcaseHtml(cfg) {
