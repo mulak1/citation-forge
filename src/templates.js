@@ -59,10 +59,12 @@ function renderHead({
   <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,600;0,700;1,600&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
   <style>
     :root {
-      --bg-primary: #FFFFFF; --bg-elevated: #FFFFFF; --bg-surface: #F8F7F4; --bg-obsidian: #1C1C1C;
-      --text-primary: #1C1C1C; --text-secondary: #4B5563; --text-muted: #6B7280;
-      --accent-primary: #00766C; --accent-gold: #D6D3D1; --accent-gold-dark: #1C1C1C;
-      --accent-emerald: #00766C; --accent-rose: #9F1239; --border-warm: #E5E7EB;
+      --bg-primary: #FAF7F2; --bg-elevated: #FFFFFF; --bg-surface: #F5EFE6; --bg-obsidian: #1F1B18;
+      --text-primary: #1F1B18; --text-secondary: #574F49; --text-muted: #7D746D;
+      --accent-primary: #1B4D3E; --accent-primary-hover: #14382D; --accent-primary-soft: #EBF4F0;
+      --accent-gold: #B8860B; --accent-gold-soft: #FAF4E6; --accent-gold-dark: #8A6508;
+      --accent-emerald: #1B4D3E; --accent-rose: #A34838; --accent-rose-soft: #FDF1ED;
+      --border-warm: #E4DCD0; --border-subtle: #EFE8DD;
       --font-serif: 'Cormorant Garamond', Georgia, serif;
       --font-sans: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, sans-serif;
       --font-mono: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, sans-serif;
@@ -71,53 +73,53 @@ function renderHead({
     html { overflow-x: clip; }
     body { max-width: 100%; overflow-x: clip; font-size: 16px; background: var(--bg-primary); color: var(--text-primary); font-family: var(--font-sans); line-height: 1.55; -webkit-font-smoothing: antialiased; }
     button, input, select, textarea, svg text { font-family: var(--font-sans); }
-    .container { max-width: 1280px; margin: 0 auto; padding: 0 24px; }
-    .serif-display { font-family: var(--font-serif); font-weight: 700; letter-spacing: -0.015em; line-height: 1.12; }
+    .container { max-width: 1240px; margin: 0 auto; padding: 0 24px; }
+    .serif-display { font-family: var(--font-serif); font-weight: 700; letter-spacing: -0.015em; line-height: 1.15; }
     .mono { font-family: var(--font-mono); font-variant-numeric: tabular-nums; }
     .tabular { font-variant-numeric: tabular-nums; }
-    .navbar { position: sticky; top: 0; z-index: 90; overflow-x: clip; background: rgba(255, 255, 255, 0.98); border-bottom: 1px solid var(--border-warm); }
-    .nav-inner { display: flex; align-items: center; justify-content: space-between; height: 56px; gap: 10px; flex-wrap: nowrap; }
-    .nav-brand { display: inline-flex; align-items: center; gap: 8px; font-weight: 800; font-size: 1.05rem; color: var(--text-primary); text-decoration: none; white-space: nowrap; flex-shrink: 0; }
-    .nav-links { display: flex; align-items: center; gap: 11px; flex-wrap: nowrap; white-space: nowrap; }
-    .nav-link { font-size: 0.84rem; font-weight: 600; color: var(--text-secondary); text-decoration: none; white-space: nowrap; transition: color 0.15s ease; }
+    .navbar { position: sticky; top: 0; z-index: 90; overflow-x: clip; background: rgba(250, 247, 242, 0.97); backdrop-filter: blur(10px); border-bottom: 1px solid var(--border-warm); }
+    .nav-inner { display: flex; align-items: center; justify-content: space-between; height: 60px; gap: 14px; flex-wrap: nowrap; }
+    .nav-brand { display: inline-flex; align-items: center; gap: 10px; font-weight: 800; font-size: 1.08rem; color: var(--text-primary); text-decoration: none; white-space: nowrap; flex-shrink: 0; font-family: var(--font-serif); letter-spacing: -0.01em; }
+    .nav-links { display: flex; align-items: center; gap: 14px; flex-wrap: nowrap; white-space: nowrap; }
+    .nav-link { font-size: 0.86rem; font-weight: 600; color: var(--text-secondary); text-decoration: none; white-space: nowrap; transition: color 0.15s ease; }
     .nav-link:hover { color: var(--accent-primary); }
-    .nav-badge-soon { font-size: 0.82rem; font-weight: 700; text-transform: none; padding: 2px 6px; border-radius: 999px; background: #F0FDFA; color: #00766C; border: 1px solid #CCFBF1; margin-left: 3px; }
-    .btn { display: inline-flex; align-items: center; justify-content: center; gap: 7px; padding: 11px 20px; border-radius: 999px; font-weight: 700; font-size: 0.92rem; cursor: pointer; border: 1px solid transparent; text-decoration: none; white-space: nowrap; transition: all 0.16s ease; }
-    .btn-primary { background: #00766C; color: #FFFFFF; border-color: #00766C; border: 1.5px solid #00766C; box-shadow: 0 2px 8px rgba(0, 118, 108, 0.18); }
-    .btn-primary:hover { background: #005F57; border-color: #005F57; transform: translateY(-1px); }
-    .btn-secondary { background: #FFFFFF; color: #1C1C1C; border: 1.5px solid #D1D5DB; }
-    .btn-secondary:hover { background: #F8F7F4; border-color: #9CA3AF; }
-    .studio-zone-section, #studio, #studio-zone2-how-it-works, #beo-proof, #bs-before-after-section, #bs-written-testimonials-section, #pricing, #faq { padding: 64px 0; width: 100%; box-sizing: border-box; scroll-margin-top: 68px; }
-    #studio { padding: 24px 0 48px; }
-    #studio-bespoke-artifact-stage { padding: 14px; width: 100%; box-sizing: border-box; scroll-margin-top: 68px; }
+    .nav-badge-soon { font-size: 0.80rem; font-weight: 700; text-transform: none; padding: 2px 8px; border-radius: 999px; background: var(--accent-primary-soft); color: var(--accent-primary); border: 1px solid #C4DFD5; margin-left: 4px; }
+    .btn { display: inline-flex; align-items: center; justify-content: center; gap: 8px; padding: 12px 24px; border-radius: 999px; font-weight: 700; font-size: 0.94rem; cursor: pointer; border: 1.5px solid transparent; text-decoration: none; white-space: nowrap; transition: all 0.18s ease; }
+    .btn-primary { background: var(--accent-primary); color: #FFFFFF; border-color: var(--accent-primary); box-shadow: 0 4px 14px rgba(27, 77, 62, 0.22); }
+    .btn-primary:hover { background: var(--accent-primary-hover); border-color: var(--accent-primary-hover); transform: translateY(-1px); box-shadow: 0 6px 20px rgba(27, 77, 62, 0.28); }
+    .btn-secondary { background: #FFFFFF; color: var(--text-primary); border-color: var(--border-warm); box-shadow: 0 2px 8px rgba(31, 27, 24, 0.04); }
+    .btn-secondary:hover { background: var(--bg-surface); border-color: var(--accent-gold); color: var(--text-primary); }
+    .studio-zone-section, #studio, #studio-zone2-how-it-works, #beo-proof, #bs-before-after-section, #bs-written-testimonials-section, #pricing, #faq { padding: 72px 0; width: 100%; box-sizing: border-box; scroll-margin-top: 68px; }
+    #studio { padding: 36px 0 54px; }
+    #studio-bespoke-artifact-stage { padding: 18px; width: 100%; box-sizing: border-box; scroll-margin-top: 68px; }
     .mobile-jump-canvas-btn { display: none; }
-    .studio-eyebrow-kicker, .bs-section-eyebrow { display: inline-flex; align-items: center; gap: 6px; font-family: var(--font-sans); font-size: 0.85rem; font-weight: 600; letter-spacing: 0.01em; text-transform: none; color: #00766C; background: #F0FDFA; border: 1px solid #CCFBF1; padding: 6px 16px; border-radius: 999px; margin-bottom: 14px; max-width: 100%; white-space: nowrap; }
-    .studio-zone-title, .bs-section-h2 { font-family: var(--font-serif); font-size: clamp(2.15rem, 3.2vw, 2.85rem); font-weight: 700; color: #1C1C1C; line-height: 1.12; letter-spacing: -0.015em; margin: 0 0 14px 0; text-wrap: balance; }
-    .studio-zone-title em, .bs-section-h2 em { font-style: italic; color: #00766C; font-weight: 600; }
-    .studio-zone-sub, .bs-section-sub { font-size: 1.06rem; color: #4B5563; line-height: 1.56; max-width: 58ch; margin: 0 auto; text-wrap: pretty; }
-    .bs-section-header { max-width: 780px; margin: 0 auto 48px; text-align: center; }
-    .studio-zone1-hero { padding: 24px 0 28px; background: linear-gradient(180deg, #FBF9F6 0%, #FFFFFF 100%); border-bottom: 1px solid #E5E7EB; }
-    .sh-zone1-stack { display: flex; flex-direction: column; align-items: stretch; gap: 36px; max-width: 1180px; margin: 0 auto; }
-    .sh-zola-hero-split { display: grid; grid-template-columns: 1.08fr 0.92fr; gap: 44px; align-items: center; }
-    .sh-zola-hero-left { display: flex; flex-direction: column; align-items: flex-start; text-align: left; gap: 18px; }
+    .studio-eyebrow-kicker, .bs-section-eyebrow { display: inline-flex; align-items: center; gap: 8px; font-family: var(--font-sans); font-size: 0.85rem; font-weight: 700; letter-spacing: 0.02em; text-transform: none; color: var(--accent-primary); background: var(--accent-primary-soft); border: 1px solid #C4DFD5; padding: 7px 18px; border-radius: 999px; margin-bottom: 16px; max-width: 100%; white-space: nowrap; }
+    .studio-zone-title, .bs-section-h2 { font-family: var(--font-serif); font-size: clamp(2.2rem, 3.4vw, 3.0rem); font-weight: 700; color: var(--text-primary); line-height: 1.14; letter-spacing: -0.018em; margin: 0 0 16px 0; text-wrap: balance; }
+    .studio-zone-title em, .bs-section-h2 em { font-style: italic; color: var(--accent-primary); font-weight: 600; }
+    .studio-zone-sub, .bs-section-sub { font-size: 1.08rem; color: var(--text-secondary); line-height: 1.6; max-width: 60ch; margin: 0 auto; text-wrap: pretty; }
+    .bs-section-header { max-width: 800px; margin: 0 auto 52px; text-align: center; }
+    .studio-zone1-hero { padding: 36px 0 44px; background: linear-gradient(180deg, #FDFBF7 0%, #FAF7F2 100%); border-bottom: 1px solid var(--border-warm); }
+    .sh-zone1-stack { display: flex; flex-direction: column; align-items: stretch; gap: 40px; max-width: 1200px; margin: 0 auto; }
+    .sh-zola-hero-split { display: grid; grid-template-columns: 1.08fr 0.92fr; gap: 48px; align-items: center; }
+    .sh-zola-hero-left { display: flex; flex-direction: column; align-items: flex-start; text-align: left; gap: 20px; }
     .sh-zola-hero-right { width: 100%; min-width: 0; }
-    .sh-zone1-header-block { display: flex; flex-direction: column; align-items: flex-start; text-align: left; gap: 14px; max-width: 640px; }
-    .sh-eyebrow-pill { display: inline-flex; align-items: center; gap: 8px; background: #F0FDFA; border: 1px solid #CCFBF1; color: #00766C; padding: 6px 14px; border-radius: 999px; font-size: 13px; font-weight: 600; letter-spacing: 0.01em; text-transform: none; white-space: nowrap; }
-    .sh-eyebrow-dot { width: 7px; height: 7px; border-radius: 50%; background: #00766C; box-shadow: 0 0 0 3px rgba(0, 118, 108, 0.14); }
-    .sh-display-h1 { font-family: var(--font-serif); font-size: clamp(2.15rem, 3.35vw, 2.95rem); font-weight: 700; line-height: 1.10; letter-spacing: -0.02em; color: #1C1C1C; margin: 0; text-wrap: balance; }
-    .sh-display-h1 .sh-h1-accent { color: #00766C; display: inline; }
-    .sh-lead-sub { font-size: 1.08rem; line-height: 1.58; color: #4B5563; margin: 0; max-width: 54ch; text-wrap: pretty; }
-    .sh-zola-hero-trust-list { list-style: none; margin: 4px 0 0; padding: 0; display: flex; flex-direction: column; gap: 9px; font-size: 0.95rem; color: #374151; font-weight: 500; }
-    .sh-zola-hero-trust-list li { display: flex; align-items: center; gap: 10px; line-height: 1.4; }
-    .sh-zola-trust-check { width: 20px; height: 20px; border-radius: 999px; background: #F0FDFA; border: 1px solid #CCFBF1; color: #00766C; font-size: 12px; font-weight: 800; display: inline-flex; align-items: center; justify-content: center; flex-shrink: 0; }
-    .sh-zola-showcase-card { background: #FFFFFF; border: 1px solid #E5E7EB; border-radius: 20px; padding: 18px; box-shadow: 0 16px 40px -12px rgba(28, 28, 28, 0.08); display: flex; flex-direction: column; gap: 14px; }
-    .sh-zola-showcase-photo-wrap { position: relative; border-radius: 14px; overflow: hidden; border: 1px solid #E5E7EB; background: #F8F7F4; }
-    .sh-zola-showcase-photo { width: 100%; height: 310px; object-fit: cover; object-position: center 22%; display: block; }
+    .sh-zone1-header-block { display: flex; flex-direction: column; align-items: flex-start; text-align: left; gap: 16px; max-width: 640px; }
+    .sh-eyebrow-pill { display: inline-flex; align-items: center; gap: 8px; background: var(--accent-primary-soft); border: 1px solid #C4DFD5; color: var(--accent-primary); padding: 7px 16px; border-radius: 999px; font-size: 13.5px; font-weight: 700; letter-spacing: 0.02em; text-transform: none; white-space: nowrap; }
+    .sh-eyebrow-dot { width: 8px; height: 8px; border-radius: 50%; background: var(--accent-primary); box-shadow: 0 0 0 3px rgba(27, 77, 62, 0.16); }
+    .sh-display-h1 { font-family: var(--font-serif); font-size: clamp(2.25rem, 3.5vw, 3.15rem); font-weight: 700; line-height: 1.10; letter-spacing: -0.02em; color: var(--text-primary); margin: 0; text-wrap: balance; }
+    .sh-display-h1 .sh-h1-accent { color: var(--accent-primary); display: inline; font-style: italic; }
+    .sh-lead-sub { font-size: 1.12rem; line-height: 1.62; color: var(--text-secondary); margin: 0; max-width: 54ch; text-wrap: pretty; }
+    .sh-zola-hero-trust-list { list-style: none; margin: 6px 0 0; padding: 0; display: flex; flex-direction: column; gap: 10px; font-size: 0.98rem; color: var(--text-primary); font-weight: 600; }
+    .sh-zola-hero-trust-list li { display: flex; align-items: center; gap: 12px; line-height: 1.4; }
+    .sh-zola-trust-check { width: 22px; height: 22px; border-radius: 999px; background: var(--accent-primary-soft); border: 1px solid #C4DFD5; color: var(--accent-primary); font-size: 13px; font-weight: 800; display: inline-flex; align-items: center; justify-content: center; flex-shrink: 0; }
+    .sh-zola-showcase-card { background: #FFFFFF; border: 1px solid var(--border-warm); border-radius: 22px; padding: 22px; box-shadow: 0 20px 48px -14px rgba(31, 27, 24, 0.09); display: flex; flex-direction: column; gap: 16px; }
+    .sh-zola-showcase-photo-wrap { position: relative; border-radius: 16px; overflow: hidden; border: 1px solid var(--border-warm); background: var(--bg-surface); }
+    .sh-zola-showcase-photo { width: 100%; height: 320px; object-fit: cover; object-position: center 24%; display: block; }
     .sh-zola-floating-badges { display: none !important; }
-    .sh-zola-floating-pill { background: rgba(255, 255, 255, 0.97); border: 1px solid #E5E7EB; color: #1C1C1C; padding: 6px 12px; border-radius: 999px; font-size: 12.5px; font-weight: 700; box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08); display: inline-flex; align-items: center; gap: 6px; }
-    .sh-zola-showcase-footer { display: flex; align-items: center; justify-content: space-between; gap: 12px; flex-wrap: wrap; background: #FBF9F6; border: 1px solid #E5E7EB; border-radius: 12px; padding: 12px 14px; }
-    .sh-vsl-player-shell { width: 100%; background: #FFFFFF; color: #1C1C1C; border: 1px solid #E5E7EB; border-radius: 20px; overflow: hidden; box-shadow: 0 16px 40px -12px rgba(28, 28, 28, 0.08); }
-    .sh-vsl-garland-frieze { background: #F8F7F4; border-bottom: 1px solid #E5E7EB; padding: 2px 0 0; }
+    .sh-zola-floating-pill { background: rgba(255, 255, 255, 0.98); border: 1px solid var(--border-warm); color: var(--text-primary); padding: 7px 14px; border-radius: 999px; font-size: 13px; font-weight: 700; box-shadow: 0 4px 14px rgba(31, 27, 24, 0.08); display: inline-flex; align-items: center; gap: 6px; }
+    .sh-zola-showcase-footer { display: flex; align-items: center; justify-content: space-between; gap: 14px; flex-wrap: wrap; background: var(--bg-primary); border: 1px solid var(--border-warm); border-radius: 14px; padding: 14px 18px; }
+    .sh-vsl-player-shell { width: 100%; background: #FFFFFF; color: var(--text-primary); border: 1px solid var(--border-warm); border-radius: 22px; overflow: hidden; box-shadow: 0 20px 48px -14px rgba(31, 27, 24, 0.09); }
+    .sh-vsl-garland-frieze { background: var(--bg-surface); border-bottom: 1px solid var(--border-warm); padding: 2px 0 0; }
     .sh-vsl-stage { padding: 18px; display: block; background: #FFFFFF; }
     .sh-vsl-scene { width: 100%; grid-area: 1 / 1; visibility: hidden; }
     .sh-vsl-scene.active { visibility: visible; }
@@ -598,11 +600,11 @@ function getVenueVisual(slug = '', title = '', category = '') {
   if (/tent|sailcloth|marquee|outdoor|lawn|rain|canopy/i.test(s)) {
     return {
       img: '/public/venue-sailcloth-tent.jpg',
-      tag: 'Sailcloth Tent & Garden',
+      tag: 'Sailcloth Tent & Lawn',
       name: 'Open-Air Sailcloth Tent & Garden Lawn'
     };
   }
-  if (/ballroom|hotel|gala|grand|formal|black-tie/i.test(s)) {
+  if (/ballroom|hotel|gala|grand|formal|black-tie|chandelier/i.test(s)) {
     return {
       img: '/public/venue-grand-ballroom.jpg',
       tag: 'Grand Ballroom',
@@ -612,27 +614,55 @@ function getVenueVisual(slug = '', title = '', category = '') {
   if (/loft|industrial|warehouse|rooftop|penthouse|urban|modern|contemporary/i.test(s)) {
     return {
       img: '/public/venue-modern-loft.jpg',
-      tag: 'Industrial Loft & Rooftop',
+      tag: 'Industrial Loft',
       name: 'Brick & Timber Industrial Loft'
     };
   }
   if (/tuscan|courtyard|patio|al fresco|terrace|mediterranean|italian|olive/i.test(s)) {
     return {
       img: '/public/venue-tuscan-courtyard.jpg',
-      tag: 'Tuscan Courtyard Banquet',
+      tag: 'Tuscan Courtyard',
       name: 'Villa Cipressi Olive Grove Courtyard'
     };
   }
   if (/winery|vineyard|barn|rustic|ranch|farm|harvest/i.test(s)) {
     return {
       img: '/public/venue-winery-sandbox.jpg',
-      tag: 'Winery & Vineyard Terrace',
+      tag: 'Winery & Vineyard',
       name: 'Oak Ridge Winery & Barrel Room'
+    };
+  }
+  if (/conservatory|greenhouse|botanical|orangery|garden|glass/i.test(s)) {
+    return {
+      img: '/public/venue-botanical-conservatory.jpg',
+      tag: 'Botanical Greenhouse',
+      name: 'Glass Greenhouse & Botanical Orangery'
+    };
+  }
+  if (/rotunda|museum|historic|marble|columns|classic/i.test(s)) {
+    return {
+      img: '/public/venue-historic-rotunda.jpg',
+      tag: 'Historic Rotunda',
+      name: 'Marble Rotunda & Classical Colonnade'
+    };
+  }
+  if (/coastal|cliffside|ocean|beach|waterfront|yacht|island/i.test(s)) {
+    return {
+      img: '/public/venue-coastal-cliffside.jpg',
+      tag: 'Coastal Ocean Terrace',
+      name: 'Pacific Cliffside Ocean Pavilion'
+    };
+  }
+  if (/cellar|intimate|micro|rehearsal|candlelit|vault|private dining/i.test(s)) {
+    return {
+      img: '/public/venue-wine-cellar.jpg',
+      tag: 'Candlelit Wine Cellar',
+      name: 'Historic Brick Wine Cellar & Vault'
     };
   }
   return {
     img: '/public/venue-rosewood-estate.jpg',
-    tag: 'Private Estate & Conservatory',
+    tag: 'Private Country Estate',
     name: 'The Conservatory at Rosewood Estate'
   };
 }

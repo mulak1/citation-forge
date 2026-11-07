@@ -600,13 +600,17 @@ function parseFloorplan(p) {
 
 function floorplanCard(p, f) {
   const title = String(p.title || '').replace(/^\d{2,3}-(?:Guest|Person)\s+/i, '');
+  const visual = getVenueVisual(p.slug, p.title, p.category);
   return `<a href="/seo/${escapeHtml(p.slug)}" class="dir-card" data-guests="${f.guests}" data-sqft="${f.sqft}" data-type="${escapeHtml(f.type)}">
+    <div class="dir-card-photo-frame">
+      <img src="${visual.img}" alt="${escapeHtml(title)} hypothetical venue setting" loading="lazy" class="dir-card-photo" />
+    </div>
     <div style="display:flex;justify-content:space-between;align-items:center;gap:6px;">
       <span class="dir-card-type">${escapeHtml(f.type)}</span>
-      <span style="font-size:0.72rem;font-weight:700;color:#065F46;background:#ECFDF5;padding:2px 8px;border-radius:999px;border:1px solid #A7F3D0;">${f.pts.length + 1} Tables</span>
+      <span class="dir-card-badge">${f.pts.length + 1} Tables</span>
     </div>
     ${renderFloorplanSvg(f, { detailed: false })}
-    <div style="font-size:0.76rem;font-weight:700;color:#57534E;background:#FAF6EE;padding:5px 9px;border-radius:8px;border:1px solid #EDE3D2;">${escapeHtml(f.specLabel)}</div>
+    <div class="dir-card-speclabel">${escapeHtml(f.specLabel)}</div>
     <div class="dir-stats">
       <div class="dir-stat"><span class="dir-stat-label">Guests</span><span class="dir-stat-val">${f.guests}</span></div>
       <div class="dir-stat"><span class="dir-stat-label">Room size</span><span class="dir-stat-val">${fmt(f.sqft)}<small> sq ft</small></span></div>
@@ -621,42 +625,47 @@ function guideCard(p) {
   return `<a href="/seo/${escapeHtml(p.slug)}" class="dir-guide">
     <div style="display:flex;justify-content:space-between;align-items:center;gap:8px;">
       <span class="dir-guide-cat">${escapeHtml(p.category || 'Guide')}</span>
-      <span style="font-size:0.72rem;font-weight:700;color:#8A6A2E;">${bp.guests}-Guest Preset &middot; ${escapeHtml(bp.specLabel.split('·')[0].trim())}</span>
+      <span style="font-size:0.75rem;font-weight:700;color:var(--accent-gold-dark,#8A6508);">${bp.guests}-Guest Preset &middot; ${escapeHtml(bp.specLabel.split('·')[0].trim())}</span>
     </div>
     <span class="dir-guide-title">${escapeHtml(p.title)}</span>
   </a>`;
 }
 
 const DIR_CSS = `
-  .dir-filters { display: flex; flex-wrap: wrap; align-items: center; gap: 10px 14px; padding: 14px 16px; background: #FFFDF9; border: 1px solid #E8DCC4; border-radius: 14px; margin-bottom: 8px; }
-  .dir-filter-label { font-size: 0.8125rem; font-weight: 700; letter-spacing: 0.14em; text-transform: uppercase; color: #8A6A2E; }
-  .dir-chips { display: flex; flex-wrap: wrap; gap: 6px; }
-  .dir-chip { padding: 8px 14px; font-size: 0.90rem; font-weight: 700; color: #44403C; background: #FFFFFF; border: 1px solid #DCD3C3; border-radius: 999px; cursor: pointer; font-family: inherit; }
-  .dir-chip:hover { border-color: #C8A96E; }
-  .dir-chip.on { background: #181412; color: #FDE68A; border-color: #181412; }
-  .dir-select { padding: 8px 12px; font-size: 0.90rem; font-weight: 600; color: #181412; background: #FFFFFF; border: 1px solid #DCD3C3; border-radius: 10px; font-family: inherit; }
-  .dir-meta { display: flex; justify-content: space-between; align-items: center; gap: 10px; flex-wrap: wrap; font-size: 0.86rem; color: #78716C; margin: 0 2px 18px; }
-  .dir-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(290px, 1fr)); gap: 18px; }
-  .dir-card { display: flex; flex-direction: column; gap: 10px; padding: 18px 20px 16px; background: #FFFFFF; border: 1px solid #E8DCC4; border-radius: 16px; text-decoration: none; color: inherit; box-shadow: 0 1px 2px rgba(120,85,30,0.04); transition: border-color 0.15s ease, box-shadow 0.15s ease, transform 0.15s ease; }
-  .dir-card:hover { border-color: #C8A96E; box-shadow: 0 16px 34px -20px rgba(120,85,30,0.35); transform: translateY(-2px); }
+  .dir-filters { display: flex; flex-wrap: wrap; align-items: center; gap: 12px 16px; padding: 18px 22px; background: #FFFFFF; border: 1px solid #E4DCD0; border-radius: 16px; margin-bottom: 24px; box-shadow: 0 4px 16px -8px rgba(31,27,24,0.06); }
+  .dir-filter-label { font-size: 0.8125rem; font-weight: 700; letter-spacing: 0.12em; text-transform: uppercase; color: #8A6508; }
+  .dir-chips { display: flex; flex-wrap: wrap; gap: 8px; }
+  .dir-chip { padding: 8px 16px; font-size: 0.88rem; font-weight: 700; color: #574F49; background: #FAF7F2; border: 1px solid #E4DCD0; border-radius: 999px; cursor: pointer; font-family: inherit; transition: all 140ms ease; }
+  .dir-chip:hover { border-color: #B8860B; color: #1F1B18; }
+  .dir-chip.on { background: #1B4D3E; color: #FFFFFF; border-color: #1B4D3E; }
+  .dir-select { padding: 8px 14px; font-size: 0.88rem; font-weight: 600; color: #1F1B18; background: #FAF7F2; border: 1px solid #E4DCD0; border-radius: 10px; font-family: inherit; }
+  .dir-meta { display: flex; justify-content: space-between; align-items: center; gap: 10px; flex-wrap: wrap; font-size: 0.88rem; color: #7D746D; margin: 0 4px 20px; }
+  .dir-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(310px, 1fr)); gap: 24px; }
+  .dir-card { display: flex; flex-direction: column; gap: 12px; padding: 18px 20px; background: #FFFFFF; border: 1px solid #E4DCD0; border-radius: 18px; text-decoration: none; color: inherit; box-shadow: 0 4px 20px -8px rgba(31,27,24,0.06); transition: border-color 0.18s ease, box-shadow 0.18s ease, transform 0.18s ease; }
+  .dir-card:hover { border-color: #B8860B; box-shadow: 0 16px 36px -12px rgba(31,27,24,0.12); transform: translateY(-3px); }
   .dir-card[hidden] { display: none; }
-  .dir-card-type { font-size: 0.75rem; font-weight: 700; letter-spacing: 0.12em; text-transform: uppercase; color: #8A6A2E; }
-  .dir-stats { display: grid; grid-template-columns: 1fr 1fr; border-top: 1px solid #F1E8D6; border-bottom: 1px solid #F1E8D6; }
+  .dir-card-photo-frame { height: 160px; border-radius: 12px; overflow: hidden; background: #F5EFE6; }
+  .dir-card-photo { width: 100%; height: 100%; object-fit: cover; display: block; transition: transform 0.35s ease; }
+  .dir-card:hover .dir-card-photo { transform: scale(1.03); }
+  .dir-card-type { font-size: 0.74rem; font-weight: 700; letter-spacing: 0.10em; text-transform: uppercase; color: #8A6508; }
+  .dir-card-badge { font-size: 0.74rem; font-weight: 700; color: #1B4D3E; background: #EBF4F0; padding: 3px 9px; border-radius: 999px; border: 1px solid #C4DFD5; }
+  .dir-card-speclabel { font-size: 0.78rem; font-weight: 600; color: #574F49; background: #FAF7F2; padding: 6px 10px; border-radius: 8px; border: 1px solid #EFE8DD; }
+  .dir-stats { display: grid; grid-template-columns: 1fr 1fr; border-top: 1px solid #EFE8DD; border-bottom: 1px solid #EFE8DD; }
   .dir-stat { display: flex; flex-direction: column; gap: 2px; padding: 8px 0; }
-  .dir-stat + .dir-stat { padding-left: 16px; border-left: 1px solid #F1E8D6; }
-  .dir-stat-label { font-size: 0.74rem; font-weight: 700; letter-spacing: 0.12em; text-transform: uppercase; color: #A39B8D; }
-  .dir-stat-val { font-family: var(--font-serif); font-size: 1.5rem; font-weight: 600; color: #181412; line-height: 1.1; font-variant-numeric: lining-nums tabular-nums; }
-  .dir-stat-val small { font-family: var(--font-sans); font-size: 0.78rem; font-weight: 600; color: #78716C; }
-  .dir-card-title { font-family: var(--font-serif); font-size: 1.06rem; font-weight: 600; color: #181412; line-height: 1.28; margin: 0; display: -webkit-box; -webkit-line-clamp: 3; -webkit-box-orient: vertical; overflow: hidden; }
-  .dir-card-cta { margin-top: auto; font-size: 0.86rem; font-weight: 800; color: #8C2D19; }
-  .dir-empty { display: none; text-align: center; padding: 40px 10px; color: #78716C; font-size: 1rem; }
-  .dir-guides-head { margin: 64px 0 18px; text-align: center; }
-  .dir-guide-list { display: grid; grid-template-columns: repeat(auto-fill, minmax(320px, 1fr)); gap: 10px 20px; }
-  .dir-guide { display: flex; flex-direction: column; gap: 4px; padding: 12px 10px; border: 1px solid #EFE6D4; border-radius: 10px; background: #FFFDF9; text-decoration: none; }
-  .dir-guide-cat { font-size: 0.75rem; font-weight: 700; letter-spacing: 0.12em; text-transform: uppercase; color: #8A6A2E; }
-  .dir-guide-title { font-size: 0.92rem; font-weight: 600; color: #181412; line-height: 1.38; }
-  .dir-guide:hover { border-color: #C8A96E; }
-  .dir-guide:hover .dir-guide-title { color: #8C2D19; }`;
+  .dir-stat + .dir-stat { padding-left: 16px; border-left: 1px solid #EFE8DD; }
+  .dir-stat-label { font-size: 0.72rem; font-weight: 700; letter-spacing: 0.10em; text-transform: uppercase; color: #7D746D; }
+  .dir-stat-val { font-family: var(--font-serif, Georgia, serif); font-size: 1.45rem; font-weight: 600; color: #1F1B18; line-height: 1.1; font-variant-numeric: lining-nums tabular-nums; }
+  .dir-stat-val small { font-family: var(--font-sans, -apple-system, sans-serif); font-size: 0.76rem; font-weight: 600; color: #7D746D; }
+  .dir-card-title { font-family: var(--font-serif, Georgia, serif); font-size: 1.12rem; font-weight: 600; color: #1F1B18; line-height: 1.32; margin: 0; display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden; }
+  .dir-card-cta { margin-top: auto; font-size: 0.88rem; font-weight: 800; color: #1B4D3E; display: flex; align-items: center; gap: 4px; }
+  .dir-empty { display: none; text-align: center; padding: 48px 16px; color: #7D746D; font-size: 1.05rem; }
+  .dir-guides-head { margin: 72px 0 24px; text-align: center; }
+  .dir-guide-list { display: grid; grid-template-columns: repeat(auto-fill, minmax(320px, 1fr)); gap: 14px 20px; }
+  .dir-guide { display: flex; flex-direction: column; gap: 6px; padding: 14px 16px; border: 1px solid #E4DCD0; border-radius: 12px; background: #FFFFFF; text-decoration: none; transition: all 140ms ease; }
+  .dir-guide:hover { border-color: #B8860B; transform: translateY(-1px); box-shadow: 0 8px 20px -8px rgba(31,27,24,0.08); }
+  .dir-guide-cat { font-size: 0.74rem; font-weight: 700; letter-spacing: 0.10em; text-transform: uppercase; color: #8A6508; }
+  .dir-guide-title { font-size: 0.94rem; font-weight: 600; color: #1F1B18; line-height: 1.40; }
+  .dir-guide:hover .dir-guide-title { color: #1B4D3E; }`;
 
 const DIR_JS = `
 (function() {
@@ -708,40 +717,56 @@ function renderDirectoryPage(seoPages = []) {
         <span class="dir-filter-label" style="margin-left:6px;">Sort</span>
         <select id="dir-sort" class="dir-select" aria-label="Sort"><option value="small">Smallest room first</option><option value="large">Largest room first</option><option value="type">Venue type</option></select>
       </div>
-      <div id="sh-dir-vault-bar" style="background:#FFFFFF;border:1px solid #E2E8F0;border-radius:12px;padding:12px 18px;margin-bottom:14px;box-shadow:0 2px 8px rgba(0,0,0,0.03);display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:12px;">
-        <div style="flex:1 1 260px;min-width:0;">
-          <div style="font-weight:700;color:#0F172A;font-size:13.5px;">Save Any Venue Layout &amp; Unlock Meal Tally ($0)</div>
-          <div style="font-size:12.5px;color:#64748B;">Includes Table 1 sample, guest dietary flags, and 24&Prime;&times;36&Prime; sign spec</div>
-        </div>
-        <div style="display:flex;flex-wrap:wrap;align-items:center;gap:8px;flex:1 1 320px;">
-          <input id="sh-dir-email" type="email" placeholder="Enter your email to save..." onkeydown="if(event.key==='Enter')window.shSaveDirLead()" style="flex:1 1 180px;min-width:0;height:38px;padding:6px 12px;border:1px solid #CBD5E1;border-radius:8px;font-size:14px;background:#FFFFFF;color:#0F172A;" aria-label="Email address to save venue layouts" />
-          <button type="button" id="sh-dir-save-btn" onclick="window.shSaveDirLead()" style="cursor:pointer;background:#00766C;color:#FFFFFF;border:none;border-radius:8px;height:38px;padding:6px 14px;font-size:13.5px;font-weight:700;white-space:nowrap;">Save Free ($0) &rarr;</button>
-          <a href="/buy/complete_dossier?target=estate-150&amp;allow_promotion_codes=false" style="display:inline-flex;align-items:center;height:38px;padding:6px 12px;font-size:13px;font-weight:600;color:#475569;text-decoration:none;white-space:nowrap;">Get Print Pack ($7) &rarr;</a>
-        </div>
-        <div id="sh-dir-status" style="display:none;width:100%;font-size:13px;font-weight:700;color:#047857;"></div>
-      </div>
-      <script>window.shSaveDirLead=async function(){var inp=document.getElementById('sh-dir-email'),btn=document.getElementById('sh-dir-save-btn'),st=document.getElementById('sh-dir-status');var em=inp?String(inp.value||'').trim().toLowerCase():'';if(!em||em.indexOf('@')<1){if(inp)inp.focus();return;}try{localStorage.setItem('sh_saved_email',em);}catch(_){}if(btn)btn.textContent='✓ Saved ($0)';try{var r=await fetch('/api/vault/save',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({ownerEmail:em,preset:'estate-150',page_url:'/directory',utm_source:'directory_bar'})});var d=await r.json(),vid=(d&&(d.vaultId||d.vault_id))||'SH-4819';if(st){st.style.display='block';st.innerHTML='✓ Saved to <strong>'+em.replace(/[<>&"]/g,'')+'</strong> &mdash; <a href="/?vault='+encodeURIComponent(vid)+'#studio" style="color:#00766C;text-decoration:underline;">Open Your Interactive Studio Plan ('+vid+') &rarr;</a>';}}catch(_){}};</script>
-      <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:14px;margin-bottom:20px;">
-        <div style="display:flex;align-items:center;gap:14px;background:#FFFFFF;border:1px solid #E2E8F0;border-radius:12px;padding:12px 16px;box-shadow:0 1px 3px rgba(0,0,0,0.03);">
-          <img src="/public/ugc-welcome-sign-easel.jpg" alt="Real 24x36 wedding seating sign on easel at reception" style="width:72px;height:72px;border-radius:8px;object-fit:cover;flex-shrink:0;" loading="lazy" />
+      <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:16px;margin-bottom:28px;">
+        <div style="display:flex;align-items:center;gap:14px;background:#FFFFFF;border:1px solid #E4DCD0;border-radius:14px;padding:14px 18px;box-shadow:0 4px 14px -6px rgba(31,27,24,0.05);">
+          <img src="/public/ugc-welcome-sign-easel.jpg" alt="Real 24x36 wedding seating sign on easel at reception" style="width:72px;height:72px;border-radius:10px;object-fit:cover;flex-shrink:0;" loading="lazy" />
           <div>
-            <div style="font-size:0.74rem;font-weight:800;color:#047857;letter-spacing:0.04em;text-transform:uppercase;">Real Reception Proof &middot; Sunstone Winery, CA</div>
-            <p style="font-size:0.83rem;color:#181412;line-height:1.4;margin:2px 0;">&ldquo;Printed the 24&Prime;&times;36&Prime; chart at FedEx for \$14. Seated 140 guests with zero table bottleneck.&rdquo;</p>
-            <span style="font-size:0.73rem;color:#78716C;">&mdash; Sarah &amp; Mateo (140 Guests)</span>
+            <div style="font-size:0.72rem;font-weight:800;color:#1B4D3E;letter-spacing:0.06em;text-transform:uppercase;">Real Reception Proof &middot; Sunstone Winery, CA</div>
+            <p style="font-size:0.83rem;color:#1F1B18;line-height:1.42;margin:3px 0 2px;">&ldquo;Printed the 24&Prime;&times;36&Prime; chart at FedEx for \$14. Seated 140 guests with zero table bottleneck.&rdquo;</p>
+            <span style="font-size:0.75rem;color:#7D746D;">&mdash; Sarah &amp; Mateo (140 Guests)</span>
           </div>
         </div>
-        <div style="display:flex;align-items:center;gap:14px;background:#FFFFFF;border:1px solid #E2E8F0;border-radius:12px;padding:12px 16px;box-shadow:0 1px 3px rgba(0,0,0,0.03);">
-          <img src="/public/ugc-place-card-table.jpg" alt="Avery place cards on reception dinner table" style="width:72px;height:72px;border-radius:8px;object-fit:cover;flex-shrink:0;" loading="lazy" />
+        <div style="display:flex;align-items:center;gap:14px;background:#FFFFFF;border:1px solid #E4DCD0;border-radius:14px;padding:14px 18px;box-shadow:0 4px 14px -6px rgba(31,27,24,0.05);">
+          <img src="/public/ugc-place-card-table.jpg" alt="Avery place cards on reception dinner table" style="width:72px;height:72px;border-radius:10px;object-fit:cover;flex-shrink:0;" loading="lazy" />
           <div>
-            <div style="font-size:0.74rem;font-weight:800;color:#047857;letter-spacing:0.04em;text-transform:uppercase;">Coordinator Verified &middot; Napa Valley, CA</div>
-            <p style="font-size:0.83rem;color:#181412;line-height:1.4;margin:2px 0;">&ldquo;The clockwise 12:00 caterer sheet saved our team 25 mins of dinner confusion during meal service.&rdquo;</p>
-            <span style="font-size:0.73rem;color:#78716C;">&mdash; Elena Vance (Lead Event Planner)</span>
+            <div style="font-size:0.72rem;font-weight:800;color:#1B4D3E;letter-spacing:0.06em;text-transform:uppercase;">Coordinator Verified &middot; Napa Valley, CA</div>
+            <p style="font-size:0.83rem;color:#1F1B18;line-height:1.42;margin:3px 0 2px;">&ldquo;The clockwise 12:00 caterer sheet saved our team 25 mins of dinner confusion during meal service.&rdquo;</p>
+            <span style="font-size:0.75rem;color:#7D746D;">&mdash; Elena Vance (Lead Event Planner)</span>
+          </div>
+        </div>
+        <div style="display:flex;align-items:center;gap:14px;background:#FFFFFF;border:1px solid #E4DCD0;border-radius:14px;padding:14px 18px;box-shadow:0 4px 14px -6px rgba(31,27,24,0.05);">
+          <img src="/public/ugc-seating-chart-easel.jpg" alt="Framed 24x36 foam board seating chart on walnut easel" style="width:72px;height:72px;border-radius:10px;object-fit:cover;flex-shrink:0;" loading="lazy" />
+          <div>
+            <div style="font-size:0.72rem;font-weight:800;color:#1B4D3E;letter-spacing:0.06em;text-transform:uppercase;">Print-Shop Ready &middot; Rosewood Estate</div>
+            <p style="font-size:0.83rem;color:#1F1B18;line-height:1.42;margin:3px 0 2px;">&ldquo;Exported the PDF at 8 AM, picked up the mounted board at Staples by noon. Perfect serif typography.&rdquo;</p>
+            <span style="font-size:0.75rem;color:#7D746D;">&mdash; Chloe &amp; Julian (180 Guests)</span>
+          </div>
+        </div>
+        <div style="display:flex;align-items:center;gap:14px;background:#FFFFFF;border:1px solid #E4DCD0;border-radius:14px;padding:14px 18px;box-shadow:0 4px 14px -6px rgba(31,27,24,0.05);">
+          <img src="/public/ugc-escort-cards-wax.jpg" alt="Avery tent cards with calligraphy and wax seals" style="width:72px;height:72px;border-radius:10px;object-fit:cover;flex-shrink:0;" loading="lazy" />
+          <div>
+            <div style="font-size:0.72rem;font-weight:800;color:#1B4D3E;letter-spacing:0.06em;text-transform:uppercase;">Day-Of Execution &middot; Charleston, SC</div>
+            <p style="font-size:0.83rem;color:#1F1B18;line-height:1.42;margin:3px 0 2px;">&ldquo;Fed our banquet captain the clockwise 12:00 sheet with allergy notes. Zero wrong entrees delivered.&rdquo;</p>
+            <span style="font-size:0.75rem;color:#7D746D;">&mdash; Marcus &amp; Priya (120 Guests)</span>
           </div>
         </div>
       </div>
       <div class="dir-meta"><span id="dir-count">${plans.length} architectural layouts</span><span>Each layout models authentic table geometry, server aisles &amp; venue landmarks at ${SQFT_PER_GUEST} sq ft/guest.</span></div>
       <div class="dir-grid" id="dir-grid">${plans.map(([p, f]) => floorplanCard(p, f)).join('')}</div>
       <div class="dir-empty" id="dir-empty">No layouts match those filters. <button type="button" class="shw-link" onclick="dirReset()">Clear filters</button></div>
+      <div id="sh-dir-vault-bar" style="background:#FAF7F2;border:1px solid #E4DCD0;border-radius:16px;padding:18px 24px;margin:36px 0 20px;box-shadow:0 4px 16px -8px rgba(31,27,24,0.06);display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:16px;">
+        <div style="flex:1 1 280px;min-width:0;">
+          <div style="font-weight:700;color:#1F1B18;font-size:15px;margin-bottom:2px;">Save Any Venue Layout &amp; Unlock Free Clockwise Meal Tally ($0)</div>
+          <div style="font-size:13px;color:#574F49;">Includes Table 1 sample, guest dietary flags, and 24&Prime;&times;36&Prime; printable signage spec</div>
+        </div>
+        <div style="display:flex;flex-wrap:wrap;align-items:center;gap:10px;flex:1 1 340px;">
+          <input id="sh-dir-email" type="email" placeholder="Enter your email to save layout..." onkeydown="if(event.key==='Enter')window.shSaveDirLead()" style="flex:1 1 200px;min-width:0;height:42px;padding:8px 14px;border:1px solid #E4DCD0;border-radius:10px;font-size:14px;background:#FFFFFF;color:#1F1B18;" aria-label="Email address to save venue layouts" />
+          <button type="button" id="sh-dir-save-btn" onclick="window.shSaveDirLead()" style="cursor:pointer;background:#1B4D3E;color:#FFFFFF;border:none;border-radius:10px;height:42px;padding:8px 18px;font-size:14px;font-weight:700;white-space:nowrap;">Save Free ($0) &rarr;</button>
+          <a href="/buy/complete_dossier?target=estate-150&amp;allow_promotion_codes=false" style="display:inline-flex;align-items:center;height:42px;padding:8px 14px;font-size:13.5px;font-weight:700;color:#B8860B;text-decoration:none;white-space:nowrap;">Get Print Pack ($7) &rarr;</a>
+        </div>
+        <div id="sh-dir-status" style="display:none;width:100%;font-size:13.5px;font-weight:700;color:#1B4D3E;padding-top:4px;"></div>
+      </div>
+      <script>window.shSaveDirLead=async function(){var inp=document.getElementById('sh-dir-email'),btn=document.getElementById('sh-dir-save-btn'),st=document.getElementById('sh-dir-status');var em=inp?String(inp.value||'').trim().toLowerCase():'';if(!em||em.indexOf('@')<1){if(inp)inp.focus();return;}try{localStorage.setItem('sh_saved_email',em);}catch(_){}if(btn)btn.textContent='✓ Saved ($0)';try{var r=await fetch('/api/vault/save',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({ownerEmail:em,preset:'estate-150',page_url:'/directory',utm_source:'directory_bar'})});var d=await r.json(),vid=(d&&(d.vaultId||d.vault_id))||'SH-4819';if(st){st.style.display='block';st.innerHTML='✓ Saved to <strong>'+em.replace(/[<>&"]/g,'')+'</strong> &mdash; <a href="/?vault='+encodeURIComponent(vid)+'#studio" style="color:#1B4D3E;text-decoration:underline;font-weight:700;">Open Your Interactive Studio Plan ('+vid+') &rarr;</a>';}}catch(_){}};</script>
       ${guides.length ? `<div class="dir-guides-head"><h2 class="bs-section-h2" style="font-size:clamp(1.6rem,2.4vw,2rem);">40 Side-by-Side Comparisons &amp; <em>Catering Playbooks.</em></h2><p class="bs-section-sub">Each guide includes a matching interactive preset floorplan you can open directly in the studio.</p></div><div class="dir-guide-list">${guides.map(guideCard).join('')}</div>` : ''}
     </main>`,
     renderFooter(), `<script>${DIR_JS}</script>`, '</body></html>'

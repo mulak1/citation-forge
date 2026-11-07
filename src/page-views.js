@@ -673,11 +673,11 @@ function getVenueVisual(slug = '', title = '', category = '') {
   if (/tent|sailcloth|marquee|outdoor|lawn|rain|canopy/i.test(s)) {
     return {
       img: '/public/venue-sailcloth-tent.jpg',
-      tag: 'Sailcloth Tent & Garden',
+      tag: 'Sailcloth Tent & Lawn',
       name: 'Open-Air Sailcloth Tent & Garden Lawn'
     };
   }
-  if (/ballroom|hotel|gala|grand|formal|black-tie/i.test(s)) {
+  if (/ballroom|hotel|gala|grand|formal|black-tie|chandelier/i.test(s)) {
     return {
       img: '/public/venue-grand-ballroom.jpg',
       tag: 'Grand Ballroom',
@@ -687,27 +687,55 @@ function getVenueVisual(slug = '', title = '', category = '') {
   if (/loft|industrial|warehouse|rooftop|penthouse|urban|modern|contemporary/i.test(s)) {
     return {
       img: '/public/venue-modern-loft.jpg',
-      tag: 'Industrial Loft & Rooftop',
+      tag: 'Industrial Loft',
       name: 'Brick & Timber Industrial Loft'
     };
   }
   if (/tuscan|courtyard|patio|al fresco|terrace|mediterranean|italian|olive/i.test(s)) {
     return {
       img: '/public/venue-tuscan-courtyard.jpg',
-      tag: 'Tuscan Courtyard Banquet',
+      tag: 'Tuscan Courtyard',
       name: 'Villa Cipressi Olive Grove Courtyard'
     };
   }
   if (/winery|vineyard|barn|rustic|ranch|farm|harvest/i.test(s)) {
     return {
       img: '/public/venue-winery-sandbox.jpg',
-      tag: 'Winery & Vineyard Terrace',
+      tag: 'Winery & Vineyard',
       name: 'Oak Ridge Winery & Barrel Room'
+    };
+  }
+  if (/conservatory|greenhouse|botanical|orangery|garden|glass/i.test(s)) {
+    return {
+      img: '/public/venue-botanical-conservatory.jpg',
+      tag: 'Botanical Greenhouse',
+      name: 'Glass Greenhouse & Botanical Orangery'
+    };
+  }
+  if (/rotunda|museum|historic|marble|columns|classic/i.test(s)) {
+    return {
+      img: '/public/venue-historic-rotunda.jpg',
+      tag: 'Historic Rotunda',
+      name: 'Marble Rotunda & Classical Colonnade'
+    };
+  }
+  if (/coastal|cliffside|ocean|beach|waterfront|yacht|island/i.test(s)) {
+    return {
+      img: '/public/venue-coastal-cliffside.jpg',
+      tag: 'Coastal Ocean Terrace',
+      name: 'Pacific Cliffside Ocean Pavilion'
+    };
+  }
+  if (/cellar|intimate|micro|rehearsal|candlelit|vault|private dining/i.test(s)) {
+    return {
+      img: '/public/venue-wine-cellar.jpg',
+      tag: 'Candlelit Wine Cellar',
+      name: 'Historic Brick Wine Cellar & Vault'
     };
   }
   return {
     img: '/public/venue-rosewood-estate.jpg',
-    tag: 'Private Estate & Conservatory',
+    tag: 'Private Country Estate',
     name: 'The Conservatory at Rosewood Estate'
   };
 }
@@ -723,22 +751,23 @@ function renderSeoDetailPage(pageRow, relatedPages = []) {
   const leaders = Array.isArray(payload.leaders) ? payload.leaders : [];
   const comfortTags = ['Recommended Setup', 'Great Guest Flow', 'Spacious Aisles', 'Cozy Conversation'];
   const venueVisual = getVenueVisual(pageRow.slug, pageRow.title, pageRow.category);
-  const venueHeroHtml = `<div style="margin:14px 0 20px;border-radius:12px;overflow:hidden;background:#F8FAFC;border:1px solid #E2E8F0;box-shadow:0 2px 10px rgba(0,0,0,0.03);">` +
-    `<div style="display:flex;justify-content:space-between;align-items:center;padding:8px 14px;background:#F8FAFC;border-bottom:1px solid #E2E8F0;font-size:12.5px;color:#475569;flex-wrap:wrap;gap:6px;">` +
-      `<span><strong style="color:#0F172A;">Venue Architecture:</strong> ${escapeHtml(venueVisual.name)}</span>` +
-      `<span style="color:#047857;font-weight:700;">${guestCount} Guests &middot; ${escapeHtml(bp.roomDims)} &middot; Authentic Layout</span>` +
+  const venueHeroHtml = `<div style="margin:20px 0 28px;border-radius:18px;overflow:hidden;background:#FFFFFF;border:1px solid #E4DCD0;box-shadow:0 8px 28px -10px rgba(31,27,24,0.08);">` +
+    `<div style="display:flex;justify-content:space-between;align-items:center;padding:12px 18px;background:#FAF7F2;border-bottom:1px solid #E4DCD0;font-size:13px;color:#574F49;flex-wrap:wrap;gap:8px;">` +
+      `<span><strong style="color:#1F1B18;">Venue Setting:</strong> ${escapeHtml(venueVisual.name)}</span>` +
+      `<span style="color:#1B4D3E;font-weight:700;background:#EBF4F0;padding:3px 12px;border-radius:999px;border:1px solid #C4DFD5;">${guestCount} Guests &middot; ${escapeHtml(bp.roomDims)} &middot; Authentic Table Clearance</span>` +
     `</div>` +
-    `<div style="height:240px;max-height:36vw;min-height:170px;overflow:hidden;background:#E2E8F0;">` +
-      `<img src="${venueVisual.img}" alt="${escapeHtml(pageRow.title)} venue reception setting" style="width:100%;height:100%;object-fit:cover;object-position:center;display:block;" loading="eager" />` +
+    `<div style="height:280px;max-height:42vw;min-height:200px;overflow:hidden;background:#F5EFE6;position:relative;">` +
+      `<img src="${venueVisual.img}" alt="${escapeHtml(pageRow.title)} venue reception setting" style="width:100%;height:100%;object-fit:cover;object-position:center 35%;display:block;" loading="eager" />` +
+      `<div style="position:absolute;bottom:0;left:0;right:0;background:linear-gradient(to top, rgba(31,27,24,0.7), transparent);padding:24px 18px 12px;color:#FFFFFF;font-family:var(--font-serif);font-size:1.15rem;font-style:italic;">${escapeHtml(venueVisual.name)}</div>` +
     `</div>` +
   `</div>`;
-  const specGridHtml = `<div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(165px,1fr));gap:8px;margin-bottom:14px;">` +
-    `<div style="background:#FAF6EE;border:1px solid #E5D9C5;border-radius:9px;padding:8px 11px;"><div style="font-size:0.68rem;font-weight:800;color:#8A6A2E;letter-spacing:0.06em;">ROOM / TENT SIZE</div><div style="font-size:0.94rem;font-weight:800;color:#181412;">${escapeHtml(bp.roomDims)} (~${sqFt} sq ft)</div></div>` +
-    `<div style="background:#FAF6EE;border:1px solid #E5D9C5;border-radius:9px;padding:8px 11px;"><div style="font-size:0.68rem;font-weight:800;color:#8A6A2E;letter-spacing:0.06em;">TABLE COUNT</div><div style="font-size:0.94rem;font-weight:800;color:#181412;">${bp.tableCount} Tables (${bp.roundCount}R / ${bp.banquetCount}B)</div></div>` +
-    `<div style="background:#FAF6EE;border:1px solid #E5D9C5;border-radius:9px;padding:8px 11px;"><div style="font-size:0.68rem;font-weight:800;color:#8A6A2E;letter-spacing:0.06em;">DANCE FLOOR</div><div style="font-size:0.94rem;font-weight:800;color:#181412;">${escapeHtml(bp.danceFloorDims)}</div></div>` +
-    `<div style="background:#FAF6EE;border:1px solid #E5D9C5;border-radius:9px;padding:8px 11px;"><div style="font-size:0.68rem;font-weight:800;color:#8A6A2E;letter-spacing:0.06em;">SERVER AISLES</div><div style="font-size:0.94rem;font-weight:800;color:#065F46;">${escapeHtml(bp.aisleSpec)}</div></div>` +
-    `<div style="background:#FAF6EE;border:1px solid #E5D9C5;border-radius:9px;padding:8px 11px;"><div style="font-size:0.68rem;font-weight:800;color:#8A6A2E;letter-spacing:0.06em;">24&Prime;&times;36&Prime; SIGN SPEC</div><div style="font-size:0.94rem;font-weight:800;color:#181412;">${escapeHtml(bp.posterLayout)}</div></div>` +
-    `<div style="background:#FAF6EE;border:1px solid #E5D9C5;border-radius:9px;padding:8px 11px;"><div style="font-size:0.68rem;font-weight:800;color:#8A6A2E;letter-spacing:0.06em;">AVERY 5302 CARDS</div><div style="font-size:0.94rem;font-weight:800;color:#181412;">${bp.averySheets} Sheets (${guestCount} Cards)</div></div>` +
+  const specGridHtml = `<div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(165px,1fr));gap:12px;margin-bottom:20px;">` +
+    `<div style="background:#FAF5EC;border:1px solid #EAE0D0;border-radius:12px;padding:12px 14px;"><div style="font-size:0.70rem;font-weight:800;color:#8A6508;letter-spacing:0.08em;margin-bottom:4px;">ROOM / TENT SIZE</div><div style="font-size:1.02rem;font-weight:800;color:#1F1B18;">${escapeHtml(bp.roomDims)} (~${sqFt} sq ft)</div></div>` +
+    `<div style="background:#FAF5EC;border:1px solid #EAE0D0;border-radius:12px;padding:12px 14px;"><div style="font-size:0.70rem;font-weight:800;color:#8A6508;letter-spacing:0.08em;margin-bottom:4px;">TABLE COUNT</div><div style="font-size:1.02rem;font-weight:800;color:#1F1B18;">${bp.tableCount} Tables (${bp.roundCount}R / ${bp.banquetCount}B)</div></div>` +
+    `<div style="background:#FAF5EC;border:1px solid #EAE0D0;border-radius:12px;padding:12px 14px;"><div style="font-size:0.70rem;font-weight:800;color:#8A6508;letter-spacing:0.08em;margin-bottom:4px;">DANCE FLOOR</div><div style="font-size:1.02rem;font-weight:800;color:#1F1B18;">${escapeHtml(bp.danceFloorDims)}</div></div>` +
+    `<div style="background:#FAF5EC;border:1px solid #EAE0D0;border-radius:12px;padding:12px 14px;"><div style="font-size:0.70rem;font-weight:800;color:#8A6508;letter-spacing:0.08em;margin-bottom:4px;">SERVER AISLES</div><div style="font-size:1.02rem;font-weight:800;color:#1B4D3E;">${escapeHtml(bp.aisleSpec)}</div></div>` +
+    `<div style="background:#FAF5EC;border:1px solid #EAE0D0;border-radius:12px;padding:12px 14px;"><div style="font-size:0.70rem;font-weight:800;color:#8A6508;letter-spacing:0.08em;margin-bottom:4px;">24&Prime;&times;36&Prime; SIGN SPEC</div><div style="font-size:1.02rem;font-weight:800;color:#1F1B18;">${escapeHtml(bp.posterLayout)}</div></div>` +
+    `<div style="background:#FAF5EC;border:1px solid #EAE0D0;border-radius:12px;padding:12px 14px;"><div style="font-size:0.70rem;font-weight:800;color:#8A6508;letter-spacing:0.08em;margin-bottom:4px;">AVERY 5302 CARDS</div><div style="font-size:1.02rem;font-weight:800;color:#1F1B18;">${bp.averySheets} Sheets (${guestCount} Cards)</div></div>` +
   `</div>`;
   const floorplanPanelHtml = `<div class="panel" style="padding:20px;margin-bottom:24px;background:#FFFFFF;border-color:#E2D9C8;"><div style="display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:8px;margin-bottom:12px;"><h2 class="serif-display" style="font-size:1.35rem;margin:0;">Architectural Room Layout (${guestCount} Guests &middot; ${escapeHtml(bp.roomDims)} &middot; ${escapeHtml(bp.specLabel)})</h2><span class="badge badge-emerald">${bp.tableCount} Tables &middot; 54&Prime;+ Server Aisles</span></div>${specGridHtml}<div style="margin-bottom:14px;">${renderFloorplanSvg(bp, { detailed: true })}</div>${leaders.length ? `<table class="ba-table" style="font-size:0.84rem;"><thead><tr><th>Option</th><th>Table Layout</th><th>Architectural Spec</th><th>Included Print &amp; Caterer Files</th></tr></thead><tbody>${leaders.map((l, idx) => idx === 0 ? `<tr><td class="mono" style="font-weight:800;">Option 1 (Free Sample)</td><td style="font-weight:700;">${escapeHtml(l.brand)}</td><td><strong style="color:#065F46;">&#10003; ${escapeHtml(l.domain || comfortTags[idx % comfortTags.length])}</strong></td><td>${escapeHtml(l.llmsTxt || l.WeakSpot || 'Ready')}</td></tr>` : `<tr><td class="mono" style="font-weight:800;">Option ${idx + 1}</td><td style="font-weight:700;">${escapeHtml(l.brand)}</td><td><strong style="color:#065F46;">&#10003; ${escapeHtml(l.domain || comfortTags[idx % comfortTags.length])}</strong></td><td><button type="button" class="sh-locked-spec-badge" onclick="try{fetch('/api/telemetry/event',{method:'POST',keepalive:true,headers:{'Content-Type':'application/json'},body:JSON.stringify({event_type:'view_paywall',eventType:'view_paywall',page_url:window.location.pathname,meta:{js_hydrated:1,source:'seo_option_badge'}})}).catch(function(){});}catch(_){}var el=document.getElementById('sh-seo-calc-email');if(el){el.scrollIntoView({behavior:'smooth',block:'center'});el.focus();}" style="cursor:pointer;background:#F0FDFA;color:#065F46;border:1px solid #00766C;border-radius:999px;padding:3px 9px;font-size:12px;font-weight:700;">${IC.lock}Option ${idx + 1} Meal Sheet &amp; Sign Spec &mdash; Enter Email ($0) &uarr;</button></td></tr>`).join('')}</tbody></table>` : ''}</div>`;
   const calcHtml = `<div class="panel" id="sh-seo-calc" style="padding:22px;margin-bottom:24px;background:linear-gradient(180deg,#FFFDF9 0%,#FAF3E6 100%);border:1.5px solid #C8A96E;">` +
