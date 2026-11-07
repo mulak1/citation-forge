@@ -126,6 +126,14 @@ const VENUE_THUMBNAILS = {
   'charity-gala-300': { img: '/public/venue-grand-ballroom.jpg', tag: 'Grand Ballroom' }
 };
 
+function resolveVenueVisual(target, title = '', cat = '') {
+  if (VENUE_THUMBNAILS[target]) return VENUE_THUMBNAILS[target];
+  if (CF_TEMPLATES && typeof CF_TEMPLATES.getVenueVisual === 'function') {
+    return CF_TEMPLATES.getVenueVisual(target, title, cat);
+  }
+  return { img: '/public/editorial-hero.jpg', tag: 'Architectural Venue Benchmark' };
+}
+
 function loadPublicScanLedger(cfg) {
   const cat = getFlywheelCatalog(cfg.moduleId);
   const seedMap = new Map(cat.entities.map((e) => [e.target.toLowerCase(), e]));
@@ -328,16 +336,19 @@ function renderPublicScanPageHtml(cfg, scan, badgeColor) {
       <p class="pseo-lead" style="margin:0 0 8px 0;color:${esc(t.textSecondary)};font-size:14.5px;line-height:1.45;">
         <strong style="color:${esc(t.textPrimary)};">Why you are here (<span id="eb-scan-lead-target">${esc(displayTitle)}</span> &bull; <span id="eb-scan-lead-grade">Grade ${esc(scan.grade)} ${scan.score}/100</span>):</strong> ${esc(vCopy.goalText)}
       </p>
-      ${VENUE_THUMBNAILS[scan.target] ? `
+      ${(() => {
+        const vVisual = resolveVenueVisual(scan.target, displayTitle, scan.kpi2);
+        return `
       <div style="margin:12px 0 16px;border-radius:12px;overflow:hidden;background:#F8FAFC;border:1px solid #E2E8F0;box-shadow:0 2px 8px rgba(0,0,0,0.03);">
         <div style="display:flex;justify-content:space-between;align-items:center;padding:8px 14px;background:#F8FAFC;border-bottom:1px solid #E2E8F0;font-size:12.5px;color:#475569;flex-wrap:wrap;gap:6px;">
-          <span><strong style="color:#0F172A;">Venue Architecture:</strong> ${esc(VENUE_THUMBNAILS[scan.target].tag)}</span>
+          <span><strong style="color:#0F172A;">Venue Architecture:</strong> ${esc(vVisual.tag || 'Architectural Venue Benchmark')}</span>
           <span style="color:#047857;font-weight:700;">Grade ${esc(scan.grade)} &middot; ${scan.score}/100 Room Harmony</span>
         </div>
         <div style="height:220px;max-height:36vw;min-height:160px;overflow:hidden;background:#E2E8F0;">
-          <img src="${VENUE_THUMBNAILS[scan.target].img}" alt="${esc(displayTitle)} setting" style="width:100%;height:100%;object-fit:cover;object-position:center;display:block;" loading="eager" />
+          <img src="${vVisual.img || '/public/editorial-hero.jpg'}" alt="${esc(displayTitle)} setting" style="width:100%;height:100%;object-fit:cover;object-position:center;display:block;" loading="eager" />
         </div>
-      </div>` : ''}
+      </div>`;
+      })()}
       <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:12px;padding:12px 16px;border-radius:10px;background:#FFFFFF;border:1px solid #E2E8F0;border-left:3px solid #059669;font-size:13px;color:${esc(t.textSecondary)};line-height:1.45;width:100%;box-sizing:border-box;">
         <div><strong style="color:#047857;">● Verified Source:</strong> ${esc(vCopy.sourceProvenance)}</div>
         <div><strong style="color:#047857;">● Last Verified:</strong> ${esc(vCopy.dataFreshness)}</div>
@@ -438,7 +449,7 @@ function renderLeaderboardPageHtml(cfg, badgeColor) {
   const medals = ['#1 Hall of Fame Leader', '#2 Verified Runner-Up', '#3 Top Category Benchmark'];
   const podiumHtml = podium.map((item, idx) => {
     const itemTitle = fmtFlywheelTitle(item.target, item);
-    const venue = VENUE_THUMBNAILS[item.target];
+    const venue = resolveVenueVisual(item.target, itemTitle, item.kpi2);
     const venueImg = (venue && venue.img) || '/public/editorial-hero.jpg';
     const venueTag = (venue && venue.tag) || 'Venue Benchmark';
     return `<div style="background:#FFFFFF;border-radius:14px;padding:18px 20px;display:flex;flex-direction:column;justify-content:space-between;gap:12px;box-shadow:0 1px 3px rgba(0,0,0,0.05);">
