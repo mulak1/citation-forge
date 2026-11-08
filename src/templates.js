@@ -597,6 +597,20 @@ function renderFooter() {
 
 function getVenueVisual(slug = '', title = '', category = '') {
   const s = `${slug} ${title} ${category}`.toLowerCase();
+  if (/collaborate-with-mothers/i.test(s)) {
+    return {
+      img: '/public/venue-two-moms-collaboration.jpg',
+      tag: 'Two-Mom Tasting Room',
+      name: 'Napa Valley Tasting Room Mother Collaboration & Seating Harmonizer'
+    };
+  }
+  if (/rehearsal-dinner-to-reception|dont-repeat-tablemates/i.test(s)) {
+    return {
+      img: '/public/venue-rehearsal-barrel-vault.jpg',
+      tag: 'Candlelit Barrel Vault',
+      name: 'Historic Limestone Wine Barrel Vault Rehearsal Banquet'
+    };
+  }
   if (/60-inch-round-table-8-vs-9-vs-10/i.test(s)) {
     return {
       img: '/public/venue-60-inch-9-charger-spacing.jpg',

@@ -1043,7 +1043,14 @@ function getVenueVisual(slug = '', title = '', category = '') {
       name: 'Vineyard Stone Veranda Mother & Daughter Seating Review'
     };
   }
-  if (/collaborate-with-mothers|mom-sandbox/i.test(s)) {
+  if (/collaborate-with-mothers/i.test(s)) {
+    return {
+      img: '/public/venue-two-moms-collaboration.jpg',
+      tag: 'Two-Mom Tasting Room',
+      name: 'Napa Valley Tasting Room Mother Collaboration & Seating Harmonizer'
+    };
+  }
+  if (/mom-sandbox/i.test(s)) {
     return {
       img: '/public/venue-winery-sandbox.jpg',
       tag: 'Family Table Sandbox',
@@ -1258,6 +1265,13 @@ function getVenueVisual(slug = '', title = '', category = '') {
       img: '/public/venue-l-and-t-shaped.jpg',
       tag: 'L & T-Shaped Feast',
       name: 'Modern Architectural L-Shaped & T-Shaped Feast Tables'
+    };
+  }
+  if (/rehearsal-dinner-to-reception|dont-repeat-tablemates/i.test(s)) {
+    return {
+      img: '/public/venue-rehearsal-barrel-vault.jpg',
+      tag: 'Candlelit Barrel Vault',
+      name: 'Historic Limestone Wine Barrel Vault Rehearsal Banquet'
     };
   }
   if (/cellar|vault/i.test(s)) {
