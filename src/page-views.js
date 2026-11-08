@@ -848,6 +848,41 @@ function renderHomePage(initialAudit, sampleSeoPages = []) {
 
 function getVenueVisual(slug = '', title = '', category = '') {
   const s = `${slug} ${title} ${category}`.toLowerCase();
+  if (/sweetheart-table-vs-kings|sweetheart.*vs.*king/i.test(s)) {
+    return {
+      img: '/public/venue-sweetheart-vs-kings.jpg',
+      tag: 'Sweetheart vs King’s Layout',
+      name: 'Cathedral Arch Reception Hall & Sweetheart / King’s Duality'
+    };
+  }
+  if (/40x100/i.test(s)) {
+    return {
+      img: '/public/venue-40x100-grand-tent.jpg',
+      tag: '40x100 Grand Sailcloth Tent',
+      name: 'Expansive 40x100 High-Peak Sailcloth Marquee & Meadow Glow'
+    };
+  }
+  if (/40x80/i.test(s)) {
+    return {
+      img: '/public/venue-pole-tent-meadow.jpg',
+      tag: 'Twin-Pole Sailcloth Tent',
+      name: 'Grand Twin-Pole Sailcloth Tent on Meadow Lawn'
+    };
+  }
+  if (/20x40/i.test(s)) {
+    return {
+      img: '/public/venue-20x40-micro-backyard-tent.jpg',
+      tag: '20x40 Micro-Backyard Tent',
+      name: 'Private Suburban Garden Clear-Span Frame Tent & Hydrangeas'
+    };
+  }
+  if (/150-guest-wedding-seating-chart-round-tables|150[- ]?guest.*round.*table/i.test(s)) {
+    return {
+      img: '/public/venue-150-guest-grand-estate.jpg',
+      tag: '150-Guest Grand Estate',
+      name: 'Light-Filled Grand Estate Ballroom & Parquet Dance Floor'
+    };
+  }
   if (/beach-club|yacht|harbor|marina/i.test(s)) {
     return {
       img: '/public/venue-coastal-beach-club.jpg',
