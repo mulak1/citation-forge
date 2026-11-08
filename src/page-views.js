@@ -918,6 +918,13 @@ function getVenueVisual(slug = '', title = '', category = '') {
       name: 'Winding Serpentine Banquet Table in Italianate Garden'
     };
   }
+  if (/80[- ]?guest/i.test(s)) {
+    return {
+      img: '/public/venue-intimate-courtyard-banquet.jpg',
+      tag: 'Tuscan Courtyard Feast Tables',
+      name: 'Secluded Stone Villa Courtyard & Parallel Feasting Tables'
+    };
+  }
   if (/micro[- ]?wedding|king['’]?s[- ]?table|continuous king/i.test(s)) {
     return {
       img: '/public/venue-micro-wedding-kings.jpg',
@@ -946,11 +953,32 @@ function getVenueVisual(slug = '', title = '', category = '') {
       name: 'Private Estate Backyard Frame Tent & Sheer Drapes'
     };
   }
+  if (/l[- ]?shaped|t[- ]?shaped/i.test(s)) {
+    return {
+      img: '/public/venue-l-and-t-shaped.jpg',
+      tag: 'L & T-Shaped Feast',
+      name: 'Modern Architectural L-Shaped & T-Shaped Feast Tables'
+    };
+  }
   if (/cellar|vault/i.test(s)) {
     return {
       img: '/public/venue-historic-wine-cellar.jpg',
       tag: 'Historic Wine Cellar',
       name: 'Atmospheric Arched Brick & Limestone Wine Vault'
+    };
+  }
+  if (/40x80|40x100|twin[- ]?pole|pole[- ]?tent/i.test(s)) {
+    return {
+      img: '/public/venue-pole-tent-meadow.jpg',
+      tag: 'Twin-Pole Sailcloth Tent',
+      name: 'Grand Twin-Pole Sailcloth Tent on Meadow Lawn'
+    };
+  }
+  if (/40x60-tent|garden[- ]?marquee|clear[- ]?top/i.test(s)) {
+    return {
+      img: '/public/venue-garden-marquee.jpg',
+      tag: 'Walled Garden Marquee',
+      name: 'Clear-Top Garden Marquee & Hanging Greenery Chandeliers'
     };
   }
   if (/tent|sailcloth|marquee|outdoor|lawn|rain|canopy/i.test(s)) {
@@ -1009,6 +1037,13 @@ function getVenueVisual(slug = '', title = '', category = '') {
       name: 'Grand Ballroom & Crystal Chandelier Banquet Hall'
     };
   }
+  if (/80[- ]?guest.*courtyard|80[- ]?guest.*banquet|courtyard[- ]?banquet/i.test(s)) {
+    return {
+      img: '/public/venue-intimate-courtyard-banquet.jpg',
+      tag: 'Tuscan Courtyard Feast Tables',
+      name: 'Secluded Stone Villa Courtyard & Parallel Feasting Tables'
+    };
+  }
   if (/tuscan|courtyard|patio|al fresco|terrace|italian|olive/i.test(s)) {
     return {
       img: '/public/venue-tuscan-courtyard.jpg',
@@ -1028,6 +1063,20 @@ function getVenueVisual(slug = '', title = '', category = '') {
       img: '/public/venue-historic-wine-cellar.jpg',
       tag: 'Candlelit Wine Cellar',
       name: 'Historic Brick Wine Cellar & Vault'
+    };
+  }
+  if (/120[- ]?guest|classic[- ]?reception/i.test(s)) {
+    return {
+      img: '/public/venue-classic-reception-hall.jpg',
+      tag: 'Classic Estate Hall',
+      name: 'Light-Filled Estate Reception Hall & Coffered Ceilings'
+    };
+  }
+  if (/60[- ]?inch[- ]?round|charger[- ]?plate/i.test(s)) {
+    return {
+      img: '/public/venue-charger-plate-rounds.jpg',
+      tag: '60-Inch Round Charger Spacing',
+      name: 'Impeccable 60-Inch Round Charger Plate & Centerpiece Setting'
     };
   }
   return {
