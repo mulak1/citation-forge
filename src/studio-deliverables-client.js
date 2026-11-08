@@ -670,6 +670,41 @@ function renderDeliverablesClientScript() {
     if (window.shTrackTelemetry) window.shTrackTelemetry('calculate', { source: 'copy_kitchen_tally' });
   };
 
+  window.shShareCatererLink = function() {
+    var vId = (window.__SH_STATE && window.__SH_STATE.vaultId) || 'SH-4819';
+    var url = window.location.origin + '/print/beo/' + encodeURIComponent(vId);
+    var title = (window.__SH_STATE && window.__SH_STATE.title) || 'Reception Seating';
+    if (navigator.share) {
+      navigator.share({
+        title: title + ' · Caterer Meal Sheet',
+        text: 'Here is the Clockwise 12:00 Caterer Meal Sheet and dietary allergy roster for ' + title + ':',
+        url: url
+      }).then(function() {
+        if (typeof shToast === 'function') shToast('✓ Shared meal sheet review link!');
+      }).catch(function(err) {
+        if (err && err.name === 'AbortError') return;
+        window.shCopyBeoUrlFallback(url);
+      });
+      if (window.shTrackTelemetry) window.shTrackTelemetry('share_beo_link', { vaultId: vId, method: 'native' });
+      return;
+    }
+    window.shCopyBeoUrlFallback(url);
+  };
+
+  window.shCopyBeoUrlFallback = function(url) {
+    var vId = (window.__SH_STATE && window.__SH_STATE.vaultId) || 'SH-4819';
+    if (navigator.clipboard && navigator.clipboard.writeText) {
+      navigator.clipboard.writeText(url).then(function() {
+        if (typeof shToast === 'function') shToast('✓ Copied caterer review link to clipboard (ready to text or email)!');
+      }).catch(function() {
+        window.prompt('Copy caterer review link:', url);
+      });
+    } else {
+      window.prompt('Copy caterer review link:', url);
+    }
+    if (window.shTrackTelemetry) window.shTrackTelemetry('share_beo_link', { vaultId: vId, method: 'clipboard' });
+  };
+
   window.shFilterQrLookup = function() {
     const qInput = document.getElementById('sh-qr-search'), out = document.getElementById('sh-qr-results');
     if (!out || !window.__SH_STATE) return;

@@ -468,13 +468,14 @@ function renderZone3InteractiveStudio(plan) {
                   <div style="display:flex;gap:6px;flex-wrap:wrap;">
                     <button type="button" id="sh-download-tbl1-sample-btn" class="btn btn-secondary" style="padding:6px 11px;font-size:0.74rem;background:#EBF4F0;border-color:#A7F3D0;color:#065F46;font-weight:700;" onclick="window.shExportTable1SampleCsv && window.shExportTable1SampleCsv()">&darr; Table 1 Free Sample (.CSV)</button>
                     <button type="button" id="sh-copy-kitchen-tally-btn" class="btn btn-secondary" style="padding:6px 11px;font-size:0.74rem;" onclick="window.shCopyKitchenTally && window.shCopyKitchenTally()">📋 Copy Kitchen Tally</button>
+                    <button type="button" id="sh-share-caterer-link-btn" class="btn btn-secondary" style="padding:6px 11px;font-size:0.74rem;background:#FAF8F5;border-color:#C8A96E;color:#78350F;font-weight:700;" onclick="window.shShareCatererLink && window.shShareCatererLink()">🔗 Share Caterer Link</button>
                     <button type="button" id="sh-beo-mode-toggle" class="btn btn-secondary" style="padding:6px 11px;font-size:0.74rem;border-color:#C8A96E;color:#78350F;font-weight:800;" onclick="window.shToggleBeoChaosMode()">${IC.bolt}Compare: 12:00 Server View vs. Unnumbered Chaos</button>
                     <button type="button" class="btn btn-secondary" style="padding:6px 11px;font-size:0.74rem;" onclick="window.shGateOrExportBeoCsv ? window.shGateOrExportBeoCsv('csv') : window.shExportBeoCsv()">&darr; Full Meal Sheet (.CSV)</button>
                     <a id="sh-open-beo-studio-link" href="/print/beo/${vId}" target="_blank" class="btn btn-secondary" style="padding:6px 11px;font-size:0.74rem;">${IC.print}Signed Meal Sheet Print View &rarr;</a>
                     <a id="sh-pane-beo-buy-link" href="/buy/complete_dossier?target=estate-150&amp;vault=${vId}&amp;allow_promotion_codes=false" class="btn btn-primary" style="padding:6px 11px;font-size:0.74rem;">Unlock Event Print Pack ($7)</a>
                   </div>
                 </div>
-                <div id="sh-beo-container" style="max-height:340px;overflow-y:auto;padding-right:4px;"></div>
+                <div id="sh-beo-container" style="max-height:315px;overflow-y:auto;padding-right:4px;"></div>
                 <!-- BANQUET CAPTAIN CERTIFIED GUARANTEE STRIP (PILLAR 3 & 4 GATELOCK) -->
                 <div id="sh-beo-guarantee-strip" style="margin-top:12px;padding:12px 16px;border-radius:12px;background:#FAF8F5;border:1px solid #E2D9C8;display:flex;flex-wrap:wrap;align-items:center;justify-content:space-between;gap:10px;font-size:13px;color:#1F1B18;">
                   <div style="display:flex;align-items:center;gap:8px;flex-wrap:wrap;min-width:0;">
