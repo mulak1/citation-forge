@@ -642,7 +642,8 @@ function renderInteractiveScript(initialPlan) {
   };
 
   window.shCopyMomSandboxLink = function() {
-    const url = window.location.origin + '/?preset=planner-beo-sandbox&sandbox=mom_tables_1_3#studio';
+    var vId = window.__SH_VAULT_ID || (new URLSearchParams(window.location.search)).get('vault');
+    var url = window.location.origin + (vId ? ('/?vault=' + encodeURIComponent(vId)) : '/?preset=planner-beo-sandbox') + '&sandbox=mom_tables_1_3#studio';
     if (navigator.clipboard && navigator.clipboard.writeText) { navigator.clipboard.writeText(url).catch(function(){}); }
     if (!window.__SH_SANDBOX_MOM) window.shToggleMomSandbox();
     shToast('✓ Copied Family Table Share Link (Tables 1-3 Editable, Other Tables Locked)!');
