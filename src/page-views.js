@@ -889,6 +889,132 @@ function renderHomePage(initialAudit, sampleSeoPages = []) {
 
 function getVenueVisual(slug = '', title = '', category = '') {
   const s = `${slug} ${title} ${category}`.toLowerCase();
+  if (/u-shape|parallel-banquet/i.test(s)) {
+    return {
+      img: '/public/venue-u-shape-banquet.jpg',
+      tag: 'Grand U-Shape Banquet',
+      name: 'Grand Symmetrical U-Shape Banquet Table & Vaulted Hall'
+    };
+  }
+  if (/kids-table|children-with-parents|highchair/i.test(s)) {
+    return {
+      img: '/public/venue-childrens-table.jpg',
+      tag: 'Children’s Banquet Table',
+      name: 'Exquisite Children’s Table & Matching Highchair Setting'
+    };
+  }
+  if (/250-guest-estate-tent/i.test(s)) {
+    return {
+      img: '/public/venue-250-guest-estate-tent.jpg',
+      tag: '250-Guest Estate Sailcloth Tent',
+      name: '250-Guest High-Peak Sailcloth Marquee & Country Estate Lawn'
+    };
+  }
+  if (/where-to-seat-grandparents|acoustic.*zone|grandparents.*dj/i.test(s)) {
+    return {
+      img: '/public/venue-quiet-acoustic-salon.jpg',
+      tag: 'Quiet Acoustic Dining Salon',
+      name: 'Quiet Acoustic Dining Alcove & Grandparents’ VIP Table'
+    };
+  }
+  if (/180-guest-museum|museum-rotunda/i.test(s)) {
+    return {
+      img: '/public/venue-historic-rotunda.jpg',
+      tag: 'Museum Marble Rotunda',
+      name: 'Art Museum Rotunda & Grand Colonnade'
+    };
+  }
+  if (/160-guest-industrial|industrial-loft/i.test(s)) {
+    return {
+      img: '/public/venue-modern-loft.jpg',
+      tag: 'Modern Timber Loft',
+      name: 'Urban Timber & Exposed Brick Industrial Loft'
+    };
+  }
+  if (/75-guest-destination|destination-wedding-villa/i.test(s)) {
+    return {
+      img: '/public/venue-coastal-cliffside.jpg',
+      tag: 'Cliffside Destination Villa',
+      name: 'Mediterranean Cliffside Villa & Sea View'
+    };
+  }
+  if (/60-guest-rehearsal-dinner/i.test(s)) {
+    return {
+      img: '/public/venue-wine-cellar.jpg',
+      tag: 'Intimate Rehearsal Cellar',
+      name: 'Historic Vaulted Brick Rehearsal Dinner Cellar'
+    };
+  }
+  if (/collaborate-with-mothers|mom-sandbox/i.test(s)) {
+    return {
+      img: '/public/venue-winery-sandbox.jpg',
+      tag: 'Family Table Sandbox',
+      name: 'Collaborative Family Table Sandbox at Vineyard Estate'
+    };
+  }
+  if (/qr-code|find-my-seat|cocktail-hour-qr/i.test(s)) {
+    return {
+      img: '/public/showcase-mobile-qr.png',
+      tag: 'Mobile QR Seat Finder Pass',
+      name: 'Smartphone Cocktail-Hour Instant Seat Finder Pass'
+    };
+  }
+  if (/avery-5302|folded-place-card/i.test(s)) {
+    return {
+      img: '/public/showcase-avery-5302.png',
+      tag: 'Avery 5302 Place Cards',
+      name: 'Standard Avery 5302 4-Up Letter Place Card Sheet'
+    };
+  }
+  if (/escort-cards-vs-24x36/i.test(s)) {
+    return {
+      img: '/public/ugc-escort-cards-wax.jpg',
+      tag: 'Wax Seal Escort Cards',
+      name: 'Artisan Wax-Sealed Escort Cards on Linen Table'
+    };
+  }
+  if (/plated-dinner-place-cards|buffet-table/i.test(s)) {
+    return {
+      img: '/public/ugc-place-card-table.jpg',
+      tag: 'Meal-Coded Place Setting',
+      name: 'Caterer Meal-Coded Place Card on Gold Charger'
+    };
+  }
+  if (/clockwise|caterer-beo|peanut.*celiac|allergy-wedding-catering/i.test(s)) {
+    return {
+      img: '/public/showcase-signed-beo.png',
+      tag: 'Clockwise 12:00 Caterer BEO',
+      name: 'Official Banquet Event Order & 12 O’Clock Server Seat Manifest'
+    };
+  }
+  if (/mini-floorplan-map|18x24-vs-24x36/i.test(s)) {
+    return {
+      img: '/public/showcase-poster-24x36.png',
+      tag: '24″×36″ Table Map Sign',
+      name: 'Arch D 24″×36″ Archival Foam Board Print Blueprint'
+    };
+  }
+  if (/how-many-names-fit|foam-board/i.test(s)) {
+    return {
+      img: '/public/ugc-welcome-sign-easel.jpg',
+      tag: '24″×36″ Welcome Sign on Easel',
+      name: 'Arch D 24″×36″ Welcome Sign on Natural Wood Easel'
+    };
+  }
+  if (/poster-size-and-font-guide|alphabetical-vs-by-table/i.test(s)) {
+    return {
+      img: '/public/ugc-seating-chart-easel.jpg',
+      tag: '20pt Serif Alphabetical Sign',
+      name: 'High-Contrast 20pt Serif Alphabetical Seating Sign'
+    };
+  }
+  if (/prismm|allseated/i.test(s)) {
+    return {
+      img: '/public/showcase-vault-command.png',
+      tag: 'Event Command Vault',
+      name: 'SeatHarmony Cloud Event Command & Deliverables Vault'
+    };
+  }
   if (/sweetheart-table-vs-kings|sweetheart.*vs.*king/i.test(s)) {
     return {
       img: '/public/venue-sweetheart-vs-kings.jpg',
