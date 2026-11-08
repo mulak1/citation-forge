@@ -213,8 +213,12 @@ function attachVaultAndPaywallRoutes(app, publicUrl, ebStore = null) {
       if (ebStore && finalEmail && finalEmail.includes('@') && !isTestOwner && (!existing || existing.owner_email !== finalEmail)) {
         const ua = String(req.headers['user-agent'] || '').toLowerCase(), isTestReq = /headlesschrome|playwright|puppeteer|curl\/|bot|crawler|example\.com|test/i.test(ua + ' ' + finalEmail) ? 1 : 0;
         const clientIp = String(req.headers['cf-connecting-ip'] || req.headers['x-forwarded-for'] || req.ip || '').split(',')[0].trim().replace(/^::ffff:/, '');
-        ebStore.recordLead({ email: finalEmail, summaryText: `Saved Reception Vault #${vaultId} (${title})`, utmSource: String(body.utm_source || 'vault_save'), isTest: isTestReq, clientIp });
+        const summaryText = `Saved Reception Vault #${vaultId} (${title}) — Clockwise 12:00 Caterer Sheet Ready`;
+        ebStore.recordLead({ email: finalEmail, summaryText, utmSource: String(body.utm_source || 'vault_save'), isTest: isTestReq, clientIp });
         ebStore.recordEvent({ eventType: 'lead_capture', pageUrl: String(body.page_url || '/api/vault/save'), deviceType: /mobile|iphone|android/i.test(ua) ? 'mobile' : 'desktop', utmSource: String(body.utm_source || 'vault_save'), isTest: isTestReq, clientIp, meta: { js_hydrated: 1, vaultId } });
+        if (typeof ebStore.sendOneClickLeadEmail === 'function') {
+          try { ebStore.sendOneClickLeadEmail(finalEmail, summaryText, Boolean(isTestReq)).catch(() => {}); } catch (_) {}
+        }
       }
       return res.status(200).json({ ok: true, vaultId, vault_id: vaultId, owner_email: finalEmail, title, venue_name: venueName, is_unlocked: Boolean(isUnlocked), plan_tier: planTier, urls: buildVaultUrls(baseUrl, vaultId) });
     } catch (err) { return res.status(500).json({ ok: false, error: err.message }); }

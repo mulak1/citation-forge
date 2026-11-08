@@ -719,6 +719,7 @@ function attachExactBaselinePack(app, options = {}) {
     next();
   });
   attachAutonomousGrowthEngine(app, cfg, store, null, classifyTrafficRequest);
-  return { cfg, store };
+  store.sendOneClickLeadEmail = sendOneClickLeadEmail;
+  return { cfg, store, sendOneClickLeadEmail };
 }
 module.exports = { INDEXNOW_KEY, VERTICAL_CONFIGS, attachExactBaselinePack };
