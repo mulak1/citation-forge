@@ -12,6 +12,7 @@
 const { queryOne, queryAll, runInsert } = require('./db');
 const { runGeoAudit } = require('./geo-engine');
 const { escapeHtml, renderBrandLogoSvg } = require('./templates');
+const { renderFloorplanPrintPage } = require('./vault-floorplan-view');
 
 const {
   normalizeVaultId,
@@ -311,9 +312,10 @@ function attachVaultAndPaywallRoutes(app, publicUrl, ebStore = null) {
   <script>
     window.printAllEventSheets = function() {
       window.open('${urls.print_poster}?auto_print=1', '_blank');
-      setTimeout(function() { window.open('${urls.print_avery}?auto_print=1', '_blank'); }, 600);
-      setTimeout(function() { window.open('${urls.print_beo}', '_blank'); }, 1200);
-      setTimeout(function() { window.open('${urls.qr_lookup}?auto_print=1', '_blank'); }, 1800);
+      setTimeout(function() { window.open('${urls.print_floorplan}?auto_print=1', '_blank'); }, 500);
+      setTimeout(function() { window.open('${urls.print_avery}?auto_print=1', '_blank'); }, 1000);
+      setTimeout(function() { window.open('${urls.print_beo}', '_blank'); }, 1500);
+      setTimeout(function() { window.open('${urls.qr_lookup}?auto_print=1', '_blank'); }, 2000);
     };
     if (new URLSearchParams(window.location.search).get('auto_print_all') === '1') {
       setTimeout(window.printAllEventSheets, 300);
@@ -322,6 +324,13 @@ function attachVaultAndPaywallRoutes(app, publicUrl, ebStore = null) {
 </body>
 </html>`;
       return res.status(200).type('html').send(html);
+    } catch (err) { return res.status(500).send('Internal Server Error'); }
+  });
+
+  app.get('/print/floorplan/:vaultId', async (req, res) => {
+    try {
+      const vault = await resolveVaultRecord(req.params.vaultId, req.query), urls = buildVaultUrls(baseUrl, vault.vaultId);
+      return res.status(200).type('html').send(renderFloorplanPrintPage({ vault, urls, baseUrl, req }));
     } catch (err) { return res.status(500).send('Internal Server Error'); }
   });
 

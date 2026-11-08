@@ -730,6 +730,12 @@ function renderDeliverablesClientScript() {
     if (win) win.focus();
     if (window.shTrackTelemetry) window.shTrackTelemetry('print_all_day_of_assets', { vaultId: vId });
   };
+  window.shPrintFloorplanDiagram = function() {
+    var vId = (window.__SH_STATE && window.__SH_STATE.vaultId) || 'SH-4819';
+    var win = window.open('/print/floorplan/' + encodeURIComponent(vId) + '?auto_print=1', '_blank');
+    if (win) win.focus();
+    if (window.shTrackTelemetry) window.shTrackTelemetry('view_floorplan_diagram_print', { vaultId: vId });
+  };
   window.shFocusEmailUnlockBadge = function() {
     var inp = document.getElementById('sh-inline-vault-email') || document.getElementById('sh-seo-calc-email');
     if (inp) {
