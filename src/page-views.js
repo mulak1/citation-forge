@@ -510,7 +510,7 @@ function renderZone3InteractiveStudio(plan) {
                   <div style="display:flex;gap:6px;flex-wrap:wrap;">
                     <button type="button" class="btn btn-secondary" onclick="window.shPrintPosterProof && window.shPrintPosterProof()" style="padding:6px 9px;font-size:0.73rem;background:#FAF8F5;border-color:#C8A96E;color:#78350F;font-weight:700;">${IC.print}Print Proof (PDF)</button>
                     <a id="sh-open-poster-studio-link" href="/print/poster/${vId}" target="_blank" class="btn btn-secondary" style="padding:6px 10px;font-size:0.73rem;">${IC.print}24&Prime;&times;36&Prime; Print Studio &rarr;</a>
-                    <a id="sh-open-avery-studio-link" href="/print/avery-5302/${vId}" target="_blank" class="btn btn-secondary" style="padding:6px 10px;font-size:0.73rem;">${IC.print}Avery 5302 Cards (Free Sample) &rarr;</a>
+                    <a id="sh-open-avery-studio-link" href="/print/avery-5302/${vId}?sample=1" target="_blank" class="btn btn-secondary" style="padding:6px 10px;font-size:0.73rem;">${IC.print}Avery 5302 Cards (Free Sample) &rarr;</a>
                     <a id="sh-pane-poster-buy-link" href="/buy/complete_dossier?target=estate-150&amp;vault=${vId}&amp;allow_promotion_codes=false" class="btn btn-primary" style="padding:6px 11px;font-size:0.8125rem;">&darr; Unlock 24&Prime;&times;36&Prime; Print-Ready Pack ($7 &middot; vs. $14 Blank Etsy Templates)</a>
                   </div>
                 </div>
@@ -589,7 +589,7 @@ function renderZone3InteractiveStudio(plan) {
           <div style="font-size:12.5px;color:#574F49;display:flex;align-items:center;gap:8px;flex-wrap:wrap;">
             <button type="button" id="sh-proof-table1-summary" onclick="if(window.shSetActiveTab){window.shSetActiveTab('beo');}var b=document.getElementById('sh-beo-container');if(b){b.scrollIntoView({behavior:'smooth'});}" style="background:none;border:none;padding:0;cursor:pointer;color:#065F46;font-weight:700;font-size:12.5px;text-decoration:underline;">✓ Specimen #1: 12:00 Meal Map &rarr;</button>
             <span style="color:#D1D5DB;">&bull;</span>
-            <a href="/print/avery-5302/${vId}" target="_blank" style="color:#065F46;font-weight:700;font-size:12.5px;text-decoration:underline;">Folded Place Card Sample &rarr;</a>
+            <a href="/print/avery-5302/${vId}?sample=1" target="_blank" style="color:#065F46;font-weight:700;font-size:12.5px;text-decoration:underline;">Folded Place Card Sample &rarr;</a>
           </div>
         </div>
 

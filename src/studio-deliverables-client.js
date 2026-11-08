@@ -610,7 +610,9 @@ function renderDeliverablesClientScript() {
 
   window.shPrintAveryProof = function() {
     var vId = (window.__SH_STATE && window.__SH_STATE.vaultId) || 'SH-4819';
-    var win = window.open('/print/avery-5302/' + encodeURIComponent(vId) + '?auto_print=1', '_blank');
+    var isUnl = Boolean(window.__SH_STATE && window.__SH_STATE.isUnlocked);
+    var qs = isUnl ? '?auto_print=1' : '?sample=1&auto_print=1';
+    var win = window.open('/print/avery-5302/' + encodeURIComponent(vId) + qs, '_blank');
     if (win) win.focus();
     if (window.shTrackTelemetry) window.shTrackTelemetry('view_avery_proof', { vaultId: vId });
   };
@@ -760,7 +762,8 @@ function renderDeliverablesClientScript() {
     const setHref = function(elId, url) { const el = document.getElementById(elId); if (el) el.href = url; };
     ['sh-cmd-vault-link', 'sh-footer-vault-link', 'sh-modal-link-vault'].forEach(function(k) { setHref(k, '/vault/' + id); });
     ['sh-cmd-poster-link', 'sh-open-poster-studio-link', 'sh-card5-poster-studio-link', 'sh-modal-link-poster'].forEach(function(k) { setHref(k, '/print/poster/' + id + posterQs); });
-    ['sh-cmd-avery-link', 'sh-open-avery-studio-link', 'sh-avery-preview-btn', 'sh-card5-avery-studio-link', 'sh-modal-link-avery'].forEach(function(k) { setHref(k, '/print/avery-5302/' + id); });
+    const averySampleQs = (!window.__SH_STATE || !window.__SH_STATE.isUnlocked) ? '?sample=1' : '';
+    ['sh-cmd-avery-link', 'sh-open-avery-studio-link', 'sh-avery-preview-btn', 'sh-card5-avery-studio-link', 'sh-modal-link-avery'].forEach(function(k) { setHref(k, '/print/avery-5302/' + id + averySampleQs); });
     ['sh-cmd-beo-link', 'sh-open-beo-studio-link', 'sh-modal-link-beo'].forEach(function(k) { setHref(k, '/print/beo/' + id); });
     ['sh-cmd-qr-link', 'sh-open-qr-app-link', 'sh-qr-short-url', 'sh-modal-link-qr'].forEach(function(k) { setHref(k, '/qr/' + id); });
     const savedEm = (window.localStorage && localStorage.getItem('sh_saved_email')) || (state.ownerEmail && !/^(test|vip)@/i.test(state.ownerEmail) ? state.ownerEmail : '') || '';
