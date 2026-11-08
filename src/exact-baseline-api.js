@@ -531,8 +531,29 @@ function attachExactBaselinePack(app, options = {}) {
   const buildBuyLinks = (email) => ({ micro_pass: `https://${cfg.domain}/buy/micro_pass?email=${encodeURIComponent(email)}`, flash_pass: `https://${cfg.domain}/buy/flash_pass?email=${encodeURIComponent(email)}`, complete_dossier: `https://${cfg.domain}/buy/complete_dossier?email=${encodeURIComponent(email)}`, pro_b2b: `https://${cfg.domain}/buy/pro_b2b?email=${encodeURIComponent(email)}` });
   async function sendOneClickLeadEmail(email, summaryText, isTest) {
     const links = buildBuyLinks(email), safeSum = escMailHtml(summaryText);
-    const textMail = `${summaryText}\n\n1-Click Direct Stripe Checkout Links (No Login Required):\n• $${cfg.corePriceUsd} ${cfg.coreLabel}: ${links.flash_pass}\n• $${cfg.proPriceUsd} ${cfg.proLabel}: ${links.pro_b2b}\n`;
-    const htmlMail = `<div style="font-family:sans-serif;max-width:560px;color:#0F172A;"><h2>${escMailHtml(cfg.brandName)}: Clockwise 12:00 Caterer Meal Sheet &amp; Print Pack Links</h2><p>${safeSum}</p><p><strong>Instant 1-Click Stripe Checkout (Apple Pay / Link Ready):</strong></p><ul><li><a href="${links.flash_pass}"><strong>$${cfg.corePriceUsd} ${escMailHtml(cfg.coreLabel)} →</strong></a></li><li><a href="${links.pro_b2b}"><strong>$${cfg.proPriceUsd} ${escMailHtml(cfg.proLabel)} →</strong></a></li></ul></div>`;
+    const textMail = `${summaryText}\n\nYour Floorplan & Clockwise 12:00 Caterer BEO links are ready.\n\nLooking for the Print-Shop Ready 24"×36" Poster & Avery 5302 Escort Cards?\n• $${cfg.corePriceUsd} ${cfg.coreLabel} (1-Click Stripe Checkout, Apple Pay / Card): ${links.flash_pass}\n• $${cfg.proPriceUsd} ${cfg.proLabel} (Unlimited Events + B2B Pass): ${links.pro_b2b}\n\n✓ Backed by our 30-Day 100% Money-Back Guarantee.\n✓ Instant browser redirect to high-res PDF print files upon completion.\n`;
+    const htmlMail = `<div style="font-family:'Plus Jakarta Sans',-apple-system,BlinkMacSystemFont,sans-serif;max-width:580px;margin:0 auto;color:#0F172A;line-height:1.5;padding:24px;border:1px solid #E2E8F0;border-radius:12px;background:#FFFFFF;">
+  <div style="display:flex;align-items:center;gap:8px;margin-bottom:16px;">
+    <span style="font-size:20px;font-weight:700;color:#1B4D3E;letter-spacing:-0.02em;">${escMailHtml(cfg.brandName)}</span>
+    <span style="background:#EBF5F0;color:#1B4D3E;font-size:11px;font-weight:700;padding:2px 8px;border-radius:999px;">✓ Free Floorplan &amp; BEO Saved</span>
+  </div>
+  <h2 style="font-size:18px;font-weight:700;color:#0F172A;margin:0 0 12px 0;">Your Seating Chart &amp; Clockwise 12:00 Caterer Sheet</h2>
+  <div style="background:#F8FAFC;border:1px solid #E2E8F0;border-radius:8px;padding:12px 14px;font-size:13px;color:#334155;margin-bottom:20px;">
+    ${safeSum}
+  </div>
+  <div style="background:#FBFDFC;border:1px solid #CDE7DB;border-radius:8px;padding:16px;margin-bottom:20px;">
+    <div style="font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:0.05em;color:#1B4D3E;margin-bottom:4px;">High-Labor Execution Deliverable</div>
+    <h3 style="font-size:15px;font-weight:700;color:#0F172A;margin:0 0 8px 0;">Unlock Print-Shop Ready 24″×36″ Sign &amp; Avery 5302 Cards</h3>
+    <p style="font-size:13px;color:#475569;margin:0 0 12px 0;">Skip 4 hours formatting Canva or paying $14 for blank Etsy templates. Get auto-compiled, print-shop-ready vector files with 0.125″ bleeds, 180° upside-down server allergy alerts, and Banquet Captain-approved table manifests.</p>
+    <div style="margin-bottom:12px;">
+      <a href="${links.flash_pass}" style="display:inline-block;background:#1B4D3E;color:#FFFFFF;font-size:13px;font-weight:700;padding:10px 18px;border-radius:7px;text-decoration:none;">Unlock Event Print Pack — $${cfg.corePriceUsd} One-Time Pass →</a>
+    </div>
+    <div style="font-size:11px;color:#64748B;">✓ 30-Day 100% Money-Back Guarantee &bull; Instant download &bull; Staples &amp; FedEx Office Ready</div>
+  </div>
+  <div style="font-size:12px;color:#64748B;border-top:1px solid #F1F5F9;padding-top:12px;">
+    Wedding Planner or Coordinator? <a href="${links.pro_b2b}" style="color:#1B4D3E;font-weight:600;text-decoration:none;">Get the $${cfg.proPriceUsd} Unlimited B2B Season Pass &rarr;</a>
+  </div>
+</div>`;
     const resendKey = process.env.RESEND_API_KEY || '';
     if (SENDGRID_API_KEY && SENDGRID_API_KEY.startsWith('SG.') && !isTest) {
       try {
