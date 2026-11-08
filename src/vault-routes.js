@@ -845,6 +845,10 @@ function attachVaultAndPaywallRoutes(app, publicUrl, ebStore = null) {
       <div style="border-top:1px solid #E2D9C8;padding-top:12px;display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:8px;">
         ${tables.slice(0, 6).map((t, idx) => `<div style="min-width:0;background:#FAF8F5;border:1px solid #E2D9C8;border-radius:10px;padding:8px 10px;"><div class="mono" style="font-size:0.66rem;color:#8C2D19;font-weight:800;">TABLE ${t.number || (idx + 1)}</div><div style="font-size:0.80rem;font-weight:700;color:#181412;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;">${escapeHtml(t.name || `Table ${idx + 1}`)}</div><div style="font-size:0.70rem;color:#57534E;">${(t.guests || []).length} Seated Guests</div></div>`).join('')}
       </div>
+      <div style="margin-top:14px;padding:12px;background:#FAF8F5;border:1px solid #E2D9C8;border-radius:12px;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:8px;font-size:0.75rem;">
+        <span style="font-weight:800;color:#1B4D3E;">&#10003; Zero App Download Required</span>
+        <span style="font-weight:700;color:#78350F;background:#FFFBEB;border:1px solid #FDE68A;padding:2px 8px;border-radius:999px;">&#10003; 30-Day Money-Back Guarantee</span>
+      </div>
     </div>
   </div>
   <script>
