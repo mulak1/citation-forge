@@ -75,8 +75,8 @@ function renderZone2Walkthrough(plan = {}) {
 
         <!-- Venue Selector Tabs -->
         <div style="display:flex;gap:6px;overflow-x:auto;padding:4px 2px 10px;-webkit-overflow-scrolling:touch;scrollbar-width:none;justify-content:flex-start;max-width:100%;">
-          <button type="button" class="studio-tap-chip active" id="sh-showcase-tab-0" onclick="window.shSelectShowcaseVenue(0)" style="padding:6px 12px;font-size:0.78rem;font-weight:700;white-space:nowrap;flex-shrink:0;">🌿 Rosewood Estate</button>
-          <button type="button" class="studio-tap-chip" id="sh-showcase-tab-1" onclick="window.shSelectShowcaseVenue(1)" style="padding:6px 12px;font-size:0.78rem;font-weight:700;white-space:nowrap;flex-shrink:0;">🌊 Yacht &amp; Beach Club</button>
+          <button type="button" class="studio-tap-chip active" id="sh-showcase-tab-0" onclick="window.shSelectShowcaseVenue(0)" style="padding:6px 12px;font-size:0.78rem;font-weight:700;white-space:nowrap;flex-shrink:0;">🌊 Yacht &amp; Beach Club</button>
+          <button type="button" class="studio-tap-chip" id="sh-showcase-tab-1" onclick="window.shSelectShowcaseVenue(1)" style="padding:6px 12px;font-size:0.78rem;font-weight:700;white-space:nowrap;flex-shrink:0;">🌿 Rosewood Estate</button>
           <button type="button" class="studio-tap-chip" id="sh-showcase-tab-2" onclick="window.shSelectShowcaseVenue(2)" style="padding:6px 12px;font-size:0.78rem;font-weight:700;white-space:nowrap;flex-shrink:0;">⛺ Sailcloth Tent</button>
           <button type="button" class="studio-tap-chip" id="sh-showcase-tab-3" onclick="window.shSelectShowcaseVenue(3)" style="padding:6px 12px;font-size:0.78rem;font-weight:700;white-space:nowrap;flex-shrink:0;">🏛️ Grand Ballroom</button>
           <button type="button" class="studio-tap-chip" id="sh-showcase-tab-4" onclick="window.shSelectShowcaseVenue(4)" style="padding:6px 12px;font-size:0.78rem;font-weight:700;white-space:nowrap;flex-shrink:0;">🍇 Tuscan Courtyard</button>
@@ -88,12 +88,12 @@ function renderZone2Walkthrough(plan = {}) {
           <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:16px;align-items:center;">
             <!-- Left: Venue Photograph -->
             <div style="position:relative;border-radius:14px;overflow:hidden;background:#F5EFE6;aspect-ratio:16/10;box-shadow:0 4px 14px -4px rgba(0,0,0,0.12);">
-              <img id="sh-showcase-photo" src="/public/venue-rosewood-estate.jpg" alt="Private Country Estate &amp; Glass Conservatory" style="width:100%;height:100%;object-fit:cover;display:block;" loading="lazy" />
+              <img id="sh-showcase-photo" src="/public/venue-coastal-beach-club.jpg" alt="Coastal Yacht &amp; Beach Club Ocean Terrace" style="width:100%;height:100%;object-fit:cover;display:block;" loading="lazy" />
               <div style="position:absolute;top:10px;left:10px;background:rgba(27,77,62,0.92);color:#FFFFFF;padding:4px 10px;border-radius:999px;font-size:0.70rem;font-weight:700;backdrop-filter:blur(4px);" id="sh-showcase-venue-badge">
-                Estate Reception &middot; 150 Guests
+                Waterfront Terrace &middot; 110 Guests
               </div>
               <div style="position:absolute;bottom:10px;left:10px;right:10px;background:rgba(24,20,18,0.85);color:#FFFFFF;padding:6px 10px;border-radius:8px;font-size:0.72rem;backdrop-filter:blur(4px);display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:4px;" id="sh-showcase-venue-specs">
-                <span>&#10003; 18 Round Tables + Sweetheart &middot; 54&Prime; Server Aisles &middot; 24&Prime;&times;36&Prime; Sign</span>
+                <span>&#10003; 11 Banquet &amp; Round Tables &middot; Oceanfront Sightlines &middot; 3-Column Sign</span>
               </div>
             </div>
 
@@ -101,11 +101,11 @@ function renderZone2Walkthrough(plan = {}) {
             <div style="display:flex;flex-direction:column;gap:12px;">
               <div style="display:flex;align-items:center;justify-content:space-between;gap:8px;flex-wrap:wrap;">
                 <div>
-                  <h4 id="sh-showcase-couple-headline" class="serif-display" style="font-size:1.15rem;margin:0;color:#181412;">Maya &amp; Liam&rsquo;s 150-Guest Estate Reception</h4>
-                  <div id="sh-showcase-proof-sub" style="font-size:0.78rem;color:#57534E;margin-top:2px;">3 Family Conflicts Auto-Solved &middot; 4 Allergy Alerts &middot; Clockwise 12:00 Caterer Sheet</div>
+                  <h4 id="sh-showcase-couple-headline" class="serif-display" style="font-size:1.15rem;margin:0;color:#181412;">Sienna &amp; Julian&rsquo;s Beach Club Reception</h4>
+                  <div id="sh-showcase-proof-sub" style="font-size:0.78rem;color:#57534E;margin-top:2px;">Coastal Breeze Buffer &middot; Equidistant VIP Views &middot; Clockwise Meal Tally</div>
                 </div>
                 <span id="sh-showcase-savings-badge" style="font-size:0.72rem;font-weight:700;color:#1B4D3E;background:#EBF4F0;border:1px solid #C4DFD5;padding:3px 9px;border-radius:999px;white-space:nowrap;">
-                  Saved 6.5 Hrs + $220 vs. Excel &amp; Etsy
+                  Saved 5.0 Hrs &middot; 0 Spacing Bottlenecks
                 </span>
               </div>
 
@@ -124,7 +124,7 @@ function renderZone2Walkthrough(plan = {}) {
               <div style="display:flex;align-items:center;justify-content:space-between;gap:8px;flex-wrap:wrap;padding-top:4px;">
                 <span style="font-size:0.74rem;color:#065F46;font-weight:700;">&#10003; 0 Family Drama &bull; Clockwise 12:00 Meal Tally</span>
                 <button type="button" id="sh-showcase-load-btn" onclick="window.shLoadShowcaseIntoStudio && window.shLoadShowcaseIntoStudio()" style="display:inline-flex;align-items:center;justify-content:center;gap:6px;padding:8px 16px;border-radius:999px;background:#1B4D3E;color:#FFFFFF;font-weight:700;font-size:0.80rem;border:1px solid #1B4D3E;cursor:pointer;white-space:nowrap;box-shadow:0 2px 8px rgba(27, 77, 62,0.18);">
-                  <span>Load 🌿 Rosewood Estate in Studio &uarr;</span>
+                  <span>Load 🌊 Yacht &amp; Beach Club in Studio &uarr;</span>
                 </button>
               </div>
             </div>
@@ -135,17 +135,6 @@ function renderZone2Walkthrough(plan = {}) {
       (function(){
         window.__SH_SHOWCASE_VENUES = [
           {
-            id: 'estate-150',
-            name: 'Private Country Estate & Glass Conservatory',
-            tag: 'Estate Reception · 150 Guests',
-            short: '🌿 Rosewood Estate',
-            img: '/public/venue-rosewood-estate.jpg',
-            couple: 'Maya & Liam’s 150-Guest Estate Reception',
-            specs: '18 Round Tables + Sweetheart · 54″ Server Aisles · 24″×36″ Sign',
-            saved: 'Saved 6.5 Hrs + $220 vs. Excel & Etsy',
-            proofSub: '3 Family Conflicts Auto-Solved · 4 Allergy Alerts · Clockwise 12:00 Caterer Sheet'
-          },
-          {
             id: '110-guest-coastal-beach-club-seating-chart',
             name: 'Coastal Yacht & Beach Club Ocean Terrace',
             tag: 'Waterfront Terrace · 110 Guests',
@@ -155,6 +144,17 @@ function renderZone2Walkthrough(plan = {}) {
             specs: '11 Banquet & Round Tables · Oceanfront Sightlines · 3-Column Sign',
             saved: 'Saved 5.0 Hrs · 0 Spacing Bottlenecks',
             proofSub: 'Coastal Breeze Buffer · Equidistant VIP Views · Clockwise Meal Tally'
+          },
+          {
+            id: 'estate-150',
+            name: 'Private Country Estate & Glass Conservatory',
+            tag: 'Estate Reception · 150 Guests',
+            short: '🌿 Rosewood Estate',
+            img: '/public/venue-rosewood-estate.jpg',
+            couple: 'Maya & Liam’s 150-Guest Estate Reception',
+            specs: '18 Round Tables + Sweetheart · 54″ Server Aisles · 24″×36″ Sign',
+            saved: 'Saved 6.5 Hrs + $220 vs. Excel & Etsy',
+            proofSub: '3 Family Conflicts Auto-Solved · 4 Allergy Alerts · Clockwise 12:00 Caterer Sheet'
           },
           {
             id: '130-guest-sailcloth-tent-wedding-seating-chart',
