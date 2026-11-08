@@ -150,6 +150,9 @@ function renderBinderDockHtml() {
         </div>
         <div class="shw-kit-bar"><div class="shw-kit-bar-fill" id="shw-pop-bar"></div></div>
         <ul class="shw-pop-list" id="shw-pop-list"></ul>
+        <div style="font-size:0.72rem;color:#78350F;font-weight:700;background:#FFFBEB;border:1px solid #FDE68A;border-radius:8px;padding:6px 10px;text-align:center;margin:6px 0 8px;">
+          &#10003; 30-Day Money-Back Guarantee &bull; FedEx Office 24&Prime;&times;36&Prime; Ready
+        </div>
         <button type="button" class="shw-primary shw-pop-cta" id="shw-pop-cta" onclick="window.shwPopCta()">Continue setup</button>
         <div class="shw-pop-foot" id="shw-pop-foot"><button type="button" class="shw-link" onclick="window.shwAskClearAll()">Clear everything</button></div>
       </div>`;
