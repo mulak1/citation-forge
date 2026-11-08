@@ -515,13 +515,14 @@ function renderZone3InteractiveStudio(plan) {
                   <div><label for="sh-inline-sign-mono" style="display:block;font-size:0.68rem;font-weight:800;color:#78350F;text-transform:uppercase;margin-bottom:3px;">Monogram &amp; Date</label><input id="sh-inline-sign-mono" type="text" class="sh-ed-input" placeholder="M&amp;L &middot; OCT 24, 2026" oninput="window.shUpdateSignMonogram(this.value)" /></div>
                   <div><label for="sh-inline-sign-venue" style="display:block;font-size:0.68rem;font-weight:800;color:#78350F;text-transform:uppercase;margin-bottom:3px;">Reception Subtitle / Venue</label><input id="sh-inline-sign-venue" type="text" class="sh-ed-input" placeholder="The Conservatory at Villa Bellagio" oninput="window.shUpdateSignVenue(this.value)" /></div>
                 </div>
-                <div id="sh-poster-preview" style="max-height:760px;overflow-y:auto;margin-bottom:10px;"></div>
-                <div id="sh-avery-preview"></div>
+                <div id="sh-poster-preview" style="max-height:260px;overflow-y:auto;margin-bottom:10px;"></div>
+                <div id="sh-avery-preview" style="display:none;margin-bottom:10px;"></div>
                 <!-- LOCAL PRINT-SHOP PRODUCTION PROOF & SATISFACTION GUARANTEE -->
                 <div id="sh-poster-printshop-guarantee" style="margin-top:12px;padding:12px 16px;border-radius:12px;background:#FAF8F5;border:1px solid #E2D9C8;display:flex;flex-wrap:wrap;align-items:center;justify-content:space-between;gap:10px;font-size:13px;color:#1F1B18;">
                   <div style="display:flex;align-items:center;gap:8px;flex-wrap:wrap;min-width:0;">
                     <span style="font-weight:800;color:#1B4D3E;">&#10003; Print-Shop Ready:</span>
                     <span style="color:#574F49;">FedEx Office &amp; Staples 24&Prime;&times;36&Prime; Mounted Foam-Board Spec &bull; 0.125&Prime; Bleed &bull; Avery 5302 2&Prime;&times;3.5&Prime; Cards &bull; Same-Day Local Pickup Compatible</span>
+                    <button type="button" id="sh-open-print-specs-btn" class="studio-tap-chip" onclick="window.shOpenPrintShopSpecsModal && window.shOpenPrintShopSpecsModal()" style="padding:2px 8px;font-size:0.72rem;font-weight:700;color:#1B4D3E;background:#FFFFFF;border:1px solid #C4DFD5;border-radius:999px;cursor:pointer;">📋 1-Click Print Specs</button>
                   </div>
                   <div style="font-size:12px;color:#78350F;font-weight:700;background:#FFFBEB;border:1px solid #FDE68A;padding:4px 10px;border-radius:999px;white-space:nowrap;">
                     &#10003; 30-Day 100% Money-Back Print Guarantee
@@ -700,6 +701,35 @@ function renderZone3InteractiveStudio(plan) {
             </div>
             <button type="button" class="btn btn-primary" onclick="window.shCloseVenuePhotoModal()" style="font-size:0.82rem;padding:7px 16px;">Back to Floorplan Canvas</button>
           </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Print Shop Preparation Specs Lightbox Modal -->
+    <div id="sh-print-specs-modal" style="display:none;position:fixed;inset:0;z-index:9999;background:rgba(28,28,28,0.72);backdrop-filter:blur(6px);align-items:center;justify-content:center;padding:16px;" onclick="if(event.target===this)window.shClosePrintShopSpecsModal()">
+      <div style="background:#FFFFFF;border:1px solid #E5E7EB;border-radius:18px;max-width:640px;width:100%;box-shadow:0 24px 64px rgba(0,0,0,0.32);color:#1C1C1C;padding:22px;position:relative;">
+        <button type="button" onclick="window.shClosePrintShopSpecsModal()" style="position:absolute;top:14px;right:14px;z-index:10;background:#F3F4F6;color:#374151;border:none;border-radius:50%;width:30px;height:30px;cursor:pointer;font-size:14px;font-weight:700;display:flex;align-items:center;justify-content:center;" title="Close">✕</button>
+        <div style="font-size:0.68rem;font-weight:800;letter-spacing:0.08em;text-transform:uppercase;color:#1B4D3E;margin-bottom:4px;">COMMERCIAL PRE-PRESS SPECS</div>
+        <h3 class="serif-display" style="font-size:1.35rem;margin:0 0 12px;color:#181412;">FedEx Office &amp; Staples 24&Prime;&times;36&Prime; Print Guide</h3>
+        <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(250px,1fr));gap:12px;font-size:0.82rem;line-height:1.45;color:#4B5563;margin-bottom:16px;">
+          <div style="padding:12px;border-radius:10px;background:#FAF8F5;border:1px solid #E5DEC9;">
+            <strong style="color:#181412;display:block;margin-bottom:4px;">1. Easel Welcome Sign</strong>
+            <div>&bull; <strong>Trim Size:</strong> 24&Prime; &times; 36&Prime; (Arch D)</div>
+            <div>&bull; <strong>Bleed Size:</strong> 24.25&Prime; &times; 36.25&Prime; (0.125&Prime; border safety)</div>
+            <div>&bull; <strong>Substrate:</strong> 3/16&Prime; Rigid Foam-Core Board (Matte Finish)</div>
+            <div>&bull; <strong>Turnaround:</strong> Same-day local pickup at 1,800+ FedEx &amp; Staples stores</div>
+          </div>
+          <div style="padding:12px;border-radius:10px;background:#FAF8F5;border:1px solid #E5DEC9;">
+            <strong style="color:#181412;display:block;margin-bottom:4px;">2. Folded Place Cards</strong>
+            <div>&bull; <strong>Card Type:</strong> Avery 5302 (2&Prime; &times; 3.5&Prime; tent-fold, 4 per sheet)</div>
+            <div>&bull; <strong>Server Side:</strong> 180&deg; upside-down meal code &amp; red allergy alert</div>
+            <div>&bull; <strong>Printer:</strong> Standard home/office color inkjet or laser</div>
+            <div>&bull; <strong>Alignment:</strong> 100% pre-calibrated matrix (zero clipping)</div>
+          </div>
+        </div>
+        <div style="display:flex;align-items:center;justify-content:space-between;gap:10px;flex-wrap:wrap;padding-top:12px;border-top:1px solid #F3F4F6;">
+          <span style="font-size:0.75rem;color:#78716C;">&#10003; Guaranteed to pass print-shop automated file flight checks</span>
+          <button type="button" class="btn btn-primary" onclick="window.shClosePrintShopSpecsModal()" style="font-size:0.80rem;padding:6px 14px;">Got It &rarr;</button>
         </div>
       </div>
     </div>

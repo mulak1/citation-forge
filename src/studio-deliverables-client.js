@@ -569,6 +569,7 @@ function renderDeliverablesClientScript() {
   }
 
   window.shSwitchSignSubView = function(mode) {
+    window.__SH_SIGN_SUBVIEW = mode;
     var pBtn = document.getElementById('sh-view-mode-poster-btn');
     var aBtn = document.getElementById('sh-view-mode-avery-btn');
     var posterEl = document.getElementById('sh-poster-preview');
@@ -576,12 +577,25 @@ function renderDeliverablesClientScript() {
     if (mode === 'avery') {
       if (pBtn) pBtn.classList.remove('active');
       if (aBtn) aBtn.classList.add('active');
-      if (averyEl) averyEl.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+      if (posterEl) posterEl.style.display = 'none';
+      if (averyEl) { averyEl.style.display = 'block'; averyEl.scrollIntoView({ behavior: 'smooth', block: 'nearest' }); }
     } else {
       if (pBtn) pBtn.classList.add('active');
       if (aBtn) aBtn.classList.remove('active');
-      if (posterEl) posterEl.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+      if (posterEl) { posterEl.style.display = 'block'; posterEl.scrollIntoView({ behavior: 'smooth', block: 'nearest' }); }
+      if (averyEl) averyEl.style.display = 'none';
     }
+  };
+
+  window.shOpenPrintShopSpecsModal = function() {
+    var m = document.getElementById('sh-print-specs-modal');
+    if (m) m.style.display = 'flex';
+    if (window.shTrackTelemetry) window.shTrackTelemetry('view_paywall', { source: 'print_specs_modal' });
+  };
+
+  window.shClosePrintShopSpecsModal = function() {
+    var m = document.getElementById('sh-print-specs-modal');
+    if (m) m.style.display = 'none';
   };
 
   window.shToggleBeoFilter = function(filterKey) {
