@@ -614,6 +614,7 @@ function floorplanCard(p, f) {
       <div class="dir-stat"><span class="dir-stat-label">Room size</span><span class="dir-stat-val">${fmt(f.sqft)}<small> sq ft</small></span></div>
     </div>
     <h3 class="dir-card-title">${escapeHtml(title)}</h3>
+    <div style="font-size:0.74rem;color:#1B4D3E;font-weight:700;margin:6px 0 2px;">&#10003; 24&Prime;&times;36&Prime; Sign &bull; 12:00 Caterer Sheet Ready</div>
     <div class="dir-card-cta">Inspect architectural blueprint &rarr;</div>
   </a>`;
 }
