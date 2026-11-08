@@ -245,6 +245,13 @@ var SH_POSTER_THEMES = {
     if (window.shTrackTelemetry) window.shTrackTelemetry('view_foyer_sign_proof', { vaultId: vId });
   };
 
+  window.shPrintAllDayOfAssets = window.shPrintAllDeliverables = function() {
+    var vId = (window.__SH_STATE && window.__SH_STATE.vaultId) || 'SH-4819';
+    var win = window.open('/vault/' + encodeURIComponent(vId) + '?auto_print_all=1', '_blank');
+    if (win) win.focus();
+    if (window.shTrackTelemetry) window.shTrackTelemetry('print_all_day_of_assets', { vaultId: vId });
+  };
+
   
 `;
 }
