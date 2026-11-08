@@ -467,6 +467,7 @@ function attachVaultAndPaywallRoutes(app, publicUrl, ebStore = null) {
       const monoParts = parseMonogramParts(req.query.monogram || (vault.state && vault.state.signMonogram), vault.title);
       const monogram = monoParts.initials, monogramSub = monoParts.sub, monogramInputVal = monoParts.raw;
       const monoFontRem = monogram.length > 5 ? '0.95rem' : (monogram.length > 3 ? '1.22rem' : '1.52rem'), qrImgUrl = buildInlineQrDataUri(urls.qr_lookup);
+      const buyPackUrl = `/buy/complete_dossier?target=${encodeURIComponent(vault.title || vault.vaultId)}&vault=${encodeURIComponent(vault.vaultId)}${vault.ownerEmail ? `&email=${encodeURIComponent(vault.ownerEmail)}` : ''}`;
 
       const POSTER_THEMES = {
         alabaster: { label: 'Parisian Gold', short: 'Gold', bg: '#FAF6EE', fg: '#181412', sub: '#57534E', accent: '#8C2D19', border: '#C8A96E' },
@@ -489,7 +490,7 @@ function attachVaultAndPaywallRoutes(app, publicUrl, ebStore = null) {
       } else {
         const visibleGuests = vault.isUnlocked ? guests : guests.filter(g => g.tableNumber === 1), groups = {};
         visibleGuests.forEach(g => { const letter = (g.lastName[0] || 'A').toUpperCase(); if (!groups[letter]) groups[letter] = []; groups[letter].push(g); });
-        bodyGridHtml = Object.keys(groups).sort().map(letter => `<div style="margin-bottom:10px;break-inside:avoid;"><div class="serif" style="font-size:1.35rem;color:${accent};border-bottom:1.5px solid ${border};margin-bottom:4px;">${escapeHtml(letter)}</div>${groups[letter].map(g => `<div style="display:flex;justify-content:space-between;gap:8px;font-size:0.90rem;padding:2px 0;border-bottom:1px dotted rgba(200,169,110,0.3);"><span><strong>${escapeHtml(g.lastName)}</strong>${g.posterRestName ? `, ${escapeHtml(g.posterRestName)}` : ''}</span><span class="mono" style="font-weight:700;color:${accent};">Table ${g.tableNumber}${!vault.isUnlocked ? ' (Sample)' : ''}</span></div>`).join('')}</div>`).join('') + (!vault.isUnlocked ? `<div style="grid-column:1 / -1;padding:14px 16px;border-radius:12px;background:rgba(200,169,110,0.12);border:1.5px dashed ${border};font-size:0.86rem;font-weight:800;color:${fg};display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:10px;"><div style="display:flex;align-items:center;gap:10px;flex-wrap:wrap;"><span>${VR_LOCK_SVG}Tables 2&ndash;${tables.length} Guest Names (${Math.max(0, guests.length - visibleGuests.length)} Additional Seated Guests) &mdash; Unlock 24&Prime;&times;36&Prime; Print-Shop Poster ($7 Pack)</span><span style="font-size:12px;color:#78350F;font-weight:700;background:#FFFBEB;border:1px solid #FDE68A;padding:2px 8px;border-radius:6px;">&#10003; 30-Day Guarantee &bull; 0.125&Prime; Bleed</span></div><a href="/buy/complete_dossier?target=${encodeURIComponent(vault.vaultId)}&vault=${encodeURIComponent(vault.vaultId)}&allow_promotion_codes=false" style="background:#181412;color:#FDE68A;border:1px solid ${border};border-radius:999px;padding:6px 12px;font-size:0.78rem;text-decoration:none;">${VR_LOCK_SVG}Unlock 24&Prime;&times;36&Prime; Print Pack ($7) &rarr;</a></div>` : '');
+        bodyGridHtml = Object.keys(groups).sort().map(letter => `<div style="margin-bottom:10px;break-inside:avoid;"><div class="serif" style="font-size:1.35rem;color:${accent};border-bottom:1.5px solid ${border};margin-bottom:4px;">${escapeHtml(letter)}</div>${groups[letter].map(g => `<div style="display:flex;justify-content:space-between;gap:8px;font-size:0.90rem;padding:2px 0;border-bottom:1px dotted rgba(200,169,110,0.3);"><span><strong>${escapeHtml(g.lastName)}</strong>${g.posterRestName ? `, ${escapeHtml(g.posterRestName)}` : ''}</span><span class="mono" style="font-weight:700;color:${accent};">Table ${g.tableNumber}${!vault.isUnlocked ? ' (Sample)' : ''}</span></div>`).join('')}</div>`).join('') + (!vault.isUnlocked ? `<div style="grid-column:1 / -1;padding:14px 16px;border-radius:12px;background:rgba(200,169,110,0.12);border:1.5px dashed ${border};font-size:0.86rem;font-weight:800;color:${fg};display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:10px;"><div style="display:flex;align-items:center;gap:10px;flex-wrap:wrap;"><span>${VR_LOCK_SVG}Tables 2&ndash;${tables.length} Guest Names (${Math.max(0, guests.length - visibleGuests.length)} Additional Seated Guests) &mdash; Unlock 24&Prime;&times;36&Prime; Print-Shop Poster ($7 Pack)</span><span style="font-size:12px;color:#78350F;font-weight:700;background:#FFFBEB;border:1px solid #FDE68A;padding:2px 8px;border-radius:6px;">&#10003; 30-Day Guarantee &bull; 0.125&Prime; Bleed</span></div><a href="${buyPackUrl}" style="background:#1B4D3E;color:#FFFFFF;border:1px solid #14382D;border-radius:999px;padding:6px 14px;font-size:0.78rem;font-weight:800;text-decoration:none;display:inline-flex;align-items:center;gap:4px;">${VR_LOCK_SVG}Unlock 24&Prime;&times;36&Prime; Print Pack ($7) &rarr;</a></div>` : '');
       }
 
       const extraPosterQs = `&kicker=${encodeURIComponent(customKicker)}&monogram=${encodeURIComponent(monogramInputVal)}`;
@@ -511,7 +512,6 @@ function attachVaultAndPaywallRoutes(app, publicUrl, ebStore = null) {
       }).join('');
       const posterMiniMapBlock = `<div id="poster-mini-map-wrap" style="display:${showMap ? 'block' : 'none'};margin:0 0 24px;padding:0 0 18px;border-bottom:1.5px solid ${border};background:transparent;"><div class="mono poster-mini-map-header" style="display:flex;justify-content:space-between;align-items:center;gap:8px;flex-wrap:wrap;margin-bottom:6px;font-size:0.70rem;font-weight:800;letter-spacing:0.14em;color:${sub};"><span>&#10022; RECEPTION TABLE LAYOUT (${tables.length} TABLES)</span><span>FIND YOUR NAME BELOW &rarr; LOCATE YOUR TABLE</span></div><svg viewBox="${vx} ${vy} ${vw} ${vh}" preserveAspectRatio="xMidYMid meet" style="width:100%;max-height:380px;height:auto;display:block;background:transparent;border:none;">${lmSvg}${tblSvg}</svg></div>`;
 
-      const buyPackUrl = `/buy/complete_dossier?target=${encodeURIComponent(vault.title || vault.vaultId)}&vault=${encodeURIComponent(vault.vaultId)}${vault.ownerEmail ? `&email=${encodeURIComponent(vault.ownerEmail)}` : ''}`;
       const proofWatermarkHtml = vault.isUnlocked ? '' : `<div class="proof-wm" aria-hidden="true"><span>Preview Sample &bull; Unlock Full Print Sign at SeatHarmony.com</span></div>`;
       const html = `<!DOCTYPE html>
 <html lang="en">
@@ -644,6 +644,7 @@ function attachVaultAndPaywallRoutes(app, publicUrl, ebStore = null) {
       const vault = await resolveVaultRecord(req.params.vaultId, req.query);
       const guests = extractAllSeatedGuests(vault.state);
       const monogram = computeMonogram(vault.title);
+      const buyPackUrl = `/buy/complete_dossier?target=${encodeURIComponent(vault.title || vault.vaultId)}&vault=${encodeURIComponent(vault.vaultId)}${vault.ownerEmail ? `&email=${encodeURIComponent(vault.ownerEmail)}` : ''}`;
 
       const visibleAveryGuests = vault.isUnlocked ? guests : guests.slice(0, 1);
       const cardsHtml = visibleAveryGuests.map((g, gIdx) => {
@@ -692,7 +693,6 @@ function attachVaultAndPaywallRoutes(app, publicUrl, ebStore = null) {
         </div>
       </div>` : '');
 
-      const buyPackUrl = `/buy/complete_dossier?target=${encodeURIComponent(vault.title || vault.vaultId)}&vault=${encodeURIComponent(vault.vaultId)}${vault.ownerEmail ? `&email=${encodeURIComponent(vault.ownerEmail)}` : ''}`;
       const html = `<!DOCTYPE html>
 <html lang="en">
 <head>
