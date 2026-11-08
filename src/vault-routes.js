@@ -409,6 +409,18 @@ function attachVaultAndPaywallRoutes(app, publicUrl, ebStore = null) {
       </div>
     </div>
 
+    <!-- Pillar 3 Trust & Deliverable Guarantee Strip -->
+    <div id="sh-vault-cmd-trust-strip" style="margin-top:18px;background:#FFFBEB;border:1.5px solid #FDE68A;border-radius:14px;padding:14px 18px;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:12px;font-size:13px;color:#78350F;">
+      <div style="display:flex;align-items:center;gap:10px;flex-wrap:wrap;">
+        <span style="font-weight:800;color:#1B4D3E;">&#10003; 30-Day 100% Money-Back Guarantee:</span>
+        <span style="color:#574F49;">If your banquet captain, caterer, or local print shop (FedEx Office/Staples) has any issue with these files, email us for an instant refund.</span>
+      </div>
+      <div style="display:flex;align-items:center;gap:12px;font-weight:700;">
+        <span style="color:#1B4D3E;">&#10003; Instant PDF Vector Download</span>
+        <span style="color:#0369A1;">&#10003; 0.125&Prime; Standard Print Bleed</span>
+      </div>
+    </div>
+
     <!-- Table-by-Table Quick Overview Strip -->
     <div class="card" style="margin-top:20px;">
       <div style="display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:10px;margin-bottom:12px;">
