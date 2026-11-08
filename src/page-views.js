@@ -545,6 +545,15 @@ function renderZone3InteractiveStudio(plan) {
             <div id="sh-vault-lookup-status" style="margin-top:10px;font-size:0.84rem;color:#374151;"></div>
           </div>
         </div>
+        <div style="margin-top:16px;padding:12px 14px;background:#FAF8F5;border:1px solid #E2D9C8;border-radius:12px;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:8px;font-size:0.78rem;color:#1F1B18;">
+          <div style="display:flex;align-items:center;gap:6px;flex-wrap:wrap;">
+            <span style="font-weight:800;color:#1B4D3E;">&#10003; 100% Free Plan Save ($0):</span>
+            <span style="color:#574F49;">Includes interactive floorplan + Table 1 sample meal sheet + save &amp; resume link</span>
+          </div>
+          <div style="font-weight:700;color:#78350F;background:#FFFBEB;border:1px solid #FDE68A;padding:2px 8px;border-radius:999px;">
+            &#10003; 30-Day Money-Back Guarantee on $7 Print Pack
+          </div>
+        </div>
       </div>
     </div>
   </section>`;
