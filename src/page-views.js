@@ -409,6 +409,7 @@ function renderZone3InteractiveStudio(plan) {
                   <div id="specimen-client-headline" class="serif-display" style="font-size:1.02rem;color:#1C1C1C;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;">${escapeHtml(plan.title || "Maya & Liam's Estate Reception")}</div>
                   <span id="specimen-harmony-pill" class="badge badge-emerald sh-hide-mobile-toolbar" style="font-size:0.70rem;padding:1px 7px;flex-shrink:0;">&#10003; 0 Conflicts</span>
                   <span id="specimen-meta-sub" class="sh-hide-mobile-toolbar" style="font-size:0.76rem;color:#4B5563;font-weight:600;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;"><span id="sh-stage-venue-label">${escapeHtml(plan.venueName || 'Rosewood Conservatory')}</span> &middot; 62 Guests (8 Tables)</span>
+                  <button type="button" id="sh-venue-photo-pill" class="studio-tap-chip sh-hide-mobile-toolbar" onclick="window.shOpenVenuePhotoModal && window.shOpenVenuePhotoModal()" style="display:inline-flex;align-items:center;gap:5px;padding:2px 8px;font-size:0.72rem;font-weight:700;color:#1B4D3E;background:#EBF4F0;border:1px solid #C4DFD5;border-radius:999px;cursor:pointer;" title="View venue photograph and architectural setting"><img id="sh-venue-thumb-img" src="/public/venue-rosewood-estate.jpg" alt="" style="width:14px;height:14px;border-radius:3px;object-fit:cover;" /><span>Venue Photo</span></button>
                   <div id="specimen-salon-crest" style="display:none;"></div>
                   <div id="specimen-tagline-sub" style="display:none;"></div>
                 </div>
@@ -671,6 +672,29 @@ function renderZone3InteractiveStudio(plan) {
           </div>
           <div style="font-weight:700;color:#78350F;background:#FFFBEB;border:1px solid #FDE68A;padding:2px 8px;border-radius:999px;">
             &#10003; 30-Day Money-Back Guarantee on $7 Print Pack
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Active Venue Setting Lightbox Modal -->
+    <div id="sh-venue-photo-modal" style="display:none;position:fixed;inset:0;z-index:9999;background:rgba(28,28,28,0.72);backdrop-filter:blur(6px);align-items:center;justify-content:center;padding:16px;" onclick="if(event.target===this)window.shCloseVenuePhotoModal()">
+      <div style="background:#FFFFFF;border:1px solid #E5E7EB;border-radius:18px;max-width:760px;width:100%;box-shadow:0 24px 64px rgba(0,0,0,0.32);color:#1C1C1C;overflow:hidden;">
+        <div style="position:relative;">
+          <button type="button" onclick="window.shCloseVenuePhotoModal()" style="position:absolute;top:12px;right:12px;z-index:10;background:rgba(0,0,0,0.65);color:#FFF;border:none;border-radius:50%;width:32px;height:32px;cursor:pointer;font-size:16px;display:flex;align-items:center;justify-content:center;" title="Close">✕</button>
+          <img id="sh-modal-venue-img" src="/public/venue-rosewood-estate.jpg" alt="Active Venue Setting" style="width:100%;height:auto;max-height:460px;object-fit:cover;display:block;" />
+          <div style="position:absolute;bottom:12px;left:12px;background:rgba(27,77,62,0.92);color:#FFFFFF;padding:4px 12px;border-radius:999px;font-size:0.72rem;font-weight:700;backdrop-filter:blur(4px);" id="sh-modal-venue-badge">
+            Estate Reception &middot; Verified 54" Aisles
+          </div>
+        </div>
+        <div style="padding:18px 22px;">
+          <div style="display:flex;align-items:center;justify-content:space-between;gap:12px;flex-wrap:wrap;">
+            <div>
+              <div style="font-size:0.68rem;font-weight:800;letter-spacing:0.08em;text-transform:uppercase;color:#1B4D3E;" id="sh-modal-venue-tag">ARCHITECTURAL VENUE SETTING</div>
+              <h3 class="serif-display" style="font-size:1.35rem;margin:3px 0 4px;color:#181412;" id="sh-modal-venue-name">The Conservatory at Rosewood Estate</h3>
+              <p style="font-size:0.84rem;color:#4B5563;margin:0;line-height:1.45;" id="sh-modal-venue-desc">Light-filled glass conservatory with 54" server aisles, crystal chandeliers, and parquet oak dance floor. Perfectly calibrated to SeatHarmony's 150-guest layout.</p>
+            </div>
+            <button type="button" class="btn btn-primary" onclick="window.shCloseVenuePhotoModal()" style="font-size:0.82rem;padding:7px 16px;">Back to Floorplan Canvas</button>
           </div>
         </div>
       </div>
