@@ -724,7 +724,11 @@ function renderInteractiveScript(initialPlan) {
         const hw = Math.round(geom.tableWidth / 2), hh = Math.round(geom.tableHeight / 2);
         parts.push('<g transform="translate(' + t.x + ',' + t.y + ') rotate(' + (t.rotation || 0) + ')"><rect x="' + (-hw) + '" y="' + (-hh) + '" width="' + geom.tableWidth + '" height="' + geom.tableHeight + '" rx="10" fill="' + tblFill + '" stroke="' + strokeCol + '" stroke-width="' + strokeW + '"/></g>');
       }
-      parts.push('<text x="' + t.x + '" y="' + (t.y - 4) + '" text-anchor="middle" fill="#1C1917" font-size="12.5" font-weight="800">' + (shNormalizeShape(t.shape) === 'sweetheart' ? 'Sweetheart' : ((t.locked ? '[Locked] ' : '') + 'Table ' + t.number)) + '</text><text x="' + t.x + '" y="' + (t.y + 11) + '" text-anchor="middle" fill="#78716C" font-size="9.8" font-weight="700">' + t.guests.length + '/' + t.capacity + ' Seats</text></g>');
+      const isSweet = shNormalizeShape(t.shape) === 'sweetheart';
+      const hasAllergyAlert = (t.guests || []).some(function(g) { return Boolean(g && g.allergy); });
+      const tblTitle = isSweet ? 'Sweetheart' : ((t.locked ? '🔒 ' : '') + 'Table ' + t.number);
+      const seatsSub = t.guests.length + '/' + t.capacity + ' Seats' + (hasAllergyAlert ? ' · 🌾' : '');
+      parts.push('<text x="' + t.x + '" y="' + (t.y - 4) + '" text-anchor="middle" fill="#1C1917" font-size="12.5" font-weight="800">' + tblTitle + '</text><text x="' + t.x + '" y="' + (t.y + 11) + '" text-anchor="middle" fill="' + (hasAllergyAlert ? '#B45309' : '#78716C') + '" font-size="9.8" font-weight="700">' + seatsSub + '</text></g>');
       geom.seats.forEach(function(s, sIdx) {
         const g = t.guests[sIdx];
         if (!g && !isFineTune) {
