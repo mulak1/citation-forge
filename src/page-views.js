@@ -889,7 +889,14 @@ function renderHomePage(initialAudit, sampleSeoPages = []) {
 
 function getVenueVisual(slug = '', title = '', category = '') {
   const s = `${slug} ${title} ${category}`.toLowerCase();
-  if (/8-person-60-inch|server-aisle-clearance|table-spacing/i.test(s)) {
+  if (/server-aisle-clearance|table-spacing/i.test(s)) {
+    return {
+      img: '/public/venue-server-aisle-clearance.jpg',
+      tag: '60″ Server Aisle Clearance',
+      name: 'Grand Ballroom 60-Inch Server Corridor & Service Clearance'
+    };
+  }
+  if (/8-person-60-inch|60-inch-round-table/i.test(s)) {
     return {
       img: '/public/venue-charger-plate-rounds.jpg',
       tag: '60″ Round Charger Spacing',
@@ -903,7 +910,14 @@ function getVenueVisual(slug = '', title = '', category = '') {
       name: 'Vaulted Cloister Hall Royal Bridal Party & Dates Feasting Table'
     };
   }
-  if (/b2b-field-marketing|vendor-meal-table/i.test(s)) {
+  if (/vendor-meal-table/i.test(s)) {
+    return {
+      img: '/public/venue-vendor-meal-table.jpg',
+      tag: 'Vendor Dining Alcove',
+      name: 'Quiet Private Dining Alcove & Vendor Hospitality Table'
+    };
+  }
+  if (/b2b-field-marketing/i.test(s)) {
     return {
       img: '/public/venue-intimate-private-dining.jpg',
       tag: 'Private Dining Salon',
@@ -1013,6 +1027,13 @@ function getVenueVisual(slug = '', title = '', category = '') {
       img: '/public/venue-wine-cellar.jpg',
       tag: 'Intimate Rehearsal Cellar',
       name: 'Historic Vaulted Brick Rehearsal Dinner Cellar'
+    };
+  }
+  if (/mom-sandbox-link/i.test(s)) {
+    return {
+      img: '/public/venue-family-collaboration-veranda.jpg',
+      tag: 'Vineyard Veranda Family Table',
+      name: 'Vineyard Stone Veranda Mother & Daughter Seating Review'
     };
   }
   if (/collaborate-with-mothers|mom-sandbox/i.test(s)) {

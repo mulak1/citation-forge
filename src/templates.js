@@ -597,6 +597,27 @@ function renderFooter() {
 
 function getVenueVisual(slug = '', title = '', category = '') {
   const s = `${slug} ${title} ${category}`.toLowerCase();
+  if (/server-aisle-clearance|table-spacing/i.test(s)) {
+    return {
+      img: '/public/venue-server-aisle-clearance.jpg',
+      tag: '60″ Server Aisle Clearance',
+      name: 'Grand Ballroom 60-Inch Server Corridor & Service Clearance'
+    };
+  }
+  if (/vendor-meal-table/i.test(s)) {
+    return {
+      img: '/public/venue-vendor-meal-table.jpg',
+      tag: 'Vendor Dining Alcove',
+      name: 'Quiet Private Dining Alcove & Vendor Hospitality Table'
+    };
+  }
+  if (/mom-sandbox-link/i.test(s)) {
+    return {
+      img: '/public/venue-family-collaboration-veranda.jpg',
+      tag: 'Vineyard Veranda Family Table',
+      name: 'Vineyard Stone Veranda Mother & Daughter Seating Review'
+    };
+  }
   if (/bridal-party-plus-ones|bridal-party.*dates/i.test(s)) {
     return {
       img: '/public/venue-bridal-party-dates.jpg',
