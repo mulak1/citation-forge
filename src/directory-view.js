@@ -682,22 +682,26 @@ const DIR_CSS = `
 const DIR_JS = `
 (function() {
   var cards = [].slice.call(document.querySelectorAll('.dir-card')), grid = document.getElementById('dir-grid');
-  var state = { size: 'all', type: 'all', sort: 'small' };
+  var state = { size: 'all', type: 'all', sort: 'small', q: '' };
   var sizeOK = { all: function() { return true; }, s: function(g) { return g <= 75; }, m: function(g) { return g > 75 && g <= 125; }, l: function(g) { return g > 125 && g <= 175; }, xl: function(g) { return g > 175; } };
   function apply() {
-    var shown = 0;
+    var shown = 0, qClean = (state.q || '').trim().toLowerCase();
     cards.sort(function(a, b) {
       var ga = Number(a.dataset.guests), gb = Number(b.dataset.guests);
       if (state.sort === 'large') return gb - ga;
       if (state.sort === 'type') return a.dataset.type.localeCompare(b.dataset.type) || ga - gb;
       return ga - gb;
     }).forEach(function(c) {
-      var ok = sizeOK[state.size](Number(c.dataset.guests)) && (state.type === 'all' || c.dataset.type === state.type);
+      var text = (c.textContent || '').toLowerCase();
+      var matchQ = !qClean || text.indexOf(qClean) !== -1;
+      var ok = matchQ && sizeOK[state.size](Number(c.dataset.guests)) && (state.type === 'all' || c.dataset.type === state.type);
       c.hidden = !ok; if (ok) shown++; grid.appendChild(c);
     });
     document.getElementById('dir-count').textContent = shown + ' architectural layout' + (shown === 1 ? '' : 's');
     document.getElementById('dir-empty').style.display = shown ? 'none' : 'block';
   }
+  var searchInp = document.getElementById('dir-search');
+  if (searchInp) { searchInp.addEventListener('input', function() { state.q = this.value; apply(); }); }
   document.querySelectorAll('.dir-chip').forEach(function(b) { b.addEventListener('click', function() {
     document.querySelectorAll('.dir-chip').forEach(function(x) { x.classList.toggle('on', x === b); }); state.size = b.dataset.size; apply(); }); });
   document.querySelectorAll('.dir-type-chip').forEach(function(b) { b.addEventListener('click', function() {
@@ -712,7 +716,8 @@ const DIR_JS = `
     apply();
   });
   document.getElementById('dir-sort').addEventListener('change', function() { state.sort = this.value; apply(); });
-  window.dirReset = function() { state = { size: 'all', type: 'all', sort: 'small' }; document.getElementById('dir-type').value = 'all'; document.getElementById('dir-sort').value = 'small';
+  window.dirReset = function() { state = { size: 'all', type: 'all', sort: 'small', q: '' }; document.getElementById('dir-type').value = 'all'; document.getElementById('dir-sort').value = 'small';
+    if (searchInp) searchInp.value = '';
     document.querySelectorAll('.dir-chip').forEach(function(x) { x.classList.toggle('on', x.dataset.size === 'all'); });
     document.querySelectorAll('.dir-type-chip').forEach(function(x) { x.classList.toggle('on', x.dataset.type === 'all'); });
     apply(); };
@@ -746,10 +751,11 @@ function renderDirectoryPage(seoPages = []) {
         <div class="dir-chips">${sizes.map(([k, l], i) => `<button type="button" class="dir-chip${i === 0 ? ' on' : ''}" data-size="${k}">${l}</button>`).join('')}</div>
         <span class="dir-filter-label" style="margin-left:6px;">Venues</span>
         <div class="dir-chips">${quickTypes.map(([k, l], i) => `<button type="button" class="dir-type-chip${i === 0 ? ' on' : ''}" data-type="${k}">${l}</button>`).join('')}</div>
-        <div style="display:flex;align-items:center;gap:8px;flex-wrap:wrap;">
+        <div style="display:flex;align-items:center;gap:8px;flex-wrap:wrap;flex:1 1 320px;justify-content:flex-end;">
+          <input id="dir-search" type="search" placeholder="Search layouts (e.g. 150, beach, barn)..." class="dir-select" style="min-width:180px;flex:1 1 180px;height:34px;background:#FFFFFF;color:#1F1B18;" aria-label="Search venue layouts" />
           <span class="dir-filter-label">More</span>
           <select id="dir-type" class="dir-select" aria-label="Venue type"><option value="all">All venue types</option>${types.map((t) => `<option value="${escapeHtml(t)}">${escapeHtml(t)}</option>`).join('')}</select>
-          <span class="dir-filter-label" style="margin-left:6px;">Sort</span>
+          <span class="dir-filter-label" style="margin-left:4px;">Sort</span>
           <select id="dir-sort" class="dir-select" aria-label="Sort"><option value="small">Smallest room first</option><option value="large">Largest room first</option><option value="type">Venue type</option></select>
         </div>
       </div>
