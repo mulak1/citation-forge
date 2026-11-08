@@ -890,11 +890,60 @@ function getVenueVisual(slug = '', title = '', category = '') {
       name: 'Historic Brick & Timber Industrial Loft'
     };
   }
+  if (/conservatory|greenhouse|botanical|orangery/i.test(s)) {
+    return {
+      img: '/public/venue-botanical-conservatory.jpg',
+      tag: 'Botanical Greenhouse',
+      name: 'Glass Greenhouse & Botanical Orangery'
+    };
+  }
   if (/museum|rotunda|art museum|gallery/i.test(s)) {
     return {
       img: '/public/venue-museum-rotunda.jpg',
       tag: 'Classical Museum Rotunda',
       name: 'Neoclassical Art Museum Marble Rotunda'
+    };
+  }
+  if (/country[- ]?club|golf/i.test(s)) {
+    return {
+      img: '/public/venue-country-club.jpg',
+      tag: 'Private Country Club',
+      name: 'Private Country Club Ballroom & Rolling Green Terrace'
+    };
+  }
+  if (/serpentine|s-curve/i.test(s)) {
+    return {
+      img: '/public/venue-serpentine-estate.jpg',
+      tag: 'Serpentine Garden Banquet',
+      name: 'Winding Serpentine Banquet Table in Italianate Garden'
+    };
+  }
+  if (/micro[- ]?wedding|king['’]?s[- ]?table|continuous king/i.test(s)) {
+    return {
+      img: '/public/venue-micro-wedding-kings.jpg',
+      tag: 'Intimate King’s Feast Table',
+      name: 'Long Continuous King’s Feast Table & Candelabras'
+    };
+  }
+  if (/restaurant[- ]?buyout|bistro|dining room/i.test(s)) {
+    return {
+      img: '/public/venue-restaurant-buyout.jpg',
+      tag: 'Boutique Restaurant Buyout',
+      name: 'Boutique Urban Restaurant Buyout & Velvet Banquettes'
+    };
+  }
+  if (/frame[- ]?tent|backyard|20x40-tent|30x60-tent/i.test(s)) {
+    return {
+      img: '/public/venue-backyard-frame-tent.jpg',
+      tag: 'Private Estate Frame Tent',
+      name: 'Private Estate Backyard Frame Tent & Sheer Drapes'
+    };
+  }
+  if (/cellar|vault/i.test(s)) {
+    return {
+      img: '/public/venue-historic-wine-cellar.jpg',
+      tag: 'Historic Wine Cellar',
+      name: 'Atmospheric Arched Brick & Limestone Wine Vault'
     };
   }
   if (/tent|sailcloth|marquee|outdoor|lawn|rain|canopy/i.test(s)) {
@@ -927,7 +976,7 @@ function getVenueVisual(slug = '', title = '', category = '') {
   }
   if (/cellar|intimate|micro|rehearsal|candlelit|vault|private dining/i.test(s)) {
     return {
-      img: '/public/venue-wine-cellar.jpg',
+      img: '/public/venue-historic-wine-cellar.jpg',
       tag: 'Candlelit Wine Cellar',
       name: 'Historic Brick Wine Cellar & Vault'
     };
