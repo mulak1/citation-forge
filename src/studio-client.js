@@ -740,7 +740,8 @@ function renderInteractiveScript(initialPlan) {
           return;
         }
         const isSwapSrc = isFineTune && window.__SH_SWAP_SOURCE && window.__SH_SWAP_SOURCE.tableIdx === tIdx && window.__SH_SWAP_SOURCE.seatIdx === sIdx;
-        const isOpenG = (window.__SH_OPEN_GUEST && window.__SH_OPEN_GUEST.t === tIdx && window.__SH_OPEN_GUEST.s === sIdx) || (window.shIsSeatBoxSelected && window.shIsSeatBoxSelected(tIdx, sIdx));
+        const isFindMatch = Boolean(window.__SH_FIND_Q && window.__SH_FIND_Q.trim() && g && String(g.name || '').toLowerCase().indexOf(window.__SH_FIND_Q.trim().toLowerCase()) !== -1);
+        const isOpenG = (window.__SH_OPEN_GUEST && window.__SH_OPEN_GUEST.t === tIdx && window.__SH_OPEN_GUEST.s === sIdx) || (window.shIsSeatBoxSelected && window.shIsSeatBoxSelected(tIdx, sIdx)) || isFindMatch;
         let seatFill = isSwapSrc ? '#FEF3C7' : '#FFFFFF', seatStroke = isSwapSrc ? '#D97706' : '#A89F91', txtFill = '#1C1917', topTxt = '#' + s.seatNumber;
         if (g) {
           if (window.__SH_RING_MODE === 'meal') {
@@ -756,7 +757,7 @@ function renderInteractiveScript(initialPlan) {
         parts.push('<g data-seat-target="' + tIdx + ':' + sIdx + '" style="cursor:pointer;" onmousedown="window.shStartSeatDrag(' + tIdx + ',' + sIdx + ',event)" ontouchstart="window.shStartSeatDrag(' + tIdx + ',' + sIdx + ',event)">');
         parts.push('<title>Seat #' + s.seatNumber + ' (' + shEsc(s.clockPosition) + '): ' + (g ? (shEsc(g.name) + ' · ' + shEsc(g.meal)) : 'Open Chair · Click in Step 4 to seat a guest') + '</title>');
         parts.push('<circle cx="' + s.x + '" cy="' + s.y + '" r="19" fill="' + seatFill + '" stroke="' + seatStroke + '" stroke-width="' + (isSwapSrc ? '3' : '1.8') + '"' + (g ? '' : ' stroke-dasharray="3 2"') + '/>');
-        parts.push('<circle data-seat-ring="' + tIdx + ':' + sIdx + '" cx="' + s.x + '" cy="' + s.y + '" r="23" fill="none" stroke="#B89352" stroke-width="3" style="display:' + (isOpenG ? 'block' : 'none') + ';"/>');
+        parts.push('<circle data-seat-ring="' + tIdx + ':' + sIdx + '" cx="' + s.x + '" cy="' + s.y + '" r="' + (isFindMatch ? 24 : 23) + '" fill="none" stroke="' + (isFindMatch ? '#D97706' : '#B89352') + '" stroke-width="' + (isFindMatch ? '3.5' : '3') + '"' + (isFindMatch ? ' stroke-dasharray="4 3"' : '') + ' style="display:' + (isOpenG ? 'block' : 'none') + ';"/>');
         if (g && window.shSeatGroupMark) parts.push(window.shSeatGroupMark(g, s));
         parts.push('<text x="' + s.x + '" y="' + (s.y - 3) + '" text-anchor="middle" fill="' + txtFill + '" font-size="8.5" font-weight="800">' + shEsc(topTxt) + '</text>');
         parts.push('<text x="' + s.x + '" y="' + (s.y + 7.2) + '" text-anchor="middle" fill="' + (g ? txtFill : '#78716C') + '" font-size="7.6" font-weight="700">' + shEsc(firstName) + '</text>');

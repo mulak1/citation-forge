@@ -177,6 +177,15 @@ function renderSeatEditorClientScript() {
     if (!ev) return;
     var tag = (ev.target && ev.target.tagName) ? ev.target.tagName.toLowerCase() : '';
     if (tag === 'input' || tag === 'textarea' || tag === 'select' || (ev.target && ev.target.isContentEditable)) return;
+    if (!ev.metaKey && !ev.ctrlKey && !ev.altKey && (ev.key === '/' || ev.key === 'f')) {
+      var findInp = document.getElementById('sh-ed-find-guest');
+      if (findInp) {
+        ev.preventDefault();
+        findInp.focus();
+        findInp.select();
+        return;
+      }
+    }
     if ((ev.metaKey || ev.ctrlKey) && !ev.altKey && String(ev.key || '').toLowerCase() === 'z') {
       ev.preventDefault();
       if (ev.shiftKey) window.shRedo();
@@ -251,9 +260,11 @@ function renderSeatEditorClientScript() {
     window.__SH_FIND_Q = String(val || '');
     var box = document.getElementById('sh-ed-find-results'), clr = document.getElementById('sh-ed-find-clear');
     if (clr) clr.style.display = window.__SH_FIND_Q.trim() ? 'block' : 'none';
-    if (!box) return;
-    box.innerHTML = shEdFindResultsHtml(window.__SH_FIND_Q);
-    box.style.display = window.__SH_FIND_Q.trim() ? 'block' : 'none';
+    if (box) {
+      box.innerHTML = shEdFindResultsHtml(window.__SH_FIND_Q);
+      box.style.display = window.__SH_FIND_Q.trim() ? 'block' : 'none';
+    }
+    if (typeof shRenderFloorplanSvg === 'function') shRenderFloorplanSvg();
   };
   window.shEdFindKey = function(ev) {
     if (!ev) return;
@@ -268,6 +279,7 @@ function renderSeatEditorClientScript() {
     window.__SH_FIND_Q = '';
     var inp = document.getElementById('sh-ed-find-guest'), box = document.getElementById('sh-ed-find-results'), clr = document.getElementById('sh-ed-find-clear');
     if (inp) inp.value = ''; if (box) { box.innerHTML = ''; box.style.display = 'none'; } if (clr) clr.style.display = 'none';
+    if (typeof shRenderFloorplanSvg === 'function') shRenderFloorplanSvg();
   };
   function shEdFindResultsHtml(q) {
     var hits = shEdFindHits(q); if (!String(q || '').trim()) return '';

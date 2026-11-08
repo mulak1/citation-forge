@@ -219,9 +219,11 @@ function buildSeoPagesSeed() {
   HEAD_TO_HEAD_COMPARISONS.forEach(([slug, title, brandA, domainA, csovA, geoA, brandB, domainB, csovB, geoB, category]) => {
     const bp = buildVenueBlueprint(slug, title);
     const delta = Number((csovA - csovB).toFixed(1));
-    const rawMeta = `${brandA} vs. ${brandB} (${category}): ${bp.guests}-guest floorplan math (${bp.roomDims}), ${bp.aisleSpec}, and 24"×36" print comparison.`;
+    const cleanBrandA = brandA.replace(/\s*\([^)]*\)/g, '').trim();
+    const cleanBrandB = brandB.replace(/\s*\([^)]*\)/g, '').trim();
+    const rawMeta = `${cleanBrandA} vs. ${cleanBrandB} (${category}): ${bp.guests}-guest floorplan math (${bp.roomDims}), ${bp.aisleSpec}, and 24"×36" print comparison.`;
     const metaDesc = trimMetaDescription(rawMeta, 158);
-    const summary = `Comparing ${brandA} (${csovA}% harmony score) vs. ${brandB} (${csovB}% score, +${delta} pt advantage) across a ${bp.guests}-guest (${bp.roomDims}, ${bp.sqft.toLocaleString()} sq ft) layout: see exact server aisle clearance (${bp.aisleSpec}), cocktail-hour lookup speed, and ${bp.averySheets}-sheet Avery 5302 place card synchronization.`;
+    const summary = `Comparing ${cleanBrandA} (${csovA}% harmony score) vs. ${cleanBrandB} (${csovB}% score, +${delta} pt advantage) across a ${bp.guests}-guest (${bp.roomDims}, ${bp.sqft.toLocaleString()} sq ft) layout: see exact server aisle clearance (${bp.aisleSpec}), cocktail-hour lookup speed, and ${bp.averySheets}-sheet Avery 5302 place card synchronization.`;
     const payload = {
       type: 'comparison',
       category,
