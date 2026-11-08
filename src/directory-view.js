@@ -600,23 +600,21 @@ function parseFloorplan(p) {
 
 function floorplanCard(p, f) {
   const title = String(p.title || '').replace(/^\d{2,3}-(?:Guest|Person)\s+/i, '');
-  const visual = getVenueVisual(p.slug, p.title, p.category);
   return `<a href="/seo/${escapeHtml(p.slug)}" class="dir-card" data-guests="${f.guests}" data-sqft="${f.sqft}" data-type="${escapeHtml(f.type)}">
-    <div class="dir-card-photo-frame">
-      <img src="${visual.img}" alt="${escapeHtml(title)} hypothetical venue setting" loading="lazy" class="dir-card-photo" />
-    </div>
     <div style="display:flex;justify-content:space-between;align-items:center;gap:6px;">
       <span class="dir-card-type">${escapeHtml(f.type)}</span>
       <span class="dir-card-badge">${f.pts.length + 1} Tables</span>
     </div>
-    ${renderFloorplanSvg(f, { detailed: false })}
+    <div class="dir-card-blueprint-frame">
+      ${renderFloorplanSvg(f, { detailed: false })}
+    </div>
     <div class="dir-card-speclabel">${escapeHtml(f.specLabel)}</div>
     <div class="dir-stats">
       <div class="dir-stat"><span class="dir-stat-label">Guests</span><span class="dir-stat-val">${f.guests}</span></div>
       <div class="dir-stat"><span class="dir-stat-label">Room size</span><span class="dir-stat-val">${fmt(f.sqft)}<small> sq ft</small></span></div>
     </div>
     <h3 class="dir-card-title">${escapeHtml(title)}</h3>
-    <div class="dir-card-cta">Inspect &amp; open layout &rarr;</div>
+    <div class="dir-card-cta">Inspect architectural blueprint &rarr;</div>
   </a>`;
 }
 
@@ -644,9 +642,8 @@ const DIR_CSS = `
   .dir-card { display: flex; flex-direction: column; gap: 12px; padding: 18px 20px; background: #FFFFFF; border: 1px solid #E4DCD0; border-radius: 18px; text-decoration: none; color: inherit; box-shadow: 0 4px 20px -8px rgba(31,27,24,0.06); transition: border-color 0.18s ease, box-shadow 0.18s ease, transform 0.18s ease; }
   .dir-card:hover { border-color: #B8860B; box-shadow: 0 16px 36px -12px rgba(31,27,24,0.12); transform: translateY(-3px); }
   .dir-card[hidden] { display: none; }
-  .dir-card-photo-frame { height: 160px; border-radius: 12px; overflow: hidden; background: #F5EFE6; }
-  .dir-card-photo { width: 100%; height: 100%; object-fit: cover; display: block; transition: transform 0.35s ease; }
-  .dir-card:hover .dir-card-photo { transform: scale(1.03); }
+  .dir-card-blueprint-frame { border-radius: 12px; overflow: hidden; background: #FAF7F2; border: 1px solid #EFE8DD; padding: 4px; transition: transform 0.2s ease, border-color 0.2s ease; }
+  .dir-card:hover .dir-card-blueprint-frame { border-color: #B8860B; transform: translateY(-2px); }
   .dir-card-type { font-size: 0.74rem; font-weight: 700; letter-spacing: 0.10em; text-transform: uppercase; color: #8A6508; }
   .dir-card-badge { font-size: 0.74rem; font-weight: 700; color: #1B4D3E; background: #EBF4F0; padding: 3px 9px; border-radius: 999px; border: 1px solid #C4DFD5; }
   .dir-card-speclabel { font-size: 0.78rem; font-weight: 600; color: #574F49; background: #FAF7F2; padding: 6px 10px; border-radius: 8px; border: 1px solid #EFE8DD; }
