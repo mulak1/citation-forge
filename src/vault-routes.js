@@ -318,7 +318,7 @@ function attachVaultAndPaywallRoutes(app, publicUrl, ebStore = null) {
             <div style="font-size:0.84rem;color:#44403C;margin-top:3px;">
               ${vault.isUnlocked
                 ? '&#10003; <strong>Complete Event Print &amp; Day-Of Execution Pack Unlocked:</strong> Unlimited 30-day edits &amp; Print-Ready exports active.'
-                : `${VR_LOCK_SVG}<strong>Table 1 Free Sample Active:</strong> Enter your email above ($0) to unmask Tables 2&ndash;8 Meal Sheet, or unlock the $7 Event Print Pack.`}
+                : `${VR_LOCK_SVG}<strong>Table 1 Free Sample Active:</strong> Enter your email below ($0) to unmask Tables 2&ndash;8 Meal Sheet, or unlock the $7 Event Print Pack.`}
             </div>
           </div>
         </div>
