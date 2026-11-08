@@ -604,25 +604,25 @@ function getVenueVisual(slug = '', title = '', category = '') {
       name: 'The Oceanfront Yacht & Beach Club Terrace'
     };
   }
-  if (/villa|amalfi|cliffside|mediterranean|destination/i.test(s)) {
+  if (/winery|vineyard|napa|sonoma/i.test(s)) {
     return {
-      img: '/public/venue-destination-villa.jpg',
-      tag: 'Mediterranean Seaside Villa',
-      name: 'Mediterranean Cliffside Villa & Poolside Terrace'
+      img: '/public/venue-napa-vineyard.jpg',
+      tag: 'Vineyard Estate',
+      name: 'Napa Valley Vineyard Estate & Olive Courtyard'
     };
   }
-  if (/barn|farm|rustic|harvest|timber/i.test(s)) {
+  if (/barn|timber frame|rustic barn/i.test(s)) {
     return {
       img: '/public/venue-modern-barn.jpg',
       tag: 'Modern Timber Barn',
       name: 'Upscale Modern Barn & Farm Hall'
     };
   }
-  if (/winery|vineyard|napa|sonoma/i.test(s)) {
+  if (/villa|amalfi|cliffside|mediterranean|destination/i.test(s)) {
     return {
-      img: '/public/venue-napa-vineyard.jpg',
-      tag: 'Vineyard Estate',
-      name: 'Napa Valley Vineyard Estate & Olive Courtyard'
+      img: '/public/venue-destination-villa.jpg',
+      tag: 'Mediterranean Seaside Villa',
+      name: 'Mediterranean Cliffside Villa & Poolside Terrace'
     };
   }
   if (/rooftop|penthouse|skyline/i.test(s)) {
