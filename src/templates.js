@@ -597,6 +597,27 @@ function renderFooter() {
 
 function getVenueVisual(slug = '', title = '', category = '') {
   const s = `${slug} ${title} ${category}`.toLowerCase();
+  if (/bridal-party-plus-ones|bridal-party.*dates/i.test(s)) {
+    return {
+      img: '/public/venue-bridal-party-dates.jpg',
+      tag: 'Bridal Party & Dates King’s Table',
+      name: 'Vaulted Cloister Hall Royal Bridal Party & Dates Feasting Table'
+    };
+  }
+  if (/how-to-seat-divorced-parents/i.test(s)) {
+    return {
+      img: '/public/venue-separated-family-wings.jpg',
+      tag: 'Separated Family Wing Orangery',
+      name: 'Sunlit European Orangery Symmetrical Family Wing Seating'
+    };
+  }
+  if (/wheelchair|highchair-wedding-table/i.test(s)) {
+    return {
+      img: '/public/venue-accessible-table.jpg',
+      tag: 'Accessible Family-Inclusive Setting',
+      name: 'Inclusive Estate Reception Setting & Accessible Highchair Clearance'
+    };
+  }
   if (/sweetheart-table-vs-kings|sweetheart.*vs.*king/i.test(s)) {
     return {
       img: '/public/venue-sweetheart-vs-kings.jpg',

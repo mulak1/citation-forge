@@ -898,9 +898,9 @@ function getVenueVisual(slug = '', title = '', category = '') {
   }
   if (/bridal-party-plus-ones|bridal-party.*dates/i.test(s)) {
     return {
-      img: '/public/venue-sweetheart-vs-kings.jpg',
+      img: '/public/venue-bridal-party-dates.jpg',
       tag: 'Bridal Party & Dates King’s Table',
-      name: 'Cathedral Arch Bridal Party & Dates Feasting Table'
+      name: 'Vaulted Cloister Hall Royal Bridal Party & Dates Feasting Table'
     };
   }
   if (/b2b-field-marketing|vendor-meal-table/i.test(s)) {
@@ -912,9 +912,9 @@ function getVenueVisual(slug = '', title = '', category = '') {
   }
   if (/how-to-seat-divorced-parents/i.test(s)) {
     return {
-      img: '/public/venue-intimate-courtyard-banquet.jpg',
-      tag: 'Separated Wing Family Tables',
-      name: 'Peaceful Courtyard Symmetrical Family Wing Seating'
+      img: '/public/venue-separated-family-wings.jpg',
+      tag: 'Separated Family Wing Orangery',
+      name: 'Sunlit European Orangery Symmetrical Family Wing Seating'
     };
   }
   if (/bride-and-groom-parents-same-table/i.test(s)) {
@@ -957,6 +957,13 @@ function getVenueVisual(slug = '', title = '', category = '') {
       img: '/public/venue-u-shape-banquet.jpg',
       tag: 'Grand U-Shape Banquet',
       name: 'Grand Symmetrical U-Shape Banquet Table & Vaulted Hall'
+    };
+  }
+  if (/wheelchair|highchair-wedding-table/i.test(s)) {
+    return {
+      img: '/public/venue-accessible-table.jpg',
+      tag: 'Accessible Family-Inclusive Setting',
+      name: 'Inclusive Estate Reception Setting & Accessible Highchair Clearance'
     };
   }
   if (/kids-table|children-with-parents|highchair/i.test(s)) {
@@ -1476,8 +1483,8 @@ function renderSeoDetailPage(pageRow, relatedPages = []) {
   const compHtml = (payload.brandA && payload.brandB) ? `<div class="panel" style="padding:20px;margin-bottom:24px;background:#FFFFFF;border-color:#E2D9C8;"><h2 class="serif-display" style="font-size:1.35rem;margin-bottom:12px;">Side-by-Side Comparison: ${escapeHtml(payload.brandA.name)} vs. ${escapeHtml(payload.brandB.name)}</h2><div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:12px;margin-bottom:14px;"><div style="padding:14px;border-radius:10px;background:#ECFDF5;border:1.5px solid #065F46;"><div style="font-size:0.72rem;font-weight:800;color:#065F46;">RECOMMENDED FOR SMOOTH GUEST FLOW</div><div style="font-size:1.1rem;font-weight:800;color:#181412;margin:4px 0;">${escapeHtml(payload.brandA.name)}</div><div style="font-size:0.95rem;font-weight:800;color:#065F46;">&#10003; Easy Conversation &amp; Fast Service</div><div style="font-size:0.80rem;color:#44403C;margin-top:4px;">Included: ${escapeHtml(payload.brandA.llmsTxt || payload.brandA.strength || '12:00 Meal Sheet + 24x36 Sign')}</div></div><div style="padding:14px;border-radius:10px;background:#FFF1F2;border:1.5px solid #FECDD3;"><div style="font-size:0.72rem;font-weight:800;color:#9F1239;">TRADITIONAL ALTERNATIVE</div><div style="font-size:1.1rem;font-weight:800;color:#181412;margin:4px 0;">${escapeHtml(payload.brandB.name)}</div><div style="font-size:0.95rem;font-weight:800;color:#9F1239;">Requires Extra Manual Setup</div><div style="font-size:0.80rem;color:#44403C;margin-top:4px;">Workflow: ${escapeHtml(payload.brandB.llmsTxt || payload.brandB.weakness || 'Manual Re-Type')}</div></div></div>${Array.isArray(payload.samplePrompts) ? `<div style="font-size:0.84rem;color:#44403C;"><strong>What Couples &amp; Planners Compare:</strong> ${payload.samplePrompts.map(p => escapeHtml(p && p.prompt ? p.prompt : p)).join(' &middot; ')}</div>` : ''}</div>` : '';
   const guideHtml = (Array.isArray(payload.checklist) || payload.codeExample) ? `<div class="panel" style="padding:20px;margin-bottom:24px;background:#FFFFFF;border-color:#E2D9C8;"><h2 class="serif-display" style="font-size:1.35rem;margin-bottom:10px;">Reception Etiquette &amp; Banquet Captain Checklist</h2>${Array.isArray(payload.checklist) ? `<ul style="margin:0 0 14px 18px;display:flex;flex-direction:column;gap:6px;font-size:0.90rem;color:#181412;">${payload.checklist.map(c => `<li>${escapeHtml(c)}</li>`).join('')}</ul>` : ''}${payload.codeExample ? `<pre class="mono" style="background:#FAF6EE;border:1px solid #C8A96E;border-radius:10px;padding:12px;font-size:0.78rem;overflow-x:auto;color:#181412;margin:0;">${escapeHtml(payload.codeExample)}</pre>` : ''}</div>` : '';
   const faqs = Array.isArray(payload.faqs) ? payload.faqs : [];
-  const faqHtml = faqs.map(f => `<details class="studio-faq-item" open><summary><span>${escapeHtml(f.question)}</span><span>&#9662;</span></summary><div style="padding-top:8px;font-size:0.92rem;color:#44403C;line-height:1.55;">${escapeHtml(f.answer)}</div></details>`).join('');
-  const relHtml = relatedPages.map(r => `<a href="/seo/${escapeHtml(r.slug)}" class="panel" style="padding:14px;text-decoration:none;color:inherit;"><div style="font-size:0.72rem;font-weight:800;color:#8C2D19;margin-bottom:4px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;">${escapeHtml(r.category)}</div><div style="font-weight:700;font-size:0.90rem;color:#181412;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden;">${escapeHtml(r.title)}</div></a>`).join('');
+  const faqHtml = faqs.map((f, idx) => `<details class="studio-faq-item" ${idx === 0 ? 'open' : ''}><summary><span>${escapeHtml(f.question)}</span><span>&#9662;</span></summary><div style="padding-top:8px;font-size:0.92rem;color:#44403C;line-height:1.55;">${escapeHtml(f.answer)}</div></details>`).join('');
+  const relHtml = relatedPages.slice(0, 4).map(r => `<a href="/seo/${escapeHtml(r.slug)}" class="panel" style="padding:12px;text-decoration:none;color:inherit;"><div style="font-size:0.72rem;font-weight:800;color:#8C2D19;margin-bottom:3px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;">${escapeHtml(r.category)}</div><div style="font-weight:700;font-size:0.88rem;color:#181412;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden;">${escapeHtml(r.title)}</div></a>`).join('');
   const jsonLd = {
     '@context': 'https://schema.org',
     '@graph': [
