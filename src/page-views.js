@@ -676,6 +676,7 @@ function renderZone3InteractiveStudio(plan) {
             <div class="badge badge-amber" style="margin-bottom:8px;white-space:normal;align-self:flex-start;">2. OPEN A SAVED WEDDING</div>
             <h4 class="serif-display" style="font-size:1.22rem;margin-bottom:6px;">Return to a Saved Seating Plan</h4>
             <p style="font-size:0.86rem;color:#4B5563;margin-bottom:12px;line-height:1.45;">Enter the email address you used when saving your reception floorplan to pick up right where you left off:</p>
+            <div id="sh-vault-local-recovery-box" style="display:none;margin-bottom:12px;padding:10px 12px;background:#FFFFFF;border:1.5px solid #10B981;border-radius:10px;font-size:0.80rem;"></div>
             <label for="sh-vault-lookup-input" class="studio-field-label">Your Saved Email Address:</label>
             <input id="sh-vault-lookup-input" type="text" class="grader-input" style="width:100%;margin-bottom:12px;font-size:16px;" placeholder="maya@example.com" />
             <button type="button" id="sh-vault-lookup-btn" class="btn btn-secondary" style="width:100%;padding:11px;" onclick="window.shLookupSavedVault()">${IC.unlock}Open My Saved Seating Plan</button>

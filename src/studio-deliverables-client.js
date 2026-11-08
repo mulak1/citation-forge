@@ -803,8 +803,32 @@ function renderDeliverablesClientScript() {
     window.__shPersistTimer = setTimeout(shFlushVaultNow, 450);
   }
 
-  window.shOpenVaultModal = function() { const m = document.getElementById('sh-vault-modal'); if (m) m.style.display = 'flex'; if (window.shTrackTelemetry) window.shTrackTelemetry('view_paywall', { source: 'vault_modal' }); };
   window.shCloseVaultModal = function() { const m = document.getElementById('sh-vault-modal'); if (m) m.style.display = 'none'; };
+  window.shCloseVaultModalAndGoToStudio = function() {
+    window.shCloseVaultModal();
+    const s = document.getElementById('studio');
+    if (s) s.scrollIntoView({ behavior: 'smooth' });
+  };
+  window.shOpenVaultModal = function() {
+    const m = document.getElementById('sh-vault-modal');
+    if (m) m.style.display = 'flex';
+    if (window.shTrackTelemetry) window.shTrackTelemetry('view_paywall', { source: 'vault_modal' });
+    try {
+      const localPlan = localStorage.getItem('sh_saved_vault_v1');
+      const box = document.getElementById('sh-vault-local-recovery-box');
+      if (localPlan && box) {
+        const p = JSON.parse(localPlan);
+        const title = p.title || 'In-Progress Floorplan';
+        const tables = Array.isArray(p.tables) ? p.tables : [];
+        const guests = Array.isArray(p.guests) ? p.guests.length : tables.reduce(function(acc, t) { return acc + (t.guests ? t.guests.length : 0); }, 0);
+        box.style.display = 'block';
+        box.innerHTML = '<div style="display:flex;justify-content:space-between;align-items:center;gap:8px;flex-wrap:wrap;">' +
+          '<div><span style="color:#065F46;font-weight:800;">✓ Auto-Saved on this Device:</span> <strong style="color:#181412;">' + (title.replace(/[<>&"]/g, '')) + '</strong> <span style="color:#78716C;">(' + guests + ' Guests)</span></div>' +
+          '<button type="button" onclick="window.shCloseVaultModalAndGoToStudio()" style="cursor:pointer;background:#ECFDF5;color:#065F46;border:1px solid #10B981;padding:4px 10px;border-radius:6px;font-size:0.75rem;font-weight:700;">Continue Editing &darr;</button>' +
+        '</div>';
+      }
+    } catch (_) {}
+  };
   window.__shCarouselSlide = 0;
   window.selectStudioFeatureSlide = function(idx) {
     const slides = document.querySelectorAll('.studio-feature-slide');
