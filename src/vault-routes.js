@@ -483,7 +483,7 @@ function attachVaultAndPaywallRoutes(app, publicUrl, ebStore = null) {
       } else {
         const visibleGuests = vault.isUnlocked ? guests : guests.filter(g => g.tableNumber === 1), groups = {};
         visibleGuests.forEach(g => { const letter = (g.lastName[0] || 'A').toUpperCase(); if (!groups[letter]) groups[letter] = []; groups[letter].push(g); });
-        bodyGridHtml = Object.keys(groups).sort().map(letter => `<div style="margin-bottom:10px;break-inside:avoid;"><div class="serif" style="font-size:1.35rem;color:${accent};border-bottom:1.5px solid ${border};margin-bottom:4px;">${escapeHtml(letter)}</div>${groups[letter].map(g => `<div style="display:flex;justify-content:space-between;gap:8px;font-size:0.90rem;padding:2px 0;border-bottom:1px dotted rgba(200,169,110,0.3);"><span><strong>${escapeHtml(g.lastName)}</strong>${g.posterRestName ? `, ${escapeHtml(g.posterRestName)}` : ''}</span><span class="mono" style="font-weight:700;color:${accent};">Table ${g.tableNumber}${!vault.isUnlocked ? ' (Sample)' : ''}</span></div>`).join('')}</div>`).join('') + (!vault.isUnlocked ? `<div style="grid-column:1 / -1;padding:14px 16px;border-radius:12px;background:rgba(200,169,110,0.12);border:1.5px dashed ${border};font-size:0.86rem;font-weight:800;color:${fg};display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:10px;"><span>${VR_LOCK_SVG}Tables 2&ndash;${tables.length} Guest Names (${Math.max(0, guests.length - visibleGuests.length)} Additional Seated Guests) &mdash; Unlock 24&Prime;&times;36&Prime; Print-Shop Poster ($7 Pack)</span><a href="/buy/complete_dossier?target=${encodeURIComponent(vault.vaultId)}&vault=${encodeURIComponent(vault.vaultId)}&allow_promotion_codes=false" style="background:#181412;color:#FDE68A;border:1px solid ${border};border-radius:999px;padding:6px 12px;font-size:0.78rem;text-decoration:none;">${VR_LOCK_SVG}Unlock 24&Prime;&times;36&Prime; Print Pack ($7) &rarr;</a></div>` : '');
+        bodyGridHtml = Object.keys(groups).sort().map(letter => `<div style="margin-bottom:10px;break-inside:avoid;"><div class="serif" style="font-size:1.35rem;color:${accent};border-bottom:1.5px solid ${border};margin-bottom:4px;">${escapeHtml(letter)}</div>${groups[letter].map(g => `<div style="display:flex;justify-content:space-between;gap:8px;font-size:0.90rem;padding:2px 0;border-bottom:1px dotted rgba(200,169,110,0.3);"><span><strong>${escapeHtml(g.lastName)}</strong>${g.posterRestName ? `, ${escapeHtml(g.posterRestName)}` : ''}</span><span class="mono" style="font-weight:700;color:${accent};">Table ${g.tableNumber}${!vault.isUnlocked ? ' (Sample)' : ''}</span></div>`).join('')}</div>`).join('') + (!vault.isUnlocked ? `<div style="grid-column:1 / -1;padding:14px 16px;border-radius:12px;background:rgba(200,169,110,0.12);border:1.5px dashed ${border};font-size:0.86rem;font-weight:800;color:${fg};display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:10px;"><div style="display:flex;align-items:center;gap:10px;flex-wrap:wrap;"><span>${VR_LOCK_SVG}Tables 2&ndash;${tables.length} Guest Names (${Math.max(0, guests.length - visibleGuests.length)} Additional Seated Guests) &mdash; Unlock 24&Prime;&times;36&Prime; Print-Shop Poster ($7 Pack)</span><span style="font-size:12px;color:#78350F;font-weight:700;background:#FFFBEB;border:1px solid #FDE68A;padding:2px 8px;border-radius:6px;">&#10003; 30-Day Guarantee &bull; 0.125&Prime; Bleed</span></div><a href="/buy/complete_dossier?target=${encodeURIComponent(vault.vaultId)}&vault=${encodeURIComponent(vault.vaultId)}&allow_promotion_codes=false" style="background:#181412;color:#FDE68A;border:1px solid ${border};border-radius:999px;padding:6px 12px;font-size:0.78rem;text-decoration:none;">${VR_LOCK_SVG}Unlock 24&Prime;&times;36&Prime; Print Pack ($7) &rarr;</a></div>` : '');
       }
 
       const extraPosterQs = `&kicker=${encodeURIComponent(customKicker)}&monogram=${encodeURIComponent(monogramInputVal)}`;
@@ -670,7 +670,21 @@ function attachVaultAndPaywallRoutes(app, publicUrl, ebStore = null) {
             </div>
           </div>
         </div>`;
-      }).join('') + (!vault.isUnlocked ? `<div class="tent-card" style="padding:18px;display:flex;flex-direction:column;justify-content:center;gap:8px;background:#FAF6EE;border:2px dashed #C8A96E;"><div style="font-size:0.86rem;font-weight:800;color:#78350F;">${VR_LOCK_SVG}Place Cards #2&ndash;${guests.length} (Avery 5302 Folded Tent Sheet)</div><div style="font-size:0.78rem;color:#44403C;">Card #1 shown as Free Sample Proof. Enter your email above ($0) or unlock the $7 Event Print Pack to print all ${guests.length} place cards.</div></div>` : '');
+      }).join('') + (!vault.isUnlocked ? `
+      <div class="tent-card" style="padding:20px;display:flex;flex-direction:column;justify-content:space-between;background:#FAF8F5;border:2px dashed #1B4D3E;border-radius:12px;min-height:160px;">
+        <div>
+          <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:8px;">
+            <span class="mono" style="font-size:0.68rem;font-weight:800;color:#1B4D3E;background:#ECFDF5;border:1px solid #A7F3D0;padding:2px 8px;border-radius:999px;">${Math.max(0, guests.length - 1)} MORE CARDS READY</span>
+            <span style="font-size:0.72rem;font-weight:700;color:#78350F;background:#FFFBEB;border:1px solid #FDE68A;padding:2px 7px;border-radius:6px;">&#10003; 30-Day Guarantee</span>
+          </div>
+          <h4 class="serif" style="font-size:1.25rem;margin-bottom:6px;color:#181412;">Unlock All ${guests.length} Avery 5302 Place Cards</h4>
+          <p style="font-size:0.80rem;color:#574F49;line-height:1.45;">Pre-formatted 4-up for Avery 5302 &amp; 5011 sheets. Features guest monogram, table/seat #, meal symbols, and 180&deg; upside-down kitchen allergy alerts for servers.</p>
+        </div>
+        <div style="margin-top:14px;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:8px;">
+          <a href="${buyPackUrl}" style="background:#1B4D3E;color:#FFFFFF;border-radius:8px;padding:9px 16px;font-size:0.82rem;font-weight:800;text-decoration:none;display:inline-block;">${VR_LOCK_SVG}Unlock All ${guests.length} Place Cards ($7) &rarr;</a>
+          <span style="font-size:0.74rem;color:#78350F;font-weight:700;">&#10003; 4 Cards / Sheet</span>
+        </div>
+      </div>` : '');
 
       const buyPackUrl = `/buy/complete_dossier?target=${encodeURIComponent(vault.title || vault.vaultId)}&vault=${encodeURIComponent(vault.vaultId)}${vault.ownerEmail ? `&email=${encodeURIComponent(vault.ownerEmail)}` : ''}`;
       const html = `<!DOCTYPE html>
@@ -785,6 +799,17 @@ function attachVaultAndPaywallRoutes(app, publicUrl, ebStore = null) {
       <div style="background:#FAF3E3;border:1.5px solid #C8A96E;padding:10px 12px;border-radius:12px;text-align:center;"><div class="mono" style="font-size:0.66rem;font-weight:800;color:#78350F;white-space:nowrap;">CHAIR MODS</div><div style="font-size:1.35rem;font-weight:800;color:#78350F;">${chairMods.length}</div></div>
     </div>
     ${tableSheetsHtml}
+    <!-- Pillar 3 Catering Quality Assurance Strip -->
+    <div id="sh-beo-page-qa-strip" class="no-print" style="margin-top:20px;background:#FFFBEB;border:1.5px solid #FDE68A;border-radius:14px;padding:14px 18px;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:12px;font-size:13px;color:#78350F;">
+      <div style="display:flex;align-items:center;gap:10px;flex-wrap:wrap;">
+        <span style="font-weight:800;color:#1B4D3E;">&#10003; Banquet Captain Certified:</span>
+        <span style="color:#574F49;">Seat #1 starts at 12:00 facing the head table, rotating clockwise. Eliminates auctioning off meals in front of guests.</span>
+      </div>
+      <div style="display:flex;align-items:center;gap:12px;font-weight:700;">
+        <span style="color:#1B4D3E;">&#10003; 30-Day Money-Back Guarantee</span>
+        <span style="color:#0369A1;">&#10003; 1-Click .CSV Export</span>
+      </div>
+    </div>
   </main>
   <script>
     window.downloadBeoCsv = function() {
