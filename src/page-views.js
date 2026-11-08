@@ -601,7 +601,7 @@ function renderZone3InteractiveStudio(plan) {
           </div>
           <div id="sh-vault-bar-trust-strip" style="display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:6px;font-size:11.5px;color:#78350F;background:#FFFBEB;border:1px solid #FDE68A;padding:4px 10px;border-radius:6px;margin-top:1px;">
             <span>&#10003; <strong>30-Day Guarantee:</strong> If caterer or print shop isn't thrilled, email for an instant refund</span>
-            <span style="font-weight:700;color:#1B4D3E;">&#10003; FedEx Office &amp; Staples 24&Prime;&times;36&Prime; Ready</span>
+            <span style="font-weight:700;color:#1B4D3E;">&#10003; Same-Day FedEx Office &amp; Staples Ready (0.125&Prime; Bleed)</span>
           </div>
           <div id="sh-post-email-upgrade-bridge" style="display:none;padding:12px 16px;border-radius:10px;background:#EBF4F0;border:1.5px solid #1B4D3E;color:#1B4D3E;font-size:14px;font-weight:600;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:10px;">
             <div style="display:flex;align-items:center;gap:10px;flex-wrap:wrap;">
@@ -782,7 +782,7 @@ function renderZone5FaqAndZone6Close(sampleSeoPages = [], plan = {}) {
             </ul>
           </div>
           <div style="font-size:11.5px;color:#78350F;font-weight:700;background:#FFFBEB;border:1px solid #FDE68A;padding:4px 8px;border-radius:6px;text-align:center;">
-            &#10003; 30-Day Money-Back Guarantee &bull; FedEx Ready
+            &#10003; Same-Day Local Pickup at FedEx &amp; Staples &bull; 30-Day 100% Refund Guarantee
           </div>
           <a id="pricing-buy-pack" href="/buy/complete_dossier?target=estate-150&amp;vault=${vId}&amp;allow_promotion_codes=false" class="btn btn-primary" style="width:100%;padding:10px 14px;font-size:0.88rem;white-space:normal;text-align:center;line-height:1.3;">Unlock Print &amp; Day-Of Pack ($7) &rarr;</a>
         </div>
