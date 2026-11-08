@@ -657,6 +657,10 @@ function renderZone3InteractiveStudio(plan) {
                 <a id="sh-modal-link-beo" href="/print/beo/${vId}" target="_blank" style="color:#1C1C1C;font-weight:700;text-decoration:none;">${IC.print}Clockwise Caterer Meal Sheet &rarr;</a>
                 <a id="sh-modal-link-qr" href="/qr/${vId}" target="_blank" style="color:#1B4D3E;font-weight:700;text-decoration:none;">Guest Cocktail-Hour QR Lookup &rarr;</a>
               </div>
+              <div style="margin-top:8px;padding:8px 10px;background:#FFFBEB;border:1px solid #FDE68A;border-radius:8px;font-size:0.75rem;color:#78350F;display:flex;align-items:center;justify-content:space-between;gap:6px;">
+                <span>&#10003; <strong>Print Guarantee:</strong> 30-day 100% money-back if print shop rejects file</span>
+                <a href="/buy/complete_dossier?target=estate-150&amp;vault=${vId}&amp;allow_promotion_codes=false" style="color:#065F46;font-weight:800;text-decoration:underline;">Unlock All ($7) &rarr;</a>
+              </div>
             </div>
           </div>
 
