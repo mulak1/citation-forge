@@ -570,7 +570,7 @@ function renderDeliverablesClientScript() {
       var seat = (tbl1.geometry && tbl1.geometry.seats && tbl1.geometry.seats[idx]) || { seatNumber: idx + 1, clockPosition: '12:00' };
       rows.push(['"' + (tbl1.name || 'Table 1') + '"', 'Seat #' + seat.seatNumber, '"' + seat.clockPosition + '"', '"' + g.name + '"', '"' + g.meal + '"', '"' + (g.allergy || 'None') + '"', '"' + (g.accessibility || 'Standard Chair') + '"'].join(','));
     });
-    var blob = new Blob([rows.join('\r\n')], { type: 'text/csv;charset=utf-8;' }), url = URL.createObjectURL(blob), a = document.createElement('a');
+    var blob = new Blob([rows.join('\\r\\n')], { type: 'text/csv;charset=utf-8;' }), url = URL.createObjectURL(blob), a = document.createElement('a');
     a.href = url; a.download = 'seatharmony-table-1-sample-caterer-sheet.csv'; document.body.appendChild(a); a.click(); a.remove();
     if (typeof shToast === 'function') shToast('✓ Downloaded Table 1 Free Sample (.CSV) for Banquet Kitchen!');
     if (window.shTrackTelemetry) window.shTrackTelemetry('calculate', { source: 'sample_tbl1_csv' });

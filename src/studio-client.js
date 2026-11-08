@@ -588,7 +588,7 @@ function renderInteractiveScript(initialPlan) {
           const h1 = document.getElementById('score-brand-title');
           if (h1 && !h1.textContent.includes('Supabase')) { h1.setAttribute('data-brand', 'Supabase'); h1.innerHTML = 'Seat 150 Wedding Guests in 30 Seconds.<br/><em>Zero Family Drama. Print-Ready 24&Prime;&times;36&Prime; Signs.</em><span style="font-size:0;opacity:0;">Supabase</span>'; }
         }
-        var vImg = '/public/venue-rosewood-estate.jpg', vTag = 'Estate Reception', vTitle = window.__SH_STATE.venueName || 'Rosewood Conservatory', vDesc = 'Light-filled glass conservatory with 54" server aisles, crystal chandeliers, and parquet oak dance floor. Perfectly calibrated to SeatHarmony\'s 150-guest layout.';
+        var vImg = '/public/venue-rosewood-estate.jpg', vTag = 'Estate Reception', vTitle = window.__SH_STATE.venueName || 'Rosewood Conservatory', vDesc = 'Light-filled glass conservatory with 54" server aisles, crystal chandeliers, and parquet oak dance floor. Perfectly calibrated to the SeatHarmony 150-guest layout.';
         if (/beach-club|yacht/i.test(presetKey)) { vImg = '/public/venue-coastal-beach-club.jpg'; vTag = 'Coastal Beach Club'; vDesc = 'Oceanfront teak terrace with 54" server aisles, panoramic harbor views, and coastal dining rounds.'; }
         else if (/tuscan/i.test(presetKey)) { vImg = '/public/venue-tuscan-courtyard.jpg'; vTag = 'Tuscan Courtyard'; vDesc = 'Secluded stone villa courtyard with festoon lights, ancient olive trees, and parallel banquet tables.'; }
         else if (/ballroom/i.test(presetKey)) { vImg = '/public/venue-grand-ballroom.jpg'; vTag = 'Grand Ballroom'; vDesc = 'Opulent grand ballroom with gilded coffered ceilings, multi-tiered crystal chandeliers, and symmetric rounds.'; }
