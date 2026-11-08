@@ -810,6 +810,21 @@ function attachVaultAndPaywallRoutes(app, publicUrl, ebStore = null) {
         ...(vault.isMealUnlocked ? guests : guests.filter(g => g.tableNumber === 1)).map(g => `"${g.tableName}",Seat #${g.seatNumber},"${g.clockLabel}","${g.name}","${g.meal}","${g.allergy}","${g.accessibility}"`)
       ].join('\r\n')).replace(/</g, '\\u003c');
 
+      const allergySummaryHtml = allergies.length ? `
+        <div class="table-sheet-card" style="margin-bottom:16px;background:#FFF1F2;border:1.5px solid #FECDD3;border-radius:14px;padding:12px 16px;break-inside:avoid;">
+          <div style="display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:8px;margin-bottom:8px;">
+            <span class="mono" style="font-size:0.70rem;font-weight:800;color:#9F1239;letter-spacing:0.04em;">⚠️ KITCHEN ALLERGY TRIAGE ROSTER (${allergies.length} ALERTS)</span>
+            <span style="font-size:0.72rem;color:#9F1239;font-weight:700;">Plate separately &bull; Red flag on food pass</span>
+          </div>
+          <div style="display:flex;flex-wrap:wrap;gap:8px;">
+            ${allergies.map(a => `
+              <span style="background:#FFFFFF;border:1px solid #FDA4AF;padding:4px 9px;border-radius:6px;font-size:0.76rem;color:#181412;display:inline-flex;align-items:center;gap:5px;">
+                <strong style="color:#9F1239;">Tbl ${a.tableNumber} (Seat #${a.seatNumber}):</strong> ${escapeHtml(a.name)} &mdash; <strong style="color:#B91C1C;">${escapeHtml(a.allergy)}</strong>
+              </span>
+            `).join('')}
+          </div>
+        </div>` : '';
+
       const tableSheetsHtml = tables.map((t, idx) => {
         if (idx >= 1 && !vault.isMealUnlocked) {
           return `<div class="table-sheet-card" style="background:#FAF8F5;border:1.5px dashed #1B4D3E;border-radius:14px;padding:16px;margin-bottom:16px;break-inside:avoid;"><div style="display:flex;justify-content:space-between;align-items:center;gap:8px;flex-wrap:wrap;"><div><span class="mono" style="font-size:0.72rem;font-weight:800;color:#8C2D19;">TABLE ${t.number || (idx + 1)} &bull; ${escapeHtml((t.shape || 'round').toUpperCase())}</span><h3 class="serif" style="font-size:1.35rem;">${escapeHtml(t.name || `Table ${idx + 1}`)}</h3></div><span class="mono" style="font-size:0.75rem;font-weight:800;color:#065F46;background:#EBF4F0;border:1px solid #1B4D3E;padding:5px 12px;border-radius:999px;">${VR_LOCK_SVG}Table ${t.number || (idx + 1)} Clockwise 12:00 Meal &amp; Allergy Roster (${(t.guests || []).length} Guests) &mdash; Enter Email Above ($0) or Unlock $7 Print Pack &uarr;</span></div></div>`;
@@ -867,6 +882,7 @@ function attachVaultAndPaywallRoutes(app, publicUrl, ebStore = null) {
       <div style="background:#FFF1F2;border:1.5px solid #FECDD3;padding:10px 12px;border-radius:12px;text-align:center;"><div class="mono" style="font-size:0.66rem;font-weight:800;color:#9F1239;white-space:nowrap;">ALLERGY ALERTS</div><div style="font-size:1.35rem;font-weight:800;color:#9F1239;">${allergies.length}</div></div>
       <div style="background:#FAF3E3;border:1.5px solid #C8A96E;padding:10px 12px;border-radius:12px;text-align:center;"><div class="mono" style="font-size:0.66rem;font-weight:800;color:#78350F;white-space:nowrap;">CHAIR MODS</div><div style="font-size:1.35rem;font-weight:800;color:#78350F;">${chairMods.length}</div></div>
     </div>
+    ${allergySummaryHtml}
     ${tableSheetsHtml}
     <!-- Pillar 3 Catering Quality Assurance Strip -->
     <div id="sh-beo-page-qa-strip" class="no-print" style="margin-top:20px;background:#FFFBEB;border:1.5px solid #FDE68A;border-radius:14px;padding:14px 18px;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:12px;font-size:13px;color:#78350F;">
