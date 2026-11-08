@@ -766,7 +766,14 @@ function getVenueVisual(slug = '', title = '', category = '') {
       name: 'Marble Rotunda & Classical Colonnade'
     };
   }
-  if (/coastal|cliffside|ocean|beach|waterfront|yacht|island/i.test(s)) {
+  if (/beach-club|yacht|harbor|marina/i.test(s)) {
+    return {
+      img: '/public/venue-coastal-beach-club.jpg',
+      tag: 'Coastal Yacht & Beach Club',
+      name: 'The Oceanfront Yacht & Beach Club Terrace'
+    };
+  }
+  if (/coastal|cliffside|ocean|beach|waterfront|island/i.test(s)) {
     return {
       img: '/public/venue-coastal-cliffside.jpg',
       tag: 'Coastal Ocean Terrace',
