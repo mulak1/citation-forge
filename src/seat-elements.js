@@ -391,7 +391,27 @@ function renderSeatElementsClientScript() {
     };
     window.addEventListener('mousemove', onMove);
     window.addEventListener('mouseup', onUp);
-  });`;
+  });
+
+  /* ---- Acoustic Decibel Falloff Zones around DJ / Band / Loud Speakers ---- */
+  window.shRenderAcousticZoneSvg = function(plan) {
+    if (!plan || !plan.landmarks || !plan.landmarks.length) return '';
+    var out = [];
+    plan.landmarks.forEach(function(lm) {
+      var isLoud = lm.zone === 'loud' || /dj|band|subwoofer|speaker|stage/i.test(lm.label || '');
+      if (!isLoud) return;
+      var cx = lm.x || 560, cy = lm.y || 200;
+      var rCore = Math.max(90, Math.round((lm.w || 120) * 0.75 + 40));
+      var rTrans = rCore + 75;
+      out.push('<g class="sh-acoustic-zone" pointer-events="none">');
+      out.push('<circle cx="' + cx + '" cy="' + cy + '" r="' + rTrans + '" fill="none" stroke="#F59E0B" stroke-width="1.1" stroke-dasharray="4 4" opacity="0.32"/>');
+      out.push('<circle cx="' + cx + '" cy="' + cy + '" r="' + rCore + '" fill="rgba(244,63,94,0.035)" stroke="#F43F5E" stroke-width="1.3" stroke-dasharray="3 3" opacity="0.45"/>');
+      var tagY = cy - rCore + 14;
+      out.push('<text x="' + cx + '" y="' + tagY + '" text-anchor="middle" font-size="9.5" font-weight="700" fill="#9F1239" opacity="0.75" letter-spacing="0.04em">🔊 85dB+ SPEAKER BUFFER (15FT)</text>');
+      out.push('</g>');
+    });
+    return out.join('');
+  };`;
 }
 
 module.exports = { renderSeatElementsClientScript };

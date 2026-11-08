@@ -724,6 +724,7 @@ function renderInteractiveScript(initialPlan) {
       const fill = isLoud ? '#FFF1F2' : (isQuiet ? '#ECFDF5' : '#F3EDE3'), stroke = isSelLm ? '#8C2D19' : (isLoud ? '#FECDD3' : (isQuiet ? '#A7F3D0' : '#D6CBB8')), textCol = isLoud ? '#9F1239' : (isQuiet ? '#065F46' : '#57534E');
       parts.push('<g data-lm-group="' + lmIdx + '" style="cursor:grab;" transform="translate(' + lm.x + ',' + lm.y + ') rotate(' + (lm.rot || 0) + ')" onmousedown="window.shStartLandmarkDrag(' + lmIdx + ',event)" ontouchstart="window.shStartLandmarkDrag(' + lmIdx + ',event)"><title>Drag ' + shEsc(lm.label) + '</title><rect x="' + (-lm.w / 2) + '" y="' + (-lm.h / 2) + '" width="' + lm.w + '" height="' + lm.h + '" rx="8" fill="' + fill + '" stroke="' + stroke + '" stroke-width="' + (isSelLm ? '2.5' : '1.5') + '" stroke-dasharray="4 3"/><text transform="rotate(' + (((lm.rot || 0) > 90 && (lm.rot || 0) < 270) ? 180 : 0) + ')" x="0" y="4" text-anchor="middle" fill="' + textCol + '" font-size="12" font-weight="800" letter-spacing="0.06em">' + shEsc(lm.label) + '</text>' + (window.shElementHandle ? window.shElementHandle(lm, lmIdx) : '') + '</g>');
     });
+    if (window.shRenderAcousticZoneSvg) parts.push(window.shRenderAcousticZoneSvg(plan));
     if (window.shDropHalo) parts.push(window.shDropHalo(plan));
     plan.tables.forEach(function(t, tIdx) {
       shRecomputeGeometry(t);
