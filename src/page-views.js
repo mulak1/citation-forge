@@ -842,9 +842,59 @@ function renderSeoDetailPage(pageRow, relatedPages = []) {
       `<div><div style="font-size:0.70rem;font-weight:800;color:#78716C;">24&Prime;&times;36&Prime; SIGN FORMAT</div><div id="sh-calc-out-sign" style="font-size:1.05rem;font-weight:800;color:#065F46;">${escapeHtml(bp.posterLayout.split('·')[0].trim())}</div></div>` +
       `<div><div style="font-size:0.70rem;font-weight:800;color:#78716C;">AVERY 5302 + DANCE FLOOR</div><div id="sh-calc-out-avery" style="font-size:1.05rem;font-weight:800;color:#181412;">${bp.averySheets} Sheets &middot; ${escapeHtml(bp.danceFloorDims.split(' ')[0])}</div></div>` +
     `</div>` +
-    `<div style="display:flex;flex-wrap:wrap;align-items:center;justify-content:space-between;gap:8px;padding:8px 12px;margin-bottom:12px;background:#FFFFFF;border:1px solid #E2D9C8;border-radius:10px;">` +
-      `<span style="font-size:13px;color:#181412;"><strong>&#10003; Table 1 Specimen:</strong> Seat #1 at 12:00 &bull; 2 Hosts &bull; Filet Mignon &amp; Halibut &bull; 0 Clashes</span>` +
-      `<span style="font-size:12.5px;color:#1B4D3E;font-weight:700;">Included in Free Plan Save ($0)</span>` +
+    `<!-- PILLAR 3 & 4: FAMILY CONFLICT RESOLVER & LIVE UNMASKED SPECIMEN -->` +
+    `<div style="background:#FAF8F5;border:1.5px solid #D6CBB8;border-radius:14px;padding:16px;margin-bottom:16px;">` +
+      `<div style="display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:8px;margin-bottom:12px;">` +
+        `<div style="display:flex;align-items:center;gap:8px;">` +
+          `<span style="font-weight:800;color:#1B4D3E;font-size:0.85rem;letter-spacing:0.04em;text-transform:uppercase;">&#10003; Family Conflict Auto-Solver &amp; Dietary Matrix</span>` +
+          `<span style="font-size:0.70rem;background:#EBF4F0;color:#065F46;border:1px solid #10B981;border-radius:999px;padding:2px 8px;font-weight:800;">LIVE ACTIVE PREVIEW</span>` +
+        `</div>` +
+        `<span style="font-size:0.75rem;color:#78350F;background:#FFFBEB;border:1px solid #FDE68A;padding:2px 8px;border-radius:999px;font-weight:700;">Zero Ex-Spouse / Tablemate Drama</span>` +
+      `</div>` +
+      `<div style="display:flex;flex-wrap:wrap;gap:8px;margin-bottom:14px;">` +
+        `<label style="display:inline-flex;align-items:center;gap:6px;font-size:0.78rem;font-weight:700;color:#1F1B18;background:#FFFFFF;border:1px solid #E2D9C8;padding:5px 10px;border-radius:8px;cursor:pointer;"><input type="checkbox" checked disabled style="accent-color:#1B4D3E;cursor:pointer;"/> Divorced Parents Separated Across Room</label>` +
+        `<label style="display:inline-flex;align-items:center;gap:6px;font-size:0.78rem;font-weight:700;color:#1F1B18;background:#FFFFFF;border:1px solid #E2D9C8;padding:5px 10px;border-radius:8px;cursor:pointer;"><input type="checkbox" checked disabled style="accent-color:#1B4D3E;cursor:pointer;"/> Grandparents 30ft+ Away From DJ Speakers</label>` +
+        `<label style="display:inline-flex;align-items:center;gap:6px;font-size:0.78rem;font-weight:700;color:#1F1B18;background:#FFFFFF;border:1px solid #E2D9C8;padding:5px 10px;border-radius:8px;cursor:pointer;"><input type="checkbox" checked disabled style="accent-color:#1B4D3E;cursor:pointer;"/> Couples &amp; Plus-Ones Kept at Same Table</label>` +
+      `</div>` +
+      `<div style="display:flex;flex-wrap:wrap;align-items:center;gap:8px;margin-bottom:14px;padding:8px 12px;background:#FFFFFF;border:1px solid #EAE0D0;border-radius:10px;font-size:0.75rem;">` +
+        `<strong style="color:#8A6508;">Table 1 Clockwise Meal Specimen:</strong>` +
+        `<span style="color:#1F1B18;font-weight:700;">🥩 Filet Mignon (4)</span>` +
+        `<span style="color:#7D746D;">&bull;</span>` +
+        `<span style="color:#1F1B18;font-weight:700;">🐟 Atlantic Salmon (4)</span>` +
+        `<span style="color:#7D746D;">&bull;</span>` +
+        `<span style="color:#1F1B18;font-weight:700;">🌱 Wild Mushroom Risotto (1)</span>` +
+        `<span style="color:#7D746D;">&bull;</span>` +
+        `<span style="background:#FEF3C7;color:#92400E;font-weight:800;padding:2px 6px;border-radius:4px;border:1px solid #FDE68A;">🌾 Celiac Alert (Seat #1)</span>` +
+      `</div>` +
+      `<div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:12px;margin-bottom:12px;">` +
+        `<div style="background:#FFFFFF;border:1.5px solid #1B4D3E;border-radius:12px;padding:12px 14px;box-shadow:0 4px 14px -4px rgba(27,77,62,0.10);">` +
+          `<div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:4px;">` +
+            `<span style="font-size:0.68rem;font-weight:800;color:#8A6508;letter-spacing:0.08em;text-transform:uppercase;">Avery 5302 Tented Card &middot; Table 1</span>` +
+            `<span style="font-size:0.65rem;background:#EBF4F0;color:#065F46;border:1px solid #10B981;border-radius:999px;padding:1px 6px;font-weight:800;">UNMASKED SPECIMEN</span>` +
+          `</div>` +
+          `<div style="font-family:var(--font-serif, Georgia, serif);font-size:1.15rem;font-weight:700;color:#181412;line-height:1.2;">Maya Lin</div>` +
+          `<div style="font-size:0.78rem;color:#1B4D3E;font-weight:700;margin:3px 0 4px;display:flex;align-items:center;gap:6px;flex-wrap:wrap;">` +
+            `<span>Clockwise Seat #1 (12:00)</span><span>&bull;</span><span>🥩 Filet Mignon</span>` +
+          `</div>` +
+          `<div style="font-size:0.70rem;background:#FEF3C7;color:#92400E;padding:2px 7px;border-radius:4px;display:inline-block;font-weight:700;border:1px solid #FDE68A;">🌾 Celiac / Strict Allergy Flagged</div>` +
+        `</div>` +
+        `<div style="background:#FFFFFF;border:1px solid #E2D9C8;border-radius:12px;padding:12px 14px;box-shadow:0 4px 14px -4px rgba(0,0,0,0.04);">` +
+          `<div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:4px;">` +
+            `<span style="font-size:0.68rem;font-weight:800;color:#78716C;letter-spacing:0.08em;text-transform:uppercase;">24&Prime;&times;36&Prime; Welcome Sign &middot; 1.4s Lookup Specimen</span>` +
+            `<span style="font-size:0.65rem;background:#F5F3FF;color:#6D28D9;border:1px solid #DDD6FE;border-radius:999px;padding:1px 6px;font-weight:800;">20PT SERIF</span>` +
+          `</div>` +
+          `<div style="font-family:var(--font-serif, Georgia, serif);font-size:0.84rem;color:#181412;line-height:1.55;">` +
+            `<strong>Lin, Maya</strong> ................................. Table 1 (Seat #1)<br/>` +
+            `<strong>Lin, Robert (Father)</strong> ................ Table 4 (Quiet Zone &bull; Ex-Spouse Buffer)<br/>` +
+            `<strong>Vance, Liam</strong> ................................ Table 1 (Seat #2)` +
+          `</div>` +
+          `<div style="font-size:0.70rem;color:#065F46;font-weight:700;margin-top:4px;">&#10003; 0 Family Conflicts &middot; 54&Prime; Server Aisle Verified</div>` +
+        `</div>` +
+      `</div>` +
+      `<div style="display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:8px;padding-top:4px;font-size:12.5px;color:#1B4D3E;font-weight:700;">` +
+        `<span>Table 1 Unmasked Free &bull; Enter email below to unlock Tables 2&ndash;${bp.tableCount} Caterer BEO ($0)</span>` +
+        `<span style="color:#78350F;">All-Tables 24&Prime;&times;36&Prime; Sign &amp; Avery Sheets in $7 Event Pack</span>` +
+      `</div>` +
       `<button type="button" id="sh-seo-locked-badge-beo" class="sh-locked-spec-badge" data-sh-locked-badge="seo-beo" style="display:none;"></button>` +
       `<a id="sh-seo-locked-badge-pack" class="sh-locked-spec-badge" href="/buy/complete_dossier?target=${encodeURIComponent(pageRow.slug)}&amp;allow_promotion_codes=false" style="display:none;"></a>` +
     `</div>` +
