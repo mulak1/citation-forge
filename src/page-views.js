@@ -144,6 +144,19 @@ function renderZone3InteractiveStudio(plan) {
         <button type="button" class="sh-ed-ghost" onclick="window.shOpenSetupWizard(1)" style="font-size:13px;padding:4px 10px;font-weight:700;color:#1B4D3E;border-color:#1B4D3E;background:#FFFFFF;white-space:nowrap;">${IC.gear}Guided Setup</button>
       </div>
 
+      <!-- SPECIMEN #1 PROOF & RISK-REVERSAL BAR (PILLAR 3 & 4 GATELOCK) -->
+      <div id="sh-specimen-proof-strip" style="display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:8px;padding:8px 14px;background:#FAF8F5;border:1px solid #E2D9C8;border-radius:10px;margin-bottom:8px;font-size:13px;color:#1F1B18;">
+        <div style="display:flex;align-items:center;gap:8px;flex-wrap:wrap;min-width:0;">
+          <span style="font-weight:800;color:#1B4D3E;display:inline-flex;align-items:center;gap:4px;">&#10003; Specimen #1 Proof:</span>
+          <span style="color:#574F49;">Table 1 Clockwise 12:00 Server Meal Tally (10 Covers &bull; 🥩 Filet, 🐟 Halibut, 🌱 Vegan &bull; 🌾 Celiac Flagged)</span>
+        </div>
+        <div style="display:flex;align-items:center;gap:8px;flex-wrap:wrap;">
+          <button type="button" class="studio-tap-chip" onclick="if(window.shSetActiveTab){window.shSetActiveTab('beo');}document.getElementById('studio-bespoke-artifact-stage').scrollIntoView({behavior:'smooth'});" style="padding:3px 9px;font-size:12px;font-weight:700;color:#1B4D3E;background:#EBF4F0;border:1px solid #C4DFD5;white-space:nowrap;">Inspect Caterer Specimen ($0) &rarr;</button>
+          <button type="button" class="studio-tap-chip" onclick="if(window.shSetActiveTab){window.shSetActiveTab('poster');}document.getElementById('studio-bespoke-artifact-stage').scrollIntoView({behavior:'smooth'});" style="padding:3px 9px;font-size:12px;font-weight:700;color:#78350F;background:#FFFBEB;border:1px solid #FDE68A;white-space:nowrap;">Inspect 24&Prime;&times;36&Prime; Sign Specimen &rarr;</button>
+          <span style="font-size:12px;color:#7D746D;font-weight:600;white-space:nowrap;">&#10003; 30-Day Money-Back Guarantee</span>
+        </div>
+      </div>
+
       ${renderSetupWizardHtml(plan)}
       ${renderBinderDockHtml()}
 
