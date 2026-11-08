@@ -952,7 +952,14 @@ function getVenueVisual(slug = '', title = '', category = '') {
       name: '0.125″ Bleed Print Proof for Professional Print Shops'
     };
   }
-  if (/seatharmony-vs-google-sheets|seatharmony-vs-weddingwire|seatharmony-vs-zola|how-to-import-messy|how-to-handle-last-minute/i.test(s)) {
+  if (/how-to-handle-last-minute/i.test(s)) {
+    return {
+      img: '/public/venue-last-minute-rsvp-triage.jpg',
+      tag: '48-Hour RSVP Command Desk',
+      name: '48-Hour Wedding Planner Command Desk & Seating Rebalancer'
+    };
+  }
+  if (/seatharmony-vs-google-sheets|seatharmony-vs-weddingwire|seatharmony-vs-zola|how-to-import-messy/i.test(s)) {
     return {
       img: '/public/showcase-vault-command.png',
       tag: 'Event Command Vault',
@@ -1085,7 +1092,14 @@ function getVenueVisual(slug = '', title = '', category = '') {
       name: 'Caterer Meal-Coded Place Card on Gold Charger'
     };
   }
-  if (/clockwise|caterer-beo|peanut.*celiac|allergy-wedding-catering/i.test(s)) {
+  if (/peanut.*celiac|allergy-wedding-catering/i.test(s)) {
+    return {
+      img: '/public/venue-allergy-safety-catering-pass.jpg',
+      tag: 'Catering Plating & Allergy Pass',
+      name: 'Banquet Catering Pass & Severe Allergy Protocol Station'
+    };
+  }
+  if (/clockwise|caterer-beo/i.test(s)) {
     return {
       img: '/public/showcase-signed-beo.png',
       tag: 'Clockwise 12:00 Caterer BEO',

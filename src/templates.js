@@ -597,6 +597,20 @@ function renderFooter() {
 
 function getVenueVisual(slug = '', title = '', category = '') {
   const s = `${slug} ${title} ${category}`.toLowerCase();
+  if (/how-to-handle-last-minute/i.test(s)) {
+    return {
+      img: '/public/venue-last-minute-rsvp-triage.jpg',
+      tag: '48-Hour RSVP Command Desk',
+      name: '48-Hour Wedding Planner Command Desk & Seating Rebalancer'
+    };
+  }
+  if (/peanut.*celiac|allergy-wedding-catering/i.test(s)) {
+    return {
+      img: '/public/venue-allergy-safety-catering-pass.jpg',
+      tag: 'Catering Plating & Allergy Pass',
+      name: 'Banquet Catering Pass & Severe Allergy Protocol Station'
+    };
+  }
   if (/collaborate-with-mothers/i.test(s)) {
     return {
       img: '/public/venue-two-moms-collaboration.jpg',
