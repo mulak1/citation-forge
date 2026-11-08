@@ -1,0 +1,84 @@
+{
+  "project": "SeatHarmony (seatharmony.io)",
+  "competitors": "Zola, Templett, Canva Wedding Print",
+  "ruled_out_pillars": [
+    "1. Visitor Intent & Traffic Hook Fit",
+    "5. Checkout Mechanics & Live Production Parity"
+  ],
+  "primary_bottleneck_pillar": {
+    "pillar_id": "PILLAR_2_SITE_APPEAL",
+    "name": "2. P0 Full-Site & All-Subpages Competitor Architecture Revision (Stop Tweaking Around the Edges)",
+    "question": "Have we revised the ENTIRE site and ALL subpages to look and operate like category-leading competitors (instead of bolting small tweaks onto a generic template)?",
+    "ring": "RING_2_MIDDLE_PARITY",
+    "status": "ACTIVE_BOTTLENECK_HYPOTHESIS",
+    "evidence_summary": "P0 SITE REVISION REQUIRED: Main calculator template (`calculator.html`) still renders generic 'All Calculators' farm navigation instead of a 100% dedicated brand header across all pages. | Main template (`calculator.html`) still uses the cookie-cutter 'Step 1 of 3' vertical form clone instead of a 2-Column Interactive Competitor Workbench (live inputs on left, instant visual deliverable/chart on right). | Subpage template (`dossier.html` / `/dossier/sample/*`) lacks the unified 70px brand `<header>` and 1320px grid, rendering a disconnected narrow breadcrumb bar instead.",
+    "active_hypothesis": "STOP tweaking around the edges or appending micro-widgets! Execute a complete end-to-end site & subpage revision modeled directly on Zola, Templett, Canva Wedding Print: (1) Replace cookie-cutter vertical forms with a 2-Column Interactive Competitor Workbench in Fold 1 (controls on left, live visual deliverable/chart on right); (2) Enforce the exact same 70px brand `<header>`, 1320px container width, and typography across EVERY route and subpage (landing, `/dossier/sample/*`, `/directory`, `/seo/*`, `/compare/*`, `/tools/*`, `/studio/*`); (3) Strip all cross-brand 'All Calculators' farm links and cap page height to <= 3,800px.",
+    "falsifiable_test": "Playwright verification confirms EVERY top-menu route and subpage shares the identical 70px brand header, 1320px width, and 2-Column Competitor Workbench with 0 cross-brand leaks.",
+    "rule_out_threshold": "100% Full-Site & All-Subpages Competitor Parity == 0.00 gaps",
+    "updated_at": 1794130003.157794
+  },
+  "active_bottleneck_count": 1,
+  "directional_mandate": "STOP beating around the bush on Ruled-Out Pillars (1. Visitor Intent & Traffic Hook Fit, 5. Checkout Mechanics & Live Production Parity). Focus 100% of this cycle on testing & validating [2. P0 Full-Site & All-Subpages Competitor Architecture Revision (Stop Tweaking Around the Edges)]: STOP tweaking around the edges or appending micro-widgets! Execute a complete end-to-end site & subpage revision modeled directly on Zola, Templett, Canva Wedding Print: (1) Replace cookie-cutter vertical forms with a 2-Column Interactive Competitor Workbench in Fold 1 (controls on left, live visual deliverable/chart on right); (2) Enforce the exact same 70px brand `<header>`, 1320px container width, and typography across EVERY route and subpage (landing, `/dossier/sample/*`, `/directory`, `/seo/*`, `/compare/*`, `/tools/*`, `/studio/*`); (3) Strip all cross-brand 'All Calculators' farm links and cap page height to <= 3,800px. (Falsifiable Check: Playwright verification confirms EVERY top-menu route and subpage shares the identical 70px brand header, 1320px width, and 2-Column Competitor Workbench with 0 cross-brand leaks.)",
+  "pillars": [
+    {
+      "pillar_id": "PILLAR_1_VISITOR_INTENT",
+      "name": "1. Visitor Intent & Traffic Hook Fit",
+      "question": "Is it our types of visitors or first-3-second hook?",
+      "ring": "RING_3_OUTER_FOREST",
+      "status": "RULED_OUT_VALIDATED",
+      "evidence_summary": "Tool engagement rate is 78% (>= 50% threshold). Visitors understand the hook and actively use the calculator/studio.",
+      "active_hypothesis": "Match top acquisition channels (@mulak X/Twitter, high-intent comparison routes) to high-urgency buyers.",
+      "falsifiable_test": ">= 50% of human visitors trigger a Step-1 calculation/interaction within 15 seconds.",
+      "rule_out_threshold": "Tool Interaction Rate >= 50%",
+      "updated_at": 1794130003.15779
+    },
+    {
+      "pillar_id": "PILLAR_2_SITE_APPEAL",
+      "name": "2. P0 Full-Site & All-Subpages Competitor Architecture Revision (Stop Tweaking Around the Edges)",
+      "question": "Have we revised the ENTIRE site and ALL subpages to look and operate like category-leading competitors (instead of bolting small tweaks onto a generic template)?",
+      "ring": "RING_2_MIDDLE_PARITY",
+      "status": "ACTIVE_BOTTLENECK_HYPOTHESIS",
+      "evidence_summary": "P0 SITE REVISION REQUIRED: Main calculator template (`calculator.html`) still renders generic 'All Calculators' farm navigation instead of a 100% dedicated brand header across all pages. | Main template (`calculator.html`) still uses the cookie-cutter 'Step 1 of 3' vertical form clone instead of a 2-Column Interactive Competitor Workbench (live inputs on left, instant visual deliverable/chart on right). | Subpage template (`dossier.html` / `/dossier/sample/*`) lacks the unified 70px brand `<header>` and 1320px grid, rendering a disconnected narrow breadcrumb bar instead.",
+      "active_hypothesis": "STOP tweaking around the edges or appending micro-widgets! Execute a complete end-to-end site & subpage revision modeled directly on Zola, Templett, Canva Wedding Print: (1) Replace cookie-cutter vertical forms with a 2-Column Interactive Competitor Workbench in Fold 1 (controls on left, live visual deliverable/chart on right); (2) Enforce the exact same 70px brand `<header>`, 1320px container width, and typography across EVERY route and subpage (landing, `/dossier/sample/*`, `/directory`, `/seo/*`, `/compare/*`, `/tools/*`, `/studio/*`); (3) Strip all cross-brand 'All Calculators' farm links and cap page height to <= 3,800px.",
+      "falsifiable_test": "Playwright verification confirms EVERY top-menu route and subpage shares the identical 70px brand header, 1320px width, and 2-Column Competitor Workbench with 0 cross-brand leaks.",
+      "rule_out_threshold": "100% Full-Site & All-Subpages Competitor Parity == 0.00 gaps",
+      "updated_at": 1794130003.157794
+    },
+    {
+      "pillar_id": "PILLAR_3_REPUTATION_TRUST",
+      "name": "3. Reputation, Authority & Verifiable Proof",
+      "question": "Is it our reputation \u2014 do visitors trust our data/deliverable enough to give an email or card?",
+      "ring": "RING_3_OUTER_FOREST",
+      "status": "QUEUED_NEXT",
+      "evidence_summary": "Visitors engage with the tool but $0 email captures (0) remain below threshold \u2014 indicating either a trust deficit or free-answer cannibalization.",
+      "active_hypothesis": "Elevate instant domain authority to match Zola, Templett, Canva Wedding Print: show an unmasked, 100%-verifiable Specimen #1 deliverable preview up front, cite verifiable data provenance, and display risk-reversal guarantees.",
+      "falsifiable_test": "Visitors inspecting Specimen #1 submit a $0 email save or click sample preview at >= 5% conversion.",
+      "rule_out_threshold": "$0 Email Capture Rate >= 5% of engaged tool users",
+      "updated_at": 1794130003.1577952
+    },
+    {
+      "pillar_id": "PILLAR_4_PRODUCT_OFFERING",
+      "name": "4. Product Offering, Value Holdback & Pricing Wedge",
+      "question": "Is it our product offering \u2014 did we give away 95% for free, or is the paid deliverable not worth paying for?",
+      "ring": "RING_3_OUTER_FOREST",
+      "status": "QUEUED_NEXT",
+      "evidence_summary": "CORE ENTREPRENEURIAL FOCUS: Visitors use the free tool, yet paid checkouts = 0. We must test the Value Holdback & High-Labor Execution Deliverable (Free 60fps interactive seating diagrammer (Sunk-Cost Endowment) -> $0 email Caterer Meal Sheet transport -> paid print-shop-ready 24x36 Poster Sign & Avery 5302 Escort Cards (watermarked proof -> 1-click unlock) + Wedding Planner B2B pass.).",
+      "active_hypothesis": "Eliminate the 'Problem Solved Paradox' on SeatHarmony (seatharmony.io): ensure the free step diagnoses & creates sunk-cost customization in <3s, while gating the high-labor execution deliverable behind a $0 functional email transport and frictionless one-time pass ($7/$19/$29).",
+      "falsifiable_test": "Engaged tool users click `$0 Email Save` or `One-Time Pass Checkout` instead of copying raw screen text and leaving.",
+      "rule_out_threshold": ">= 1 Paid Checkout or >= 5% Checkout Initiation per 20 engaged human visits",
+      "updated_at": 1794130003.1577961
+    },
+    {
+      "pillar_id": "PILLAR_5_CHECKOUT_PROD",
+      "name": "5. Checkout Mechanics & Live Production Parity",
+      "question": "Are changes actually live in production and do all interactive/buy buttons work in <500ms?",
+      "ring": "RING_2_MIDDLE_PARITY",
+      "status": "RULED_OUT_VALIDATED",
+      "evidence_summary": "Live production parity & interactive click-through verified.",
+      "active_hypothesis": "Ensure 100% of local commits are deployed to live production and every upload/preset/Stripe checkout button responds in <500ms without freezing.",
+      "falsifiable_test": "Live production URL returns HTTP 200 and creates a valid `checkout.stripe.com` session in <500ms.",
+      "rule_out_threshold": "100% Live Prod Parity + <500ms Stripe Checkout Redirect",
+      "updated_at": 1794130003.157797
+    }
+  ]
+}

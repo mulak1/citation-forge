@@ -1,0 +1,527 @@
+[
+  {
+    "id": 1,
+    "slug": "150-guest-wedding-seating-chart-round-tables",
+    "page_type": "leaderboard",
+    "title": "150-Guest Wedding Seating Chart Template: 18 Round Tables + Sweetheart Table (2026)",
+    "category": "Ballroom & Estate Receptions"
+  },
+  {
+    "id": 2,
+    "slug": "120-guest-wedding-seating-chart-floorplan",
+    "page_type": "leaderboard",
+    "title": "120-Guest Wedding Seating Chart & Floorplan: 15 Round Tables vs Long Banquet",
+    "category": "Medium Receptions (120 Guests)"
+  },
+  {
+    "id": 3,
+    "slug": "100-guest-wedding-floorplan-sweetheart-table",
+    "page_type": "leaderboard",
+    "title": "100-Guest Wedding Floorplan Template: Sweetheart Table + 12 Round Tables",
+    "category": "100-Guest Weddings"
+  },
+  {
+    "id": 4,
+    "slug": "80-guest-intimate-wedding-banquet-seating-chart",
+    "page_type": "leaderboard",
+    "title": "80-Guest Intimate Wedding Seating Chart: Tuscan 2-Sided Banquet & Courtyard",
+    "category": "Intimate & Micro Weddings"
+  },
+  {
+    "id": 5,
+    "slug": "200-guest-hotel-ballroom-seating-chart-template",
+    "page_type": "leaderboard",
+    "title": "200-Guest Hotel Ballroom Wedding Seating Chart: 20\u00d710-Top Rounds & Dance Floor",
+    "category": "Grand Ballroom Receptions"
+  },
+  {
+    "id": 6,
+    "slug": "250-guest-estate-tent-wedding-floorplan",
+    "page_type": "leaderboard",
+    "title": "250-Guest Sailcloth Tent Wedding Floorplan: Sightlines, Dance Floor & Quiet Zone",
+    "category": "Tented Estate Weddings"
+  },
+  {
+    "id": 7,
+    "slug": "60-guest-rehearsal-dinner-seating-chart",
+    "page_type": "leaderboard",
+    "title": "60-Guest Rehearsal Dinner Seating Chart: Avoid Repeating Reception Tablemates",
+    "category": "Rehearsal Dinners"
+  },
+  {
+    "id": 8,
+    "slug": "50-guest-micro-wedding-long-kings-table",
+    "page_type": "leaderboard",
+    "title": "50-Guest Micro-Wedding Floorplan: Single Continuous King\u2019s Table vs 6 Rounds",
+    "category": "Micro-Weddings (50 Guests)"
+  },
+  {
+    "id": 9,
+    "slug": "175-guest-country-club-wedding-seating-plan",
+    "page_type": "leaderboard",
+    "title": "175-Guest Country Club Reception Floorplan: Divorced Parents & VIP Sightlines",
+    "category": "Country Club Receptions"
+  },
+  {
+    "id": 10,
+    "slug": "130-guest-winery-courtyard-seating-chart",
+    "page_type": "leaderboard",
+    "title": "130-Guest Winery & Vineyard Seating Chart: 2-Sided Farm Tables Under String Lights",
+    "category": "Winery & Vineyard Weddings"
+  },
+  {
+    "id": 11,
+    "slug": "90-guest-garden-conservatory-floorplan",
+    "page_type": "leaderboard",
+    "title": "90-Guest Botanical Conservatory Floorplan: Narrow Atrium Banquet & Round Mix",
+    "category": "Botanical & Museum Venues"
+  },
+  {
+    "id": 12,
+    "slug": "160-guest-industrial-loft-wedding-seating",
+    "page_type": "leaderboard",
+    "title": "160-Guest Industrial Warehouse & Loft Seating Chart: Pillar Sightlines & Bar Flow",
+    "category": "Loft & Warehouse Venues"
+  },
+  {
+    "id": 13,
+    "slug": "140-guest-barn-wedding-floorplan-template",
+    "page_type": "leaderboard",
+    "title": "140-Guest Modern Barn Wedding Floorplan: Harvest Tables + Quiet Senior Zone",
+    "category": "Modern Barn & Ranch"
+  },
+  {
+    "id": 14,
+    "slug": "110-guest-coastal-beach-club-seating-chart",
+    "page_type": "leaderboard",
+    "title": "110-Guest Coastal Yacht & Beach Club Seating Chart: Ocean-View Sweetheart Anchor",
+    "category": "Coastal & Waterfront"
+  },
+  {
+    "id": 15,
+    "slug": "300-guest-charity-gala-table-captain-floorplan",
+    "page_type": "leaderboard",
+    "title": "300-Guest Ballroom Gala & Large Wedding Seating Chart: 30 Round Tables & VIP Ring",
+    "category": "Large Galas & Weddings"
+  },
+  {
+    "id": 16,
+    "slug": "40-guest-b2b-vip-executive-dinner-seating",
+    "page_type": "leaderboard",
+    "title": "40-Guest Intimate Private Dining Room Wedding & Welcome Dinner Seating Chart",
+    "category": "Intimate & Welcome Dinners"
+  },
+  {
+    "id": 17,
+    "slug": "75-guest-destination-wedding-villa-seating",
+    "page_type": "leaderboard",
+    "title": "75-Guest Destination Villa Wedding Seating Chart: Poolside Serpentine & Banquet",
+    "category": "Destination Weddings"
+  },
+  {
+    "id": 18,
+    "slug": "180-guest-museum-rotunda-wedding-floorplan",
+    "page_type": "leaderboard",
+    "title": "180-Guest Art Museum & Rotunda Seating Chart: Circular Dance Floor Orbit",
+    "category": "Museum & Historic Estates"
+  },
+  {
+    "id": 19,
+    "slug": "135-guest-rooftop-penthouse-wedding-seating",
+    "page_type": "leaderboard",
+    "title": "135-Guest Rooftop & Penthouse Wedding Floorplan: Indoor/Outdoor Weather Backup",
+    "category": "Rooftop & City View"
+  },
+  {
+    "id": 20,
+    "slug": "220-guest-cultural-fusion-wedding-seating-chart",
+    "page_type": "leaderboard",
+    "title": "220-Guest Cultural & Multi-Generational Wedding Seating Chart: 4-Side Family Zones",
+    "category": "Multi-Generational Weddings"
+  },
+  {
+    "id": 21,
+    "slug": "170-guest-black-tie-ballroom-seating-chart",
+    "page_type": "leaderboard",
+    "title": "170-Guest Black-Tie Ballroom Wedding Floorplan: Sweetheart Anchor, 20 Rounds & Live Band",
+    "category": "Black-Tie Ballroom Weddings"
+  },
+  {
+    "id": 22,
+    "slug": "95-guest-restaurant-buyout-wedding-floorplan",
+    "page_type": "leaderboard",
+    "title": "95-Guest Restaurant Buyout Wedding Seating Chart: Booths, Long Banquets & Patio Flow",
+    "category": "Restaurant Buyout Weddings"
+  },
+  {
+    "id": 23,
+    "slug": "40x60-tent-wedding-seating-chart-120-guests",
+    "page_type": "leaderboard",
+    "title": "40\u00d760 Tent Wedding Layout for 120 Guests: 15 Round Tables, Center Dance Floor & Pole Clearance",
+    "category": "Tent & Outdoor Weddings"
+  },
+  {
+    "id": 24,
+    "slug": "40x80-sailcloth-tent-wedding-layout-150-guests",
+    "page_type": "leaderboard",
+    "title": "40\u00d780 Sailcloth Tent Wedding Floorplan for 150 Guests: Twin Pole Sightlines & 18 Round Tables",
+    "category": "Sailcloth Tent Weddings"
+  },
+  {
+    "id": 25,
+    "slug": "30x60-tent-wedding-layout-80-100-guests",
+    "page_type": "leaderboard",
+    "title": "30\u00d760 Frame Tent Wedding Seating Chart for 80-100 Guests: Banquet vs Round Table Floorplan",
+    "category": "Frame Tent Weddings"
+  },
+  {
+    "id": 26,
+    "slug": "mixed-round-and-long-banquet-tables-wedding-floorplan",
+    "page_type": "leaderboard",
+    "title": "Mixed Round & Long Banquet Tables Wedding Floorplan (120-160 Guests Architectural Layout)",
+    "category": "2026 Trending Reception Layouts"
+  },
+  {
+    "id": 27,
+    "slug": "40x100-tent-wedding-seating-chart-200-guests",
+    "page_type": "leaderboard",
+    "title": "40\u00d7100 Tent Wedding Floorplan for 200 Guests: 24 Round Tables, Center Dance Floor & Pole Clearance",
+    "category": "Large Tent Weddings"
+  },
+  {
+    "id": 28,
+    "slug": "20x40-tent-backyard-wedding-seating-chart-50-60-guests",
+    "page_type": "leaderboard",
+    "title": "20\u00d740 Backyard Tent Wedding Layout for 50-60 Guests: 7 Round Tables vs 2 Long Banquet Rows",
+    "category": "Backyard & Micro Tent Weddings"
+  },
+  {
+    "id": 29,
+    "slug": "sweetheart-table-vs-kings-table-floorplan",
+    "page_type": "comparison",
+    "title": "Sweetheart Table vs. King\u2019s Head Table: Wedding Floorplan & Sightline Guide",
+    "category": "Head Table Layout"
+  },
+  {
+    "id": 30,
+    "slug": "round-tables-vs-long-banquet-tables-wedding",
+    "page_type": "comparison",
+    "title": "Round Tables (60\" vs 72\") vs. Long Banquet Tables: Space, Conversation & Caterer Flow",
+    "category": "Table Shape Comparison"
+  },
+  {
+    "id": 31,
+    "slug": "alphabetical-vs-by-table-wedding-welcome-sign",
+    "page_type": "comparison",
+    "title": "Alphabetical (A-Z) vs. By-Table Wedding Seating Chart Sign: Cocktail Hour Speed Guide",
+    "category": "24\"\u00d736\" Welcome Signage"
+  },
+  {
+    "id": 32,
+    "slug": "seatharmony-vs-zola-seating-chart-maker",
+    "page_type": "comparison",
+    "title": "SeatHarmony vs. Zola Seating Chart Maker: Auto-Solver, Caterer Meal Sheet & 24\"\u00d736\" Sign",
+    "category": "Seating Tool Comparison"
+  },
+  {
+    "id": 33,
+    "slug": "seatharmony-vs-canva-wedding-seating-sign",
+    "page_type": "comparison",
+    "title": "SeatHarmony Live 24\"\u00d736\" Poster vs. Manual Canva Re-Typing: 6 Hours Saved & Zero Typos",
+    "category": "Print Poster Workflow"
+  },
+  {
+    "id": 34,
+    "slug": "seatharmony-vs-prismm-allseated-for-planners",
+    "page_type": "comparison",
+    "title": "SeatHarmony ($39/mo) vs. Prismm / AllSeated ($199/mo): Wedding Planner Meal Sheet Comparison",
+    "category": "Wedding Planner Tools"
+  },
+  {
+    "id": 35,
+    "slug": "seatharmony-vs-google-sheets-wedding-seating",
+    "page_type": "comparison",
+    "title": "SeatHarmony Visual Table Rings vs. Google Sheets Spreadsheets: Family Peace Guide",
+    "category": "Planning Workflow"
+  },
+  {
+    "id": 36,
+    "slug": "8-person-60-inch-vs-10-person-72-inch-rounds",
+    "page_type": "comparison",
+    "title": "8-Guest (60\" Round) vs. 10-Guest (72\" Round) Wedding Tables: Comfort & Conversation Guide",
+    "category": "Table Comfort & Spacing"
+  },
+  {
+    "id": 37,
+    "slug": "escort-cards-vs-24x36-seating-chart-poster",
+    "page_type": "comparison",
+    "title": "Folded Escort Cards (Avery 5302) vs. 24\"\u00d736\" Welcome Sign Poster: When You Need Both",
+    "category": "Day-Of Print Stationery"
+  },
+  {
+    "id": 38,
+    "slug": "bride-and-groom-parents-same-table-vs-separate",
+    "page_type": "comparison",
+    "title": "Seating Bride & Groom Parents Together vs. Separate Host Tables: Etiquette & Drama Guide",
+    "category": "Family Etiquette"
+  },
+  {
+    "id": 39,
+    "slug": "kids-table-vs-seating-children-with-parents",
+    "page_type": "comparison",
+    "title": "Dedicated Kids Table vs. Seating Children With Parents (Highchair & Server Safety)",
+    "category": "Keeping Families Together"
+  },
+  {
+    "id": 40,
+    "slug": "singles-table-vs-mixed-friend-group-seating",
+    "page_type": "comparison",
+    "title": "Why You Should Never Make a \"Singles Table\" (And How Mixing Friend Groups Works Better)",
+    "category": "Guest Experience"
+  },
+  {
+    "id": 41,
+    "slug": "u-shape-floorplan-vs-parallel-banquet-columns",
+    "page_type": "comparison",
+    "title": "U-Shape Reception Floorplan vs. Parallel Banquet Columns: Speeches & Server Aisles",
+    "category": "Banquet Room Layout"
+  },
+  {
+    "id": 42,
+    "slug": "qr-code-seat-finder-vs-printed-welcome-board",
+    "page_type": "comparison",
+    "title": "Cocktail-Hour QR \"Find My Seat\" Pass vs. Printed Welcome Board: The Hybrid Setup",
+    "category": "Guest Check-In Speed"
+  },
+  {
+    "id": 43,
+    "slug": "seatharmony-vs-rsvpify-seating-chart-builder",
+    "page_type": "comparison",
+    "title": "SeatHarmony vs. RSVPify Seating Chart Builder: Clockwise Caterer Meal Sheet & Print Bleed",
+    "category": "Seating Tool Comparison"
+  },
+  {
+    "id": 44,
+    "slug": "seatharmony-vs-weddingwire-the-knot-seating",
+    "page_type": "comparison",
+    "title": "SeatHarmony vs. The Knot / WeddingWire Seating Tool: Print Sign & Family Sharing Guide",
+    "category": "Wedding Tool Comparison"
+  },
+  {
+    "id": 45,
+    "slug": "clockwise-12-oclock-seat-numbering-vs-random",
+    "page_type": "comparison",
+    "title": "Clockwise 12-O\u2019Clock Seat Numbering vs. Unnumbered Tables: How Caterers Serve 30% Faster",
+    "category": "Catering Operations"
+  },
+  {
+    "id": 46,
+    "slug": "mom-sandbox-link-vs-shared-account-login",
+    "page_type": "comparison",
+    "title": "Family Table Share Link (Tables 1-3 Only) vs. Sharing Your Full Login Password",
+    "category": "Family Collaboration"
+  },
+  {
+    "id": 47,
+    "slug": "plated-dinner-place-cards-vs-buffet-table-signs",
+    "page_type": "comparison",
+    "title": "Plated Dinner Meal-Coded Place Cards vs. Buffet Table Numbers: What Your Venue Requires",
+    "category": "Meal Service Formats"
+  },
+  {
+    "id": 48,
+    "slug": "outdoor-tent-rain-plan-b-floorplan-comparison",
+    "page_type": "comparison",
+    "title": "Outdoor Courtyard Floorplan vs. Indoor Rain Plan-B Layout: 1-Click Table Re-Mapping",
+    "category": "Day-Of Weather Backup"
+  },
+  {
+    "id": 49,
+    "slug": "corporate-vip-dinner-rotation-vs-fixed-seating",
+    "page_type": "comparison",
+    "title": "Rehearsal Dinner Seat Mixing vs. Assigned Tables for Multi-Day Wedding Weekends",
+    "category": "Rehearsal & Welcome Dinners"
+  },
+  {
+    "id": 50,
+    "slug": "foam-board-24x36-fedex-vs-acrylic-welcome-sign",
+    "page_type": "comparison",
+    "title": "24\"\u00d736\" Archival Foam Board (FedEx/Staples) vs. Acrylic Sign: Readability & Glare Guide",
+    "category": "Print Materials"
+  },
+  {
+    "id": 51,
+    "slug": "templett-corjl-canva-vs-seatharmony-welcome-sign",
+    "page_type": "comparison",
+    "title": "SeatHarmony Auto-Synced 24\"\u00d736\" Sign vs. Templett, Corjl & Canva Manual Templates",
+    "category": "Editable Sign Templates"
+  },
+  {
+    "id": 52,
+    "slug": "18x24-vs-24x36-wedding-seating-chart-sign-size-comparison",
+    "page_type": "comparison",
+    "title": "18\"\u00d724\" vs. 24\"\u00d736\" Wedding Seating Chart Sign Size: Guest Count & Font Readability Chart",
+    "category": "Welcome Sign Sizing"
+  },
+  {
+    "id": 53,
+    "slug": "how-to-seat-divorced-parents-at-wedding-reception",
+    "page_type": "guide",
+    "title": "How to Seat Divorced Parents & Step-Parents at a Wedding Without Drama (2026 Guide)",
+    "category": "Family Conflict Etiquette"
+  },
+  {
+    "id": 54,
+    "slug": "clockwise-caterer-beo-table-numbering-guide",
+    "page_type": "guide",
+    "title": "The Banquet Captain\u2019s Guide to Clockwise Seat 1..N Table Numbering (12 O\u2019Clock Anchor)",
+    "category": "Caterer Meal Sheet Operations"
+  },
+  {
+    "id": 55,
+    "slug": "avery-5302-wedding-escort-card-meal-icons-guide",
+    "page_type": "guide",
+    "title": "How to Print Meal-Choice Icons & Allergy Alerts on Avery 5302 Tented Place Cards",
+    "category": "Stationery & Place Cards"
+  },
+  {
+    "id": 56,
+    "slug": "24x36-wedding-seating-chart-poster-size-and-font-guide",
+    "page_type": "guide",
+    "title": "24\"\u00d736\" Wedding Seating Chart Poster Guide: Minimum Font Sizes, Bleed & Alphabetical Layout",
+    "category": "Print Poster Typography"
+  },
+  {
+    "id": 57,
+    "slug": "how-to-import-messy-zola-the-knot-csv-guest-list",
+    "page_type": "guide",
+    "title": "How to Clean & Import Messy Zola, The Knot, or Google Sheets Guest Lists in 10 Seconds",
+    "category": "Guest List Data Cleaning"
+  },
+  {
+    "id": 58,
+    "slug": "wheelchair-and-highchair-wedding-table-accessibility-guide",
+    "page_type": "guide",
+    "title": "Wheelchair & Highchair Wedding Table Etiquette: Telling Caterers Which Chair to Remove",
+    "category": "Accessibility & Seniors"
+  },
+  {
+    "id": 59,
+    "slug": "severe-peanut-and-celiac-allergy-wedding-catering-protocol",
+    "page_type": "guide",
+    "title": "Managing Severe Peanut, Tree Nut & Celiac Allergies on Your Wedding Seating Chart",
+    "category": "Food Allergy Safety"
+  },
+  {
+    "id": 60,
+    "slug": "where-to-seat-grandparents-away-from-dj-speakers",
+    "page_type": "guide",
+    "title": "Acoustic Zone Planning: Keeping Grandparents 30+ Feet From DJ Subwoofers",
+    "category": "Room Acoustics & Zones"
+  },
+  {
+    "id": 61,
+    "slug": "where-to-seat-bridal-party-plus-ones-and-dates",
+    "page_type": "guide",
+    "title": "Should You Seat Bridal Party Dates at the Head Table or With Friends? (3 Proven Layouts)",
+    "category": "Bridal Party Etiquette"
+  },
+  {
+    "id": 62,
+    "slug": "how-to-handle-last-minute-wedding-rsvp-drops-48-hours-out",
+    "page_type": "guide",
+    "title": "How to Handle Last-Minute Wedding RSVP Drops 48 Hours Before the Reception",
+    "category": "Last-Minute RSVP Triage"
+  },
+  {
+    "id": 63,
+    "slug": "vendor-meal-table-checklist-photographer-planner-dj",
+    "page_type": "guide",
+    "title": "The Wedding Vendor Meal Checklist: Seating & Feeding Your Photographer, Planner & DJ",
+    "category": "Vendor Operations"
+  },
+  {
+    "id": 64,
+    "slug": "how-to-collaborate-with-mothers-of-bride-and-groom-sandbox",
+    "page_type": "guide",
+    "title": "How to Let Both Moms Help With Family Tables Without Breaking Your Seating Chart",
+    "category": "Family Collaboration"
+  },
+  {
+    "id": 65,
+    "slug": "rehearsal-dinner-to-reception-dont-repeat-tablemates-rule",
+    "page_type": "guide",
+    "title": "The \"Don\u2019t Repeat Tablemates\" Rule Between Rehearsal Dinner and Wedding Reception",
+    "category": "Multi-Event Weekends"
+  },
+  {
+    "id": 66,
+    "slug": "fedex-staples-canva-print-bleed-crop-marks-24x36-poster",
+    "page_type": "guide",
+    "title": "How to Export a 24\"\u00d736\" Wedding Welcome Sign With 0.125\" Bleed for FedEx, Staples or Local Printers",
+    "category": "Pre-Press Print Spec"
+  },
+  {
+    "id": 67,
+    "slug": "cocktail-hour-qr-code-find-my-seat-setup-guide",
+    "page_type": "guide",
+    "title": "Adding a \"Find My Seat\" QR Code to Your Printed Welcome Sign for 150+ Guest Weddings",
+    "category": "Cocktail Hour Flow"
+  },
+  {
+    "id": 68,
+    "slug": "b2b-field-marketing-vip-dinner-seating-strategy",
+    "page_type": "guide",
+    "title": "How to Seat Out-of-Town Family & Wedding Party at the Welcome Dinner",
+    "category": "Welcome Dinner Etiquette"
+  },
+  {
+    "id": 69,
+    "slug": "charity-gala-corporate-table-captain-seating-playbook",
+    "page_type": "guide",
+    "title": "How Gala & Large Reception Coordinators Manage 30 Table Hosts & VIP Placement",
+    "category": "Large Reception Playbook"
+  },
+  {
+    "id": 70,
+    "slug": "table-spacing-and-server-aisle-clearance-standards",
+    "page_type": "guide",
+    "title": "Banquet Room Fire Code & Server Aisle Clearance Standards (60-Inch vs 72-Inch Rounds)",
+    "category": "Venue Architecture"
+  },
+  {
+    "id": 71,
+    "slug": "24x36-welcome-sign-with-mini-floorplan-map-guide",
+    "page_type": "guide",
+    "title": "How to Include a Mini Reception Table Map on Your 24\"\u00d736\" Wedding Welcome Sign",
+    "category": "Welcome Sign Architecture"
+  },
+  {
+    "id": 72,
+    "slug": "24x36-wedding-seating-chart-poster-how-many-names-fit",
+    "page_type": "guide",
+    "title": "How Many Guest Names Fit on a 24\"\u00d736\" Wedding Seating Chart Sign? (100 to 250 Guests Font Size Chart)",
+    "category": "24\"\u00d736\" Welcome Sign Specs"
+  },
+  {
+    "id": 73,
+    "slug": "serpentine-s-curve-wedding-table-layout-floorplan",
+    "page_type": "guide",
+    "title": "Serpentine & S-Curve Wedding Reception Table Layout: Dimensions, Linens & Caterer Server Aisles",
+    "category": "2026 Trending Layouts"
+  },
+  {
+    "id": 74,
+    "slug": "60-inch-round-table-8-vs-9-vs-10-wedding-guests",
+    "page_type": "guide",
+    "title": "How Many Guests Fit at a 60-Inch Round Wedding Table? (8 vs 9 vs 10 Charger Plate Spacing)",
+    "category": "Table Capacity & Comfort"
+  },
+  {
+    "id": 75,
+    "slug": "l-shaped-and-t-shaped-wedding-reception-table-layout",
+    "page_type": "guide",
+    "title": "L-Shaped & T-Shaped Wedding Reception Table Layouts for 60-110 Guests: Intimate Venue Blueprint",
+    "category": "Intimate Venue Architecture"
+  }
+]

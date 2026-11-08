@@ -45,26 +45,30 @@ function renderZone2Walkthrough(plan = {}) {
         <h2 class="bs-section-h2" style="margin-bottom:4px;">From RSVP list to print-ready reception <em>in four steps.</em></h2>
         <p class="bs-section-sub">Replace late-night spreadsheet guesswork with conflict-free household seating, clockwise caterer meal sheets, and print-ready signage.</p>
       </div>
-      <div class="studio-how-grid" style="margin-top:12px;gap:12px;">
-        <div class="studio-how-card" style="padding:14px;gap:6px;cursor:pointer;" onclick="window.scrollToShCard(2)">
-          <div style="display:flex;align-items:center;justify-content:space-between;"><span class="studio-how-num" style="width:30px;height:30px;font-size:0.82rem;">01</span><span class="mono" style="font-size:0.72rem;font-weight:700;color:#1B4D3E;background:#EBF4F0;padding:3px 8px;border-radius:999px;white-space:nowrap;">15-Sec Import</span></div>
+      <div class="studio-how-grid" style="margin-top:12px;gap:14px;">
+        <div class="studio-how-card" style="padding:12px;gap:8px;cursor:pointer;" onclick="window.scrollToShCard(2)">
+          <img src="/public/venue-rosewood-estate.jpg" alt="150-guest estate reception table layout" style="width:100%;height:148px;object-fit:cover;border-radius:10px;display:block;" loading="eager" />
+          <div style="display:flex;align-items:center;justify-content:space-between;"><span class="studio-how-num" style="width:28px;height:28px;font-size:0.80rem;">01</span><span class="mono" style="font-size:0.72rem;font-weight:700;color:#1B4D3E;background:#EBF4F0;padding:3px 8px;border-radius:999px;white-space:nowrap;">15-Sec Import</span></div>
           <h3 style="font-size:1.02rem;font-weight:700;color:#1C1C1C;margin:0;line-height:1.25;">1. Paste Guest List</h3>
-          <p style="font-size:0.82rem;color:#4B5563;line-height:1.4;margin:0;">Zola, The Knot, or Excel.</p>
+          <p style="font-size:0.82rem;color:#4B5563;line-height:1.4;margin:0;">Import from Zola, The Knot, Joy, or Excel with household locks.</p>
         </div>
-        <div class="studio-how-card" style="padding:14px;gap:6px;cursor:pointer;" onclick="window.scrollToShCard(3)">
-          <div style="display:flex;align-items:center;justify-content:space-between;"><span class="studio-how-num" style="width:30px;height:30px;font-size:0.82rem;">02</span><span class="mono" style="font-size:0.72rem;font-weight:700;color:#1B4D3E;background:#EBF4F0;padding:3px 8px;border-radius:999px;white-space:nowrap;">1-Click Peace</span></div>
+        <div class="studio-how-card" style="padding:12px;gap:8px;cursor:pointer;" onclick="window.scrollToShCard(3)">
+          <img src="/public/venue-divorced-parents-peace.jpg" alt="Equidistant VIP family tables with dance floor sightlines" style="width:100%;height:148px;object-fit:cover;border-radius:10px;display:block;" loading="eager" />
+          <div style="display:flex;align-items:center;justify-content:space-between;"><span class="studio-how-num" style="width:28px;height:28px;font-size:0.80rem;">02</span><span class="mono" style="font-size:0.72rem;font-weight:700;color:#1B4D3E;background:#EBF4F0;padding:3px 8px;border-radius:999px;white-space:nowrap;">1-Click Peace</span></div>
           <h3 style="font-size:1.02rem;font-weight:700;color:#1C1C1C;margin:0;line-height:1.25;">2. Keep Family Peace</h3>
-          <p style="font-size:0.82rem;color:#4B5563;line-height:1.4;margin:0;">Divorced parents separated.</p>
+          <p style="font-size:0.82rem;color:#4B5563;line-height:1.4;margin:0;">Separate divorced parents with equal VIP sweetheart sightlines.</p>
         </div>
-        <div class="studio-how-card" style="padding:14px;gap:6px;cursor:pointer;" onclick="if(window.shSetActiveTab){window.shSetActiveTab('beo');}document.getElementById('studio-bespoke-artifact-stage').scrollIntoView({behavior:'smooth'});">
-          <div style="display:flex;align-items:center;justify-content:space-between;"><span class="studio-how-num" style="width:30px;height:30px;font-size:0.82rem;">03</span><span class="mono" style="font-size:0.72rem;font-weight:700;color:#1B4D3E;background:#EBF4F0;padding:3px 8px;border-radius:999px;white-space:nowrap;">12:00 = Seat #1</span></div>
+        <div class="studio-how-card" style="padding:12px;gap:8px;cursor:pointer;" onclick="if(window.shSetActiveTab){window.shSetActiveTab('beo');}document.getElementById('studio-bespoke-artifact-stage').scrollIntoView({behavior:'smooth'});">
+          <img src="/public/venue-caterer-meal-clipboard.jpg" alt="Banquet captain reviewing clockwise 12:00 caterer meal sheet" style="width:100%;height:148px;object-fit:cover;border-radius:10px;display:block;" loading="lazy" />
+          <div style="display:flex;align-items:center;justify-content:space-between;"><span class="studio-how-num" style="width:28px;height:28px;font-size:0.80rem;">03</span><span class="mono" style="font-size:0.72rem;font-weight:700;color:#1B4D3E;background:#EBF4F0;padding:3px 8px;border-radius:999px;white-space:nowrap;">12:00 = Seat #1</span></div>
           <h3 style="font-size:1.02rem;font-weight:700;color:#1C1C1C;margin:0;line-height:1.25;">3. Caterer Meal Sheet</h3>
-          <p style="font-size:0.82rem;color:#4B5563;line-height:1.4;margin:0;">Clockwise 12:00 Seat #1.</p>
+          <p style="font-size:0.82rem;color:#4B5563;line-height:1.4;margin:0;">Clockwise 12:00 Seat #1 meal tally &amp; red kitchen allergy flags.</p>
         </div>
-        <div class="studio-how-card" style="padding:14px;gap:6px;cursor:pointer;" onclick="if(window.shSetActiveTab){window.shSetActiveTab('poster');}document.getElementById('studio-bespoke-artifact-stage').scrollIntoView({behavior:'smooth'});">
-          <div style="display:flex;align-items:center;justify-content:space-between;"><span class="studio-how-num" style="width:30px;height:30px;font-size:0.82rem;">04</span><span class="mono" style="font-size:0.72rem;font-weight:700;color:#1B4D3E;background:#EBF4F0;padding:3px 8px;border-radius:999px;white-space:nowrap;">Arch D Ready</span></div>
+        <div class="studio-how-card" style="padding:12px;gap:8px;cursor:pointer;" onclick="if(window.shSetActiveTab){window.shSetActiveTab('poster');}document.getElementById('studio-bespoke-artifact-stage').scrollIntoView({behavior:'smooth'});">
+          <img src="/public/venue-calligraphy-mirror-sign.jpg" alt="Framed 24x36 reception welcome seating sign on brass easel" style="width:100%;height:148px;object-fit:cover;border-radius:10px;display:block;" loading="lazy" />
+          <div style="display:flex;align-items:center;justify-content:space-between;"><span class="studio-how-num" style="width:28px;height:28px;font-size:0.80rem;">04</span><span class="mono" style="font-size:0.72rem;font-weight:700;color:#1B4D3E;background:#EBF4F0;padding:3px 8px;border-radius:999px;white-space:nowrap;">Arch D Ready</span></div>
           <h3 style="font-size:1.02rem;font-weight:700;color:#1C1C1C;margin:0;line-height:1.25;">4. Print Sign &amp; Cards</h3>
-          <p style="font-size:0.82rem;color:#4B5563;line-height:1.4;margin:0;">24&Prime;&times;36&Prime; sign &amp; place cards.</p>
+          <p style="font-size:0.82rem;color:#4B5563;line-height:1.4;margin:0;">FedEx/Staples 24&Prime;&times;36&Prime; poster &amp; Avery 5302 place cards.</p>
         </div>
       </div>
 
@@ -111,15 +115,15 @@ function renderZone2Walkthrough(plan = {}) {
                 </span>
               </div>
 
-              <!-- Tangible Prints Micro-Preview -->
-              <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(130px,1fr));gap:8px;padding:10px;background:#FAF8F5;border:1px solid #EAE0D0;border-radius:10px;">
-                <div style="display:flex;align-items:center;gap:8px;">
-                  <img src="/public/ugc-welcome-sign-easel.jpg" alt="24x36 sign preview" style="width:42px;height:42px;border-radius:6px;object-fit:cover;border:1px solid #D6CBB8;" loading="lazy" />
-                  <div style="font-size:0.72rem;line-height:1.25;"><strong style="color:#181412;">24&Prime;&times;36&Prime; Sign</strong><br/><span style="color:#78716C;">FedEx-Ready PDF</span></div>
+              <!-- Tangible Prints Visual Cards -->
+              <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(160px,1fr));gap:10px;padding:10px;background:#FAF8F5;border:1px solid #EAE0D0;border-radius:12px;">
+                <div style="display:flex;flex-direction:column;gap:6px;">
+                  <img src="/public/ugc-welcome-sign-easel.jpg" alt="24x36 sign preview" style="width:100%;height:110px;border-radius:8px;object-fit:cover;border:1px solid #D6CBB8;display:block;" loading="lazy" />
+                  <div style="font-size:0.75rem;line-height:1.3;"><strong style="color:#181412;">24&Prime;&times;36&Prime; Sign</strong> &middot; <span style="color:#78716C;">FedEx-Ready PDF</span></div>
                 </div>
-                <div style="display:flex;align-items:center;gap:8px;">
-                  <img src="/public/ugc-escort-cards-wax.jpg" alt="Avery cards preview" style="width:42px;height:42px;border-radius:6px;object-fit:cover;border:1px solid #D6CBB8;" loading="lazy" />
-                  <div style="font-size:0.72rem;line-height:1.25;"><strong style="color:#181412;">Avery 5302</strong><br/><span style="color:#78716C;">Table 1 Unmasked</span></div>
+                <div style="display:flex;flex-direction:column;gap:6px;">
+                  <img src="/public/ugc-escort-cards-wax.jpg" alt="Avery cards preview" style="width:100%;height:110px;border-radius:8px;object-fit:cover;border:1px solid #D6CBB8;display:block;" loading="lazy" />
+                  <div style="font-size:0.75rem;line-height:1.3;"><strong style="color:#181412;">Avery 5302 Cards</strong> &middot; <span style="color:#78716C;">Table 1 Unmasked</span></div>
                 </div>
               </div>
 
@@ -406,7 +410,7 @@ function renderZone3InteractiveStudio(plan) {
                   <div id="specimen-client-headline" class="serif-display" style="font-size:1.02rem;color:#1C1C1C;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;">${escapeHtml(plan.title || "Maya & Liam's Estate Reception")}</div>
                   <span id="specimen-harmony-pill" class="badge badge-emerald sh-hide-mobile-toolbar" style="font-size:0.70rem;padding:1px 7px;flex-shrink:0;">&#10003; 0 Conflicts</span>
                   <span id="specimen-meta-sub" class="sh-hide-mobile-toolbar" style="font-size:0.76rem;color:#4B5563;font-weight:600;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;"><span id="sh-stage-venue-label">${escapeHtml(plan.venueName || 'Rosewood Conservatory')}</span> &middot; 62 Guests (8 Tables)</span>
-                  <button type="button" id="sh-venue-photo-pill" class="studio-tap-chip sh-hide-mobile-toolbar" onclick="window.shOpenVenuePhotoModal && window.shOpenVenuePhotoModal()" style="display:inline-flex;align-items:center;gap:6px;padding:2px 8px 2px 4px;font-size:0.72rem;font-weight:700;color:#1B4D3E;background:#FFFFFF;border:1px solid #C4DFD5;border-radius:999px;cursor:pointer;" title="View venue photograph and architectural setting"><img id="sh-venue-thumb-img" src="/public/venue-coastal-beach-club.jpg" alt="Coastal Yacht &amp; Beach Club reception preview" style="width:22px;height:22px;border-radius:999px;object-fit:cover;display:inline-block;" /><span>Venue Photo</span></button>
+                  <button type="button" id="sh-venue-photo-pill" class="studio-tap-chip sh-hide-mobile-toolbar" onclick="window.shOpenVenuePhotoModal && window.shOpenVenuePhotoModal()" style="display:inline-flex;align-items:center;gap:6px;padding:3px 9px;font-size:0.72rem;font-weight:700;color:#1B4D3E;background:#FFFFFF;border:1px solid #C4DFD5;border-radius:999px;cursor:pointer;" title="View venue photograph and architectural setting"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><path d="M21 15l-5-5L5 21"/></svg><span>Venue Photo</span></button>
                   <div id="specimen-salon-crest" style="display:none;"></div>
                   <div id="specimen-tagline-sub" style="display:none;"></div>
                 </div>
@@ -934,18 +938,40 @@ function renderStudioPage(initialAudit) {
            <h1 class="sh-display-h1" style="font-size:clamp(1.3rem, 2.5vw, 1.8rem);margin:0;line-height:1.2;">The Reception Seating Studio</h1>
            <p style="font-size:0.86rem;color:#57534E;margin:4px 0 0;">Interactive floorplan canvas, clockwise 12:00 caterer meal sheets, and print-ready 24&Prime;&times;36&Prime; welcome signage.</p>
          </div>
-         <div style="display:flex;gap:10px;align-items:center;">
-           <div style="display:flex;align-items:center;gap:8px;background:#FAF8F5;border:1px solid #E2D9C8;padding:6px 12px;border-radius:10px;">
-             <img src="/public/venue-intimate-courtyard-banquet.jpg" alt="Courtyard Banquet Setting" style="width:38px;height:38px;border-radius:6px;object-fit:cover;" />
-             <div style="font-size:0.75rem;line-height:1.25;"><strong style="color:#181412;">Courtyard Banquet</strong><br/><span style="color:#78716C;">54&Prime; Clearances</span></div>
-           </div>
-           <div style="display:flex;align-items:center;gap:8px;background:#FAF8F5;border:1px solid #E2D9C8;padding:6px 12px;border-radius:10px;">
-             <img src="/public/ugc-welcome-sign-easel.jpg" alt="Print-Ready Welcome Sign on Brass Easel" style="width:38px;height:38px;border-radius:6px;object-fit:cover;" />
-             <div style="font-size:0.75rem;line-height:1.25;"><strong style="color:#181412;">24&Prime;&times;36&Prime; Sign</strong><br/><span style="color:#78716C;">FedEx-Ready ($7)</span></div>
-           </div>
-         </div>
        </div>`,
     renderZone3InteractiveStudio(plan),
+    `  <section style="margin-top:28px;padding-top:24px;border-top:1px solid #EAE0D0;">
+         <div style="margin-bottom:14px;">
+           <div class="bs-section-eyebrow">VERIFIED VENUE ARCHITECTURES &amp; PRINT DELIVERABLES</div>
+           <h2 class="serif-display" style="font-size:1.35rem;margin:4px 0 0;color:#181412;">Click any reception setting or print asset to load its preset</h2>
+         </div>
+         <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:16px;">
+           <div style="background:#FFFFFF;border:1px solid #E4DCD0;border-radius:14px;overflow:hidden;box-shadow:0 2px 10px rgba(31,27,24,0.04);">
+             <img src="/public/venue-coastal-beach-club.jpg" alt="Coastal Yacht and Beach Club Ocean Terrace" style="width:100%;height:165px;object-fit:cover;display:block;" loading="eager" />
+             <div style="padding:12px 14px;"><strong style="font-size:0.9rem;color:#181412;display:block;">Waterfront Beach Club (110 Guests)</strong><span style="font-size:0.78rem;color:#57534E;">11 rounds + sweetheart &middot; Oceanfront sightlines</span></div>
+           </div>
+           <div style="background:#FFFFFF;border:1px solid #E4DCD0;border-radius:14px;overflow:hidden;box-shadow:0 2px 10px rgba(31,27,24,0.04);">
+             <img src="/public/venue-rosewood-estate.jpg" alt="Private Country Estate and Glass Conservatory" style="width:100%;height:165px;object-fit:cover;display:block;" loading="eager" />
+             <div style="padding:12px 14px;"><strong style="font-size:0.9rem;color:#181412;display:block;">Rosewood Conservatory (150 Guests)</strong><span style="font-size:0.78rem;color:#57534E;">18 rounds &middot; 54&Prime; server aisle clearance</span></div>
+           </div>
+           <div style="background:#FFFFFF;border:1px solid #E4DCD0;border-radius:14px;overflow:hidden;box-shadow:0 2px 10px rgba(31,27,24,0.04);">
+             <img src="/public/venue-grand-ballroom.jpg" alt="Grand Ballroom and Chandelier Banquet Hall" style="width:100%;height:165px;object-fit:cover;display:block;" loading="lazy" />
+             <div style="padding:12px 14px;"><strong style="font-size:0.9rem;color:#181412;display:block;">Grand Ballroom Gala (200 Guests)</strong><span style="font-size:0.78rem;color:#57534E;">20 72&Prime; rounds &middot; 5-column 16pt welcome sign</span></div>
+           </div>
+           <div style="background:#FFFFFF;border:1px solid #E4DCD0;border-radius:14px;overflow:hidden;box-shadow:0 2px 10px rgba(31,27,24,0.04);">
+             <img src="/public/venue-intimate-courtyard-banquet.jpg" alt="Intimate Tuscan Courtyard Banquet" style="width:100%;height:165px;object-fit:cover;display:block;" loading="lazy" />
+             <div style="padding:12px 14px;"><strong style="font-size:0.9rem;color:#181412;display:block;">Tuscan Courtyard (90 Guests)</strong><span style="font-size:0.78rem;color:#57534E;">Long farm tables &middot; String-light perimeter safe</span></div>
+           </div>
+           <div style="background:#FFFFFF;border:1px solid #E4DCD0;border-radius:14px;overflow:hidden;box-shadow:0 2px 10px rgba(31,27,24,0.04);">
+             <img src="/public/ugc-welcome-sign-easel.jpg" alt="24x36 Arch D Reception Welcome Sign on Brass Easel" style="width:100%;height:165px;object-fit:cover;display:block;" loading="lazy" />
+             <div style="padding:12px 14px;"><strong style="font-size:0.9rem;color:#181412;display:block;">24&Prime;&times;36&Prime; Arch D Welcome Poster</strong><span style="font-size:0.78rem;color:#57534E;">300-DPI FedEx &amp; Staples same-day pickup PDF</span></div>
+           </div>
+           <div style="background:#FFFFFF;border:1px solid #E4DCD0;border-radius:14px;overflow:hidden;box-shadow:0 2px 10px rgba(31,27,24,0.04);">
+             <img src="/public/ugc-escort-cards-wax.jpg" alt="Avery 5302 Meal-Coded Tent Place Cards" style="width:100%;height:165px;object-fit:cover;display:block;" loading="lazy" />
+             <div style="padding:12px 14px;"><strong style="font-size:0.9rem;color:#181412;display:block;">Avery 5302 Meal-Coded Tent Cards</strong><span style="font-size:0.78rem;color:#57534E;">Entr&eacute;e icons on front &middot; Red allergy alerts on back</span></div>
+           </div>
+         </div>
+       </section>`,
     '</main>',
     renderFooter(),
     renderInteractiveScript(plan),

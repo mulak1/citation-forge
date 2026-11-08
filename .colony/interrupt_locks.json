@@ -1,0 +1,156 @@
+{
+  "bar_stock": {
+    "project": "bar_stock",
+    "state": "PAUSED_FOR_HUMAN_TASK",
+    "status": "PAUSED_FOR_HUMAN_TASK",
+    "last_paused_reason": "User interrupt: Railway build failures + insufficient visible Gemini Banana images across pages",
+    "reason": "User interrupt: Railway build failures + insufficient visible Gemini Banana images across pages"
+  },
+  "car_floor": {
+    "project": "car_floor",
+    "state": "PAUSED_FOR_HUMAN_TASK",
+    "status": "PAUSED_FOR_HUMAN_TASK",
+    "last_paused_reason": "User interrupt: Railway build failures + insufficient visible Gemini Banana images across pages",
+    "reason": "User interrupt: Railway build failures + insufficient visible Gemini Banana images across pages"
+  },
+  "glowindex": {
+    "project": "glowindex",
+    "state": "PAUSED_FOR_HUMAN_TASK",
+    "status": "PAUSED_FOR_HUMAN_TASK",
+    "last_paused_reason": "User interrupt: Railway build failures + insufficient visible Gemini Banana images across pages",
+    "reason": "User interrupt: Railway build failures + insufficient visible Gemini Banana images across pages"
+  },
+  "seatharmony": {
+    "project": "seatharmony",
+    "state": "PAUSED_FOR_HUMAN_TASK",
+    "status": "PAUSED_FOR_HUMAN_TASK",
+    "last_paused_reason": "User interrupt: Railway build failures + insufficient visible Gemini Banana images across pages",
+    "reason": "User interrupt: Railway build failures + insufficient visible Gemini Banana images across pages"
+  },
+  "pace_forge": {
+    "project": "pace_forge",
+    "state": "PAUSED_FOR_HUMAN_TASK",
+    "status": "PAUSED_FOR_HUMAN_TASK",
+    "last_paused_reason": "User interrupt: Railway build failures + insufficient visible Gemini Banana images across pages",
+    "reason": "User interrupt: Railway build failures + insufficient visible Gemini Banana images across pages"
+  },
+  "mortgage_recast": {
+    "project": "mortgage_recast",
+    "state": "PAUSED_FOR_HUMAN_TASK",
+    "status": "PAUSED_FOR_HUMAN_TASK",
+    "last_paused_reason": "User interrupt: Railway build failures + insufficient visible Gemini Banana images across pages",
+    "reason": "User interrupt: Railway build failures + insufficient visible Gemini Banana images across pages"
+  },
+  "sponsor-radar": {
+    "project": "sponsor-radar",
+    "state": "PAUSED_FOR_HUMAN_TASK",
+    "status": "PAUSED_FOR_HUMAN_TASK",
+    "last_paused_reason": "User interrupt: Railway build failures + insufficient visible Gemini Banana images across pages",
+    "reason": "User interrupt: Railway build failures + insufficient visible Gemini Banana images across pages"
+  },
+  "derm_logic": {
+    "project": "derm_logic",
+    "state": "PAUSED_FOR_HUMAN_TASK",
+    "status": "PAUSED_FOR_HUMAN_TASK",
+    "last_paused_reason": "User interrupt: Railway build failures + insufficient visible Gemini Banana images across pages",
+    "reason": "User interrupt: Railway build failures + insufficient visible Gemini Banana images across pages"
+  },
+  "pulseforge": {
+    "project": "pulseforge",
+    "state": "PAUSED_FOR_HUMAN_TASK",
+    "status": "PAUSED_FOR_HUMAN_TASK",
+    "last_paused_reason": "User interrupt: Railway build failures + insufficient visible Gemini Banana images across pages",
+    "reason": "User interrupt: Railway build failures + insufficient visible Gemini Banana images across pages"
+  },
+  "abandon_alpha": {
+    "project": "abandon_alpha",
+    "state": "PAUSED_FOR_HUMAN_TASK",
+    "status": "PAUSED_FOR_HUMAN_TASK",
+    "last_paused_reason": "User interrupt: Railway build failures + insufficient visible Gemini Banana images across pages",
+    "reason": "User interrupt: Railway build failures + insufficient visible Gemini Banana images across pages"
+  },
+  "/users/kadermula/downloads/ideas/studio/sponsor-radar": {
+    "project": "/users/kadermula/downloads/ideas/studio/sponsor-radar",
+    "state": "PAUSED_FOR_HUMAN_TASK",
+    "status": "PAUSED_FOR_HUMAN_TASK",
+    "last_paused_reason": "User interrupt: Railway build failures + insufficient visible Gemini Banana images across pages",
+    "reason": "User interrupt: Railway build failures + insufficient visible Gemini Banana images across pages"
+  },
+  "BarStock": {
+    "project": "BarStock",
+    "state": "PAUSED_FOR_HUMAN_TASK",
+    "status": "PAUSED_FOR_HUMAN_TASK",
+    "last_paused_reason": "User interrupt: Railway build failures + insufficient visible Gemini Banana images across pages",
+    "reason": "User interrupt: Railway build failures + insufficient visible Gemini Banana images across pages"
+  },
+  "CarFloor": {
+    "project": "CarFloor",
+    "state": "PAUSED_FOR_HUMAN_TASK",
+    "status": "PAUSED_FOR_HUMAN_TASK",
+    "last_paused_reason": "User interrupt: Railway build failures + insufficient visible Gemini Banana images across pages",
+    "reason": "User interrupt: Railway build failures + insufficient visible Gemini Banana images across pages"
+  },
+  "DermLogic": {
+    "project": "DermLogic",
+    "state": "PAUSED_FOR_HUMAN_TASK",
+    "status": "PAUSED_FOR_HUMAN_TASK",
+    "last_paused_reason": "User interrupt: Railway build failures + insufficient visible Gemini Banana images across pages",
+    "reason": "User interrupt: Railway build failures + insufficient visible Gemini Banana images across pages"
+  },
+  "GlowIndex": {
+    "project": "GlowIndex",
+    "state": "PAUSED_FOR_HUMAN_TASK",
+    "status": "PAUSED_FOR_HUMAN_TASK",
+    "last_paused_reason": "User interrupt: Railway build failures + insufficient visible Gemini Banana images across pages",
+    "reason": "User interrupt: Railway build failures + insufficient visible Gemini Banana images across pages"
+  },
+  "SeatHarmony": {
+    "project": "SeatHarmony",
+    "state": "PAUSED_FOR_HUMAN_TASK",
+    "status": "PAUSED_FOR_HUMAN_TASK",
+    "last_paused_reason": "User interrupt: Railway build failures + insufficient visible Gemini Banana images across pages",
+    "reason": "User interrupt: Railway build failures + insufficient visible Gemini Banana images across pages"
+  },
+  "PaceForge": {
+    "project": "PaceForge",
+    "state": "PAUSED_FOR_HUMAN_TASK",
+    "status": "PAUSED_FOR_HUMAN_TASK",
+    "last_paused_reason": "User interrupt: Railway build failures + insufficient visible Gemini Banana images across pages",
+    "reason": "User interrupt: Railway build failures + insufficient visible Gemini Banana images across pages"
+  },
+  "RateRecast": {
+    "project": "RateRecast",
+    "state": "PAUSED_FOR_HUMAN_TASK",
+    "status": "PAUSED_FOR_HUMAN_TASK",
+    "last_paused_reason": "User interrupt: Railway build failures + insufficient visible Gemini Banana images across pages",
+    "reason": "User interrupt: Railway build failures + insufficient visible Gemini Banana images across pages"
+  },
+  "SponsorRadar": {
+    "project": "SponsorRadar",
+    "state": "PAUSED_FOR_HUMAN_TASK",
+    "status": "PAUSED_FOR_HUMAN_TASK",
+    "last_paused_reason": "User interrupt: Railway build failures + insufficient visible Gemini Banana images across pages",
+    "reason": "User interrupt: Railway build failures + insufficient visible Gemini Banana images across pages"
+  },
+  "PulseForge": {
+    "project": "PulseForge",
+    "state": "PAUSED_FOR_HUMAN_TASK",
+    "status": "PAUSED_FOR_HUMAN_TASK",
+    "last_paused_reason": "User interrupt: Railway build failures + insufficient visible Gemini Banana images across pages",
+    "reason": "User interrupt: Railway build failures + insufficient visible Gemini Banana images across pages"
+  },
+  "AbandonAlpha": {
+    "project": "AbandonAlpha",
+    "state": "PAUSED_FOR_HUMAN_TASK",
+    "status": "PAUSED_FOR_HUMAN_TASK",
+    "last_paused_reason": "User interrupt: Railway build failures + insufficient visible Gemini Banana images across pages",
+    "reason": "User interrupt: Railway build failures + insufficient visible Gemini Banana images across pages"
+  },
+  "sponsor_radar": {
+    "project": "sponsor_radar",
+    "state": "PAUSED_FOR_HUMAN_TASK",
+    "status": "PAUSED_FOR_HUMAN_TASK",
+    "last_paused_reason": "User interrupt: Railway build failures + insufficient visible Gemini Banana images across pages",
+    "reason": "User interrupt: Railway build failures + insufficient visible Gemini Banana images across pages"
+  }
+}

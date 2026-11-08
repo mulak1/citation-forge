@@ -205,19 +205,22 @@ function renderZone4ProofStackAndPricing() {
       </div>
 
       <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:14px;">
-        <div style="padding:16px 18px;border-radius:12px;background:#FFFFFF;border:1px solid #E4DCD0;box-shadow:0 2px 10px -2px rgba(31,27,24,0.04);">
+        <div style="padding:14px 16px;border-radius:12px;background:#FFFFFF;border:1px solid #E4DCD0;box-shadow:0 2px 10px -2px rgba(31,27,24,0.04);">
+          <img src="/public/venue-winery-sandbox.jpg" alt="Napa Valley winery courtyard reception setup" style="width:100%;height:145px;object-fit:cover;border-radius:8px;margin-bottom:10px;display:block;" loading="lazy" />
           <div style="color:#B45309;font-size:0.82rem;margin-bottom:6px;">★★★★★ <strong>48-Hr Drop-Out Rescue</strong></div>
           <p style="font-size:0.84rem;color:#44403C;line-height:1.45;margin:0 0 10px;">&ldquo;Three guests canceled 48 hours out. We removed them on the canvas and exported a fresh 24&Prime;&times;36&Prime; PDF to FedEx in 10 seconds.&rdquo;</p>
           <div style="font-size:0.75rem;font-weight:700;color:#181412;">Hannah &amp; Devon R. <span style="font-weight:400;color:#78716C;">&middot; 165 Guests &middot; Napa Valley</span></div>
         </div>
 
-        <div style="padding:16px 18px;border-radius:12px;background:#FFFFFF;border:1px solid #E4DCD0;box-shadow:0 2px 10px -2px rgba(31,27,24,0.04);">
+        <div style="padding:14px 16px;border-radius:12px;background:#FFFFFF;border:1px solid #E4DCD0;box-shadow:0 2px 10px -2px rgba(31,27,24,0.04);">
+          <img src="/public/venue-ballroom-aerial.jpg" alt="Chicago hotel ballroom reception table setting" style="width:100%;height:145px;object-fit:cover;border-radius:8px;margin-bottom:10px;display:block;" loading="lazy" />
           <div style="color:#B45309;font-size:0.82rem;margin-bottom:6px;">★★★★★ <strong>Banquet Captain Certified</strong></div>
           <p style="font-size:0.84rem;color:#44403C;line-height:1.45;margin:0 0 10px;">&ldquo;Our venue captain loved the Clockwise 12:00 Meal Sheet. Seat #1 was anchored to the dance floor with peanut allergies flagged in red.&rdquo;</p>
           <div style="font-size:0.75rem;font-weight:700;color:#181412;">Claire M. <span style="font-weight:400;color:#78716C;">&middot; 140 Guests &middot; Chicago (Bride)</span></div>
         </div>
 
-        <div style="padding:16px 18px;border-radius:12px;background:#FFFFFF;border:1px solid #E4DCD0;box-shadow:0 2px 10px -2px rgba(31,27,24,0.04);">
+        <div style="padding:14px 16px;border-radius:12px;background:#FFFFFF;border:1px solid #E4DCD0;box-shadow:0 2px 10px -2px rgba(31,27,24,0.04);">
+          <img src="/public/venue-garden-orangery.jpg" alt="Botanical glass orangery wedding reception" style="width:100%;height:145px;object-fit:cover;border-radius:8px;margin-bottom:10px;display:block;" loading="lazy" />
           <div style="color:#B45309;font-size:0.82rem;margin-bottom:6px;">★★★★★ <strong>Family Peace Guarantee</strong></div>
           <p style="font-size:0.84rem;color:#44403C;line-height:1.45;margin:0 0 10px;">&ldquo;One click placed two estranged relatives on opposite sides of the dance floor while keeping every couple seated side-by-side.&rdquo;</p>
           <div style="font-size:0.75rem;font-weight:700;color:#181412;">Marcus &amp; Jenna K. <span style="font-weight:400;color:#78716C;">&middot; 130 Guests &middot; Seattle</span></div>
