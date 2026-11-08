@@ -777,7 +777,7 @@ function attachVaultAndPaywallRoutes(app, publicUrl, ebStore = null) {
   // 7. Signed Clockwise 12:00 Caterer Meal Sheet Packet (GET /print/beo/:vaultId)
   app.get('/print/beo/:vaultId', async (req, res) => {
     try {
-      const vault = await resolveVaultRecord(req.params.vaultId, req.query);
+      const vault = await resolveVaultRecord(req.params.vaultId, req.query), urls = buildVaultUrls(baseUrl, vault.vaultId);
       const guests = extractAllSeatedGuests(vault.state), tables = Array.isArray(vault.state.tables) ? vault.state.tables : [];
       const allergies = guests.filter(g => g.allergy && g.allergy !== 'None'), chairMods = guests.filter(g => g.accessibility && g.accessibility !== 'Standard Chair');
       const filetCount = guests.filter(g => mealSymbolInfo(g.meal).code === 'BEEF').length, fishCount = guests.filter(g => mealSymbolInfo(g.meal).code === 'FISH').length;
@@ -824,6 +824,7 @@ function attachVaultAndPaywallRoutes(app, publicUrl, ebStore = null) {
         <div style="font-size:0.78rem;color:#57534E;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;">${escapeHtml(vault.venueName)} &bull; ${tables.length} Tables &bull; ${guests.length} Guests &bull; ${allergies.length} Allergy Notes &bull; ${chairMods.length} Chair Notes</div>
       </div>
       <div class="no-print" style="display:flex;gap:8px;flex-wrap:wrap;flex-shrink:0;">
+        <button id="email-caterer-btn" type="button" onclick="window.openCatererEmail()" style="background:#FAF3E3;color:#78350F;border:1.5px solid #C8A96E;border-radius:10px;padding:9px 14px;font-weight:800;font-size:0.78rem;cursor:pointer;white-space:nowrap;display:inline-flex;align-items:center;gap:6px;">&#9993; Email Caterer Packet</button>
         <button id="download-csv" type="button" onclick="window.downloadBeoCsv()" style="background:#FFFFFF;color:#1B4D3E;border:1.5px solid #1B4D3E;border-radius:10px;padding:9px 14px;font-weight:800;font-size:0.78rem;cursor:pointer;white-space:nowrap;">&darr; Export .CSV</button>
         <button type="button" onclick="window.print()" style="background:#1B4D3E;color:#FFFFFF;border:1px solid #14382D;border-radius:10px;padding:9px 16px;font-weight:800;font-size:0.80rem;cursor:pointer;white-space:nowrap;display:inline-flex;align-items:center;gap:6px;">${VR_PRINT_SVG}Print Signed Meal Sheet PDF</button>
       </div>
@@ -853,6 +854,14 @@ function attachVaultAndPaywallRoutes(app, publicUrl, ebStore = null) {
     window.downloadBeoCsv = function() {
       var csv = ${csvRowsJson}, blob = new Blob([csv], { type: 'text/csv;charset=utf-8;' }), url = URL.createObjectURL(blob), a = document.createElement('a');
       a.href = url; a.download = 'seatharmony-clockwise-meal-sheet-${escapeHtml(vault.vaultId)}.csv'; document.body.appendChild(a); a.click(); a.remove();
+    };
+    window.openCatererEmail = function() {
+      var title = ${JSON.stringify(vault.title || 'Wedding Reception')};
+      var venue = ${JSON.stringify(vault.venueName || 'Reception Venue')};
+      var url = ${JSON.stringify(urls.beo || (baseUrl + '/print/beo/' + vault.vaultId))};
+      var subject = encodeURIComponent('Clockwise Caterer Meal Sheet & Dietary Roster - ' + title + ' (' + ${guests.length} + ' Guests)');
+      var body = encodeURIComponent('Hi Catering & Banquet Team,\n\nPlease find the clockwise table seating and meal count for our upcoming reception at ' + venue + ':\n\n- Total Seated Guests: ' + ${guests.length} + '\n- Filet Mignon: ' + ${filetCount} + '\n- Halibut: ' + ${fishCount} + '\n- Vegan Risotto: ' + ${veganCount} + '\n- Kids Meals: ' + ${kidsCount} + '\n- Allergy / Kitchen Alerts: ' + ${allergies.length} + '\n- Special Chair Needs: ' + ${chairMods.length} + '\n\nReview the live interactive table sheet and seat-by-seat numbering here:\n' + url + '\n\nSeat #1 starts at 12:00 facing the dance floor, progressing clockwise around each table to avoid auctioning off entrees.\n\nThank you!');
+      window.location.href = 'mailto:?subject=' + subject + '&body=' + body;
     };
   </script>
 </body>
