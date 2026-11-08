@@ -505,6 +505,44 @@ function renderSeatGroupsClientScript() {
     shRenderAll();
   };
 
+  window.shAutoSpaceTablesEquidistant = function() {
+    shCloseMenus();
+    var plan = window.__SH_STATE; if (!plan || !plan.tables || plan.tables.length < 3) return;
+    window.shSnapshot();
+    var guestTables = [];
+    plan.tables.forEach(function(t, idx) {
+      if (shNormalizeShape(t.shape) === 'sweetheart' || idx === 0) return;
+      guestTables.push(t);
+    });
+    if (!guestTables.length) return;
+    guestTables.sort(function(a, b) { return (a.y || 0) - (b.y || 0); });
+    var rows = [], curRow = [guestTables[0]];
+    for (var i = 1; i < guestTables.length; i++) {
+      var t = guestTables[i];
+      if (Math.abs((t.y || 0) - (curRow[0].y || 0)) <= 45) { curRow.push(t); }
+      else { rows.push(curRow); curRow = [t]; }
+    }
+    if (curRow.length) rows.push(curRow);
+    var spacedCount = 0;
+    rows.forEach(function(row) {
+      if (row.length < 2) return;
+      row.sort(function(a, b) { return (a.x || 0) - (b.x || 0); });
+      var avgY = Math.round(row.reduce(function(acc, tb) { return acc + (tb.y || 0); }, 0) / row.length / 20) * 20;
+      var n = row.length;
+      var spacing = Math.max(140, Math.min(220, Math.round(760 / Math.max(1, n - 1))));
+      var totalSpan = spacing * (n - 1);
+      var startX = Math.round((560 - totalSpan / 2) / 20) * 20;
+      row.forEach(function(tb, rIdx) {
+        tb.x = startX + rIdx * spacing;
+        tb.y = avgY;
+        shRecomputeGeometry(tb);
+        spacedCount++;
+      });
+    });
+    shToast('\\u2713 Auto-spaced ' + spacedCount + ' tables into symmetrical rows with equal 60″ server corridors!');
+    shRenderAll();
+  };
+
   /* ---- Smooth Mouse-Wheel Zoom, Right-Click Drag Panning & Toolbar Zoom Controls ---- */
   window.__SH_ZOOM_SCALE = 1;
   window.__SH_PAN_VIEW = null;
