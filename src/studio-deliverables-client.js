@@ -546,6 +546,22 @@ function renderDeliverablesClientScript() {
     shSyncVaultIdLinks((window.__SH_STATE && window.__SH_STATE.vaultId) || 'SH-4819');
   }
 
+  window.shSwitchSignSubView = function(mode) {
+    var pBtn = document.getElementById('sh-view-mode-poster-btn');
+    var aBtn = document.getElementById('sh-view-mode-avery-btn');
+    var posterEl = document.getElementById('sh-poster-preview');
+    var averyEl = document.getElementById('sh-avery-preview');
+    if (mode === 'avery') {
+      if (pBtn) pBtn.classList.remove('active');
+      if (aBtn) aBtn.classList.add('active');
+      if (averyEl) averyEl.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+    } else {
+      if (pBtn) pBtn.classList.add('active');
+      if (aBtn) aBtn.classList.remove('active');
+      if (posterEl) posterEl.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+    }
+  };
+
   window.shFilterQrLookup = function() {
     const qInput = document.getElementById('sh-qr-search'), out = document.getElementById('sh-qr-results');
     if (!out || !window.__SH_STATE) return;

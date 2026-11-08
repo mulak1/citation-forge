@@ -492,6 +492,9 @@ function renderZone3InteractiveStudio(plan) {
               <div id="sh-pane-poster" style="display:none;">
                 <div style="display:flex;flex-wrap:wrap;align-items:center;justify-content:space-between;gap:8px;margin-bottom:10px;">
                   <div style="display:flex;gap:5px;flex-wrap:wrap;">
+                    <button type="button" id="sh-view-mode-poster-btn" class="studio-tap-chip active" onclick="window.shSwitchSignSubView && window.shSwitchSignSubView('poster')" style="font-weight:700;">24"×36" Poster</button>
+                    <button type="button" id="sh-view-mode-avery-btn" class="studio-tap-chip" onclick="window.shSwitchSignSubView && window.shSwitchSignSubView('avery')" style="font-weight:700;">Avery 5302 Cards</button>
+                    <span style="border-right:1px solid #D1D5DB;height:18px;margin:auto 2px;"></span>
                     <button type="button" class="studio-tap-chip active" data-poster-sort="alphabetical" onclick="window.shSetPosterMode('alphabetical',null)">Sort A-Z</button>
                     <button type="button" class="studio-tap-chip" data-poster-sort="by_table" onclick="window.shSetPosterMode('by_table',null)">By Table</button>
                     <button type="button" id="sh-poster-map-toggle" class="studio-tap-chip active" onclick="window.shTogglePosterMiniMap()" title="Show or hide the mini table # &amp; room layout map on the welcome sign">&#8862; Mini Layout: ON</button>
