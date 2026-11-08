@@ -392,6 +392,16 @@ function renderZone3InteractiveStudio(plan) {
                 </div>
                 <div id="sh-poster-preview" style="max-height:760px;overflow-y:auto;margin-bottom:10px;"></div>
                 <div id="sh-avery-preview"></div>
+                <!-- LOCAL PRINT-SHOP PRODUCTION PROOF & SATISFACTION GUARANTEE -->
+                <div id="sh-poster-printshop-guarantee" style="margin-top:12px;padding:12px 16px;border-radius:12px;background:#FAF8F5;border:1px solid #E2D9C8;display:flex;flex-wrap:wrap;align-items:center;justify-content:space-between;gap:10px;font-size:13px;color:#1F1B18;">
+                  <div style="display:flex;align-items:center;gap:8px;flex-wrap:wrap;min-width:0;">
+                    <span style="font-weight:800;color:#1B4D3E;">&#10003; Print-Shop Ready:</span>
+                    <span style="color:#574F49;">FedEx Office &amp; Staples 24&Prime;&times;36&Prime; Mounted Foam-Board Spec &bull; 0.125&Prime; Bleed &bull; Avery 5302 2&Prime;&times;3.5&Prime; Cards &bull; Same-Day Local Pickup Compatible</span>
+                  </div>
+                  <div style="font-size:12px;color:#78350F;font-weight:700;background:#FFFBEB;border:1px solid #FDE68A;padding:4px 10px;border-radius:999px;white-space:nowrap;">
+                    &#10003; 30-Day 100% Money-Back Print Guarantee
+                  </div>
+                </div>
               </div>
 
               <!-- PANE 4: Cocktail-Hour Mobile QR Guest Lookup & Printable Foyer Sign -->
