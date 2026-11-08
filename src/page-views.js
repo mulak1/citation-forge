@@ -436,13 +436,13 @@ function renderZone3InteractiveStudio(plan) {
             <span id="sh-conflict-solver-badge" style="font-size:12.5px;font-weight:700;color:#1B4D3E;background:#EBF4F0;border:1px solid #C4DFD5;padding:3px 10px;border-radius:999px;">✓ 100% Harmony</span>
           </div>
           <div style="font-size:13.5px;color:#574F49;">
-            <span id="sh-proof-table1-summary">Table 1 Sample Included Free</span>
+            <span id="sh-proof-table1-summary">✓ Table 1 Unmasked Specimen: Clockwise 12:00 Seat #1 &middot; Tables 2+ Gated ($0 Email Save)</span>
           </div>
         </div>
 
         <div style="display:flex;flex-direction:column;gap:10px;">
           <div style="display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:8px;">
-            <label for="sh-inline-vault-email" style="font-size:15px;font-weight:700;color:#1F1B18;" id="sh-vault-bar-headline">Save Your Seating Plan &amp; Download Caterer Sheet:</label>
+            <label for="sh-inline-vault-email" style="font-size:15px;font-weight:700;color:#1F1B18;" id="sh-vault-bar-headline">Save Your Seating Plan &amp; Email Clockwise Caterer Sheet ($0):</label>
             <span style="font-size:13px;color:#7D746D;">Instant browser link &middot; Zero watermark &middot; Free forever</span>
           </div>
           <div id="sh-inline-email-bridge" style="display:flex;flex-wrap:wrap;gap:10px;align-items:center;width:100%;">

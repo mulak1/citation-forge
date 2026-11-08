@@ -6,8 +6,14 @@
 function renderDeliverablesClientScript() {
   return `
   window.shFocusInlineVaultEmail = function() {
-    var e = document.getElementById('sh-inline-vault-email');
-    if (e) { e.scrollIntoView({ behavior: 'smooth', block: 'center' }); e.focus(); }
+    var e = document.getElementById('sh-inline-vault-email') || document.getElementById('sh-step4-inline-email') || document.getElementById('sh-seo-calc-email');
+    if (e) {
+      e.scrollIntoView({ behavior: 'smooth', block: 'center' });
+      e.focus();
+      e.style.boxShadow = '0 0 0 3px rgba(27, 77, 62, 0.35)';
+      e.style.borderColor = '#1B4D3E';
+      setTimeout(function() { e.style.boxShadow = ''; }, 2500);
+    }
   };
   // Story player: ~10s/slide, plays once and stops on "The Fix" with Replay; manual nav pauses autoplay.
   var SH_VSL_STEP_MS = 10000;
