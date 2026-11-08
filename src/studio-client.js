@@ -380,6 +380,18 @@ function renderInteractiveScript(initialPlan) {
     shRecomputeGeometry(tbl); shSyncTableSelectAndPills(); shRenderAll();
   };
 
+  window.shSetTableCapacity = function(tIdx, targetCap, ev) {
+    if (ev) ev.stopPropagation();
+    const tbl = window.__SH_STATE && window.__SH_STATE.tables && window.__SH_STATE.tables[tIdx]; if (!tbl) return;
+    window.shSnapshot();
+    const cap = Math.max(2, Math.min(16, Number(targetCap) || 8));
+    tbl.capacity = cap;
+    shRecomputeGeometry(tbl);
+    shToast('✓ Set ' + tbl.name + ' to ' + cap + ' chairs (' + (tbl.shape || 'round') + ')');
+    shSyncTableSelectAndPills();
+    shRenderAll();
+  };
+
   window.shRenameTable = function(tIdx, newName) {
     const tbl = window.__SH_STATE && window.__SH_STATE.tables && window.__SH_STATE.tables[tIdx], clean = String(newName || '').trim();
     if (!tbl || !clean) return;

@@ -791,7 +791,15 @@ function renderSeatEditorClientScript() {
     h.push('<div class="sh-ed-head">');
     h.push('<input class="sh-ed-title" value="' + shEsc(isSweet ? 'Sweetheart Table' : t.name) + '" aria-label="Table name" onchange="window.shEdRenameTable(' + tIdx + ',this.value)" onkeydown="if(event.key===\\'Enter\\')this.blur()" />');
     h.push('<div class="sh-ed-meta"><span>' + t.guests.length + ' of ' + t.capacity + ' seats filled</span>');
-    if (!isSweet) h.push('<span class="sh-ed-stepper"><button type="button" aria-label="Remove a chair" onclick="window.shEdSeats(' + tIdx + ',-1)">&minus;</button><b>' + t.capacity + ' chairs</b><button type="button" aria-label="Add a chair" onclick="window.shEdSeats(' + tIdx + ',1)">+</button></span>');
+    if (!isSweet) {
+      h.push('<div style="display:flex;align-items:center;gap:6px;flex-wrap:wrap;">');
+      h.push('<span class="sh-ed-stepper"><button type="button" aria-label="Remove a chair" onclick="window.shEdSeats(' + tIdx + ',-1)">&minus;</button><b>' + t.capacity + ' chairs</b><button type="button" aria-label="Add a chair" onclick="window.shEdSeats(' + tIdx + ',1)">+</button></span>');
+      h.push('<span style="display:inline-flex;gap:3px;align-items:center;">');
+      [6, 8, 10, 12].forEach(function(cap) {
+        h.push('<button type="button" class="studio-tap-chip' + (t.capacity === cap ? ' active' : '') + '" style="padding:2px 7px;font-size:0.72rem;min-height:26px;font-weight:700;" onclick="window.shSetTableCapacity(' + tIdx + ',' + cap + ')">' + cap + '</button>');
+      });
+      h.push('</span></div>');
+    }
     h.push('</div>');
     h.push('<div class="sh-ed-tally" style="display:flex;align-items:center;justify-content:space-between;gap:6px;"><span>' + (tallyParts.length ? tallyParts.join(' &middot; ') : 'No meals assigned yet') + '</span><button type="button" class="sh-ed-ka-btn" style="padding:2px 8px;font-size:0.74rem;" onclick="window.shSetActiveTab(\\\'beo\\\')">Caterer Meal Sheet &rarr;</button></div>');
     h.push('</div>');
