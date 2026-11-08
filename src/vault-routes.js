@@ -345,8 +345,6 @@ function attachVaultAndPaywallRoutes(app, publicUrl, ebStore = null) {
       return res.status(500).send('Internal Server Error');
     }
   });
-    }
-  });
 
   // 6. Avery 5302 Folded Tent Place Cards Print Sheet (GET /print/avery-5302/:vaultId)
   app.get('/print/avery-5302/:vaultId', async (req, res) => {
@@ -357,8 +355,6 @@ function attachVaultAndPaywallRoutes(app, publicUrl, ebStore = null) {
       return res.status(200).type('html').send(html);
     } catch (err) {
       return res.status(500).send('Internal Server Error');
-    }
-  });
     }
   });
 
