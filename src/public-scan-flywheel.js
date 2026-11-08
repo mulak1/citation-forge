@@ -446,23 +446,19 @@ function renderLeaderboardPageHtml(cfg, badgeColor) {
   const cat = getFlywheelCatalog(cfg.moduleId);
   const ledger = loadPublicScanLedger(cfg).slice().sort((a, b) => b.score - a.score);
   const podium = ledger.slice(0, 3);
-  const medals = ['#1 Hall of Fame Leader', '#2 Verified Runner-Up', '#3 Top Category Benchmark'];
   const podiumHtml = podium.map((item, idx) => {
     const itemTitle = fmtFlywheelTitle(item.target, item);
     const venue = resolveVenueVisual(item.target, itemTitle, item.kpi2);
     const venueImg = (venue && venue.img) || '/public/editorial-hero.jpg';
     const venueTag = (venue && venue.tag) || 'Venue Benchmark';
-    return `<div style="background:#FFFFFF;border-radius:14px;padding:18px 20px;display:flex;flex-direction:column;justify-content:space-between;gap:12px;box-shadow:0 1px 3px rgba(0,0,0,0.05);">
+    return `<div style="background:#FFFFFF;border-radius:14px;padding:18px 20px;display:flex;flex-direction:column;justify-content:space-between;gap:12px;box-shadow:0 1px 3px rgba(0,0,0,0.05);border:1px solid #E2E8F0;">
     <div>
-      <div style="display:flex;justify-content:space-between;align-items:center;gap:8px;margin-bottom:12px;">
-        <div style="display:flex;align-items:center;gap:6px;">
-          <span style="font-size:12px;font-weight:800;padding:3px 9px;border-radius:999px;background:#FFFBEB;color:#92400E;">${medals[idx]}</span>
-          <span style="font-size:12px;font-weight:600;color:${esc(t.textSecondary)};">${venueTag}</span>
-        </div>
-        <span style="font-variant-numeric:tabular-nums;font-size:12.5px;font-weight:800;color:#059669;">${esc(item.grade)} (${item.score}/100)</span>
-      </div>
-      <div style="height:140px;border-radius:10px;overflow:hidden;margin-bottom:12px;background:#E2E8F0;">
+      <div style="height:150px;border-radius:10px;overflow:hidden;margin-bottom:12px;background:#F8FAFC;">
         <img src="${venueImg}" alt="${esc(itemTitle)} setting" style="width:100%;height:100%;object-fit:cover;display:block;" loading="lazy" />
+      </div>
+      <div style="display:flex;justify-content:space-between;align-items:center;gap:8px;margin-bottom:8px;">
+        <span style="font-size:12.5px;font-weight:700;color:#0F766E;">${venueTag}</span>
+        <span style="font-size:12.5px;color:${esc(t.textSecondary)};">Verified Architectural Spec</span>
       </div>
       <a href="/scan/${esc(encodeURIComponent(item.target))}" style="font-size:18px;font-weight:800;color:${esc(t.textPrimary)};text-decoration:none;display:block;margin-bottom:4px;line-height:1.3;">${esc(itemTitle)} ↗</a>
       <div style="font-size:13.5px;font-weight:700;color:${esc(badgeColor)};margin-bottom:6px;">${esc(item.kpi1)} • ${esc(item.kpi2)}</div>

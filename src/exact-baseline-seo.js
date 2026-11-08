@@ -734,35 +734,25 @@ function buildTopLeaderboardPodiumShowcaseHtml(cfg) {
   const ledger = loadPublicScanLedger(cfg).slice().sort((a, b) => b.score - a.score);
   const top3 = ledger.filter((s) => s.score >= 85).slice(0, 3);
   const fix2 = ledger.filter((s) => s.score < 80).slice(0, 2);
-  const medals = [
-    { icon: '#1 LEADER', bg: '#FFFBEB', border: '#FDE68A', text: '#92400E' },
-    { icon: '#2 RUNNER-UP', bg: '#F8FAFC', border: '#CBD5E1', text: '#334155' },
-    { icon: '#3 TOP TIER', bg: '#FFF7ED', border: '#FED7AA', text: '#9A3412' }
-  ];
   const podiumCards = top3.map((s, i) => {
-    const m = medals[i] || medals[2];
     const displayTitle = fmtScanTitle(s.target, s);
     const venue = VENUE_THUMBNAILS[s.target];
     const venueImg = (venue && venue.img) || '/public/editorial-hero.jpg';
-    const venueTag = (venue && venue.tag) || 'Venue Benchmark';
-    return `<a href="/scan/${escHtml(encodeURIComponent(s.target))}" onclick="if(window.__ebLogEvent)window.__ebLogEvent('calculate',{source:'podium_home_click',target:'${escHtml(s.target)}'})" style="display:flex;flex-direction:column;justify-content:space-between;padding:18px 20px;border-radius:${t.radiusCard};background:${t.subtleBg};text-decoration:none;color:${t.textPrimary};transition:transform 180ms ease, box-shadow 180ms ease;">
+    const venueTag = (venue && venue.tag) || 'Architectural Layout';
+    return `<a href="/scan/${escHtml(encodeURIComponent(s.target))}" onclick="if(window.__ebLogEvent)window.__ebLogEvent('calculate',{source:'podium_home_click',target:'${escHtml(s.target)}'})" style="display:flex;flex-direction:column;justify-content:space-between;padding:16px 18px;border-radius:${t.radiusCard};background:${t.subtleBg};text-decoration:none;color:${t.textPrimary};transition:transform 180ms ease, box-shadow 180ms ease;">
       <div>
-        <div style="display:flex;justify-content:space-between;align-items:center;gap:8px;margin-bottom:12px;">
-          <div style="display:flex;align-items:center;gap:6px;">
-            <span style="padding:3px 9px;border-radius:${t.radiusPill};background:${m.bg};color:${m.text};font-size:12px;font-weight:800;">${m.icon}</span>
-            <span style="font-size:12px;font-weight:600;color:${t.textSecondary};">${venueTag}</span>
-          </div>
-          <span style="font-family:${t.fontSans};font-variant-numeric:tabular-nums;font-size:12.5px;font-weight:800;color:${t.safeColor};">${escHtml(s.grade)} · ${s.score}/100</span>
-        </div>
-        <div style="height:140px;border-radius:${t.radiusCard};overflow:hidden;margin-bottom:12px;background:#E2E8F0;">
+        <div style="height:150px;border-radius:${t.radiusCard};overflow:hidden;margin-bottom:12px;background:#F5EFE6;">
           <img src="${venueImg}" alt="${escHtml(displayTitle)} setting" style="width:100%;height:100%;object-fit:cover;display:block;" loading="lazy" />
         </div>
-        <div style="font-size:17px;font-weight:800;color:${t.textPrimary};margin-bottom:4px;line-height:1.3;">${escHtml(displayTitle)}</div>
+        <div style="display:flex;align-items:center;gap:6px;margin-bottom:6px;">
+          <span style="font-size:12px;font-weight:700;color:${t.brandPrimary};">${venueTag}</span>
+          <span style="color:${t.textSecondary};font-size:12px;">&middot; Verified Architectural Spec</span>
+        </div>
+        <div style="font-size:17px;font-weight:700;color:${t.textPrimary};margin-bottom:4px;line-height:1.3;">${escHtml(displayTitle)}</div>
         <div style="font-size:13.5px;color:${t.textSecondary};margin-bottom:10px;">${escHtml(s.kpi1)} · ${escHtml(s.kpi2)}</div>
       </div>
       <div>
-        <div style="width:100%;height:6px;background:#E2E8F0;border-radius:${t.radiusPill};overflow:hidden;margin-bottom:8px;"><div style="width:${s.score}%;height:100%;background:${t.safeColor};border-radius:${t.radiusPill};"></div></div>
-        <div style="display:flex;justify-content:space-between;align-items:center;font-size:13.5px;color:${t.brandPrimary};font-weight:700;"><span>View Verified Report</span><span>→</span></div>
+        <div style="display:flex;justify-content:space-between;align-items:center;font-size:13.5px;color:${t.brandPrimary};font-weight:700;padding-top:8px;border-top:1px solid #EAE0D0;"><span>View Room Floorplan &amp; Spec</span><span>→</span></div>
       </div>
     </a>`;
   }).join('');
