@@ -6,6 +6,7 @@ const {
   renderTopPrintBar,
   buildRealQrUrl,
   buildInlineQrDataUri,
+  computeMonogram,
   parseMonogramParts,
   extractAllSeatedGuests,
   mealSymbolInfo,
@@ -14,7 +15,7 @@ const {
 } = require('./vault-helpers');
 
 function renderPosterPrintPage(vault, urls, query = {}) {
-      const vault = await resolveVaultRecord(req.params.vaultId, query), urls = buildVaultUrls(baseUrl, vault.vaultId);
+      const baseUrl = urls && urls.vault ? urls.vault.split('/vault/')[0] : '';
       const theme = String(query.theme || (vault.state && vault.state.posterTheme) || 'alabaster').toLowerCase();
       const sortMode = String(query.sort || (vault.state && vault.state.posterSort) || 'alphabetical').toLowerCase();
       const showMap = query.map !== '0' && (!vault.state || vault.state.posterShowMap !== false);
@@ -207,7 +208,7 @@ function renderPosterPrintPage(vault, urls, query = {}) {
 }
 
 function renderAveryPrintPage(vault, urls, query = {}) {
-      const vault = await resolveVaultRecord(req.params.vaultId, query);
+      const baseUrl = urls && urls.vault ? urls.vault.split('/vault/')[0] : '';
       const guests = extractAllSeatedGuests(vault.state);
       const sortBy = String(query.sort || 'table').toLowerCase();
       const sortedGuests = [...guests].sort((a, b) => {
