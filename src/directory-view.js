@@ -648,6 +648,9 @@ const DIR_CSS = `
   .dir-chip { padding: 8px 16px; font-size: 0.88rem; font-weight: 700; color: #574F49; background: #FAF7F2; border: 1px solid #E4DCD0; border-radius: 999px; cursor: pointer; font-family: inherit; transition: all 140ms ease; }
   .dir-chip:hover { border-color: #B8860B; color: #1F1B18; }
   .dir-chip.on { background: #1B4D3E; color: #FFFFFF; border-color: #1B4D3E; }
+  .dir-type-chip { padding: 6px 13px; font-size: 0.80rem; font-weight: 700; color: #574F49; background: #FAF7F2; border: 1px solid #E4DCD0; border-radius: 999px; cursor: pointer; font-family: inherit; transition: all 140ms ease; white-space: nowrap; }
+  .dir-type-chip:hover { border-color: #B8860B; color: #1F1B18; }
+  .dir-type-chip.on { background: #1B4D3E; color: #FFFFFF; border-color: #1B4D3E; }
   .dir-select { padding: 8px 14px; font-size: 0.88rem; font-weight: 600; color: #1F1B18; background: #FAF7F2; border: 1px solid #E4DCD0; border-radius: 10px; font-family: inherit; }
   .dir-meta { display: flex; justify-content: space-between; align-items: center; gap: 10px; flex-wrap: wrap; font-size: 0.88rem; color: #7D746D; margin: 0 4px 20px; }
   .dir-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(310px, 1fr)); gap: 24px; }
@@ -697,10 +700,22 @@ const DIR_JS = `
   }
   document.querySelectorAll('.dir-chip').forEach(function(b) { b.addEventListener('click', function() {
     document.querySelectorAll('.dir-chip').forEach(function(x) { x.classList.toggle('on', x === b); }); state.size = b.dataset.size; apply(); }); });
-  document.getElementById('dir-type').addEventListener('change', function() { state.type = this.value; apply(); });
+  document.querySelectorAll('.dir-type-chip').forEach(function(b) { b.addEventListener('click', function() {
+    document.querySelectorAll('.dir-type-chip').forEach(function(x) { x.classList.toggle('on', x === b); });
+    state.type = b.dataset.type;
+    var sel = document.getElementById('dir-type'); if (sel) sel.value = b.dataset.type;
+    apply();
+  }); });
+  document.getElementById('dir-type').addEventListener('change', function() {
+    state.type = this.value;
+    document.querySelectorAll('.dir-type-chip').forEach(function(x) { x.classList.toggle('on', x.dataset.type === state.type); });
+    apply();
+  });
   document.getElementById('dir-sort').addEventListener('change', function() { state.sort = this.value; apply(); });
   window.dirReset = function() { state = { size: 'all', type: 'all', sort: 'small' }; document.getElementById('dir-type').value = 'all'; document.getElementById('dir-sort').value = 'small';
-    document.querySelectorAll('.dir-chip').forEach(function(x) { x.classList.toggle('on', x.dataset.size === 'all'); }); apply(); };
+    document.querySelectorAll('.dir-chip').forEach(function(x) { x.classList.toggle('on', x.dataset.size === 'all'); });
+    document.querySelectorAll('.dir-type-chip').forEach(function(x) { x.classList.toggle('on', x.dataset.type === 'all'); });
+    apply(); };
   apply();
 })();`;
 
@@ -709,6 +724,14 @@ function renderDirectoryPage(seoPages = []) {
   seoPages.forEach((p) => { const f = parseFloorplan(p); if (f) plans.push([p, f]); else guides.push(p); });
   const types = Array.from(new Set(plans.map(([, f]) => f.type))).sort();
   const sizes = [['all', 'All sizes'], ['s', 'Up to 75'], ['m', '76 to 125'], ['l', '126 to 175'], ['xl', '176+']];
+  const quickTypes = [
+    ['all', 'All Venues'],
+    ['Ballroom & Estate', '🏛️ Ballroom & Estate'],
+    ['Tent & Outdoor', '⛺ Tent & Outdoor'],
+    ['Barn & Winery', '🍇 Barn & Winery'],
+    ['Waterfront & Destination', '🌊 Waterfront & Beach'],
+    ['Intimate & Rehearsal', '🕯️ Intimate & Micro']
+  ];
   const lockSvg = '<svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="display:inline-block;vertical-align:-2px;margin-right:4px;" aria-hidden="true"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>';
   return [
     renderHead({ title: `${plans.length} Wedding Venue Floorplans & ${guides.length} Seating Playbooks | SeatHarmony`, description: 'Browse architectural wedding venue floorplans (Rotunda Orbit, Tuscan Banquet Rows, Sailcloth Tent, U-Shape, King’s Feast, Ballroom Wings) by guest count and room size.', canonicalPath: '/directory', ogSlug: 'directory' }),
@@ -721,10 +744,14 @@ function renderDirectoryPage(seoPages = []) {
       <div class="dir-filters" role="group" aria-label="Filter and sort venue layouts">
         <span class="dir-filter-label">Guests</span>
         <div class="dir-chips">${sizes.map(([k, l], i) => `<button type="button" class="dir-chip${i === 0 ? ' on' : ''}" data-size="${k}">${l}</button>`).join('')}</div>
-        <span class="dir-filter-label" style="margin-left:6px;">Venue</span>
-        <select id="dir-type" class="dir-select" aria-label="Venue type"><option value="all">All venue types</option>${types.map((t) => `<option value="${escapeHtml(t)}">${escapeHtml(t)}</option>`).join('')}</select>
-        <span class="dir-filter-label" style="margin-left:6px;">Sort</span>
-        <select id="dir-sort" class="dir-select" aria-label="Sort"><option value="small">Smallest room first</option><option value="large">Largest room first</option><option value="type">Venue type</option></select>
+        <span class="dir-filter-label" style="margin-left:6px;">Venues</span>
+        <div class="dir-chips">${quickTypes.map(([k, l], i) => `<button type="button" class="dir-type-chip${i === 0 ? ' on' : ''}" data-type="${k}">${l}</button>`).join('')}</div>
+        <div style="display:flex;align-items:center;gap:8px;flex-wrap:wrap;">
+          <span class="dir-filter-label">More</span>
+          <select id="dir-type" class="dir-select" aria-label="Venue type"><option value="all">All venue types</option>${types.map((t) => `<option value="${escapeHtml(t)}">${escapeHtml(t)}</option>`).join('')}</select>
+          <span class="dir-filter-label" style="margin-left:6px;">Sort</span>
+          <select id="dir-sort" class="dir-select" aria-label="Sort"><option value="small">Smallest room first</option><option value="large">Largest room first</option><option value="type">Venue type</option></select>
+        </div>
       </div>
       <div class="dir-meta"><span id="dir-count">${plans.length} architectural layouts</span><span>Each layout models authentic table geometry, server aisles &amp; venue landmarks at ${SQFT_PER_GUEST} sq ft/guest.</span></div>
       <div class="dir-grid" id="dir-grid">${plans.map(([p, f]) => floorplanCard(p, f)).join('')}</div>
