@@ -670,7 +670,9 @@ function attachVaultAndPaywallRoutes(app, publicUrl, ebStore = null) {
       const monogram = computeMonogram(vault.title);
       const buyPackUrl = `/buy/complete_dossier?target=${encodeURIComponent(vault.title || vault.vaultId)}&vault=${encodeURIComponent(vault.vaultId)}${vault.ownerEmail ? `&email=${encodeURIComponent(vault.ownerEmail)}` : ''}`;
 
-      const visibleAveryGuests = vault.isUnlocked ? guests : guests.slice(0, 1);
+      const isSampleSheet = req.query.sample === '1' || req.query.sample === 'sheet';
+      const visibleAveryGuests = vault.isUnlocked ? guests : (isSampleSheet ? guests.slice(0, 4) : guests.slice(0, 1));
+      const remainingCount = Math.max(0, guests.length - visibleAveryGuests.length);
       const cardsHtml = visibleAveryGuests.map((g, gIdx) => {
         const mealInfo = mealSymbolInfo(g.meal);
         const hasAllergy = g.allergy && g.allergy !== 'None';
@@ -680,7 +682,7 @@ function attachVaultAndPaywallRoutes(app, publicUrl, ebStore = null) {
         <div class="tent-card">
           <div class="tent-back">
             <div style="display:flex;justify-content:space-between;align-items:center;width:100%;">
-              <span class="mono" style="font-size:0.65rem;font-weight:800;color:#57534E;white-space:nowrap;">TBL ${g.tableNumber} &bull; SEAT #${g.seatNumber} (${escapeHtml(g.clockLabel)})${gIdx === 0 && !vault.isUnlocked ? ' &bull; FREE SAMPLE' : ''}</span>
+              <span class="mono" style="font-size:0.65rem;font-weight:800;color:#57534E;white-space:nowrap;">TBL ${g.tableNumber} &bull; SEAT #${g.seatNumber} (${escapeHtml(g.clockLabel)})${!vault.isUnlocked ? ` &bull; SAMPLE CARD #${gIdx + 1}` : ''}</span>
               <span class="mono" style="font-size:0.68rem;font-weight:800;color:${mealInfo.color};white-space:nowrap;">${mealInfo.sym} ${escapeHtml(mealInfo.code)}</span>
             </div>
             <div style="margin-top:4px;font-size:0.74rem;font-weight:800;color:${hasAllergy ? '#B91C1C' : '#065F46'};white-space:nowrap;">
@@ -705,7 +707,7 @@ function attachVaultAndPaywallRoutes(app, publicUrl, ebStore = null) {
       <div class="tent-card" style="padding:20px;display:flex;flex-direction:column;justify-content:space-between;background:#FAF8F5;border:2px dashed #1B4D3E;border-radius:12px;min-height:160px;">
         <div>
           <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:8px;">
-            <span class="mono" style="font-size:0.68rem;font-weight:800;color:#1B4D3E;background:#ECFDF5;border:1px solid #A7F3D0;padding:2px 8px;border-radius:999px;">${Math.max(0, guests.length - 1)} MORE CARDS READY</span>
+            <span class="mono" style="font-size:0.68rem;font-weight:800;color:#1B4D3E;background:#ECFDF5;border:1px solid #A7F3D0;padding:2px 8px;border-radius:999px;">${remainingCount} MORE CARDS READY</span>
             <span style="font-size:0.72rem;font-weight:700;color:#78350F;background:#FFFBEB;border:1px solid #FDE68A;padding:2px 7px;border-radius:6px;">&#10003; 30-Day Guarantee</span>
           </div>
           <h4 class="serif" style="font-size:1.25rem;margin-bottom:6px;color:#181412;">Unlock All ${guests.length} Avery 5302 Place Cards</h4>
