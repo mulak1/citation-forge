@@ -753,8 +753,8 @@ function renderZone5FaqAndZone6Close(sampleSeoPages = [], plan = {}) {
         <div class="bs-section-eyebrow">SAVE 6+ HOURS AT FEDEX &amp; CANVA &middot; ZERO WATERMARK</div>
         <h2 class="bs-section-h2">Design free. Unlock print-shop &amp; caterer execution files <em>when ready.</em></h2>
       </div>
-      <div class="pricing-grid" style="margin-top:14px;margin-bottom:16px;gap:14px;">
-        <div class="panel" style="padding:18px 16px;display:flex;flex-direction:column;justify-content:space-between;gap:10px;background:#FFFFFF;">
+      <div class="pricing-grid" style="margin-top:10px;margin-bottom:12px;gap:14px;">
+        <div class="panel" style="padding:16px 14px;display:flex;flex-direction:column;justify-content:space-between;gap:8px;background:#FFFFFF;">
           <div>
             <span class="badge badge-cyan" style="margin-bottom:6px;font-size:0.75rem;">SAVE &amp; SEND BRIDGE ($0)</span>
             <h4 class="serif-display" style="font-size:1.28rem;margin:2px 0;">Save &amp; Email My Seating Plan</h4>
@@ -768,7 +768,7 @@ function renderZone5FaqAndZone6Close(sampleSeoPages = [], plan = {}) {
           </div>
           <a id="pricing-buy-flash" href="#sh-vault-checkout-bar" onclick="var el=document.getElementById('sh-inline-vault-email');if(el){el.focus();}" class="btn btn-secondary" style="width:100%;padding:10px 14px;font-size:0.88rem;">Save &amp; Email My Plan ($0)</a>
         </div>
-        <div class="panel" style="padding:18px 16px;border:2px solid #1B4D3E;display:flex;flex-direction:column;justify-content:space-between;gap:10px;position:relative;background:#FFFFFF;">
+        <div class="panel" style="padding:16px 14px;border:2px solid #1B4D3E;display:flex;flex-direction:column;justify-content:space-between;gap:8px;position:relative;background:#FFFFFF;">
           <span class="badge badge-emerald" style="position:absolute;top:-10px;right:14px;background:#1B4D3E;color:#FFF;font-size:0.70rem;padding:2px 8px;">$7 AUTO-FILLED &middot; VS. $14 ETSY</span>
           <div>
             <span class="badge badge-amber" style="margin-bottom:6px;font-size:0.75rem;">EVENT PRINT &amp; DAY-OF PACK</span>
@@ -781,12 +781,12 @@ function renderZone5FaqAndZone6Close(sampleSeoPages = [], plan = {}) {
               <li>&#10003; <strong>Live Guest QR Mobile Lookup</strong> (Zero Easel Crowds)</li>
             </ul>
           </div>
-          <div style="font-size:11.5px;color:#78350F;font-weight:700;background:#FFFBEB;border:1px solid #FDE68A;padding:4px 8px;border-radius:6px;text-align:center;">
-            &#10003; Same-Day Local Pickup at FedEx &amp; Staples &bull; 30-Day 100% Refund Guarantee
+          <div style="font-size:11px;color:#78350F;font-weight:700;background:#FFFBEB;border:1px solid #FDE68A;padding:3px 8px;border-radius:6px;text-align:center;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;">
+            &#10003; Same-Day FedEx &amp; Staples Pickup &bull; 30-Day Guarantee
           </div>
           <a id="pricing-buy-pack" href="/buy/complete_dossier?target=estate-150&amp;vault=${vId}&amp;allow_promotion_codes=false" class="btn btn-primary" style="width:100%;padding:10px 14px;font-size:0.88rem;white-space:normal;text-align:center;line-height:1.3;">Unlock Print &amp; Day-Of Pack ($7) &rarr;</a>
         </div>
-        <div class="panel" style="padding:18px 16px;display:flex;flex-direction:column;justify-content:space-between;gap:10px;background:#FBF9F6;border:1.5px solid #D6CBB8;">
+        <div class="panel" style="padding:16px 14px;display:flex;flex-direction:column;justify-content:space-between;gap:8px;background:#FBF9F6;border:1.5px solid #D6CBB8;">
           <div>
             <div style="display:flex;align-items:center;justify-content:space-between;gap:6px;margin-bottom:6px;flex-wrap:wrap;">
               <span class="badge badge-emerald" style="font-size:0.75rem;">FOR PLANNERS &amp; VENUES</span>
