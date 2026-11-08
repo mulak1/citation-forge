@@ -856,6 +856,13 @@ function attachVaultAndPaywallRoutes(app, publicUrl, ebStore = null) {
     .pill-btn { padding: 5px 11px; border-radius: 999px; border: 1px solid #C8A96E; background: #FAF6EE; color: #57534E; font-size: 0.75rem; font-weight: 800; cursor: pointer; white-space: nowrap; }
     .pill-btn:hover { background: #FAF3E3; color: #8C2D19; }
     @media (max-width: 820px) { .qr-page-wrap { grid-template-columns: 1fr; } }
+    @media print {
+      @page { size: 8.5in 11in; margin: 0.5in; }
+      body { background: #FFFFFF !important; }
+      .no-print, header, #sh-subpage-vault-bar, .qr-shell { display: none !important; }
+      .qr-page-wrap { display: block !important; max-width: 550px !important; margin: 20px auto !important; padding: 0 !important; }
+      .qr-foyer-panel { border: 2px double #C8A96E !important; border-radius: 16px !important; padding: 32px 24px !important; text-align: center !important; box-shadow: none !important; }
+    }
   </style>
 </head>
 <body>
@@ -879,7 +886,8 @@ function attachVaultAndPaywallRoutes(app, publicUrl, ebStore = null) {
       <div id="qr-guest-list"></div>
       ${vault.isUnlocked ? '' : `<div style="margin-top:10px;padding:12px 14px;border-radius:12px;background:#FAF6EE;border:1.5px dashed #C8A96E;font-size:0.82rem;font-weight:800;color:#78350F;">${VR_LOCK_SVG}+${Math.max(0, totalSeatedCount - 1)} Additional Seated Guests (Tables 2&ndash;${tables.length} Live Phone Lookup) &mdash; Unlock $7 Event Print Pack &uarr;</div>`}
     </div>
-    <div style="min-width:0;background:#FFFFFF;border:1.5px solid #D8C29D;border-radius:22px;padding:22px;color:#181412;box-shadow:0 12px 32px rgba(24,20,18,0.06);">
+    <div class="qr-foyer-panel" style="min-width:0;background:#FFFFFF;border:1.5px solid #D8C29D;border-radius:22px;padding:22px;color:#181412;box-shadow:0 12px 32px rgba(24,20,18,0.06);">
+      <div style="margin-bottom:12px;"><button type="button" class="no-print" onclick="window.print()" style="cursor:pointer;background:#1B4D3E;color:#FFFFFF;border:1px solid #14382D;border-radius:10px;padding:8px 14px;font-weight:800;font-size:0.78rem;display:inline-flex;align-items:center;gap:6px;">${VR_PRINT_SVG}Print 8&Prime;&times;10&Prime; Bar Easel Sign (PDF)</button></div>
       <div class="mono" style="font-size:0.70rem;font-weight:800;color:#8C2D19;letter-spacing:0.08em;text-transform:uppercase;margin-bottom:6px;">COCKTAIL-HOUR FOYER QR DISPLAY</div>
       <h2 class="serif" style="font-size:1.65rem;color:#181412;line-height:1.15;margin-bottom:10px;">Guests Scan at the Bar. Zero Easel Crowds.</h2>
       <p style="font-size:0.86rem;color:#57534E;line-height:1.5;margin-bottom:16px;">Print this QR on bar signs or the corner of your 24&Prime;&times;36&Prime; welcome sign so guests find their table and clockwise seat in 3 seconds.</p>
@@ -910,6 +918,7 @@ function attachVaultAndPaywallRoutes(app, publicUrl, ebStore = null) {
     }
     renderQrGuests('');
   </script>
+  ${req.query.auto_print === '1' ? '<script>window.addEventListener("DOMContentLoaded", function() { setTimeout(function() { window.print(); }, 400); });</script>' : ''}
 </body>
 </html>`;
       return res.status(200).type('html').send(html);

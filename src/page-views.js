@@ -541,6 +541,7 @@ function renderZone3InteractiveStudio(plan) {
                   </div>
                   <div style="display:flex;gap:6px;flex-wrap:wrap;">
                     <a id="sh-open-qr-app-link" href="/qr/${vId}" target="_blank" class="btn btn-primary" style="padding:6px 11px;font-size:0.73rem;">Open Guest Mobile Lookup &rarr;</a>
+                    <button type="button" id="sh-print-foyer-sign-btn" class="btn btn-secondary" style="padding:6px 10px;font-size:0.73rem;background:#FAF8F5;border-color:#C8A96E;color:#78350F;font-weight:700;" onclick="window.shPrintFoyerSign && window.shPrintFoyerSign()">${IC.print}Print 8&Prime;&times;10&Prime; Bar Sign</button>
                     <button type="button" class="btn btn-secondary" style="padding:6px 11px;font-size:0.73rem;" onclick="window.shGateOrExportBeoCsv ? window.shGateOrExportBeoCsv('share') : window.shCopyMomSandboxLink()">${IC.users}Copy Family Share Link</button>
                   </div>
                 </div>

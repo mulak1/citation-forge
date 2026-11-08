@@ -615,6 +615,13 @@ function renderDeliverablesClientScript() {
     if (window.shTrackTelemetry) window.shTrackTelemetry('view_avery_proof', { vaultId: vId });
   };
 
+  window.shPrintFoyerSign = function() {
+    var vId = (window.__SH_STATE && window.__SH_STATE.vaultId) || 'SH-4819';
+    var win = window.open('/qr/' + encodeURIComponent(vId) + '?auto_print=1', '_blank');
+    if (win) win.focus();
+    if (window.shTrackTelemetry) window.shTrackTelemetry('view_foyer_sign_proof', { vaultId: vId });
+  };
+
   window.shToggleBeoFilter = function(filterKey) {
     window.__SH_BEO_FILTER = (window.__SH_BEO_FILTER === filterKey) ? null : filterKey;
     shRenderBeoView();
