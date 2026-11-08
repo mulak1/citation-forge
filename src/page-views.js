@@ -396,13 +396,13 @@ function renderZone3InteractiveStudio(plan) {
                     <span id="specimen-logo-monogram-initials" style="font-family:var(--font-serif);font-size:0.9rem;font-weight:700;color:#1B4D3E;">M&amp;L</span>
                     <span id="specimen-logo-monogram-sub" style="display:none;">EST. 2026</span>
                   </span>
-                  <img id="specimen-logo-img" src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg'/%3E" alt="Crest Logo" style="display:none;width:100%;height:100%;object-fit:contain;background:#FFFFFF;padding:2px;" />
+                  <img id="specimen-logo-img" src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 1 1'/%3E" alt="Crest Logo" style="display:none;width:100%;height:100%;object-fit:contain;background:#FFFFFF;padding:2px;" />
                 </div>
                 <div style="min-width:0;flex:1;display:flex;align-items:center;gap:6px;flex-wrap:wrap;">
                   <div id="specimen-client-headline" class="serif-display" style="font-size:1.02rem;color:#1C1C1C;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;">${escapeHtml(plan.title || "Maya & Liam's Estate Reception")}</div>
                   <span id="specimen-harmony-pill" class="badge badge-emerald sh-hide-mobile-toolbar" style="font-size:0.70rem;padding:1px 7px;flex-shrink:0;">&#10003; 0 Conflicts</span>
                   <span id="specimen-meta-sub" class="sh-hide-mobile-toolbar" style="font-size:0.76rem;color:#4B5563;font-weight:600;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;"><span id="sh-stage-venue-label">${escapeHtml(plan.venueName || 'Rosewood Conservatory')}</span> &middot; 62 Guests (8 Tables)</span>
-                  <button type="button" id="sh-venue-photo-pill" class="studio-tap-chip sh-hide-mobile-toolbar" onclick="window.shOpenVenuePhotoModal && window.shOpenVenuePhotoModal()" style="display:inline-flex;align-items:center;gap:5px;padding:2px 8px;font-size:0.72rem;font-weight:700;color:#1B4D3E;background:#EBF4F0;border:1px solid #C4DFD5;border-radius:999px;cursor:pointer;" title="View venue photograph and architectural setting"><span style="font-size:0.8rem;">📷</span><span>Venue Photo</span></button>
+                  <button type="button" id="sh-venue-photo-pill" class="studio-tap-chip sh-hide-mobile-toolbar" onclick="window.shOpenVenuePhotoModal && window.shOpenVenuePhotoModal()" style="display:inline-flex;align-items:center;gap:6px;padding:2px 8px 2px 4px;font-size:0.72rem;font-weight:700;color:#1B4D3E;background:#FFFFFF;border:1px solid #C4DFD5;border-radius:999px;cursor:pointer;" title="View venue photograph and architectural setting"><img id="sh-venue-thumb-img" src="/public/venue-coastal-beach-club.jpg" alt="Coastal Yacht &amp; Beach Club reception preview" style="width:22px;height:22px;border-radius:999px;object-fit:cover;display:inline-block;" /><span>Venue Photo</span></button>
                   <div id="specimen-salon-crest" style="display:none;"></div>
                   <div id="specimen-tagline-sub" style="display:none;"></div>
                 </div>
@@ -685,7 +685,7 @@ function renderZone3InteractiveStudio(plan) {
       <div style="background:#FFFFFF;border:1px solid #E5E7EB;border-radius:18px;max-width:760px;width:100%;box-shadow:0 24px 64px rgba(0,0,0,0.32);color:#1C1C1C;overflow:hidden;">
         <div style="position:relative;">
           <button type="button" onclick="window.shCloseVenuePhotoModal()" style="position:absolute;top:12px;right:12px;z-index:10;background:rgba(0,0,0,0.65);color:#FFF;border:none;border-radius:50%;width:32px;height:32px;cursor:pointer;font-size:16px;display:flex;align-items:center;justify-content:center;" title="Close">✕</button>
-          <img id="sh-modal-venue-img" src="" data-src="/public/venue-rosewood-estate.jpg" alt="Active Venue Setting" style="width:100%;height:auto;max-height:460px;object-fit:cover;display:block;" />
+          <img id="sh-modal-venue-img" src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 9'/%3E" data-src="/public/venue-rosewood-estate.jpg" alt="Active Venue Setting" style="width:100%;height:auto;max-height:460px;object-fit:cover;display:block;" />
           <div style="position:absolute;bottom:12px;left:12px;background:rgba(27,77,62,0.92);color:#FFFFFF;padding:4px 12px;border-radius:999px;font-size:0.72rem;font-weight:700;backdrop-filter:blur(4px);" id="sh-modal-venue-badge">
             Estate Reception &middot; Verified 54" Aisles
           </div>

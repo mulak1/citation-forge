@@ -590,8 +590,13 @@ function renderInteractiveScript(initialPlan) {
         }
         var vImg = '/public/venue-rosewood-estate.jpg', vTag = 'Estate Reception', vTitle = window.__SH_STATE.venueName || 'Rosewood Conservatory', vDesc = 'Light-filled glass conservatory with 54" server aisles, crystal chandeliers, and parquet oak dance floor. Perfectly calibrated to the SeatHarmony 150-guest layout.';
         if (/beach-club|yacht/i.test(presetKey)) { vImg = '/public/venue-coastal-beach-club.jpg'; vTag = 'Coastal Beach Club'; vDesc = 'Oceanfront teak terrace with 54" server aisles, panoramic harbor views, and coastal dining rounds.'; }
-        else if (/tuscan/i.test(presetKey)) { vImg = '/public/venue-tuscan-courtyard.jpg'; vTag = 'Tuscan Courtyard'; vDesc = 'Secluded stone villa courtyard with festoon lights, ancient olive trees, and parallel banquet tables.'; }
+        else if (/tuscan|courtyard/i.test(presetKey)) { vImg = '/public/venue-tuscan-courtyard.jpg'; vTag = 'Tuscan Courtyard'; vDesc = 'Secluded stone villa courtyard with festoon lights, ancient olive trees, and parallel banquet tables.'; }
         else if (/ballroom/i.test(presetKey)) { vImg = '/public/venue-grand-ballroom.jpg'; vTag = 'Grand Ballroom'; vDesc = 'Opulent grand ballroom with gilded coffered ceilings, multi-tiered crystal chandeliers, and symmetric rounds.'; }
+        else if (/tent|sailcloth|marquee/i.test(presetKey)) { vImg = '/public/venue-sailcloth-tent.jpg'; vTag = 'Sailcloth Tent'; vDesc = 'High-peak sailcloth marquee on meadow lawn with center dance floor and unobstructed sightlines.'; }
+        else if (/winery|vineyard/i.test(presetKey)) { vImg = '/public/venue-napa-vineyard.jpg'; vTag = 'Vineyard Estate'; vDesc = 'Napa Valley vineyard terrace with long harvest banquet tables and string lighting.'; }
+        else if (/barn/i.test(presetKey)) { vImg = '/public/venue-modern-barn.jpg'; vTag = 'Modern Timber Barn'; vDesc = 'Modern timber barn with high soaring ceilings, rustic long tables, and generous service lanes.'; }
+        else if (/loft|warehouse/i.test(presetKey)) { vImg = '/public/venue-industrial-loft.jpg'; vTag = 'Industrial Loft'; vDesc = 'Historic brick and timber loft with open layout, warm uplighting, and central dance area.'; }
+        else if (/conservatory|greenhouse/i.test(presetKey)) { vImg = '/public/venue-botanical-conservatory.jpg'; vTag = 'Botanical Greenhouse'; vDesc = 'Glass greenhouse and botanical orangery with lush hanging greenery and sunlit glass arches.'; }
         var thumb = document.getElementById('sh-venue-thumb-img'); if (thumb) thumb.src = vImg;
         var modalImg = document.getElementById('sh-modal-venue-img'); if (modalImg) modalImg.src = vImg;
         var modalName = document.getElementById('sh-modal-venue-name'); if (modalName) modalName.textContent = vTitle;
