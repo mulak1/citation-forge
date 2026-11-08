@@ -580,7 +580,7 @@ function renderZone3InteractiveStudio(plan) {
             <span id="sh-conflict-solver-badge" style="font-size:12px;font-weight:700;color:#1B4D3E;background:#EBF4F0;border:1px solid #C4DFD5;padding:2px 8px;border-radius:999px;">✓ 100% Harmony</span>
           </div>
           <div style="font-size:12.5px;color:#574F49;">
-            <span id="sh-proof-table1-summary">✓ Table 1 Unmasked: Clockwise 12:00 Seat #1 &middot; Tables 2+ Gated ($0 Email Save)</span>
+            <button type="button" id="sh-proof-table1-summary" onclick="if(window.shSetActiveTab){window.shSetActiveTab('beo');}var b=document.getElementById('sh-beo-container');if(b){b.scrollIntoView({behavior:'smooth'});}" style="background:none;border:none;padding:0;cursor:pointer;color:#065F46;font-weight:700;font-size:12.5px;text-decoration:underline;">✓ Inspect Specimen #1: Table 1 Clockwise 12:00 Meal Map (Unmasked Free) &rarr;</button>
           </div>
         </div>
 
