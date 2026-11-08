@@ -409,6 +409,7 @@ function renderInteractiveScript(initialPlan) {
 
   window.shSelectTable = function(idx, opts) {
     opts = opts || {};
+    window.__SH_VIEW_BENCH = false;
     window.__SH_BOX_SEL = null; window.__SH_SELECTED_TABLE_IDX = idx; window.__SH_SELECTED_LANDMARK_IDX = null; window.__SH_OPEN_GUEST = null; window.__SH_SWAP_SOURCE = null;
     const sel = document.getElementById('sh-target-table-select'); if (sel) sel.value = String(idx);
     if (window.__SH_PANEL_HIDDEN && window.shToggleRightPanel) {

@@ -60,7 +60,7 @@ function renderSeatEditorClientScript() {
 
   /* ---- Undo, Redo & Last 5 Moves History ---- */
   window.__SH_REDO = [];
-  function shEdState() { return JSON.stringify({ tables: window.__SH_STATE.tables, roomHeight: window.__SH_STATE.roomHeight, targetGuests: window.__SH_STATE.targetGuests, rules: window.__SH_STATE.rules, landmarks: window.__SH_STATE.landmarks }); }
+  function shEdState() { return JSON.stringify({ tables: window.__SH_STATE.tables, roomHeight: window.__SH_STATE.roomHeight, targetGuests: window.__SH_STATE.targetGuests, rules: window.__SH_STATE.rules, landmarks: window.__SH_STATE.landmarks, unassignedGuests: window.__SH_STATE.unassignedGuests || [] }); }
   function shCleanMoveLabel(msg) {
     return String(msg || '')
       .replace(/^[\u2713\u21bb\u229e\u2728\uD83D\uDD12\uD83D\uDD13\s]+/, '')
@@ -361,6 +361,56 @@ function renderSeatEditorClientScript() {
     window.shRemoveGuest(tIdx, sIdx); window.__SH_OPEN_GUEST = null;
     shToast('Removed ' + g.name + '. Tap Undo to bring them back.'); shRenderAll();
   };
+  window.shEdUnseatGuest = function(tIdx, sIdx) {
+    var tbl = window.__SH_STATE && window.__SH_STATE.tables && window.__SH_STATE.tables[tIdx];
+    if (!tbl || !tbl.guests || !tbl.guests[sIdx]) return;
+    window.shSnapshot();
+    if (!window.__SH_STATE.unassignedGuests) window.__SH_STATE.unassignedGuests = [];
+    var g = tbl.guests.splice(sIdx, 1)[0];
+    window.__SH_STATE.unassignedGuests.push(g);
+    window.__SH_OPEN_GUEST = null;
+    shRecomputeGeometry(tbl);
+    shToast('\u2713 Moved ' + g.name + ' to Holding Bench. Tap Bench to reassign anytime.');
+    shRenderAll();
+  };
+  window.shEdSeatFromBench = function(benchIdx, targetTIdx) {
+    var benched = window.__SH_STATE && window.__SH_STATE.unassignedGuests;
+    var tbl = window.__SH_STATE && window.__SH_STATE.tables && window.__SH_STATE.tables[targetTIdx];
+    if (!benched || !benched[benchIdx] || !tbl) return;
+    window.shSnapshot();
+    var g = benched.splice(benchIdx, 1)[0];
+    if (!tbl.guests) tbl.guests = [];
+    tbl.guests.push(g);
+    if (tbl.guests.length > (tbl.capacity || 8)) tbl.capacity = tbl.guests.length;
+    shRecomputeGeometry(tbl);
+    shToast('\u2713 Seated ' + g.name + ' at ' + (shNormalizeShape(tbl.shape) === 'sweetheart' ? 'Sweetheart Table' : 'Table ' + tbl.number) + '.');
+    shRenderAll();
+  };
+  window.shEdAutoSeatAllBench = function() {
+    var benched = window.__SH_STATE && window.__SH_STATE.unassignedGuests;
+    if (!benched || !benched.length) return;
+    var tables = window.__SH_STATE.tables || [];
+    var eligible = tables.filter(function(t) { return shNormalizeShape(t.shape) !== 'sweetheart' && !t.locked; });
+    if (!eligible.length) { shToast('No unlocked guest tables available.'); return; }
+    window.shSnapshot();
+    var totalSeated = 0;
+    while (benched.length > 0) {
+      eligible.sort(function(a, b) { return a.guests.length - b.guests.length; });
+      var target = eligible[0];
+      var g = benched.shift();
+      target.guests.push(g);
+      if (target.guests.length > (target.capacity || 8)) target.capacity = target.guests.length;
+      totalSeated++;
+    }
+    tables.forEach(function(t) { shRecomputeGeometry(t); });
+    window.__SH_VIEW_BENCH = false;
+    shToast('\u2713 Auto-seated ' + totalSeated + ' guest' + (totalSeated === 1 ? '' : 's') + ' across open tables.');
+    shRenderAll();
+  };
+  window.shToggleBenchView = function(force) {
+    window.__SH_VIEW_BENCH = typeof force === 'boolean' ? force : !window.__SH_VIEW_BENCH;
+    if (window.shRenderSeatPanel) window.shRenderSeatPanel();
+  };
   function shExtractTags(str, fallbackStr) {
     var s = (String(str || '') + ' ' + String(fallbackStr || '')).toLowerCase();
     var meal = 'Filet Mignon';
@@ -638,9 +688,38 @@ function renderSeatEditorClientScript() {
     h.push('<div class="sh-ed-tbl-strip" role="navigation" aria-label="Jump to table">');
     tables.forEach(function(tb, idx) {
       var tf = Math.max(0, (tb.capacity || 8) - tb.guests.length), sw = shNormalizeShape(tb.shape) === 'sweetheart';
-      h.push('<button type="button" class="sh-ed-tbl-pill' + (idx === tIdx ? ' on' : '') + (tf > 0 ? ' has-free' : '') + '" onclick="window.__SH_PAN_VIEW=null;window.shSelectTable(' + idx + ')">' + (sw ? 'Sweetheart' : 'Tbl ' + tb.number) + ' <small>' + (tf === 0 ? 'Full' : tf + ' open') + '</small></button>');
+      h.push('<button type="button" class="sh-ed-tbl-pill' + (!window.__SH_VIEW_BENCH && idx === tIdx ? ' on' : '') + (tf > 0 ? ' has-free' : '') + '" onclick="window.__SH_PAN_VIEW=null;window.__SH_VIEW_BENCH=false;window.shSelectTable(' + idx + ')">' + (sw ? 'Sweetheart' : 'Tbl ' + tb.number) + ' <small>' + (tf === 0 ? 'Full' : tf + ' open') + '</small></button>');
     });
+    var benched = (window.__SH_STATE && window.__SH_STATE.unassignedGuests) || [];
+    h.push('<button type="button" class="sh-ed-tbl-pill' + (window.__SH_VIEW_BENCH ? ' on' : '') + '" style="' + (benched.length > 0 ? 'background:#FEF3C7;border-color:#F59E0B;color:#92400E;font-weight:700;' : '') + '" onclick="window.shToggleBenchView()">' + (benched.length > 0 ? '⚠️ Bench (' + benched.length + ')' : 'Bench (0)') + '</button>');
     h.push('</div>');
+    if (window.__SH_VIEW_BENCH) {
+      h.push('<div class="sh-ed-head" style="margin-top:6px;"><div class="sh-ed-title" style="font-size:1.02rem;font-weight:800;color:#1C1C1C;">Holding Bench (' + benched.length + ' Unassigned)</div><div class="sh-ed-meta" style="font-size:0.78rem;color:#57534E;">Guests unseated or awaiting table placement.</div></div>');
+      if (benched.length > 0) {
+        h.push('<div style="display:flex;gap:6px;margin:8px 0;"><button type="button" class="sh-ed-ka-btn" style="padding:5px 12px;font-size:0.78rem;" onclick="window.shEdAutoSeatAllBench()">⚡ Auto-Seat All Benched Guests</button></div>');
+        h.push('<div class="sh-ed-list">');
+        benched.forEach(function(bg, bIdx) {
+          h.push('<div class="sh-ed-item open" style="margin-bottom:8px;padding:8px 10px;border-radius:8px;background:#FFFDF7;border:1px solid #EAE0D0;">');
+          h.push('<div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:6px;"><strong style="color:#1C1C1C;font-size:0.86rem;">' + shEsc(bg.name) + '</strong><span class="sh-ed-tag" style="font-size:0.72rem;">' + shEdMealShort(bg.meal) + '</span></div>');
+          if (bg.allergy) h.push('<div style="font-size:0.74rem;color:#B91C1C;font-weight:700;margin-bottom:6px;">⚠️ ' + shEsc(bg.allergy) + '</div>');
+          h.push('<div class="sh-ed-label" style="font-size:0.74rem;margin-bottom:4px;">Seat at:</div><div class="sh-ed-chips">');
+          tables.forEach(function(ot, oIdx) {
+            var of = Math.max(0, (ot.capacity || 0) - ot.guests.length);
+            h.push('<button type="button" class="sh-ed-chip" onclick="window.shEdSeatFromBench(' + bIdx + ',' + oIdx + ')">' + shEsc(shEdTableLabel(ot)) + ' <small>' + (of === 0 ? '+1 chair' : of + ' free') + '</small></button>');
+          });
+          h.push('</div></div>');
+        });
+        h.push('</div>');
+      } else {
+        h.push('<div class="sh-ed-empty" style="padding:24px 8px;">Holding bench is currently empty.<br/><small style="color:#78716C;">To temporarily unseat a guest, open their card and tap "Move to Holding Bench".</small></div>');
+      }
+      box.innerHTML = h.join('');
+      if (window.shSyncRightPanelUi) window.shSyncRightPanelUi();
+      return;
+    }
+    if (benched.length > 0) {
+      h.push('<div style="display:flex;align-items:center;justify-content:space-between;padding:5px 9px;background:#FFFBEB;border:1px solid #FDE68A;border-radius:7px;font-size:0.74rem;margin-bottom:6px;"><span style="color:#92400E;font-weight:700;">⚠️ ' + benched.length + ' unseated in Bench</span><button type="button" class="sh-ed-ghost" style="padding:2px 7px;font-size:0.72rem;background:#FFFFFF;border-color:#F59E0B;color:#92400E;font-weight:700;" onclick="window.shToggleBenchView(true)">View Bench &rarr;</button></div>');
+    }
     var mCounts = {}, aCount = 0;
     t.guests.forEach(function(g) { var ms = shEdMealShort(g.meal); mCounts[ms] = (mCounts[ms] || 0) + 1; if (g.allergy || g.accessibility) aCount++; });
     var tallyParts = Object.keys(mCounts).map(function(k) { return mCounts[k] + ' ' + k; });
@@ -699,6 +778,7 @@ function renderSeatEditorClientScript() {
         h.push('</div><input id="sh-ed-custom-allergy" class="sh-ed-input" style="margin-top:6px;padding:7px 10px;font-size:0.86rem;" placeholder="Custom allergy / dietary note (e.g. Sesame, Kosher, Halal)..." value="' + shEsc(g.allergy || '') + '" onchange="window.shEdCustomAllergy(' + tIdx + ',' + sIdx + ',this.value)" onkeydown="if(event.key===\\'Enter\\')this.blur()" />');
         if (window.shEdGuestExtras) h.push(window.shEdGuestExtras(tIdx, sIdx));
         h.push('<div class="sh-ed-label">Name</div><input class="sh-ed-input" value="' + shEsc(g.name) + '" onchange="window.shEdRename(' + tIdx + ',' + sIdx + ',this.value)" onkeydown="if(event.key===\\'Enter\\')this.blur()" />');
+        h.push('<button type="button" class="sh-ed-ghost" style="width:100%;margin-top:6px;border-color:#C8A96E;color:#78350F;background:#FFFDF7;font-weight:700;padding:5px 8px;font-size:0.78rem;" onclick="window.shEdUnseatGuest(' + tIdx + ',' + sIdx + ')">&#9211; Move to Holding Bench (unseat)</button>');
         h.push('<button type="button" class="sh-ed-remove" onclick="window.shEdRemove(' + tIdx + ',' + sIdx + ')">Remove from guest list</button>');
         h.push('</div>');
       }
