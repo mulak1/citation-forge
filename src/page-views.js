@@ -701,6 +701,11 @@ function renderZone5FaqAndZone6Close(sampleSeoPages = [], plan = {}) {
           <a href="#studio" class="btn btn-primary" style="padding:14px 26px;font-size:0.96rem;">&uarr; Open Interactive Studio</a>
           <a id="pricing-buy-bottom" href="/buy/complete_dossier?target=estate-150&amp;vault=${vId}&amp;allow_promotion_codes=false" class="btn btn-secondary" style="padding:14px 24px;font-size:0.94rem;">&#10022; Unlock Event Print &amp; Day-Of Pack ($7 &middot; vs. $14 Etsy) &rarr;</a>
         </div>
+        <div style="margin-top:16px;display:flex;align-items:center;justify-content:center;gap:16px;flex-wrap:wrap;font-size:12.5px;color:#78350F;font-weight:700;">
+          <span>&#10003; 30-Day 100% Money-Back Guarantee</span>
+          <span style="color:#1B4D3E;">&#10003; FedEx Office &amp; Staples 24&Prime;&times;36&Prime; (0.125&Prime; Bleed)</span>
+          <span style="color:#0369A1;">&#10003; Avery 5302 &amp; 5011 Compatible</span>
+        </div>
       </div>
     </div>
   </section>`;
