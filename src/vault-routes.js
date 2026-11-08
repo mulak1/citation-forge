@@ -735,6 +735,7 @@ function attachVaultAndPaywallRoutes(app, publicUrl, ebStore = null) {
   </div>
   ${vault.isUnlocked ? '' : '<div class="proof-wm" aria-hidden="true"><span>PREVIEW PROOF &bull; UNLOCK AVERY 5302 PACK ($7) AT SEATHARMONY.COM</span></div>'}
   <div class="sheet-grid">${cardsHtml}</div>
+  ${req.query.auto_print === '1' ? '<script>window.addEventListener("DOMContentLoaded", function() { setTimeout(function() { window.print(); }, 400); });</script>' : ''}
 </body>
 </html>`;
       return res.status(200).type('html').send(html);
