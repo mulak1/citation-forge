@@ -496,6 +496,8 @@ function attachVaultAndPaywallRoutes(app, publicUrl, ebStore = null) {
       const monogram = monoParts.initials, monogramSub = monoParts.sub, monogramInputVal = monoParts.raw;
       const monoFontRem = monogram.length > 5 ? '0.95rem' : (monogram.length > 3 ? '1.22rem' : '1.52rem'), qrImgUrl = buildRealQrUrl(urls.qr_lookup), fallbackQrUri = buildInlineQrDataUri(urls.qr_lookup);
       const buyPackUrl = `/buy/complete_dossier?target=${encodeURIComponent(vault.title || vault.vaultId)}&vault=${encodeURIComponent(vault.vaultId)}${vault.ownerEmail ? `&email=${encodeURIComponent(vault.ownerEmail)}` : ''}`;
+      const posterColCount = guests.length > 185 ? 5 : (guests.length > 115 ? 4 : 3);
+      const guestNameFontSize = posterColCount === 5 ? '0.78rem' : (posterColCount === 4 ? '0.84rem' : '0.90rem');
 
       const POSTER_THEMES = {
         alabaster: { label: 'Parisian Gold', short: 'Gold', bg: '#FAF6EE', fg: '#181412', sub: '#57534E', accent: '#8C2D19', border: '#C8A96E' },
@@ -518,7 +520,7 @@ function attachVaultAndPaywallRoutes(app, publicUrl, ebStore = null) {
       } else {
         const visibleGuests = vault.isUnlocked ? guests : guests.filter(g => g.tableNumber === 1), groups = {};
         visibleGuests.forEach(g => { const letter = (g.lastName[0] || 'A').toUpperCase(); if (!groups[letter]) groups[letter] = []; groups[letter].push(g); });
-        bodyGridHtml = Object.keys(groups).sort().map(letter => `<div style="margin-bottom:10px;break-inside:avoid;"><div class="serif" style="font-size:1.35rem;color:${accent};border-bottom:1.5px solid ${border};margin-bottom:4px;">${escapeHtml(letter)}</div>${groups[letter].map(g => `<div style="display:flex;justify-content:space-between;gap:8px;font-size:0.90rem;padding:2px 0;border-bottom:1px dotted rgba(200,169,110,0.3);"><span><strong>${escapeHtml(g.lastName)}</strong>${g.posterRestName ? `, ${escapeHtml(g.posterRestName)}` : ''}</span><span class="mono" style="font-weight:700;color:${accent};">Table ${g.tableNumber}${!vault.isUnlocked ? ' (Sample)' : ''}</span></div>`).join('')}</div>`).join('') + (!vault.isUnlocked ? `<div style="grid-column:1 / -1;padding:14px 16px;border-radius:12px;background:rgba(200,169,110,0.12);border:1.5px dashed ${border};font-size:0.86rem;font-weight:800;color:${fg};display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:10px;"><div style="display:flex;align-items:center;gap:10px;flex-wrap:wrap;"><span>${VR_LOCK_SVG}Tables 2&ndash;${tables.length} Guest Names (${Math.max(0, guests.length - visibleGuests.length)} Additional Seated Guests) &mdash; Unlock 24&Prime;&times;36&Prime; Print-Shop Poster ($7 Pack)</span><span style="font-size:12px;color:#78350F;font-weight:700;background:#FFFBEB;border:1px solid #FDE68A;padding:2px 8px;border-radius:6px;">&#10003; 30-Day Guarantee &bull; 0.125&Prime; Bleed</span></div><a href="${buyPackUrl}" style="background:#1B4D3E;color:#FFFFFF;border:1px solid #14382D;border-radius:999px;padding:6px 14px;font-size:0.78rem;font-weight:800;text-decoration:none;display:inline-flex;align-items:center;gap:4px;">${VR_LOCK_SVG}Unlock 24&Prime;&times;36&Prime; Print Pack ($7) &rarr;</a></div>` : '');
+        bodyGridHtml = Object.keys(groups).sort().map(letter => `<div style="margin-bottom:10px;break-inside:avoid;"><div class="serif" style="font-size:1.35rem;color:${accent};border-bottom:1.5px solid ${border};margin-bottom:4px;">${escapeHtml(letter)}</div>${groups[letter].map(g => `<div style="display:flex;justify-content:space-between;gap:8px;font-size:${guestNameFontSize};padding:2px 0;border-bottom:1px dotted rgba(200,169,110,0.3);"><span><strong>${escapeHtml(g.lastName)}</strong>${g.posterRestName ? `, ${escapeHtml(g.posterRestName)}` : ''}</span><span class="mono" style="font-weight:700;color:${accent};">Table ${g.tableNumber}${!vault.isUnlocked ? ' (Sample)' : ''}</span></div>`).join('')}</div>`).join('') + (!vault.isUnlocked ? `<div style="grid-column:1 / -1;padding:14px 16px;border-radius:12px;background:rgba(200,169,110,0.12);border:1.5px dashed ${border};font-size:0.86rem;font-weight:800;color:${fg};display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:10px;"><div style="display:flex;align-items:center;gap:10px;flex-wrap:wrap;"><span>${VR_LOCK_SVG}Tables 2&ndash;${tables.length} Guest Names (${Math.max(0, guests.length - visibleGuests.length)} Additional Seated Guests) &mdash; Unlock 24&Prime;&times;36&Prime; Print-Shop Poster ($7 Pack)</span><span style="font-size:12px;color:#78350F;font-weight:700;background:#FFFBEB;border:1px solid #FDE68A;padding:2px 8px;border-radius:6px;">&#10003; 30-Day Guarantee &bull; 0.125&Prime; Bleed</span></div><a href="${buyPackUrl}" style="background:#1B4D3E;color:#FFFFFF;border:1px solid #14382D;border-radius:999px;padding:6px 14px;font-size:0.78rem;font-weight:800;text-decoration:none;display:inline-flex;align-items:center;gap:4px;">${VR_LOCK_SVG}Unlock 24&Prime;&times;36&Prime; Print Pack ($7) &rarr;</a></div>` : '');
       }
 
       const extraPosterQs = `&kicker=${encodeURIComponent(customKicker)}&monogram=${encodeURIComponent(monogramInputVal)}`;
@@ -555,7 +557,7 @@ function attachVaultAndPaywallRoutes(app, publicUrl, ebStore = null) {
     .poster-sheet { max-width: 960px; min-height: 1380px; margin: 20px auto 48px; background: ${bg}; color: ${fg}; border: 3px double ${border}; padding: 48px 44px; position: relative; box-shadow: 0 22px 54px rgba(24,20,18,0.10); display: flex; flex-direction: column; justify-content: space-between; overflow: hidden; }
     .poster-header-row { display: flex; align-items: center; justify-content: space-between; gap: 18px; border-bottom: 2px solid ${border}; padding-bottom: 22px; margin-bottom: 26px; }
     .poster-header-left { display: flex; align-items: center; gap: 16px; min-width: 0; flex: 1; }
-    .poster-guest-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 22px; }
+    .poster-guest-grid { display: grid; grid-template-columns: repeat(${posterColCount}, 1fr); gap: ${posterColCount >= 4 ? '16px' : '22px'}; }
     .proof-wm { display: none; position: absolute; inset: 0; pointer-events: none; align-items: center; justify-content: center; z-index: 50; }
     .proof-wm span { transform: rotate(-32deg); font-family: 'Plus Jakarta Sans', sans-serif; font-size: 1.35rem; font-weight: 700; letter-spacing: 0.08em; color: rgba(140,45,25,0.22); border: 2px dashed rgba(140,45,25,0.28); padding: 16px 24px; border-radius: 14px; text-align: center; }
     @media screen and (max-width: 760px) {
@@ -571,7 +573,7 @@ function attachVaultAndPaywallRoutes(app, publicUrl, ebStore = null) {
       .no-print { display: none !important; }
       .proof-wm { display: flex !important; }
       .poster-sheet { margin: 0; max-width: none; width: 100%; min-height: 100vh; box-shadow: none; }
-      .poster-guest-grid { grid-template-columns: repeat(3, 1fr) !important; }
+      .poster-guest-grid { grid-template-columns: repeat(${posterColCount}, 1fr) !important; gap: ${posterColCount >= 4 ? '16px' : '22px'} !important; }
     }
   </style>
 </head>
