@@ -776,7 +776,8 @@ function attachVaultAndPaywallRoutes(app, publicUrl, ebStore = null) {
   <div class="no-print" style="max-width:900px;margin:12px auto 0;padding:12px 16px;background:#FAF8F5;border:1px solid #E4DCD0;border-radius:12px;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:10px;font-size:0.78rem;color:#57534E;">
     <div style="display:flex;align-items:center;gap:12px;flex-wrap:wrap;">
       <span style="font-weight:800;color:#1B4D3E;">&#10003; Card Stock Spec:</span>
-      <span>Avery 5302 / 5011 Small Tent Cards (2&Prime; &times; 3&frac12;&Prime; folded, 4 cards / sheet). Works with any home inkjet or laser printer on 65&ndash;80 lb card stock.</span>
+      <span>Avery 5302 / 5011 Small Tent Cards (2&Prime; &times; 3&frac12;&Prime; folded, 4 cards / sheet). 65&ndash;80 lb card stock.</span>
+      <span style="background:#FFFBEB;color:#92400E;padding:2px 8px;border-radius:4px;border:1px solid #FDE68A;font-weight:700;">💡 Test Alignment: Print Page 1 on plain paper first and hold up to light over card stock.</span>
     </div>
     <div style="display:flex;align-items:center;gap:8px;font-weight:700;">
       <span style="color:#8C2D19;">Scale: 100% (Actual Size)</span>
