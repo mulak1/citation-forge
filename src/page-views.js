@@ -820,17 +820,6 @@ function renderSeoDetailPage(pageRow, relatedPages = []) {
     `<div style="display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:8px;margin-bottom:10px;">` +
       `<div><span class="badge badge-amber" style="margin-bottom:4px;">INTERACTIVE TENT, ROOM &amp; SIGNAGE CALCULATOR</span><h2 class="serif-display" style="font-size:1.38rem;margin:0;">Calculate Your Exact Table Count, Tent Size &amp; 24&Prime;&times;36&Prime; Sign Spec</h2></div>` +
     `</div>` +
-    `<!-- SPECIMEN #1 PROOF & RISK-REVERSAL BAR (PILLAR 3 & 4 GATELOCK) -->` +
-    `<div id="sh-seo-specimen-proof-strip" style="display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:8px;padding:8px 14px;background:#FAF8F5;border:1px solid #E2D9C8;border-radius:10px;margin-bottom:12px;font-size:13px;color:#1F1B18;">` +
-      `<div style="display:flex;align-items:center;gap:8px;flex-wrap:wrap;min-width:0;">` +
-        `<span style="font-weight:800;color:#1B4D3E;display:inline-flex;align-items:center;gap:4px;">&#10003; Specimen #1 Proof:</span>` +
-        `<span style="color:#574F49;">Table 1 Clockwise 12:00 Caterer BEO (10 Covers &bull; 🥩 Filet, 🐟 Halibut, 🌱 Vegan &bull; 🌾 Celiac Flagged)</span>` +
-      `</div>` +
-      `<div style="display:flex;align-items:center;gap:8px;flex-wrap:wrap;">` +
-        `<span style="font-size:12px;color:#78350F;font-weight:700;background:#FFFBEB;border:1px solid #FDE68A;padding:3px 8px;border-radius:999px;white-space:nowrap;">&#10003; 30-Day Money-Back Guarantee</span>` +
-        `<span style="font-size:12px;color:#1B4D3E;font-weight:700;background:#EBF4F0;border:1px solid #C4DFD5;padding:3px 8px;border-radius:999px;white-space:nowrap;">FedEx &amp; Staples 24&Prime;&times;36&Prime; Ready</span>` +
-      `</div>` +
-    `</div>` +
     `<div style="display:flex;align-items:center;gap:6px;flex-wrap:wrap;margin-bottom:12px;">` +
       `<span style="font-size:0.76rem;font-weight:800;color:#78350F;">${IC.bolt}1-Tap Guest Count:</span>` +
       [60, 80, 100, 150, 200].map(n => `<button type="button" class="studio-tap-chip" onclick="var g=document.getElementById('sh-calc-guests');if(g){g.value=${n};g.dispatchEvent(new Event('input'));}" style="padding:4px 10px;font-size:0.78rem;font-weight:800;">${n} Guests</button>`).join('') +
