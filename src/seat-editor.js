@@ -375,6 +375,36 @@ function renderSeatEditorClientScript() {
   }
   function shParseHouseholdLine(raw) {
     var line = String(raw || '').trim(); if (!line) return [];
+    if (line.indexOf('\\t') !== -1) {
+      var cols = line.split('\\t').map(function(c) { return c.trim(); }).filter(Boolean);
+      var isMealOrDiet = function(s) { return /(filet|beef|steak|chicken|halibut|salmon|fish|vegan|vegetarian|risotto|kid|celiac|gluten|peanut|nut|dairy|allergy)/i.test(s); };
+      var tName = '', tMealCol = '', tAllergyCol = '';
+      if (cols.length === 2) {
+        if (isMealOrDiet(cols[1])) { tName = cols[0]; tMealCol = cols[1]; }
+        else { tName = cols[0] + ' ' + cols[1]; }
+      } else if (cols.length >= 3) {
+        if (isMealOrDiet(cols[1])) {
+          tName = cols[0]; tMealCol = cols[1]; tAllergyCol = cols.slice(2).join(' ');
+        } else if (isMealOrDiet(cols[2])) {
+          tName = cols[0] + ' ' + cols[1]; tMealCol = cols[2]; tAllergyCol = cols.slice(3).join(' ');
+        } else {
+          tName = cols[0] + ' ' + cols[1]; tAllergyCol = cols.slice(2).join(' ');
+        }
+      } else {
+        tName = cols[0];
+      }
+      var tTags = shExtractTags(tName + ' (' + [tMealCol, tAllergyCol].filter(Boolean).join(', ') + ')', '');
+      return [{
+        name: tName,
+        initials: shMakeInitials(tName),
+        role: 'Guest',
+        meal: tTags.meal,
+        allergy: tTags.allergy,
+        accessibility: tTags.accessibility,
+        rel: tTags.rel,
+        hhId: ''
+      }];
+    }
     var kidsMatch = line.match(/\\+\\s*(\\d+)\\s*(?:kid|child)[a-z]*/i);
     var numKids = kidsMatch ? Number(kidsMatch[1]) : 0;
     var hasPlusGuest = /\\+\\s*(?:1\\s*)?guest\\b/i.test(line);
