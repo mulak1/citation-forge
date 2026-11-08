@@ -1028,7 +1028,7 @@ function renderDeliverablesClientScript() {
         buyLink.href = u.pathname + u.search + u.hash;
       } catch (_) {}
     }, true);
-    document.addEventListener('DOMContentLoaded', function() {
+    function shInitOnLoad() {
       try {
         var params = new URLSearchParams(window.location.search);
         if (params.get('checkout') === 'success' || params.get('unlocked') === '1') {
@@ -1092,7 +1092,12 @@ function renderDeliverablesClientScript() {
         }, { threshold: 0.35 });
         obs.observe(vBar);
       }
-    });
+    }
+    if (document.readyState === 'loading') {
+      document.addEventListener('DOMContentLoaded', shInitOnLoad);
+    } else {
+      shInitOnLoad();
+    }
   })();
   window.shSaveInlineEmailLead = async function() {
     var inp = document.getElementById('sh-inline-vault-email'), btn = document.getElementById('sh-inline-vault-save-btn');
