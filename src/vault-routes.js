@@ -726,8 +726,8 @@ function attachVaultAndPaywallRoutes(app, publicUrl, ebStore = null) {
     </div>
     <div style="display:flex;gap:6px;align-items:center;flex-wrap:wrap;">
       ${vault.isUnlocked
-        ? `<button type="button" onclick="window.print()" style="background:#181412;color:#FDE68A;border:1.5px solid #C8A96E;border-radius:10px;padding:9px 16px;font-weight:800;font-size:0.80rem;cursor:pointer;white-space:nowrap;">${VR_PRINT_SVG}Print All ${guests.length} Avery 5302 Cards (PDF)</button>`
-        : `<a href="${buyPackUrl}" style="background:#181412;color:#FDE68A;border:1.5px solid #C8A96E;border-radius:10px;padding:9px 16px;font-weight:800;font-size:0.80rem;text-decoration:none;white-space:nowrap;">${VR_LOCK_SVG}Unlock Avery 5302 Print Pack ($7) &rarr;</a><button type="button" onclick="window.print()" style="background:#FAF6EE;color:#57534E;border:1px solid #D6CFC2;border-radius:10px;padding:9px 12px;font-weight:700;font-size:0.74rem;cursor:pointer;white-space:nowrap;">${VR_PRINT_SVG}Print Sample Proof</button>`}
+        ? `<button type="button" onclick="window.print()" style="background:#1B4D3E;color:#FFFFFF;border:1px solid #14382D;border-radius:10px;padding:9px 16px;font-weight:800;font-size:0.80rem;cursor:pointer;white-space:nowrap;">${VR_PRINT_SVG}Print All ${guests.length} Avery 5302 Cards (PDF)</button>`
+        : `<a href="${buyPackUrl}" style="background:#1B4D3E;color:#FFFFFF;border:1px solid #14382D;border-radius:10px;padding:9px 16px;font-weight:800;font-size:0.80rem;text-decoration:none;white-space:nowrap;display:inline-flex;align-items:center;gap:6px;">${VR_LOCK_SVG}Unlock Avery 5302 Print Pack ($7) &rarr;</a><button type="button" onclick="window.print()" style="background:#FAF6EE;color:#57534E;border:1px solid #D6CFC2;border-radius:10px;padding:9px 12px;font-weight:700;font-size:0.74rem;cursor:pointer;white-space:nowrap;">${VR_PRINT_SVG}Print Sample Proof</button>`}
     </div>
   </div>
   ${vault.isUnlocked ? '' : '<div class="proof-wm" aria-hidden="true"><span>PREVIEW PROOF &bull; UNLOCK AVERY 5302 PACK ($7) AT SEATHARMONY.COM</span></div>'}
