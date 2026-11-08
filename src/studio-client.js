@@ -625,7 +625,13 @@ function renderInteractiveScript(initialPlan) {
 
   window.shOpenVenuePhotoModal = function() {
     var m = document.getElementById('sh-venue-photo-modal');
-    if (m) m.style.display = 'flex';
+    if (m) {
+      var img = document.getElementById('sh-modal-venue-img');
+      if (img && (!img.src || img.src === window.location.href)) {
+        img.src = img.getAttribute('data-src') || '/public/venue-rosewood-estate.jpg';
+      }
+      m.style.display = 'flex';
+    }
   };
 
   window.shCloseVenuePhotoModal = function() {

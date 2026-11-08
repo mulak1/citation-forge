@@ -6,6 +6,7 @@ const { renderBrandLogoSvg } = require('./templates');
 const {
   renderHomePage,
   renderLandingPage,
+  renderStudioPage,
   renderDirectoryPage,
   renderSeoDetailPage,
   renderLegalPage,
@@ -132,6 +133,34 @@ app.get('/lp', async (req, res) => {
     const rawAudit = await runGeoAudit(targetDomain, { category: req.query.category });
     const initialAudit = req.query.unlocked === '1' ? rawAudit : redactAuditForPublicPreview(rawAudit);
     res.status(200).type('html').send(renderLandingPage(initialAudit));
+  } catch (err) {
+    res.status(500).send('Internal Server Error');
+  }
+});
+
+// 2b. Direct Interactive Seating Studio (`GET /studio`)
+app.get('/studio', async (req, res) => {
+  try {
+    const requestedVault = req.query.vault || (req.query.target && String(req.query.target).toUpperCase().startsWith('SH-') ? req.query.target : '');
+    const isUnlockedQuery = req.query.unlocked === '1' || req.query.checkout === 'success';
+    let initialAudit = null;
+    if (requestedVault) {
+      const vaultRec = await resolveVaultRecord(requestedVault, req.query);
+      initialAudit = { ...vaultRec.state, vaultId: vaultRec.vaultId, isUnlocked: vaultRec.isUnlocked || isUnlockedQuery };
+    } else {
+      const targetDomain = req.query.preset || req.query.domain || req.query.q || req.query.target || 'estate-150';
+      const category = req.query.category || undefined;
+      const rawAudit = await runGeoAudit(targetDomain, { category });
+      initialAudit = isUnlockedQuery ? rawAudit : redactAuditForPublicPreview(rawAudit);
+      if (initialAudit && initialAudit.seatingPlan) {
+        initialAudit.seatingPlan.isUnlocked = isUnlockedQuery;
+        initialAudit.seatingPlan.vaultId = 'SH-4819';
+      } else if (initialAudit) {
+        initialAudit.isUnlocked = isUnlockedQuery;
+        initialAudit.vaultId = 'SH-4819';
+      }
+    }
+    res.status(200).type('html').send(renderStudioPage(initialAudit));
   } catch (err) {
     res.status(500).send('Internal Server Error');
   }

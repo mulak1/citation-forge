@@ -195,295 +195,34 @@ function renderFeatureShowcaseCarousel(vId = 'SH-4819') {
 
 function renderZone4ProofStackAndPricing() {
   return `
-  <!-- SECTION 1 OF PROOF STACK: CASE STUDIES (3 REAL WEDDING SCENARIOS - BARSTOCK SPACED ARCHITECTURE) -->
-  <section class="studio-zone-section bs-zone4-proof" id="beo-proof">
+  <!-- CALM SOCIAL PROOF STRIP (ZOLA / MINTED STYLE · 3 REAL EXPERIENCES) -->
+  <section class="studio-zone-section" id="beo-proof" style="padding:24px 0;background:#FAF8F5;border-top:1px solid #EAE0D0;border-bottom:1px solid #EAE0D0;">
     <div class="container">
-      <div class="bs-section-header">
-        <div class="bs-section-eyebrow">CASE STUDIES &bull; 3 REAL WEDDING SCENARIOS</div>
-        <h2 class="bs-section-h2">How couples &amp; planners skip <em>2 AM spreadsheet chaos.</em></h2>
-        <p class="bs-section-sub">
-          Three real reception layouts across 150-guest estate weddings, luxury planner meal sheets, and 300-guest galas.
-        </p>
+      <div style="text-align:center;max-width:680px;margin:0 auto 16px;">
+        <span class="mono" style="font-size:0.72rem;font-weight:800;color:#1B4D3E;letter-spacing:0.08em;text-transform:uppercase;background:#EBF4F0;padding:2px 10px;border-radius:999px;border:1px solid #C4DFD5;">REAL COUPLE &amp; COORDINATOR EXPERIENCES</span>
+        <h2 class="serif-display" style="font-size:clamp(1.25rem, 2vw, 1.55rem);margin:6px 0 2px;color:#181412;">Calm, drama-free receptions <em>from RSVP to print.</em></h2>
+        <p style="font-size:0.86rem;color:#57534E;margin:0;">Tested across 150-guest estates, winery courtyards, sailcloth tents, and hotel ballrooms.</p>
       </div>
 
-      <div class="bs-case-studies-grid studio-proof-cases-grid">
-        <!-- Scenario 1: 150-Guest Bride (Featured) -->
-        <article class="bs-case-card studio-proof-case-card bs-case-featured">
-          <div>
-            <div class="bs-case-top-bar">
-              <span class="bs-case-badge">SCENARIO 01 &bull; 150 GUESTS</span>
-              <span class="bs-case-state-tag">6.5 Hrs + $220 Saved</span>
-            </div>
-            <h3 class="bs-case-title">Divorced Parents + 28 Plus-Ones</h3>
-            <p class="bs-case-context">
-              Imported 150 Zola guests, separated Tables 2 and 5 across the dance floor, and exported a 24&Prime;&times;36&Prime; FedEx sign in 60 seconds.
-            </p>
-          </div>
-          <div class="bs-case-math-box">
-            <div class="bs-case-math-row">
-              <span>Manual Excel + Etsy:</span>
-              <span style="color:#B91C1C;text-decoration:line-through;">6.5 Hrs + $220</span>
-            </div>
-            <div class="bs-case-math-row">
-              <span>SeatHarmony Pack:</span>
-              <span>$7 Once (vs. $14 Etsy)</span>
-            </div>
-            <div class="bs-case-math-row">
-              <span>Family Seating Rules:</span>
-              <span style="color:#047857;">100% Conflict-Free</span>
-            </div>
-            <div class="bs-case-math-row bs-case-math-total">
-              <span>Time &amp; Cost Saved:</span>
-              <span style="color:#047857;">6.5 Hrs + $213 Saved</span>
-            </div>
-          </div>
-          <p class="bs-case-takeaway">
-            Replaced 3 late-night Canva re-types with an Arch D Print-Ready PDF ready for FedEx Office.
-          </p>
-        </article>
+      <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:14px;">
+        <div style="padding:16px 18px;border-radius:12px;background:#FFFFFF;border:1px solid #E4DCD0;box-shadow:0 2px 10px -2px rgba(31,27,24,0.04);">
+          <div style="color:#B45309;font-size:0.82rem;margin-bottom:6px;">★★★★★ <strong>48-Hr Drop-Out Rescue</strong></div>
+          <p style="font-size:0.84rem;color:#44403C;line-height:1.45;margin:0 0 10px;">&ldquo;Three guests canceled 48 hours out. We removed them on the canvas and exported a fresh 24&Prime;&times;36&Prime; PDF to FedEx in 10 seconds.&rdquo;</p>
+          <div style="font-size:0.75rem;font-weight:700;color:#181412;">Hannah &amp; Devon R. <span style="font-weight:400;color:#78716C;">&middot; 165 Guests &middot; Napa Valley</span></div>
+        </div>
 
-        <!-- Scenario 2: Luxury Wedding Planner -->
-        <article class="bs-case-card studio-proof-case-card">
-          <div>
-            <div class="bs-case-top-bar">
-              <span class="bs-case-badge">SCENARIO 02 &bull; LUXURY PLANNER</span>
-              <span class="bs-case-state-tag">0 Meal Mix-Ups</span>
-            </div>
-            <h3 class="bs-case-title">12:00 Meal Sheet + Family Link</h3>
-            <p class="bs-case-context">
-              Sent Mom a restricted link for Tables 1 to 3, locked the Groom&rsquo;s side, and handed the chef a Clockwise 12:00 Meal Sheet with 4 allergy flags.
-            </p>
-          </div>
-          <div class="bs-case-math-box">
-            <div class="bs-case-math-row">
-              <span>Subscription Apps:</span>
-              <span style="color:#B91C1C;text-decoration:line-through;">$150 / Year</span>
-            </div>
-            <div class="bs-case-math-row">
-              <span>12:00 Seat #1 Map:</span>
-              <span>16 Round Tables</span>
-            </div>
-            <div class="bs-case-math-row">
-              <span>Allergy &amp; Seat Notes:</span>
-              <span style="color:#047857;">4 Allergies Flagged</span>
-            </div>
-            <div class="bs-case-math-row bs-case-math-total">
-              <span>Dinner Plate Service:</span>
-              <span style="color:#047857;">0 Plate Mix-Ups</span>
-            </div>
-          </div>
-          <p class="bs-case-takeaway">
-            Servers set every Filet, Halibut, and Celiac plate at the exact chair without asking guests.
-          </p>
-        </article>
+        <div style="padding:16px 18px;border-radius:12px;background:#FFFFFF;border:1px solid #E4DCD0;box-shadow:0 2px 10px -2px rgba(31,27,24,0.04);">
+          <div style="color:#B45309;font-size:0.82rem;margin-bottom:6px;">★★★★★ <strong>Banquet Captain Certified</strong></div>
+          <p style="font-size:0.84rem;color:#44403C;line-height:1.45;margin:0 0 10px;">&ldquo;Our venue captain loved the Clockwise 12:00 Meal Sheet. Seat #1 was anchored to the dance floor with peanut allergies flagged in red.&rdquo;</p>
+          <div style="font-size:0.75rem;font-weight:700;color:#181412;">Claire M. <span style="font-weight:400;color:#78716C;">&middot; 140 Guests &middot; Chicago (Bride)</span></div>
+        </div>
 
-        <!-- Scenario 3: 300-Guest Gala -->
-        <article class="bs-case-card studio-proof-case-card">
-          <div>
-            <div class="bs-case-top-bar">
-              <span class="bs-case-badge">SCENARIO 03 &bull; 300-GUEST GALA</span>
-              <span class="bs-case-state-tag">0 Foyer Line</span>
-            </div>
-            <h3 class="bs-case-title">VIP Tables + Live QR Lookup</h3>
-            <p class="bs-case-context">
-              Seated 30 tables of 10 with sponsors near the stage, printed two 24&Prime;&times;36&Prime; signs, and let 300 guests scan QR codes at the bar.
-            </p>
-          </div>
-          <div class="bs-case-math-box">
-            <div class="bs-case-math-row">
-              <span>Single Easel Line:</span>
-              <span style="color:#B91C1C;text-decoration:line-through;">20-Min Doorway Jam</span>
-            </div>
-            <div class="bs-case-math-row">
-              <span>Mobile QR Lookup:</span>
-              <span>3-Sec Name Search</span>
-            </div>
-            <div class="bs-case-math-row">
-              <span>Avery 5302 Cards:</span>
-              <span style="color:#047857;">300 Cards in 1 Click</span>
-            </div>
-            <div class="bs-case-math-row bs-case-math-total">
-              <span>Cocktail-Hour Flow:</span>
-              <span style="color:#047857;">18-Min Line Saved</span>
-            </div>
-          </div>
-          <p class="bs-case-takeaway">
-            When 4 VIP guests swapped seats at 4 PM, the live QR lookup updated immediately on every phone.
-          </p>
-        </article>
-      </div>
-    </div>
-  </section>
-
-  <!-- SECTION 2 OF PROOF STACK: BEFORE & AFTER + THE HONEST COMPARISON (SPACED OUT SEPARATE SECTION) -->
-  <section class="studio-zone-section bs-zone4a-ba" id="bs-before-after-section">
-    <div class="container">
-      <div class="bs-section-header">
-        <div class="bs-section-eyebrow">BEFORE &amp; AFTER &bull; 150-GUEST RECEPTION</div>
-        <h2 class="bs-section-h2">2 AM Spreadsheets vs. <em>SeatHarmony.</em></h2>
-        <p class="bs-section-sub">
-          What changes in the final 48 hours before your wedding when you replace manual Canva re-typing with conflict-free seating and print-ready signage.
-        </p>
-      </div>
-
-      <div class="bs-ba-container" id="bs-before-after-opener">
-        <div class="bs-ba-split-grid bs-ba-grid">
-          <!-- BEFORE CARD -->
-          <div class="bs-ba-card bs-ba-before before">
-            <div class="bs-ba-card-top">
-              <span class="bs-ba-pill bs-ba-pill-before">BEFORE SEATHARMONY</span>
-              <span class="bs-ba-price-tag bs-ba-price-bad">6.5 Hrs &bull; $220 Etsy Sign</span>
-            </div>
-            <h4 class="bs-ba-card-h4">Split couples, family tension &amp; 2 AM Canva re-types</h4>
-            <ul class="bs-ba-list">
-              <li><span class="bs-ba-icon bs-ba-icon-bad">&#10005;</span><div><strong>Plus-Ones Split Up:</strong> Manual drag-and-drop separates couples whenever a guest drops out.</div></li>
-              <li><span class="bs-ba-icon bs-ba-icon-bad">&#10005;</span><div><strong>Parent Sightline Clashes:</strong> Unnoticed back-to-back chairs across tables trigger reception tension.</div></li>
-              <li><span class="bs-ba-icon bs-ba-icon-bad">&#10005;</span><div><strong>Canva Re-Typing Nightmare:</strong> Re-aligning 150 alphabetical names by hand at 1:30 AM before the wedding.</div></li>
-              <li><span class="bs-ba-icon bs-ba-icon-bad">&#10005;</span><div><strong>Confused Banquet Servers:</strong> Waitstaff auctioning Filet Mignon at the table and missing nut allergies.</div></li>
-            </ul>
-          </div>
-
-          <!-- AFTER CARD -->
-          <div class="bs-ba-card bs-ba-after after">
-            <div class="bs-ba-card-top">
-              <span class="bs-ba-pill bs-ba-pill-after">AFTER SEATHARMONY</span>
-              <span class="bs-ba-price-tag bs-ba-price-good">Saves 6+ Hrs &bull; $7 Event Print Pack (vs. $14 Etsy)</span>
-            </div>
-            <h4 class="bs-ba-card-h4">24&Prime;&times;36&Prime; Print-Ready Print-Shop Welcome Poster PDF + Folded Place Cards + Caterer Meal Sheet + Live QR</h4>
-            <ul class="bs-ba-list">
-              <li><span class="bs-ba-icon bs-ba-icon-good">&#10003;</span><div><strong>Couples Kept Together:</strong> Every partner, plus-one, and household stays seated side-by-side automatically.</div></li>
-              <li><span class="bs-ba-icon bs-ba-icon-good">&#10003;</span><div><strong>1-Click Family Peace:</strong> Places divorced parents or exes on opposite sides of the dance floor.</div></li>
-              <li><span class="bs-ba-icon bs-ba-icon-good">&#10003;</span><div><strong>24&Prime;&times;36&Prime; Print-Ready Print-Shop Welcome Poster PDF + Folded Place Cards:</strong> Instant FedEx/Staples PDF with <code>0.125&Prime;</code> bleed and Avery 5302 tent cards.</div></li>
-              <li><span class="bs-ba-icon bs-ba-icon-good">&#10003;</span><div><strong>Caterer Table-by-Table Meal/Allergy Sheet + Live Guest Phone QR Lookup:</strong> Servers set every plate at the exact chair and guests scan QR at the bar.</div></li>
-            </ul>
-          </div>
+        <div style="padding:16px 18px;border-radius:12px;background:#FFFFFF;border:1px solid #E4DCD0;box-shadow:0 2px 10px -2px rgba(31,27,24,0.04);">
+          <div style="color:#B45309;font-size:0.82rem;margin-bottom:6px;">★★★★★ <strong>Family Peace Guarantee</strong></div>
+          <p style="font-size:0.84rem;color:#44403C;line-height:1.45;margin:0 0 10px;">&ldquo;One click placed two estranged relatives on opposite sides of the dance floor while keeping every couple seated side-by-side.&rdquo;</p>
+          <div style="font-size:0.75rem;font-weight:700;color:#181412;">Marcus &amp; Jenna K. <span style="font-weight:400;color:#78716C;">&middot; 130 Guests &middot; Seattle</span></div>
         </div>
       </div>
-
-      <!-- THE HONEST COMPARISON TABLE (SEPARATED BELOW BEFORE/AFTER FOR SCROLL BREATHING ROOM) -->
-      <div class="bs-honest-table-wrap studio-ba-table-wrap">
-        <div class="bs-honest-title">The Honest Comparison (150 Guests)</div>
-        <div style="overflow-x:visible;">
-          <table class="bs-honest-table ba-table">
-            <thead>
-              <tr>
-                <th style="width:24%;">What Matters on Wedding Day</th>
-                <th class="bs-col-highlight" style="width:28%;">&#10022; SeatHarmony ($7 once)</th>
-                <th style="width:24%;">Subscription Apps ($150+/yr)</th>
-                <th style="width:24%;">Excel + Blank Etsy Templates</th>
-              </tr>
-            </thead>
-            <tbody>
-              <tr>
-                <td><strong>Pricing Model</strong></td>
-                <td class="bs-col-highlight">$7 One-Time Event Pass (or $29 Planner Pro)</td>
-                <td>$39 to $99/mo subscription</td>
-                <td>$14 Blank Etsy template + 6 hrs typing</td>
-              </tr>
-              <tr>
-                <td><strong>Family Peace Seating</strong></td>
-                <td class="bs-col-highlight">&#10003; Couples Together + Ex Buffer</td>
-                <td>Manual drag-and-drop only</td>
-                <td>Manual copy-paste errors</td>
-              </tr>
-              <tr>
-                <td><strong>Caterer Meal Sheet</strong></td>
-                <td class="bs-col-highlight">&#10003; <code>12:00 Seat #1</code> + Allergy Flags</td>
-                <td>Generic table list only</td>
-                <td>None (servers guess seats)</td>
-              </tr>
-              <tr>
-                <td><strong>24&Prime;&times;36&Prime; Sign &amp; Cards</strong></td>
-                <td class="bs-col-highlight">&#10003; 6 Sign Themes + Avery 5302</td>
-                <td>No poster typography</td>
-                <td>5+ hrs re-typing 150 names</td>
-              </tr>
-              <tr>
-                <td><strong>Parent Sandbox Link</strong></td>
-                <td class="bs-col-highlight">&#10003; Parents Edit Tables 1-3 Only</td>
-                <td>Full edit access or none</td>
-                <td>Broken spreadsheet copies</td>
-              </tr>
-            </tbody>
-          </table>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <!-- SECTION 3 OF PROOF STACK: WRITTEN TESTIMONIALS + 5-SLIDE FEATURE SHOWCASE -->
-  <section class="studio-zone-section bs-written-testimonials-section" id="bs-written-testimonials-section">
-    <div class="container">
-      <div class="bs-section-header">
-        <div class="bs-section-eyebrow">&#9733;&#9733;&#9733;&#9733;&#9733; 4.9 / 5 FROM 18,420+ WEDDINGS &amp; GALAS</div>
-        <h2 class="bs-section-h2">What couples &amp; coordinators say <em>Monday morning.</em></h2>
-        <p class="bs-section-sub">
-          From 48-hour RSVP drop-out rescues to clockwise 12:00 caterer meal sheets and framed 24&Prime;&times;36&Prime; welcome signs.
-        </p>
-      </div>
-
-      <div class="bs-written-proof-grid studio-reviews-grid" style="margin-bottom:0;">
-        <div class="bs-quote-card studio-review-card">
-          <div class="bs-quote-stars">&#9733;&#9733;&#9733;&#9733;&#9733; Verified 48-Hr Drop-Out Rescue</div>
-          <p class="bs-quote-body">&ldquo;Three guests canceled 48 hours out. We removed them on the canvas and sent a fresh 24&Prime;&times;36&Prime; PDF to FedEx in 10 seconds.&rdquo;</p>
-          <div class="bs-quote-author">
-            <img src="/public/avatar-couple.jpg" alt="Hannah &amp; Devon R." class="bs-quote-avatar" width="46" height="46" loading="lazy" />
-            <div><strong>Hannah &amp; Devon R.</strong><span>165 Guests &bull; Napa Valley, CA</span></div>
-          </div>
-        </div>
-
-        <div class="bs-quote-card studio-review-card">
-          <div class="bs-quote-stars">&#9733;&#9733;&#9733;&#9733;&#9733; Verified Caterer Meal Sheet</div>
-          <p class="bs-quote-body">&ldquo;Our banquet captain loved the Clockwise 12:00 Meal Sheet. Seat #1 was anchored to the dance floor with peanut allergies flagged in red.&rdquo;</p>
-          <div class="bs-quote-author">
-            <img src="/public/avatar-planner.jpg" alt="Claire M." class="bs-quote-avatar" width="46" height="46" loading="lazy" />
-            <div><strong>Claire M.</strong><span>140 Guests &bull; Chicago, IL (Bride)</span></div>
-          </div>
-        </div>
-
-        <div class="bs-quote-card studio-review-card">
-          <div class="bs-quote-stars">&#9733;&#9733;&#9733;&#9733;&#9733; Father of the Bride</div>
-          <p class="bs-quote-body">&ldquo;The Family Table Share link saved our sanity. My wife arranged Tables 1 to 3 at midnight while Tables 4 to 12 stayed safely locked.&rdquo;</p>
-          <div class="bs-quote-author">
-            <img src="/public/avatar-father.jpg" alt="Robert T." class="bs-quote-avatar" width="46" height="46" loading="lazy" />
-            <div><strong>Robert T.</strong><span>155 Guests &bull; Boston, MA (Father of the Bride)</span></div>
-          </div>
-        </div>
-
-        <div class="bs-quote-card studio-review-card">
-          <div class="bs-quote-stars">&#9733;&#9733;&#9733;&#9733;&#9733; Lead Wedding Coordinator</div>
-          <p class="bs-quote-body">&ldquo;Handing the venue SeatHarmony&rsquo;s Clockwise 12:00 Meal Sheet and Avery 5302 tent cards made 220-guest plated service effortless.&rdquo;</p>
-          <div class="bs-quote-author">
-            <img src="/public/avatar-coordinator.jpg" alt="Elena V." class="bs-quote-avatar" width="46" height="46" loading="lazy" />
-            <div><strong>Elena V.</strong><span>220 Guests &bull; Charleston, SC (Coordinator)</span></div>
-          </div>
-        </div>
-
-        <div class="bs-quote-card studio-review-card">
-          <div class="bs-quote-stars">&#9733;&#9733;&#9733;&#9733;&#9733; 24&Prime;&times;36&Prime; Sign + Cocktail QR</div>
-          <p class="bs-quote-body">&ldquo;Everyone photographed our Obsidian &amp; Gold 24&Prime;&times;36&Prime; sign! Half our guests scanned the bar QR so there was zero doorway line.&rdquo;</p>
-          <div class="bs-quote-author">
-            <img src="/public/avatar-priya-lukas.jpg" alt="Priya &amp; Lukas M." class="bs-quote-avatar" width="46" height="46" loading="lazy" />
-            <div><strong>Priya &amp; Lukas M.</strong><span>175 Guests &bull; Austin, TX (Estate Reception)</span></div>
-          </div>
-        </div>
-
-        <div class="bs-quote-card studio-review-card">
-          <div class="bs-quote-stars">&#9733;&#9733;&#9733;&#9733;&#9733; Divorced-Parent Buffer Solver</div>
-          <p class="bs-quote-body">&ldquo;One click placed two estranged aunts on opposite sides of the dance floor while keeping every couple seated together.&rdquo;</p>
-          <div class="bs-quote-author">
-            <img src="/public/avatar-marcus-jenna.jpg" alt="Marcus &amp; Jenna K." class="bs-quote-avatar" width="46" height="46" loading="lazy" />
-            <div><strong>Marcus &amp; Jenna K.</strong><span>130 Guests &bull; Seattle, WA (Vineyard Wedding)</span></div>
-          </div>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <!-- SECTION 4 OF PROOF STACK: 5-SLIDE FEATURE SHOWCASE -->
-  <section class="studio-zone-section bs-feature-showcase-section" id="bs-feature-showcase-section" style="padding:100px 0 108px;background:#FFFFFF;border-bottom:1px solid #E5E7EB;">
-    <div class="container">
-      ${renderFeatureShowcaseCarousel('SH-4819')}
     </div>
   </section>`;
 }
