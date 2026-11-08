@@ -339,6 +339,21 @@ function attachVaultAndPaywallRoutes(app, publicUrl, ebStore = null) {
       </div>
     </div>
 
+    <!-- Complete Day-Of Event Bundle Package Header Strip -->
+    <div class="card" style="background:#FAF8F5;border:1.5px solid #D8C29D;padding:16px 20px;margin-bottom:16px;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:12px;">
+      <div style="display:flex;align-items:center;gap:12px;flex-wrap:wrap;">
+        <span style="font-size:1.6rem;line-height:1;">📦</span>
+        <div>
+          <div style="font-size:0.70rem;font-weight:800;letter-spacing:0.08em;color:#78350F;text-transform:uppercase;">COORDINATOR-READY DAY-OF EVENT PACKAGE</div>
+          <div style="font-size:1.05rem;font-weight:800;color:#181412;">Complete Day-Of Production Bundle (All 4 Assets Formatted &amp; Aligned)</div>
+          <div style="font-size:0.80rem;color:#57534E;margin-top:2px;">Includes 24&Prime;&times;36&Prime; Arch D Poster &bull; Avery 5302 Place Cards &bull; Clockwise 12:00 Caterer Meal Sheet &bull; 8&Prime;&times;10&Prime; Bar Easel Sign</div>
+        </div>
+      </div>
+      <div style="display:flex;align-items:center;gap:8px;flex-wrap:wrap;">
+        <button type="button" class="btn btn-gold" onclick="window.printAllEventSheets &amp;&amp; window.printAllEventSheets()" style="background:#1B4D3E;border-color:#14382D;">${VR_PRINT_SVG}Print All Day-Of Assets</button>
+      </div>
+    </div>
+
     <!-- 4 Inside-the-Paywall Production Deliverables -->
     <div class="grid-2">
       <!-- Card 1: 24x36 Arch D Welcome Poster -->
@@ -449,6 +464,13 @@ function attachVaultAndPaywallRoutes(app, publicUrl, ebStore = null) {
       </div>
     </div>
   </main>
+  <script>
+    window.printAllEventSheets = function() {
+      window.open('${urls.print_poster}?auto_print=1', '_blank');
+      setTimeout(function() { window.open('${urls.print_avery}?auto_print=1', '_blank'); }, 600);
+      setTimeout(function() { window.open('${urls.print_beo}', '_blank'); }, 1200);
+    };
+  </script>
 </body>
 </html>`;
       return res.status(200).type('html').send(html);
