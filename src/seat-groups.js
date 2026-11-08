@@ -203,7 +203,7 @@ function renderSeatGroupsClientScript() {
     if (!target.geometry) shRecomputeGeometry(target);
     var tShape = shNormalizeShape(target.shape);
     var targetR = tShape === 'round' ? (target.geometry.tableWidth / 2) + 18 : Math.max(target.geometry.tableWidth / 2, target.geometry.tableHeight / 2) + 12;
-    var minPix = 9999, nearestName = 'Wall Boundary';
+    var minPix = 9999, nearestName = 'Wall Boundary', nearestPt = null;
     (plan.tables || []).forEach(function(other, oIdx) {
       if (oIdx === tIdx) return;
       if (!other.geometry) shRecomputeGeometry(other);
@@ -211,16 +211,16 @@ function renderSeatGroupsClientScript() {
       var oR = oShape === 'round' ? (other.geometry.tableWidth / 2) + 18 : Math.max(other.geometry.tableWidth / 2, other.geometry.tableHeight / 2) + 12;
       var dist = Math.hypot((target.x || 0) - (other.x || 0), (target.y || 0) - (other.y || 0));
       var gap = dist - (targetR + oR);
-      if (gap < minPix) { minPix = gap; nearestName = other.name || ('Table ' + other.number); }
+      if (gap < minPix) { minPix = gap; nearestName = other.name || ('Table ' + other.number); nearestPt = { x: other.x || 0, y: other.y || 0 }; }
     });
     (plan.landmarks || []).forEach(function(lm) {
       var lmR = Math.hypot((lm.w || 120) / 2, (lm.h || 40) / 2);
       var dist = Math.hypot((target.x || 0) - (lm.x || 0), (target.y || 0) - (lm.y || 0));
       var gap = dist - (targetR + lmR);
-      if (gap < minPix) { minPix = gap; nearestName = lm.label || 'Landmark'; }
+      if (gap < minPix) { minPix = gap; nearestName = lm.label || 'Landmark'; nearestPt = { x: lm.x || 0, y: lm.y || 0 }; }
     });
     var estInches = Math.max(30, Math.round(54 + (minPix - 30) * 0.35));
-    return { inches: estInches, nearestName: nearestName, passed: estInches >= 54, isTight: estInches < 54 };
+    return { inches: estInches, nearestName: nearestName, nearestPt: nearestPt, passed: estInches >= 54, isTight: estInches < 54 };
   };
 
   window.shEdShape = function(tIdx, shape) {
@@ -613,6 +613,24 @@ function renderSeatGroupsClientScript() {
       var showL = window.shIsLandmarkBoxSelected && window.shIsLandmarkBoxSelected(li);
       out.push('<g data-box-lm="' + li + '" transform="translate(' + lm.x + ',' + lm.y + ') rotate(' + (lm.rot || 0) + ')" pointer-events="none" style="display:' + (showL ? 'block' : 'none') + ';"><rect x="' + (-lm.w / 2 - 5) + '" y="' + (-lm.h / 2 - 5) + '" width="' + (lm.w + 10) + '" height="' + (lm.h + 10) + '" rx="10" fill="rgba(140,45,25,0.06)" stroke="#8C2D19" stroke-width="2.4" stroke-dasharray="6 4"/></g>');
     });
+    var selIdx = window.__SH_SELECTED_TABLE_IDX;
+    if (selIdx != null && plan.tables && plan.tables[selIdx]) {
+      var sTb = plan.tables[selIdx];
+      var cl = window.shCalculateTableClearance ? window.shCalculateTableClearance(selIdx) : null;
+      if (cl && cl.nearestPt) {
+        var nPt = cl.nearestPt;
+        var mxC = Math.round((sTb.x + nPt.x) / 2), myC = Math.round((sTb.y + nPt.y) / 2);
+        var strokeC = cl.passed ? '#059669' : '#D97706', bgC = cl.passed ? '#ECFDF5' : '#FFFBEB';
+        var badgeText = cl.inches + '″ Aisle (' + (cl.passed ? '✓ Clear' : '⚠️ Min 54″') + ')';
+        out.push('<g class="sh-clearance-ruler" pointer-events="none">' +
+          '<line x1="' + sTb.x + '" y1="' + sTb.y + '" x2="' + nPt.x + '" y2="' + nPt.y + '" stroke="' + strokeC + '" stroke-width="1.8" stroke-dasharray="4 3" opacity="0.8"/>' +
+          '<circle cx="' + sTb.x + '" cy="' + sTb.y + '" r="3" fill="' + strokeC + '"/>' +
+          '<circle cx="' + nPt.x + '" cy="' + nPt.y + '" r="3" fill="' + strokeC + '"/>' +
+          '<rect x="' + (mxC - 60) + '" y="' + (myC - 10) + '" width="120" height="20" rx="10" fill="' + bgC + '" stroke="' + strokeC + '" stroke-width="1"/>' +
+          '<text x="' + mxC + '" y="' + (myC + 4) + '" text-anchor="middle" fill="' + strokeC + '" font-size="9.5" font-weight="800">' + badgeText + '</text>' +
+        '</g>');
+      }
+    }
     out.push('<rect id="sh-drop-halo-live" x="0" y="0" width="0" height="0" rx="26" fill="rgba(232,199,125,0.26)" stroke="#B89352" stroke-width="2.6" pointer-events="none" style="display:none;"/>');
     return out.join('');
   };
