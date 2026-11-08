@@ -245,7 +245,7 @@ function renderSeatGroupsClientScript() {
     h.push('</div><div class="sh-ed-rot"><button type="button" onclick="window.shEdRotate(' + tIdx + ',-45)" aria-label="Rotate left 45 degrees">&#8634; Rotate</button><button type="button" onclick="window.shEdRotate(' + tIdx + ',45)" aria-label="Rotate right 45 degrees">Rotate &#8635;</button></div></div>');
     return h.join('');
   };
-  var SH_TABLE_KINDS = { round8: { shape: 'round', cap: 8, label: 'Round (8 seats)' }, round10: { shape: 'round', cap: 10, label: 'Round (10 seats)' }, banquet12: { shape: 'banquet_2sided', cap: 12, label: 'Long banquet (12 seats)' }, kings8: { shape: 'kings_4sided', cap: 8, label: 'King\\'s (8 seats)' } };
+  var SH_TABLE_KINDS = { round8: { shape: 'round', cap: 8, label: 'Round (8 seats)' }, round10: { shape: 'round', cap: 10, label: 'Round (10 seats)' }, round12: { shape: 'round', cap: 12, label: 'Grand round (12 seats)' }, banquet12: { shape: 'banquet_2sided', cap: 12, label: 'Long banquet (12 seats)' }, kings8: { shape: 'kings_4sided', cap: 8, label: 'King\\'s (8 seats)' }, sweetheart2: { shape: 'sweetheart', cap: 2, label: 'Sweetheart (2 seats)' } };
   function shCloseMenus(keepId) {
     ['sh-add-menu', 'sh-el-menu', 'sh-room-menu', 'sh-history-menu'].forEach(function(id) { if (id !== keepId) { var el = document.getElementById(id); if (el) el.style.display = 'none'; } });
   }
