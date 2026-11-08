@@ -1030,6 +1030,29 @@ function renderDeliverablesClientScript() {
     }, true);
     document.addEventListener('DOMContentLoaded', function() {
       try {
+        var params = new URLSearchParams(window.location.search);
+        if (params.get('checkout') === 'success' || params.get('unlocked') === '1') {
+          try { localStorage.setItem('sh_purchased', '1'); } catch (_) {}
+          window.__SH_PURCHASED = true;
+          window.__SH_EMAIL_UNMASKED = true;
+          var retVid = params.get('vault') || (window.__SH_STATE && window.__SH_STATE.vaultId) || 'SH-4819';
+          shToast('🎉 Event Print Pack Unlocked! All 4 Day-Of Assets are Ready to Print');
+          if (window.shTrackTelemetry) window.shTrackTelemetry('purchase_success', { vaultId: retVid });
+          setTimeout(function() {
+            if (typeof shRenderBeoView === 'function') shRenderBeoView();
+            if (typeof shRenderPosterView === 'function') shRenderPosterView();
+            if (typeof window.shFilterQrLookup === 'function') window.shFilterQrLookup();
+            var upBr = document.getElementById('sh-post-email-upgrade-bridge');
+            if (upBr) {
+              upBr.style.display = 'flex';
+              upBr.style.background = '#ECFDF5';
+              upBr.style.borderColor = '#10B981';
+              upBr.innerHTML = '<div style="display:flex;align-items:center;gap:10px;flex-wrap:wrap;"><span>🎉 <strong>Event Print Pack Active!</strong></span><span style="font-size:12px;color:#065F46;background:#D1FAE5;border:1px solid #A7F3D0;padding:2px 8px;border-radius:6px;">&#10003; All 4 Deliverables Unlocked</span></div><a href="/vault/' + encodeURIComponent(retVid) + '" style="background:#1B4D3E;color:#FFFFFF;border-radius:8px;padding:8px 16px;font-size:13.5px;font-weight:700;text-decoration:none;">Open Event Deliverables Vault &rarr;</a>';
+            }
+          }, 400);
+        }
+      } catch (_) {}
+      try {
         var saved = localStorage.getItem('sh_saved_email');
         if (saved && saved.indexOf('@') > 0) {
           var inl = document.getElementById('sh-inline-vault-email');
