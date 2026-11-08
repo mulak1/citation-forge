@@ -170,7 +170,7 @@ function renderTopPrintBar({ vault, activeRoute, baseUrl }) {
   return `
   <header class="no-print" style="position:sticky;top:0;z-index:100;background:#FAF6EE;color:#181412;border-bottom:1.5px solid #D8C29D;padding:9px 18px;box-shadow:0 4px 14px rgba(24,20,18,0.04);">
     <div style="max-width:1280px;margin:0 auto;display:flex;align-items:center;justify-content:space-between;gap:10px;flex-wrap:wrap;">
-      <div style="display:flex;align-items:center;gap:8px;flex-wrap:nowrap;">
+      <div style="display:flex;align-items:center;gap:8px;flex-wrap:wrap;">
         <a href="${urls.studio}" style="display:inline-flex;align-items:center;gap:7px;color:#181412;text-decoration:none;font-weight:800;font-size:0.92rem;white-space:nowrap;">${renderBrandLogoSvg(22)}<span>SeatHarmony</span></a>
         <span style="color:#78350F;font-family:monospace;font-size:0.72rem;font-weight:800;background:#FAF3E3;padding:3px 8px;border-radius:6px;border:1px solid #C8A96E;white-space:nowrap;">#${escapeHtml(vault.vaultId)}</span>
         ${unlockBadge}
@@ -286,15 +286,16 @@ function attachVaultAndPaywallRoutes(app, publicUrl, ebStore = null) {
     body { background: #FAF6EE; color: #181412; font-family: 'Plus Jakarta Sans', sans-serif; line-height: 1.5; }
     .serif { font-family: 'Cormorant Garamond', Georgia, serif; font-weight: 700; }
     .mono { font-family: 'JetBrains Mono', monospace; }
-    .container { max-width: 1200px; margin: 0 auto; padding: 28px 20px 64px; }
-    .card { background: #FFFFFF; border: 1.5px solid #E2D9C8; border-radius: 18px; padding: 22px; box-shadow: 0 10px 28px rgba(24,20,18,0.05); }
-    .btn { display: inline-flex; align-items: center; justify-content: center; gap: 7px; padding: 9px 14px; border-radius: 10px; font-weight: 800; font-size: 0.80rem; text-decoration: none; cursor: pointer; border: 1.5px solid transparent; white-space: nowrap; transition: all 0.15s ease; }
+    .container { max-width: 1200px; margin: 0 auto; padding: 28px 20px 64px; width: 100%; }
+    .card { background: #FFFFFF; border: 1.5px solid #E2D9C8; border-radius: 18px; padding: 22px; box-shadow: 0 10px 28px rgba(24,20,18,0.05); min-width: 0; max-width: 100%; word-break: break-word; overflow-wrap: break-word; }
+    .btn { display: inline-flex; align-items: center; justify-content: center; gap: 7px; padding: 9px 14px; border-radius: 10px; font-weight: 800; font-size: 0.80rem; text-decoration: none; cursor: pointer; border: 1.5px solid transparent; white-space: nowrap; transition: all 0.15s ease; max-width: 100%; }
     .btn-gold { background: #1B4D3E; color: #FFFFFF; border-color: #14382D; }
     .btn-gold:hover { background: #14382D; }
     .btn-outline { background: #FFFFFF; color: #1B4D3E; border-color: #1B4D3E; }
     .btn-outline:hover { background: #EBF4F0; }
-    .grid-2 { display: grid; grid-template-columns: repeat(2, 1fr); gap: 18px; margin-top: 20px; }
-    @media (max-width: 780px) { .grid-2 { grid-template-columns: 1fr; } }
+    .grid-2 { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 18px; margin-top: 20px; width: 100%; }
+    @media (max-width: 780px) { .grid-2 { grid-template-columns: minmax(0, 1fr); } }
+    @media (max-width: 500px) { .container { padding: 16px 12px 48px; } .card { padding: 16px; } }
   </style>
 </head>
 <body>
@@ -359,7 +360,7 @@ function attachVaultAndPaywallRoutes(app, publicUrl, ebStore = null) {
       <!-- Card 1: 24x36 Arch D Welcome Poster -->
       <div class="card" style="display:flex;flex-direction:column;justify-content:space-between;gap:14px;">
         <div>
-          <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:8px;">
+          <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:8px;flex-wrap:wrap;gap:6px;">
             <span class="mono" style="font-size:0.68rem;font-weight:800;color:#78350F;background:#FAF3E3;border:1px solid #C8A96E;padding:3px 10px;border-radius:999px;white-space:nowrap;">DELIVERABLE 1 &middot; 24&Prime;&times;36&Prime; ARCH D SIGN</span>
             <span style="font-size:0.75rem;font-weight:800;color:#065F46;white-space:nowrap;">6 Themes &bull; 0.125&Prime; Bleed</span>
           </div>
@@ -368,7 +369,7 @@ function attachVaultAndPaywallRoutes(app, publicUrl, ebStore = null) {
             Print-Ready vector poster for FedEx Office or Staples across <strong>6 Luxury Themes</strong>, with A-Z or By-Table sorting and live monogram editing.
           </p>
         </div>
-        <div style="display:flex;gap:6px;flex-wrap:nowrap;">
+        <div style="display:flex;gap:6px;flex-wrap:wrap;">
           <a href="${urls.print_poster}" class="btn btn-gold">${VR_PRINT_SVG}Open 24&Prime;&times;36&Prime; Studio &rarr;</a>
           <a href="${urls.print_poster}?theme=obsidian" class="btn btn-outline" style="padding:8px 11px;">Noir</a>
           <a href="${urls.print_poster}?theme=sage" class="btn btn-outline" style="padding:8px 11px;">Tuscan Sage</a>
@@ -379,7 +380,7 @@ function attachVaultAndPaywallRoutes(app, publicUrl, ebStore = null) {
       <!-- Card 2: Avery 5302 Folded Tent Place Cards -->
       <div class="card" style="display:flex;flex-direction:column;justify-content:space-between;gap:14px;">
         <div>
-          <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:8px;">
+          <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:8px;flex-wrap:wrap;gap:6px;">
             <span class="mono" style="font-size:0.68rem;font-weight:800;color:#8C2D19;background:#FDF2EE;border:1px solid #F5C2B8;padding:3px 10px;border-radius:999px;white-space:nowrap;">DELIVERABLE 2 &middot; AVERY 5302 TENT CARDS</span>
             <span style="font-size:0.75rem;font-weight:800;color:#065F46;white-space:nowrap;">${guests.length} Cards Ready</span>
           </div>
@@ -396,7 +397,7 @@ function attachVaultAndPaywallRoutes(app, publicUrl, ebStore = null) {
       <!-- Card 3: Clockwise 12:00 Caterer Meal Sheet Packet -->
       <div class="card" style="display:flex;flex-direction:column;justify-content:space-between;gap:14px;">
         <div>
-          <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:8px;">
+          <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:8px;flex-wrap:wrap;gap:6px;">
             <span class="mono" style="font-size:0.68rem;font-weight:800;color:#065F46;background:#ECFDF5;border:1px solid #A7F3D0;padding:3px 10px;border-radius:999px;white-space:nowrap;">DELIVERABLE 3 &middot; CLOCKWISE 12:00 MEAL SHEET</span>
             <span style="font-size:0.75rem;font-weight:800;color:#065F46;white-space:nowrap;">Seat #1 = 12 O&rsquo;Clock</span>
           </div>
@@ -413,10 +414,10 @@ function attachVaultAndPaywallRoutes(app, publicUrl, ebStore = null) {
 
       <!-- Card 4: Cocktail-Hour Mobile QR Lookup & Family Share -->
       <div class="card" style="display:flex;flex-direction:column;justify-content:space-between;gap:14px;">
-        <div style="display:flex;gap:14px;align-items:flex-start;">
+        <div style="display:flex;gap:14px;align-items:flex-start;flex-wrap:wrap;">
           <img src="${qrImgUrl}" width="84" height="84" alt="Scannable Cocktail Hour QR Code" style="border-radius:10px;border:1.5px solid #C8A96E;background:#FAF6EE;padding:4px;flex-shrink:0;" />
-          <div>
-            <span class="mono" style="font-size:0.68rem;font-weight:800;color:#78350F;background:#FAF3E3;border:1px solid #C8A96E;padding:2px 8px;border-radius:999px;white-space:nowrap;">DELIVERABLE 4 &middot; LIVE QR &amp; FAMILY SHARE</span>
+          <div style="flex:1 1 200px;min-width:0;">
+            <span class="mono" style="font-size:0.68rem;font-weight:800;color:#78350F;background:#FAF3E3;border:1px solid #C8A96E;padding:2px 8px;border-radius:999px;display:inline-block;max-width:100%;">DELIVERABLE 4 &middot; LIVE QR &amp; FAMILY SHARE</span>
             <h2 class="serif" style="font-size:1.45rem;margin:4px 0;">Cocktail-Hour QR App &amp; Family Link</h2>
             <p style="font-size:0.84rem;color:#44403C;line-height:1.48;">
               Scan with your phone to test instant cocktail-hour guest seat lookup, or copy your restricted Family Share link (Tables 1 to 3 only).
@@ -809,13 +810,13 @@ function attachVaultAndPaywallRoutes(app, publicUrl, ebStore = null) {
 <body>
   ${renderTopPrintBar({ vault, activeRoute: 'beo', baseUrl })}
   <main style="max-width:980px;margin:24px auto 64px;padding:0 18px;">
-    <div style="background:linear-gradient(180deg,#FFFFFF 0%,#FAF3E3 100%);color:#181412;border:2px solid #C8A96E;border-radius:16px;padding:18px 22px;margin-bottom:16px;display:flex;justify-content:space-between;align-items:center;flex-wrap:nowrap;gap:14px;box-shadow:0 8px 24px rgba(24,20,18,0.05);">
+    <div style="background:linear-gradient(180deg,#FFFFFF 0%,#FAF3E3 100%);color:#181412;border:2px solid #C8A96E;border-radius:16px;padding:18px 22px;margin-bottom:16px;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:14px;box-shadow:0 8px 24px rgba(24,20,18,0.05);">
       <div style="min-width:0;">
         <div class="mono" style="font-size:0.68rem;color:#8C2D19;font-weight:800;white-space:nowrap;">CATERING &amp; TABLE SERVICE SHEET</div>
         <h1 class="serif" style="font-size:1.72rem;color:#181412;line-height:1.15;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;">${escapeHtml(vault.title)} &bull; Table Service Guide</h1>
         <div style="font-size:0.78rem;color:#57534E;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;">${escapeHtml(vault.venueName)} &bull; ${tables.length} Tables &bull; ${guests.length} Guests &bull; ${allergies.length} Allergy Notes &bull; ${chairMods.length} Chair Notes</div>
       </div>
-      <div class="no-print" style="display:flex;gap:8px;flex-wrap:nowrap;flex-shrink:0;">
+      <div class="no-print" style="display:flex;gap:8px;flex-wrap:wrap;flex-shrink:0;">
         <button id="download-csv" type="button" onclick="window.downloadBeoCsv()" style="background:#FFFFFF;color:#1B4D3E;border:1.5px solid #1B4D3E;border-radius:10px;padding:9px 14px;font-weight:800;font-size:0.78rem;cursor:pointer;white-space:nowrap;">&darr; Export .CSV</button>
         <button type="button" onclick="window.print()" style="background:#1B4D3E;color:#FFFFFF;border:1px solid #14382D;border-radius:10px;padding:9px 16px;font-weight:800;font-size:0.80rem;cursor:pointer;white-space:nowrap;display:inline-flex;align-items:center;gap:6px;">${VR_PRINT_SVG}Print Signed Meal Sheet PDF</button>
       </div>

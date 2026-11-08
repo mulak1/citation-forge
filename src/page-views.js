@@ -20,11 +20,13 @@ const IC = {
 function renderZone1Hero(plan) {
   return `
   <!-- ZONE 1: COMPACT ABOVE-THE-FOLD HERO (DIRECT TO LIVE FLOORPLAN STUDIO) -->
-  <section class="studio-zone1-hero" id="grader" style="padding:10px 0 6px !important;">
+  <section class="studio-zone1-hero" id="grader" style="padding:8px 0 !important;background:#FAF8F5;border-bottom:1px solid #EFEAE1;">
     <div class="container">
-      <div style="max-width:1280px;margin:0 auto;display:flex;align-items:baseline;justify-content:space-between;gap:12px;flex-wrap:wrap;">
-        <h1 id="score-brand-title" class="sh-display-h1" style="font-size:clamp(1.22rem, 1.95vw, 1.58rem);line-height:1.2;margin:0;">The Reception Seating Studio. <span class="sh-h1-accent">Solved in 60 Seconds, Drama-Free.</span></h1>
-        <p class="sh-lead-sub sh-hide-mobile-toolbar" style="font-size:0.84rem;line-height:1.3;margin:0;color:#6B7280;">Seat households together, export clockwise caterer meal sheets, and print 24&Prime;&times;36&Prime; welcome signs.</p>
+      <div style="max-width:1280px;margin:0 auto;display:flex;align-items:center;justify-content:space-between;gap:12px;flex-wrap:wrap;">
+        <div style="display:flex;align-items:baseline;gap:8px;flex-wrap:wrap;">
+          <h1 id="score-brand-title" class="sh-display-h1" style="font-size:clamp(1.15rem, 1.8vw, 1.45rem);line-height:1.2;margin:0;">The Reception Seating Studio. <span class="sh-h1-accent">Solved in 60 Seconds, Drama-Free.</span></h1>
+          <span class="sh-lead-sub sh-hide-mobile-toolbar" style="font-size:0.80rem;color:#78716C;">Seat households together, export clockwise caterer meal sheets &amp; 24&Prime;&times;36&Prime; signs.</span>
+        </div>
       </div>
     </div>
   </section>`;
@@ -368,7 +370,7 @@ function renderZone3InteractiveStudio(plan) {
 
         <!-- RIGHT COLUMN: Wide Interactive Floorplan Stage & 4-Tab Kit -->
         <div class="studio-sticky-right-col">
-          <div class="studio-baseline-kpi-grid" id="sh-stat-harmony">
+          <div class="studio-baseline-kpi-grid" id="sh-stat-harmony" style="display:none;">
             <div class="studio-kpi-card">
               <div class="studio-kpi-label">1. Family Peace</div>
               <div class="studio-kpi-val" id="sh-kpi-harmony" style="color:#065F46;">0 Conflicts<span id="score-csov" style="display:none;">${plan.harmonyScore || 98}</span></div>
