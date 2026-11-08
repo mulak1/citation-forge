@@ -725,10 +725,12 @@ function renderInteractiveScript(initialPlan) {
         parts.push('<g transform="translate(' + t.x + ',' + t.y + ') rotate(' + (t.rotation || 0) + ')"><rect x="' + (-hw) + '" y="' + (-hh) + '" width="' + geom.tableWidth + '" height="' + geom.tableHeight + '" rx="10" fill="' + tblFill + '" stroke="' + strokeCol + '" stroke-width="' + strokeW + '"/></g>');
       }
       const isSweet = shNormalizeShape(t.shape) === 'sweetheart';
-      const hasAllergyAlert = (t.guests || []).some(function(g) { return Boolean(g && g.allergy); });
+      const hasAllergyAlert = (t.guests || []).some(function(g) { return Boolean(g && g.allergy && g.allergy !== 'None'); });
+      const hasChairMod = (t.guests || []).some(function(g) { return Boolean(g && g.accessibility && g.accessibility !== 'Standard Chair'); });
       const tblTitle = isSweet ? 'Sweetheart' : ((t.locked ? '🔒 ' : '') + 'Table ' + t.number);
-      const seatsSub = t.guests.length + '/' + t.capacity + ' Seats' + (hasAllergyAlert ? ' · 🌾' : '');
-      parts.push('<text x="' + t.x + '" y="' + (t.y - 4) + '" text-anchor="middle" fill="#1C1917" font-size="12.5" font-weight="800">' + tblTitle + '</text><text x="' + t.x + '" y="' + (t.y + 11) + '" text-anchor="middle" fill="' + (hasAllergyAlert ? '#B45309' : '#78716C') + '" font-size="9.8" font-weight="700">' + seatsSub + '</text></g>');
+      const seatsSub = t.guests.length + '/' + t.capacity + ' Seats' + (hasAllergyAlert ? ' · 🌾' : '') + (hasChairMod ? ' · ♿' : '');
+      const subFill = hasAllergyAlert ? '#B45309' : (hasChairMod ? '#0369A1' : '#78716C');
+      parts.push('<text x="' + t.x + '" y="' + (t.y - 4) + '" text-anchor="middle" fill="#1C1917" font-size="12.5" font-weight="800">' + tblTitle + '</text><text x="' + t.x + '" y="' + (t.y + 11) + '" text-anchor="middle" fill="' + subFill + '" font-size="9.8" font-weight="700">' + seatsSub + '</text></g>');
       geom.seats.forEach(function(s, sIdx) {
         const g = t.guests[sIdx];
         if (!g && !isFineTune) {
@@ -757,6 +759,7 @@ function renderInteractiveScript(initialPlan) {
         parts.push('<text x="' + s.x + '" y="' + (s.y - 3) + '" text-anchor="middle" fill="' + txtFill + '" font-size="8.5" font-weight="800">' + shEsc(topTxt) + '</text>');
         parts.push('<text x="' + s.x + '" y="' + (s.y + 7.2) + '" text-anchor="middle" fill="' + (g ? txtFill : '#78716C') + '" font-size="7.6" font-weight="700">' + shEsc(firstName) + '</text>');
         if (sIdx === 0) parts.push('<circle cx="' + s.x + '" cy="' + (s.y - 19) + '" r="4.8" fill="#8C2D19" stroke="#FFFFFF" stroke-width="1"/>');
+        if (g && g.accessibility && g.accessibility !== 'Standard Chair') parts.push('<circle cx="' + (s.x + 13) + '" cy="' + (s.y - 13) + '" r="4.5" fill="#0284C7" stroke="#FFFFFF" stroke-width="1"><title>Special Setup: ' + shEsc(g.accessibility) + '</title></circle>');
         if (isSwapSrc) {
           const delAction = g ? ('window.shRemoveGuest(' + tIdx + ',' + sIdx + ',event);window.__SH_SWAP_SOURCE=null;shRenderAll();') : ('window.shChangeTableCapacity(' + tIdx + ',-1,event)');
           parts.push('<g style="cursor:pointer;" onmousedown="event.stopPropagation();" onclick="event.stopPropagation();' + delAction + '"><title>' + (g ? 'Remove ' + shEsc(g.name) : 'Remove empty chair') + '</title><circle cx="' + (s.x + 15) + '" cy="' + (s.y - 15) + '" r="8" fill="#E11D48" stroke="#FFFFFF" stroke-width="1.5"/><text x="' + (s.x + 15) + '" y="' + (s.y - 12) + '" text-anchor="middle" fill="#FFFFFF" font-size="9" font-weight="900">✕</text></g>');
