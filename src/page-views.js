@@ -714,15 +714,15 @@ function renderZone5FaqAndZone6Close(sampleSeoPages = [], plan = {}) {
 
   return `
   <!-- ZONE 5: 3-QUESTION FAQ -->
-  <section class="studio-zone-section" id="faq" style="padding:24px 0;border-top:1px solid #E5D9C5;">
+  <section class="studio-zone-section" id="faq" style="padding:16px 0;border-top:1px solid #E5D9C5;">
     <div class="container">
-      <div class="bs-section-header" style="margin-bottom:14px;">
+      <div class="bs-section-header" style="margin-bottom:12px;">
         <div class="bs-section-eyebrow">COMMON QUESTIONS</div>
         <h2 class="bs-section-h2">Three quick answers <em>before you print.</em></h2>
       </div>
 
-      <div class="studio-faq-stack" style="margin-top:12px;gap:8px;">
-        <details class="studio-faq-item" style="padding:12px 18px;" open>
+      <div class="studio-faq-stack" style="margin-top:10px;gap:8px;">
+        <details class="studio-faq-item" style="padding:10px 16px;" open>
           <summary style="font-size:0.98rem;"><span>1. What if guests drop out 48 hours before the wedding?</span><span>&#9662;</span></summary>
           <div style="padding-top:8px;font-size:0.90rem;color:#44403C;line-height:1.5;max-width:64ch;">
             Delete or swap them on the floorplan in 2 clicks. Your <strong>12:00 Caterer Meal Sheet</strong>, <strong>24&Prime;&times;36&Prime; Welcome Sign</strong>, <strong>Avery 5302 Place Cards</strong>, and <strong>QR Lookup</strong> update automatically, with unlimited free re-exports for 30 days.
@@ -745,7 +745,7 @@ function renderZone5FaqAndZone6Close(sampleSeoPages = [], plan = {}) {
   </section>
 
   <!-- ZONE 6: PRICING & FINAL CLOSING AT BOTTOM OF LANDING PAGE -->
-  <section class="studio-zone-section" id="pricing" style="padding:24px 0;background:linear-gradient(180deg, #FBF9F6 0%, #FFFFFF 100%);border-top:1px solid #E5D9C5;">
+  <section class="studio-zone-section" id="pricing" style="padding:16px 0;background:linear-gradient(180deg, #FBF9F6 0%, #FFFFFF 100%);border-top:1px solid #E5D9C5;">
     <div class="container">
       <div class="bs-section-header" style="margin-bottom:16px;">
         <div class="bs-section-eyebrow">SAVE 6+ HOURS AT FEDEX &amp; CANVA &middot; ZERO WATERMARK</div>
