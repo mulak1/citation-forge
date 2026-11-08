@@ -255,6 +255,9 @@ function renderZone3InteractiveStudio(plan) {
                     <button type="button" id="sh-step4-inline-save-btn" onclick="var el=document.getElementById('sh-inline-vault-email'),s4=document.getElementById('sh-step4-inline-email');if(el&&s4)el.value=s4.value;window.shSaveInlineEmailLead();" style="cursor:pointer;background:#1B4D3E;color:#FFFFFF;border:1px solid #1B4D3E;border-radius:8px;padding:8px 12px;font-size:0.84rem;font-weight:700;white-space:nowrap;">Email Plan ($0)</button>
                   </div>
                   <a id="sh-card5-buy-btn" href="/buy/complete_dossier?target=estate-150&amp;vault=${vId}&amp;allow_promotion_codes=false" style="display:inline-flex;align-items:center;justify-content:center;text-align:center;background:#1C1C1C;color:#FFFFFF;border:1px solid #1C1C1C;border-radius:8px;padding:8px 12px;font-size:0.88rem;font-weight:800;text-decoration:none;">Unlock Full Print Pack ($7 &middot; vs. $14 Etsy) &rarr;</a>
+                  <div style="font-size:11.5px;color:#78350F;font-weight:700;text-align:center;background:#FFFBEB;border:1px solid #FDE68A;border-radius:6px;padding:4px 8px;">
+                    &#10003; 30-Day Money-Back Guarantee &bull; FedEx Office Ready
+                  </div>
                 </div>
               </div>
             </div>
