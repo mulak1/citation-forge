@@ -151,7 +151,7 @@ function renderTopPrintBar({ vault, activeRoute, baseUrl }) {
   const urls = buildVaultUrls(baseUrl, vault.vaultId);
   const unlockBadge = vault.isUnlocked
     ? `<span style="background:#ECFDF5;color:#065F46;border:1px solid #A7F3D0;padding:3px 9px;border-radius:999px;font-size:0.68rem;font-weight:800;white-space:nowrap;">&#10003; UNLOCKED</span>`
-    : `<a href="/buy/complete_dossier?target=${encodeURIComponent(vault.vaultId)}&vault=${encodeURIComponent(vault.vaultId)}&allow_promotion_codes=false" style="background:linear-gradient(135deg,#FDE68A,#C8A96E);color:#181412;padding:4px 10px;border-radius:999px;font-size:0.70rem;font-weight:800;text-decoration:none;white-space:nowrap;">${VR_LOCK_SVG}Unlock Event Print Pack ($7) &rarr;</a>`;
+    : `<a href="/buy/complete_dossier?target=${encodeURIComponent(vault.vaultId)}&vault=${encodeURIComponent(vault.vaultId)}&allow_promotion_codes=false" style="background:#1B4D3E;color:#FFFFFF;border:1px solid #14382D;padding:4px 10px;border-radius:999px;font-size:0.70rem;font-weight:800;text-decoration:none;white-space:nowrap;display:inline-flex;align-items:center;gap:4px;">${VR_LOCK_SVG}Unlock Event Print Pack ($7) &rarr;</a>`;
   const hideEmailBar = vault.isUnlocked || (activeRoute === 'beo' && vault.isMealUnlocked);
   const topEmailGateBar = hideEmailBar ? '' : `
   <div class="no-print" id="sh-subpage-vault-bar" style="background:#FFFFFF;border-bottom:1.5px solid #1B4D3E;padding:10px 18px;">
