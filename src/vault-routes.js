@@ -129,6 +129,11 @@ function mealSymbolInfo(mealStr) {
   return { sym: '◆', code: 'BEEF', color: '#8C2D19', label: mealStr || 'Filet Mignon' };
 }
 
+function buildRealQrUrl(targetUrl) {
+  const enc = encodeURIComponent(String(targetUrl || 'https://www.seatharmony.io/qr/SH-4819'));
+  return `https://api.qrserver.com/v1/create-qr-code/?size=240x240&color=181412&bgcolor=FFFFFF&data=${enc}`;
+}
+
 function buildInlineQrDataUri(seedStr) {
   let h = 2166136261;
   const s = String(seedStr || 'SH-4819');
@@ -266,7 +271,7 @@ function attachVaultAndPaywallRoutes(app, publicUrl, ebStore = null) {
       const guests = extractAllSeatedGuests(vault.state);
       const tables = Array.isArray(vault.state.tables) ? vault.state.tables : [];
       const monogram = computeMonogram(vault.title);
-      const qrImgUrl = buildInlineQrDataUri(urls.qr_lookup);
+      const qrImgUrl = buildRealQrUrl(urls.qr_lookup), fallbackQrUri = buildInlineQrDataUri(urls.qr_lookup);
       const filetCount = guests.filter(g => mealSymbolInfo(g.meal).code === 'BEEF').length;
       const fishCount = guests.filter(g => mealSymbolInfo(g.meal).code === 'FISH').length;
       const veganCount = guests.filter(g => mealSymbolInfo(g.meal).code === 'VEGAN').length;
@@ -415,7 +420,7 @@ function attachVaultAndPaywallRoutes(app, publicUrl, ebStore = null) {
       <!-- Card 4: Cocktail-Hour Mobile QR Lookup & Family Share -->
       <div class="card" style="display:flex;flex-direction:column;justify-content:space-between;gap:14px;">
         <div style="display:flex;gap:14px;align-items:flex-start;flex-wrap:wrap;">
-          <img src="${qrImgUrl}" width="84" height="84" alt="Scannable Cocktail Hour QR Code" style="border-radius:10px;border:1.5px solid #C8A96E;background:#FAF6EE;padding:4px;flex-shrink:0;" />
+          <img src="${qrImgUrl}" onerror="this.onerror=null;this.src='${fallbackQrUri}'" width="84" height="84" alt="Scannable Cocktail Hour QR Code" style="border-radius:10px;border:1.5px solid #C8A96E;background:#FAF6EE;padding:4px;flex-shrink:0;" />
           <div style="flex:1 1 200px;min-width:0;">
             <span class="mono" style="font-size:0.68rem;font-weight:800;color:#78350F;background:#FAF3E3;border:1px solid #C8A96E;padding:2px 8px;border-radius:999px;display:inline-block;max-width:100%;">DELIVERABLE 4 &middot; LIVE QR &amp; FAMILY SHARE</span>
             <h2 class="serif" style="font-size:1.45rem;margin:4px 0;">Cocktail-Hour QR App &amp; Family Link</h2>
@@ -489,7 +494,7 @@ function attachVaultAndPaywallRoutes(app, publicUrl, ebStore = null) {
       const tables = Array.isArray(vault.state.tables) ? vault.state.tables : [], landmarks = Array.isArray(vault.state.landmarks) ? vault.state.landmarks : [];
       const monoParts = parseMonogramParts(req.query.monogram || (vault.state && vault.state.signMonogram), vault.title);
       const monogram = monoParts.initials, monogramSub = monoParts.sub, monogramInputVal = monoParts.raw;
-      const monoFontRem = monogram.length > 5 ? '0.95rem' : (monogram.length > 3 ? '1.22rem' : '1.52rem'), qrImgUrl = buildInlineQrDataUri(urls.qr_lookup);
+      const monoFontRem = monogram.length > 5 ? '0.95rem' : (monogram.length > 3 ? '1.22rem' : '1.52rem'), qrImgUrl = buildRealQrUrl(urls.qr_lookup), fallbackQrUri = buildInlineQrDataUri(urls.qr_lookup);
       const buyPackUrl = `/buy/complete_dossier?target=${encodeURIComponent(vault.title || vault.vaultId)}&vault=${encodeURIComponent(vault.vaultId)}${vault.ownerEmail ? `&email=${encodeURIComponent(vault.ownerEmail)}` : ''}`;
 
       const POSTER_THEMES = {
@@ -641,7 +646,7 @@ function attachVaultAndPaywallRoutes(app, publicUrl, ebStore = null) {
           </div>
         </div>
         <div style="text-align:center;background:rgba(200,169,110,0.12);border:1.5px solid ${border};border-radius:14px;padding:8px 12px;flex-shrink:0;">
-          <img src="${qrImgUrl}" width="76" height="76" alt="Scan to Find Your Seat QR" style="display:block;margin:0 auto 4px;border-radius:6px;" />
+          <img src="${qrImgUrl}" onerror="this.onerror=null;this.src='${fallbackQrUri}'" width="76" height="76" alt="Scan to Find Your Seat QR" style="display:block;margin:0 auto 4px;border-radius:6px;" />
           <div class="mono" style="font-size:0.60rem;font-weight:800;color:${accent};white-space:nowrap;">SCAN FOR SEAT MAP</div>
         </div>
       </div>
@@ -860,7 +865,7 @@ function attachVaultAndPaywallRoutes(app, publicUrl, ebStore = null) {
     try {
       const vault = await resolveVaultRecord(req.params.vaultId, req.query), urls = buildVaultUrls(baseUrl, vault.vaultId);
       const guests = extractAllSeatedGuests(vault.state).sort((a, b) => a.name.localeCompare(b.name)), tables = Array.isArray(vault.state.tables) ? vault.state.tables : [];
-      const monogram = computeMonogram(vault.title), qrImgUrl = buildInlineQrDataUri(urls.qr_lookup);
+      const monogram = computeMonogram(vault.title), qrImgUrl = buildRealQrUrl(urls.qr_lookup), fallbackQrUri = buildInlineQrDataUri(urls.qr_lookup);
       const safeGuestsJson = JSON.stringify(vault.isUnlocked ? guests : guests.slice(0, 1)).replace(/</g, '\\u003c'), totalSeatedCount = guests.length;
 
       const html = `<!DOCTYPE html>
@@ -917,7 +922,7 @@ function attachVaultAndPaywallRoutes(app, publicUrl, ebStore = null) {
       <h2 class="serif" style="font-size:1.65rem;color:#181412;line-height:1.15;margin-bottom:10px;">Guests Scan at the Bar. Zero Easel Crowds.</h2>
       <p style="font-size:0.86rem;color:#57534E;line-height:1.5;margin-bottom:16px;">Print this QR on bar signs or the corner of your 24&Prime;&times;36&Prime; welcome sign so guests find their table and clockwise seat in 3 seconds.</p>
       <div style="display:flex;align-items:center;gap:14px;background:#FAF3E3;border:1.5px solid #C8A96E;border-radius:16px;padding:14px;margin-bottom:16px;">
-        <img src="${qrImgUrl}" width="84" height="84" alt="Live Reception QR Code" style="border-radius:10px;border:1.5px solid #C8A96E;background:#FFFFFF;padding:4px;flex-shrink:0;" />
+        <img src="${qrImgUrl}" onerror="this.onerror=null;this.src='${fallbackQrUri}'" width="84" height="84" alt="Live Reception QR Code" style="border-radius:10px;border:1.5px solid #C8A96E;background:#FFFFFF;padding:4px;flex-shrink:0;" />
         <div style="min-width:0;"><div class="mono" style="font-size:0.70rem;color:#065F46;font-weight:800;white-space:nowrap;">&#9679; Live Guest Table &amp; Seat Lookup</div><div style="font-size:0.88rem;font-weight:800;color:#181412;margin:3px 0;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;">Instant Guest Name &amp; Table Lookup</div><div style="font-size:0.76rem;color:#57534E;">Syncs automatically with last-minute seat swaps.</div></div>
       </div>
       <div style="border-top:1px solid #E2D9C8;padding-top:12px;display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:8px;">
