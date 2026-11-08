@@ -889,6 +889,69 @@ function renderHomePage(initialAudit, sampleSeoPages = []) {
 
 function getVenueVisual(slug = '', title = '', category = '') {
   const s = `${slug} ${title} ${category}`.toLowerCase();
+  if (/8-person-60-inch|server-aisle-clearance|table-spacing/i.test(s)) {
+    return {
+      img: '/public/venue-charger-plate-rounds.jpg',
+      tag: '60″ Round Charger Spacing',
+      name: 'Impeccable 60-Inch Round Charger Plate & Centerpiece Setting'
+    };
+  }
+  if (/bridal-party-plus-ones|bridal-party.*dates/i.test(s)) {
+    return {
+      img: '/public/venue-sweetheart-vs-kings.jpg',
+      tag: 'Bridal Party & Dates King’s Table',
+      name: 'Cathedral Arch Bridal Party & Dates Feasting Table'
+    };
+  }
+  if (/b2b-field-marketing|vendor-meal-table/i.test(s)) {
+    return {
+      img: '/public/venue-intimate-private-dining.jpg',
+      tag: 'Private Dining Salon',
+      name: 'Historic Townhouse Private Dining Salon & Fireplace Mantle'
+    };
+  }
+  if (/how-to-seat-divorced-parents/i.test(s)) {
+    return {
+      img: '/public/venue-intimate-courtyard-banquet.jpg',
+      tag: 'Separated Wing Family Tables',
+      name: 'Peaceful Courtyard Symmetrical Family Wing Seating'
+    };
+  }
+  if (/bride-and-groom-parents-same-table/i.test(s)) {
+    return {
+      img: '/public/venue-winery-sandbox.jpg',
+      tag: 'Parents’ VIP Estate Table',
+      name: 'Vineyard Veranda Parents’ Host Table'
+    };
+  }
+  if (/fedex-staples-canva|seatharmony-vs-canva|templett-corjl/i.test(s)) {
+    return {
+      img: '/public/showcase-poster-24x36.png',
+      tag: 'Arch D 24″×36″ Print Specification',
+      name: '0.125″ Bleed Print Proof for Professional Print Shops'
+    };
+  }
+  if (/seatharmony-vs-google-sheets|seatharmony-vs-weddingwire|seatharmony-vs-zola|how-to-import-messy|how-to-handle-last-minute/i.test(s)) {
+    return {
+      img: '/public/showcase-vault-command.png',
+      tag: 'Event Command Vault',
+      name: 'Interactive Visual Table Rings & Deliverables Vault'
+    };
+  }
+  if (/round-tables-vs-long-banquet/i.test(s)) {
+    return {
+      img: '/public/venue-mixed-rounds-banquet.jpg',
+      tag: 'Harmonic Rounds & Harvest Tables',
+      name: 'Curated Mixed Round & Long Banquet Conservatory'
+    };
+  }
+  if (/singles-table-vs-mixed-friend/i.test(s)) {
+    return {
+      img: '/public/venue-social-banquet-table.jpg',
+      tag: 'Social Friend Banquet Table',
+      name: 'Chic Mixed Friend Group Al Fresco Feasting Table'
+    };
+  }
   if (/u-shape|parallel-banquet/i.test(s)) {
     return {
       img: '/public/venue-u-shape-banquet.jpg',
