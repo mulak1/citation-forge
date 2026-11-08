@@ -355,7 +355,7 @@ function renderDeliverablesClientScript() {
     function filterBox(key, label, val, bg, border, col, activeBorder) {
       const isSel = (activeFilter === key);
       const ring = isSel ? ('box-shadow:0 0 0 2.5px ' + activeBorder + ';font-weight:900;') : '';
-      return '<div onclick="window.shToggleBeoFilter && window.shToggleBeoFilter(\'' + key + '\')" style="background:' + bg + ';border:1px solid ' + border + ';padding:8px;border-radius:10px;text-align:center;cursor:pointer;' + ring + '" title="Click to filter/highlight on meal sheet"><div style="font-size:0.65rem;font-weight:800;color:' + col + ';">' + label + (isSel ? ' &#10003;' : '') + '</div><div style="font-size:1.15rem;font-weight:800;color:#181412;">' + val + '</div></div>';
+      return '<div data-beo-filter="' + key + '" onclick="window.shToggleBeoFilter && window.shToggleBeoFilter(this.dataset.beoFilter)" style="background:' + bg + ';border:1px solid ' + border + ';padding:8px;border-radius:10px;text-align:center;cursor:pointer;' + ring + '" title="Click to filter/highlight on meal sheet"><div style="font-size:0.65rem;font-weight:800;color:' + col + ';">' + label + (isSel ? ' &#10003;' : '') + '</div><div style="font-size:1.15rem;font-weight:800;color:#181412;">' + val + '</div></div>';
     }
     const filterBar = '<div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(85px,1fr));gap:8px;margin-bottom:12px;">' +
       filterBox('beef', '◆ BEEF', totalBeef, '#FDF2EE', '#F5D0C5', '#8C2D19', '#8C2D19') +
