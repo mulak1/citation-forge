@@ -920,13 +920,23 @@ function attachVaultAndPaywallRoutes(app, publicUrl, ebStore = null) {
         setTimeout(function() { t.style.display = 'none'; }, 260);
       }, 2000);
     }
-    window.saveGuestSeat = function(name, tNum, tName, sNum, cLabel, meal) {
-      var text = name + ' · Table ' + tNum + ' (' + tName + ') · Seat #' + sNum + ' (' + cLabel + ') · ' + meal + ' · ' + ${JSON.stringify(vault.title || 'Wedding Reception')};
+    function formatZone(z) {
+      var s = String(z || '').toLowerCase();
+      if (s.includes('dance')) return '📍 Near Dance Floor';
+      if (s.includes('bar')) return '🍸 Near Bar';
+      if (s.includes('patio') || s.includes('terrace') || s.includes('garden')) return '🌿 Terrace / Garden';
+      if (s.includes('window')) return '🪟 Window Side';
+      if (s.includes('head') || s.includes('stage')) return '👑 Head Table Zone';
+      return '🏛️ Main Dining Room';
+    }
+    window.saveGuestSeat = function(name, tNum, tName, sNum, cLabel, meal, zone) {
+      var zStr = formatZone(zone);
+      var text = name + ' · Table ' + tNum + ' (' + tName + ') · Seat #' + sNum + ' (' + cLabel + ') · ' + meal + ' · ' + zStr + ' · ' + ${JSON.stringify(vault.title || 'Wedding Reception')};
       if (navigator.share && /mobile|android|iphone|ipad/i.test(navigator.userAgent)) {
         navigator.share({ title: 'My Wedding Seat: Table ' + tNum, text: text }).catch(function() {});
       } else if (navigator.clipboard && navigator.clipboard.writeText) {
         navigator.clipboard.writeText(text).then(function() {
-          showQrToast('✓ Saved to clipboard: Table ' + tNum + ', Seat #' + sNum);
+          showQrToast('✓ Saved to clipboard: Table ' + tNum + ' (' + zStr + '), Seat #' + sNum);
         }).catch(function() {
           showQrToast('✓ Table ' + tNum + ', Seat #' + sNum);
         });
@@ -941,8 +951,9 @@ function attachVaultAndPaywallRoutes(app, publicUrl, ebStore = null) {
       var box = document.getElementById('qr-guest-list');
       if (!matches.length) { box.innerHTML = '<div style="text-align:center;padding:20px;color:#78716C;font-size:0.9rem;">Guest #1 shown as Free Sample Proof. Unlock the $7 Event Print Pack above to enable live phone lookup for all seated guests.</div>'; return; }
       box.innerHTML = matches.slice(0, 8).map(function(g, idx) {
-        var gPayload = JSON.stringify(g.name) + ',' + g.tableNumber + ',' + JSON.stringify(g.tableName) + ',' + g.seatNumber + ',' + JSON.stringify(g.clockLabel) + ',' + JSON.stringify(g.meal);
-        return '<div class="guest-card"><div style="min-width:0;"><div style="font-weight:800;font-size:1rem;color:#181412;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;">' + g.name + (idx === 0 ? ' (Free Sample Proof)' : '') + '</div><div style="font-size:0.78rem;color:#57534E;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;">' + g.tableName + ' &bull; ' + g.meal + '</div><button type="button" class="pill-btn" onclick="saveGuestSeat(' + gPayload + ')" style="margin-top:6px;font-size:0.70rem;padding:3px 9px;border-color:#1B4D3E;color:#1B4D3E;background:#EBF4F0;" title="Save seat info to phone or share with your partner">&#128242; Save / Share Seat</button></div><div style="text-align:right;background:#FAF3E3;color:#78350F;border:1.5px solid #C8A96E;padding:6px 12px;border-radius:10px;flex-shrink:0;white-space:nowrap;"><div class="serif" style="font-size:1.15rem;line-height:1;color:#8C2D19;">Table ' + g.tableNumber + '</div><div class="mono" style="font-size:0.65rem;color:#78350F;margin-top:2px;">Seat #' + g.seatNumber + ' (' + g.clockLabel + ')</div></div></div>';
+        var gPayload = JSON.stringify(g.name) + ',' + g.tableNumber + ',' + JSON.stringify(g.tableName) + ',' + g.seatNumber + ',' + JSON.stringify(g.clockLabel) + ',' + JSON.stringify(g.meal) + ',' + JSON.stringify(g.tableZone || 'center');
+        var zoneBadge = formatZone(g.tableZone);
+        return '<div class="guest-card"><div style="min-width:0;"><div style="font-weight:800;font-size:1rem;color:#181412;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;">' + g.name + (idx === 0 ? ' (Free Sample Proof)' : '') + '</div><div style="font-size:0.78rem;color:#57534E;display:flex;align-items:center;gap:6px;flex-wrap:wrap;margin:2px 0;"><span>' + g.tableName + '</span>&bull;<span>' + g.meal + '</span>&bull;<span style="color:#065F46;font-weight:700;">' + zoneBadge + '</span></div><button type="button" class="pill-btn" onclick="saveGuestSeat(' + gPayload + ')" style="margin-top:6px;font-size:0.70rem;padding:3px 9px;border-color:#1B4D3E;color:#1B4D3E;background:#EBF4F0;" title="Save seat info to phone or share with your partner">&#128242; Save / Share Seat</button></div><div style="text-align:right;background:#FAF3E3;color:#78350F;border:1.5px solid #C8A96E;padding:6px 12px;border-radius:10px;flex-shrink:0;white-space:nowrap;"><div class="serif" style="font-size:1.15rem;line-height:1;color:#8C2D19;">Table ' + g.tableNumber + '</div><div class="mono" style="font-size:0.65rem;color:#78350F;margin-top:2px;">Seat #' + g.seatNumber + ' (' + g.clockLabel + ')</div></div></div>';
       }).join('');
     }
     renderQrGuests('');
