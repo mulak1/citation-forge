@@ -86,6 +86,7 @@ function renderSetupWizardHtml() {
               <span style="display:inline-flex;align-items:center;gap:12px;flex-wrap:wrap;">
                 <button type="button" class="shw-link" onclick="window.shwPasteSampleList()"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="display:inline-block;vertical-align:-2px;margin-right:4px;" aria-hidden="true"><path d="M16 4h2a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2h2"/><rect x="8" y="2" width="8" height="4" rx="1" ry="1"/></svg>Try sample list (with meals &amp; allergies)</button>
                 <label class="shw-link" style="cursor:pointer;">Upload Zola / CSV<input type="file" accept=".csv,.txt" style="display:none;" onchange="window.shwUploadCsv(this)" /></label>
+                <button type="button" class="shw-link" onclick="window.shwDownloadCsvTemplate()"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="display:inline-block;vertical-align:-2px;margin-right:4px;" aria-hidden="true"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>Download Template</button>
               </span>
             </div>
             <button type="button" class="shw-primary" onclick="window.shwGo(1)">Continue &rarr;</button>
@@ -559,6 +560,29 @@ function renderSetupWizardClientScript() {
       }
     };
     r.readAsText(f);
+  };
+  window.shwDownloadCsvTemplate = function() {
+    var csvContent = 'First Name,Last Name,Meal Choice,Dietary Restrictions,Plus One / Partner,Household Group\\r\\n' +
+      'Eleanor,Vance,Fish,Low sodium,,Vance Family\\r\\n' +
+      'Richard,Vance,Steak,,,Vance Family\\r\\n' +
+      'Grandma Rose,Lin,Fish,Wheelchair,,Vance Family\\r\\n' +
+      'Sarah,Miller,Fish,Gluten-free,Mark Miller,Miller Household\\r\\n' +
+      'Mark,Miller,Steak,,Sarah Miller,Miller Household\\r\\n' +
+      'Dr. James,Chen,Vegan,Dairy-free,Mrs. Chen,Chen Party\\r\\n' +
+      'Mrs.,Chen,Vegan,Dairy-free,Dr. James Chen,Chen Party\\r\\n' +
+      'Aunt Patricia,Adams,Chicken,Nut allergy,+1 Guest,Adams Party\\r\\n' +
+      'Uncle Bob,Vance,Steak,,,Bob Vance\\r\\n' +
+      'Aunt Linda,Vance,Chicken,Shellfish allergy,,Linda Vance\\r\\n';
+    var blob = new Blob([csvContent], { type: 'text/csv;charset=utf-8;' });
+    var url = URL.createObjectURL(blob);
+    var a = document.createElement('a');
+    a.href = url;
+    a.download = 'SeatHarmony_Guest_List_Template.csv';
+    document.body.appendChild(a);
+    a.click();
+    document.body.removeChild(a);
+    URL.revokeObjectURL(url);
+    if (typeof shToast === 'function') shToast('\\u2713 Downloaded SeatHarmony Guest List Template (.CSV)');
   };
   window.shwAddApart = function() {
     var a = String(shwEl('shw-apart-a').value || '').trim(), b = String(shwEl('shw-apart-b').value || '').trim();
