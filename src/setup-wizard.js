@@ -80,7 +80,7 @@ function renderSetupWizardHtml() {
             <button type="button" class="shw-clear" id="shw-clear-4" onclick="window.shwClearStep(4)" hidden>Clear</button>
             <h3 class="shw-q">Paste your guest list</h3>
             <p class="shw-hint">One household per line. Couples and kids stay together.</p>
-            <textarea id="shw-guests" class="shw-input shw-textarea" rows="7" placeholder="Sarah &amp; Mark Miller + 2 kids&#10;Aunt Patricia + guest&#10;Dr. &amp; Mrs. James Chen&#10;Grandma Rose (wheelchair)" oninput="window.shwCountGuests()"></textarea>
+            <textarea id="shw-guests" class="shw-input shw-textarea" rows="7" placeholder="Sarah &amp; Mark Miller + 2 kids&#10;Aunt Patricia + guest&#10;Dr. &amp; Mrs. James Chen&#10;Grandma Rose (wheelchair)" oninput="window.shwCountGuests()" onpaste="setTimeout(window.shwHandlePaste, 25)"></textarea>
             <div class="shw-row-between" style="flex-wrap:wrap;gap:8px;">
               <span class="shw-hint" id="shw-guest-tally" style="margin:0;">0 households</span>
               <span style="display:inline-flex;align-items:center;gap:12px;flex-wrap:wrap;">
@@ -490,22 +490,63 @@ function renderSetupWizardClientScript() {
     window.shwCountGuests();
     if (typeof shToast === 'function') shToast('\\u2713 Loaded ' + chosen.length + ' sample households (' + currentCount + ' guests with meals, kids, wheelchair & allergies)');
   };
+  function shwParseRawGuestData(raw) {
+    if (!raw || !raw.trim()) return [];
+    var lines = String(raw).split(/\\r?\\n/).map(function(l) { return l.trim(); }).filter(Boolean);
+    var isHeader = function(cells, idx) {
+      if (idx === 0) {
+        return cells.some(function(c) { return /^(first\\s*name|last\\s*name|guest|household|party|rsvp|meal)/i.test(c); });
+      }
+      return /^(first\\s*name|guest\\s*name|full\\s*name|household|party)$/i.test(cells[0]);
+    };
+    var isDeclined = function(cells) {
+      return cells.some(function(c) { return /^(no|declined|not\\s*attending|regrets|unable|declines)$/i.test(c); });
+    };
+    var parsed = [];
+    for (var i = 0; i < lines.length; i++) {
+      var line = lines[i];
+      var cols = [];
+      if (line.indexOf('\\t') !== -1) {
+        cols = line.split('\\t').map(function(c) { return c.replace(/^[\\\"\\s]+|[\\\"\\s]+$/g, ''); });
+      } else {
+        cols = line.split(/,(?=(?:(?:[^\"]*\"){2})*[^\"]*$)/).map(function(c) { return c.replace(/^[\\\"\\s]+|[\\\"\\s]+$/g, ''); });
+      }
+      cols = cols.filter(Boolean);
+      if (!cols.length || isHeader(cols, i) || isDeclined(cols)) continue;
+
+      var name = cols[0];
+      var remaining = cols.slice(1);
+      if (cols.length >= 2 && cols[0].indexOf(' ') === -1 && cols[1].indexOf(' ') === -1 && !/beef|steak|fish|halibut|salmon|chicken|vegan|vegetarian|kid|nut|gluten|celiac|dairy|wheelchair|attending|yes/i.test(cols[1])) {
+        name = cols[0] + ' ' + cols[1];
+        remaining = cols.slice(2);
+      }
+      var meta = remaining.filter(function(c) { return !/^(yes|attending|accepted|confirmed|true|1)$/i.test(c); }).join(', ');
+      parsed.push(meta ? (name + ' (' + meta + ')') : name);
+    }
+    return parsed;
+  }
+  window.shwHandlePaste = function() {
+    var ta = shwEl('shw-guests'); if (!ta) return;
+    var raw = ta.value;
+    if (raw.indexOf('\\t') !== -1 || /(?:first\\s*name|attending|rsvp)/i.test(raw)) {
+      var cleaned = shwParseRawGuestData(raw);
+      if (cleaned.length) {
+        ta.value = cleaned.join('\\n');
+        window.shwCountGuests();
+        if (typeof shToast === 'function') shToast('\\u2713 Auto-cleaned ' + cleaned.length + ' attending guests from spreadsheet paste (0 formatting required)');
+      }
+    }
+  };
   window.shwUploadCsv = function(inp) {
     var f = inp && inp.files && inp.files[0]; if (!f) return;
     var r = new FileReader();
     r.onload = function(ev) {
-      var rows = String(ev.target.result || '').split(/\\r?\\n/).map(function(l) {
-        var cols = l.split(',').map(function(c) { return c.replace(/^"|"$/g, '').trim(); }).filter(Boolean);
-        if (!cols.length) return '';
-        if (/^(first\\s*name|full\\s*name|guest\\s*name|name|household|party)$/i.test(cols[0])) return '';
-        if (cols.length === 1) return cols[0];
-        var looksSplitName = cols.length >= 2 && cols[0].indexOf(' ') === -1 && cols[1].indexOf(' ') === -1 && !/beef|steak|fish|halibut|salmon|chicken|vegan|vegetarian|kid|nut|gluten|celiac|dairy|wheelchair/i.test(cols[1]);
-        var name = looksSplitName ? (cols[0] + ' ' + cols[1]) : cols[0];
-        var meta = cols.slice(looksSplitName ? 2 : 1).join(', ');
-        return meta ? (name + ' (' + meta + ')') : name;
-      }).filter(Boolean);
-      shwEl('shw-guests').value = rows.join('\\n');
-      window.shwCountGuests();
+      var cleaned = shwParseRawGuestData(ev.target.result);
+      if (cleaned.length) {
+        shwEl('shw-guests').value = cleaned.join('\\n');
+        window.shwCountGuests();
+        if (typeof shToast === 'function') shToast('\\u2713 Auto-imported ' + cleaned.length + ' attending guests from Zola/CSV (filtered declined RSVPs)');
+      }
     };
     r.readAsText(f);
   };
