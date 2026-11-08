@@ -469,8 +469,9 @@ function renderZone3InteractiveStudio(plan) {
                     <h3 class="serif-display" style="font-size:1.35rem;">Clockwise Caterer Meal Sheet &amp; Allergy Guide</h3>
                   </div>
                   <div style="display:flex;gap:6px;flex-wrap:wrap;">
+                    <button type="button" id="sh-download-tbl1-sample-btn" class="btn btn-secondary" style="padding:6px 11px;font-size:0.74rem;background:#EBF4F0;border-color:#A7F3D0;color:#065F46;font-weight:700;" onclick="window.shExportTable1SampleCsv && window.shExportTable1SampleCsv()">&darr; Table 1 Free Sample (.CSV)</button>
                     <button type="button" id="sh-beo-mode-toggle" class="btn btn-secondary" style="padding:6px 11px;font-size:0.74rem;border-color:#C8A96E;color:#78350F;font-weight:800;" onclick="window.shToggleBeoChaosMode()">${IC.bolt}Compare: 12:00 Server View vs. Unnumbered Chaos</button>
-                    <button type="button" class="btn btn-secondary" style="padding:6px 11px;font-size:0.74rem;" onclick="window.shGateOrExportBeoCsv ? window.shGateOrExportBeoCsv('csv') : window.shExportBeoCsv()">&darr; Free Meal Sheet (.CSV)</button>
+                    <button type="button" class="btn btn-secondary" style="padding:6px 11px;font-size:0.74rem;" onclick="window.shGateOrExportBeoCsv ? window.shGateOrExportBeoCsv('csv') : window.shExportBeoCsv()">&darr; Full Meal Sheet (.CSV)</button>
                     <a id="sh-open-beo-studio-link" href="/print/beo/${vId}" target="_blank" class="btn btn-secondary" style="padding:6px 11px;font-size:0.74rem;">${IC.print}Signed Meal Sheet Print View &rarr;</a>
                     <a id="sh-pane-beo-buy-link" href="/buy/complete_dossier?target=estate-150&amp;vault=${vId}&amp;allow_promotion_codes=false" class="btn btn-primary" style="padding:6px 11px;font-size:0.74rem;">Unlock Event Print Pack ($7)</a>
                   </div>

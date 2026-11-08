@@ -562,6 +562,20 @@ function renderDeliverablesClientScript() {
     }
   };
 
+  window.shExportTable1SampleCsv = function() {
+    var tbl1 = (window.__SH_STATE && window.__SH_STATE.tables && window.__SH_STATE.tables[0]) || { number: 1, name: 'Table 1', guests: [] };
+    var rows = ['Table,Seat_Clockwise_From_12_OClock,Clock_Pos,Guest_Name,Entree,Dietary_Allergy,Chair_Accessibility'];
+    if (!tbl1.geometry) { if (typeof shRecomputeGeometry === 'function') shRecomputeGeometry(tbl1); }
+    (tbl1.guests || []).forEach(function(g, idx) {
+      var seat = (tbl1.geometry && tbl1.geometry.seats && tbl1.geometry.seats[idx]) || { seatNumber: idx + 1, clockPosition: '12:00' };
+      rows.push(['"' + (tbl1.name || 'Table 1') + '"', 'Seat #' + seat.seatNumber, '"' + seat.clockPosition + '"', '"' + g.name + '"', '"' + g.meal + '"', '"' + (g.allergy || 'None') + '"', '"' + (g.accessibility || 'Standard Chair') + '"'].join(','));
+    });
+    var blob = new Blob([rows.join('\r\n')], { type: 'text/csv;charset=utf-8;' }), url = URL.createObjectURL(blob), a = document.createElement('a');
+    a.href = url; a.download = 'seatharmony-table-1-sample-caterer-sheet.csv'; document.body.appendChild(a); a.click(); a.remove();
+    if (typeof shToast === 'function') shToast('✓ Downloaded Table 1 Free Sample (.CSV) for Banquet Kitchen!');
+    if (window.shTrackTelemetry) window.shTrackTelemetry('calculate', { source: 'sample_tbl1_csv' });
+  };
+
   window.shFilterQrLookup = function() {
     const qInput = document.getElementById('sh-qr-search'), out = document.getElementById('sh-qr-results');
     if (!out || !window.__SH_STATE) return;
