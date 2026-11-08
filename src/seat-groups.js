@@ -223,6 +223,33 @@ function renderSeatGroupsClientScript() {
     return { inches: estInches, nearestName: nearestName, nearestPt: nearestPt, passed: estInches >= 54, isTight: estInches < 54 };
   };
 
+  window.shTableClearanceHaloSvg = function(t, tIdx, isSelected, isFineTune) {
+    if (!isSelected || !isFineTune || !t) return '';
+    var cl = window.shCalculateTableClearance ? window.shCalculateTableClearance(tIdx) : null;
+    if (!cl) return '';
+    var geom = t.geometry || { tableWidth: 80, tableHeight: 80 };
+    var isRound = shNormalizeShape(t.shape) === 'round';
+    var strokeCol = cl.passed ? '#059669' : '#D97706';
+    var badgeBg = cl.passed ? '#ECFDF5' : '#FFFBEB';
+    var badgeBorder = cl.passed ? '#A7F3D0' : '#FDE68A';
+    var badgeTextCol = cl.passed ? '#065F46' : '#92400E';
+    var badgeTxt = (cl.passed ? '✓ ' : '⚠️ ') + cl.inches + '" Aisle';
+    var out = [];
+    if (cl.isTight && cl.nearestPt) {
+      out.push('<line x1="' + t.x + '" y1="' + t.y + '" x2="' + cl.nearestPt.x + '" y2="' + cl.nearestPt.y + '" stroke="#D97706" stroke-width="1.2" stroke-dasharray="3 3" opacity="0.75" pointer-events="none"/>');
+    }
+    if (isRound) {
+      var r = Math.round(geom.tableWidth / 2);
+      out.push('<circle cx="' + t.x + '" cy="' + t.y + '" r="' + (r + 48) + '" fill="none" stroke="' + strokeCol + '" stroke-width="1.3" stroke-dasharray="4 3" opacity="0.55" pointer-events="none"/>');
+    } else {
+      var hw = Math.round((geom.tableWidth + 96) / 2), hh = Math.round((geom.tableHeight + 96) / 2);
+      out.push('<g transform="translate(' + t.x + ',' + t.y + ') rotate(' + (t.rotation || 0) + ')" pointer-events="none"><rect x="' + (-hw) + '" y="' + (-hh) + '" width="' + (geom.tableWidth + 96) + '" height="' + (geom.tableHeight + 96) + '" rx="16" fill="none" stroke="' + strokeCol + '" stroke-width="1.3" stroke-dasharray="4 3" opacity="0.55"/></g>');
+    }
+    var badgeY = t.y - Math.round((geom.tableHeight || geom.tableWidth) / 2) - 34;
+    out.push('<g transform="translate(' + t.x + ',' + badgeY + ')" pointer-events="none"><rect x="-42" y="-10" width="84" height="19" rx="9.5" fill="' + badgeBg + '" stroke="' + badgeBorder + '" stroke-width="1"/><text x="0" y="3.5" text-anchor="middle" font-size="10" font-weight="700" fill="' + badgeTextCol + '">' + badgeTxt + '</text></g>');
+    return out.join('');
+  };
+
   window.shEdShape = function(tIdx, shape) {
     var t = window.__SH_STATE.tables[tIdx]; if (!t) return;
     window.shSnapshot(); t.shape = shape; shRecomputeGeometry(t);

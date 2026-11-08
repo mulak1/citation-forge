@@ -733,9 +733,10 @@ function renderInteractiveScript(initialPlan) {
       parts.push('<title>Drag ' + shEsc(t.name) + ' anywhere in the room</title>');
       if (shNormalizeShape(t.shape) === 'round') {
         const r = Math.round(geom.tableWidth / 2);
-        if (isSelected && isFineTune) parts.push('<circle cx="' + t.x + '" cy="' + t.y + '" r="' + (r + 50) + '" fill="none" stroke="#8C2D19" stroke-width="1.4" stroke-dasharray="4 3" opacity="0.65" pointer-events="none"/>');
+        if (window.shTableClearanceHaloSvg) parts.push(window.shTableClearanceHaloSvg(t, tIdx, isSelected, isFineTune));
         parts.push('<circle cx="' + t.x + '" cy="' + t.y + '" r="' + r + '" fill="' + tblFill + '" stroke="' + strokeCol + '" stroke-width="' + strokeW + '"/>');
       } else {
+        if (window.shTableClearanceHaloSvg) parts.push(window.shTableClearanceHaloSvg(t, tIdx, isSelected, isFineTune));
         const hw = Math.round(geom.tableWidth / 2), hh = Math.round(geom.tableHeight / 2);
         parts.push('<g transform="translate(' + t.x + ',' + t.y + ') rotate(' + (t.rotation || 0) + ')"><rect x="' + (-hw) + '" y="' + (-hh) + '" width="' + geom.tableWidth + '" height="' + geom.tableHeight + '" rx="10" fill="' + tblFill + '" stroke="' + strokeCol + '" stroke-width="' + strokeW + '"/></g>');
       }
