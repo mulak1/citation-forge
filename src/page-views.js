@@ -53,19 +53,19 @@ function renderZone2Walkthrough(plan = {}) {
           <p style="font-size:0.82rem;color:#4B5563;line-height:1.4;margin:0;">Import from Zola, The Knot, Joy, or Excel with household locks.</p>
         </div>
         <div class="studio-how-card" style="padding:12px;gap:8px;cursor:pointer;" onclick="window.scrollToShCard(3)">
-          <img src="/public/venue-divorced-parents-peace.jpg" alt="Equidistant VIP family tables with dance floor sightlines" style="width:100%;height:148px;object-fit:cover;border-radius:10px;display:block;" loading="eager" />
+          <img src="/public/venue-separated-family-wings.jpg" alt="Equidistant VIP family tables with dance floor sightlines" style="width:100%;height:148px;object-fit:cover;border-radius:10px;display:block;" loading="eager" />
           <div style="display:flex;align-items:center;justify-content:space-between;"><span class="studio-how-num" style="width:28px;height:28px;font-size:0.80rem;">02</span><span class="mono" style="font-size:0.72rem;font-weight:700;color:#1B4D3E;background:#EBF4F0;padding:3px 8px;border-radius:999px;white-space:nowrap;">1-Click Peace</span></div>
           <h3 style="font-size:1.02rem;font-weight:700;color:#1C1C1C;margin:0;line-height:1.25;">2. Keep Family Peace</h3>
           <p style="font-size:0.82rem;color:#4B5563;line-height:1.4;margin:0;">Separate divorced parents with equal VIP sweetheart sightlines.</p>
         </div>
         <div class="studio-how-card" style="padding:12px;gap:8px;cursor:pointer;" onclick="if(window.shSetActiveTab){window.shSetActiveTab('beo');}document.getElementById('studio-bespoke-artifact-stage').scrollIntoView({behavior:'smooth'});">
-          <img src="/public/venue-caterer-meal-clipboard.jpg" alt="Banquet captain reviewing clockwise 12:00 caterer meal sheet" style="width:100%;height:148px;object-fit:cover;border-radius:10px;display:block;" loading="lazy" />
+          <img src="/public/showcase-caterer-beo-clipboard.jpg" alt="Banquet captain reviewing clockwise 12:00 caterer meal sheet" style="width:100%;height:148px;object-fit:cover;border-radius:10px;display:block;" loading="lazy" />
           <div style="display:flex;align-items:center;justify-content:space-between;"><span class="studio-how-num" style="width:28px;height:28px;font-size:0.80rem;">03</span><span class="mono" style="font-size:0.72rem;font-weight:700;color:#1B4D3E;background:#EBF4F0;padding:3px 8px;border-radius:999px;white-space:nowrap;">12:00 = Seat #1</span></div>
           <h3 style="font-size:1.02rem;font-weight:700;color:#1C1C1C;margin:0;line-height:1.25;">3. Caterer Meal Sheet</h3>
           <p style="font-size:0.82rem;color:#4B5563;line-height:1.4;margin:0;">Clockwise 12:00 Seat #1 meal tally &amp; red kitchen allergy flags.</p>
         </div>
         <div class="studio-how-card" style="padding:12px;gap:8px;cursor:pointer;" onclick="if(window.shSetActiveTab){window.shSetActiveTab('poster');}document.getElementById('studio-bespoke-artifact-stage').scrollIntoView({behavior:'smooth'});">
-          <img src="/public/venue-calligraphy-mirror-sign.jpg" alt="Framed 24x36 reception welcome seating sign on brass easel" style="width:100%;height:148px;object-fit:cover;border-radius:10px;display:block;" loading="lazy" />
+          <img src="/public/showcase-mini-map-welcome-sign.jpg" alt="Framed 24x36 reception welcome seating sign on brass easel" style="width:100%;height:148px;object-fit:cover;border-radius:10px;display:block;" loading="lazy" />
           <div style="display:flex;align-items:center;justify-content:space-between;"><span class="studio-how-num" style="width:28px;height:28px;font-size:0.80rem;">04</span><span class="mono" style="font-size:0.72rem;font-weight:700;color:#1B4D3E;background:#EBF4F0;padding:3px 8px;border-radius:999px;white-space:nowrap;">Arch D Ready</span></div>
           <h3 style="font-size:1.02rem;font-weight:700;color:#1C1C1C;margin:0;line-height:1.25;">4. Print Sign &amp; Cards</h3>
           <p style="font-size:0.82rem;color:#4B5563;line-height:1.4;margin:0;">FedEx/Staples 24&Prime;&times;36&Prime; poster &amp; Avery 5302 place cards.</p>
@@ -118,11 +118,11 @@ function renderZone2Walkthrough(plan = {}) {
               <!-- Tangible Prints Visual Cards -->
               <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(160px,1fr));gap:10px;padding:10px;background:#FAF8F5;border:1px solid #EAE0D0;border-radius:12px;">
                 <div style="display:flex;flex-direction:column;gap:6px;">
-                  <img src="/public/ugc-welcome-sign-easel.jpg" alt="24x36 sign preview" style="width:100%;height:110px;border-radius:8px;object-fit:cover;border:1px solid #D6CBB8;display:block;" loading="lazy" />
+                  <img src="/public/ugc-welcome-sign-easel.jpg" alt="24x36 sign preview" style="width:100%;height:140px;border-radius:8px;object-fit:cover;border:1px solid #D6CBB8;display:block;" loading="lazy" />
                   <div style="font-size:0.75rem;line-height:1.3;"><strong style="color:#181412;">24&Prime;&times;36&Prime; Sign</strong> &middot; <span style="color:#78716C;">FedEx-Ready PDF</span></div>
                 </div>
                 <div style="display:flex;flex-direction:column;gap:6px;">
-                  <img src="/public/ugc-escort-cards-wax.jpg" alt="Avery cards preview" style="width:100%;height:110px;border-radius:8px;object-fit:cover;border:1px solid #D6CBB8;display:block;" loading="lazy" />
+                  <img src="/public/ugc-escort-cards-wax.jpg" alt="Avery cards preview" style="width:100%;height:140px;border-radius:8px;object-fit:cover;border:1px solid #D6CBB8;display:block;" loading="lazy" />
                   <div style="font-size:0.75rem;line-height:1.3;"><strong style="color:#181412;">Avery 5302 Cards</strong> &middot; <span style="color:#78716C;">Table 1 Unmasked</span></div>
                 </div>
               </div>
