@@ -763,6 +763,17 @@ function attachVaultAndPaywallRoutes(app, publicUrl, ebStore = null) {
         : `<a href="${buyPackUrl}" style="background:#1B4D3E;color:#FFFFFF;border:1px solid #14382D;border-radius:10px;padding:9px 16px;font-weight:800;font-size:0.80rem;text-decoration:none;white-space:nowrap;display:inline-flex;align-items:center;gap:6px;">${VR_LOCK_SVG}Unlock Avery 5302 Print Pack ($7) &rarr;</a><button type="button" onclick="window.print()" style="background:#FAF6EE;color:#57534E;border:1px solid #D6CFC2;border-radius:10px;padding:9px 12px;font-weight:700;font-size:0.74rem;cursor:pointer;white-space:nowrap;">${VR_PRINT_SVG}Print Sample Proof</button>`}
     </div>
   </div>
+  <div class="no-print" style="max-width:900px;margin:12px auto 0;padding:12px 16px;background:#FAF8F5;border:1px solid #E4DCD0;border-radius:12px;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:10px;font-size:0.78rem;color:#57534E;">
+    <div style="display:flex;align-items:center;gap:12px;flex-wrap:wrap;">
+      <span style="font-weight:800;color:#1B4D3E;">&#10003; Card Stock Spec:</span>
+      <span>Avery 5302 / 5011 Small Tent Cards (2&Prime; &times; 3&frac12;&Prime; folded, 4 cards / sheet). Works with any home inkjet or laser printer on 65&ndash;80 lb card stock.</span>
+    </div>
+    <div style="display:flex;align-items:center;gap:8px;font-weight:700;">
+      <span style="color:#8C2D19;">Scale: 100% (Actual Size)</span>
+      <span style="color:#A8A29E;">&bull;</span>
+      <span style="color:#065F46;">Two-Sided Server Legend</span>
+    </div>
+  </div>
   ${vault.isUnlocked ? '' : '<div class="proof-wm" aria-hidden="true"><span>PREVIEW PROOF &bull; UNLOCK AVERY 5302 PACK ($7) AT SEATHARMONY.COM</span></div>'}
   <div class="sheet-grid">${cardsHtml}</div>
   ${req.query.auto_print === '1' ? '<script>window.addEventListener("DOMContentLoaded", function() { setTimeout(function() { window.print(); }, 400); });</script>' : ''}
