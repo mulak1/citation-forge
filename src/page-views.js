@@ -64,36 +64,166 @@ function renderZone2Walkthrough(plan = {}) {
         </div>
       </div>
 
-      <div class="sh-vsl-player-shell" id="studio-editorial-vsl-stage" style="max-width:920px;margin:32px auto 0;">
-        <div class="sh-vsl-stage" id="sh-vsl-stage">
-          <div class="sh-zola-showcase-card" style="padding:0;border:none;box-shadow:none;">
-            <div style="display:flex;align-items:center;justify-content:space-between;gap:10px;flex-wrap:wrap;">
-              <div style="display:flex;align-items:center;gap:10px;">
-                <img src="/public/editorial-customer.jpg" alt="Maya and Liam" width="40" height="40" class="sh-vsl-speaker-avatar" style="width:40px;height:40px;object-fit:cover;border-radius:999px;" loading="lazy" />
+      <!-- CURATED REAL-VENUE RECEPTION SHOWCASE -->
+      <div class="sh-vsl-player-shell" id="studio-editorial-vsl-stage" style="max-width:960px;margin:32px auto 0;">
+        <div style="text-align:center;margin-bottom:14px;">
+          <span style="font-size:0.72rem;font-weight:800;color:#1B4D3E;letter-spacing:0.08em;text-transform:uppercase;background:#EBF4F0;padding:3px 12px;border-radius:999px;border:1px solid #C4DFD5;">REAL VENUE RECEPTION GALLERY</span>
+          <h3 class="serif-display" style="font-size:clamp(1.2rem,2.8vw,1.5rem);margin:6px 0 4px;color:#1F1B18;">See Real Receptions Solved &amp; Printed with SeatHarmony</h3>
+          <p style="font-size:0.86rem;color:#57534E;margin:0 auto;max-width:60ch;">Explore authentic banquet layouts with verified 54&Prime; server clearances, 12:00 caterer sheets, and FedEx-ready 24&Prime;&times;36&Prime; welcome signs.</p>
+        </div>
+
+        <!-- Venue Selector Tabs -->
+        <div style="display:flex;gap:6px;overflow-x:auto;padding:4px 2px 10px;-webkit-overflow-scrolling:touch;scrollbar-width:none;justify-content:flex-start;max-width:100%;">
+          <button type="button" class="studio-tap-chip active" id="sh-showcase-tab-0" onclick="window.shSelectShowcaseVenue(0)" style="padding:6px 12px;font-size:0.78rem;font-weight:700;white-space:nowrap;flex-shrink:0;">🌿 Rosewood Estate</button>
+          <button type="button" class="studio-tap-chip" id="sh-showcase-tab-1" onclick="window.shSelectShowcaseVenue(1)" style="padding:6px 12px;font-size:0.78rem;font-weight:700;white-space:nowrap;flex-shrink:0;">🌊 Yacht &amp; Beach Club</button>
+          <button type="button" class="studio-tap-chip" id="sh-showcase-tab-2" onclick="window.shSelectShowcaseVenue(2)" style="padding:6px 12px;font-size:0.78rem;font-weight:700;white-space:nowrap;flex-shrink:0;">⛺ Sailcloth Tent</button>
+          <button type="button" class="studio-tap-chip" id="sh-showcase-tab-3" onclick="window.shSelectShowcaseVenue(3)" style="padding:6px 12px;font-size:0.78rem;font-weight:700;white-space:nowrap;flex-shrink:0;">🏛️ Grand Ballroom</button>
+          <button type="button" class="studio-tap-chip" id="sh-showcase-tab-4" onclick="window.shSelectShowcaseVenue(4)" style="padding:6px 12px;font-size:0.78rem;font-weight:700;white-space:nowrap;flex-shrink:0;">🍇 Tuscan Courtyard</button>
+          <button type="button" class="studio-tap-chip" id="sh-showcase-tab-5" onclick="window.shSelectShowcaseVenue(5)" style="padding:6px 12px;font-size:0.78rem;font-weight:700;white-space:nowrap;flex-shrink:0;">🪴 Botanical Orangery</button>
+        </div>
+
+        <!-- Split Showcase Card -->
+        <div class="sh-zola-showcase-card" style="padding:16px;border-radius:18px;background:#FFFFFF;border:1.5px solid #E4DCD0;box-shadow:0 8px 30px -10px rgba(31,27,24,0.08);">
+          <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:16px;align-items:center;">
+            <!-- Left: Venue Photograph -->
+            <div style="position:relative;border-radius:14px;overflow:hidden;background:#F5EFE6;aspect-ratio:16/10;box-shadow:0 4px 14px -4px rgba(0,0,0,0.12);">
+              <img id="sh-showcase-photo" src="/public/venue-rosewood-estate.jpg" alt="Private Country Estate &amp; Glass Conservatory" style="width:100%;height:100%;object-fit:cover;display:block;" loading="lazy" />
+              <div style="position:absolute;top:10px;left:10px;background:rgba(27,77,62,0.92);color:#FFFFFF;padding:4px 10px;border-radius:999px;font-size:0.70rem;font-weight:700;backdrop-filter:blur(4px);" id="sh-showcase-venue-badge">
+                Estate Reception &middot; 150 Guests
+              </div>
+              <div style="position:absolute;bottom:10px;left:10px;right:10px;background:rgba(24,20,18,0.85);color:#FFFFFF;padding:6px 10px;border-radius:8px;font-size:0.72rem;backdrop-filter:blur(4px);display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:4px;" id="sh-showcase-venue-specs">
+                <span>&#10003; 18 Round Tables + Sweetheart &middot; 54&Prime; Server Aisles &middot; 24&Prime;&times;36&Prime; Sign</span>
+              </div>
+            </div>
+
+            <!-- Right: Real Physical Deliverables & Action -->
+            <div style="display:flex;flex-direction:column;gap:12px;">
+              <div style="display:flex;align-items:center;justify-content:space-between;gap:8px;flex-wrap:wrap;">
                 <div>
-                  <div style="font-size:14px;font-weight:700;color:#1C1C1C;line-height:1.2;">Maya &amp; Liam&rsquo;s 150-Guest Estate Reception</div>
-                  <div style="font-size:12.5px;font-weight:600;color:#1B4D3E;">24&Prime;&times;36&Prime; Sign + Clockwise 12:00 Meal Sheet + Bar QR (${vId})</div>
+                  <h4 id="sh-showcase-couple-headline" class="serif-display" style="font-size:1.15rem;margin:0;color:#181412;">Maya &amp; Liam&rsquo;s 150-Guest Estate Reception</h4>
+                  <div id="sh-showcase-proof-sub" style="font-size:0.78rem;color:#57534E;margin-top:2px;">3 Family Conflicts Auto-Solved &middot; 4 Allergy Alerts &middot; Clockwise 12:00 Caterer Sheet</div>
+                </div>
+                <span id="sh-showcase-savings-badge" style="font-size:0.72rem;font-weight:700;color:#1B4D3E;background:#EBF4F0;border:1px solid #C4DFD5;padding:3px 9px;border-radius:999px;white-space:nowrap;">
+                  Saved 6.5 Hrs + $220 vs. Excel &amp; Etsy
+                </span>
+              </div>
+
+              <!-- Tangible Prints Micro-Preview -->
+              <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(130px,1fr));gap:8px;padding:10px;background:#FAF8F5;border:1px solid #EAE0D0;border-radius:10px;">
+                <div style="display:flex;align-items:center;gap:8px;">
+                  <img src="/public/ugc-welcome-sign-easel.jpg" alt="24x36 sign preview" style="width:42px;height:42px;border-radius:6px;object-fit:cover;border:1px solid #D6CBB8;" loading="lazy" />
+                  <div style="font-size:0.72rem;line-height:1.25;"><strong style="color:#181412;">24&Prime;&times;36&Prime; Sign</strong><br/><span style="color:#78716C;">FedEx-Ready PDF</span></div>
+                </div>
+                <div style="display:flex;align-items:center;gap:8px;">
+                  <img src="/public/ugc-escort-cards-wax.jpg" alt="Avery cards preview" style="width:42px;height:42px;border-radius:6px;object-fit:cover;border:1px solid #D6CBB8;" loading="lazy" />
+                  <div style="font-size:0.72rem;line-height:1.25;"><strong style="color:#181412;">Avery 5302</strong><br/><span style="color:#78716C;">Table 1 Unmasked</span></div>
                 </div>
               </div>
-              <span style="font-size:12px;font-weight:700;color:#1B4D3E;background:#EBF4F0;border:1px solid #C4DFD5;padding:4px 10px;border-radius:999px;white-space:nowrap;">Saved 6.5 Hrs + $220</span>
-            </div>
 
-            <div class="sh-zola-showcase-photo-wrap" style="border-radius:16px;overflow:hidden;border:1px solid var(--border-warm);background:var(--bg-surface);">
-              <img src="/public/ugc-welcome-sign-easel.jpg" alt="Framed 24x36 Find Your Seat wedding welcome sign on easel at reception" width="640" height="420" class="sh-zola-showcase-photo" style="width:100%;height:auto;display:block;object-fit:cover;" loading="lazy" />
-            </div>
-
-            <div class="sh-zola-showcase-footer">
-              <div style="min-width:0;flex:1 1 auto;">
-                <div style="font-size:13.5px;font-weight:700;color:#1C1C1C;">Want to test with a real 150-guest wedding?</div>
-                <div style="font-size:12.5px;color:#4B5563;">Pre-loaded with divorced-parent buffers, meal icons &amp; 6 sign themes</div>
+              <div style="display:flex;align-items:center;justify-content:space-between;gap:8px;flex-wrap:wrap;padding-top:4px;">
+                <span style="font-size:0.74rem;color:#065F46;font-weight:700;">&#10003; 0 Family Drama &bull; Clockwise 12:00 Meal Tally</span>
+                <button type="button" id="sh-showcase-load-btn" onclick="window.shLoadShowcaseIntoStudio && window.shLoadShowcaseIntoStudio()" style="display:inline-flex;align-items:center;justify-content:center;gap:6px;padding:8px 16px;border-radius:999px;background:#1B4D3E;color:#FFFFFF;font-weight:700;font-size:0.80rem;border:1px solid #1B4D3E;cursor:pointer;white-space:nowrap;box-shadow:0 2px 8px rgba(27, 77, 62,0.18);">
+                  <span>Load 🌿 Rosewood Estate in Studio &uarr;</span>
+                </button>
               </div>
-              <button type="button" onclick="window.shLoadVslSceneIntoStudio && window.shLoadVslSceneIntoStudio()" style="display:inline-flex;align-items:center;justify-content:center;gap:6px;padding:10px 16px;border-radius:999px;background:#1B4D3E;color:#FFFFFF;font-weight:700;font-size:13.5px;border:1px solid #1B4D3E;cursor:pointer;white-space:normal;max-width:100%;min-width:0;box-sizing:border-box;overflow-wrap:break-word;text-align:center;line-height:1.3;box-shadow:0 2px 8px rgba(27, 77, 62,0.18);">
-                <span>Load Sample 150-Guest Reception in Studio &uarr;</span>
-              </button>
             </div>
           </div>
         </div>
       </div>
+      <script>
+      (function(){
+        window.__SH_SHOWCASE_VENUES = [
+          {
+            id: 'estate-150',
+            name: 'Private Country Estate & Glass Conservatory',
+            tag: 'Estate Reception · 150 Guests',
+            short: '🌿 Rosewood Estate',
+            img: '/public/venue-rosewood-estate.jpg',
+            couple: 'Maya & Liam’s 150-Guest Estate Reception',
+            specs: '18 Round Tables + Sweetheart · 54″ Server Aisles · 24″×36″ Sign',
+            saved: 'Saved 6.5 Hrs + $220 vs. Excel & Etsy',
+            proofSub: '3 Family Conflicts Auto-Solved · 4 Allergy Alerts · Clockwise 12:00 Caterer Sheet'
+          },
+          {
+            id: '110-guest-coastal-beach-club-seating-chart',
+            name: 'Coastal Yacht & Beach Club Ocean Terrace',
+            tag: 'Waterfront Terrace · 110 Guests',
+            short: '🌊 Yacht & Beach Club',
+            img: '/public/venue-coastal-beach-club.jpg',
+            couple: 'Sienna & Julian’s Beach Club Reception',
+            specs: '11 Banquet & Round Tables · Oceanfront Sightlines · 3-Column Sign',
+            saved: 'Saved 5.0 Hrs · 0 Spacing Bottlenecks',
+            proofSub: 'Coastal Breeze Buffer · Equidistant VIP Views · Clockwise Meal Tally'
+          },
+          {
+            id: '130-guest-sailcloth-tent-wedding-seating-chart',
+            name: 'High-Peak Sailcloth Tent & Meadow Lawn',
+            tag: 'Sailcloth Pavilion · 130 Guests',
+            short: '⛺ Sailcloth Tent',
+            img: '/public/venue-sailcloth-tent.jpg',
+            couple: 'Chloe & Noah’s Meadow Sailcloth Reception',
+            specs: '16 Tables · 24ft Perimeter Clearances · Guy-Wire Safe Aisles',
+            saved: 'Saved 7.0 Hrs · 100% Tent Pole Safe',
+            proofSub: 'Pole Obstruction Clearance · Divorced Table Separation · 24″×36″ Arch D Sign'
+          },
+          {
+            id: '200-guest-hotel-ballroom-seating-chart-template',
+            name: 'Grand Ballroom & Crystal Chandelier Banquet Hall',
+            tag: 'Gilded Ballroom · 200 Guests',
+            short: '🏛️ Grand Ballroom',
+            img: '/public/venue-grand-ballroom.jpg',
+            couple: 'Sophia & Alexander’s Ballroom Gala',
+            specs: '20 72″ Rounds · 60″ Wide Server Lanes · 5-Column 16pt Sign',
+            saved: 'Saved 8.5 Hrs · 0 Meal Mix-Ups',
+            proofSub: 'Split Wing Seating · 30ft DJ Buffer for Grandparents · Clockwise Server Map'
+          },
+          {
+            id: 'tuscan-banquet-80',
+            name: 'Tuscan Villa Olive Grove & Courtyard',
+            tag: 'Courtyard Banquet · 80 Guests',
+            short: '🍇 Tuscan Courtyard',
+            img: '/public/venue-tuscan-courtyard.jpg',
+            couple: 'Elena & Matteo’s Tuscan Courtyard Feast',
+            specs: '6 Long Feasting Banquets · Rustic Stone Sightlines · 3-Column Sign',
+            saved: 'Saved 4.5 Hrs · 100% Connected Families',
+            proofSub: 'Family-Style Feasting Tables · Celiac Safe Tally · Avery 5302 Place Cards'
+          },
+          {
+            id: '90-guest-greenhouse-conservatory-seating-chart',
+            name: 'Glass Greenhouse & Botanical Orangery',
+            tag: 'Glass Orangery · 90 Guests',
+            short: '🪴 Botanical Orangery',
+            img: '/public/venue-botanical-conservatory.jpg',
+            couple: 'Gemma & Oliver’s Orangery Reception',
+            specs: '9 Intimate Rounds · Lush Palm & Glass Corridor Clearances',
+            saved: 'Saved 4.0 Hrs · 0 Blind Spots',
+            proofSub: 'Acoustic Glass Zone Separation · Clockwise 12:00 Server Manifest'
+          }
+        ];
+        window.__SH_ACTIVE_SHOWCASE_IDX = 0;
+        window.shSelectShowcaseVenue = function(idx) {
+          var v = window.__SH_SHOWCASE_VENUES[idx];
+          if (!v) return;
+          window.__SH_ACTIVE_SHOWCASE_IDX = idx;
+          document.querySelectorAll('[id^="sh-showcase-tab-"]').forEach(function(el, i) {
+            el.classList.toggle('active', i === idx);
+          });
+          var img = document.getElementById('sh-showcase-photo'); if (img) { img.src = v.img; img.alt = v.name; }
+          var badge = document.getElementById('sh-showcase-venue-badge'); if (badge) badge.textContent = v.tag;
+          var specs = document.getElementById('sh-showcase-venue-specs'); if (specs) specs.innerHTML = '<span>&#10003; ' + v.specs + '</span>';
+          var h = document.getElementById('sh-showcase-couple-headline'); if (h) h.textContent = v.couple;
+          var sub = document.getElementById('sh-showcase-proof-sub'); if (sub) sub.textContent = v.proofSub;
+          var sav = document.getElementById('sh-showcase-savings-badge'); if (sav) sav.textContent = v.saved;
+          var btn = document.getElementById('sh-showcase-load-btn'); if (btn) btn.innerHTML = '<span>Load ' + v.short + ' in Studio &uarr;</span>';
+        };
+        window.shLoadShowcaseIntoStudio = function() {
+          var v = window.__SH_SHOWCASE_VENUES[window.__SH_ACTIVE_SHOWCASE_IDX || 0];
+          if (!v) return;
+          if (window.loadPresetScenario) window.loadPresetScenario(v.id);
+          var st = document.getElementById('studio'); if (st) st.scrollIntoView({ behavior: 'smooth' });
+        };
+      })();
+      </script>
 
       <div class="sh-crease-proof-bar" id="studio-crease-proof-bar">
         <div class="sh-crease-item"><div class="sh-crease-val">6.5 Hrs + $220 Saved</div><div class="sh-crease-lbl">150-GUEST AUTO-SOLVER + 24&Prime;&times;36&Prime; SIGN VS. EXCEL &amp; ETSY</div></div>
@@ -127,9 +257,10 @@ function renderZone3InteractiveStudio(plan) {
       <div id="sh-studio-quick-preset-bar" style="display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:8px;margin-bottom:10px;padding:4px 0;">
         <div style="display:flex;align-items:center;gap:6px;flex-wrap:wrap;">
           <span style="font-size:12px;font-weight:700;color:#78716C;">Presets:</span>
-          <button type="button" class="studio-tap-chip preset-chip active" data-preset="estate-150" data-domain="supabase.com" onclick="window.loadPresetScenario('estate-150', this)" style="padding:4px 10px;font-size:12px;white-space:nowrap;">150 Guests</button>
-          <button type="button" class="studio-tap-chip" data-instant-preset="tuscan-banquet-80" onclick="window.loadPresetScenario('tuscan-banquet-80', this)" style="padding:4px 10px;font-size:12px;white-space:nowrap;">80 Guests</button>
-          <button type="button" class="studio-tap-chip" data-instant-preset="200-guest-hotel-ballroom-seating-chart-template" onclick="window.loadPresetScenario('200-guest-hotel-ballroom-seating-chart-template', this)" style="padding:4px 10px;font-size:12px;white-space:nowrap;">200 Guests</button>
+          <button type="button" class="studio-tap-chip preset-chip active" data-preset="estate-150" data-domain="supabase.com" onclick="window.loadPresetScenario('estate-150', this)" style="display:inline-flex;align-items:center;gap:5px;padding:4px 10px;font-size:12px;white-space:nowrap;"><img src="/public/venue-rosewood-estate.jpg" alt="" style="width:16px;height:16px;border-radius:3px;object-fit:cover;" />150-Guest Estate</button>
+          <button type="button" class="studio-tap-chip" data-instant-preset="110-guest-coastal-beach-club-seating-chart" onclick="window.loadPresetScenario('110-guest-coastal-beach-club-seating-chart', this)" style="display:inline-flex;align-items:center;gap:5px;padding:4px 10px;font-size:12px;white-space:nowrap;"><img src="/public/venue-coastal-beach-club.jpg" alt="" style="width:16px;height:16px;border-radius:3px;object-fit:cover;" />110-Guest Beach Club</button>
+          <button type="button" class="studio-tap-chip" data-instant-preset="tuscan-banquet-80" onclick="window.loadPresetScenario('tuscan-banquet-80', this)" style="display:inline-flex;align-items:center;gap:5px;padding:4px 10px;font-size:12px;white-space:nowrap;"><img src="/public/venue-tuscan-courtyard.jpg" alt="" style="width:16px;height:16px;border-radius:3px;object-fit:cover;" />80-Guest Tuscan</button>
+          <button type="button" class="studio-tap-chip" data-instant-preset="200-guest-hotel-ballroom-seating-chart-template" onclick="window.loadPresetScenario('200-guest-hotel-ballroom-seating-chart-template', this)" style="display:inline-flex;align-items:center;gap:5px;padding:4px 10px;font-size:12px;white-space:nowrap;"><img src="/public/venue-grand-ballroom.jpg" alt="" style="width:16px;height:16px;border-radius:3px;object-fit:cover;" />200-Guest Ballroom</button>
           <button type="button" id="sh-conflict-solver-pill" class="studio-tap-chip" onclick="window.shRunConflictSolverDemo && window.shRunConflictSolverDemo(this)" style="padding:4px 10px;font-size:12px;font-weight:700;color:#065F46;background:#ECFDF5;border:1px solid #10B981;white-space:nowrap;">${IC.bolt}Auto-Solve Conflicts</button>
         </div>
         <button type="button" class="sh-ed-ghost" onclick="window.shOpenSetupWizard(1)" style="font-size:12px;padding:4px 10px;font-weight:600;color:#57534E;border-color:#D1D5DB;background:#FFFFFF;white-space:nowrap;">${IC.gear}Guided Wizard</button>
