@@ -597,6 +597,27 @@ function renderFooter() {
 
 function getVenueVisual(slug = '', title = '', category = '') {
   const s = `${slug} ${title} ${category}`.toLowerCase();
+  if (/print-bleed-crop-marks|fedex-staples.*bleed/i.test(s)) {
+    return {
+      img: '/public/showcase-canva-print-bleed-guide.jpg',
+      tag: '0.125″ Bleed & Crop Marks',
+      name: 'Professional 0.125″ Print Bleed & Crop Boundary Inspection Desk'
+    };
+  }
+  if (/cocktail-hour-qr-code-find-my-seat|qr-code.*setup-guide/i.test(s)) {
+    return {
+      img: '/public/showcase-cocktail-qr-stand.jpg',
+      tag: 'Cocktail Hour Bar QR Sign',
+      name: 'Brushed Brass Framed QR Seat Finder at Conservatory Cocktail Bar'
+    };
+  }
+  if (/clockwise-caterer-beo-table-numbering/i.test(s)) {
+    return {
+      img: '/public/showcase-caterer-beo-clipboard.jpg',
+      tag: 'Caterer BEO Plating Pass',
+      name: 'Banquet Kitchen Plating Pass & Clockwise Table Meal Manifest'
+    };
+  }
   if (/foam-board.*acrylic|acrylic-welcome-sign/i.test(s)) {
     return {
       img: '/public/showcase-foamboard-vs-acrylic.jpg',
