@@ -126,6 +126,9 @@ function renderSetupWizardHtml() {
             <div id="shw-proof-table1-line">Table 1 Meal Sheet: Seat #1 &bull; Filet &amp; Allergy Ready</div>
           </div>
           <div class="shw-kit-foot" id="shw-kit-foot">Each answer fills a page of your binder.</div>
+          <div style="margin-top:10px;padding-top:10px;border-top:1px solid #E5E7EB;font-size:0.72rem;color:#78350F;font-weight:700;display:flex;align-items:center;gap:6px;justify-content:center;">
+            <span>&#10003; 30-Day Money-Back Guarantee &bull; FedEx Office Ready</span>
+          </div>
         </aside>
         </div>
       </div>`;
