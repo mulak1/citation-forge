@@ -597,39 +597,74 @@ function renderFooter() {
 
 function getVenueVisual(slug = '', title = '', category = '') {
   const s = `${slug} ${title} ${category}`.toLowerCase();
+  if (/beach-club|yacht|harbor|marina/i.test(s)) {
+    return {
+      img: '/public/venue-coastal-beach-club.jpg',
+      tag: 'Coastal Yacht & Beach Club',
+      name: 'The Oceanfront Yacht & Beach Club Terrace'
+    };
+  }
+  if (/villa|amalfi|cliffside|mediterranean|destination/i.test(s)) {
+    return {
+      img: '/public/venue-destination-villa.jpg',
+      tag: 'Mediterranean Seaside Villa',
+      name: 'Mediterranean Cliffside Villa & Poolside Terrace'
+    };
+  }
+  if (/barn|farm|rustic|harvest|timber/i.test(s)) {
+    return {
+      img: '/public/venue-modern-barn.jpg',
+      tag: 'Modern Timber Barn',
+      name: 'Upscale Modern Barn & Farm Hall'
+    };
+  }
+  if (/winery|vineyard|napa|sonoma/i.test(s)) {
+    return {
+      img: '/public/venue-napa-vineyard.jpg',
+      tag: 'Vineyard Estate',
+      name: 'Napa Valley Vineyard Estate & Olive Courtyard'
+    };
+  }
+  if (/rooftop|penthouse|skyline/i.test(s)) {
+    return {
+      img: '/public/venue-rooftop-penthouse.jpg',
+      tag: 'Urban Rooftop Penthouse',
+      name: 'Chic Urban Rooftop Penthouse Terrace'
+    };
+  }
+  if (/loft|warehouse|industrial|brick/i.test(s)) {
+    return {
+      img: '/public/venue-industrial-loft.jpg',
+      tag: 'Industrial Loft',
+      name: 'Historic Brick & Timber Industrial Loft'
+    };
+  }
+  if (/museum|rotunda|art museum|gallery/i.test(s)) {
+    return {
+      img: '/public/venue-museum-rotunda.jpg',
+      tag: 'Classical Museum Rotunda',
+      name: 'Neoclassical Art Museum Marble Rotunda'
+    };
+  }
   if (/tent|sailcloth|marquee|outdoor|lawn|rain|canopy/i.test(s)) {
     return {
       img: '/public/venue-sailcloth-tent.jpg',
       tag: 'Sailcloth Tent & Lawn',
-      name: 'Open-Air Sailcloth Tent & Garden Lawn'
+      name: 'High-Peak Sailcloth Tent & Meadow Lawn'
     };
   }
   if (/ballroom|hotel|gala|grand|formal|black-tie|chandelier/i.test(s)) {
     return {
       img: '/public/venue-grand-ballroom.jpg',
       tag: 'Grand Ballroom',
-      name: 'Grand Ballroom & Chandelier Banquet Hall'
+      name: 'Grand Ballroom & Crystal Chandelier Banquet Hall'
     };
   }
-  if (/loft|industrial|warehouse|rooftop|penthouse|urban|modern|contemporary/i.test(s)) {
-    return {
-      img: '/public/venue-modern-loft.jpg',
-      tag: 'Industrial Loft',
-      name: 'Brick & Timber Industrial Loft'
-    };
-  }
-  if (/tuscan|courtyard|patio|al fresco|terrace|mediterranean|italian|olive/i.test(s)) {
+  if (/tuscan|courtyard|patio|al fresco|terrace|italian|olive/i.test(s)) {
     return {
       img: '/public/venue-tuscan-courtyard.jpg',
       tag: 'Tuscan Courtyard',
       name: 'Villa Cipressi Olive Grove Courtyard'
-    };
-  }
-  if (/winery|vineyard|barn|rustic|ranch|farm|harvest/i.test(s)) {
-    return {
-      img: '/public/venue-winery-sandbox.jpg',
-      tag: 'Winery & Vineyard',
-      name: 'Oak Ridge Winery & Barrel Room'
     };
   }
   if (/conservatory|greenhouse|botanical|orangery|garden|glass/i.test(s)) {
@@ -637,20 +672,6 @@ function getVenueVisual(slug = '', title = '', category = '') {
       img: '/public/venue-botanical-conservatory.jpg',
       tag: 'Botanical Greenhouse',
       name: 'Glass Greenhouse & Botanical Orangery'
-    };
-  }
-  if (/rotunda|museum|historic|marble|columns|classic/i.test(s)) {
-    return {
-      img: '/public/venue-historic-rotunda.jpg',
-      tag: 'Historic Rotunda',
-      name: 'Marble Rotunda & Classical Colonnade'
-    };
-  }
-  if (/coastal|cliffside|ocean|beach|waterfront|yacht|island/i.test(s)) {
-    return {
-      img: '/public/venue-coastal-cliffside.jpg',
-      tag: 'Coastal Ocean Terrace',
-      name: 'Pacific Cliffside Ocean Pavilion'
     };
   }
   if (/cellar|intimate|micro|rehearsal|candlelit|vault|private dining/i.test(s)) {
