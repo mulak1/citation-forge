@@ -1650,7 +1650,13 @@ function renderSeoDetailPage(pageRow, relatedPages = []) {
         applicationCategory: 'EventPlanningApplication',
         operatingSystem: 'Web',
         description: pageRow.meta_description,
-        offers: { '@type': 'Offer', price: '7.00', priceCurrency: 'USD' }
+        image: `https://www.seatharmony.io${venueVisual.img}`,
+        offers: {
+          '@type': 'Offer',
+          price: '7.00',
+          priceCurrency: 'USD',
+          availability: 'https://schema.org/InStock'
+        }
       },
       ...(faqs.length ? [{
         '@type': 'FAQPage',
