@@ -987,7 +987,14 @@ function getVenueVisual(slug = '', title = '', category = '') {
       name: 'Messy Guest List Auto-Cleaner & Column Mapping Workspace'
     };
   }
-  if (/seatharmony-vs-google-sheets|seatharmony-vs-weddingwire|seatharmony-vs-zola/i.test(s)) {
+  if (/seatharmony-vs-google-sheets/i.test(s)) {
+    return {
+      img: '/public/showcase-sheets-vs-visual-studio.jpg',
+      tag: 'Spreadsheet vs. Visual Floorplan',
+      name: 'Gridlock Spreadsheet vs. Drag-and-Drop Visual Seating Studio'
+    };
+  }
+  if (/seatharmony-vs-weddingwire|seatharmony-vs-zola/i.test(s)) {
     return {
       img: '/public/showcase-vault-command.png',
       tag: 'Event Command Vault',
@@ -1127,6 +1134,13 @@ function getVenueVisual(slug = '', title = '', category = '') {
       name: 'Banquet Catering Pass & Severe Allergy Protocol Station'
     };
   }
+  if (/clockwise-12-oclock-seat-numbering-vs-random|clockwise.*vs.*random/i.test(s)) {
+    return {
+      img: '/public/showcase-clockwise-server-sync.jpg',
+      tag: 'Synchronized Banquet Service',
+      name: 'Clockwise 12:00 Ballroom Server Synchronization & Cloche Service'
+    };
+  }
   if (/clockwise|caterer-beo/i.test(s)) {
     return {
       img: '/public/showcase-signed-beo.png',
@@ -1143,9 +1157,9 @@ function getVenueVisual(slug = '', title = '', category = '') {
   }
   if (/18x24-vs-24x36/i.test(s)) {
     return {
-      img: '/public/showcase-poster-24x36.png',
-      tag: '24″×36″ Table Map Sign',
-      name: 'Arch D 24″×36″ Archival Foam Board Print Blueprint'
+      img: '/public/showcase-18x24-vs-24x36.jpg',
+      tag: '18″×24″ vs. 24″×36″ Sizing',
+      name: 'Side-by-Side 18″×24″ vs. 24″×36″ Reception Sign Sizing & Legibility Comparison'
     };
   }
   if (/foam-board.*acrylic|acrylic-welcome-sign/i.test(s)) {

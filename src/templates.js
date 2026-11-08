@@ -597,6 +597,27 @@ function renderFooter() {
 
 function getVenueVisual(slug = '', title = '', category = '') {
   const s = `${slug} ${title} ${category}`.toLowerCase();
+  if (/seatharmony-vs-google-sheets/i.test(s)) {
+    return {
+      img: '/public/showcase-sheets-vs-visual-studio.jpg',
+      tag: 'Spreadsheet vs. Visual Floorplan',
+      name: 'Gridlock Spreadsheet vs. Drag-and-Drop Visual Seating Studio'
+    };
+  }
+  if (/18x24-vs-24x36/i.test(s)) {
+    return {
+      img: '/public/showcase-18x24-vs-24x36.jpg',
+      tag: '18″×24″ vs. 24″×36″ Sizing',
+      name: 'Side-by-Side 18″×24″ vs. 24″×36″ Reception Sign Sizing & Legibility Comparison'
+    };
+  }
+  if (/clockwise-12-oclock-seat-numbering-vs-random|clockwise.*vs.*random/i.test(s)) {
+    return {
+      img: '/public/showcase-clockwise-server-sync.jpg',
+      tag: 'Synchronized Banquet Service',
+      name: 'Clockwise 12:00 Ballroom Server Synchronization & Cloche Service'
+    };
+  }
   if (/print-bleed-crop-marks|fedex-staples.*bleed/i.test(s)) {
     return {
       img: '/public/showcase-canva-print-bleed-guide.jpg',
