@@ -613,6 +613,13 @@ function getVenueVisual(slug = '', title = '', category = '') {
       name: 'Impeccable 60-Inch Round Charger Plate & Centerpiece Setting'
     };
   }
+  if (/corporate|vip-dinner|rotation/i.test(s)) {
+    return {
+      img: '/public/venue-destination-villa.jpg',
+      tag: 'Executive VIP Dining Suite',
+      name: 'Executive Private Dining Room & Curated VIP Rotation Setting'
+    };
+  }
   return {
     img: '/public/venue-rosewood-estate.jpg',
     tag: 'Private Country Estate',
