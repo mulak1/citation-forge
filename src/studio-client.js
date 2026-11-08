@@ -318,7 +318,7 @@ function renderInteractiveScript(initialPlan) {
       } else if (window.__SH_SWAP_SOURCE && window.__SH_SWAP_SOURCE.tableIdx !== tIdx) {
         const srcTbl = window.__SH_STATE.tables[window.__SH_SWAP_SOURCE.tableIdx];
         if (srcTbl && srcTbl.guests[window.__SH_SWAP_SOURCE.seatIdx]) { window.shMoveGuestToTable(window.__SH_SWAP_SOURCE.tableIdx, window.__SH_SWAP_SOURCE.seatIdx, tIdx); window.__SH_SWAP_SOURCE = null; return; }
-      } else window.shSelectTable(tIdx);
+      } else window.shSelectTable(tIdx, { fromCanvas: true });
     };
     window.addEventListener('mousemove', onMove); window.addEventListener('mouseup', onUp); window.addEventListener('touchmove', onMove, { passive: false }); window.addEventListener('touchend', onUp);
   };
@@ -406,10 +406,23 @@ function renderInteractiveScript(initialPlan) {
     shRenderFloorplanSvg();
   };
 
-  window.shSelectTable = function(idx) {
+  window.shSelectTable = function(idx, opts) {
+    opts = opts || {};
     window.__SH_BOX_SEL = null; window.__SH_SELECTED_TABLE_IDX = idx; window.__SH_SELECTED_LANDMARK_IDX = null; window.__SH_OPEN_GUEST = null; window.__SH_SWAP_SOURCE = null;
     const sel = document.getElementById('sh-target-table-select'); if (sel) sel.value = String(idx);
+    if (window.__SH_PANEL_HIDDEN && window.shToggleRightPanel) {
+      window.shToggleRightPanel(false);
+    }
     shSyncTableSelectAndPills(); shRenderAll();
+    var box = document.getElementById('sh-selected-table-box');
+    if (box) {
+      box.classList.remove('sh-ed-pulse');
+      void box.offsetWidth;
+      box.classList.add('sh-ed-pulse');
+      if (opts.scrollIntoView || (opts.fromCanvas && window.innerWidth < 1024)) {
+        box.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+      }
+    }
   };
 
   window.shMorphSelectedTable = function(newShape) {

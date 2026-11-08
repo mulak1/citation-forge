@@ -224,7 +224,9 @@ function renderHead({
     .sh-canvas-reopen-btn { position: absolute; top: 14px; right: 14px; z-index: 25; padding: 8px 14px; border-radius: 10px; border: 1.5px solid #1B4D3E; background: #FFFFFF; color: #1B4D3E; font-family: inherit; font-size: 0.84rem; font-weight: 700; cursor: pointer; box-shadow: 0 8px 24px -6px rgba(0, 0, 0, 0.14); display: none; align-items: center; gap: 6px; transition: transform 0.12s ease, background 0.12s ease; }
     .sh-canvas-reopen-btn:hover { background: #EBF4F0; transform: translateY(-1px); }
     .sh-ed-grid.panel-hidden .sh-canvas-reopen-btn { display: inline-flex !important; }
-    .sh-ed-panel { background: #FFFFFF; border: 1px solid #E5E7EB; border-radius: 16px; padding: 14px; overflow-y: auto; box-shadow: 0 8px 24px -12px rgba(0, 0, 0, 0.08); }
+    .sh-ed-panel { background: #FFFFFF; border: 1px solid #E5E7EB; border-radius: 16px; padding: 14px; overflow-y: auto; box-shadow: 0 8px 24px -12px rgba(0, 0, 0, 0.08); transition: box-shadow 0.25s ease; }
+    @keyframes shPanelPulse { 0% { box-shadow: 0 0 0 4px rgba(184, 134, 11, 0.45); } 100% { box-shadow: 0 8px 24px -12px rgba(0, 0, 0, 0.08); } }
+    .sh-ed-pulse { animation: shPanelPulse 0.9s cubic-bezier(0.16, 1, 0.3, 1); }
     .sh-ed-empty { font-size: 0.98rem; color: #6B7280; text-align: center; padding: 40px 10px; line-height: 1.5; }
     .sh-ed-head { margin-bottom: 10px; }
     .sh-ed-title { width: 100%; font-family: var(--font-serif); font-size: 1.4rem; font-weight: 700; color: #1C1C1C; border: 1.5px solid transparent; border-radius: 8px; padding: 2px 6px; margin-left: -6px; background: transparent; outline: none; }
