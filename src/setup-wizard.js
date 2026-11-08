@@ -495,21 +495,26 @@ function renderSetupWizardClientScript() {
     var lines = String(raw).split(/\\r?\\n/).map(function(l) { return l.trim(); }).filter(Boolean);
     var isHeader = function(cells, idx) {
       if (idx === 0) {
-        return cells.some(function(c) { return /^(first\\s*name|last\\s*name|guest|household|party|rsvp|meal)/i.test(c); });
+        return cells.some(function(c) { return /^(first\\s*name|last\\s*name|guest|household|party|rsvp|meal|dietary|table|status)/i.test(c); });
       }
       return /^(first\\s*name|guest\\s*name|full\\s*name|household|party)$/i.test(cells[0]);
     };
     var isDeclined = function(cells) {
-      return cells.some(function(c) { return /^(no|declined|not\\s*attending|regrets|unable|declines)$/i.test(c); });
+      return cells.some(function(c) { return /^(no|declined|not\\s*attending|regrets|unable|declines|n|false|0)$/i.test(c); });
+    };
+    var cleanQuotes = function(s) {
+      return String(s || '').replace(/^[“"”\\s]+|[“"”\\s]+$/g, '').trim();
     };
     var parsed = [];
     for (var i = 0; i < lines.length; i++) {
       var line = lines[i];
       var cols = [];
       if (line.indexOf('\\t') !== -1) {
-        cols = line.split('\\t').map(function(c) { return c.replace(/^[\\\"\\s]+|[\\\"\\s]+$/g, ''); });
+        cols = line.split('\\t').map(cleanQuotes);
+      } else if (line.indexOf(';') !== -1 && line.indexOf(',') === -1) {
+        cols = line.split(';').map(cleanQuotes);
       } else {
-        cols = line.split(/,(?=(?:(?:[^\"]*\"){2})*[^\"]*$)/).map(function(c) { return c.replace(/^[\\\"\\s]+|[\\\"\\s]+$/g, ''); });
+        cols = line.split(/,(?=(?:(?:[^\"]*\"){2})*[^\"]*$)/).map(cleanQuotes);
       }
       cols = cols.filter(Boolean);
       if (!cols.length || isHeader(cols, i) || isDeclined(cols)) continue;
@@ -520,7 +525,12 @@ function renderSetupWizardClientScript() {
         name = cols[0] + ' ' + cols[1];
         remaining = cols.slice(2);
       }
-      var meta = remaining.filter(function(c) { return !/^(yes|attending|accepted|confirmed|true|1)$/i.test(c); }).join(', ');
+      var meta = remaining.filter(function(c) {
+        if (/^(yes|attending|accepted|confirmed|true|1|y)$/i.test(c)) return false;
+        if (/@/i.test(c)) return false;
+        if (/^\\+?[\\d\\s().-]{7,}$/.test(c)) return false;
+        return true;
+      }).join(', ');
       parsed.push(meta ? (name + ' (' + meta + ')') : name);
     }
     return parsed;
