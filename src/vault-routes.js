@@ -180,7 +180,7 @@ function renderTopPrintBar({ vault, activeRoute, baseUrl }) {
         <span style="color:#78350F;font-family:monospace;font-size:0.72rem;font-weight:800;background:#FAF3E3;padding:3px 8px;border-radius:6px;border:1px solid #C8A96E;white-space:nowrap;">#${escapeHtml(vault.vaultId)}</span>
         ${unlockBadge}
       </div>
-      <nav style="display:flex;align-items:center;gap:5px;flex-wrap:wrap;">
+      <nav style="display:flex;align-items:center;gap:5px;overflow-x:auto;scrollbar-width:none;-webkit-overflow-scrolling:touch;max-width:100%;flex-wrap:nowrap;">
         <a href="${urls.vault_dashboard}" style="padding:5px 10px;border-radius:8px;font-size:0.73rem;font-weight:800;text-decoration:none;white-space:nowrap;${activeRoute === 'dashboard' ? 'background:#EBF4F0;color:#1B4D3E;border:1.5px solid #1B4D3E;' : 'background:#FFFFFF;color:#44403C;border:1px solid #E2D9C8;'}">Command Center</a>
         <a href="${urls.print_poster}" style="padding:5px 10px;border-radius:8px;font-size:0.73rem;font-weight:800;text-decoration:none;white-space:nowrap;${activeRoute === 'poster' ? 'background:#EBF4F0;color:#1B4D3E;border:1.5px solid #1B4D3E;' : 'background:#FFFFFF;color:#44403C;border:1px solid #E2D9C8;'}">24&Prime;&times;36&Prime; Sign</a>
         <a href="${urls.print_avery}" style="padding:5px 10px;border-radius:8px;font-size:0.73rem;font-weight:800;text-decoration:none;white-space:nowrap;${activeRoute === 'avery' ? 'background:#EBF4F0;color:#1B4D3E;border:1.5px solid #1B4D3E;' : 'background:#FFFFFF;color:#44403C;border:1px solid #E2D9C8;'}">Avery 5302</a>
