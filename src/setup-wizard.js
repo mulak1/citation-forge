@@ -406,22 +406,89 @@ function renderSetupWizardClientScript() {
     if (el) el.textContent = lines.length + ' household' + (lines.length === 1 ? '' : 's') + (people ? ' \\u00b7 ' + people + ' guests' : '');
   };
   window.shwPasteSampleList = function() {
-    var sample = [
+    var pool = [
       'Eleanor Vance (Mother of Bride, fish, low sodium) & Grandma Rose Lin (fish, wheelchair)',
       'Richard Vance (Father of Bride, steak) & Claire Vance (chicken)',
-      'Sarah Miller (fish, gluten-free) & Mark Miller (steak) + 2 kids',
-      'Aunt Patricia (chicken, nut allergy) + guest (fish)',
-      'Dr. & Mrs. James Chen (vegan, dairy-free)',
+      'Sarah Miller (Maid of Honor, fish, gluten-free) & Mark Miller (steak) + 2 kids',
       'Marcus Sterling (Best Man, steak) & Jenna Sterling (chicken)',
+      'Dr. & Mrs. James Chen (vegan, dairy-free)',
+      'Aunt Patricia (chicken, nut allergy) + guest (fish)',
       'Priya Meyer (vegetarian) & Lukas Meyer (fish)',
       'Uncle Bob (steak) & Aunt Linda (chicken, shellfish allergy)',
       'David Kim (steak) & Rachel Kim (vegan) + 1 kid',
-      'Hannah Brooks (chicken) & Devon Brooks (fish)'
-    ].join('\\n');
-    var el = shwEl('shw-guests'); if (el) el.value = sample;
+      'Hannah Brooks (chicken) & Devon Brooks (fish)',
+      'Sofia Rossi (vegetarian) & Matteo Rossi (steak)',
+      'Julian Alvarez (steak) & Elena Gomez (halibut, celiac)',
+      'Grandpa Henry Miller (steak, low sodium) & Evelyn Miller (fish)',
+      'Oliver Wright (chicken) & Lucas Bell (vegan)',
+      'Chloe Dupont (fish, dairy-free) + guest (steak)',
+      'Benjamin Hayes (steak) & Nora Hayes (vegetarian) + 2 kids',
+      'Maya Patel (vegan) & Aarav Patel (halibut)',
+      "Connor O'Brien (steak) & Liam Gallagher (chicken)",
+      'Amara Okafor (halibut) & Tunde Okafor (steak, nut allergy)',
+      'Grace Kelly (chicken) & Samuel Adams (steak)',
+      'Isabella Santos (fish) & Mateo Silva (vegetarian)',
+      'Zack Taylor (steak) & Kimberly Hart (chicken, gluten-free)',
+      'Arthur Pendelton (fish) & Guinevere Vance (chicken)',
+      'Leo Martinez (steak) & Carmen Diaz (vegan)',
+      'Thomas Shelby (steak) & Ada Thorne (chicken)',
+      'Valerie Dubois (fish, shellfish allergy) + guest (steak)',
+      'Ethan Hunt (steak) & Julia Meade (chicken)',
+      'Felix Leclerc (vegetarian) & Camille Laurent (halibut)',
+      'Harper Lee (chicken) & Atticus Finch (steak)',
+      'Daniel Park (fish) & Sun-Hi Park (vegan) + 1 kid',
+      'Sean MacLeod (steak) & Fiona MacLeod (chicken)',
+      'Gabriel Moreno (halibut) & Luciana Rios (vegetarian)',
+      'Caleb Foster (steak) & Abigail Foster (chicken) + 2 kids',
+      'Rowan Bennett (vegan) + guest (halibut)',
+      'Wyatt Earp (steak) & Josephine Marcus (chicken)',
+      'Zara Al-Mansoor (halibut, halal) & Tariq Al-Mansoor (chicken, halal)',
+      'Miles Morales (chicken) & Gwen Stacy (vegetarian)',
+      'Victor Vance (Father of Groom, steak) & Beatrice Vance (fish)',
+      'Simon Fraser (steak) & Morag Fraser (chicken)',
+      'Clara Oswald (vegan) & Danny Pink (steak)',
+      'Hugo Sterling (steak) & Penelope Sterling (halibut) + 2 kids',
+      'Dominic Toretto (steak) & Letty Ortiz (chicken)',
+      'Astrid Lindgren (fish) & Pippi Longstocking (chicken)',
+      'Jasper Hale (steak) & Alice Cullen (vegetarian)',
+      'Naomi Nagata (vegan) & James Holden (steak)',
+      'Daphne Bridgerton (chicken) & Simon Basset (steak)',
+      'Gideon Cross (steak) & Eva Tramell (fish, gluten-free)',
+      'Owen Grady (steak) & Claire Dearing (halibut)',
+      'Silas Marner (chicken) & Eppie Marner (vegetarian)',
+      'Tobias Eaton (steak) & Beatrice Prior (chicken)',
+      'George Knightley (steak) & Emma Woodhouse (fish)',
+      'Edward Rochester (steak) & Jane Eyre (chicken)',
+      'Finnick Odair (halibut) & Annie Cresta (vegetarian)',
+      'Rupert Giles (chicken) & Jenny Calendar (vegan)',
+      'Wesley Wyndam-Pryce (steak) & Winifred Burkle (halibut)',
+      'Gemma Teller (chicken) & Nero Padilla (steak)',
+      'Harvey Specter (steak) & Donna Paulsen (halibut, dairy-free)',
+      'Mike Ross (chicken) & Rachel Zane (vegetarian)',
+      'Louis Litt (steak) & Sheila Sazs (fish, kosher)',
+      'Jessica Pearson (halibut) & Jeff Malone (steak)',
+      'Aaron Warner (steak) & Juliette Ferrars (chicken)',
+      'Kenji Kishimoto (chicken) & Nazeera Ibrahim (halibut, halal)',
+      'Lara Jean Covey (vegetarian) & Peter Kavinsky (steak)',
+      'John Ambrose McClaren (halibut) + guest (chicken)',
+      'Kitty Covey (chicken) & Margot Covey (vegetarian)',
+      'Dr. Dan Covey (steak) & Trina Rothschild (fish, gluten-free)',
+      'Peter Parker (chicken) & Mary Jane Watson (halibut)',
+      'Ned Leeds (steak) & Betty Brant (vegetarian)',
+      'Happy Hogan (steak) & May Parker (chicken)',
+      'Tony Stark (steak) & Pepper Potts (halibut, dairy-free)'
+    ];
+    var target = (window.__SH_SETUP && window.__SH_SETUP.guests) ? Number(window.__SH_SETUP.guests) : 25;
+    var chosen = [], currentCount = 0;
+    for (var i = 0; i < pool.length; i++) {
+      chosen.push(pool[i]);
+      currentCount = shwPersonCount(chosen);
+      if (currentCount >= target && chosen.length >= 10) break;
+    }
+    var el = shwEl('shw-guests'); if (el) el.value = chosen.join('\\n');
     if (!window.__SH_SETUP.apart.length) window.__SH_SETUP.apart = [['Eleanor Vance', 'Richard Vance']];
     window.shwCountGuests();
-    if (typeof shToast === 'function') shToast('\\u2713 Loaded 10 sample households (23 guests with meals, kids, wheelchair & allergies)');
+    if (typeof shToast === 'function') shToast('\\u2713 Loaded ' + chosen.length + ' sample households (' + currentCount + ' guests with meals, kids, wheelchair & allergies)');
   };
   window.shwUploadCsv = function(inp) {
     var f = inp && inp.files && inp.files[0]; if (!f) return;

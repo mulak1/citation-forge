@@ -454,6 +454,18 @@ function renderSeatEditorClientScript() {
     setTimeout(function() { var i = document.getElementById('sh-ed-add'); if (i) i.focus(); }, 30);
   };
   window.shEdToggleBulk = function() { window.__SH_BULK_OPEN = !window.__SH_BULK_OPEN; shRenderSeatPanel(); };
+  window.shEdInsertSampleBulk = function() {
+    var ta = document.getElementById('sh-ed-bulk-text');
+    if (!ta) return;
+    ta.value = [
+      'The Harrison Family (beef, chicken) + 2 kids',
+      'Dr. & Mrs. David Lin (fish, dairy-free)',
+      'Marcus Sterling (steak, nut allergy) + guest (chicken)',
+      'Chloe & Sam Rivera (halibut, gluten-free)'
+    ].join('\\n');
+    ta.focus();
+    if (typeof shToast === 'function') shToast('\u2713 Inserted sample late RSVPs (with meals & allergies)');
+  };
   window.shEdBulkPaste = function() {
     var ta = document.getElementById('sh-ed-bulk-text'); if (!ta || !ta.value.trim()) return;
     var lines = ta.value.split(/\\r?\\n/).map(function(l) { return l.trim(); }).filter(Boolean);
@@ -601,7 +613,7 @@ function renderSeatEditorClientScript() {
     if (window.shEdTableStyleHtml) h.push(window.shEdTableStyleHtml(tIdx));
     h.push('<div class="sh-ed-add"><input id="sh-ed-add" placeholder="Add guest or couple..." onkeydown="if(event.key===\\'Enter\\')window.shEdAdd(' + tIdx + ')" /><button type="button" onclick="window.shEdAdd(' + tIdx + ')">Add</button><button type="button" id="sh-ed-bulk-toggle" class="sh-ed-ghost" style="padding:0 10px;font-size:0.80rem;background:#FAF7F2;border:1.5px solid #DCD3C3;color:#44403C;font-weight:700;" title="Paste multiple late RSVPs at once" onclick="window.shEdToggleBulk()">+ Paste list</button></div>');
     if (window.__SH_BULK_OPEN) {
-      h.push('<div id="sh-ed-bulk-box" class="sh-ed-bulk-box"><textarea id="sh-ed-bulk-text" rows="3" class="sh-ed-input" placeholder="Paste late RSVPs (one household per line, e.g.&#10;The Harrison Family + 2 kids&#10;Dr. &amp; Mrs. Lin)"></textarea><div style="display:flex;justify-content:flex-end;gap:6px;margin-top:6px;"><button type="button" class="sh-ed-ghost" onclick="window.shEdToggleBulk()">Cancel</button><button type="button" id="sh-ed-bulk-submit" class="sh-ed-ka-btn" onclick="window.shEdBulkPaste()">Seat late RSVPs (keeps layout)</button></div></div>');
+      h.push('<div id="sh-ed-bulk-box" class="sh-ed-bulk-box"><textarea id="sh-ed-bulk-text" rows="3" class="sh-ed-input" placeholder="Paste late RSVPs (one household per line, e.g.&#10;The Harrison Family + 2 kids&#10;Dr. &amp; Mrs. Lin)"></textarea><div style="display:flex;align-items:center;justify-content:space-between;gap:6px;margin-top:6px;"><button type="button" class="sh-ed-ghost" style="padding:3px 8px;font-size:0.75rem;border-color:#D6CFC2;" onclick="window.shEdInsertSampleBulk()">&#10024; Sample RSVPs</button><div style="display:flex;gap:6px;"><button type="button" class="sh-ed-ghost" onclick="window.shEdToggleBulk()">Cancel</button><button type="button" id="sh-ed-bulk-submit" class="sh-ed-ka-btn" onclick="window.shEdBulkPaste()">Seat late RSVPs (keeps layout)</button></div></div></div>');
     }
     h.push('<div class="sh-ed-list">');
     if (!t.guests.length) h.push('<div class="sh-ed-empty" style="padding:14px 4px;">No one here yet. Add a guest above, or drag someone onto this table.</div>');
