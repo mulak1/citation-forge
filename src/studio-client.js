@@ -4,6 +4,7 @@
  */
 
 const { renderDeliverablesClientScript } = require('./studio-deliverables-client');
+const { renderPosterClientScript } = require('./studio-poster-client');
 const { renderSetupWizardClientScript } = require('./setup-wizard');
 const { renderSeatEditorClientScript } = require('./seat-editor');
 const { renderSeatGroupsClientScript } = require('./seat-groups');
@@ -883,6 +884,7 @@ function renderInteractiveScript(initialPlan) {
   };
 
   ${renderDeliverablesClientScript()}
+  ${renderPosterClientScript()}
 
   ${renderSetupWizardClientScript()}
 

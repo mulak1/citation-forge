@@ -315,6 +315,9 @@ function attachVaultAndPaywallRoutes(app, publicUrl, ebStore = null) {
       setTimeout(function() { window.open('${urls.print_beo}', '_blank'); }, 1200);
       setTimeout(function() { window.open('${urls.qr_lookup}?auto_print=1', '_blank'); }, 1800);
     };
+    if (new URLSearchParams(window.location.search).get('auto_print_all') === '1') {
+      setTimeout(window.printAllEventSheets, 300);
+    }
   </script>
 </body>
 </html>`;
