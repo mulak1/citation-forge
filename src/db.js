@@ -171,9 +171,11 @@ function buildSeoPagesSeed() {
   // 1. Venue & Guest-Count Layout Templates
   VENUE_LAYOUT_TEMPLATES.forEach(([slug, title, category, b1, b2, b3, b4, s1, s2, s3, s4]) => {
     const bp = buildVenueBlueprint(slug, title);
+    const cleanCategory = category.replace(/\s*\(\d+\s*guests?\)/i, '').trim();
+    const cleanEntity = b1.replace(/^\d+\s*Guests?\s*\((.*?)\)$/i, '$1').replace(/\s*\(\d+\s*guests?\)/i, '').trim();
     const rawMeta = `${title}: ${bp.roomDims} (${bp.sqft.toLocaleString()} sq ft) floorplan with ${bp.tableCount} tables, ${bp.danceFloorDims} dance floor, 12:00 caterer Meal Sheet & 24"×36" sign.`;
     const metaDesc = trimMetaDescription(rawMeta, 158);
-    const summary = `Engineered for ${bp.guests} guests in a ${bp.roomDims} (${bp.sqft.toLocaleString()} sq ft) ${category.toLowerCase()} space: features ${bp.tableCount} tables (${bp.specLabel}), a ${bp.danceFloorDims} dance floor, ${bp.aisleSpec}, and instant export to a ${bp.posterLayout} 24"×36" welcome sign + ${bp.averySheets} Avery 5302 place card sheets.`;
+    const summary = `Engineered for ${bp.guests} guests in a ${bp.roomDims} (${bp.sqft.toLocaleString()} sq ft) ${cleanCategory.toLowerCase()} space: features ${bp.tableCount} tables (${bp.specLabel}), a ${bp.danceFloorDims} dance floor, ${bp.aisleSpec}, and instant export to a ${bp.posterLayout} 24"×36" welcome sign + ${bp.averySheets} Avery 5302 place card sheets.`;
     const payload = {
       type: 'leaderboard',
       category,
@@ -187,16 +189,16 @@ function buildSeoPagesSeed() {
       keyTakeaway: `For ${bp.guests} guests in a ${bp.roomDims} (${bp.sqft.toLocaleString()} sq ft) room, anchor your ${bp.headTable.name} first, maintain ${bp.aisleSpec}, and export a ${bp.posterLayout} 24"×36" sign.`,
       faqs: [
         {
-          question: `What room or tent size do I need for ${b1} (${bp.guests} guests)?`,
-          answer: `A ${bp.guests}-guest reception using ${b1} requires approximately ${bp.sqft.toLocaleString()} sq ft (${bp.roomDims}) to fit ${bp.tableCount} tables (${bp.specLabel}), a ${bp.danceFloorDims} dance floor, and ${bp.aisleSpec}.`
+          question: `What room or tent size do I need for ${cleanEntity} (${bp.guests} guests)?`,
+          answer: `A ${bp.guests}-guest reception using ${cleanEntity} requires approximately ${bp.sqft.toLocaleString()} sq ft (${bp.roomDims}) to fit ${bp.tableCount} tables (${bp.specLabel}), a ${bp.danceFloorDims} dance floor, and ${bp.aisleSpec}.`
         },
         {
-          question: `How many tables and Avery 5302 place card sheets does this ${b1} layout use?`,
-          answer: `The ${b1} (${category}) blueprint uses ${bp.tableCount} total tables (1 ${bp.headTable.name} plus ${bp.pts.length} guest tables: ${bp.roundCount} rounds and ${bp.banquetCount - (bp.headTable.shape !== 'round' ? 1 : 0)} banquet tables) and prints onto ${bp.averySheets} sheets of 10-up Avery 5302 tented place cards.`
+          question: `How many tables and Avery 5302 place card sheets does this ${bp.guests}-guest layout use?`,
+          answer: `The ${cleanEntity} (${cleanCategory}) blueprint uses ${bp.tableCount} total tables (1 ${bp.headTable.name} plus ${bp.pts.length} guest tables: ${bp.roundCount} rounds and ${bp.banquetCount - (bp.headTable.shape !== 'round' ? 1 : 0)} banquet tables) and prints onto ${bp.averySheets} sheets of 10-up Avery 5302 tented place cards.`
         },
         {
-          question: `What is the best 24"×36" welcome sign layout for ${b1}?`,
-          answer: `For ${b1} (${bp.guests} guests in ${bp.roomDims}), SeatHarmony formats your 24"×36" Arch D welcome sign in a ${bp.posterLayout} layout with a blended top reception table map and 0.125" FedEx/Staples print bleed.`
+          question: `What is the best 24"×36" welcome sign layout for ${cleanEntity} (${bp.guests} guests)?`,
+          answer: `For ${cleanEntity} (${bp.guests} guests in ${bp.roomDims}), SeatHarmony formats your 24"×36" Arch D welcome sign in a ${bp.posterLayout} layout with a blended top reception table map and 0.125" FedEx/Staples print bleed.`
         }
       ]
     };
