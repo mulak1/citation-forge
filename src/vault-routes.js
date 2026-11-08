@@ -609,6 +609,7 @@ function attachVaultAndPaywallRoutes(app, publicUrl, ebStore = null) {
     <div style="display:flex;align-items:center;gap:10px;flex-wrap:wrap;">
       <span style="font-weight:800;color:#1B4D3E;">&#10003; FedEx &amp; Staples Spec:</span>
       <span>Arch D 24&Prime; &times; 36&Prime; &bull; 0.125&Prime; bleed included &bull; 300 DPI vector rendering &bull; Mount on &frac31;&#8326;&Prime; foam board (matte finish).</span>
+      <button type="button" onclick="navigator.clipboard.writeText('Print at Arch D 24x36 inches, matte finish, mounted on 3/16 inch white foam core board. Full bleed trim.');this.textContent='✓ Copied Print Shop Note!';var b=this;setTimeout(function(){b.textContent='📋 Copy Print Shop Note';},2000);" style="cursor:pointer;background:#FAF3E3;color:#8C2D19;border:1px solid #C8A96E;padding:3px 9px;border-radius:6px;font-size:0.72rem;font-weight:800;white-space:nowrap;">📋 Copy Print Shop Note</button>
     </div>
     <div style="display:flex;align-items:center;gap:12px;font-weight:700;">
       <span style="color:#0369A1;">Standard Easel Ready</span>
