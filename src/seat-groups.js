@@ -373,6 +373,35 @@ function renderSeatGroupsClientScript() {
     shToast('\\u2713 Balanced ' + totalGuests + ' guests across ' + eligible.length + ' tables (' + newMin + '\\u2013' + newMax + ' per table, ' + moved + ' moved, couples preserved).');
     shRenderAll();
   };
+  window.shRenumberTablesClockwise = function() {
+    shCloseMenus();
+    var plan = window.__SH_STATE; if (!plan || !plan.tables || plan.tables.length < 2) return;
+    window.shSnapshot();
+    var isSweetAt0 = shNormalizeShape(plan.tables[0].shape) === 'sweetheart';
+    var headTable = isSweetAt0 ? plan.tables[0] : null;
+    var guestTables = isSweetAt0 ? plan.tables.slice(1) : plan.tables.slice(0);
+    var anchorX = headTable ? (headTable.x || 560) : 560;
+    var anchorY = headTable ? (headTable.y || 160) : Math.round((plan.roomHeight || 680) / 2);
+    guestTables.sort(function(a, b) {
+      var angleA = Math.atan2((a.y || 300) - anchorY, (a.x || 560) - anchorX);
+      var angleB = Math.atan2((b.y || 300) - anchorY, (b.x || 560) - anchorX);
+      var cwA = (angleA + Math.PI / 2 + 2 * Math.PI) % (2 * Math.PI);
+      var cwB = (angleB + Math.PI / 2 + 2 * Math.PI) % (2 * Math.PI);
+      return cwA - cwB;
+    });
+    var curNum = isSweetAt0 ? 2 : 1;
+    guestTables.forEach(function(tb) {
+      tb.number = curNum;
+      if (/^Table \d+$/i.test(tb.name)) tb.name = 'Table ' + curNum;
+      curNum++;
+    });
+    plan.tables = headTable ? [headTable].concat(guestTables) : guestTables;
+    shReflowGuestTables();
+    window.__SH_SELECTED_TABLE_IDX = Math.min(window.__SH_SELECTED_TABLE_IDX || 1, plan.tables.length - 1);
+    shSyncTableSelectAndPills();
+    shToast('\\u2713 Renumbered ' + guestTables.length + ' tables in clockwise caterer serving sequence' + (headTable ? ' (starting from Sweetheart Table)' : '') + '.');
+    shRenderAll();
+  };
 
   /* ---- Magnetic 20px Architectural Grid Snap & Smart Peer-Table Alignment Guides ---- */
   window.__SH_SNAP_GRID = true;
