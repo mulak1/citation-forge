@@ -966,7 +966,14 @@ function getVenueVisual(slug = '', title = '', category = '') {
       name: 'Banquet Kitchen Plating Pass & Clockwise Table Meal Manifest'
     };
   }
-  if (/fedex-staples-canva|seatharmony-vs-canva|templett-corjl/i.test(s)) {
+  if (/seatharmony-vs-canva/i.test(s)) {
+    return {
+      img: '/public/showcase-canva-vs-auto-sign.jpg',
+      tag: 'Canva vs. Auto-Generated Sign',
+      name: 'Manual Text Box Formatting vs. 1-Click Arch D 24″×36″ Print Generation'
+    };
+  }
+  if (/fedex-staples-canva|templett-corjl/i.test(s)) {
     return {
       img: '/public/showcase-poster-24x36.png',
       tag: 'Arch D 24″×36″ Print Specification',
@@ -994,7 +1001,21 @@ function getVenueVisual(slug = '', title = '', category = '') {
       name: 'Gridlock Spreadsheet vs. Drag-and-Drop Visual Seating Studio'
     };
   }
-  if (/seatharmony-vs-weddingwire|seatharmony-vs-zola/i.test(s)) {
+  if (/seatharmony-vs-zola/i.test(s)) {
+    return {
+      img: '/public/showcase-zola-vs-visual-studio.jpg',
+      tag: 'Zola vs. SeatHarmony',
+      name: 'Registry Text Checklist vs. Real-Time Table Conflict Auto-Solver'
+    };
+  }
+  if (/seatharmony-vs-weddingwire|the-knot/i.test(s)) {
+    return {
+      img: '/public/showcase-theknot-vs-visual-studio.jpg',
+      tag: 'The Knot vs. SeatHarmony',
+      name: 'Ad-Cluttered Portal vs. Clean Seating Studio & Caterer BEO Export'
+    };
+  }
+  if (/seatharmony-vs-prismm/i.test(s)) {
     return {
       img: '/public/showcase-vault-command.png',
       tag: 'Event Command Vault',

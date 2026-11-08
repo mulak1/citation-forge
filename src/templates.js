@@ -597,6 +597,27 @@ function renderFooter() {
 
 function getVenueVisual(slug = '', title = '', category = '') {
   const s = `${slug} ${title} ${category}`.toLowerCase();
+  if (/seatharmony-vs-canva/i.test(s)) {
+    return {
+      img: '/public/showcase-canva-vs-auto-sign.jpg',
+      tag: 'Canva vs. Auto-Generated Sign',
+      name: 'Manual Text Box Formatting vs. 1-Click Arch D 24″×36″ Print Generation'
+    };
+  }
+  if (/seatharmony-vs-zola/i.test(s)) {
+    return {
+      img: '/public/showcase-zola-vs-visual-studio.jpg',
+      tag: 'Zola vs. SeatHarmony',
+      name: 'Registry Text Checklist vs. Real-Time Table Conflict Auto-Solver'
+    };
+  }
+  if (/seatharmony-vs-weddingwire|the-knot/i.test(s)) {
+    return {
+      img: '/public/showcase-theknot-vs-visual-studio.jpg',
+      tag: 'The Knot vs. SeatHarmony',
+      name: 'Ad-Cluttered Portal vs. Clean Seating Studio & Caterer BEO Export'
+    };
+  }
   if (/seatharmony-vs-google-sheets/i.test(s)) {
     return {
       img: '/public/showcase-sheets-vs-visual-studio.jpg',
