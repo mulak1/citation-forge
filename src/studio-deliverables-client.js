@@ -603,6 +603,49 @@ function renderDeliverablesClientScript() {
     if (window.shTrackTelemetry) window.shTrackTelemetry('calculate', { source: 'sample_tbl1_csv' });
   };
 
+  window.shCopyKitchenTally = function() {
+    if (!window.__SH_STATE) return;
+    var state = window.__SH_STATE;
+    var title = state.title || 'Wedding Reception';
+    var tables = state.tables || [];
+    var totalCovers = 0, totalBeef = 0, totalHalibut = 0, totalChicken = 0, totalVegan = 0, totalVeg = 0, totalKids = 0;
+    var allergiesList = [];
+    tables.forEach(function(t) {
+      (t.guests || []).forEach(function(g, idx) {
+        totalCovers++;
+        var mb = (typeof shMealBadge === 'function') ? shMealBadge(g.meal) : { short: 'Other' };
+        if (mb.short === 'Beef') totalBeef++;
+        else if (mb.short === 'Fish') totalHalibut++;
+        else if (mb.short === 'Chicken') totalChicken++;
+        else if (mb.short === 'Vegan') totalVegan++;
+        else if (mb.short === 'Veg') totalVeg++;
+        else totalKids++;
+        if (g.allergy) {
+          allergiesList.push((t.name || ('Table ' + t.number)) + ' Seat #' + (idx + 1) + ' (' + g.name + '): ' + g.allergy);
+        }
+      });
+    });
+    var lines = [
+      '🍽️ SEATHARMONY KITCHEN TALLY SUMMARY',
+      'Event: ' + title + ' (' + totalCovers + ' Total Covers)',
+      '• Beef: ' + totalBeef + ' | Fish: ' + totalHalibut + ' | Chicken: ' + totalChicken + ' | Vegan/Veg: ' + (totalVegan + totalVeg) + ' | Kids: ' + totalKids,
+      '⚠️ Severe Dietary Flags (' + allergiesList.length + '):',
+      allergiesList.length ? ('  - ' + allergiesList.slice(0, 4).join('\\n  - ') + (allergiesList.length > 4 ? ('\\n  + ' + (allergiesList.length - 4) + ' more in full sheet') : '')) : '  - None flagged',
+      'Clockwise 12:00 Seat #1 mapping: ' + window.location.href
+    ];
+    var text = lines.join('\\n');
+    if (navigator.clipboard && navigator.clipboard.writeText) {
+      navigator.clipboard.writeText(text).then(function() {
+        if (typeof shToast === 'function') shToast('✓ Copied Kitchen Tally to Clipboard for Text/Email!');
+      }).catch(function() {
+        if (typeof shToast === 'function') shToast('✓ Kitchen Tally ready!');
+      });
+    } else {
+      if (typeof shToast === 'function') shToast('✓ Kitchen Tally ready!');
+    }
+    if (window.shTrackTelemetry) window.shTrackTelemetry('calculate', { source: 'copy_kitchen_tally' });
+  };
+
   window.shFilterQrLookup = function() {
     const qInput = document.getElementById('sh-qr-search'), out = document.getElementById('sh-qr-results');
     if (!out || !window.__SH_STATE) return;
