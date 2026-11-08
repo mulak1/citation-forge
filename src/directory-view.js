@@ -706,6 +706,17 @@ function renderDirectoryPage(seoPages = []) {
         <h1 class="studio-zone-title" style="text-align:center;margin-bottom:8px;">Find an architectural layout that fits your <em>venue.</em></h1>
         <p class="studio-zone-sub" style="text-align:center;">From 40-guest U-shape rehearsal dinners and 80-guest Tuscan vineyard banquets to 180-guest museum rotundas and 300-guest galas.</p>
       </div>
+      <!-- SPECIMEN #1 PROOF & RISK-REVERSAL BAR (PILLAR 3 & 4 GATELOCK) -->
+      <div id="sh-dir-specimen-proof-strip" style="display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:8px;padding:8px 16px;background:#FAF8F5;border:1px solid #E2D9C8;border-radius:12px;margin:0 auto 20px;max-width:1080px;font-size:13px;color:#1F1B18;">
+        <div style="display:flex;align-items:center;gap:8px;flex-wrap:wrap;min-width:0;">
+          <span style="font-weight:800;color:#1B4D3E;display:inline-flex;align-items:center;gap:4px;">&#10003; Specimen #1 Proof:</span>
+          <span style="color:#574F49;">Table 1 Clockwise 12:00 Caterer BEO (10 Covers &bull; 🥩 Filet, 🐟 Halibut, 🌱 Vegan &bull; 🌾 Celiac Flagged)</span>
+        </div>
+        <div style="display:flex;align-items:center;gap:8px;flex-wrap:wrap;">
+          <span style="font-size:12px;color:#78350F;font-weight:700;background:#FFFBEB;border:1px solid #FDE68A;padding:3px 8px;border-radius:999px;white-space:nowrap;">&#10003; 30-Day Money-Back Guarantee</span>
+          <span style="font-size:12px;color:#1B4D3E;font-weight:700;background:#EBF4F0;border:1px solid #C4DFD5;padding:3px 8px;border-radius:999px;white-space:nowrap;">FedEx &amp; Staples 24&Prime;&times;36&Prime; Ready</span>
+        </div>
+      </div>
       <div class="dir-filters" role="group" aria-label="Filter and sort venue layouts">
         <span class="dir-filter-label">Guests</span>
         <div class="dir-chips">${sizes.map(([k, l], i) => `<button type="button" class="dir-chip${i === 0 ? ' on' : ''}" data-size="${k}">${l}</button>`).join('')}</div>
@@ -753,13 +764,13 @@ function renderDirectoryPage(seoPages = []) {
       <div class="dir-empty" id="dir-empty">No layouts match those filters. <button type="button" class="shw-link" onclick="dirReset()">Clear filters</button></div>
       <div id="sh-dir-vault-bar" style="background:#FAF7F2;border:1px solid #E4DCD0;border-radius:16px;padding:18px 24px;margin:36px 0 20px;box-shadow:0 4px 16px -8px rgba(31,27,24,0.06);display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:16px;">
         <div style="flex:1 1 280px;min-width:0;">
-          <div style="font-weight:700;color:#1F1B18;font-size:15px;margin-bottom:2px;">Save Any Venue Layout &amp; Unlock Free Clockwise Meal Tally ($0)</div>
-          <div style="font-size:13px;color:#574F49;">Includes Table 1 sample, guest dietary flags, and 24&Prime;&times;36&Prime; printable signage spec</div>
+          <div style="font-weight:700;color:#1F1B18;font-size:15px;margin-bottom:2px;">Save Any Venue Layout &amp; Email Clockwise Caterer Sheet ($0)</div>
+          <div style="font-size:13px;color:#574F49;">Includes Table 1 sample, guest dietary flags &bull; FedEx Office 24&Prime;&times;36&Prime; spec &bull; 30-day money-back guarantee</div>
         </div>
         <div style="display:flex;flex-wrap:wrap;align-items:center;gap:10px;flex:1 1 340px;">
-          <input id="sh-dir-email" type="email" placeholder="Enter your email to save layout..." onkeydown="if(event.key==='Enter')window.shSaveDirLead()" style="flex:1 1 200px;min-width:0;height:42px;padding:8px 14px;border:1px solid #E4DCD0;border-radius:10px;font-size:14px;background:#FFFFFF;color:#1F1B18;" aria-label="Email address to save venue layouts" />
+          <input id="sh-dir-email" type="email" placeholder="Your email (saves layout + emails Caterer Sheet $0)..." onkeydown="if(event.key==='Enter')window.shSaveDirLead()" style="flex:1 1 200px;min-width:0;height:42px;padding:8px 14px;border:1px solid #E4DCD0;border-radius:10px;font-size:14px;background:#FFFFFF;color:#1F1B18;" aria-label="Email address to save venue layouts" />
           <button type="button" id="sh-dir-save-btn" onclick="window.shSaveDirLead()" style="cursor:pointer;background:#1B4D3E;color:#FFFFFF;border:none;border-radius:10px;height:42px;padding:8px 18px;font-size:14px;font-weight:700;white-space:nowrap;">Save Free ($0) &rarr;</button>
-          <a href="/buy/complete_dossier?target=estate-150&amp;allow_promotion_codes=false" style="display:inline-flex;align-items:center;height:42px;padding:8px 14px;font-size:13.5px;font-weight:700;color:#B8860B;text-decoration:none;white-space:nowrap;">Get Print Pack ($7) &rarr;</a>
+          <a href="/buy/complete_dossier?target=estate-150&amp;allow_promotion_codes=false" style="display:inline-flex;align-items:center;height:42px;padding:8px 14px;font-size:13px;font-weight:800;color:#78350F;background:#FFFBEB;border:1px solid #FDE68A;border-radius:10px;text-decoration:none;white-space:nowrap;">Unlock Event Print Pack ($7) &rarr;</a>
         </div>
         <div id="sh-dir-status" style="display:none;width:100%;font-size:13.5px;font-weight:700;color:#1B4D3E;padding-top:4px;"></div>
       </div>
