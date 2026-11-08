@@ -629,6 +629,38 @@ function renderSeatEditorClientScript() {
     shToast(orphans.length ? 'Removed ' + tblName + ' and re-seated ' + orphans.length + ' guest' + (orphans.length === 1 ? '' : 's') + ' into your existing tables. Tap Undo to reverse.' : 'Removed ' + tblName + '. Tap Undo to reverse.');
     shRenderAll();
   };
+  window.shEdDuplicateTable = function(tIdx) {
+    var tables = window.__SH_STATE && window.__SH_STATE.tables;
+    var t = tables && tables[tIdx];
+    if (!t) return;
+    window.shSnapshot();
+    var nextNum = tables.length + 1;
+    var newX = Math.min(1000, Math.max(120, Math.round(((t.x || 300) + 120) / 20) * 20));
+    var newY = Math.min((window.__SH_STATE.roomHeight || 680) - 100, Math.max(100, Math.round(((t.y || 250) + 40) / 20) * 20));
+    var overlaps = tables.some(function(ot) { return Math.hypot((ot.x || 0) - newX, (ot.y || 0) - newY) < 90; });
+    if (overlaps) {
+      newY = Math.min((window.__SH_STATE.roomHeight || 680) - 100, newY + 120);
+    }
+    var cloned = {
+      id: 'table-' + Date.now(),
+      number: nextNum,
+      name: 'Table ' + nextNum,
+      shape: t.shape || 'round',
+      capacity: t.capacity || 8,
+      x: newX,
+      y: newY,
+      rotation: t.rotation || 0,
+      locked: false,
+      guests: []
+    };
+    shRecomputeGeometry(cloned);
+    tables.push(cloned);
+    window.__SH_SELECTED_TABLE_IDX = tables.length - 1;
+    window.__SH_VIEW_BENCH = false;
+    shSyncTableSelectAndPills();
+    shToast('\u2713 Duplicated ' + shEdTableLabel(t) + ' as Table ' + nextNum + ' (' + shFriendlyShape(cloned.shape) + ', ' + cloned.capacity + ' chairs).');
+    shRenderAll();
+  };
   window.shEdSeats = function(tIdx, d) { window.shChangeTableCapacity(tIdx, d); };
   window.shEdRenameTable = function(tIdx, v) { if (!String(v || '').trim()) return; window.shSnapshot(); window.shRenameTable(tIdx, v); };
 
@@ -786,7 +818,10 @@ function renderSeatEditorClientScript() {
     });
     if (free > 0 && t.guests.length) h.push('<div class="sh-ed-free">' + free + ' empty seat' + (free === 1 ? '' : 's') + '</div>');
     h.push('</div>');
-    if (!isSweet && tables.length > 2) h.push('<button type="button" class="sh-ed-remove" style="margin-top:10px;" onclick="window.shEdRemoveTable(' + tIdx + ')">Remove this table' + (t.guests.length ? ' (re-seat ' + t.guests.length + ' guest' + (t.guests.length === 1 ? '' : 's') + ')' : '') + '</button>');
+    h.push('<div style="display:flex;gap:6px;margin-top:10px;flex-wrap:wrap;">');
+    h.push('<button type="button" class="sh-ed-ghost" style="flex:1;padding:7px 10px;font-size:0.78rem;font-weight:700;background:#FAF8F5;border-color:#C8A96E;color:#78350F;white-space:nowrap;" onclick="window.shEdDuplicateTable(' + tIdx + ')">⎘ Duplicate Table</button>');
+    if (!isSweet && tables.length > 2) h.push('<button type="button" class="sh-ed-remove" style="flex:1;padding:7px 10px;font-size:0.78rem;margin:0;white-space:nowrap;" onclick="window.shEdRemoveTable(' + tIdx + ')">Remove table' + (t.guests.length ? ' (re-seat ' + t.guests.length + ')' : '') + '</button>');
+    h.push('</div>');
     if (window.shEdKeepApartHtml) h.push(window.shEdKeepApartHtml());
     box.innerHTML = h.join('');
     if (window.shSyncRightPanelUi) window.shSyncRightPanelUi();
