@@ -325,6 +325,54 @@ function renderSeatGroupsClientScript() {
     shToast(removed > 0 ? ('\\u2713 Removed ' + removed + ' empty table' + (removed === 1 ? '' : 's') + ' and re-numbered room.') : 'All tables currently have seated guests.');
     shRenderAll();
   };
+  window.shAutoBalanceTables = function() {
+    shCloseMenus();
+    var plan = window.__SH_STATE; if (!plan || !plan.tables || plan.tables.length < 2) return;
+    var eligible = [];
+    var totalGuests = 0;
+    plan.tables.forEach(function(tb, idx) {
+      if (shNormalizeShape(tb.shape) === 'sweetheart' || tb.locked) return;
+      eligible.push({ idx: idx, table: tb });
+      totalGuests += (tb.guests || []).length;
+    });
+    if (eligible.length < 2 || totalGuests === 0) {
+      shToast('Not enough unlocked guest tables to balance.');
+      return;
+    }
+    var counts = eligible.map(function(e) { return e.table.guests.length; });
+    var minCount = Math.min.apply(null, counts);
+    var maxCount = Math.max.apply(null, counts);
+    if (maxCount - minCount <= 1) {
+      shToast('\\u2713 Tables are already evenly balanced (' + minCount + (minCount === maxCount ? '' : '\\u2013' + maxCount) + ' guests per table).');
+      return;
+    }
+    window.shSnapshot();
+    var moved = 0;
+    for (var iter = 0; iter < 100; iter++) {
+      eligible.sort(function(a, b) { return b.table.guests.length - a.table.guests.length; });
+      var heaviest = eligible[0].table;
+      var lightest = eligible[eligible.length - 1].table;
+      if (heaviest.guests.length - lightest.guests.length <= 1) break;
+      var candIdx = -1;
+      for (var gi = heaviest.guests.length - 1; gi >= 0; gi--) {
+        var pIdx = shFindPartnerIdx(heaviest, gi);
+        if (pIdx === -1) { candIdx = gi; break; }
+      }
+      if (candIdx === -1) candIdx = heaviest.guests.length - 1;
+      var candidate = heaviest.guests.splice(candIdx, 1)[0];
+      lightest.guests.push(candidate);
+      if (lightest.guests.length > (lightest.capacity || 8)) {
+        lightest.capacity = lightest.guests.length;
+      }
+      moved++;
+    }
+    plan.tables.forEach(function(tb) { shRecomputeGeometry(tb); });
+    counts = eligible.map(function(e) { return e.table.guests.length; });
+    var newMin = Math.min.apply(null, counts);
+    var newMax = Math.max.apply(null, counts);
+    shToast('\\u2713 Balanced ' + totalGuests + ' guests across ' + eligible.length + ' tables (' + newMin + '\\u2013' + newMax + ' per table, ' + moved + ' moved, couples preserved).');
+    shRenderAll();
+  };
 
   /* ---- Magnetic 20px Architectural Grid Snap & Smart Peer-Table Alignment Guides ---- */
   window.__SH_SNAP_GRID = true;
