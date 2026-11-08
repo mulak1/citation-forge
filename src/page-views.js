@@ -487,9 +487,12 @@ function renderZone3InteractiveStudio(plan) {
             <span>&#10003; <strong>30-Day 100% Money-Back Guarantee:</strong> Zero risk &bull; If your caterer or print shop isn't thrilled, email for an instant refund</span>
             <span style="font-weight:700;color:#1B4D3E;">&#10003; FedEx Office &amp; Staples 24&Prime;&times;36&Prime; Ready (0.125&Prime; Bleed)</span>
           </div>
-          <div id="sh-post-email-upgrade-bridge" style="display:none;padding:12px 16px;border-radius:10px;background:#EBF4F0;border:1px solid #C4DFD5;color:#1B4D3E;font-size:14px;font-weight:600;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:10px;">
-            <span>&#10003; Plan saved! <a id="sh-stateful-share-link" href="/?vault=${vId}&amp;saved=1#studio" style="color:#1B4D3E;font-weight:700;text-decoration:underline;">Shareable Return Link</a></span>
-            <a id="sh-post-email-upgrade-cta" href="/buy/complete_dossier?target=estate-150&amp;vault=${vId}&amp;allow_promotion_codes=false" style="background:#1B4D3E;color:#FFFFFF;border-radius:8px;padding:8px 16px;font-size:13.5px;font-weight:700;text-decoration:none;">Download 24&Prime;&times;36&Prime; Print Pack ($7) &rarr;</a>
+          <div id="sh-post-email-upgrade-bridge" style="display:none;padding:12px 16px;border-radius:10px;background:#EBF4F0;border:1.5px solid #1B4D3E;color:#1B4D3E;font-size:14px;font-weight:600;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:10px;">
+            <div style="display:flex;align-items:center;gap:10px;flex-wrap:wrap;">
+              <span>&#10003; <strong>Plan saved!</strong> <a id="sh-stateful-share-link" href="/?vault=${vId}&amp;saved=1#studio" style="color:#1B4D3E;font-weight:700;text-decoration:underline;">Shareable Return Link</a></span>
+              <span style="font-size:12px;color:#78350F;font-weight:700;background:#FFFBEB;border:1px solid #FDE68A;padding:2px 8px;border-radius:6px;">&#10003; 30-Day Money-Back Guarantee</span>
+            </div>
+            <a id="sh-post-email-upgrade-cta" href="/buy/complete_dossier?target=estate-150&amp;vault=${vId}&amp;allow_promotion_codes=false" style="background:#1B4D3E;color:#FFFFFF;border-radius:8px;padding:8px 16px;font-size:13.5px;font-weight:700;text-decoration:none;">Download 24&Prime;&times;36&Prime; Print Pack ($7 &middot; vs. $14 Etsy) &rarr;</a>
           </div>
         </div>
 
