@@ -771,12 +771,8 @@ function renderSetupWizardClientScript() {
       window.__SH_STATE.tables.forEach(function(t) { shRecomputeGeometry(t); });
       window.__SH_SELECTED_TABLE_IDX = Math.min(1, window.__SH_STATE.tables.length - 1);
       window.shFinishSetupWizard();
-      var grid = shwEl('sh-builder-grid');
-      if (grid && !shwEl('sh-restore-note')) {
-        var n = document.createElement('div'); n.id = 'sh-restore-note'; n.className = 'sh-restore-note';
-        n.innerHTML = '<span>Welcome back. Your seating was restored from this device (saved ' + shwAgo(raw.ts) + ').</span><span><button type="button" onclick="window.shwDoClearAll()">Start over</button><button type="button" aria-label="Dismiss" onclick="window.shwDismissNote()">&times;</button></span>';
-        grid.parentNode.insertBefore(n, grid);
-      }
+      var ss = document.getElementById('sh-save-status');
+      if (ss) ss.textContent = 'Auto-saved (restored)';
     } else { S.step = Math.max(1, Math.min(5, raw.step || 1)); S.maxStep = S.step; shwPaint(); }
     return true;
   }

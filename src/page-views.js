@@ -20,19 +20,11 @@ const IC = {
 function renderZone1Hero(plan) {
   return `
   <!-- ZONE 1: COMPACT ABOVE-THE-FOLD HERO (DIRECT TO LIVE FLOORPLAN STUDIO) -->
-  <section class="studio-zone1-hero" id="grader" style="padding:6px 0 4px !important;">
+  <section class="studio-zone1-hero" id="grader" style="padding:10px 0 6px !important;">
     <div class="container">
-      <div style="max-width:1280px;margin:0 auto;display:flex;flex-direction:column;gap:3px;">
-        <div style="display:flex;align-items:center;justify-content:space-between;gap:8px;flex-wrap:wrap;">
-          <div style="display:flex;align-items:center;gap:10px;flex-wrap:wrap;min-width:0;">
-            <h1 id="score-brand-title" class="sh-display-h1" style="font-size:clamp(1.22rem, 1.95vw, 1.58rem);line-height:1.15;margin:0;">The 6-Hour Seating Chart. <span class="sh-h1-accent">Solved in 60 Seconds, Drama-Free.</span></h1>
-          </div>
-          <div style="display:flex;align-items:center;gap:6px;flex-wrap:wrap;">
-            <button type="button" id="hero-vault-pill-btn" onclick="window.shOpenVaultModal()" style="cursor:pointer;display:inline-flex;align-items:center;gap:5px;font-size:13px;font-weight:700;color:#1C1C1C;background:#FFFFFF;border:1px solid #D1D5DB;border-radius:999px;padding:4px 11px;white-space:nowrap;" title="Save or Open Your Wedding Seating Plan"><span>Open Saved Plan</span></button>
-            <a href="/directory" class="sh-hide-mobile-toolbar" style="display:inline-flex;align-items:center;font-size:13px;font-weight:700;color:#1B4D3E;background:#EBF4F0;border:1px solid #C4DFD5;border-radius:999px;padding:4px 11px;text-decoration:none;white-space:nowrap;">60+ Venue Layouts</a>
-          </div>
-        </div>
-        <p class="sh-lead-sub sh-hide-mobile-toolbar" style="font-size:0.84rem;line-height:1.3;max-width:96ch;margin:0;color:#4B5563;">Tap a guest count preset or test the 1-click Family Conflict Auto-Solver below &mdash; keep couples together, separate divorced relatives, and export your Clockwise 12:00 meal tally &amp; 24&Prime;&times;36&Prime; welcome sign.</p>
+      <div style="max-width:1280px;margin:0 auto;display:flex;align-items:baseline;justify-content:space-between;gap:12px;flex-wrap:wrap;">
+        <h1 id="score-brand-title" class="sh-display-h1" style="font-size:clamp(1.22rem, 1.95vw, 1.58rem);line-height:1.2;margin:0;">The 6-Hour Seating Chart. <span class="sh-h1-accent">Solved in 60 Seconds, Drama-Free.</span></h1>
+        <p class="sh-lead-sub sh-hide-mobile-toolbar" style="font-size:0.84rem;line-height:1.3;margin:0;color:#6B7280;">Drag tables to arrange, solve family seating, and export print-ready signage below.</p>
       </div>
     </div>
   </section>`;
@@ -132,29 +124,15 @@ function renderZone3InteractiveStudio(plan) {
       <span id="sh-studio-vault-code" style="display:none;">${vId}</span>
       <div style="display:none;"><span id="sh-endowed-progress-label">Setup</span><span id="sh-endowed-progress-fill"></span><span id="sh-btn-vault-id">${vId}</span></div>
 
-      <div id="sh-studio-quick-preset-bar" style="display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:6px;margin-bottom:6px;padding:6px 12px;background:#F8F7F4;border:1px solid #E5E7EB;border-radius:10px;max-width:100%;box-sizing:border-box;">
-        <div style="display:flex;align-items:center;gap:6px;flex-wrap:wrap;min-width:0;max-width:100%;">
-          <span style="font-size:13px;font-weight:800;color:#1B4D3E;white-space:nowrap;">${IC.bolt}Preset Sizer:</span>
-          <button type="button" class="studio-tap-chip preset-chip active" data-preset="estate-150" data-domain="supabase.com" onclick="window.loadPresetScenario('estate-150', this)" style="padding:4px 10px;font-size:13px;white-space:nowrap;">150-Guest Estate</button>
-          <button type="button" class="studio-tap-chip" data-instant-preset="tuscan-banquet-80" onclick="window.loadPresetScenario('tuscan-banquet-80', this)" style="padding:4px 10px;font-size:13px;white-space:nowrap;">80-Guest Winery</button>
-          <button type="button" id="sh-conflict-solver-pill" class="studio-tap-chip" onclick="window.shRunConflictSolverDemo && window.shRunConflictSolverDemo(this)" style="padding:4px 11px;font-size:13px;font-weight:800;color:#065F46;background:#ECFDF5;border:1.5px solid #059669;white-space:nowrap;">${IC.bolt}Test Family Conflict Auto-Solver</button>
-          <button type="button" class="studio-tap-chip" data-instant-preset="planner-beo-sandbox" onclick="window.loadPresetScenario('planner-beo-sandbox', this)" style="padding:4px 10px;font-size:13px;white-space:nowrap;">Family Share &amp; Meal Sheet</button>
-          <button type="button" class="studio-tap-chip" data-instant-preset="200-guest-hotel-ballroom-seating-chart-template" onclick="window.loadPresetScenario('200-guest-hotel-ballroom-seating-chart-template', this)" style="padding:4px 10px;font-size:13px;white-space:nowrap;">200-Guest Ballroom</button>
+      <div id="sh-studio-quick-preset-bar" style="display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:8px;margin-bottom:10px;padding:4px 0;">
+        <div style="display:flex;align-items:center;gap:6px;flex-wrap:wrap;">
+          <span style="font-size:12px;font-weight:700;color:#78716C;">Presets:</span>
+          <button type="button" class="studio-tap-chip preset-chip active" data-preset="estate-150" data-domain="supabase.com" onclick="window.loadPresetScenario('estate-150', this)" style="padding:4px 10px;font-size:12px;white-space:nowrap;">150 Guests</button>
+          <button type="button" class="studio-tap-chip" data-instant-preset="tuscan-banquet-80" onclick="window.loadPresetScenario('tuscan-banquet-80', this)" style="padding:4px 10px;font-size:12px;white-space:nowrap;">80 Guests</button>
+          <button type="button" class="studio-tap-chip" data-instant-preset="200-guest-hotel-ballroom-seating-chart-template" onclick="window.loadPresetScenario('200-guest-hotel-ballroom-seating-chart-template', this)" style="padding:4px 10px;font-size:12px;white-space:nowrap;">200 Guests</button>
+          <button type="button" id="sh-conflict-solver-pill" class="studio-tap-chip" onclick="window.shRunConflictSolverDemo && window.shRunConflictSolverDemo(this)" style="padding:4px 10px;font-size:12px;font-weight:700;color:#065F46;background:#ECFDF5;border:1px solid #10B981;white-space:nowrap;">${IC.bolt}Auto-Solve Conflicts</button>
         </div>
-        <button type="button" class="sh-ed-ghost" onclick="window.shOpenSetupWizard(1)" style="font-size:13px;padding:4px 10px;font-weight:700;color:#1B4D3E;border-color:#1B4D3E;background:#FFFFFF;white-space:nowrap;">${IC.gear}Guided Setup</button>
-      </div>
-
-      <!-- SPECIMEN #1 PROOF & RISK-REVERSAL BAR (PILLAR 3 & 4 GATELOCK) -->
-      <div id="sh-specimen-proof-strip" style="display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:8px;padding:8px 14px;background:#FAF8F5;border:1px solid #E2D9C8;border-radius:10px;margin-bottom:8px;font-size:13px;color:#1F1B18;">
-        <div style="display:flex;align-items:center;gap:8px;flex-wrap:wrap;min-width:0;">
-          <span style="font-weight:800;color:#1B4D3E;display:inline-flex;align-items:center;gap:4px;">&#10003; Specimen #1 Proof:</span>
-          <span style="color:#574F49;">Table 1 Clockwise 12:00 Server Meal Tally (10 Covers &bull; 🥩 Filet, 🐟 Halibut, 🌱 Vegan &bull; 🌾 Celiac Flagged)</span>
-        </div>
-        <div style="display:flex;align-items:center;gap:8px;flex-wrap:wrap;">
-          <button type="button" class="studio-tap-chip" onclick="if(window.shSetActiveTab){window.shSetActiveTab('beo');}document.getElementById('studio-bespoke-artifact-stage').scrollIntoView({behavior:'smooth'});" style="padding:3px 9px;font-size:12px;font-weight:700;color:#1B4D3E;background:#EBF4F0;border:1px solid #C4DFD5;white-space:nowrap;">Inspect Caterer Specimen ($0) &rarr;</button>
-          <button type="button" class="studio-tap-chip" onclick="if(window.shSetActiveTab){window.shSetActiveTab('poster');}document.getElementById('studio-bespoke-artifact-stage').scrollIntoView({behavior:'smooth'});" style="padding:3px 9px;font-size:12px;font-weight:700;color:#78350F;background:#FFFBEB;border:1px solid #FDE68A;white-space:nowrap;">Inspect 24&Prime;&times;36&Prime; Sign Specimen &rarr;</button>
-          <span style="font-size:12px;color:#7D746D;font-weight:600;white-space:nowrap;">&#10003; 30-Day Money-Back Guarantee</span>
-        </div>
+        <button type="button" class="sh-ed-ghost" onclick="window.shOpenSetupWizard(1)" style="font-size:12px;padding:4px 10px;font-weight:600;color:#57534E;border-color:#D1D5DB;background:#FFFFFF;white-space:nowrap;">${IC.gear}Guided Wizard</button>
       </div>
 
       ${renderSetupWizardHtml(plan)}
