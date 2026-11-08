@@ -597,6 +597,20 @@ function renderFooter() {
 
 function getVenueVisual(slug = '', title = '', category = '') {
   const s = `${slug} ${title} ${category}`.toLowerCase();
+  if (/how-to-import-messy/i.test(s)) {
+    return {
+      img: '/public/showcase-csv-cleaning-workspace.jpg',
+      tag: '10-Second CSV Auto-Mapper',
+      name: 'Messy Guest List Auto-Cleaner & Column Mapping Workspace'
+    };
+  }
+  if (/mini-floorplan-map/i.test(s)) {
+    return {
+      img: '/public/showcase-mini-map-welcome-sign.jpg',
+      tag: '24″×36″ Map + Alphabetical Sign',
+      name: 'Easel-Mounted 24″×36″ Archival Sign With Integrated Table Map'
+    };
+  }
   if (/how-to-handle-last-minute/i.test(s)) {
     return {
       img: '/public/venue-last-minute-rsvp-triage.jpg',

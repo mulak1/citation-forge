@@ -959,7 +959,14 @@ function getVenueVisual(slug = '', title = '', category = '') {
       name: '48-Hour Wedding Planner Command Desk & Seating Rebalancer'
     };
   }
-  if (/seatharmony-vs-google-sheets|seatharmony-vs-weddingwire|seatharmony-vs-zola|how-to-import-messy/i.test(s)) {
+  if (/how-to-import-messy/i.test(s)) {
+    return {
+      img: '/public/showcase-csv-cleaning-workspace.jpg',
+      tag: '10-Second CSV Auto-Mapper',
+      name: 'Messy Guest List Auto-Cleaner & Column Mapping Workspace'
+    };
+  }
+  if (/seatharmony-vs-google-sheets|seatharmony-vs-weddingwire|seatharmony-vs-zola/i.test(s)) {
     return {
       img: '/public/showcase-vault-command.png',
       tag: 'Event Command Vault',
@@ -1106,7 +1113,14 @@ function getVenueVisual(slug = '', title = '', category = '') {
       name: 'Official Banquet Event Order & 12 O’Clock Server Seat Manifest'
     };
   }
-  if (/mini-floorplan-map|18x24-vs-24x36/i.test(s)) {
+  if (/mini-floorplan-map/i.test(s)) {
+    return {
+      img: '/public/showcase-mini-map-welcome-sign.jpg',
+      tag: '24″×36″ Map + Alphabetical Sign',
+      name: 'Easel-Mounted 24″×36″ Archival Sign With Integrated Table Map'
+    };
+  }
+  if (/18x24-vs-24x36/i.test(s)) {
     return {
       img: '/public/showcase-poster-24x36.png',
       tag: '24″×36″ Table Map Sign',
