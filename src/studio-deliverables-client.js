@@ -310,6 +310,7 @@ function renderDeliverablesClientScript() {
     const isUnmasked = shIsDeliverableUnmasked();
     const vid = shEsc((window.__SH_STATE && window.__SH_STATE.vaultId) || 'SH-4819');
     const chaosBanner = isChaos ? '<div style="padding:12px 14px;border-radius:10px;background:#FFF1F2;border:1.5px solid #E11D48;margin-bottom:12px;font-size:0.82rem;color:#881337;"><strong>BEFORE SEATHARMONY (Unnumbered Spreadsheet Chaos):</strong> Free wedding tools only list table numbers without clockwise chair positions. Banquet servers must interrupt conversations to <em>auction plates around the table</em>, causing a <strong>25 min dinner service delay</strong> and dangerous allergy mix-ups.</div>' : '';
+    const activeFilter = window.__SH_BEO_FILTER || null;
     const tableCards = (window.__SH_STATE.tables || []).map(function(t, tIdx) {
       if (!t.geometry) shRecomputeGeometry(t);
       let tBeef = 0, tFish = 0, tChicken = 0, tVegan = 0, tVeg = 0, tKids = 0, tAllergy = 0, tChair = 0;
@@ -323,11 +324,19 @@ function renderDeliverablesClientScript() {
         else { totalKids++; tKids++; }
         if (g.allergy) { totalAllergies++; tAllergy++; }
         if (g.accessibility) { totalChairs++; tChair++; }
-        const cleanAllergy = g.allergy ? String(g.allergy).replace(/[^A-Za-z0-9\\s()-]/g, '').trim() : '', cleanAccess = g.accessibility ? String(g.accessibility).replace(/[^A-Za-z0-9\\s()-]/g, '').trim() : '';
+        const cleanAllergy = g.allergy ? String(g.allergy).replace(/[^A-Za-z0-9\s()-]/g, '').trim() : '', cleanAccess = g.accessibility ? String(g.accessibility).replace(/[^A-Za-z0-9\s()-]/g, '').trim() : '';
+        const matchesFilter = !activeFilter ||
+          (activeFilter === 'allergy' && Boolean(cleanAllergy)) ||
+          (activeFilter === 'beef' && mb.short === 'Beef') ||
+          (activeFilter === 'fish' && mb.short === 'Fish') ||
+          (activeFilter === 'chicken' && mb.short === 'Chicken') ||
+          (activeFilter === 'vegan' && (mb.short === 'Vegan' || mb.short === 'Veg')) ||
+          (activeFilter === 'kids' && mb.short === 'Kids');
+        const rowStyle = !matchesFilter ? 'style="opacity:0.35;"' : (activeFilter ? 'style="background:#FFF9F5;font-weight:600;"' : '');
         if (isChaos) {
-          return '<tr><td class="mono" style="color:#9F1239;font-weight:700;">? Unnumbered Chair</td><td style="font-weight:700;">' + shEsc(g.name) + '</td><td>Server must ask guest at table (' + shEsc(g.meal) + ')</td><td>' + (cleanAllergy ? '<span style="color:#9F1239;">Unmapped Seat (' + shEsc(cleanAllergy) + ')</span>' : '—') + '</td><td>Unverified</td></tr>';
+          return '<tr ' + rowStyle + '><td class="mono" style="color:#9F1239;font-weight:700;">? Unnumbered Chair</td><td style="font-weight:700;">' + shEsc(g.name) + '</td><td>Server must ask guest at table (' + shEsc(g.meal) + ')</td><td>' + (cleanAllergy ? '<span style="color:#9F1239;">Unmapped Seat (' + shEsc(cleanAllergy) + ')</span>' : '—') + '</td><td>Unverified</td></tr>';
         }
-        return '<tr><td class="mono" style="font-weight:800;color:' + (idx === 0 ? '#8C2D19' : '#1C1917') + ';">Seat #' + s.seatNumber + (idx === 0 ? ' ★12:00' : '') + '</td><td style="font-weight:700;">' + shEsc(g.name) + '</td><td><span style="padding:2px 8px;border-radius:6px;font-weight:700;font-size:0.74rem;background:' + mb.bg + ';color:' + mb.color + ';">' + mb.code + ' ' + shEsc(g.meal) + '</span></td><td>' + (cleanAllergy ? '<strong style="color:#9F1239;">Alert: ' + shEsc(cleanAllergy) + '</strong>' : '<span style="color:#78716C;">None</span>') + '</td><td>' + (cleanAccess ? '<strong style="color:#92400E;">ADA: ' + shEsc(cleanAccess) + '</strong>' : '<span style="color:#78716C;">Standard</span>') + '</td></tr>';
+        return '<tr ' + rowStyle + '><td class="mono" style="font-weight:800;color:' + (idx === 0 ? '#8C2D19' : '#1C1917') + ';">Seat #' + s.seatNumber + (idx === 0 ? ' ★12:00' : '') + '</td><td style="font-weight:700;">' + shEsc(g.name) + '</td><td><span style="padding:2px 8px;border-radius:6px;font-weight:700;font-size:0.74rem;background:' + mb.bg + ';color:' + mb.color + ';">' + mb.code + ' ' + shEsc(g.meal) + '</span></td><td>' + (cleanAllergy ? '<strong style="color:#9F1239;background:#FFE4E6;padding:1px 6px;border-radius:4px;">Alert: ' + shEsc(cleanAllergy) + '</strong>' : '<span style="color:#78716C;">None</span>') + '</td><td>' + (cleanAccess ? '<strong style="color:#92400E;">ADA: ' + shEsc(cleanAccess) + '</strong>' : '<span style="color:#78716C;">Standard</span>') + '</td></tr>';
       }).join('');
       const trayParts = [];
       if (tBeef) trayParts.push('◆ ' + tBeef + ' Beef');
@@ -343,7 +352,20 @@ function renderDeliverablesClientScript() {
       }
       return '<div style="background:#FFFFFF;border:1px solid ' + (isChaos ? '#FECDD3' : '#E2D9C8') + ';border-radius:12px;padding:12px;margin-bottom:10px;"><div style="display:flex;flex-wrap:wrap;justify-content:space-between;align-items:center;gap:6px;margin-bottom:6px;"><div style="display:flex;align-items:center;gap:8px;flex-wrap:wrap;"><strong style="font-size:0.90rem;color:#181412;">' + shEsc(t.name) + ' (' + t.guests.length + ' Covers)' + (tIdx === 0 ? ' &middot; Free Sample Proof' : '') + '</strong>' + traySummary + alertBadges + '</div><span class="badge ' + (isChaos ? 'badge-rose' : 'badge-emerald') + '">' + (isChaos ? 'Unnumbered Plate Auction (~25 min Delay)' : '&#10003; Table ' + (t.number || 1) + ' Sample &middot; Seat #1 = 12 O&rsquo;Clock') + '</span></div><div style="overflow-x:auto;"><table class="ba-table" style="font-size:0.76rem;"><thead><tr><th>Clockwise Seat</th><th>Guest Name</th><th>Entrée</th><th>Allergy Alert</th><th>Chair Spec</th></tr></thead><tbody>' + rows + '</tbody></table></div></div>';
     }).join('');
-    container.innerHTML = chaosBanner + '<div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(85px,1fr));gap:8px;margin-bottom:12px;"><div style="background:#FDF2EE;border:1px solid #F5D0C5;padding:8px;border-radius:10px;text-align:center;"><div style="font-size:0.65rem;font-weight:800;color:#8C2D19;">◆ BEEF</div><div style="font-size:1.15rem;font-weight:800;color:#181412;">' + totalBeef + '</div></div><div style="background:#F0F9FF;border:1px solid #BAE6FD;padding:8px;border-radius:10px;text-align:center;"><div style="font-size:0.65rem;font-weight:800;color:#0369A1;">● FISH</div><div style="font-size:1.15rem;font-weight:800;color:#181412;">' + totalHalibut + '</div></div><div style="background:#FEF3C7;border:1px solid #FDE68A;padding:8px;border-radius:10px;text-align:center;"><div style="font-size:0.65rem;font-weight:800;color:#92400E;">■ CHICKEN</div><div style="font-size:1.15rem;font-weight:800;color:#181412;">' + totalChicken + '</div></div><div style="background:#ECFDF5;border:1px solid #A7F3D0;padding:8px;border-radius:10px;text-align:center;"><div style="font-size:0.65rem;font-weight:800;color:#065F46;">▲ VEGAN/VEG</div><div style="font-size:1.15rem;font-weight:800;color:#181412;">' + (totalVegan + totalVeg) + '</div></div><div style="background:#FFFBEB;border:1px solid #FDE68A;padding:8px;border-radius:10px;text-align:center;"><div style="font-size:0.65rem;font-weight:800;color:#A16207;">★ KIDS</div><div style="font-size:1.15rem;font-weight:800;color:#181412;">' + totalKids + '</div></div><div style="background:#FFF1F2;border:1px solid #FECDD3;padding:8px;border-radius:10px;text-align:center;"><div style="font-size:0.65rem;font-weight:800;color:#9F1239;">ALLERGIES</div><div style="font-size:1.15rem;font-weight:800;color:#9F1239;">' + totalAllergies + '</div></div></div>' + tableCards;
+    function filterBox(key, label, val, bg, border, col, activeBorder) {
+      const isSel = (activeFilter === key);
+      const ring = isSel ? ('box-shadow:0 0 0 2.5px ' + activeBorder + ';font-weight:900;') : '';
+      return '<div onclick="window.shToggleBeoFilter && window.shToggleBeoFilter(\'' + key + '\')" style="background:' + bg + ';border:1px solid ' + border + ';padding:8px;border-radius:10px;text-align:center;cursor:pointer;' + ring + '" title="Click to filter/highlight on meal sheet"><div style="font-size:0.65rem;font-weight:800;color:' + col + ';">' + label + (isSel ? ' &#10003;' : '') + '</div><div style="font-size:1.15rem;font-weight:800;color:#181412;">' + val + '</div></div>';
+    }
+    const filterBar = '<div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(85px,1fr));gap:8px;margin-bottom:12px;">' +
+      filterBox('beef', '◆ BEEF', totalBeef, '#FDF2EE', '#F5D0C5', '#8C2D19', '#8C2D19') +
+      filterBox('fish', '● FISH', totalHalibut, '#F0F9FF', '#BAE6FD', '#0369A1', '#0369A1') +
+      filterBox('chicken', '■ CHICKEN', totalChicken, '#FEF3C7', '#FDE68A', '#92400E', '#92400E') +
+      filterBox('vegan', '▲ VEGAN/VEG', (totalVegan + totalVeg), '#ECFDF5', '#A7F3D0', '#065F46', '#065F46') +
+      filterBox('kids', '★ KIDS', totalKids, '#FFFBEB', '#FDE68A', '#A16207', '#A16207') +
+      filterBox('allergy', 'ALLERGIES', totalAllergies, '#FFF1F2', '#FECDD3', '#9F1239', '#E11D48') +
+      '</div>';
+    container.innerHTML = chaosBanner + filterBar + tableCards;
     const totalCovers = totalBeef + totalHalibut + totalChicken + totalVegan + totalVeg + totalKids;
     const beoBuyBtn = document.getElementById('sh-pane-beo-buy-link');
     if (beoBuyBtn) beoBuyBtn.innerHTML = 'Unlock Event Print Pack (' + totalCovers + ' Meals &middot; ' + totalAllergies + ' Allergies) &mdash; $7 &rarr;';
@@ -560,6 +582,11 @@ function renderDeliverablesClientScript() {
       if (aBtn) aBtn.classList.remove('active');
       if (posterEl) posterEl.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
     }
+  };
+
+  window.shToggleBeoFilter = function(filterKey) {
+    window.__SH_BEO_FILTER = (window.__SH_BEO_FILTER === filterKey) ? null : filterKey;
+    shRenderBeoView();
   };
 
   window.shExportTable1SampleCsv = function() {
