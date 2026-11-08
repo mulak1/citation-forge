@@ -674,7 +674,14 @@ function getVenueVisual(slug = '', title = '', category = '') {
       name: 'Long Continuous King’s Feast Table & Candelabras'
     };
   }
-  if (/restaurant[- ]?buyout|bistro|dining room/i.test(s)) {
+  if (/40[- ]?guest|b2b[- ]?vip|executive[- ]?dinner|intimate private dining/i.test(s)) {
+    return {
+      img: '/public/venue-intimate-private-dining.jpg',
+      tag: 'Private Dining Salon',
+      name: 'Historic Townhouse Private Dining Salon & Fireplace Mantle'
+    };
+  }
+  if (/restaurant[- ]?buyout|bistro/i.test(s)) {
     return {
       img: '/public/venue-restaurant-buyout.jpg',
       tag: 'Boutique Restaurant Buyout',
@@ -702,7 +709,49 @@ function getVenueVisual(slug = '', title = '', category = '') {
       name: 'High-Peak Sailcloth Tent & Meadow Lawn'
     };
   }
-  if (/ballroom|hotel|gala|grand|formal|black-tie|chandelier/i.test(s)) {
+  if (/cultural[- ]?fusion|multi[- ]?generational|mandap|chuppah/i.test(s)) {
+    return {
+      img: '/public/venue-cultural-fusion.jpg',
+      tag: 'Cultural Fusion Ballroom',
+      name: 'Grand Cultural Fusion Ballroom & Jewel-Tone Floral Arch'
+    };
+  }
+  if (/black[- ]?tie/i.test(s)) {
+    return {
+      img: '/public/venue-black-tie-ballroom.jpg',
+      tag: 'Black-Tie Gala Ballroom',
+      name: 'Black-Tie Gala Ballroom & Silver Candelabras'
+    };
+  }
+  if (/hybrid|mixed[- ]?round|mixed banquet/i.test(s)) {
+    return {
+      img: '/public/venue-hybrid-banquet.jpg',
+      tag: 'Mixed Round & Banquet Layout',
+      name: 'Architectural Mixed Rounds & Wooden Harvest Tables'
+    };
+  }
+  if (/charity[- ]?gala|table[- ]?captain/i.test(s)) {
+    return {
+      img: '/public/venue-charity-gala.jpg',
+      tag: 'Grand Civic Gala',
+      name: 'Grand Civic Gala Hall & Symmetrical Table Captain Layout'
+    };
+  }
+  if (/40[- ]?guest|b2b[- ]?vip|executive[- ]?dinner|private dining room/i.test(s)) {
+    return {
+      img: '/public/venue-intimate-private-dining.jpg',
+      tag: 'Private Dining Salon',
+      name: 'Historic Townhouse Private Dining Salon & Fireplace Mantle'
+    };
+  }
+  if (/sweetheart[- ]?table|sweetheart[- ]?anchor/i.test(s)) {
+    return {
+      img: '/public/venue-sweetheart-anchor.jpg',
+      tag: 'Sweetheart Table Anchor',
+      name: 'Elevated Sweetheart Table & Curved Floral Arch Backdrop'
+    };
+  }
+  if (/ballroom|hotel|gala|grand|formal|chandelier/i.test(s)) {
     return {
       img: '/public/venue-grand-ballroom.jpg',
       tag: 'Grand Ballroom',
