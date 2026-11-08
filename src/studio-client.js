@@ -874,6 +874,28 @@ function renderInteractiveScript(initialPlan) {
       const guestsEl = document.getElementById('sh-stat-guests'); if (guestsEl) guestsEl.textContent = totalSeated + ' Guests (' + totalTables + ' Tables)';
       const hhSub = document.getElementById('sh-stat-households-sub'); if (hhSub) hhSub.textContent = '✓ ' + (window.__SH_STATE.householdsCoupled || 26) + ' Couples & families together';
       const alSub = document.getElementById('sh-stat-allergies-sub'); if (alSub) alSub.textContent = '✓ ' + allergyAndChairCount + ' Allergy flags • Place cards ready';
+
+      // Synchronize 4-Tab Switcher live counts & indicators
+      const tabFloorplan = document.getElementById('sh-tab-floorplan');
+      if (tabFloorplan) {
+        tabFloorplan.textContent = 'Seating (' + totalTables + ' Tables)';
+        tabFloorplan.title = 'View and edit visual table arrangements (' + totalTables + ' tables)';
+      }
+      const tabBeo = document.getElementById('sh-tab-beo');
+      if (tabBeo) {
+        tabBeo.textContent = 'Caterer sheet (' + totalSeated + ' Meals' + (allergyAndChairCount ? ' · ' + allergyAndChairCount + ' Alerts' : '') + ')';
+        tabBeo.title = 'Clockwise 12:00 Banquet Event Order meal sheet (' + totalSeated + ' meals, ' + allergyAndChairCount + ' dietary alerts)';
+      }
+      const tabPoster = document.getElementById('sh-tab-poster');
+      if (tabPoster) {
+        tabPoster.textContent = 'Welcome sign (' + totalSeated + ' Names)';
+        tabPoster.title = 'Arch D 24″×36″ Archival Welcome Sign & Avery 5302 Place Cards (' + totalSeated + ' guests)';
+      }
+      const tabQr = document.getElementById('sh-tab-qr');
+      if (tabQr) {
+        tabQr.textContent = 'Guest QR (' + totalSeated + ' Live)';
+        tabQr.title = 'Interactive smartphone check-in QR code for cocktail hour';
+      }
     }
     shSyncVaultIdLinks(window.__SH_STATE.vaultId || 'SH-4819'); shSyncSpecimenCrestHeader();
     shRenderRulesList(); shRenderFloorplanSvg(); shRenderSelectedTableInspector(); shRenderBeoView(); shRenderPosterView(); window.shFilterQrLookup(); shAutoPersistVault();
