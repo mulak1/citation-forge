@@ -546,8 +546,9 @@ function renderDeliverablesClientScript() {
     const mapBtn = document.getElementById('sh-poster-map-toggle');
     if (mapBtn) { mapBtn.classList.toggle('active', showMap); mapBtn.innerHTML = 'Mini Layout: ' + (showMap ? 'ON' : 'OFF'); }
     const miniMapHtml = showMap ? shBuildPosterMiniMapHtml(window.__SH_STATE, tSpec, themeKey) : '';
+    const prePressBadgeHtml = '<div style="position:absolute;top:12px;right:14px;display:flex;align-items:center;gap:5px;padding:3px 9px;border-radius:999px;background:rgba(255,255,255,0.92);backdrop-filter:blur(4px);border:1px solid ' + borderCol + ';font-size:0.68rem;font-weight:700;color:' + sub + ';pointer-events:none;box-shadow:0 2px 6px rgba(0,0,0,0.06);"><span style="display:inline-block;width:6px;height:6px;border-radius:50%;background:#10B981;"></span><span>Pre-Press 300 DPI Arch D (24&Prime;&times;36&Prime;)</span></div>';
     posterEl.innerHTML =
-      '<div style="background:' + bg + ';color:' + fg + ';border:3px double ' + borderCol + ';border-radius:14px;padding:20px 18px;box-shadow:0 16px 36px rgba(24,20,18,0.12);"><div style="display:flex;align-items:center;gap:14px;text-align:left;border-bottom:1.5px double ' + borderCol + ';padding-bottom:12px;margin-bottom:14px;"><div id="poster-logo-badge" style="width:58px;height:58px;border-radius:14px;border:2px solid ' + borderCol + ';background:' + tSpec.badgeBg + ';display:flex;align-items:center;justify-content:center;flex-shrink:0;box-shadow:0 6px 14px rgba(24,20,18,0.18);overflow:hidden;">' + posterCrestHtml + '</div><div style="min-width:0;flex:1;"><div style="font-size:0.62rem;letter-spacing:0.14em;text-transform:uppercase;color:' + sub + ';font-weight:800;">' + tSpec.motif + ' WELCOME TO OUR RECEPTION</div><h3 id="sh-live-sign-kicker" class="serif-display" style="font-size:1.68rem;color:' + fg + ';font-style:' + tSpec.fontStyle + ';margin:1px 0;">' + shEsc(kickerText) + '</h3><div style="font-size:0.80rem;color:' + sub + ';font-style:italic;">' + shEsc(window.__SH_STATE.title) + ' &middot; ' + shEsc(window.__SH_STATE.venueName || 'Rosewood Conservatory') + '</div></div></div>' + miniMapHtml + bodyHtml + '</div>';
+      '<div style="background:' + bg + ';color:' + fg + ';border:3px double ' + borderCol + ';border-radius:14px;padding:20px 18px;box-shadow:0 16px 36px rgba(24,20,18,0.12);position:relative;">' + prePressBadgeHtml + '<div style="display:flex;align-items:center;gap:14px;text-align:left;border-bottom:1.5px double ' + borderCol + ';padding-bottom:12px;margin-bottom:14px;"><div id="poster-logo-badge" style="width:58px;height:58px;border-radius:14px;border:2px solid ' + borderCol + ';background:' + tSpec.badgeBg + ';display:flex;align-items:center;justify-content:center;flex-shrink:0;box-shadow:0 6px 14px rgba(24,20,18,0.18);overflow:hidden;">' + posterCrestHtml + '</div><div style="min-width:0;flex:1;"><div style="font-size:0.62rem;letter-spacing:0.14em;text-transform:uppercase;color:' + sub + ';font-weight:800;">' + tSpec.motif + ' WELCOME TO OUR RECEPTION</div><h3 id="sh-live-sign-kicker" class="serif-display" style="font-size:1.68rem;color:' + fg + ';font-style:' + tSpec.fontStyle + ';margin:1px 0;">' + shEsc(kickerText) + '</h3><div style="font-size:0.80rem;color:' + sub + ';font-style:italic;">' + shEsc(window.__SH_STATE.title) + ' &middot; ' + shEsc(window.__SH_STATE.venueName || 'Rosewood Conservatory') + '</div></div></div>' + miniMapHtml + bodyHtml + '</div>';
     const averyEl = document.getElementById('sh-avery-preview');
     if (averyEl) {
       const sampleCards = [];
@@ -596,6 +597,15 @@ function renderDeliverablesClientScript() {
   window.shClosePrintShopSpecsModal = function() {
     var m = document.getElementById('sh-print-specs-modal');
     if (m) m.style.display = 'none';
+  };
+
+  window.shPrintPosterProof = function() {
+    var vId = (window.__SH_STATE && window.__SH_STATE.vaultId) || 'SH-4819';
+    var theme = window.__SH_POSTER_THEME || (window.__SH_STATE && window.__SH_STATE.posterTheme) || 'alabaster';
+    var sort = (window.__SH_POSTER_MODE || (window.__SH_STATE && window.__SH_STATE.posterSort) || 'alphabetical');
+    var win = window.open('/print/poster/' + encodeURIComponent(vId) + '?theme=' + encodeURIComponent(theme) + '&sort=' + encodeURIComponent(sort) + '&auto_print=1', '_blank');
+    if (win) win.focus();
+    if (window.shTrackTelemetry) window.shTrackTelemetry('view_poster_proof', { vaultId: vId, theme: theme });
   };
 
   window.shToggleBeoFilter = function(filterKey) {

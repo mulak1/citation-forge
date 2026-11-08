@@ -630,6 +630,7 @@ function attachVaultAndPaywallRoutes(app, publicUrl, ebStore = null) {
       <span class="serif" style="font-style:italic;font-size:0.88rem;">We are so glad you are here &bull; Dinner, Drinks &amp; Dancing</span>
     </div>
   </div>
+  ${req.query.auto_print === '1' ? '<script>window.addEventListener("DOMContentLoaded", function() { setTimeout(function() { window.print(); }, 400); });</script>' : ''}
 </body>
 </html>`;
       return res.status(200).type('html').send(html);
