@@ -1127,6 +1127,13 @@ function getVenueVisual(slug = '', title = '', category = '') {
       name: 'Arch D 24″×36″ Archival Foam Board Print Blueprint'
     };
   }
+  if (/foam-board.*acrylic|acrylic-welcome-sign/i.test(s)) {
+    return {
+      img: '/public/showcase-foamboard-vs-acrylic.jpg',
+      tag: 'Foam Board vs. Acrylic Glare',
+      name: 'Matte Archival Foam Board vs. Glossy Acrylic Sunlight Legibility'
+    };
+  }
   if (/how-many-names-fit|foam-board/i.test(s)) {
     return {
       img: '/public/ugc-welcome-sign-easel.jpg',
@@ -1134,7 +1141,14 @@ function getVenueVisual(slug = '', title = '', category = '') {
       name: 'Arch D 24″×36″ Welcome Sign on Natural Wood Easel'
     };
   }
-  if (/poster-size-and-font-guide|alphabetical-vs-by-table/i.test(s)) {
+  if (/alphabetical-vs-by-table/i.test(s)) {
+    return {
+      img: '/public/showcase-alphabetical-guest-flow.jpg',
+      tag: 'A-Z Cocktail Hour Flow',
+      name: 'Fast 1.4-Second Alphabetical Guest Check-In & Line Bypass'
+    };
+  }
+  if (/poster-size-and-font-guide/i.test(s)) {
     return {
       img: '/public/ugc-seating-chart-easel.jpg',
       tag: '20pt Serif Alphabetical Sign',

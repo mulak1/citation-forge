@@ -597,6 +597,20 @@ function renderFooter() {
 
 function getVenueVisual(slug = '', title = '', category = '') {
   const s = `${slug} ${title} ${category}`.toLowerCase();
+  if (/foam-board.*acrylic|acrylic-welcome-sign/i.test(s)) {
+    return {
+      img: '/public/showcase-foamboard-vs-acrylic.jpg',
+      tag: 'Foam Board vs. Acrylic Glare',
+      name: 'Matte Archival Foam Board vs. Glossy Acrylic Sunlight Legibility'
+    };
+  }
+  if (/alphabetical-vs-by-table/i.test(s)) {
+    return {
+      img: '/public/showcase-alphabetical-guest-flow.jpg',
+      tag: 'A-Z Cocktail Hour Flow',
+      name: 'Fast 1.4-Second Alphabetical Guest Check-In & Line Bypass'
+    };
+  }
   if (/how-to-import-messy/i.test(s)) {
     return {
       img: '/public/showcase-csv-cleaning-workspace.jpg',
