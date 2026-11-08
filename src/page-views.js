@@ -363,6 +363,16 @@ function renderZone3InteractiveStudio(plan) {
                   </div>
                 </div>
                 <div id="sh-beo-container" style="max-height:480px;overflow-y:auto;"></div>
+                <!-- BANQUET CAPTAIN CERTIFIED GUARANTEE STRIP (PILLAR 3 & 4 GATELOCK) -->
+                <div id="sh-beo-guarantee-strip" style="margin-top:12px;padding:12px 16px;border-radius:12px;background:#FAF8F5;border:1px solid #E2D9C8;display:flex;flex-wrap:wrap;align-items:center;justify-content:space-between;gap:10px;font-size:13px;color:#1F1B18;">
+                  <div style="display:flex;align-items:center;gap:8px;flex-wrap:wrap;min-width:0;">
+                    <span style="font-weight:800;color:#1B4D3E;">&#10003; Banquet Captain Certified:</span>
+                    <span style="color:#574F49;">Clockwise numbering starting at 12:00 from head table or dance floor &bull; Exact entrée tallies &bull; Red dietary flags (Celiac, Vegan, Nut-Free) &bull; Zero wrong meals delivered</span>
+                  </div>
+                  <div style="font-size:12px;color:#78350F;font-weight:700;background:#FFFBEB;border:1px solid #FDE68A;padding:4px 10px;border-radius:999px;white-space:nowrap;">
+                    &#10003; 30-Day 100% Money-Back Guarantee
+                  </div>
+                </div>
               </div>
 
               <!-- PANE 3: 24"x36" Welcome Sign & Avery 5302 Place Cards -->
@@ -427,6 +437,16 @@ function renderZone3InteractiveStudio(plan) {
                     <label for="sh-qr-search" class="studio-field-label" style="margin-bottom:0;">Test What Guests See on Their Phones at Cocktail Hour:</label>
                     <input id="sh-qr-search" type="text" class="grader-input" placeholder="Type guest name or table (e.g. Eleanor, Chen, Miller, Table 2)..." oninput="window.shFilterQrLookup()" aria-label="Search guest name" />
                     <div id="sh-qr-results" style="display:flex;flex-direction:column;gap:6px;max-height:245px;overflow-y:auto;"></div>
+                  </div>
+                </div>
+                <!-- LIVE MOBILE LOOKUP GUARANTEE STRIP (PILLAR 3 & 4 GATELOCK) -->
+                <div id="sh-qr-guarantee-strip" style="margin-top:12px;padding:12px 16px;border-radius:12px;background:#FAF8F5;border:1px solid #E2D9C8;display:flex;flex-wrap:wrap;align-items:center;justify-content:space-between;gap:10px;font-size:13px;color:#1F1B18;">
+                  <div style="display:flex;align-items:center;gap:8px;flex-wrap:wrap;min-width:0;">
+                    <span style="font-weight:800;color:#1B4D3E;">&#10003; Zero Foyer Bottleneck:</span>
+                    <span style="color:#574F49;">Guests scan QR from cocktail-hour bar signs &bull; Instant search by first or last name &bull; Works on any phone browser without app download</span>
+                  </div>
+                  <div style="font-size:12px;color:#78350F;font-weight:700;background:#FFFBEB;border:1px solid #FDE68A;padding:4px 10px;border-radius:999px;white-space:nowrap;">
+                    &#10003; Included in Event Print Pack ($7)
                   </div>
                 </div>
               </div>
