@@ -313,6 +313,7 @@ function attachVaultAndPaywallRoutes(app, publicUrl, ebStore = null) {
       window.open('${urls.print_poster}?auto_print=1', '_blank');
       setTimeout(function() { window.open('${urls.print_avery}?auto_print=1', '_blank'); }, 600);
       setTimeout(function() { window.open('${urls.print_beo}', '_blank'); }, 1200);
+      setTimeout(function() { window.open('${urls.qr_lookup}?auto_print=1', '_blank'); }, 1800);
     };
   </script>
 </body>
