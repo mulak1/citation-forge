@@ -288,9 +288,11 @@ function attachVaultAndPaywallRoutes(app, publicUrl, ebStore = null) {
     .mono { font-family: 'JetBrains Mono', monospace; }
     .container { max-width: 1200px; margin: 0 auto; padding: 28px 20px 64px; }
     .card { background: #FFFFFF; border: 1.5px solid #E2D9C8; border-radius: 18px; padding: 22px; box-shadow: 0 10px 28px rgba(24,20,18,0.05); }
-    .btn { display: inline-flex; align-items: center; justify-content: center; gap: 7px; padding: 9px 14px; border-radius: 10px; font-weight: 800; font-size: 0.80rem; text-decoration: none; cursor: pointer; border: 1.5px solid transparent; white-space: nowrap; }
-    .btn-gold { background: #181412; color: #FDE68A; border-color: #C8A96E; }
-    .btn-outline { background: #FFFFFF; color: #78350F; border-color: #C8A96E; }
+    .btn { display: inline-flex; align-items: center; justify-content: center; gap: 7px; padding: 9px 14px; border-radius: 10px; font-weight: 800; font-size: 0.80rem; text-decoration: none; cursor: pointer; border: 1.5px solid transparent; white-space: nowrap; transition: all 0.15s ease; }
+    .btn-gold { background: #1B4D3E; color: #FFFFFF; border-color: #14382D; }
+    .btn-gold:hover { background: #14382D; }
+    .btn-outline { background: #FFFFFF; color: #1B4D3E; border-color: #1B4D3E; }
+    .btn-outline:hover { background: #EBF4F0; }
     .grid-2 { display: grid; grid-template-columns: repeat(2, 1fr); gap: 18px; margin-top: 20px; }
     @media (max-width: 780px) { .grid-2 { grid-template-columns: 1fr; } }
   </style>
