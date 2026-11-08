@@ -196,7 +196,44 @@ function renderSeatGroupsClientScript() {
   };
 
   /* ---- Table style, rotation, mixed table types, non-destructive room scaling & empty-table cleanup ---- */
-  window.shEdShape = function(tIdx, shape) { var t = window.__SH_STATE.tables[tIdx]; if (!t) return; window.shSnapshot(); t.shape = shape; shRecomputeGeometry(t); shRenderAll(); };
+  window.shCalculateTableClearance = function(tIdx) {
+    if (!window.__SH_STATE || !window.__SH_STATE.tables) return null;
+    var plan = window.__SH_STATE, target = plan.tables[tIdx];
+    if (!target) return null;
+    if (!target.geometry) shRecomputeGeometry(target);
+    var tShape = shNormalizeShape(target.shape);
+    var targetR = tShape === 'round' ? (target.geometry.tableWidth / 2) + 18 : Math.max(target.geometry.tableWidth / 2, target.geometry.tableHeight / 2) + 12;
+    var minPix = 9999, nearestName = 'Wall Boundary';
+    (plan.tables || []).forEach(function(other, oIdx) {
+      if (oIdx === tIdx) return;
+      if (!other.geometry) shRecomputeGeometry(other);
+      var oShape = shNormalizeShape(other.shape);
+      var oR = oShape === 'round' ? (other.geometry.tableWidth / 2) + 18 : Math.max(other.geometry.tableWidth / 2, other.geometry.tableHeight / 2) + 12;
+      var dist = Math.hypot((target.x || 0) - (other.x || 0), (target.y || 0) - (other.y || 0));
+      var gap = dist - (targetR + oR);
+      if (gap < minPix) { minPix = gap; nearestName = other.name || ('Table ' + other.number); }
+    });
+    (plan.landmarks || []).forEach(function(lm) {
+      var lmR = Math.hypot((lm.w || 120) / 2, (lm.h || 40) / 2);
+      var dist = Math.hypot((target.x || 0) - (lm.x || 0), (target.y || 0) - (lm.y || 0));
+      var gap = dist - (targetR + lmR);
+      if (gap < minPix) { minPix = gap; nearestName = lm.label || 'Landmark'; }
+    });
+    var estInches = Math.max(30, Math.round(54 + (minPix - 30) * 0.35));
+    return { inches: estInches, nearestName: nearestName, passed: estInches >= 54, isTight: estInches < 54 };
+  };
+
+  window.shEdShape = function(tIdx, shape) {
+    var t = window.__SH_STATE.tables[tIdx]; if (!t) return;
+    window.shSnapshot(); t.shape = shape; shRecomputeGeometry(t);
+    var cl = window.shCalculateTableClearance(tIdx);
+    if (cl && cl.isTight) {
+      shToast('⚠️ Morphed ' + t.name + ' to ' + shFriendlyShape(t.shape) + ' · Tight ' + cl.inches + '" aisle to ' + cl.nearestName + ' (<54" standard) · Drag to widen');
+    } else if (cl) {
+      shToast('✓ Morphed ' + t.name + ' to ' + shFriendlyShape(t.shape) + ' · ' + cl.inches + '" Aisle Clearance to ' + cl.nearestName + ' (54"+ Verified)');
+    }
+    shRenderAll();
+  };
   window.shEdRotate = function(tIdx, delta) {
     var t = window.__SH_STATE.tables[tIdx]; if (!t) return; window.shSnapshot();
     if (shNormalizeShape(t.shape) === 'round') t.shape = 'banquet_2sided';

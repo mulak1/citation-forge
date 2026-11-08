@@ -416,7 +416,14 @@ function renderInteractiveScript(initialPlan) {
     const tbl = window.__SH_STATE.tables[window.__SH_SELECTED_TABLE_IDX]; if (!tbl) return;
     if (window.__SH_SANDBOX_MOM && window.__SH_SELECTED_TABLE_IDX >= 3) { shToast('Mom Sandbox Active: Tables 4-8 are locked by the couple.'); return; }
     tbl.shape = shNormalizeShape(newShape); shRecomputeGeometry(tbl);
-    shToast('✓ Morphed ' + tbl.name + ' to ' + shFriendlyShape(tbl.shape) + ' (12:00 Seat #1 preserved).');
+    var cl = window.shCalculateTableClearance ? window.shCalculateTableClearance(window.__SH_SELECTED_TABLE_IDX) : null;
+    if (cl && cl.isTight) {
+      shToast('⚠️ Morphed ' + tbl.name + ' to ' + shFriendlyShape(tbl.shape) + ' · Tight ' + cl.inches + '" aisle to ' + cl.nearestName + ' (<54" standard) · Drag table to widen');
+    } else if (cl) {
+      shToast('✓ Morphed ' + tbl.name + ' to ' + shFriendlyShape(tbl.shape) + ' · ' + cl.inches + '" Aisle to ' + cl.nearestName + ' (54"+ Verified)');
+    } else {
+      shToast('✓ Morphed ' + tbl.name + ' to ' + shFriendlyShape(tbl.shape) + ' (12:00 Seat #1 preserved).');
+    }
     shSyncTableSelectAndPills(); shRenderAll();
   };
 

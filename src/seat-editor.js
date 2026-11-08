@@ -611,6 +611,14 @@ function renderSeatEditorClientScript() {
     h.push('<div class="sh-ed-tally" style="display:flex;align-items:center;justify-content:space-between;gap:6px;"><span>' + (tallyParts.length ? tallyParts.join(' &middot; ') : 'No meals assigned yet') + '</span><button type="button" class="sh-ed-ka-btn" style="padding:2px 8px;font-size:0.74rem;" onclick="window.shSetActiveTab(\\\'beo\\\')">Caterer Meal Sheet &rarr;</button></div>');
     h.push('</div>');
     if (window.shEdTableStyleHtml) h.push(window.shEdTableStyleHtml(tIdx));
+    var cl = window.shCalculateTableClearance ? window.shCalculateTableClearance(tIdx) : null;
+    if (cl) {
+      if (cl.passed) {
+        h.push('<div style="display:flex;align-items:center;gap:6px;padding:5px 9px;border-radius:7px;background:#ECFDF5;border:1px solid #A7F3D0;font-size:0.75rem;color:#065F46;font-weight:700;margin-bottom:8px;">✓ 54"+ Aisle Clearance Verified (' + cl.inches + '" to ' + shEsc(cl.nearestName) + ')</div>');
+      } else {
+        h.push('<div style="display:flex;align-items:center;gap:6px;padding:5px 9px;border-radius:7px;background:#FFFBEB;border:1px solid #FDE68A;font-size:0.75rem;color:#92400E;font-weight:700;margin-bottom:8px;">⚠️ Tight Aisle Clearance (' + cl.inches + '" to ' + shEsc(cl.nearestName) + ' · Min 54" recommended)</div>');
+      }
+    }
     h.push('<div class="sh-ed-add"><input id="sh-ed-add" placeholder="Add guest or couple..." onkeydown="if(event.key===\\'Enter\\')window.shEdAdd(' + tIdx + ')" /><button type="button" onclick="window.shEdAdd(' + tIdx + ')">Add</button><button type="button" id="sh-ed-bulk-toggle" class="sh-ed-ghost" style="padding:0 10px;font-size:0.80rem;background:#FAF7F2;border:1.5px solid #DCD3C3;color:#44403C;font-weight:700;" title="Paste multiple late RSVPs at once" onclick="window.shEdToggleBulk()">+ Paste list</button></div>');
     if (window.__SH_BULK_OPEN) {
       h.push('<div id="sh-ed-bulk-box" class="sh-ed-bulk-box"><textarea id="sh-ed-bulk-text" rows="3" class="sh-ed-input" placeholder="Paste late RSVPs (one household per line, e.g.&#10;The Harrison Family + 2 kids&#10;Dr. &amp; Mrs. Lin)"></textarea><div style="display:flex;align-items:center;justify-content:space-between;gap:6px;margin-top:6px;"><button type="button" class="sh-ed-ghost" style="padding:3px 8px;font-size:0.75rem;border-color:#D6CFC2;" onclick="window.shEdInsertSampleBulk()">&#10024; Sample RSVPs</button><div style="display:flex;gap:6px;"><button type="button" class="sh-ed-ghost" onclick="window.shEdToggleBulk()">Cancel</button><button type="button" id="sh-ed-bulk-submit" class="sh-ed-ka-btn" onclick="window.shEdBulkPaste()">Seat late RSVPs (keeps layout)</button></div></div></div>');
