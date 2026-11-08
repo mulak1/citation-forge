@@ -728,11 +728,18 @@ function renderInteractiveScript(initialPlan) {
         parts.push('<g transform="translate(' + t.x + ',' + t.y + ') rotate(' + (t.rotation || 0) + ')"><rect x="' + (-hw) + '" y="' + (-hh) + '" width="' + geom.tableWidth + '" height="' + geom.tableHeight + '" rx="10" fill="' + tblFill + '" stroke="' + strokeCol + '" stroke-width="' + strokeW + '"/></g>');
       }
       const isSweet = shNormalizeShape(t.shape) === 'sweetheart';
-      const hasAllergyAlert = (t.guests || []).some(function(g) { return Boolean(g && g.allergy && g.allergy !== 'None'); });
+      const allergyCount = (t.guests || []).filter(function(g) { return Boolean(g && g.allergy && g.allergy !== 'None'); }).length;
       const hasChairMod = (t.guests || []).some(function(g) { return Boolean(g && g.accessibility && g.accessibility !== 'Standard Chair'); });
       const tblTitle = isSweet ? 'Sweetheart' : ((t.locked ? '🔒 ' : '') + 'Table ' + t.number);
-      const seatsSub = t.guests.length + '/' + t.capacity + ' Seats' + (hasAllergyAlert ? ' · 🌾' : '') + (hasChairMod ? ' · ♿' : '');
-      const subFill = hasAllergyAlert ? '#B45309' : (hasChairMod ? '#0369A1' : '#78716C');
+      let seatsSub = t.guests.length + '/' + t.capacity + ' Seats' + (allergyCount ? ' · 🌾' + allergyCount : '') + (hasChairMod ? ' · ♿' : '');
+      let subFill = allergyCount ? '#B45309' : (hasChairMod ? '#0369A1' : '#78716C');
+      if (window.__SH_RING_MODE === 'meal') {
+        const mealTally = {};
+        (t.guests || []).forEach(function(g) { if (!g) return; const ms = shMealBadge(g.meal).short; mealTally[ms] = (mealTally[ms] || 0) + 1; });
+        const mealStr = Object.keys(mealTally).map(function(k) { return mealTally[k] + k[0]; }).join(' ');
+        seatsSub = (mealStr || '0 Meals') + (allergyCount ? ' · ⚠️' + allergyCount : '');
+        subFill = allergyCount ? '#B45309' : '#065F46';
+      }
       parts.push('<text x="' + t.x + '" y="' + (t.y - 4) + '" text-anchor="middle" fill="#1C1917" font-size="12.5" font-weight="800">' + tblTitle + '</text><text x="' + t.x + '" y="' + (t.y + 11) + '" text-anchor="middle" fill="' + subFill + '" font-size="9.8" font-weight="700">' + seatsSub + '</text></g>');
       geom.seats.forEach(function(s, sIdx) {
         const g = t.guests[sIdx];
