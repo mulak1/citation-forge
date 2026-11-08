@@ -465,8 +465,11 @@ function renderSeatEditorClientScript() {
   }
   function shParseHouseholdLine(raw) {
     var line = String(raw || '').trim(); if (!line) return [];
-    if (line.indexOf('\\t') !== -1) {
-      var cols = line.split('\\t').map(function(c) { return c.trim(); }).filter(Boolean);
+    var isDelimited = line.indexOf('\\t') !== -1 || (line.indexOf(',') !== -1 && !/family|\\+|&/i.test(line.split(',')[0]) && !/^\\s*table\\s*\\d+/i.test(line));
+    if (isDelimited) {
+      var sep = line.indexOf('\\t') !== -1 ? '\\t' : ',';
+      var cols = line.split(sep).map(function(c) { return c.trim().replace(/^["']+|["']+$/g, ''); }).filter(Boolean);
+      if (!cols.length || /^(name|guest\\s*name|attendee|first\\s*name)$/i.test(cols[0])) return [];
       var isMealOrDiet = function(s) { return /(filet|beef|steak|chicken|halibut|salmon|fish|vegan|vegetarian|risotto|kid|celiac|gluten|peanut|nut|dairy|allergy)/i.test(s); };
       var tName = '', tMealCol = '', tAllergyCol = '';
       if (cols.length === 2) {
@@ -623,6 +626,40 @@ function renderSeatEditorClientScript() {
     shToast('\\u2713 Seated ' + added + ' late-RSVP guest' + (added === 1 ? '' : 's') + ' without changing your existing layout.');
     shRenderAll();
   };
+  window.shEdHandleCsvUpload = function(ev) {
+    var file = ev.target && ev.target.files && ev.target.files[0]; if (!file) return;
+    var reader = new FileReader();
+    reader.onload = function(e) {
+      var content = String(e.target.result || '').trim();
+      var ta = document.getElementById('sh-ed-bulk-text');
+      if (ta) { ta.value = content; window.shEdBulkPaste(); }
+      else {
+        window.__SH_BULK_OPEN = true; shRenderSeatPanel();
+        var ta2 = document.getElementById('sh-ed-bulk-text');
+        if (ta2) { ta2.value = content; window.shEdBulkPaste(); }
+      }
+    };
+    reader.readAsText(file); ev.target.value = '';
+  };
+  window.shEdHandleCsvUploadBench = function(ev) {
+    var file = ev.target && ev.target.files && ev.target.files[0]; if (!file) return;
+    var reader = new FileReader();
+    reader.onload = function(e) {
+      var content = String(e.target.result || '').trim();
+      var lines = content.split(/\\r?\\n/).map(function(l) { return l.trim(); }).filter(Boolean);
+      if (!lines.length) return;
+      if (!window.__SH_STATE.unassignedGuests) window.__SH_STATE.unassignedGuests = [];
+      var added = 0;
+      lines.forEach(function(l) {
+        var grp = shParseHouseholdLine(l);
+        grp.forEach(function(g) { window.__SH_STATE.unassignedGuests.push(g); added++; });
+      });
+      window.__SH_VIEW_BENCH = true;
+      shToast('\\u2713 Added ' + added + ' guests to holding bench.');
+      shRenderSeatPanel(); shRenderAll();
+    };
+    reader.readAsText(file); ev.target.value = '';
+  };
   /* 1-click occupied table removal: auto-reseats guests into open seats on nearest tables (or distributes +1 evenly if all tables are full) */
   window.shEdRemoveTable = function(tIdx) {
     var tables = window.__SH_STATE.tables, t = tables[tIdx];
@@ -756,7 +793,7 @@ function renderSeatEditorClientScript() {
     if (window.__SH_VIEW_BENCH) {
       h.push('<div class="sh-ed-head" style="margin-top:6px;"><div class="sh-ed-title" style="font-size:1.02rem;font-weight:800;color:#1C1C1C;">Holding Bench (' + benched.length + ' Unassigned)</div><div class="sh-ed-meta" style="font-size:0.78rem;color:#57534E;">Guests unseated or awaiting table placement.</div></div>');
       if (benched.length > 0) {
-        h.push('<div style="display:flex;gap:6px;margin:8px 0;"><button type="button" class="sh-ed-ka-btn" style="padding:5px 12px;font-size:0.78rem;" onclick="window.shEdAutoSeatAllBench()">⚡ Auto-Seat All Benched Guests</button></div>');
+        h.push('<div style="display:flex;gap:6px;margin:8px 0;flex-wrap:wrap;"><button type="button" class="sh-ed-ka-btn" style="padding:5px 12px;font-size:0.78rem;" onclick="window.shEdAutoSeatAllBench()">⚡ Auto-Seat All Benched Guests</button><button type="button" class="sh-ed-ghost" style="padding:5px 10px;font-size:0.78rem;border-color:#1B4D3E;color:#1B4D3E;font-weight:700;" onclick="var fb=document.getElementById(\\\'sh-ed-csv-bench\\\');if(fb)fb.click();">📁 Upload .CSV to Bench</button><input type="file" id="sh-ed-csv-bench" accept=".csv,.tsv,.txt" style="display:none;" onchange="window.shEdHandleCsvUploadBench(event)" /></div>');
         h.push('<div class="sh-ed-list">');
         benched.forEach(function(bg, bIdx) {
           h.push('<div class="sh-ed-item open" style="margin-bottom:8px;padding:8px 10px;border-radius:8px;background:#FFFDF7;border:1px solid #EAE0D0;">');
@@ -812,12 +849,12 @@ function renderSeatEditorClientScript() {
         h.push('<div style="display:flex;align-items:center;gap:6px;padding:5px 9px;border-radius:7px;background:#FFFBEB;border:1px solid #FDE68A;font-size:0.75rem;color:#92400E;font-weight:700;margin-bottom:8px;">⚠️ Tight Aisle Clearance (' + cl.inches + '" to ' + shEsc(cl.nearestName) + ' · Min 54" recommended)</div>');
       }
     }
-    h.push('<div class="sh-ed-add"><input id="sh-ed-add" placeholder="Add guest or couple..." onkeydown="if(event.key===\\'Enter\\')window.shEdAdd(' + tIdx + ')" /><button type="button" onclick="window.shEdAdd(' + tIdx + ')">Add</button><button type="button" id="sh-ed-bulk-toggle" class="sh-ed-ghost" style="padding:0 10px;font-size:0.80rem;background:#FAF7F2;border:1.5px solid #DCD3C3;color:#44403C;font-weight:700;" title="Paste multiple late RSVPs at once" onclick="window.shEdToggleBulk()">+ Paste list</button></div>');
+    h.push('<div class="sh-ed-add"><input id="sh-ed-add" placeholder="Add guest or couple..." onkeydown="if(event.key===\\'Enter\\')window.shEdAdd(' + tIdx + ')" /><button type="button" onclick="window.shEdAdd(' + tIdx + ')">Add</button><button type="button" id="sh-ed-bulk-toggle" class="sh-ed-ghost" style="padding:0 10px;font-size:0.80rem;background:#FAF7F2;border:1.5px solid #DCD3C3;color:#44403C;font-weight:700;" title="Paste or upload multiple late RSVPs" onclick="window.shEdToggleBulk()">+ Paste / .CSV</button></div>');
     if (free >= 2 && !isSweet) {
       h.push('<div style="display:flex;align-items:center;gap:6px;margin:4px 0 8px;flex-wrap:wrap;"><span style="font-size:0.70rem;color:#78716C;font-weight:700;">Quick fill:</span><button type="button" class="sh-ed-ghost" style="padding:2px 8px;font-size:0.72rem;border-color:#D1D5DB;background:#FFF;font-weight:600;" onclick="window.shEdQuickFillPair(' + tIdx + ')">+ Couple (2)</button>' + (free >= 4 ? '<button type="button" class="sh-ed-ghost" style="padding:2px 8px;font-size:0.72rem;border-color:#D1D5DB;background:#FFF;font-weight:600;" onclick="window.shEdQuickFillFamily(' + tIdx + ')">+ Family (4)</button>' : '') + '</div>');
     }
     if (window.__SH_BULK_OPEN) {
-      h.push('<div id="sh-ed-bulk-box" class="sh-ed-bulk-box"><textarea id="sh-ed-bulk-text" rows="3" class="sh-ed-input" placeholder="Paste late RSVPs (one household per line, e.g.&#10;The Harrison Family + 2 kids&#10;Dr. &amp; Mrs. Lin)"></textarea><div style="display:flex;align-items:center;justify-content:space-between;gap:6px;margin-top:6px;"><button type="button" class="sh-ed-ghost" style="padding:3px 8px;font-size:0.75rem;border-color:#D6CFC2;" onclick="window.shEdInsertSampleBulk()">&#10024; Sample RSVPs</button><div style="display:flex;gap:6px;"><button type="button" class="sh-ed-ghost" onclick="window.shEdToggleBulk()">Cancel</button><button type="button" id="sh-ed-bulk-submit" class="sh-ed-ka-btn" onclick="window.shEdBulkPaste()">Seat late RSVPs (keeps layout)</button></div></div></div>');
+      h.push('<div id="sh-ed-bulk-box" class="sh-ed-bulk-box"><textarea id="sh-ed-bulk-text" rows="3" class="sh-ed-input" placeholder="Paste late RSVPs or CSV (e.g.&#10;The Harrison Family + 2 kids&#10;Dr. &amp; Mrs. Lin (beef, dairy-free)&#10;Sophia Montgomery, Filet, Gluten-free)"></textarea><div style="display:flex;align-items:center;justify-content:space-between;gap:6px;margin-top:6px;flex-wrap:wrap;"><div style="display:flex;gap:4px;"><button type="button" class="sh-ed-ghost" style="padding:3px 8px;font-size:0.75rem;border-color:#D6CFC2;" onclick="window.shEdInsertSampleBulk()">&#10024; Sample RSVPs</button><button type="button" class="sh-ed-ghost" style="padding:3px 8px;font-size:0.75rem;border-color:#1B4D3E;color:#1B4D3E;font-weight:700;" onclick="var fc=document.getElementById(\\\'sh-ed-csv-upload\\\');if(fc)fc.click();">📁 Upload .CSV</button><input type="file" id="sh-ed-csv-upload" accept=".csv,.tsv,.txt" style="display:none;" onchange="window.shEdHandleCsvUpload(event)" /></div><div style="display:flex;gap:6px;"><button type="button" class="sh-ed-ghost" onclick="window.shEdToggleBulk()">Cancel</button><button type="button" id="sh-ed-bulk-submit" class="sh-ed-ka-btn" onclick="window.shEdBulkPaste()">Seat RSVPs (keeps layout)</button></div></div></div>');
     }
     h.push('<div class="sh-ed-list">');
     if (!t.guests.length) h.push('<div class="sh-ed-empty" style="padding:14px 4px;">No one here yet. Add a guest above, or drag someone onto this table.</div>');
