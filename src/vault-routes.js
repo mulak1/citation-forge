@@ -523,11 +523,16 @@ function attachVaultAndPaywallRoutes(app, publicUrl, ebStore = null) {
     try {
       const vault = await resolveVaultRecord(req.params.vaultId, req.query);
       const guests = extractAllSeatedGuests(vault.state);
+      const sortBy = String(req.query.sort || 'table').toLowerCase();
+      const sortedGuests = [...guests].sort((a, b) => {
+        if (sortBy === 'alpha') return (a.lastName || a.name).localeCompare(b.lastName || b.name);
+        return a.tableNumber - b.tableNumber || a.seatNumber - b.seatNumber;
+      });
       const monogram = computeMonogram(vault.title);
       const buyPackUrl = `/buy/complete_dossier?target=${encodeURIComponent(vault.title || vault.vaultId)}&vault=${encodeURIComponent(vault.vaultId)}${vault.ownerEmail ? `&email=${encodeURIComponent(vault.ownerEmail)}` : ''}`;
 
       const isSampleSheet = req.query.sample === '1' || req.query.sample === 'sheet';
-      const visibleAveryGuests = vault.isUnlocked ? guests : (isSampleSheet ? guests.slice(0, 4) : guests.slice(0, 1));
+      const visibleAveryGuests = vault.isUnlocked ? sortedGuests : (isSampleSheet ? sortedGuests.slice(0, 4) : sortedGuests.slice(0, 1));
       const remainingCount = Math.max(0, guests.length - visibleAveryGuests.length);
       const cardsHtml = visibleAveryGuests.map((g, gIdx) => {
         const mealInfo = mealSymbolInfo(g.meal);
@@ -607,6 +612,10 @@ function attachVaultAndPaywallRoutes(app, publicUrl, ebStore = null) {
     <div>
       <div class="mono" style="font-size:0.72rem;font-weight:800;color:#8C2D19;">AVERY 5302 / 5011 SMALL TENT CARDS &bull; ${guests.length} SEATED GUESTS</div>
       <div style="font-size:0.80rem;color:#44403C;">Legend: <strong>&#9670; Beef</strong> &bull; <strong>&#9679; Fish</strong> &bull; <strong>&#9650; Vegan</strong> &bull; <strong>&#9733; Kids</strong> &bull; Back fold rotated 180&deg; for servers</div>
+      <div style="display:flex;gap:6px;align-items:center;flex-wrap:wrap;margin-top:6px;">
+        <a href="?sort=table" style="font-size:0.70rem;font-weight:800;padding:2px 8px;border-radius:6px;text-decoration:none;${sortBy !== 'alpha' ? 'background:#1B4D3E;color:#FFFFFF;' : 'background:#FAF6EE;color:#57534E;border:1px solid #D8C29D;'}">Sort: Table &amp; Seat</a>
+        <a href="?sort=alpha" style="font-size:0.70rem;font-weight:800;padding:2px 8px;border-radius:6px;text-decoration:none;${sortBy === 'alpha' ? 'background:#1B4D3E;color:#FFFFFF;' : 'background:#FAF6EE;color:#57534E;border:1px solid #D8C29D;'}">Sort: Alphabetical A&ndash;Z (Escort Table)</a>
+      </div>
     </div>
     <div style="display:flex;gap:6px;align-items:center;flex-wrap:wrap;">
       ${vault.isUnlocked
