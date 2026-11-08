@@ -605,6 +605,16 @@ function attachVaultAndPaywallRoutes(app, publicUrl, ebStore = null) {
       </label>
     </div>
   </div>
+  <div class="no-print" style="max-width:960px;margin:8px auto 0;padding:10px 16px;background:#FAF8F5;border:1px solid #E4DCD0;border-radius:12px;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:10px;font-size:0.76rem;color:#57534E;">
+    <div style="display:flex;align-items:center;gap:10px;flex-wrap:wrap;">
+      <span style="font-weight:800;color:#1B4D3E;">&#10003; FedEx &amp; Staples Spec:</span>
+      <span>Arch D 24&Prime; &times; 36&Prime; &bull; 0.125&Prime; bleed included &bull; 300 DPI vector rendering &bull; Mount on &frac31;&#8326;&Prime; foam board (matte finish).</span>
+    </div>
+    <div style="display:flex;align-items:center;gap:12px;font-weight:700;">
+      <span style="color:#0369A1;">Standard Easel Ready</span>
+      <span style="color:#1B4D3E;">Zero Flash Glare</span>
+    </div>
+  </div>
   <script>
     window.updatePosterCrest = function(rawVal) {
       var raw = String(rawVal || '').trim();
