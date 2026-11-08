@@ -637,6 +637,9 @@ function renderZone5FaqAndZone6Close(sampleSeoPages = [], plan = {}) {
               <li>&#10003; <strong>Live Guest Phone QR Lookup</strong> (Zero Cocktail-Hour Easel Crowds)</li>
             </ul>
           </div>
+          <div style="font-size:12.5px;color:#78350F;font-weight:700;background:#FFFBEB;border:1px solid #FDE68A;padding:6px 12px;border-radius:10px;text-align:center;margin-top:-6px;">
+            &#10003; 30-Day 100% Money-Back Guarantee &bull; FedEx &amp; Staples Ready
+          </div>
           <a id="pricing-buy-pack" href="/buy/complete_dossier?target=estate-150&amp;vault=${vId}&amp;allow_promotion_codes=false" class="btn btn-primary" style="width:100%;padding:13px 16px;font-size:0.94rem;white-space:normal;text-align:center;line-height:1.35;">Unlock Event Print &amp; Day-Of Pack ($7 &middot; vs. $14 Etsy) &rarr;</a>
         </div>
         <div class="panel" style="padding:30px 26px;display:flex;flex-direction:column;justify-content:space-between;gap:18px;background:#FBF9F6;border:1.5px solid #D6CBB8;">
@@ -646,15 +649,23 @@ function renderZone5FaqAndZone6Close(sampleSeoPages = [], plan = {}) {
               <span style="font-size:0.75rem;font-weight:800;color:#1B4D3E;background:#EBF6F5;padding:2px 8px;border-radius:999px;">MULTI-EVENT WHITE-LABEL</span>
             </div>
             <h4 class="serif-display" style="font-size:1.55rem;">For Wedding Planners &amp; Venues: Unlimited Events + Custom Agency Logo on Client Meal Sheets ($29 Pro Pass)</h4>
-            <div class="tabular" style="font-size:2.35rem;font-weight:800;margin:8px 0;color:#1C1C1C;">$29 <span style="font-size:0.95rem;font-weight:600;color:#78716C;">Pro Pass</span></div>
+            <div class="tabular" style="font-size:2.35rem;font-weight:800;margin:8px 0;color:#1C1C1C;">$29 <span style="font-size:0.95rem;font-weight:600;color:#78350F;">Pro Pass</span></div>
             <ul style="list-style:none;font-size:0.98rem;color:#44403C;display:flex;flex-direction:column;gap:11px;margin-top:12px;line-height:1.55;">
               <li>&#10003; <strong>Unlimited Client Weddings &amp; 300-Guest Galas</strong></li>
               <li>&#10003; <strong>Custom Agency / Venue Logo Crest</strong> on All Client Meal Sheets &amp; Signs</li>
               <li>&#10003; <strong>Unlimited Mom Sandbox Links</strong> (Lock Tables 4+ per Client)</li>
             </ul>
           </div>
+          <div style="font-size:12.5px;color:#1B4D3E;font-weight:700;background:#EBF4F0;border:1px solid #C4DFD5;padding:6px 12px;border-radius:10px;text-align:center;margin-top:-6px;">
+            &#10003; Unlimited Events &bull; Full 30-Day Money-Back Guarantee
+          </div>
           <a id="pricing-buy-pro" href="/buy/pro_b2b?target=estate-150&amp;vault=${vId}&amp;allow_promotion_codes=false" class="btn btn-secondary" style="width:100%;padding:14px 20px;font-size:0.94rem;border-color:#1B4D3E;color:#1B4D3E;font-weight:800;">Get Wedding Planner &amp; Venue Pro Pass ($29) &rarr;</a>
         </div>
+      </div>
+      <div style="display:flex;align-items:center;justify-content:center;gap:18px;flex-wrap:wrap;margin:-20px 0 36px;font-size:13.5px;color:#574F49;">
+        <span style="font-weight:700;color:#1B4D3E;">&#10003; FedEx Office &amp; Staples 24&Prime;&times;36&Prime; Ready</span>
+        <span style="font-weight:700;color:#1B4D3E;">&#10003; Clockwise 12:00 Caterer Certified</span>
+        <span style="font-weight:700;color:#78350F;">&#10003; 30-Day 100% Money-Back Guarantee</span>
       </div>
 
       ${seoLinks ? `
