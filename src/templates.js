@@ -597,6 +597,27 @@ function renderFooter() {
 
 function getVenueVisual(slug = '', title = '', category = '') {
   const s = `${slug} ${title} ${category}`.toLowerCase();
+  if (/60-inch-round-table-8-vs-9-vs-10/i.test(s)) {
+    return {
+      img: '/public/venue-60-inch-9-charger-spacing.jpg',
+      tag: '9-Charger 60″ Round Spacing',
+      name: 'Curated 60-Inch Round Table 9-Charger Sightline Setting'
+    };
+  }
+  if (/b2b-field-marketing/i.test(s)) {
+    return {
+      img: '/public/venue-welcome-dinner-terrace.jpg',
+      tag: 'Sunset Welcome Dinner Terrace',
+      name: 'Vineyard Stone Terrace Sunset Welcome Dinner Banquet'
+    };
+  }
+  if (/charity-gala-corporate-table-captain|playbook/i.test(s)) {
+    return {
+      img: '/public/venue-gala-table-captain.jpg',
+      tag: 'Table Captain Host Station',
+      name: 'Grand Ballroom Table Captain Host Station & Program Setting'
+    };
+  }
   if (/server-aisle-clearance|table-spacing/i.test(s)) {
     return {
       img: '/public/venue-server-aisle-clearance.jpg',

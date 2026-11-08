@@ -896,6 +896,13 @@ function getVenueVisual(slug = '', title = '', category = '') {
       name: 'Grand Ballroom 60-Inch Server Corridor & Service Clearance'
     };
   }
+  if (/60-inch-round-table-8-vs-9-vs-10/i.test(s)) {
+    return {
+      img: '/public/venue-60-inch-9-charger-spacing.jpg',
+      tag: '9-Charger 60″ Round Spacing',
+      name: 'Curated 60-Inch Round Table 9-Charger Sightline Setting'
+    };
+  }
   if (/8-person-60-inch|60-inch-round-table/i.test(s)) {
     return {
       img: '/public/venue-charger-plate-rounds.jpg',
@@ -919,9 +926,9 @@ function getVenueVisual(slug = '', title = '', category = '') {
   }
   if (/b2b-field-marketing/i.test(s)) {
     return {
-      img: '/public/venue-intimate-private-dining.jpg',
-      tag: 'Private Dining Salon',
-      name: 'Historic Townhouse Private Dining Salon & Fireplace Mantle'
+      img: '/public/venue-welcome-dinner-terrace.jpg',
+      tag: 'Sunset Welcome Dinner Terrace',
+      name: 'Vineyard Stone Terrace Sunset Welcome Dinner Banquet'
     };
   }
   if (/how-to-seat-divorced-parents/i.test(s)) {
@@ -1300,6 +1307,13 @@ function getVenueVisual(slug = '', title = '', category = '') {
       img: '/public/venue-hybrid-banquet.jpg',
       tag: 'Mixed Round & Banquet Layout',
       name: 'Architectural Mixed Rounds & Wooden Harvest Tables'
+    };
+  }
+  if (/charity-gala-corporate-table-captain|playbook/i.test(s)) {
+    return {
+      img: '/public/venue-gala-table-captain.jpg',
+      tag: 'Table Captain Host Station',
+      name: 'Grand Ballroom Table Captain Host Station & Program Setting'
     };
   }
   if (/charity[- ]?gala|table[- ]?captain/i.test(s)) {
