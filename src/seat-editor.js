@@ -411,6 +411,34 @@ function renderSeatEditorClientScript() {
     window.__SH_VIEW_BENCH = typeof force === 'boolean' ? force : !window.__SH_VIEW_BENCH;
     if (window.shRenderSeatPanel) window.shRenderSeatPanel();
   };
+  window.shEdQuickFillPair = function(tIdx) {
+    var tbl = window.__SH_STATE && window.__SH_STATE.tables && window.__SH_STATE.tables[tIdx];
+    if (!tbl) return;
+    window.shSnapshot();
+    var cur = (tbl.guests || []).length + 1;
+    var g1 = { name: 'Guest ' + cur, meal: 'Filet Mignon', allergy: '', accessibility: 'Standard Chair', side: 'guest', role: 'guest' };
+    var g2 = { name: 'Partner ' + cur, meal: 'Pan-Seared Halibut', allergy: '', accessibility: 'Standard Chair', side: 'guest', role: 'guest' };
+    tbl.guests.push(g1, g2);
+    if (tbl.guests.length > (tbl.capacity || 8)) tbl.capacity = tbl.guests.length;
+    shRecomputeGeometry(tbl);
+    shToast('\u2713 Added couple to ' + shEdTableLabel(tbl) + '. Click names to edit.');
+    shRenderAll();
+  };
+  window.shEdQuickFillFamily = function(tIdx) {
+    var tbl = window.__SH_STATE && window.__SH_STATE.tables && window.__SH_STATE.tables[tIdx];
+    if (!tbl) return;
+    window.shSnapshot();
+    var famNum = Math.floor(1 + Math.random() * 90);
+    var g1 = { name: 'Parent ' + famNum + 'A', meal: 'Filet Mignon', allergy: '', accessibility: 'Standard Chair', side: 'guest', role: 'guest' };
+    var g2 = { name: 'Parent ' + famNum + 'B', meal: 'Pan-Seared Halibut', allergy: '', accessibility: 'Standard Chair', side: 'guest', role: 'guest' };
+    var g3 = { name: 'Child ' + famNum + 'C', meal: 'Kids Chicken Tenders', allergy: '', accessibility: 'Standard Chair', side: 'guest', role: 'guest' };
+    var g4 = { name: 'Child ' + famNum + 'D', meal: 'Kids Chicken Tenders', allergy: '', accessibility: 'Standard Chair', side: 'guest', role: 'guest' };
+    tbl.guests.push(g1, g2, g3, g4);
+    if (tbl.guests.length > (tbl.capacity || 8)) tbl.capacity = tbl.guests.length;
+    shRecomputeGeometry(tbl);
+    shToast('\u2713 Added 4-person family household to ' + shEdTableLabel(tbl) + '.');
+    shRenderAll();
+  };
   function shExtractTags(str, fallbackStr) {
     var s = (String(str || '') + ' ' + String(fallbackStr || '')).toLowerCase();
     var meal = 'Filet Mignon';
@@ -750,7 +778,11 @@ function renderSeatEditorClientScript() {
       return;
     }
     if (benched.length > 0) {
-      h.push('<div style="display:flex;align-items:center;justify-content:space-between;padding:5px 9px;background:#FFFBEB;border:1px solid #FDE68A;border-radius:7px;font-size:0.74rem;margin-bottom:6px;"><span style="color:#92400E;font-weight:700;">⚠️ ' + benched.length + ' unseated in Bench</span><button type="button" class="sh-ed-ghost" style="padding:2px 7px;font-size:0.72rem;background:#FFFFFF;border-color:#F59E0B;color:#92400E;font-weight:700;" onclick="window.shToggleBenchView(true)">View Bench &rarr;</button></div>');
+      if (free > 0) {
+        h.push('<div style="display:flex;align-items:center;justify-content:space-between;padding:6px 10px;background:#F0FDF4;border:1px solid #BBF7D0;border-radius:8px;font-size:0.75rem;margin-bottom:8px;"><span style="color:#15803D;font-weight:700;">💡 Seat from bench: ' + shEsc(benched[0].name) + ' (' + free + ' open chair' + (free === 1 ? '' : 's') + ')</span><button type="button" class="sh-ed-ka-btn" style="padding:3px 9px;font-size:0.72rem;" onclick="window.shEdSeatFromBench(0,' + tIdx + ')">Seat Here &rarr;</button></div>');
+      } else {
+        h.push('<div style="display:flex;align-items:center;justify-content:space-between;padding:5px 9px;background:#FFFBEB;border:1px solid #FDE68A;border-radius:7px;font-size:0.74rem;margin-bottom:6px;"><span style="color:#92400E;font-weight:700;">⚠️ ' + benched.length + ' unseated in Bench</span><button type="button" class="sh-ed-ghost" style="padding:2px 7px;font-size:0.72rem;background:#FFFFFF;border-color:#F59E0B;color:#92400E;font-weight:700;" onclick="window.shToggleBenchView(true)">View Bench &rarr;</button></div>');
+      }
     }
     var mCounts = {}, aCount = 0;
     t.guests.forEach(function(g) { var ms = shEdMealShort(g.meal); mCounts[ms] = (mCounts[ms] || 0) + 1; if (g.allergy || g.accessibility) aCount++; });
@@ -773,6 +805,9 @@ function renderSeatEditorClientScript() {
       }
     }
     h.push('<div class="sh-ed-add"><input id="sh-ed-add" placeholder="Add guest or couple..." onkeydown="if(event.key===\\'Enter\\')window.shEdAdd(' + tIdx + ')" /><button type="button" onclick="window.shEdAdd(' + tIdx + ')">Add</button><button type="button" id="sh-ed-bulk-toggle" class="sh-ed-ghost" style="padding:0 10px;font-size:0.80rem;background:#FAF7F2;border:1.5px solid #DCD3C3;color:#44403C;font-weight:700;" title="Paste multiple late RSVPs at once" onclick="window.shEdToggleBulk()">+ Paste list</button></div>');
+    if (free >= 2 && !isSweet) {
+      h.push('<div style="display:flex;align-items:center;gap:6px;margin:4px 0 8px;flex-wrap:wrap;"><span style="font-size:0.70rem;color:#78716C;font-weight:700;">Quick fill:</span><button type="button" class="sh-ed-ghost" style="padding:2px 8px;font-size:0.72rem;border-color:#D1D5DB;background:#FFF;font-weight:600;" onclick="window.shEdQuickFillPair(' + tIdx + ')">+ Couple (2)</button>' + (free >= 4 ? '<button type="button" class="sh-ed-ghost" style="padding:2px 8px;font-size:0.72rem;border-color:#D1D5DB;background:#FFF;font-weight:600;" onclick="window.shEdQuickFillFamily(' + tIdx + ')">+ Family (4)</button>' : '') + '</div>');
+    }
     if (window.__SH_BULK_OPEN) {
       h.push('<div id="sh-ed-bulk-box" class="sh-ed-bulk-box"><textarea id="sh-ed-bulk-text" rows="3" class="sh-ed-input" placeholder="Paste late RSVPs (one household per line, e.g.&#10;The Harrison Family + 2 kids&#10;Dr. &amp; Mrs. Lin)"></textarea><div style="display:flex;align-items:center;justify-content:space-between;gap:6px;margin-top:6px;"><button type="button" class="sh-ed-ghost" style="padding:3px 8px;font-size:0.75rem;border-color:#D6CFC2;" onclick="window.shEdInsertSampleBulk()">&#10024; Sample RSVPs</button><div style="display:flex;gap:6px;"><button type="button" class="sh-ed-ghost" onclick="window.shEdToggleBulk()">Cancel</button><button type="button" id="sh-ed-bulk-submit" class="sh-ed-ka-btn" onclick="window.shEdBulkPaste()">Seat late RSVPs (keeps layout)</button></div></div></div>');
     }
