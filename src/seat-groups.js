@@ -283,10 +283,22 @@ function renderSeatGroupsClientScript() {
     if (shNormalizeShape(t.shape) === 'round') t.shape = 'banquet_2sided';
     t.rotation = (((t.rotation || 0) + delta) % 360 + 360) % 360; shRecomputeGeometry(t); shRenderAll();
   };
+  window.shShiftTableSeat1 = function(tIdx) {
+    var tbl = window.__SH_STATE && window.__SH_STATE.tables && window.__SH_STATE.tables[tIdx];
+    if (!tbl || !tbl.guests || tbl.guests.length < 2) return;
+    if (typeof window.shSnapshot === 'function') window.shSnapshot('Shift Seat #1 at ' + (typeof shEdTableLabel === 'function' ? shEdTableLabel(tbl) : 'Table ' + tbl.number));
+    var moved = tbl.guests.shift();
+    tbl.guests.push(moved);
+    shRecomputeGeometry(tbl);
+    if (typeof shToast === 'function') {
+      shToast('\\u2713 Shifted Seat #1 clockwise at ' + (typeof shEdTableLabel === 'function' ? shEdTableLabel(tbl) : 'Table ' + tbl.number) + ' (now ' + tbl.guests[0].name + ')');
+    }
+    shRenderAll();
+  };
   window.shEdTableStyleHtml = function(tIdx) {
     var t = window.__SH_STATE.tables[tIdx], sh = shNormalizeShape(t.shape), h = ['<div class="sh-ed-style"><div class="sh-ed-seg">'];
     [['round', 'Round'], ['banquet_2sided', 'Banquet'], ['kings_4sided', 'King\\'s']].forEach(function(x) { h.push('<button type="button" class="' + (sh === x[0] ? 'on' : '') + '" onclick="window.shEdShape(' + tIdx + ',\\'' + x[0] + '\\')">' + x[1] + '</button>'); });
-    h.push('</div><div class="sh-ed-rot"><button type="button" onclick="window.shEdRotate(' + tIdx + ',-45)" aria-label="Rotate left 45 degrees">&#8634; Rotate</button><button type="button" onclick="window.shEdRotate(' + tIdx + ',45)" aria-label="Rotate right 45 degrees">Rotate &#8635;</button></div></div>');
+    h.push('</div><div class="sh-ed-rot"><button type="button" onclick="window.shEdRotate(' + tIdx + ',-45)" aria-label="Rotate left 45 degrees">&#8634; Rotate</button><button type="button" onclick="window.shEdRotate(' + tIdx + ',45)" aria-label="Rotate right 45 degrees">Rotate &#8635;</button>' + (sh === 'round' && t.guests && t.guests.length >= 2 ? '<button type="button" onclick="window.shShiftTableSeat1(' + tIdx + ')" title="Shift Clockwise Seat #1 by 1 chair clockwise (aligns 12:00 server anchor with kitchen entry)">&#8635; Seat #1</button>' : '') + '</div></div>');
     return h.join('');
   };
   var SH_TABLE_KINDS = { round8: { shape: 'round', cap: 8, label: 'Round (8 seats)' }, round10: { shape: 'round', cap: 10, label: 'Round (10 seats)' }, round12: { shape: 'round', cap: 12, label: 'Grand round (12 seats)' }, banquet12: { shape: 'banquet_2sided', cap: 12, label: 'Long banquet (12 seats)' }, kings8: { shape: 'kings_4sided', cap: 8, label: 'King\\'s (8 seats)' }, sweetheart2: { shape: 'sweetheart', cap: 2, label: 'Sweetheart (2 seats)' } };
