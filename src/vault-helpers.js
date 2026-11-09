@@ -81,6 +81,7 @@ function buildVaultUrls(baseUrl, vaultId) {
     studio: `${baseUrl}/?vault=${enc}#studio`, vault_dashboard: `${baseUrl}/vault/${enc}`,
     print_poster: `${baseUrl}/print/poster/${enc}`, print_avery: `${baseUrl}/print/avery-5302/${enc}`,
     print_beo: `${baseUrl}/print/beo/${enc}`, print_stations: `${baseUrl}/print/server-stations/${enc}`,
+    print_turnover: `${baseUrl}/print/turnover-brief/${enc}`,
     qr_lookup: `${baseUrl}/qr/${enc}`, print_floorplan: `${baseUrl}/print/floorplan/${enc}`,
     mom_sandbox: `${baseUrl}/?vault=${enc}&sandbox=mom_tables_1_3#studio`
   };
@@ -181,6 +182,7 @@ function renderTopPrintBar({ vault, activeRoute, baseUrl }) {
         <a href="${urls.print_avery}" style="padding:5px 10px;border-radius:8px;font-size:0.73rem;font-weight:800;text-decoration:none;white-space:nowrap;${activeRoute === 'avery' ? 'background:#EBF4F0;color:#1B4D3E;border:1.5px solid #1B4D3E;' : 'background:#FFFFFF;color:#44403C;border:1px solid #E2D9C8;'}">Avery 5302</a>
         <a href="${urls.print_beo}" style="padding:5px 10px;border-radius:8px;font-size:0.73rem;font-weight:800;text-decoration:none;white-space:nowrap;${activeRoute === 'beo' ? 'background:#EBF4F0;color:#1B4D3E;border:1.5px solid #1B4D3E;' : 'background:#FFFFFF;color:#44403C;border:1px solid #E2D9C8;'}">Caterer Meal Sheet</a>
         <a href="${urls.print_stations}" style="padding:5px 10px;border-radius:8px;font-size:0.73rem;font-weight:800;text-decoration:none;white-space:nowrap;${activeRoute === 'stations' ? 'background:#EBF4F0;color:#1B4D3E;border:1.5px solid #1B4D3E;' : 'background:#FFFFFF;color:#44403C;border:1px solid #E2D9C8;'}">Server Stations</a>
+        <a href="${urls.print_turnover}" style="padding:5px 10px;border-radius:8px;font-size:0.73rem;font-weight:800;text-decoration:none;white-space:nowrap;${activeRoute === 'turnover' ? 'background:#EBF4F0;color:#1B4D3E;border:1.5px solid #1B4D3E;' : 'background:#FFFFFF;color:#44403C;border:1px solid #E2D9C8;'}">Room Turnover</a>
         <a href="${urls.print_floorplan}" style="padding:5px 10px;border-radius:8px;font-size:0.73rem;font-weight:800;text-decoration:none;white-space:nowrap;${activeRoute === 'floorplan' ? 'background:#EBF4F0;color:#1B4D3E;border:1.5px solid #1B4D3E;' : 'background:#FFFFFF;color:#44403C;border:1px solid #E2D9C8;'}">Floorplan Diagram</a>
         <a href="${urls.qr_lookup}" style="padding:5px 10px;border-radius:8px;font-size:0.73rem;font-weight:800;text-decoration:none;white-space:nowrap;${activeRoute === 'qr' ? 'background:#EBF4F0;color:#1B4D3E;border:1.5px solid #1B4D3E;' : 'background:#FFFFFF;color:#44403C;border:1px solid #E2D9C8;'}">Guest QR</a>
         <a href="${urls.studio}" style="padding:5px 10px;border-radius:8px;font-size:0.73rem;font-weight:800;text-decoration:none;background:#FFFFFF;border:1.5px solid #1B4D3E;color:#1B4D3E;white-space:nowrap;">&larr; Studio</a>

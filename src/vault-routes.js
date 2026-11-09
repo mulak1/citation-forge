@@ -13,7 +13,7 @@ const { queryOne, queryAll, runInsert } = require('./db');
 const { runGeoAudit } = require('./geo-engine');
 const { escapeHtml, renderBrandLogoSvg } = require('./templates');
 const { renderFloorplanPrintPage } = require('./vault-floorplan-view');
-const { renderPosterPrintPage, renderAveryPrintPage, renderServerStationRoutePage } = require('./vault-print-views');
+const { renderPosterPrintPage, renderAveryPrintPage, renderServerStationRoutePage, renderTurnoverBriefPage } = require('./vault-print-views');
 
 const {
   normalizeVaultId,
@@ -561,6 +561,15 @@ function attachVaultAndPaywallRoutes(app, publicUrl, ebStore = null) {
       const vault = await resolveVaultRecord(req.params.vaultId, req.query);
       const urls = buildVaultUrls(baseUrl, vault.vaultId);
       return res.status(200).type('html').send(renderServerStationRoutePage(vault, urls, req.query));
+    } catch (err) { return res.status(500).send('Internal Server Error'); }
+  });
+
+  // 7c. Cocktail-to-Reception Room Turnover Brief (GET /print/turnover-brief/:vaultId)
+  app.get('/print/turnover-brief/:vaultId', async (req, res) => {
+    try {
+      const vault = await resolveVaultRecord(req.params.vaultId, req.query);
+      const urls = buildVaultUrls(baseUrl, vault.vaultId);
+      return res.status(200).type('html').send(renderTurnoverBriefPage(vault, urls, req.query));
     } catch (err) { return res.status(500).send('Internal Server Error'); }
   });
 

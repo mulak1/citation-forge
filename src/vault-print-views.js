@@ -478,4 +478,97 @@ function renderServerStationRoutePage(vault, urls, query = {}) {
 </html>`;
 }
 
-module.exports = { renderPosterPrintPage, renderAveryPrintPage, renderServerStationRoutePage };
+function renderTurnoverBriefPage(vault, urls, query = {}) {
+  const tables = Array.isArray(vault.state && vault.state.tables) ? vault.state.tables : [];
+  const allGuests = extractAllSeatedGuests(vault.state || {});
+  const buyPackUrl = `/buy/complete_dossier?target=${encodeURIComponent(vault.title || vault.vaultId)}&vault=${encodeURIComponent(vault.vaultId)}${vault.ownerEmail ? `&email=${encodeURIComponent(vault.ownerEmail)}` : ''}`;
+
+  return `<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Room Turnover &amp; Cocktail-to-Reception Brief | ${escapeHtml(vault.title || 'SeatHarmony')}</title>
+  <style>
+    :root { --font-sans: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif; }
+    * { box-sizing: border-box; }
+    body { margin: 0; padding: 0; background: #F8F6F0; color: #181412; font-family: var(--font-sans); font-size: 14px; line-height: 1.45; }
+    @media print {
+      .no-print { display: none !important; }
+      body { background: #FFFFFF !important; }
+      .turnover-section { break-inside: avoid !important; border: 1px solid #000000 !important; }
+      @page { size: letter portrait; margin: 0.4in; }
+    }
+  </style>
+</head>
+<body>
+  ${renderTopPrintBar({ vault, activeRoute: 'turnover', baseUrl: urls.vault_dashboard.split('/vault/')[0] })}
+  <main style="max-width:960px;margin:24px auto;padding:0 18px 48px;">
+    <div class="no-print" style="margin-bottom:20px;padding:16px 20px;background:#FFFFFF;border:1px solid #D8C29D;border-radius:12px;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:12px;">
+      <div>
+        <h1 style="font-family:Georgia, serif;font-size:22px;margin:0 0 4px;color:#181412;">Cocktail-to-Reception Room Turnover Brief</h1>
+        <div style="font-size:13px;color:#57534E;">${escapeHtml(vault.title)} &bull; ${tables.length} Dining Tables &bull; ${allGuests.length} Guests &bull; 45-Minute Turnover Window</div>
+      </div>
+      <div style="display:flex;gap:8px;align-items:center;flex-wrap:wrap;">
+        <button type="button" onclick="window.print()" style="cursor:pointer;background:#1B4D3E;color:#FFFFFF;border:1px solid #14382D;padding:8px 16px;border-radius:8px;font-size:13px;font-weight:700;">Print Turnover Brief (PDF)</button>
+        <button type="button" onclick="navigator.clipboard.writeText('Cocktail-to-Reception Turnover Protocol:\\n1. T-60m: Transition satellite bar bartenders to main ballroom bar; move high-tops to perimeter.\\n2. T-45m: Position Avery 5302 tent cards starting at Clockwise 12:00 Seat #1; verify allergy alerts.\\n3. T-30m: Lighting preset to 30% evening glow; sound check DJ wireless mic; light candles.\\n4. T-15m: Ring 15-minute dinner chime; open double doors; staff stationed with water carafes.');this.textContent='Copied Checklist';var b=this;setTimeout(function(){b.textContent='Copy Turnover Checklist';},2000);" style="cursor:pointer;background:#FFFFFF;color:#1B4D3E;border:1px solid #1B4D3E;padding:8px 14px;border-radius:8px;font-size:13px;font-weight:700;">Copy Turnover Checklist</button>
+      </div>
+    </div>
+
+    <div class="turnover-section" style="margin-bottom:18px;background:#FFFFFF;border:1.5px solid #D8C29D;border-radius:12px;padding:18px;">
+      <div style="display:flex;justify-content:space-between;align-items:center;border-bottom:1px solid #EAE0D0;padding-bottom:10px;margin-bottom:12px;flex-wrap:wrap;gap:8px;">
+        <span style="font-size:13px;font-weight:700;color:#1B4D3E;background:#EBF4F0;padding:3px 10px;border-radius:999px;">Phase 1: T-60m to T-45m &bull; Bar &amp; High-Top Transition</span>
+        <span style="font-size:13px;color:#78350F;font-weight:700;">Lead: Venue Captain &amp; Bar Lead</span>
+      </div>
+      <ul style="margin:0 0 0 20px;padding:0;font-size:13px;color:#44403C;line-height:1.6;">
+        <li>Announce last call at outdoor cocktail patio; transition 2 satellite bartenders to main dining room bar.</li>
+        <li>Clear cocktail hour high-top tables to perimeter walls ensuring 60-inch caterer clearance aisles remain unobstructed.</li>
+        <li>Securely transfer wedding card box and gift table to the designated VIP anchor location adjacent to Table 1 (Sweetheart).</li>
+        <li>Wipe and clear cocktail hour food stations; transfer empty appetizer platters to back kitchen.</li>
+      </ul>
+    </div>
+
+    <div class="turnover-section" style="margin-bottom:18px;background:#FFFFFF;border:1.5px solid #D8C29D;border-radius:12px;padding:18px;">
+      <div style="display:flex;justify-content:space-between;align-items:center;border-bottom:1px solid #EAE0D0;padding-bottom:10px;margin-bottom:12px;flex-wrap:wrap;gap:8px;">
+        <span style="font-size:13px;font-weight:700;color:#1B4D3E;background:#EBF4F0;padding:3px 10px;border-radius:999px;">Phase 2: T-45m to T-30m &bull; Seating &amp; Dietary Placements</span>
+        <span style="font-size:13px;color:#78350F;font-weight:700;">Lead: Wedding Coordinator &amp; Head Server</span>
+      </div>
+      <ul style="margin:0 0 0 20px;padding:0;font-size:13px;color:#44403C;line-height:1.6;">
+        <li>Cross-reference physical table markers against 24x36 Welcome Sign layout to confirm identical numbering (Tables 1 through ${tables.length}).</li>
+        <li>Place Avery 5302 tented place cards progressing clockwise starting at Seat #1 (12:00 facing dance floor).</li>
+        <li>Flag dietary alerts on designated chairs (strict celiac, dairy, peanut, vegan) with designated kitchen pass markers.</li>
+        <li>Light enclosed glass table votives and verify centerpiece height does not obstruct guest cross-table sightlines.</li>
+      </ul>
+    </div>
+
+    <div class="turnover-section" style="margin-bottom:18px;background:#FFFFFF;border:1.5px solid #D8C29D;border-radius:12px;padding:18px;">
+      <div style="display:flex;justify-content:space-between;align-items:center;border-bottom:1px solid #EAE0D0;padding-bottom:10px;margin-bottom:12px;flex-wrap:wrap;gap:8px;">
+        <span style="font-size:13px;font-weight:700;color:#1B4D3E;background:#EBF4F0;padding:3px 10px;border-radius:999px;">Phase 3: T-30m to T-15m &bull; Ambient AV &amp; Dinner Chime</span>
+        <span style="font-size:13px;color:#78350F;font-weight:700;">Lead: Emcee / DJ &amp; Lighting Tech</span>
+      </div>
+      <ul style="margin:0 0 0 20px;padding:0;font-size:13px;color:#44403C;line-height:1.6;">
+        <li>Dim overhead ballroom chandeliers to 30% evening reception preset; verify pin-spots on wedding cake and sweetheart florals.</li>
+        <li>Conduct sound check on primary handheld wireless microphone for dinner welcome toasts and blessing.</li>
+        <li>Sound 15-minute dinner chime in cocktail reception area; coordinators begin gentle escort toward main ballroom doors.</li>
+        <li>Position 24x36 Welcome Seating Sign at foyer entrance with QR lookup code fully illuminated by easel spotlight.</li>
+      </ul>
+    </div>
+
+    <div class="turnover-section" style="margin-bottom:18px;background:#FFFFFF;border:1.5px solid #D8C29D;border-radius:12px;padding:18px;">
+      <div style="display:flex;justify-content:space-between;align-items:center;border-bottom:1px solid #EAE0D0;padding-bottom:10px;margin-bottom:12px;flex-wrap:wrap;gap:8px;">
+        <span style="font-size:13px;font-weight:700;color:#1B4D3E;background:#EBF4F0;padding:3px 10px;border-radius:999px;">Phase 4: T-15m to T-0m &bull; Doors Open &amp; Grand Entrance</span>
+        <span style="font-size:13px;color:#78350F;font-weight:700;">Lead: Floor Staff &amp; Banquet Captain</span>
+      </div>
+      <ul style="margin:0 0 0 20px;padding:0;font-size:13px;color:#44403C;line-height:1.6;">
+        <li>Latch open all main ballroom double doors to eliminate threshold queue friction.</li>
+        <li>Station banquet servers with chilled sparkling and still water carafes at their assigned table sections.</li>
+        <li>Line up wedding party and newly married couple in grand entrance staging corridor.</li>
+        <li>Verify 100% of guests are seated at designated tables before releasing grand entrance music cue.</li>
+      </ul>
+    </div>
+  </main>
+</body>
+</html>`;
+}
+
+module.exports = { renderPosterPrintPage, renderAveryPrintPage, renderServerStationRoutePage, renderTurnoverBriefPage };
