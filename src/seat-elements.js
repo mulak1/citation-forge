@@ -631,6 +631,88 @@ function renderSeatElementsClientScript() {
     printWin.document.close();
     if (typeof shToast === 'function') shToast('✓ Opened Master Vendor & VIP Seating Brief Print View!');
     if (window.shTrackTelemetry) window.shTrackTelemetry('calculate', { source: 'master_vendor_brief' });
+  };
+
+  window.shPrintBarClearanceGuide = function() {
+    var plan = window.__SH_STATE; if (!plan || !plan.tables) return;
+    var tablesArr = plan.tables || [];
+    var eventTitle = plan.coupleNames || plan.title || 'Wedding Reception';
+    var dateOrVenue = (plan.weddingDate || plan.date || '') + (plan.venueName ? (' · ' + plan.venueName) : '');
+
+    var totalGuests = 0;
+    tablesArr.forEach(function(t) { totalGuests += (t.guests ? t.guests.length : 0); });
+    if (!totalGuests) totalGuests = 100;
+
+    var recommendedBartenders = Math.max(1, Math.ceil(totalGuests / 65));
+    var recommendedBarPoints = totalGuests >= 120 ? 2 : 1;
+    var glasswareHighball = Math.round(totalGuests * 1.5);
+    var glasswareWine = Math.round(totalGuests * 1.2);
+    var glasswareRocks = Math.round(totalGuests * 1.0);
+    var totalGlassware = glasswareHighball + glasswareWine + glasswareRocks;
+
+    var printWin = window.open('', '_blank');
+    if (!printWin) { window.print(); return; }
+    printWin.document.write('<!DOCTYPE html><html><head><title>Bar & Cocktail Station Clearance Guide - ' + shEsc(eventTitle) + '</title><style>@page { size: 8.5in 11in; margin: 0.5in; } body { margin: 0; padding: 20px; font-family: system-ui, sans-serif; color: #1F2937; } table { width: 100%; border-collapse: collapse; } th { text-align: left; padding: 8px; background: #1B4D3E; color: #FFFFFF; font-size: 11px; text-transform: uppercase; } td { padding: 8px; border-bottom: 1px solid #E5E7EB; font-size: 12px; } @media print { .sh-no-print { display: none !important; } } </style></head><body>' +
+      '<div class="sh-no-print" style="margin-bottom:16px;display:flex;justify-content:space-between;align-items:center;background:#FAF8F5;padding:12px 16px;border:1px solid #E2D9C8;border-radius:8px;">' +
+        '<div><strong>Bar &amp; Cocktail Station Clearance Guide</strong> &middot; Mobile Bar &amp; Catering Ops</div>' +
+        '<button onclick="window.print()" style="padding:8px 18px;background:#1B4D3E;color:#FFFFFF;border:none;border-radius:6px;font-weight:bold;cursor:pointer;">🖨️ Print Bar Guide</button>' +
+      '</div>' +
+      '<div style="border:3px double #C8A96E;padding:24px;border-radius:8px;background:#FFFFFF;">' +
+        '<div style="display:flex;justify-content:space-between;align-items:flex-start;border-bottom:2px solid #1B4D3E;padding-bottom:12px;margin-bottom:14px;">' +
+          '<div>' +
+            '<div style="font-size:11px;font-weight:700;color:#8C2D19;text-transform:uppercase;letter-spacing:1.5px;">BEVERAGE SERVICE &amp; QUEUE CLEARANCE STANDARDS</div>' +
+            '<h1 style="margin:4px 0;font-size:24px;color:#1B4D3E;font-family:Georgia,serif;">' + shEsc(eventTitle) + '</h1>' +
+            (dateOrVenue ? '<div style="font-size:12px;color:#6B7280;">' + shEsc(dateOrVenue) + '</div>' : '') +
+          '</div>' +
+          '<div style="text-align:right;">' +
+            '<div style="font-size:20px;font-weight:800;color:#1B4D3E;">' + totalGuests + ' Guests</div>' +
+            '<div style="font-size:11px;color:#78350F;font-weight:600;">' + recommendedBartenders + ' Bartenders (' + recommendedBarPoints + ' Service Station' + (recommendedBarPoints > 1 ? 's' : '') + ')</div>' +
+          '</div>' +
+        '</div>' +
+        '<div style="display:grid;grid-template-columns:repeat(4,1fr);gap:10px;margin-bottom:16px;background:#FAF8F5;padding:12px;border-radius:6px;border:1px solid #E5E7EB;text-align:center;">' +
+          '<div><div style="font-size:10px;color:#6B7280;font-weight:700;">BACKBAR LANE</div><div style="font-size:16px;font-weight:800;color:#1B4D3E;">42″–48″</div><div style="font-size:9px;color:#4B5563;">Ice &amp; replenishment</div></div>' +
+          '<div><div style="font-size:10px;color:#6B7280;font-weight:700;">FRONT BAR</div><div style="font-size:16px;font-weight:800;color:#1B4D3E;">6′–8′</div><div style="font-size:9px;color:#4B5563;">Service counter width</div></div>' +
+          '<div><div style="font-size:10px;color:#6B7280;font-weight:700;">QUEUE RADIUS</div><div style="font-size:16px;font-weight:800;color:#991B1B;">72″ Buffer</div><div style="font-size:9px;color:#4B5563;">Standoff from dining</div></div>' +
+          '<div><div style="font-size:10px;color:#6B7280;font-weight:700;">TOTAL GLASSWARE</div><div style="font-size:16px;font-weight:800;color:#1B4D3E;">' + totalGlassware + '</div><div style="font-size:9px;color:#4B5563;">3.5 glasses / guest</div></div>' +
+        '</div>' +
+        '<div style="margin-bottom:16px;">' +
+          '<div style="font-size:12px;font-weight:700;color:#1B4D3E;margin-bottom:6px;text-transform:uppercase;letter-spacing:0.5px;">Architectural Clearance Requirements</div>' +
+          '<table>' +
+            '<thead><tr><th>Zone</th><th>Dimension</th><th>Operational Rationale</th></tr></thead>' +
+            '<tbody>' +
+              '<tr><td><b>Backbar Working Clearance</b></td><td>42″ to 48″ Depth</td><td>Allows 2 bartenders to cross without collision while accessing ice wells, speed racks, and beer keg taps.</td></tr>' +
+              '<tr><td><b>Main Guest Queue Corridor</b></td><td>72″ (6 Feet) Standoff</td><td>Prevents drink lines during post-ceremony cocktail rush from blocking primary server transit lanes or guest egress doors.</td></tr>' +
+              '<tr><td><b>Sweetheart &amp; VIP Distance</b></td><td>Minimum 25 Feet</td><td>Guarantees cocktail shaker noise and blenders do not interfere with bride &amp; groom dinner conversation or microphone audio.</td></tr>' +
+              '<tr><td><b>Satellite Bar Trigger</b></td><td>' + (totalGuests >= 120 ? 'Active (Recommended)' : 'Optional') + '</td><td>Events above 120 guests require a secondary beer/wine satellite station to keep guest wait time under 90 seconds.</td></tr>' +
+            '</tbody>' +
+          '</table>' +
+        '</div>' +
+        '<div style="display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-bottom:16px;">' +
+          '<div style="background:#F9FAFB;padding:12px;border-radius:6px;border:1px solid #E5E7EB;">' +
+            '<div style="font-size:11px;font-weight:700;color:#1B4D3E;text-transform:uppercase;">🍸 Glassware Staging Breakdown</div>' +
+            '<ul style="margin:6px 0 0 16px;padding:0;font-size:11px;color:#4B5563;line-height:1.5;">' +
+              '<li><b>Highball / Collins:</b> ' + glasswareHighball + ' glasses (cocktails &amp; soft drinks)</li>' +
+              '<li><b>Wine / Universal:</b> ' + glasswareWine + ' stems (dinner wine &amp; champagne)</li>' +
+              '<li><b>Lowball / Rocks:</b> ' + glasswareRocks + ' glasses (whiskey &amp; signature spirits)</li>' +
+            '</ul>' +
+          '</div>' +
+          '<div style="background:#F9FAFB;padding:12px;border-radius:6px;border:1px solid #E5E7EB;">' +
+            '<div style="font-size:11px;font-weight:700;color:#1B4D3E;text-transform:uppercase;">⚡ Fast-Paced Reception Checklist</div>' +
+            '<ul style="margin:6px 0 0 16px;padding:0;font-size:11px;color:#4B5563;line-height:1.5;">' +
+              '<li>Pre-pour 40 signature cocktails before ceremony concludes</li>' +
+              '<li>Position bus tubs behind decorative partition screens</li>' +
+              '<li>Last call announced 45 minutes prior to grand send-off</li>' +
+            '</ul>' +
+          '</div>' +
+        '</div>' +
+        '<div style="border-top:1px dashed #D1D5DB;padding-top:10px;font-size:11px;color:#6B7280;display:flex;justify-content:space-between;">' +
+          '<span>SeatHarmony Studio Beverage Clearance Spec &bull; Symmetrical 60″ Corridors</span>' +
+          '<span>Catering Lead Approved</span>' +
+        '</div>' +
+      '</div></body></html>');
+    printWin.document.close();
+    if (typeof shToast === 'function') shToast('✓ Opened Bar & Cocktail Station Clearance Guide Print View!');
+    if (window.shTrackTelemetry) window.shTrackTelemetry('calculate', { source: 'bar_clearance_guide' });
   };`;
 }
 
