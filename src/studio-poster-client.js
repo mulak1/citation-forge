@@ -340,14 +340,17 @@ var SH_POSTER_THEMES = {
     var aBtn = document.getElementById('sh-view-mode-avery-btn');
     var bBtn = document.getElementById('sh-view-mode-badge-btn');
     var plBtn = document.getElementById('sh-view-mode-placard-btn');
+    var dotBtn = document.getElementById('sh-view-mode-dots-btn');
     var posterEl = document.getElementById('sh-poster-preview');
     var averyEl = document.getElementById('sh-avery-preview');
     var badgeEl = document.getElementById('sh-badge-preview');
     var placardEl = document.getElementById('sh-placard-preview');
+    var dotsEl = document.getElementById('sh-dots-preview');
     if (pBtn) pBtn.classList.toggle('active', mode === 'poster');
     if (aBtn) aBtn.classList.toggle('active', mode === 'avery');
     if (bBtn) bBtn.classList.toggle('active', mode === 'badges');
     if (plBtn) plBtn.classList.toggle('active', mode === 'placards');
+    if (dotBtn) dotBtn.classList.toggle('active', mode === 'dots');
     if (posterEl) posterEl.style.display = mode === 'poster' ? 'block' : 'none';
     if (averyEl) averyEl.style.display = mode === 'avery' ? 'block' : 'none';
     if (badgeEl) {
@@ -364,6 +367,109 @@ var SH_POSTER_THEMES = {
         placardEl.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
       }
     }
+    if (dotsEl) {
+      dotsEl.style.display = mode === 'dots' ? 'block' : 'none';
+      if (mode === 'dots') {
+        window.shRenderDotsPreview();
+        dotsEl.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+      }
+    }
+  };
+
+  window.shRenderDotsPreview = function() {
+    var dotsEl = document.getElementById('sh-dots-preview');
+    if (!dotsEl || !window.__SH_STATE) return;
+    var tablesArr = window.__SH_STATE.tables || [];
+    var flaggedGuests = [];
+
+    tablesArr.forEach(function(t) {
+      (t.guests || []).forEach(function(g, idx) {
+        var mb = (typeof shMealBadge === 'function') ? shMealBadge(g.meal) : { short: 'Other' };
+        var isSpecial = Boolean(g.allergy || mb.short === 'Vegan' || mb.short === 'Veg' || mb.short === 'Kids');
+        if (isSpecial) {
+          flaggedGuests.push({
+            name: g.name,
+            tableName: t.name || ('Table ' + t.number),
+            seatNumber: idx + 1,
+            allergy: g.allergy,
+            meal: mb.short
+          });
+        }
+      });
+    });
+
+    var sampleDots = flaggedGuests.slice(0, 8);
+    var dotsHtml = sampleDots.map(function(d) {
+      var isSevere = Boolean(d.allergy);
+      var dotColor = isSevere ? '#DC2626' : (d.meal === 'Vegan' ? '#059669' : (d.meal === 'Veg' ? '#10B981' : '#2563EB'));
+      var label = isSevere ? ('⚠ ' + d.allergy) : (d.meal.toUpperCase());
+
+      return '<div style="background:#FFFFFF;border:1.5px solid ' + dotColor + ';border-radius:12px;padding:8px 10px;display:flex;align-items:center;gap:10px;box-shadow:0 2px 6px rgba(0,0,0,0.04);">' +
+        '<div style="width:36px;height:36px;border-radius:50%;background:' + dotColor + ';color:#FFFFFF;display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:800;flex-shrink:0;">' +
+          (isSevere ? 'ALERT' : (d.meal === 'Vegan' ? 'V' : (d.meal === 'Veg' ? 'VG' : 'KID'))) +
+        '</div>' +
+        '<div style="min-width:0;flex:1;">' +
+          '<div style="font-weight:700;font-size:13px;color:#1F2937;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;">' + shEsc(d.name) + '</div>' +
+          '<div style="font-size:11px;color:#4B5563;">' + shEsc(d.tableName) + ' &bull; Seat #' + d.seatNumber + '</div>' +
+          '<div style="font-size:10px;font-weight:700;color:' + dotColor + ';margin-top:2px;">' + shEsc(label) + '</div>' +
+        '</div>' +
+      '</div>';
+    }).join('');
+
+    dotsEl.innerHTML = '<div style="padding:14px;border-radius:12px;background:linear-gradient(135deg,#FEF2F2 0%,#FFF7ED 100%);border:1.5px solid #F87171;">' +
+      '<div style="display:flex;flex-wrap:wrap;align-items:center;justify-content:space-between;gap:10px;margin-bottom:12px;">' +
+        '<div>' +
+          '<div style="display:flex;align-items:center;gap:6px;flex-wrap:wrap;">' +
+            '<span style="font-size:0.78rem;font-weight:800;color:#991B1B;">Dietary Allergy Place Card Alert Dots (' + flaggedGuests.length + ' Flagged Guests)</span>' +
+            '<span style="font-size:0.68rem;font-weight:700;color:#991B1B;background:#FFFFFF;border:1px solid #F87171;border-radius:999px;padding:1px 8px;">Standard 0.75" / 19mm Round Labels (Avery 5460/5468)</span>' +
+          '</div>' +
+          '<div style="font-size:0.78rem;color:#4B5563;margin-top:2px;">Peel-and-stick color-coded indicator dots to attach directly onto place cards for effortless catering pass recognition.</div>' +
+        '</div>' +
+        '<div style="display:flex;gap:6px;flex-wrap:wrap;">' +
+          '<button type="button" class="btn btn-secondary" onclick="window.shPrintAllergyDotsSheet()" style="padding:6px 12px;font-size:0.73rem;background:#FFFFFF;border-color:#DC2626;color:#991B1B;font-weight:800;">🖨️ Print Allergy Dots Sheet (PDF)</button>' +
+        '</div>' +
+      '</div>' +
+      '<div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:10px;">' + (dotsHtml || '<div style="grid-column:1/-1;text-align:center;padding:12px;font-size:12px;color:#6B7280;">No dietary allergies or special meals currently assigned.</div>') + '</div>' +
+    '</div>';
+  };
+
+  window.shPrintAllergyDotsSheet = function() {
+    var plan = window.__SH_STATE; if (!plan || !plan.tables) return;
+    var tablesArr = plan.tables || [];
+    var eventTitle = plan.coupleNames || plan.title || 'Wedding Reception';
+    var flaggedGuests = [];
+
+    tablesArr.forEach(function(t) {
+      (t.guests || []).forEach(function(g, idx) {
+        var mb = (typeof shMealBadge === 'function') ? shMealBadge(g.meal) : { short: 'Other' };
+        var isSpecial = Boolean(g.allergy || mb.short === 'Vegan' || mb.short === 'Veg' || mb.short === 'Kids');
+        if (isSpecial) {
+          flaggedGuests.push({
+            name: g.name,
+            tableName: t.name || ('Table ' + t.number),
+            seatNumber: idx + 1,
+            allergy: g.allergy,
+            meal: mb.short
+          });
+        }
+      });
+    });
+
+    var itemsHtml = flaggedGuests.map(function(d) {
+      var isSevere = Boolean(d.allergy);
+      var dotColor = isSevere ? '#DC2626' : (d.meal === 'Vegan' ? '#059669' : (d.meal === 'Veg' ? '#10B981' : '#2563EB'));
+      return '<div style="width:1.2in;height:1.2in;border:1px dashed #D1D5DB;border-radius:50%;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;padding:4px;box-sizing:border-box;">' +
+        '<div style="font-size:9px;font-weight:800;color:' + dotColor + ';text-transform:uppercase;">' + (isSevere ? '⚠ ALLERGY' : d.meal) + '</div>' +
+        '<div style="font-size:10px;font-weight:700;color:#111827;line-height:1.1;margin:2px 0;">' + shEsc(d.name) + '</div>' +
+        '<div style="font-size:8px;color:#4B5563;">' + shEsc(d.tableName) + ' &bull; #' + d.seatNumber + '</div>' +
+        (d.allergy ? '<div style="font-size:8px;font-weight:700;color:#991B1B;margin-top:1px;">' + shEsc(d.allergy) + '</div>' : '') +
+      '</div>';
+    }).join('');
+
+    var printWin = window.open('', '_blank');
+    if (!printWin) { window.print(); return; }
+    printWin.document.write('<!DOCTYPE html><html><head><title>Avery Allergy Dots - ' + shEsc(eventTitle) + '</title><style>@page { size: 8.5in 11in; margin: 0.5in; } body { margin: 0; padding: 20px; font-family: system-ui, sans-serif; } @media print { .sh-no-print { display: none !important; } } </style></head><body><div class="sh-no-print" style="padding:12px;background:#991B1B;color:#FFFFFF;display:flex;justify-content:space-between;align-items:center;margin-bottom:16px;border-radius:6px;"><span>Dietary Allergy Place Card Alert Dots (' + flaggedGuests.length + ' Labels)</span><button onclick="window.print()" style="padding:6px 14px;background:#FFFFFF;color:#991B1B;border:none;border-radius:4px;font-weight:bold;cursor:pointer;">🖨️ Print Dot Sheet</button></div><div style="display:flex;flex-wrap:wrap;gap:12px;align-content:flex-start;">' + itemsHtml + '</div></body></html>');
+    printWin.document.close();
   };
 
   window.shOpenPrintShopSpecsModal = function() {
