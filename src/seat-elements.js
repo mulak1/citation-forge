@@ -442,6 +442,54 @@ function renderSeatElementsClientScript() {
       '<line x1="' + hx + '" y1="' + (hy + 18) + '" x2="' + hx + '" y2="' + (hy + reach) + '" stroke="#10B981" stroke-width="1" stroke-dasharray="2 4" opacity="0.45"/>' +
       '<text x="' + hx + '" y="' + (hy + Math.round(reach * 0.52)) + '" text-anchor="middle" font-size="10" font-weight="800" fill="#065F46" opacity="0.8" letter-spacing="0.05em">SWEETHEART SIGHTLINE &middot; 120&deg; CLEAR OBSERVATION</text>' +
       '</g>';
+  };
+
+  /* ---- Auto-Capitalize Names Engine ---- */
+  function shTitleCaseName(str) {
+    if (!str || typeof str !== 'string') return '';
+    return str.trim().split(/\\s+/).map(function(word) {
+      if (/^(jr|sr)\\.?$/i.test(word)) return word.charAt(0).toUpperCase() + word.slice(1).toLowerCase();
+      if (/^(ii|iii|iv|v|vi)$/i.test(word)) return word.toUpperCase();
+      if (/^o'[a-z]/i.test(word)) return "O'" + word.charAt(2).toUpperCase() + word.slice(3).toLowerCase();
+      if (/^mc[a-z]/i.test(word)) return "Mc" + word.charAt(2).toUpperCase() + word.slice(3).toLowerCase();
+      if (word.indexOf('-') > 0) {
+        return word.split('-').map(function(part) {
+          return part ? part.charAt(0).toUpperCase() + part.slice(1).toLowerCase() : '';
+        }).join('-');
+      }
+      return word.charAt(0).toUpperCase() + word.slice(1).toLowerCase();
+    }).join(' ');
+  }
+  window.shTitleCaseName = shTitleCaseName;
+
+  window.shAutoCapitalizeAllNames = function() {
+    if (typeof shCloseMenus === 'function') shCloseMenus();
+    var plan = window.__SH_STATE; if (!plan || !plan.tables) return;
+    var changed = 0;
+    if (typeof window.shSnapshot === 'function') window.shSnapshot('Auto-Capitalize Guest Names');
+    plan.tables.forEach(function(tbl) {
+      (tbl.guests || []).forEach(function(g) {
+        if (!g.name) return;
+        var fixed = shTitleCaseName(g.name);
+        if (fixed && fixed !== g.name) {
+          g.name = fixed;
+          changed++;
+        }
+      });
+    });
+    (plan.unassignedGuests || []).forEach(function(g) {
+      if (!g.name) return;
+      var fixed = shTitleCaseName(g.name);
+      if (fixed && fixed !== g.name) {
+        g.name = fixed;
+        changed++;
+      }
+    });
+    plan.hasUserEdits = true;
+    if (typeof shToast === 'function') {
+      shToast(changed > 0 ? ('\\u2713 Capitalized ' + changed + ' guest names (fixed all-caps & lowercase)!') : '\\u2713 All guest names already properly capitalized!');
+    }
+    if (typeof shRenderAll === 'function') shRenderAll();
   };`;
 }
 
