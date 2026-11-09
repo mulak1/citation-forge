@@ -663,7 +663,8 @@ function renderDeliverablesClientScript() {
     var wizCouple = document.getElementById('shw-couple');
     var wizVenue = document.getElementById('shw-venue');
     var rawCouple = (wizCouple && wizCouple.value && wizCouple.value.trim()) || st.title || "Maya & Liam's Estate Reception";
-    var coupleDisplay = rawCouple.indexOf('Reception') === -1 && rawCouple.indexOf('Wedding') === -1 && rawCouple.indexOf('Dinner') === -1 && rawCouple.indexOf('Gala') === -1 ? (rawCouple + "'s Reception") : rawCouple;
+    var hasSuffix = /(reception|wedding|dinner|gala|layout|template|chart|floorplan|ballroom|estate|club|hall|preset|rounds|guests)/i.test(rawCouple);
+    var coupleDisplay = hasSuffix ? rawCouple : (rawCouple + "'s Reception");
     var venueDisplay = (wizVenue && wizVenue.value && wizVenue.value.trim()) || st.venueName || 'Rosewood Conservatory';
     if (wizCouple && wizCouple.value && wizCouple.value.trim() && st) {
       st.title = coupleDisplay;

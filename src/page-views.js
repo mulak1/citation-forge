@@ -649,58 +649,46 @@ function renderZone3InteractiveStudio(plan) {
         </div>
       </div>
 
-      <!-- Full-Width Studio Action Bar: Serene, Anti-Bombardment (1 Clear Form + 1 Optional Upgrade) -->
-      <div id="sh-vault-checkout-bar" style="width:100%;margin:16px 0 0;background:#FFFFFF;border:1.5px solid #E4DCD0;border-radius:14px;padding:16px 20px;color:#1F1B18;display:flex;flex-direction:column;gap:10px;box-shadow:0 4px 16px -4px rgba(31,27,24,0.06);box-sizing:border-box;">
-        <div id="sh-live-personalized-proof" style="display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:8px;padding-bottom:8px;border-bottom:1px solid #EFE8DD;">
-          <div style="display:flex;align-items:center;gap:10px;flex-wrap:wrap;min-width:0;">
-            <span style="display:inline-block;width:8px;height:8px;border-radius:999px;background:#1B4D3E;"></span>
-            <span style="font-family:'Cormorant Garamond', Georgia, serif;font-size:1.25rem;font-weight:700;color:#1F1B18;" id="sh-proof-couple-name">${escapeHtml(plan.title || "Maya & Liam's Estate Reception")}</span>
-            <span style="color:#7D746D;font-size:13px;" id="sh-proof-venue-name">&middot; ${escapeHtml(plan.venueName || 'Rosewood Conservatory')}</span>
-            <span id="sh-conflict-solver-badge" style="font-size:12px;font-weight:700;color:#1B4D3E;background:#EBF4F0;border:1px solid #C4DFD5;padding:2px 8px;border-radius:999px;">✓ 100% Harmony</span>
+      <!-- Full-Width Studio Action Bar: Serene, Anti-Bombardment (Save & Share + Optional Signage) -->
+      <div id="sh-vault-checkout-bar" style="width:100%;margin:16px 0 0;background:#FFFFFF;border:1px solid #E5E0D8;border-radius:14px;padding:16px 20px;color:#1F1B18;display:flex;flex-direction:column;gap:12px;box-shadow:0 2px 10px rgba(0,0,0,0.03);box-sizing:border-box;">
+        <div style="display:none;" aria-hidden="true">
+          <span id="sh-proof-couple-name">${escapeHtml(plan.title || "Maya & Liam's Estate Reception")}</span>
+          <span id="sh-proof-venue-name">${escapeHtml(plan.venueName || 'Rosewood Conservatory')}</span>
+          <span id="sh-conflict-solver-badge">✓ 100% Harmony</span>
+          <button type="button" id="sh-proof-table1-summary"></button>
+          <div id="sh-voc-survey-box"><span id="sh-voc-survey-label"></span></div>
+          <div id="sh-ecosystem-handoff-banner"></div>
+        </div>
+
+        <div id="sh-inline-email-bridge" style="display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:14px;width:100%;">
+          <div style="flex:1 1 280px;min-width:0;">
+            <div style="font-size:14px;font-weight:700;color:#1F1B18;" id="sh-vault-bar-headline">Save Seating Plan &amp; Get Shareable Link</div>
+            <div style="font-size:13px;color:#78716C;margin-top:2px;">Free permanent link to your layout and instant caterer meal spreadsheet.</div>
           </div>
-          <div style="font-size:12.5px;color:#574F49;display:flex;align-items:center;gap:8px;flex-wrap:wrap;">
-            <button type="button" id="sh-proof-table1-summary" onclick="if(window.shSetActiveTab){window.shSetActiveTab('beo');}var b=document.getElementById('sh-beo-container');if(b){b.scrollIntoView({behavior:'smooth'});}" style="background:none;border:none;padding:0;cursor:pointer;color:#065F46;font-weight:700;font-size:12.5px;text-decoration:underline;">✓ Specimen #1: 12:00 Meal Map &rarr;</button>
-            <span style="color:#D1D5DB;">&bull;</span>
-            <a href="/print/avery-5302/${vId}?sample=1" target="_blank" style="color:#065F46;font-weight:700;font-size:12.5px;text-decoration:underline;">Folded Place Card Sample &rarr;</a>
+          <div style="display:flex;align-items:center;gap:8px;flex:1 1 320px;max-width:440px;min-width:260px;">
+            <input id="sh-inline-vault-email" type="email" placeholder="Enter your email to save..." value="${escapeHtml(plan.ownerEmail && !/^(test|vip)@/i.test(plan.ownerEmail) ? plan.ownerEmail : '')}" onkeydown="if(event.key==='Enter')window.shSaveInlineEmailLead()" style="flex:1 1 auto;min-width:0;height:40px;padding:8px 12px;border:1px solid #D6D3D1;border-radius:8px;font-size:14px;background:#FAF8F5;color:#1C1917;box-sizing:border-box;" aria-label="Email address to save seating plan" />
+            <button type="button" id="sh-inline-vault-save-btn" onclick="window.shSaveInlineEmailLead()" style="cursor:pointer;background:#1B4D3E;color:#FFFFFF;border:none;border-radius:8px;height:40px;padding:0 18px;font-size:13.5px;font-weight:600;white-space:nowrap;box-shadow:0 1px 4px rgba(27,77,62,0.18);">Save Plan</button>
           </div>
         </div>
 
-        <div style="display:flex;flex-direction:column;gap:8px;">
-          <div style="display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:6px;">
-            <label for="sh-inline-vault-email" style="font-size:14px;font-weight:700;color:#1F1B18;" id="sh-vault-bar-headline">Save Seating Plan &amp; Email Clockwise Caterer Sheet ($0):</label>
-            <span style="font-size:12px;color:#7D746D;">Instant browser link &middot; Zero watermark</span>
+        <div id="sh-post-email-upgrade-bridge" style="display:none;padding:12px 16px;border-radius:10px;background:#F0FDF4;border:1px solid #BBF7D0;color:#166534;font-size:13.5px;font-weight:600;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:10px;">
+          <div style="display:flex;align-items:center;gap:8px;flex-wrap:wrap;">
+            <span>✓ <strong>Plan saved!</strong> <a id="sh-stateful-share-link" href="/?vault=${vId}&amp;saved=1#studio" style="color:#166534;font-weight:700;text-decoration:underline;">Shareable Return Link</a></span>
           </div>
-          <div id="sh-inline-email-bridge" style="display:flex;flex-wrap:wrap;gap:8px;align-items:center;width:100%;">
-            <input id="sh-inline-vault-email" type="email" placeholder="Enter your email to save your plan..." value="${escapeHtml(plan.ownerEmail && !/^(test|vip)@/i.test(plan.ownerEmail) ? plan.ownerEmail : '')}" onkeydown="if(event.key==='Enter')window.shSaveInlineEmailLead()" style="flex:1 1 260px;min-width:0;height:40px;padding:6px 14px;border:1.5px solid #D6CBB8;border-radius:8px;font-size:15px;background:#FAF7F2;color:#1F1B18;box-sizing:border-box;" aria-label="Email address to save seating plan" />
-            <button type="button" id="sh-inline-vault-save-btn" onclick="window.shSaveInlineEmailLead()" style="cursor:pointer;background:#1B4D3E;color:#FFFFFF;border:none;border-radius:8px;height:40px;padding:6px 20px;font-size:13.5px;font-weight:700;white-space:nowrap;box-shadow:0 2px 8px rgba(27,77,62,0.2);">Save Free ($0) &rarr;</button>
-          </div>
-          <div style="display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:6px;font-size:12.5px;padding-top:2px;">
-            <span style="color:#7D746D;">Need print-shop signage? <a id="sh-vault-buy-pack-btn" href="/buy/complete_dossier?target=estate-150&amp;vault=${vId}&amp;allow_promotion_codes=false" style="color:#1B4D3E;font-weight:700;text-decoration:underline;">Get Auto-Filled 24&Prime;&times;36&Prime; Print Pack ($7) &rarr;</a></span>
-            <a id="sh-footer-vault-link" href="/vault/${vId}" style="color:#574F49;text-decoration:none;">View all 5 event files &rarr;</a>
-          </div>
-          <div id="sh-vault-bar-trust-strip" style="display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:6px;font-size:11.5px;color:#78350F;background:#FFFBEB;border:1px solid #FDE68A;padding:4px 10px;border-radius:6px;margin-top:1px;">
-            <span>&#10003; <strong>30-Day Guarantee:</strong> If caterer or print shop isn't thrilled, email for an instant refund</span>
-            <span style="font-weight:700;color:#1B4D3E;">&#10003; Same-Day FedEx Office &amp; Staples Ready (0.125&Prime; Bleed)</span>
-          </div>
-          <div id="sh-post-email-upgrade-bridge" style="display:none;padding:12px 16px;border-radius:10px;background:#EBF4F0;border:1.5px solid #1B4D3E;color:#1B4D3E;font-size:14px;font-weight:600;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:10px;">
-            <div style="display:flex;align-items:center;gap:10px;flex-wrap:wrap;">
-              <span>&#10003; <strong>Plan saved!</strong> <a id="sh-stateful-share-link" href="/?vault=${vId}&amp;saved=1#studio" style="color:#1B4D3E;font-weight:700;text-decoration:underline;">Shareable Return Link</a></span>
-              <span style="font-size:12px;color:#78350F;font-weight:700;background:#FFFBEB;border:1px solid #FDE68A;padding:2px 8px;border-radius:6px;">&#10003; 30-Day Money-Back Guarantee</span>
-            </div>
-            <a id="sh-post-email-upgrade-cta" href="/buy/complete_dossier?target=estate-150&amp;vault=${vId}&amp;allow_promotion_codes=false" style="background:#1B4D3E;color:#FFFFFF;border-radius:8px;padding:8px 16px;font-size:13.5px;font-weight:700;text-decoration:none;">Download 24&Prime;&times;36&Prime; Print Pack ($7 &middot; vs. $14 Etsy) &rarr;</a>
-          </div>
+          <a id="sh-post-email-upgrade-cta" href="/buy/complete_dossier?target=estate-150&amp;vault=${vId}&amp;allow_promotion_codes=false" style="background:#1B4D3E;color:#FFFFFF;border-radius:8px;padding:6px 14px;font-size:13px;font-weight:600;text-decoration:none;">Download 24&Prime;&times;36&Prime; Print Pack ($7) &rarr;</a>
         </div>
 
-        <div class="sh-hide-mobile-toolbar" style="display:flex;flex-wrap:wrap;align-items:center;justify-content:space-between;gap:8px;padding-top:10px;border-top:1px solid #EFE8DD;font-size:13px;color:#7D746D;">
-          <div id="sh-voc-survey-box" style="display:flex;align-items:center;gap:6px;">
-            <span id="sh-voc-survey-label">Included in Print Pack:</span>
-            <span>24&Prime;&times;36&Prime; Welcome Poster &middot; Avery 5302 Tent Cards &middot; Clockwise Caterer Sheet &middot; Live Guest QR</span>
+        <div style="display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:10px;font-size:13px;color:#78716C;padding-top:10px;border-top:1px solid #F5F2EB;">
+          <div style="display:flex;align-items:center;gap:6px;flex-wrap:wrap;">
+            <span>Need print-shop signage?</span>
+            <a id="sh-vault-buy-pack-btn" href="/buy/complete_dossier?target=estate-150&amp;vault=${vId}&amp;allow_promotion_codes=false" style="color:#1B4D3E;font-weight:600;text-decoration:underline;">24&Prime;&times;36&Prime; Welcome Poster &amp; Tent Cards ($7) &rarr;</a>
           </div>
-          <div id="sh-planner-pro-dock-banner" style="display:flex;align-items:center;gap:14px;">
-            <a id="sh-vault-buy-pro-btn" href="/buy/pro_b2b?target=estate-150&amp;vault=${vId}&amp;allow_promotion_codes=false" style="color:#1B4D3E;font-weight:700;text-decoration:underline;">Wedding Planner Pro Pass ($29) &rarr;</a>
+          <div id="sh-planner-pro-dock-banner" style="display:flex;align-items:center;gap:12px;">
+            <a id="sh-footer-vault-link" href="/vault/${vId}" style="color:#78716C;text-decoration:none;">Event Files</a>
+            <span style="color:#D6D3D1;">&bull;</span>
+            <a id="sh-vault-buy-pro-btn" href="/buy/pro_b2b?target=estate-150&amp;vault=${vId}&amp;allow_promotion_codes=false" style="color:#78716C;text-decoration:none;">Planner Pro Pass ($29)</a>
           </div>
         </div>
-        <div id="sh-ecosystem-handoff-banner" style="display:none;"></div>
       </div>
     </div>
 
