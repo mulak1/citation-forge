@@ -483,24 +483,30 @@ function renderZone3InteractiveStudio(plan) {
 
               <!-- PANE 2: Clockwise Caterer Meal Sheet -->
               <div id="sh-pane-beo" style="display:none;">
-                <div style="display:flex;flex-wrap:wrap;align-items:center;justify-content:space-between;gap:8px;margin-bottom:10px;">
+                <div style="display:flex;flex-wrap:wrap;align-items:center;justify-content:space-between;gap:12px;margin-bottom:12px;">
                   <div>
-                    <span class="badge badge-emerald" style="margin-bottom:4px;">CATERER MEAL SHEET &middot; SEAT #1 AT 12 O&rsquo;CLOCK</span>
-                    <h3 class="serif-display" style="font-size:1.35rem;">Clockwise Caterer Meal Sheet &amp; Allergy Guide</h3>
+                    <div style="font-size:0.70rem;font-weight:800;letter-spacing:0.06em;color:#065F46;text-transform:uppercase;margin-bottom:2px;">CATERER MEAL SHEET &middot; SEAT #1 AT 12 O&rsquo;CLOCK</div>
+                    <h3 class="serif-display" style="font-size:1.35rem;margin:0;">Clockwise Caterer Meal Sheet &amp; Allergy Guide</h3>
                   </div>
-                  <div style="display:flex;gap:6px;flex-wrap:wrap;">
-                    <button type="button" id="sh-download-tbl1-sample-btn" class="btn btn-secondary" style="padding:6px 11px;font-size:0.74rem;background:#EBF4F0;border-color:#A7F3D0;color:#065F46;font-weight:700;" onclick="window.shExportTable1SampleCsv && window.shExportTable1SampleCsv()">&darr; Table 1 Free Sample (.CSV)</button>
-                    <button type="button" id="sh-copy-kitchen-tally-btn" class="btn btn-secondary" style="padding:6px 11px;font-size:0.74rem;" onclick="window.shCopyKitchenTally && window.shCopyKitchenTally()">Copy Kitchen Tally</button>
-                    <button type="button" id="sh-share-caterer-link-btn" class="btn btn-secondary" style="padding:6px 11px;font-size:0.74rem;background:#FAF8F5;border-color:#C8A96E;color:#78350F;font-weight:700;" onclick="window.shShareCatererLink && window.shShareCatererLink()">Share Caterer Link</button>
-                    <button type="button" id="sh-beo-plating-summary-btn" class="btn btn-secondary" style="padding:6px 11px;font-size:0.74rem;background:#FAF8F5;border-color:#C8A96E;color:#78350F;font-weight:700;" onclick="window.shToggleBeoPlatingSummary && window.shToggleBeoPlatingSummary()">📋 Plating Pass Summary</button>
-                    <button type="button" id="sh-beo-tent-card-btn" class="btn btn-secondary" style="padding:6px 11px;font-size:0.74rem;background:#FFFFFF;border-color:#1B4D3E;color:#1B4D3E;font-weight:700;" onclick="window.shPrintPlatingPassTentCard && window.shPrintPlatingPassTentCard()">🪧 Plating Pass Tent Card</button>
-                    <button type="button" id="sh-master-vendor-brief-btn" class="btn btn-secondary" style="padding:6px 11px;font-size:0.74rem;background:#FAF8F5;border-color:#1B4D3E;color:#1B4D3E;font-weight:700;" onclick="window.shPrintMasterVendorBrief && window.shPrintMasterVendorBrief()">🎬 Vendor &amp; VIP Brief</button>
-                    <button type="button" id="sh-beo-vegan-filter-btn" class="btn btn-secondary" style="padding:6px 11px;font-size:0.74rem;background:#FAF8F5;border-color:#10B981;color:#065F46;font-weight:700;" onclick="window.shToggleVeganRunSheet && window.shToggleVeganRunSheet()">🌱 Plant-Based Only</button>
-                    <button type="button" id="sh-beo-mode-toggle" class="btn btn-secondary" style="padding:6px 11px;font-size:0.74rem;border-color:#C8A96E;color:#78350F;font-weight:800;" onclick="window.shToggleBeoChaosMode()">${IC.bolt}Compare: 12:00 Server View vs. Unnumbered Chaos</button>
-                    <button type="button" class="btn btn-secondary" style="padding:6px 11px;font-size:0.74rem;" onclick="window.shGateOrExportBeoCsv ? window.shGateOrExportBeoCsv('csv') : window.shExportBeoCsv()">&darr; Full Meal Sheet (.CSV)</button>
-                    <button type="button" class="btn btn-secondary" onclick="window.shPrintAllDeliverables && window.shPrintAllDeliverables()" style="padding:6px 11px;font-size:0.74rem;background:#EBF4F0;border-color:#1B4D3E;color:#1B4D3E;font-weight:700;" title="Open all 5 day-of assets in 1 click">Print Full Event Pack (1-Click)</button>
-                    <a id="sh-open-beo-studio-link" href="/print/beo/${vId}" target="_blank" class="btn btn-secondary" style="padding:6px 11px;font-size:0.74rem;">${IC.print}Signed Meal Sheet Print View &rarr;</a>
-                    <a id="sh-pane-beo-buy-link" href="/buy/complete_dossier?target=estate-150&amp;vault=${vId}&amp;allow_promotion_codes=false" class="btn btn-primary" style="padding:6px 11px;font-size:0.74rem;">Unlock Event Print Pack ($7)</a>
+                  <div style="display:flex;align-items:center;gap:8px;flex-wrap:wrap;">
+                    <div class="studio-segmented" style="display:inline-flex;background:#F3EEE3;padding:3px;border-radius:8px;border:1px solid #E2D9C8;">
+                      <button type="button" id="sh-beo-view-roster-btn" class="studio-tap-chip active" onclick="if(window.__SH_BEO_PLATING_SUMMARY)window.shToggleBeoPlatingSummary()" style="padding:5px 12px;font-size:0.75rem;font-weight:700;border:none;">Seat Roster</button>
+                      <button type="button" id="sh-beo-plating-summary-btn" class="studio-tap-chip" onclick="if(!window.__SH_BEO_PLATING_SUMMARY)window.shToggleBeoPlatingSummary()" style="padding:5px 12px;font-size:0.75rem;font-weight:700;border:none;">Plating Summary</button>
+                    </div>
+                    <button type="button" id="sh-download-tbl1-sample-btn" class="btn btn-secondary" style="padding:6px 12px;font-size:0.76rem;" onclick="window.shGateOrExportBeoCsv ? window.shGateOrExportBeoCsv('csv') : (window.shExportTable1SampleCsv && window.shExportTable1SampleCsv())">Export CSV</button>
+                    <a id="sh-open-beo-studio-link" href="/print/beo/${vId}" target="_blank" class="btn btn-secondary" style="padding:6px 12px;font-size:0.76rem;">${IC.print}Print PDF</a>
+                    <div style="position:relative;display:inline-block;">
+                      <button type="button" id="sh-beo-tools-btn" class="btn btn-secondary" style="padding:6px 10px;font-size:0.76rem;" onclick="var d=document.getElementById('sh-beo-tools-dropdown');if(d)d.style.display=(d.style.display==='none'||!d.style.display)?'block':'none';" aria-label="More caterer tools">More &hellip;</button>
+                      <div id="sh-beo-tools-dropdown" style="display:none;position:absolute;right:0;top:calc(100% + 4px);background:#FFFFFF;border:1px solid #E2D9C8;border-radius:10px;box-shadow:0 8px 24px rgba(0,0,0,0.12);padding:6px;min-width:210px;z-index:60;">
+                        <button type="button" id="sh-beo-tent-card-btn" style="width:100%;text-align:left;background:none;border:none;padding:7px 10px;font-size:0.78rem;cursor:pointer;border-radius:6px;color:#181412;" onmouseover="this.style.background='#F3EEE3'" onmouseout="this.style.background='none'" onclick="document.getElementById('sh-beo-tools-dropdown').style.display='none';window.shPrintPlatingPassTentCard && window.shPrintPlatingPassTentCard()">Plating Pass Tent Card</button>
+                        <button type="button" id="sh-master-vendor-brief-btn" style="width:100%;text-align:left;background:none;border:none;padding:7px 10px;font-size:0.78rem;cursor:pointer;border-radius:6px;color:#181412;" onmouseover="this.style.background='#F3EEE3'" onmouseout="this.style.background='none'" onclick="document.getElementById('sh-beo-tools-dropdown').style.display='none';window.shPrintMasterVendorBrief && window.shPrintMasterVendorBrief()">Vendor &amp; VIP Brief</button>
+                        <button type="button" id="sh-copy-kitchen-tally-btn" style="width:100%;text-align:left;background:none;border:none;padding:7px 10px;font-size:0.78rem;cursor:pointer;border-radius:6px;color:#181412;" onmouseover="this.style.background='#F3EEE3'" onmouseout="this.style.background='none'" onclick="document.getElementById('sh-beo-tools-dropdown').style.display='none';window.shCopyKitchenTally && window.shCopyKitchenTally()">Copy Kitchen Tally</button>
+                        <button type="button" id="sh-share-caterer-link-btn" style="width:100%;text-align:left;background:none;border:none;padding:7px 10px;font-size:0.78rem;cursor:pointer;border-radius:6px;color:#181412;" onmouseover="this.style.background='#F3EEE3'" onmouseout="this.style.background='none'" onclick="document.getElementById('sh-beo-tools-dropdown').style.display='none';window.shShareCatererLink && window.shShareCatererLink()">Share Caterer Link</button>
+                        <button type="button" id="sh-beo-vegan-filter-btn" style="width:100%;text-align:left;background:none;border:none;padding:7px 10px;font-size:0.78rem;cursor:pointer;border-radius:6px;color:#181412;" onmouseover="this.style.background='#F3EEE3'" onmouseout="this.style.background='none'" onclick="document.getElementById('sh-beo-tools-dropdown').style.display='none';window.shToggleVeganRunSheet && window.shToggleVeganRunSheet()">Filter: Plant-Based Only</button>
+                        <button type="button" id="sh-beo-mode-toggle" style="width:100%;text-align:left;background:none;border:none;padding:7px 10px;font-size:0.78rem;cursor:pointer;border-radius:6px;color:#181412;" onmouseover="this.style.background='#F3EEE3'" onmouseout="this.style.background='none'" onclick="document.getElementById('sh-beo-tools-dropdown').style.display='none';window.shToggleBeoChaosMode()">Compare Spreadsheet Mode</button>
+                      </div>
+                    </div>
+                    <a id="sh-pane-beo-buy-link" href="/buy/complete_dossier?target=estate-150&amp;vault=${vId}&amp;allow_promotion_codes=false" class="btn btn-primary" style="padding:7px 14px;font-size:0.78rem;font-weight:700;">Unlock Event Pack ($7) &rarr;</a>
                   </div>
                 </div>
                 <div id="sh-beo-container" style="max-height:315px;overflow-y:auto;padding-right:4px;"></div>
@@ -518,31 +524,45 @@ function renderZone3InteractiveStudio(plan) {
 
               <!-- PANE 3: 24"x36" Welcome Sign & Avery 5302 Place Cards -->
               <div id="sh-pane-poster" style="display:none;">
-                <div style="display:flex;flex-wrap:wrap;align-items:center;justify-content:space-between;gap:8px;margin-bottom:10px;">
-                  <div style="display:flex;gap:5px;flex-wrap:wrap;">
-                    <button type="button" id="sh-view-mode-poster-btn" class="studio-tap-chip active" onclick="window.shSwitchSignSubView && window.shSwitchSignSubView('poster')" style="font-weight:700;">24"×36" Poster</button>
-                    <button type="button" id="sh-view-mode-avery-btn" class="studio-tap-chip" onclick="window.shSwitchSignSubView && window.shSwitchSignSubView('avery')" style="font-weight:700;">Avery 5302 Cards</button>
-                    <button type="button" id="sh-view-mode-badge-btn" class="studio-tap-chip" onclick="window.shSwitchSignSubView && window.shSwitchSignSubView('badges')" style="font-weight:700;">Avery 5395 Badges</button>
-                    <button type="button" id="sh-view-mode-placard-btn" class="studio-tap-chip" onclick="window.shSwitchSignSubView && window.shSwitchSignSubView('placards')" style="font-weight:700;">4"×6" Placards</button>
-                    <button type="button" id="sh-view-mode-dots-btn" class="studio-tap-chip" onclick="window.shSwitchSignSubView && window.shSwitchSignSubView('dots')" style="font-weight:700;">Allergy Dots</button>
-                    <span style="border-right:1px solid #D1D5DB;height:18px;margin:auto 2px;"></span>
-                    <button type="button" class="studio-tap-chip active" data-poster-sort="alphabetical" onclick="window.shSetPosterMode('alphabetical',null)">Sort A-Z</button>
-                    <button type="button" class="studio-tap-chip" data-poster-sort="by_table" onclick="window.shSetPosterMode('by_table',null)">By Table</button>
-                    <button type="button" id="sh-poster-map-toggle" class="studio-tap-chip active" onclick="window.shTogglePosterMiniMap()" title="Show or hide the mini table # &amp; room layout map on the welcome sign">&#8862; Mini Layout: ON</button>
-                    <button type="button" id="sh-poster-font-size-btn" class="studio-tap-chip" onclick="window.shCyclePosterFontSize()" title="Adjust guest name font size for optimal 24x36 legibility">Font: 20pt (Standard)</button>
-                    <button type="button" class="studio-tap-chip active" data-poster-theme="alabaster" onclick="window.shSetPosterMode(null,'alabaster')">Parisian Gold</button>
-                    <button type="button" class="studio-tap-chip" data-poster-theme="ivory" onclick="window.shSetPosterMode(null,'ivory')">Botanical Ivory</button>
-                    <button type="button" class="studio-tap-chip" data-poster-theme="obsidian" onclick="window.shSetPosterMode(null,'obsidian')">Editorial Noir</button>
-                    <button type="button" class="studio-tap-chip" data-poster-theme="sage" onclick="window.shSetPosterMode(null,'sage')">Tuscan Sage</button>
-                    <button type="button" class="studio-tap-chip" data-poster-theme="rosewater" onclick="window.shSetPosterMode(null,'rosewater')">Blush Rosewater</button>
-                    <button type="button" class="studio-tap-chip" data-poster-theme="terracotta" onclick="window.shSetPosterMode(null,'terracotta')">Villa Terracotta</button>
+                <div style="display:flex;flex-wrap:wrap;align-items:center;justify-content:space-between;gap:12px;margin-bottom:10px;">
+                  <div class="studio-segmented" style="display:inline-flex;background:#F3EEE3;padding:3px;border-radius:8px;border:1px solid #E2D9C8;flex-wrap:wrap;gap:2px;">
+                    <button type="button" id="sh-view-mode-poster-btn" class="studio-tap-chip active" onclick="window.shSwitchSignSubView && window.shSwitchSignSubView('poster')" style="font-weight:700;border:none;padding:5px 12px;font-size:0.75rem;">24&Prime;&times;36&Prime; Poster</button>
+                    <button type="button" id="sh-view-mode-avery-btn" class="studio-tap-chip" onclick="window.shSwitchSignSubView && window.shSwitchSignSubView('avery')" style="font-weight:700;border:none;padding:5px 12px;font-size:0.75rem;">Avery 5302 Cards</button>
+                    <button type="button" id="sh-view-mode-badge-btn" class="studio-tap-chip" onclick="window.shSwitchSignSubView && window.shSwitchSignSubView('badges')" style="font-weight:700;border:none;padding:5px 12px;font-size:0.75rem;">Avery 5395 Badges</button>
+                    <button type="button" id="sh-view-mode-placard-btn" class="studio-tap-chip" onclick="window.shSwitchSignSubView && window.shSwitchSignSubView('placards')" style="font-weight:700;border:none;padding:5px 12px;font-size:0.75rem;">4&Prime;&times;6&Prime; Placards</button>
+                    <button type="button" id="sh-view-mode-dots-btn" class="studio-tap-chip" onclick="window.shSwitchSignSubView && window.shSwitchSignSubView('dots')" style="font-weight:700;border:none;padding:5px 12px;font-size:0.75rem;">Allergy Dots</button>
                   </div>
-                  <div style="display:flex;gap:6px;flex-wrap:wrap;">
-                    <button type="button" class="btn btn-secondary" onclick="window.shPrintPosterProof && window.shPrintPosterProof()" style="padding:6px 9px;font-size:0.73rem;background:#FAF8F5;border-color:#C8A96E;color:#78350F;font-weight:700;">${IC.print}Print Proof (PDF)</button>
-                    <button type="button" class="btn btn-secondary" onclick="window.shPrintAllDeliverables && window.shPrintAllDeliverables()" style="padding:6px 9px;font-size:0.73rem;background:#EBF4F0;border-color:#1B4D3E;color:#1B4D3E;font-weight:700;" title="Open all 5 day-of assets in 1 click">Print Full Event Pack (1-Click)</button>
-                    <a id="sh-open-poster-studio-link" href="/print/poster/${vId}" target="_blank" class="btn btn-secondary" style="padding:6px 10px;font-size:0.73rem;">${IC.print}24&Prime;&times;36&Prime; Print Studio &rarr;</a>
-                    <a id="sh-open-avery-studio-link" href="/print/avery-5302/${vId}?sample=1" target="_blank" class="btn btn-secondary" style="padding:6px 10px;font-size:0.73rem;">${IC.print}Avery 5302 Cards (Free Sample) &rarr;</a>
-                    <a id="sh-pane-poster-buy-link" href="/buy/complete_dossier?target=estate-150&amp;vault=${vId}&amp;allow_promotion_codes=false" class="btn btn-primary" style="padding:6px 11px;font-size:0.8125rem;">&darr; Unlock 24&Prime;&times;36&Prime; Print-Ready Pack ($7 &middot; vs. $14 Blank Etsy Templates)</a>
+                  <div style="display:flex;align-items:center;gap:8px;flex-wrap:wrap;">
+                    <button type="button" class="btn btn-secondary" onclick="window.shPrintPosterProof && window.shPrintPosterProof()" style="padding:6px 12px;font-size:0.76rem;">${IC.print}Print PDF</button>
+                    <div style="position:relative;display:inline-block;">
+                      <button type="button" id="sh-poster-tools-btn" class="btn btn-secondary" style="padding:6px 10px;font-size:0.76rem;" onclick="var d=document.getElementById('sh-poster-tools-dropdown');if(d)d.style.display=(d.style.display==='none'||!d.style.display)?'block':'none';" aria-label="More print options">More &hellip;</button>
+                      <div id="sh-poster-tools-dropdown" style="display:none;position:absolute;right:0;top:calc(100% + 4px);background:#FFFFFF;border:1px solid #E2D9C8;border-radius:10px;box-shadow:0 8px 24px rgba(0,0,0,0.12);padding:6px;min-width:210px;z-index:60;">
+                        <button type="button" class="dropdown-item" style="width:100%;text-align:left;background:none;border:none;padding:7px 10px;font-size:0.78rem;cursor:pointer;border-radius:6px;color:#181412;" onmouseover="this.style.background='#F3EEE3'" onmouseout="this.style.background='none'" onclick="document.getElementById('sh-poster-tools-dropdown').style.display='none';window.shPrintAllDeliverables && window.shPrintAllDeliverables()">Print Full Event Pack (1-Click)</button>
+                        <a id="sh-open-poster-studio-link" href="/print/poster/${vId}" target="_blank" style="display:block;text-decoration:none;padding:7px 10px;font-size:0.78rem;color:#181412;border-radius:6px;" onmouseover="this.style.background='#F3EEE3'" onmouseout="this.style.background='none'">24&Prime;&times;36&Prime; Standalone Studio</a>
+                        <a id="sh-open-avery-studio-link" href="/print/avery-5302/${vId}?sample=1" target="_blank" style="display:block;text-decoration:none;padding:7px 10px;font-size:0.78rem;color:#181412;border-radius:6px;" onmouseover="this.style.background='#F3EEE3'" onmouseout="this.style.background='none'">Avery 5302 Sample Sheet</a>
+                      </div>
+                    </div>
+                    <a id="sh-pane-poster-buy-link" href="/buy/complete_dossier?target=estate-150&amp;vault=${vId}&amp;allow_promotion_codes=false" class="btn btn-primary" style="padding:7px 14px;font-size:0.78rem;font-weight:700;">Unlock Print-Ready Pack ($7) &rarr;</a>
+                  </div>
+                </div>
+                <!-- Clean Formatting Controls Sub-Bar -->
+                <div style="display:flex;align-items:center;justify-content:space-between;gap:8px;flex-wrap:wrap;padding:8px 12px;background:#FAF8F5;border:1px solid #EAE2D2;border-radius:9px;margin-bottom:12px;">
+                  <div style="display:flex;align-items:center;gap:6px;flex-wrap:wrap;">
+                    <span style="font-size:0.72rem;font-weight:800;color:#78350F;text-transform:uppercase;">Sort:</span>
+                    <button type="button" class="studio-tap-chip active" data-poster-sort="alphabetical" onclick="window.shSetPosterMode('alphabetical',null)" style="padding:3px 9px;font-size:0.72rem;">Alphabetical</button>
+                    <button type="button" class="studio-tap-chip" data-poster-sort="by_table" onclick="window.shSetPosterMode('by_table',null)" style="padding:3px 9px;font-size:0.72rem;">By Table</button>
+                    <span style="border-right:1px solid #D6CEBE;height:14px;margin:0 4px;"></span>
+                    <button type="button" id="sh-poster-map-toggle" class="studio-tap-chip active" onclick="window.shTogglePosterMiniMap()" title="Show or hide mini table layout map" style="padding:3px 9px;font-size:0.72rem;">Layout Map: ON</button>
+                    <button type="button" id="sh-poster-font-size-btn" class="studio-tap-chip" onclick="window.shCyclePosterFontSize()" title="Adjust guest name font size" style="padding:3px 9px;font-size:0.72rem;">Font: 20pt</button>
+                  </div>
+                  <div style="display:flex;align-items:center;gap:4px;flex-wrap:wrap;">
+                    <span style="font-size:0.72rem;font-weight:800;color:#78350F;text-transform:uppercase;margin-right:2px;">Theme:</span>
+                    <button type="button" class="studio-tap-chip active" data-poster-theme="alabaster" onclick="window.shSetPosterMode(null,'alabaster')" style="padding:3px 8px;font-size:0.70rem;">Gold</button>
+                    <button type="button" class="studio-tap-chip" data-poster-theme="ivory" onclick="window.shSetPosterMode(null,'ivory')" style="padding:3px 8px;font-size:0.70rem;">Ivory</button>
+                    <button type="button" class="studio-tap-chip" data-poster-theme="obsidian" onclick="window.shSetPosterMode(null,'obsidian')" style="padding:3px 8px;font-size:0.70rem;">Noir</button>
+                    <button type="button" class="studio-tap-chip" data-poster-theme="sage" onclick="window.shSetPosterMode(null,'sage')" style="padding:3px 8px;font-size:0.70rem;">Sage</button>
+                    <button type="button" class="studio-tap-chip" data-poster-theme="rosewater" onclick="window.shSetPosterMode(null,'rosewater')" style="padding:3px 8px;font-size:0.70rem;">Rose</button>
+                    <button type="button" class="studio-tap-chip" data-poster-theme="terracotta" onclick="window.shSetPosterMode(null,'terracotta')" style="padding:3px 8px;font-size:0.70rem;">Terra</button>
                   </div>
                 </div>
                 <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));gap:8px;margin-bottom:10px;padding:10px 12px;background:#FAF6EE;border:1px solid #E5DEC9;border-radius:10px;">
