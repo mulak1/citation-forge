@@ -21,14 +21,15 @@ const IC = {
 
 function renderZone1Hero(plan) {
   return `
-  <!-- ZONE 1: COMPACT ABOVE-THE-FOLD HERO (DIRECT TO LIVE FLOORPLAN STUDIO) -->
-  <section class="studio-zone1-hero" id="grader" style="padding:8px 0 !important;background:#FAF8F5;border-bottom:1px solid #EFEAE1;">
+  <!-- ZONE 1: ELEGANT EDITORIAL HERO (LUXURIOUS BREATHING ROOM, PREMIER TYPOGRAPHY & VALUE PROPOSITION) -->
+  <section class="studio-zone1-hero" id="grader" style="padding:28px 0 22px;background:#FAF8F5;border-bottom:1px solid #EFEAE1;">
     <div class="container">
-      <div style="max-width:1280px;margin:0 auto;display:flex;align-items:center;justify-content:space-between;gap:12px;flex-wrap:wrap;">
-        <div style="display:flex;align-items:baseline;gap:8px;flex-wrap:wrap;">
-          <h1 id="score-brand-title" class="sh-display-h1" style="font-size:clamp(1.15rem, 1.8vw, 1.45rem);line-height:1.2;margin:0;">The Reception Seating Studio. <span class="sh-h1-accent">Solved in 60 Seconds, Drama-Free.</span></h1>
-          <span class="sh-lead-sub sh-hide-mobile-toolbar" style="font-size:0.80rem;color:#78716C;">Seat households together, export clockwise caterer meal sheets &amp; 24&Prime;&times;36&Prime; signs.</span>
+      <div style="max-width:1280px;margin:0 auto;">
+        <div style="display:inline-flex;align-items:center;gap:6px;font-size:0.74rem;font-weight:800;letter-spacing:0.07em;color:#1B4D3E;text-transform:uppercase;margin-bottom:8px;background:#EBF4F0;padding:3px 10px;border-radius:999px;border:1px solid #C4DFD5;">
+          <span style="display:inline-block;width:6px;height:6px;border-radius:50%;background:#10B981;"></span> The Reception Seating Studio &middot; 2026 Edition
         </div>
+        <h1 id="score-brand-title" class="sh-display-h1" style="font-family:var(--font-serif, Georgia, serif);font-size:clamp(1.60rem, 2.7vw, 2.25rem);line-height:1.2;color:#181412;margin:0 0 8px;letter-spacing:-0.01em;">The 6-Hour Seating Chart. <span class="sh-h1-accent" style="color:#1B4D3E;font-style:italic;">Solved in 60 Seconds, Drama-Free.</span></h1>
+        <p class="sh-lead-sub" style="font-size:clamp(0.90rem, 1.15vw, 1.02rem);color:#57534E;line-height:1.55;max-width:68ch;margin:0;">Seat households together, resolve family conflicts with 1 click, and export your Clockwise 12:00 Caterer Meal Sheet &amp; 24&Prime;&times;36&Prime; easel sign.</p>
       </div>
     </div>
   </section>`;
@@ -45,28 +46,32 @@ function renderZone2Walkthrough(plan = {}) {
         <h2 class="bs-section-h2" style="margin-bottom:4px;">From RSVP list to print-ready reception <em>in four steps.</em></h2>
         <p class="bs-section-sub">Replace late-night spreadsheet guesswork with conflict-free household seating, clockwise caterer meal sheets, and print-ready signage.</p>
       </div>
-      <div class="studio-how-grid" style="margin-top:12px;gap:14px;">
-        <div class="studio-how-card" style="padding:12px;gap:8px;cursor:pointer;" onclick="window.scrollToShCard(2)">
-          <img src="/public/venue-rosewood-estate.jpg" alt="150-guest estate reception table layout" style="width:100%;height:148px;object-fit:cover;border-radius:10px;display:block;" loading="eager" />
-          <div style="display:flex;align-items:center;justify-content:space-between;"><span class="studio-how-num" style="width:28px;height:28px;font-size:0.80rem;">01</span><span class="mono" style="font-size:0.72rem;font-weight:700;color:#1B4D3E;background:#EBF4F0;padding:3px 8px;border-radius:999px;white-space:nowrap;">15-Sec Import</span></div>
-          <h3 style="font-size:1.02rem;font-weight:700;color:#1C1C1C;margin:0;line-height:1.25;">1. Paste Guest List</h3>
-          <p style="font-size:0.82rem;color:#4B5563;line-height:1.4;margin:0;">Import from Zola, The Knot, Joy, or Excel with household locks.</p>
+      <div class="studio-how-grid" style="margin-top:10px;gap:12px;">
+        <div class="studio-how-card" style="padding:10px;gap:6px;cursor:pointer;" onclick="window.scrollToShCard(2)">
+          <img src="/public/venue-rosewood-estate.jpg" alt="150-guest estate reception table layout" style="width:100%;height:114px;object-fit:cover;border-radius:10px;display:block;" loading="eager" />
+          <div style="display:flex;align-items:center;justify-content:space-between;"><span class="studio-how-num" style="width:26px;height:26px;font-size:0.75rem;">01</span><span class="mono" style="font-size:0.70rem;font-weight:700;color:#1B4D3E;background:#EBF4F0;padding:2px 7px;border-radius:999px;white-space:nowrap;">15-Sec Import</span></div>
+          <h3 style="font-size:0.98rem;font-weight:700;color:#1C1C1C;margin:0;line-height:1.2;">1. Paste Guest List</h3>
+          <p style="font-size:0.80rem;color:#4B5563;line-height:1.35;margin:0;">Import from Zola, The Knot, Joy, or Excel with household locks.</p>
         </div>
-        <div class="studio-how-card" style="padding:12px;gap:8px;cursor:pointer;" onclick="window.scrollToShCard(3)">
-          <img src="/public/venue-separated-family-wings.jpg" alt="Equidistant VIP family tables with dance floor sightlines" style="width:100%;height:148px;object-fit:cover;border-radius:10px;display:block;" loading="eager" />
-          <div style="display:flex;align-items:center;justify-content:space-between;"><span class="studio-how-num" style="width:28px;height:28px;font-size:0.80rem;">02</span><span class="mono" style="font-size:0.72rem;font-weight:700;color:#1B4D3E;background:#EBF4F0;padding:3px 8px;border-radius:999px;white-space:nowrap;">1-Click Peace</span></div>
-          <h3 style="font-size:1.02rem;font-weight:700;color:#1C1C1C;margin:0;line-height:1.25;">2. Keep Family Peace</h3>
-          <p style="font-size:0.82rem;color:#4B5563;line-height:1.4;margin:0;">Separate divorced parents with equal VIP sweetheart sightlines.</p>
+        <div class="studio-how-card" style="padding:10px;gap:6px;cursor:pointer;" onclick="window.scrollToShCard(3)">
+          <img src="/public/venue-separated-family-wings.jpg" alt="Equidistant VIP family tables with dance floor sightlines" style="width:100%;height:114px;object-fit:cover;border-radius:10px;display:block;" loading="eager" />
+          <div style="display:flex;align-items:center;justify-content:space-between;"><span class="studio-how-num" style="width:26px;height:26px;font-size:0.75rem;">02</span><span class="mono" style="font-size:0.70rem;font-weight:700;color:#1B4D3E;background:#EBF4F0;padding:2px 7px;border-radius:999px;white-space:nowrap;">1-Click Peace</span></div>
+          <h3 style="font-size:0.98rem;font-weight:700;color:#1C1C1C;margin:0;line-height:1.2;">2. Keep Family Peace</h3>
+          <p style="font-size:0.80rem;color:#4B5563;line-height:1.35;margin:0;">Separate divorced parents with equal VIP sweetheart sightlines.</p>
         </div>
-        <div class="studio-how-card" style="padding:12px;gap:8px;cursor:pointer;" onclick="if(window.shSetActiveTab){window.shSetActiveTab('beo');}document.getElementById('studio-bespoke-artifact-stage').scrollIntoView({behavior:'smooth'});">
-          <img src="/public/showcase-caterer-beo-clipboard.jpg" alt="Banquet captain reviewing clockwise 12:00 caterer meal sheet" style="width:100%;height:148px;object-fit:cover;border-radius:10px;display:block;" loading="lazy" />
-          <div style="display:flex;align-items:center;justify-content:space-between;"><span class="studio-how-num" style="width:28px;height:28px;font-size:0.80rem;">03</span><span class="mono" style="font-size:0.72rem;font-weight:700;color:#1B4D3E;background:#EBF4F0;padding:3px 8px;border-radius:999px;white-space:nowrap;">12:00 = Seat #1</span></div>
-          <h3 style="font-size:1.02rem;font-weight:700;color:#1C1C1C;margin:0;line-height:1.25;">3. Caterer Meal Sheet</h3>
-          <p style="font-size:0.82rem;color:#4B5563;line-height:1.4;margin:0;">Clockwise 12:00 Seat #1 meal tally &amp; red kitchen allergy flags.</p>
+        <div class="studio-how-card" style="padding:10px;gap:6px;cursor:pointer;" onclick="if(window.shSetActiveTab){window.shSetActiveTab('beo');}document.getElementById('studio-bespoke-artifact-stage').scrollIntoView({behavior:'smooth'});">
+          <img src="/public/showcase-caterer-beo-clipboard.jpg" alt="Banquet captain reviewing clockwise 12:00 caterer meal sheet" style="width:100%;height:114px;object-fit:cover;border-radius:10px;display:block;" loading="lazy" />
+          <div style="display:flex;align-items:center;justify-content:space-between;"><span class="studio-how-num" style="width:26px;height:26px;font-size:0.75rem;">03</span><span class="mono" style="font-size:0.70rem;font-weight:700;color:#1B4D3E;background:#EBF4F0;padding:2px 7px;border-radius:999px;white-space:nowrap;">12:00 = Seat #1</span></div>
+          <h3 style="font-size:0.98rem;font-weight:700;color:#1C1C1C;margin:0;line-height:1.2;">3. Caterer Meal Sheet</h3>
+          <p style="font-size:0.80rem;color:#4B5563;line-height:1.35;margin:0;">Clockwise 12:00 Seat #1 meal tally &amp; red kitchen allergy flags.</p>
         </div>
-        <div class="studio-how-card" style="padding:12px;gap:8px;cursor:pointer;" onclick="if(window.shSetActiveTab){window.shSetActiveTab('poster');}document.getElementById('studio-bespoke-artifact-stage').scrollIntoView({behavior:'smooth'});">
-          <img src="/public/showcase-mini-map-welcome-sign.jpg" alt="Framed 24x36 reception welcome seating sign on brass easel" style="width:100%;height:148px;object-fit:cover;border-radius:10px;display:block;" loading="lazy" />
-          <div style="display:flex;align-items:center;justify-content:space-between;"><span class="studio-how-num" style="width:28px;height:28px;font-size:0.80rem;">04</span><span class="mono" style="font-size:0.72rem;font-weight:700;color:#1B4D3E;background:#EBF4F0;padding:3px 8px;border-radius:999px;white-space:nowrap;">Arch D Ready</span></div>
+        <div class="studio-how-card" style="padding:10px;gap:6px;cursor:pointer;" onclick="if(window.shSetActiveTab){window.shSetActiveTab('poster');}document.getElementById('studio-bespoke-artifact-stage').scrollIntoView({behavior:'smooth'});">
+          <img src="/public/showcase-mini-map-welcome-sign.jpg" alt="Framed 24x36 reception welcome seating sign on brass easel" style="width:100%;height:114px;object-fit:cover;border-radius:10px;display:block;" loading="lazy" />
+          <div style="display:flex;align-items:center;justify-content:space-between;"><span class="studio-how-num" style="width:26px;height:26px;font-size:0.75rem;">04</span><span class="mono" style="font-size:0.70rem;font-weight:700;color:#1B4D3E;background:#EBF4F0;padding:2px 7px;border-radius:999px;white-space:nowrap;">Arch D Ready</span></div>
+          <h3 style="font-size:0.98rem;font-weight:700;color:#1C1C1C;margin:0;line-height:1.2;">4. Print Sign &amp; Cards</h3>
+          <p style="font-size:0.80rem;color:#4B5563;line-height:1.35;margin:0;">FedEx/Staples 24&Prime;&times;36&Prime; poster &amp; Avery 5302 place cards.</p>
+        </div>
+      </div>
           <h3 style="font-size:1.02rem;font-weight:700;color:#1C1C1C;margin:0;line-height:1.25;">4. Print Sign &amp; Cards</h3>
           <p style="font-size:0.82rem;color:#4B5563;line-height:1.4;margin:0;">FedEx/Staples 24&Prime;&times;36&Prime; poster &amp; Avery 5302 place cards.</p>
         </div>
@@ -118,11 +123,11 @@ function renderZone2Walkthrough(plan = {}) {
               <!-- Tangible Prints Visual Cards -->
               <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(160px,1fr));gap:10px;padding:10px;background:#FAF8F5;border:1px solid #EAE0D0;border-radius:12px;">
                 <div style="display:flex;flex-direction:column;gap:6px;">
-                  <img src="/public/ugc-welcome-sign-easel.jpg" alt="24x36 sign preview" style="width:100%;height:140px;border-radius:8px;object-fit:cover;border:1px solid #D6CBB8;display:block;" loading="lazy" />
+                  <img src="/public/ugc-welcome-sign-easel.jpg" alt="24x36 sign preview" style="width:100%;height:108px;border-radius:8px;object-fit:cover;border:1px solid #D6CBB8;display:block;" loading="lazy" />
                   <div style="font-size:0.75rem;line-height:1.3;"><strong style="color:#181412;">24&Prime;&times;36&Prime; Sign</strong> &middot; <span style="color:#78716C;">FedEx-Ready PDF</span></div>
                 </div>
                 <div style="display:flex;flex-direction:column;gap:6px;">
-                  <img src="/public/ugc-escort-cards-wax.jpg" alt="Avery cards preview" style="width:100%;height:140px;border-radius:8px;object-fit:cover;border:1px solid #D6CBB8;display:block;" loading="lazy" />
+                  <img src="/public/ugc-escort-cards-wax.jpg" alt="Avery cards preview" style="width:100%;height:108px;border-radius:8px;object-fit:cover;border:1px solid #D6CBB8;display:block;" loading="lazy" />
                   <div style="font-size:0.75rem;line-height:1.3;"><strong style="color:#181412;">Avery 5302 Cards</strong> &middot; <span style="color:#78716C;">Table 1 Unmasked</span></div>
                 </div>
               </div>
@@ -250,21 +255,21 @@ function renderZone3InteractiveStudio(plan) {
 
   return `
   <!-- ZONE 3: SCROLL-PACED 5-CARD BUILDER + STICKY LIVE STAGE (FOLD 1) -->
-  <section class="studio-zone-section" id="studio" style="scroll-margin-top:58px;padding-top:6px !important;padding-bottom:28px;">
+  <section class="studio-zone-section" id="studio" style="scroll-margin-top:58px;padding-top:18px;padding-bottom:24px;">
     <div class="container">
       <span id="sh-studio-vault-code" style="display:none;">${vId}</span>
       <div style="display:none;"><span id="sh-endowed-progress-label">Setup</span><span id="sh-endowed-progress-fill"></span><span id="sh-btn-vault-id">${vId}</span></div>
 
-      <div id="sh-studio-quick-preset-bar" style="display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:8px;margin-bottom:10px;padding:4px 0;">
+      <div id="sh-studio-quick-preset-bar" style="display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:8px;margin-bottom:12px;padding:8px 12px;background:#FFFFFF;border:1px solid #E5D9C5;border-radius:12px;box-shadow:0 1px 3px rgba(0,0,0,0.02);">
         <div style="display:flex;align-items:center;gap:6px;flex-wrap:wrap;">
-          <span style="font-size:12px;font-weight:700;color:#78716C;">Presets:</span>
-          <button type="button" class="studio-tap-chip preset-chip active" data-preset="estate-150" data-domain="supabase.com" onclick="window.loadPresetScenario('estate-150', this)" style="display:inline-flex;align-items:center;gap:5px;padding:4px 10px;font-size:12px;white-space:nowrap;">150-Guest Estate</button>
-          <button type="button" class="studio-tap-chip" data-instant-preset="110-guest-coastal-beach-club-seating-chart" onclick="window.loadPresetScenario('110-guest-coastal-beach-club-seating-chart', this)" style="display:inline-flex;align-items:center;gap:5px;padding:4px 10px;font-size:12px;white-space:nowrap;">110-Guest Beach Club</button>
-          <button type="button" class="studio-tap-chip" data-instant-preset="tuscan-banquet-80" onclick="window.loadPresetScenario('tuscan-banquet-80', this)" style="display:inline-flex;align-items:center;gap:5px;padding:4px 10px;font-size:12px;white-space:nowrap;">80-Guest Tuscan</button>
-          <button type="button" class="studio-tap-chip" data-instant-preset="200-guest-hotel-ballroom-seating-chart-template" onclick="window.loadPresetScenario('200-guest-hotel-ballroom-seating-chart-template', this)" style="display:inline-flex;align-items:center;gap:5px;padding:4px 10px;font-size:12px;white-space:nowrap;">200-Guest Ballroom</button>
-          <button type="button" id="sh-conflict-solver-pill" class="studio-tap-chip" onclick="window.shRunConflictSolverDemo && window.shRunConflictSolverDemo(this)" style="padding:4px 10px;font-size:12px;font-weight:700;color:#065F46;background:#ECFDF5;border:1px solid #10B981;white-space:nowrap;">${IC.bolt}Auto-Solve Conflicts</button>
+          <span style="font-size:12px;font-weight:700;color:#78716C;">Quick Presets:</span>
+          <button type="button" class="studio-tap-chip preset-chip active" data-preset="estate-150" data-domain="supabase.com" onclick="window.loadPresetScenario('estate-150', this)" style="display:inline-flex;align-items:center;gap:5px;padding:5px 11px;font-size:12px;white-space:nowrap;">150-Guest Estate</button>
+          <button type="button" class="studio-tap-chip" data-instant-preset="110-guest-coastal-beach-club-seating-chart" onclick="window.loadPresetScenario('110-guest-coastal-beach-club-seating-chart', this)" style="display:inline-flex;align-items:center;gap:5px;padding:5px 11px;font-size:12px;white-space:nowrap;">110-Guest Beach Club</button>
+          <button type="button" class="studio-tap-chip" data-instant-preset="tuscan-banquet-80" onclick="window.loadPresetScenario('tuscan-banquet-80', this)" style="display:inline-flex;align-items:center;gap:5px;padding:5px 11px;font-size:12px;white-space:nowrap;">80-Guest Tuscan</button>
+          <button type="button" class="studio-tap-chip" data-instant-preset="200-guest-hotel-ballroom-seating-chart-template" onclick="window.loadPresetScenario('200-guest-hotel-ballroom-seating-chart-template', this)" style="display:inline-flex;align-items:center;gap:5px;padding:5px 11px;font-size:12px;white-space:nowrap;">200-Guest Ballroom</button>
+          <button type="button" id="sh-conflict-solver-pill" class="studio-tap-chip" onclick="window.shRunConflictSolverDemo && window.shRunConflictSolverDemo(this)" style="padding:5px 11px;font-size:12px;font-weight:700;color:#065F46;background:#ECFDF5;border:1px solid #10B981;white-space:nowrap;">${IC.bolt}Auto-Solve Conflicts</button>
         </div>
-        <button type="button" class="sh-ed-ghost" onclick="window.shOpenSetupWizard(1)" style="font-size:12px;padding:4px 10px;font-weight:600;color:#57534E;border-color:#D1D5DB;background:#FFFFFF;white-space:nowrap;">${IC.gear}Guided Wizard</button>
+        <button type="button" class="sh-ed-ghost" onclick="window.shOpenSetupWizard(1)" style="font-size:12px;padding:5px 12px;font-weight:600;color:#57534E;border-color:#D1D5DB;background:#FFFFFF;white-space:nowrap;">${IC.gear}Guided Wizard</button>
       </div>
 
       ${renderSetupWizardHtml(plan)}

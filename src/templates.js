@@ -565,7 +565,7 @@ function renderHead({
       #sh-inline-vault-email, #sh-step4-inline-email, #sh-seo-calc-email { flex: 0 0 auto !important; width: 100% !important; height: 42px !important; min-height: 42px !important; max-height: 42px !important; font-size: 16px !important; text-align: left !important; }
       #sh-inline-vault-save-btn, #sh-step4-inline-save-btn, #sh-seo-calc-save-btn, #sh-vault-buy-pack-btn, #sh-vault-buy-pro-btn, .sh-zola-showcase-footer button { flex: 0 0 auto !important; width: 100% !important; min-height: 38px !important; height: auto !important; padding: 8px 10px !important; font-size: 14px !important; text-align: center !important; justify-content: center !important; }
       .sh-locked-spec-badge { width: 100% !important; height: auto !important; text-align: left !important; border-radius: 10px !important; padding: 6px 10px !important; }
-      .sh-hide-mobile-toolbar, #grader .sh-lead-sub, #sh-table1-preview-badge { display: none !important; }
+      .sh-hide-mobile-toolbar, #sh-table1-preview-badge { display: none !important; }
       #sh-proof-couple-name, #sh-proof-table1-summary, #sh-conflict-solver-badge, #sh-rival-anchor-badge { display: block !important; width: 100% !important; white-space: normal !important; font-size: 13px !important; line-height: 1.3 !important; }
       #sh-vault-bar-headline { font-size: 13px !important; line-height: 1.25 !important; }
       #sh-canvas-micro-toolbar { gap: 4px !important; margin-bottom: 4px !important; flex-wrap: wrap !important; padding-bottom: 2px !important; }
