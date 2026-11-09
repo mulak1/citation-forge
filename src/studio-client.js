@@ -726,6 +726,7 @@ function renderInteractiveScript(initialPlan) {
       parts.push('<g data-lm-group="' + lmIdx + '" style="cursor:grab;" transform="translate(' + lm.x + ',' + lm.y + ') rotate(' + (lm.rot || 0) + ')" onmousedown="window.shStartLandmarkDrag(' + lmIdx + ',event)" ontouchstart="window.shStartLandmarkDrag(' + lmIdx + ',event)"><title>Drag ' + shEsc(lm.label) + '</title><rect x="' + (-lm.w / 2) + '" y="' + (-lm.h / 2) + '" width="' + lm.w + '" height="' + lm.h + '" rx="8" fill="' + fill + '" stroke="' + stroke + '" stroke-width="' + (isSelLm ? '2.5' : '1.5') + '" stroke-dasharray="4 3"/><text transform="rotate(' + (((lm.rot || 0) > 90 && (lm.rot || 0) < 270) ? 180 : 0) + ')" x="0" y="4" text-anchor="middle" fill="' + textCol + '" font-size="12" font-weight="800" letter-spacing="0.06em">' + shEsc(lm.label) + '</text>' + (window.shElementHandle ? window.shElementHandle(lm, lmIdx) : '') + '</g>');
     });
     if (window.shRenderAcousticZoneSvg) parts.push(window.shRenderAcousticZoneSvg(plan));
+    if (window.shRenderSightlineConeSvg) parts.push(window.shRenderSightlineConeSvg(plan));
     if (window.shDropHalo) parts.push(window.shDropHalo(plan));
     plan.tables.forEach(function(t, tIdx) {
       shRecomputeGeometry(t);

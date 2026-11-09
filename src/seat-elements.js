@@ -411,6 +411,37 @@ function renderSeatElementsClientScript() {
       out.push('</g>');
     });
     return out.join('');
+  };
+
+  /* ---- Banquet Captain 120-Degree Sweetheart Sightline Corridor ---- */
+  window.__SH_SIGHTLINE_CONE = false;
+  window.shToggleSightlineCone = function() {
+    window.__SH_SIGHTLINE_CONE = !window.__SH_SIGHTLINE_CONE;
+    var btn = document.getElementById('sh-toolbar-sightline-btn');
+    if (btn) {
+      btn.style.background = window.__SH_SIGHTLINE_CONE ? '#ECFDF5' : '';
+      btn.style.borderColor = window.__SH_SIGHTLINE_CONE ? '#10B981' : '';
+      btn.style.color = window.__SH_SIGHTLINE_CONE ? '#065F46' : '';
+    }
+    shToast(window.__SH_SIGHTLINE_CONE ? '\\u2713 Sightline Cone: ON (120\\u00b0 visual corridor to dance floor & entrance)' : 'Sightline Cone: OFF');
+    shRenderAll();
+  };
+  window.shRenderSightlineConeSvg = function(plan) {
+    if (!window.__SH_SIGHTLINE_CONE || !plan || !plan.tables || !plan.tables.length) return '';
+    var head = plan.tables.find(function(t) { return (typeof shNormalizeShape === 'function' ? shNormalizeShape(t.shape) : t.shape) === 'sweetheart' || t.number === 1; }) || plan.tables[0];
+    if (!head) return '';
+    var hx = head.x || 560, hy = head.y || 90;
+    var roomH = Number(plan.roomHeight) || 680;
+    var reach = Math.max(380, roomH - hy - 50);
+    var radL = (90 + 55) * (Math.PI / 180), radR = (90 - 55) * (Math.PI / 180);
+    var x1 = Math.round(hx + reach * Math.cos(radL)), y1 = Math.round(hy + reach * Math.sin(radL));
+    var x2 = Math.round(hx + reach * Math.cos(radR)), y2 = Math.round(hy + reach * Math.sin(radR));
+    var pathD = 'M ' + hx + ' ' + (hy + 18) + ' L ' + x1 + ' ' + y1 + ' A ' + reach + ' ' + reach + ' 0 0 0 ' + x2 + ' ' + y2 + ' Z';
+    return '<g class="sh-sightline-cone" pointer-events="none">' +
+      '<path d="' + pathD + '" fill="rgba(16,185,129,0.045)" stroke="#10B981" stroke-width="1.2" stroke-dasharray="5 4" opacity="0.65"/>' +
+      '<line x1="' + hx + '" y1="' + (hy + 18) + '" x2="' + hx + '" y2="' + (hy + reach) + '" stroke="#10B981" stroke-width="1" stroke-dasharray="2 4" opacity="0.45"/>' +
+      '<text x="' + hx + '" y="' + (hy + Math.round(reach * 0.52)) + '" text-anchor="middle" font-size="10" font-weight="800" fill="#065F46" opacity="0.8" letter-spacing="0.05em">SWEETHEART SIGHTLINE &middot; 120&deg; CLEAR OBSERVATION</text>' +
+      '</g>';
   };`;
 }
 
