@@ -72,13 +72,14 @@ function renderZone2Walkthrough(plan = {}) {
           <p style="font-size:0.80rem;color:#4B5563;line-height:1.35;margin:0;">FedEx/Staples 24&Prime;&times;36&Prime; poster &amp; Avery 5302 place cards.</p>
         </div>
       </div>
-          <h3 style="font-size:1.02rem;font-weight:700;color:#1C1C1C;margin:0;line-height:1.25;">4. Print Sign &amp; Cards</h3>
-          <p style="font-size:0.82rem;color:#4B5563;line-height:1.4;margin:0;">FedEx/Staples 24&Prime;&times;36&Prime; poster &amp; Avery 5302 place cards.</p>
-        </div>
-      </div>
 
       <!-- CURATED REAL-VENUE RECEPTION SHOWCASE -->
-      <div class="sh-vsl-player-shell" id="studio-editorial-vsl-stage" style="max-width:960px;margin:20px auto 0;">
+      <details id="sh-venue-gallery-drawer" style="max-width:960px;margin:14px auto 0;background:#FFFFFF;border:1px solid #E4DCD0;border-radius:14px;padding:10px 14px;">
+        <summary style="cursor:pointer;font-size:0.875rem;font-weight:700;color:#1B4D3E;list-style:none;display:flex;align-items:center;justify-content:space-between;">
+          <span>+ View Real Venue Reception Gallery (6 Sample Layouts)</span>
+          <span style="font-size:0.8125rem;color:#57534E;">Click to expand</span>
+        </summary>
+      <div class="sh-vsl-player-shell" id="studio-editorial-vsl-stage" style="max-width:960px;margin:12px auto 0;">
         <div style="text-align:center;margin-bottom:8px;">
           <span style="font-size:0.70rem;font-weight:800;color:#1B4D3E;letter-spacing:0.08em;text-transform:uppercase;background:#EBF4F0;padding:2px 10px;border-radius:999px;border:1px solid #C4DFD5;">REAL VENUE RECEPTION GALLERY</span>
           <h3 class="serif-display" style="font-size:1.25rem;margin:4px 0 2px;color:#1F1B18;">Real Receptions Solved &amp; Printed with SeatHarmony</h3>
@@ -142,6 +143,7 @@ function renderZone2Walkthrough(plan = {}) {
           </div>
         </div>
       </div>
+      </details>
       <script>
       (function(){
         window.__SH_SHOWCASE_VENUES = [
@@ -299,7 +301,12 @@ function renderZone3InteractiveStudio(plan) {
               <span id="sh-wizard-summary-4" style="display:none;"></span>
             </div>
             <div class="studio-wizard-body">
-              <div style="margin-bottom:8px;">
+              <details id="sh-step4-finetune-drawer" style="margin-bottom:8px;padding:8px 10px;border:1px solid #EAE0D0;border-radius:10px;background:#FAF8F5;">
+                <summary style="cursor:pointer;font-size:0.8125rem;font-weight:700;color:#1B4D3E;list-style:none;display:flex;align-items:center;justify-content:space-between;">
+                  <span>+ Customize Table Shapes &amp; Sign Theme (Optional)</span>
+                  <span style="font-size:0.8125rem;color:#57534E;">Expand</span>
+                </summary>
+              <div style="margin-top:8px;margin-bottom:8px;">
                 <span class="studio-field-label">Select Table to Edit</span>
                 <div class="studio-chip-group" id="sh-card4-table-pills">
                   <button type="button" class="studio-tap-chip" onclick="window.shSelectTable(0)">Tbl 1</button>
@@ -363,6 +370,9 @@ function renderZone3InteractiveStudio(plan) {
                   <a id="sh-card5-poster-studio-link" href="/print/poster/${vId}" target="_blank" class="studio-tap-chip" style="text-decoration:none;font-weight:800;color:#78350F;border-color:#C8A96E;">Sign PDF &rarr;</a>
                   <a id="sh-card5-avery-studio-link" href="/print/avery-5302/${vId}" target="_blank" class="studio-tap-chip" style="text-decoration:none;font-weight:800;color:#065F46;border-color:#10B981;">Avery 5302 &rarr;</a>
                 </div>
+              </div>
+              </details>
+              <div>
                 <div id="sh-step4-inline-bridge" style="margin-top:10px;padding:10px 12px;border-radius:12px;background:#FAF8F5;border:1px solid #EAE4DC;display:flex;flex-direction:column;gap:8px;">
                   <div style="font-size:0.82rem;font-weight:800;color:#1C1C1C;">${IC.save}Email This Layout &amp; Caterer CSV ($0) or Unlock Print Pack ($7 &middot; vs. $14 Etsy):</div>
                   <div style="display:flex;flex-wrap:wrap;gap:6px;align-items:stretch;">
@@ -449,7 +459,7 @@ function renderZone3InteractiveStudio(plan) {
                   <span class="sh-ed-menu-wrap"><button type="button" id="sh-toolbar-add-table-btn" class="sh-ed-ghost" style="padding:5px 12px;font-size:0.80rem;font-weight:700;background:#1B4D3E;color:#FFFFFF;border-color:#1B4D3E;" aria-haspopup="true" onclick="window.shToggleAddMenu(event)">+ Add Table &#9662;</button><div id="sh-add-menu" class="sh-ed-menu" style="display:none;"><button type="button" onclick="window.shAddTableType('round8')">Round table <small>8 seats</small></button><button type="button" onclick="window.shAddTableType('round10')">Round table <small>10 seats</small></button><button type="button" onclick="window.shAddTableType('round12')">Grand round <small>12 seats</small></button><button type="button" onclick="window.shAddTableType('banquet12')">Long banquet <small>12 seats</small></button><button type="button" onclick="window.shAddTableType('kings8')">King's table <small>8 seats</small></button><button type="button" onclick="window.shAddTableType('sweetheart2')">Sweetheart <small>2 seats</small></button></div></span>
                   <button type="button" id="sh-undo-btn" class="sh-ed-ghost" style="padding:5px 11px;font-size:0.78rem;font-weight:600;" onclick="window.shUndo(1)" title="Undo last move (Ctrl+Z / Cmd+Z)">&#8630; Undo</button>
                   <span class="sh-ed-menu-wrap"><button type="button" id="sh-toolbar-room-btn" class="sh-ed-ghost" style="padding:5px 11px;font-size:0.78rem;font-weight:600;" aria-haspopup="true" onclick="window.shToggleRoomMenu(event)">Room Options &#9662;</button><div id="sh-room-menu" class="sh-ed-menu" style="display:none;min-width:240px;"><div class="sh-ed-menu-sec">Switch all tables (keeps guests)</div><button type="button" data-room-shape="round8" onclick="window.shSetAllTablesKind('round8')">All Round <small>8 seats</small></button><button type="button" data-room-shape="round10" onclick="window.shSetAllTablesKind('round10')">All Round <small>10 seats</small></button><button type="button" data-room-shape="banquet12" onclick="window.shSetAllTablesKind('banquet12')">All Long banquet <small>12 seats</small></button><button type="button" data-room-shape="kings8" onclick="window.shSetAllTablesKind('kings8')">All King's <small>8 seats</small></button><div class="sh-ed-menu-sec">Scale venue guest capacity</div><div class="sh-ed-cap-grid"><button type="button" data-room-cap="50" onclick="window.shScaleRoomGuests(50)">50</button><button type="button" data-room-cap="75" onclick="window.shScaleRoomGuests(75)">75</button><button type="button" data-room-cap="100" onclick="window.shScaleRoomGuests(100)">100</button><button type="button" data-room-cap="150" onclick="window.shScaleRoomGuests(150)">150</button><button type="button" data-room-cap="200" onclick="window.shScaleRoomGuests(200)">200</button><button type="button" data-room-cap="300" onclick="window.shScaleRoomGuests(300)">300</button></div><div class="sh-ed-menu-sec">Alignment &amp; cleanup</div><button type="button" data-room-align="1" onclick="window.shAlignAllTablesToGrid()">&#8862; Align all tables to grid <small>snap rows &amp; cols</small></button><button type="button" data-room-head="1" onclick="window.shSwapHeadTablePosition()">👑 Reposition Head Table <small>top · center · entrance</small></button><button type="button" data-room-space="1" onclick="window.shAutoSpaceTablesEquidistant()">↔Space tables equally <small>symmetrical 60″ aisles</small></button><button type="button" data-room-rotate="1" onclick="window.shRotateGuestTables45()">📐 45° Diamond layout <small>rotate guest tables</small></button><button type="button" data-room-balance="1" onclick="window.shAutoBalanceTables()">⚖Balance table sizes <small>even guest spread</small></button><button type="button" data-room-capnames="1" onclick="window.shAutoCapitalizeAllNames()">Aa Auto-capitalize names <small>fix all-caps / lowercase</small></button><button type="button" data-room-renumber="1" onclick="window.shRenumberTablesClockwise()">Renumber tables <small>clockwise server order</small></button><button type="button" data-room-prune="1" onclick="window.shPruneEmptyTables()">Clean up empty tables <small>auto-renumber</small></button><div class="sh-ed-menu-sec">Print &amp; Export</div><button type="button" onclick="window.shPrintFloorplanDiagram &amp;&amp; window.shPrintFloorplanDiagram()">${IC.print}Print Floorplan Diagram <small>landscape vector</small></button><button type="button" onclick="window.shPrintMasterVendorBrief &amp;&amp; window.shPrintMasterVendorBrief()">🎬 Vendor &amp; VIP Brief <small>DJ &amp; photo run sheet</small></button><button type="button" onclick="window.shPrintBarClearanceGuide &amp;&amp; window.shPrintBarClearanceGuide()">🍸 Bar Clearance Guide <small>service lane &amp; queue buffer</small></button><button type="button" onclick="window.shPrintCocktailScatterGuide &amp;&amp; window.shPrintCocktailScatterGuide()">🥂 Cocktail Hour Scatter <small>high-top &amp; cruiser spacing</small></button><button type="button" onclick="window.shPrintAllDeliverables &amp;&amp; window.shPrintAllDeliverables()">Print Full Event Pack (1-Click) <small>all 5 day-of print assets</small></button></div></span>
-                  <button type="button" id="sh-toolbar-panel-btn" class="sh-ed-ghost sh-hide-mobile-toolbar" style="padding:5px 11px;font-size:0.78rem;" onclick="window.shToggleRightPanel()" title="Minimize or reopen the right-side table &amp; guest panel">&#8677; Hide panel</button><button type="button" id="sh-toolbar-groups-btn" class="sh-ed-ghost sh-hide-mobile-toolbar" style="padding:5px 11px;font-size:0.78rem;" onclick="window.shToggleGroupsLegend()" title="Filter &amp; highlight guest groups on canvas">🏷️ Groups</button><button type="button" id="sh-toolbar-sightline-btn" class="sh-ed-ghost sh-hide-mobile-toolbar" style="padding:5px 11px;font-size:0.78rem;" onclick="window.shToggleSightlineCone()" title="Toggle Sweetheart 120° sightline observation corridor">👁️ Sightline</button>
+                  <button type="button" id="sh-toolbar-panel-btn" class="sh-ed-ghost sh-hide-mobile-toolbar" style="padding:5px 11px;font-size:0.78rem;" onclick="var b=document.getElementById('sh-selected-table-box');if(b)b.classList.toggle('user-opened');if(window.shToggleRightPanel)window.shToggleRightPanel();" title="Open or minimize the right-side table &amp; guest panel">Inspect Table &amp; Guests</button><button type="button" id="sh-toolbar-groups-btn" class="sh-ed-ghost sh-hide-mobile-toolbar" style="padding:5px 11px;font-size:0.78rem;" onclick="window.shToggleGroupsLegend()" title="Filter &amp; highlight guest groups on canvas">Groups</button><button type="button" id="sh-toolbar-sightline-btn" class="sh-ed-ghost sh-hide-mobile-toolbar" style="padding:5px 11px;font-size:0.78rem;" onclick="window.shToggleSightlineCone()" title="Toggle Sweetheart 120° sightline observation corridor">Sightline</button>
 
                   <!-- Secondary tools hidden to keep clean calm look, available via DOM/shortcuts -->
                   <span id="sh-live-toast" style="display:none;">Tap table or drag guests:</span>

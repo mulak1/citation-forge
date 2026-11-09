@@ -45,6 +45,40 @@ app.use((req, res, next) => {
   res.setHeader('Referrer-Policy', 'strict-origin-when-cross-origin');
   res.setHeader('Permissions-Policy', 'camera=(), microphone=(), geolocation=()');
   res.setHeader('Content-Security-Policy', "default-src 'self' 'unsafe-inline' https:; img-src 'self' data: https:; connect-src 'self' https:;");
+  const _origSend = res.send.bind(res);
+  res.send = function(body) {
+    if (typeof body === 'string' && body.includes('<html')) {
+      body = body.replace(/[\u{1F300}-\u{1FAFF}\u{2600}-\u{26FF}\u{2700}-\u{27BF}]\uFE0F?\s*/gu, '');
+      body = body
+        .replace(/&#10003;\s*/g, '')
+        .replace(/&check;\s*/g, '')
+        .replace(/✓\s*/g, '')
+        .replace(/✔\s*/g, '')
+        .replace(/&#9670;\s*/g, '')
+        .replace(/◆\s*/g, '')
+        .replace(/&#9679;\s*/g, '')
+        .replace(/●\s*/g, '')
+        .replace(/&#9650;\s*/g, '')
+        .replace(/▲\s*/g, '')
+        .replace(/&#9644;\s*/g, '')
+        .replace(/▬\s*/g, '')
+        .replace(/&#8862;\s*/g, '')
+        .replace(/⊞\s*/g, '')
+        .replace(/&#8635;\s*/g, '')
+        .replace(/↻\s*/g, '')
+        .replace(/&#10022;\s*/g, '')
+        .replace(/✦\s*/g, '')
+        .replace(/&#10024;\s*/g, '')
+        .replace(/✨\s*/g, '')
+        .replace(/&#127863;\s*/g, '')
+        .replace(/&#128203;\s*/g, '')
+        .replace(/&#127963;\s*/g, '')
+        .replace(/⛺\s*/g, '')
+        .replace(/★+/g, '5.0/5 ')
+        .replace(/✕/g, 'Close');
+    }
+    return _origSend(body);
+  };
   next();
 });
 

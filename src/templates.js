@@ -580,10 +580,19 @@ function renderHead({
     @media (max-width: 1400px) { .nav-links .nav-link:nth-child(5) { display: none; } }
     @media (max-width: 1500px) { #nav-vault-label { font-size: 0; } #nav-vault-label::after { content: 'Save'; font-size: 0.82rem; } .nav-links { gap: 9px; } }
     @media (max-width: 820px) {
-      .nav-links { display: none; }
+      .navbar, .nav-inner { height: auto !important; min-height: 54px !important; flex-wrap: wrap !important; padding-top: 6px !important; padding-bottom: 4px !important; }
+      .nav-links { display: flex !important; order: 3 !important; width: 100% !important; justify-content: space-between !important; gap: 6px !important; padding: 6px 0 8px 0 !important; border-top: 1px solid var(--border-warm) !important; font-size: 0.8125rem !important; }
+      .nav-links .nav-link, .nav-links .hide-1024 { display: inline-flex !important; font-size: 0.8125rem !important; }
       .mobile-subnav { display: none !important; }
-      .nav-inner { height: 54px !important; }
       .hide-mobile-text { display: none; }
+    }
+    /* Guardrail #31: Visual Complexity, Progressive Disclosure & 13px Typography Floor */
+    details:not([open]) > *:not(summary) { display: none !important; }
+    #shw-dock, #shw-pop, #sh-floating-progress-dock, #sh-selected-table-box:not(.user-opened) { display: none !important; }
+    #sh-ed-grid:not(:has(#sh-selected-table-box.user-opened)) { grid-template-columns: minmax(0, 1fr) !important; }
+    .badge, .badge-emerald, .badge-amber, .badge-cyan, .studio-tap-chip, .studio-field-label, .bs-section-eyebrow, .mono, [style*="font-size:11px"], [style*="font-size: 11px"], [style*="font-size:11.5px"], [style*="font-size:12px"], [style*="font-size: 12px"], [style*="font-size:0.68rem"], [style*="font-size:0.70rem"], [style*="font-size:0.72rem"], [style*="font-size:0.74rem"], [style*="font-size:0.75rem"], [style*="font-size:0.76rem"], [style*="font-size:0.78rem"] {
+      font-size: 0.8125rem !important;
+      line-height: 1.4 !important;
     }
   </style>
   ${jsonLd ? `<script type="application/ld+json">${typeof jsonLd === 'string' ? JSON.stringify(JSON.parse(jsonLd)).replace(/</g, '\\u003c') : JSON.stringify(jsonLd).replace(/</g, '\\u003c')}</script>` : ''}
