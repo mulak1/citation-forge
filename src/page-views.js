@@ -262,16 +262,34 @@ function renderZone3InteractiveStudio(plan) {
       <span id="sh-studio-vault-code" style="display:none;">${vId}</span>
       <div style="display:none;"><span id="sh-endowed-progress-label">Setup</span><span id="sh-endowed-progress-fill"></span><span id="sh-btn-vault-id">${vId}</span></div>
 
+      <!-- FIRST-TIME ORIENTATION BANNER -->
+      <div id="sh-studio-welcome-banner" style="background:#FAF8F5;border:1.5px solid #D6CBB8;border-radius:12px;padding:12px 16px;margin-bottom:12px;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:12px;">
+        <div style="max-width:760px;">
+          <div style="display:flex;align-items:center;gap:8px;margin-bottom:4px;flex-wrap:wrap;">
+            <span class="badge badge-emerald" style="font-size:0.70rem;padding:2px 8px;font-weight:800;letter-spacing:0.04em;">INTERACTIVE SAMPLE DEMO</span>
+            <span style="font-size:0.78rem;font-weight:700;color:#78350F;">All-in-one reception floorplan, caterer meal sheet &amp; welcome sign</span>
+          </div>
+          <div style="font-size:0.86rem;color:#44403C;line-height:1.45;">
+            You are exploring a live sample layout. Test table moves and family conflict auto-solving below, switch tabs to preview your <strong>Clockwise 12:00 Caterer Meal Sheet</strong> and <strong>24&Prime;&times;36&Prime; Sign</strong>, or start fresh with your own wedding guest list.
+          </div>
+        </div>
+        <div style="display:flex;align-items:center;gap:8px;flex-wrap:wrap;">
+          <button type="button" class="btn btn-primary" onclick="window.shOpenSetupWizard(1)" style="padding:8px 16px;font-size:0.82rem;font-weight:700;background:#1B4D3E;border-color:#1B4D3E;white-space:nowrap;">
+            Start Your Wedding Plan &rarr;
+          </button>
+        </div>
+      </div>
+
       <div id="sh-studio-quick-preset-bar" style="display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:8px;margin-bottom:12px;padding:8px 12px;background:#FFFFFF;border:1px solid #E5D9C5;border-radius:12px;box-shadow:0 1px 3px rgba(0,0,0,0.02);">
         <div style="display:flex;align-items:center;gap:6px;flex-wrap:wrap;">
-          <span style="font-size:12px;font-weight:700;color:#78716C;">Quick Presets:</span>
+          <span style="font-size:12px;font-weight:700;color:#78716C;">Sample Venues:</span>
           <button type="button" class="studio-tap-chip preset-chip active" data-preset="estate-150" data-domain="supabase.com" onclick="window.loadPresetScenario('estate-150', this)" style="display:inline-flex;align-items:center;gap:5px;padding:5px 11px;font-size:12px;white-space:nowrap;">150-Guest Estate</button>
           <button type="button" class="studio-tap-chip" data-instant-preset="110-guest-coastal-beach-club-seating-chart" onclick="window.loadPresetScenario('110-guest-coastal-beach-club-seating-chart', this)" style="display:inline-flex;align-items:center;gap:5px;padding:5px 11px;font-size:12px;white-space:nowrap;">110-Guest Beach Club</button>
           <button type="button" class="studio-tap-chip" data-instant-preset="tuscan-banquet-80" onclick="window.loadPresetScenario('tuscan-banquet-80', this)" style="display:inline-flex;align-items:center;gap:5px;padding:5px 11px;font-size:12px;white-space:nowrap;">80-Guest Tuscan</button>
           <button type="button" class="studio-tap-chip" data-instant-preset="200-guest-hotel-ballroom-seating-chart-template" onclick="window.loadPresetScenario('200-guest-hotel-ballroom-seating-chart-template', this)" style="display:inline-flex;align-items:center;gap:5px;padding:5px 11px;font-size:12px;white-space:nowrap;">200-Guest Ballroom</button>
           <button type="button" id="sh-conflict-solver-pill" class="studio-tap-chip" onclick="window.shRunConflictSolverDemo && window.shRunConflictSolverDemo(this)" style="padding:5px 11px;font-size:12px;font-weight:700;color:#065F46;background:#ECFDF5;border:1px solid #10B981;white-space:nowrap;">${IC.bolt}Auto-Solve Conflicts</button>
         </div>
-        <button type="button" class="sh-ed-ghost" onclick="window.shOpenSetupWizard(1)" style="font-size:12px;padding:5px 12px;font-weight:600;color:#57534E;border-color:#D1D5DB;background:#FFFFFF;white-space:nowrap;">${IC.gear}Guided Wizard</button>
+        <button type="button" class="btn btn-secondary" onclick="window.shOpenSetupWizard(1)" style="font-size:12px;padding:5px 12px;font-weight:700;color:#1B4D3E;border-color:#1B4D3E;background:#FFFFFF;white-space:nowrap;">+ Enter Your Guest List</button>
       </div>
 
       ${renderSetupWizardHtml(plan)}
@@ -438,12 +456,12 @@ function renderZone3InteractiveStudio(plan) {
               </div>
             </div>
 
-            <!-- 4-Tab Switcher -->
+            <!-- 4-Tab Switcher: Complete Reception Deliverables Suite -->
             <div class="studio-stage-tabs" role="tablist" aria-label="SeatHarmony 4-Tab Operational Kit" style="padding:3px;gap:4px;">
-              <button id="sh-tab-floorplan" type="button" class="studio-stage-tab-btn tab-btn active" data-tab="llmsTxt" onclick="window.shSetActiveTab('floorplan')" style="padding:5px 6px;font-size:0.78rem;">Seating</button>
-              <button id="sh-tab-beo" type="button" class="studio-stage-tab-btn tab-btn" data-tab="jsonLd" onclick="window.shSetActiveTab('beo')" style="padding:5px 6px;font-size:0.78rem;">Caterer sheet</button>
-              <button id="sh-tab-poster" type="button" class="studio-stage-tab-btn" onclick="window.shSetActiveTab('poster')" style="padding:5px 6px;font-size:0.78rem;">Welcome sign</button>
-              <button id="sh-tab-qr" type="button" class="studio-stage-tab-btn" onclick="window.shSetActiveTab('qr')" style="padding:5px 6px;font-size:0.78rem;">Guest QR</button>
+              <button id="sh-tab-floorplan" type="button" class="studio-stage-tab-btn tab-btn active" data-tab="llmsTxt" onclick="window.shSetActiveTab('floorplan')" style="padding:5px 6px;font-size:0.78rem;">1. Seating Chart</button>
+              <button id="sh-tab-beo" type="button" class="studio-stage-tab-btn tab-btn" data-tab="jsonLd" onclick="window.shSetActiveTab('beo')" style="padding:5px 6px;font-size:0.78rem;">2. Caterer Sheet</button>
+              <button id="sh-tab-poster" type="button" class="studio-stage-tab-btn" onclick="window.shSetActiveTab('poster')" style="padding:5px 6px;font-size:0.78rem;">3. Welcome Sign</button>
+              <button id="sh-tab-qr" type="button" class="studio-stage-tab-btn" onclick="window.shSetActiveTab('qr')" style="padding:5px 6px;font-size:0.78rem;">4. Guest QR</button>
             </div>
 
             <!-- Foreground Sample Card -->

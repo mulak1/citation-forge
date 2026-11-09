@@ -934,22 +934,22 @@ function renderInteractiveScript(initialPlan) {
       // Synchronize 4-Tab Switcher live counts & indicators
       const tabFloorplan = document.getElementById('sh-tab-floorplan');
       if (tabFloorplan) {
-        tabFloorplan.textContent = 'Seating (' + totalTables + ' Tables)';
+        tabFloorplan.textContent = '1. Seating (' + totalTables + ' Tables)';
         tabFloorplan.title = 'View and edit visual table arrangements (' + totalTables + ' tables)';
       }
       const tabBeo = document.getElementById('sh-tab-beo');
       if (tabBeo) {
-        tabBeo.textContent = 'Caterer sheet (' + totalSeated + ' Meals' + (allergyAndChairCount ? ' · ' + allergyAndChairCount + ' Alerts' : '') + ')';
+        tabBeo.textContent = '2. Caterer Sheet (' + totalSeated + ' Meals)';
         tabBeo.title = 'Clockwise 12:00 Banquet Event Order meal sheet (' + totalSeated + ' meals, ' + allergyAndChairCount + ' dietary alerts)';
       }
       const tabPoster = document.getElementById('sh-tab-poster');
       if (tabPoster) {
-        tabPoster.textContent = 'Welcome sign (' + totalSeated + ' Names)';
+        tabPoster.textContent = '3. Welcome Sign (' + totalSeated + ' Names)';
         tabPoster.title = 'Arch D 24″×36″ Archival Welcome Sign & Avery 5302 Place Cards (' + totalSeated + ' guests)';
       }
       const tabQr = document.getElementById('sh-tab-qr');
       if (tabQr) {
-        tabQr.textContent = 'Guest QR (' + totalSeated + ' Live)';
+        tabQr.textContent = '4. Guest QR (' + totalSeated + ' Live)';
         tabQr.title = 'Interactive smartphone check-in QR code for cocktail hour';
       }
     }
