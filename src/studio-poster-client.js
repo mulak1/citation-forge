@@ -247,17 +247,107 @@ var SH_POSTER_THEMES = {
     '</div>';
   };
 
+  window.shRenderPlacardPreview = function() {
+    var placardEl = document.getElementById('sh-placard-preview');
+    if (!placardEl || !window.__SH_STATE) return;
+    var tablesArr = window.__SH_STATE.tables || [];
+    var eventTitle = window.__SH_STATE.coupleNames || window.__SH_STATE.title || 'Wedding Reception';
+    var sampleTables = tablesArr.slice(0, 4);
+    var tablePlacardsHtml = sampleTables.map(function(t, tIdx) {
+      var tName = t.name || ('Table ' + (tIdx + 1));
+      var guests = t.guests || [];
+      var topGuests = guests.slice(0, 6).map(function(g) {
+        var mb = shMealBadge(g.meal);
+        return '<div style="font-size:0.75rem;padding:2px 0;display:flex;justify-content:space-between;color:#1F2937;"><span>' + shEsc(g.name) + '</span><span style="font-size:0.65rem;color:' + mb.color + ';">' + mb.code + '</span></div>';
+      }).join('');
+      return '<div style="background:#FFFFFF;border:2px solid #C8A96E;border-radius:10px;padding:12px;display:flex;flex-direction:column;justify-content:space-between;min-height:160px;box-shadow:0 4px 12px rgba(200,169,110,0.1);">' +
+        '<div style="text-align:center;border-bottom:1px solid #E5E7EB;padding-bottom:6px;margin-bottom:6px;">' +
+          '<div style="font-size:0.65rem;letter-spacing:1px;text-transform:uppercase;color:#8C2D19;font-weight:700;">' + shEsc(eventTitle) + '</div>' +
+          '<div class="serif-display" style="font-size:1.15rem;font-weight:700;color:#1B4D3E;margin-top:2px;">' + shEsc(tName) + '</div>' +
+          '<div style="font-size:0.68rem;color:#78350F;font-weight:600;">' + guests.length + ' Guests &middot; Clockwise 12:00</div>' +
+        '</div>' +
+        '<div style="margin-bottom:8px;">' + topGuests + (guests.length > 6 ? '<div style="font-size:0.68rem;color:#6B7280;text-align:center;margin-top:3px;">+ ' + (guests.length - 6) + ' more guests</div>' : '') + '</div>' +
+        '<button type="button" class="btn btn-secondary" onclick="window.shPrintTablePlacard(' + tIdx + ')" style="width:100%;padding:4px 8px;font-size:0.72rem;background:#FAF8F5;border-color:#1B4D3E;color:#1B4D3E;font-weight:700;">Inspect &amp; Print Table #' + (tIdx + 1) + ' Placard</button>' +
+      '</div>';
+    }).join('');
+
+    placardEl.innerHTML = '<div style="padding:14px;border-radius:12px;background:linear-gradient(135deg,#FFFDF7 0%,#F5ECE0 100%);border:1.5px solid #C8A96E;">' +
+      '<div style="display:flex;flex-wrap:wrap;align-items:center;justify-content:space-between;gap:10px;margin-bottom:12px;">' +
+        '<div>' +
+          '<div style="display:flex;align-items:center;gap:6px;flex-wrap:wrap;">' +
+            '<span style="font-size:0.78rem;font-weight:800;color:#78350F;">Table QR Placards &amp; Menu Stands (' + tablesArr.length + ' Tables)</span>' +
+            '<span style="font-size:0.68rem;font-weight:700;color:#1B4D3E;background:#FFFFFF;border:1px solid #1B4D3E;border-radius:999px;padding:1px 8px;">Standard 4" &times; 6" Acrylic Frame / Tent</span>' +
+          '</div>' +
+          '<div style="font-size:0.78rem;color:#4B5563;margin-top:2px;">Individual table cards with couple monogram, table number, clockwise guest roster, server meal codes &amp; QR link.</div>' +
+        '</div>' +
+        '<div style="display:flex;gap:6px;flex-wrap:wrap;">' +
+          '<button type="button" class="btn btn-secondary" onclick="window.shPrintTablePlacard(0)" style="padding:6px 10px;font-size:0.73rem;background:#FAF8F5;border-color:#C8A96E;color:#78350F;font-weight:700;">Print Sample (Table 1)</button>' +
+          '<button type="button" class="btn btn-primary" onclick="window.shBatchPrintAllPlacards()" style="padding:6px 12px;font-size:0.73rem;background:#1B4D3E;color:#FFFFFF;border-color:#1B4D3E;font-weight:800;">🖨️ Batch Print All ' + tablesArr.length + ' Placards (PDF)</button>' +
+        '</div>' +
+      '</div>' +
+      '<div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(210px,1fr));gap:10px;">' + tablePlacardsHtml + '</div>' +
+    '</div>';
+  };
+
+  window.shBatchPrintAllPlacards = function() {
+    var plan = window.__SH_STATE; if (!plan || !plan.tables) return;
+    var tablesArr = plan.tables || [];
+    var eventTitle = plan.coupleNames || plan.title || 'Wedding Reception';
+    var dateOrVenue = (plan.weddingDate || plan.date || '') + (plan.venueName ? (' · ' + plan.venueName) : '');
+
+    var printHtml = tablesArr.map(function(t, tIdx) {
+      var tName = t.name || ('Table ' + (tIdx + 1));
+      var guests = t.guests || [];
+      var guestsHtml = guests.map(function(g, idx) {
+        var note = '';
+        if (g.meal) note += ' <span style="font-size:10px;padding:1px 5px;background:#F5EFE6;border-radius:4px;color:#78350F;">' + (g.meal === 'vegetarian' ? '🌱 Veg' : (g.meal === 'vegan' ? '🌱 Vegan' : (g.meal === 'fish' ? '🐟 Fish' : (g.meal === 'beef' ? '🥩 Beef' : g.meal)))) + '</span>';
+        if (g.allergy) note += ' <span style="font-size:10px;padding:1px 5px;background:#FEE2E2;border-radius:4px;color:#991B1B;">⚠️ ' + g.allergy + '</span>';
+        return '<li style="padding:4px 0;border-bottom:1px dashed #E5E7EB;display:flex;justify-content:space-between;align-items:center;font-size:13px;color:#1F2937;"><span><strong>' + (idx + 1) + '.</strong> ' + shEsc(g.name) + '</span><span>' + note + '</span></li>';
+      }).join('');
+
+      return '<div class="sh-placard-page" style="page-break-after:always;width:4in;height:6in;box-sizing:border-box;padding:24px 20px;border:3px double #C8A96E;display:flex;flex-direction:column;justify-content:space-between;text-align:center;font-family:Georgia,serif;background:#FFFFFF;margin:0 auto 20px;">' +
+        '<div>' +
+          '<div style="font-size:11px;letter-spacing:2px;text-transform:uppercase;color:#8C2D19;font-weight:700;margin-bottom:4px;">' + shEsc(eventTitle) + '</div>' +
+          (dateOrVenue ? '<div style="font-size:10px;color:#6B7280;margin-bottom:12px;">' + shEsc(dateOrVenue) + '</div>' : '<div style="margin-bottom:8px;"></div>') +
+          '<div style="font-size:24px;font-weight:700;color:#1B4D3E;letter-spacing:0.5px;padding-bottom:8px;border-bottom:1px solid #E5E7EB;">' + shEsc(tName) + '</div>' +
+          '<div style="font-size:10px;color:#78350F;font-family:sans-serif;font-weight:600;margin-top:6px;letter-spacing:0.5px;">' + guests.length + ' RESERVED SEATS · CLOCKWISE 12:00</div>' +
+        '</div>' +
+        '<ul style="list-style:none;padding:0;margin:12px 0;text-align:left;font-family:system-ui,-apple-system,sans-serif;">' +
+          (guestsHtml || '<li style="font-size:12px;color:#9CA3AF;text-align:center;padding:12px 0;">No guests assigned yet</li>') +
+        '</ul>' +
+        '<div style="border-top:1px solid #E5E7EB;padding-top:10px;display:flex;align-items:center;justify-content:space-between;text-align:left;">' +
+          '<div style="font-family:system-ui,sans-serif;">' +
+            '<div style="font-size:10px;font-weight:700;color:#1B4D3E;">SEATHARMONY DIGITAL GUESTBOOK</div>' +
+            '<div style="font-size:9px;color:#6B7280;">Scan to view table menu &amp; share photos</div>' +
+          '</div>' +
+          '<div style="width:42px;height:42px;border:1px solid #D1D5DB;border-radius:4px;display:flex;align-items:center;justify-content:center;background:#F9FAFB;font-size:18px;">📱</div>' +
+        '</div>' +
+      '</div>';
+    }).join('');
+
+    var printWin = window.open('', '_blank');
+    if (!printWin) {
+      window.print();
+      return;
+    }
+    printWin.document.write('<!DOCTYPE html><html><head><title>Batch 4x6 Table Placards - ' + shEsc(eventTitle) + '</title><style>@page { size: 4in 6in; margin: 0; } body { margin: 0; padding: 0; background: #FAF8F5; } @media print { body { background: #FFFFFF; } .sh-no-print { display: none !important; } } </style></head><body><div class="sh-no-print" style="padding:12px;background:#1B4D3E;color:#FFFFFF;display:flex;justify-content:space-between;align-items:center;font-family:sans-serif;"><span>Batch 4" &times; 6" Table Placards (' + tablesArr.length + ' Tables)</span><button onclick="window.print()" style="padding:6px 14px;background:#FFFFFF;color:#1B4D3E;border:none;border-radius:6px;font-weight:bold;cursor:pointer;">🖨️ Print All Placards</button></div><div style="padding:20px;">' + printHtml + '</div></body></html>');
+    printWin.document.close();
+  };
+
   window.shSwitchSignSubView = function(mode) {
     window.__SH_SIGN_SUBVIEW = mode;
     var pBtn = document.getElementById('sh-view-mode-poster-btn');
     var aBtn = document.getElementById('sh-view-mode-avery-btn');
     var bBtn = document.getElementById('sh-view-mode-badge-btn');
+    var plBtn = document.getElementById('sh-view-mode-placard-btn');
     var posterEl = document.getElementById('sh-poster-preview');
     var averyEl = document.getElementById('sh-avery-preview');
     var badgeEl = document.getElementById('sh-badge-preview');
+    var placardEl = document.getElementById('sh-placard-preview');
     if (pBtn) pBtn.classList.toggle('active', mode === 'poster');
     if (aBtn) aBtn.classList.toggle('active', mode === 'avery');
     if (bBtn) bBtn.classList.toggle('active', mode === 'badges');
+    if (plBtn) plBtn.classList.toggle('active', mode === 'placards');
     if (posterEl) posterEl.style.display = mode === 'poster' ? 'block' : 'none';
     if (averyEl) averyEl.style.display = mode === 'avery' ? 'block' : 'none';
     if (badgeEl) {
@@ -265,6 +355,13 @@ var SH_POSTER_THEMES = {
       if (mode === 'badges') {
         window.shRenderBadgePreview();
         badgeEl.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+      }
+    }
+    if (placardEl) {
+      placardEl.style.display = mode === 'placards' ? 'block' : 'none';
+      if (mode === 'placards') {
+        window.shRenderPlacardPreview();
+        placardEl.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
       }
     }
   };
