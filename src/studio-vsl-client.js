@@ -160,6 +160,85 @@ function renderVslClientScript() {
     });
     shToast('✓ Bulk Imported & Coupled ' + lines.length + ' Household Rows!'); shRenderAll();
   };
+
+  window.shPrintCocktailScatterGuide = function() {
+    var plan = window.__SH_STATE; if (!plan || !plan.tables) return;
+    var tablesArr = plan.tables || [];
+    var eventTitle = plan.coupleNames || plan.title || 'Wedding Reception';
+    var dateOrVenue = (plan.weddingDate || plan.date || '') + (plan.venueName ? (' · ' + plan.venueName) : '');
+
+    var totalGuests = 0;
+    tablesArr.forEach(function(t) { totalGuests += (t.guests ? t.guests.length : 0); });
+    if (!totalGuests) totalGuests = 100;
+
+    var recommendedCruisers = Math.max(4, Math.ceil(totalGuests / 10));
+    var cruiser30Capacity = recommendedCruisers * 4;
+    var cruiser36Capacity = recommendedCruisers * 5;
+
+    var printWin = window.open('', '_blank');
+    if (!printWin) { window.print(); return; }
+    printWin.document.write('<!DOCTYPE html><html><head><title>Cocktail Hour High-Top Scatter & Spacing Guide - ' + (eventTitle) + '</title><style>@page { size: 8.5in 11in; margin: 0.5in; } body { margin: 0; padding: 20px; font-family: system-ui, sans-serif; color: #1F2937; } table { width: 100%; border-collapse: collapse; } th { text-align: left; padding: 8px; background: #1B4D3E; color: #FFFFFF; font-size: 11px; text-transform: uppercase; } td { padding: 8px; border-bottom: 1px solid #E5E7EB; font-size: 12px; } @media print { .sh-no-print { display: none !important; } } </style></head><body>' +
+      '<div class="sh-no-print" style="margin-bottom:16px;display:flex;justify-content:space-between;align-items:center;background:#FAF8F5;padding:12px 16px;border:1px solid #E2D9C8;border-radius:8px;">' +
+        '<div><strong>High-Top Cruiser &amp; Cocktail Scatter Guide</strong> &middot; Pre-Dinner Mingling Ops</div>' +
+        '<button onclick="window.print()" style="padding:8px 18px;background:#1B4D3E;color:#FFFFFF;border:none;border-radius:6px;font-weight:bold;cursor:pointer;">🖨️ Print Cocktail Guide</button>' +
+      '</div>' +
+      '<div style="border:3px double #C8A96E;padding:24px;border-radius:8px;background:#FFFFFF;">' +
+        '<div style="display:flex;justify-content:space-between;align-items:flex-start;border-bottom:2px solid #1B4D3E;padding-bottom:12px;margin-bottom:14px;">' +
+          '<div>' +
+            '<div style="font-size:11px;font-weight:700;color:#8C2D19;text-transform:uppercase;letter-spacing:1.5px;">PRE-RECEPTION COCKTAIL SCATTER &amp; CLEARANCES</div>' +
+            '<h1 style="margin:4px 0;font-size:24px;color:#1B4D3E;font-family:Georgia,serif;">' + (eventTitle) + '</h1>' +
+            (dateOrVenue ? '<div style="font-size:12px;color:#6B7280;">' + (dateOrVenue) + '</div>' : '') +
+          '</div>' +
+          '<div style="text-align:right;">' +
+            '<div style="font-size:20px;font-weight:800;color:#1B4D3E;">' + totalGuests + ' Guests</div>' +
+            '<div style="font-size:11px;color:#78350F;font-weight:600;">' + recommendedCruisers + ' High-Tops (1 per 10 Guests)</div>' +
+          '</div>' +
+        '</div>' +
+        '<div style="display:grid;grid-template-columns:repeat(4,1fr);gap:10px;margin-bottom:16px;background:#FAF8F5;padding:12px;border-radius:6px;border:1px solid #E5E7EB;text-align:center;">' +
+          '<div><div style="font-size:10px;color:#6B7280;font-weight:700;">HIGH-TOPS</div><div style="font-size:16px;font-weight:800;color:#1B4D3E;">' + recommendedCruisers + ' Tables</div><div style="font-size:9px;color:#4B5563;">Cocktail cruisers</div></div>' +
+          '<div><div style="font-size:10px;color:#6B7280;font-weight:700;">STEM SPACING</div><div style="font-size:16px;font-weight:800;color:#1B4D3E;">8′–10′ Center</div><div style="font-size:9px;color:#4B5563;">Inter-table clearance</div></div>' +
+          '<div><div style="font-size:10px;color:#6B7280;font-weight:700;">PERIMETER BUFFER</div><div style="font-size:16px;font-weight:800;color:#1B4D3E;">48″ Clearance</div><div style="font-size:9px;color:#4B5563;">Standoff from walls</div></div>' +
+          '<div><div style="font-size:10px;color:#6B7280;font-weight:700;">STANDING CAP</div><div style="font-size:16px;font-weight:800;color:#065F46;">' + cruiser30Capacity + '–' + cruiser36Capacity + '</div><div style="font-size:9px;color:#4B5563;">4–5 guests / table</div></div>' +
+        '</div>' +
+        '<div style="margin-bottom:16px;">' +
+          '<div style="font-size:12px;font-weight:700;color:#1B4D3E;margin-bottom:6px;text-transform:uppercase;letter-spacing:0.5px;">Cocktail Hour Layout &amp; Spacing Specifications</div>' +
+          '<table>' +
+            '<thead><tr><th>Specification</th><th>Guideline</th><th>Catering &amp; Guest Experience Impact</th></tr></thead>' +
+            '<tbody>' +
+              '<tr><td><b>Center-to-Center Spacing</b></td><td>8 to 10 Feet Distance</td><td>Prevents mingling clusters from colliding; maintains open channels for hors d’oeuvres butler pass service.</td></tr>' +
+              '<tr><td><b>Primary Butler Pass Aisle</b></td><td>60″ Central Corridor</td><td>Allows catering servers carrying weighted appetizer trays and champagne flutes to circulate without collision.</td></tr>' +
+              '<tr><td><b>Bar Standoff Zone</b></td><td>Minimum 12 Feet from Bar</td><td>Ensures bar lines do not trap guests socializing around high-top tables.</td></tr>' +
+              '<tr><td><b>Linen Requirement</b></td><td>120″ Round Linens</td><td>Tied with banded waist sash to prevent outdoor wind flapping while covering table stems and base hardware.</td></tr>' +
+            '</tbody>' +
+          '</table>' +
+        '</div>' +
+        '<div style="display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-bottom:16px;">' +
+          '<div style="background:#F9FAFB;padding:12px;border-radius:6px;border:1px solid #E5E7EB;">' +
+            '<div style="font-size:11px;font-weight:700;color:#1B4D3E;text-transform:uppercase;">🍸 Cocktail Setup Protocols</div>' +
+            '<ul style="margin:6px 0 0 16px;padding:0;font-size:11px;color:#4B5563;line-height:1.5;">' +
+              '<li>Pair 2–3 soft lounge seating clusters (armchairs/sofas) for elderly guests</li>' +
+              '<li>Equip each high-top with a weighted glass hurricane or heavy votive</li>' +
+              '<li>Place cocktail napkins &amp; discrete toothpick discard cups at each table</li>' +
+            '</ul>' +
+          '</div>' +
+          '<div style="background:#F9FAFB;padding:12px;border-radius:6px;border:1px solid #E5E7EB;">' +
+            '<div style="font-size:11px;font-weight:700;color:#1B4D3E;text-transform:uppercase;">⏰ Transition Timeline (60 Min)</div>' +
+            '<ul style="margin:6px 0 0 16px;padding:0;font-size:11px;color:#4B5563;line-height:1.5;">' +
+              '<li><b>Min 0–15:</b> Signature cocktails &amp; cold canapés circulated</li>' +
+              '<li><b>Min 15–45:</b> Full bar operation &amp; warm hors d’oeuvres pass</li>' +
+              '<li><b>Min 45–60:</b> Chimes sounded to invite guests into dining ballroom</li>' +
+            '</ul>' +
+          '</div>' +
+        '</div>' +
+        '<div style="border-top:1px dashed #D1D5DB;padding-top:10px;font-size:11px;color:#6B7280;display:flex;justify-content:space-between;">' +
+          '<span>SeatHarmony Studio Cocktail Lounge Spec &bull; Symmetrical 48″ Perimeter Offsets</span>' +
+          '<span>Hospitality Lead Approved</span>' +
+        '</div>' +
+      '</div></body></html>');
+    printWin.document.close();
+    if (typeof shToast === 'function') shToast('✓ Opened Cocktail Scatter & High-Top Spacing Guide Print View!');
+    if (window.shTrackTelemetry) window.shTrackTelemetry('calculate', { source: 'cocktail_scatter_guide' });
+  };
   `;
 }
 
