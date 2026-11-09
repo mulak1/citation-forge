@@ -344,6 +344,115 @@ function renderDeliverablesClientScript() {
     if (window.shTrackTelemetry) window.shTrackTelemetry('calculate', { source: 'copy_kitchen_tally' });
   };
 
+  window.shPrintPlatingPassTentCard = function() {
+    if (!window.__SH_STATE) return;
+    var state = window.__SH_STATE;
+    var title = state.coupleNames || state.title || 'Wedding Reception';
+    var dateOrVenue = (state.weddingDate || state.date || '') + (state.venueName ? (' · ' + state.venueName) : '');
+    var tables = state.tables || [];
+    var totalCovers = 0, totalBeef = 0, totalHalibut = 0, totalChicken = 0, totalVegan = 0, totalVeg = 0, totalKids = 0;
+    var tableSummaries = [];
+
+    tables.forEach(function(t, tIdx) {
+      var tName = t.name || ('Table ' + (tIdx + 1));
+      var guests = t.guests || [];
+      var tBeef = 0, tFish = 0, tChicken = 0, tVegan = 0, tVeg = 0, tKids = 0;
+      var tAllergies = [];
+
+      guests.forEach(function(g, idx) {
+        totalCovers++;
+        var mb = (typeof shMealBadge === 'function') ? shMealBadge(g.meal) : { short: 'Other' };
+        if (mb.short === 'Beef') { totalBeef++; tBeef++; }
+        else if (mb.short === 'Fish') { totalHalibut++; tFish++; }
+        else if (mb.short === 'Chicken') { totalChicken++; tChicken++; }
+        else if (mb.short === 'Vegan') { totalVegan++; tVegan++; }
+        else if (mb.short === 'Veg') { totalVeg++; tVeg++; }
+        else { totalKids++; tKids++; }
+
+        if (g.allergy) {
+          tAllergies.push('Seat #' + (idx + 1) + ' (' + shEsc(g.name) + '): <b>' + shEsc(g.allergy) + '</b>');
+        }
+      });
+
+      tableSummaries.push({
+        name: tName,
+        covers: guests.length,
+        beef: tBeef,
+        fish: tFish,
+        chicken: tChicken,
+        vegan: tVegan,
+        veg: tVeg,
+        kids: tKids,
+        allergies: tAllergies
+      });
+    });
+
+    var tablesRowsHtml = tableSummaries.map(function(ts) {
+      var mealChips = [];
+      if (ts.beef) mealChips.push('🥩 ' + ts.beef + ' Beef');
+      if (ts.fish) mealChips.push('🐟 ' + ts.fish + ' Fish');
+      if (ts.chicken) mealChips.push('🍗 ' + ts.chicken + ' Chk');
+      if (ts.vegan) mealChips.push('🌱 ' + ts.vegan + ' Vegan');
+      if (ts.veg) mealChips.push('🥗 ' + ts.veg + ' Veg');
+      if (ts.kids) mealChips.push('🧒 ' + ts.kids + ' Kid');
+
+      var allergyNotice = ts.allergies.length ?
+        ('<div style="font-size:11px;color:#991B1B;background:#FEF2F2;padding:3px 6px;border-radius:4px;margin-top:3px;border-left:3px solid #DC2626;">⚠ ' + ts.allergies.join(' &bull; ') + '</div>') :
+        '<div style="font-size:11px;color:#059669;">✓ Standard Service</div>';
+
+      return '<tr style="border-bottom:1px solid #E5E7EB;">' +
+        '<td style="padding:6px 8px;font-weight:700;color:#1B4D3E;font-size:13px;">' + shEsc(ts.name) + '</td>' +
+        '<td style="padding:6px 8px;font-weight:700;text-align:center;font-size:13px;">' + ts.covers + '</td>' +
+        '<td style="padding:6px 8px;font-size:12px;color:#374151;">' + (mealChips.join(' &middot; ') || '&mdash;') + '</td>' +
+        '<td style="padding:6px 8px;">' + allergyNotice + '</td>' +
+      '</tr>';
+    }).join('');
+
+    var printWin = window.open('', '_blank');
+    if (!printWin) {
+      window.print();
+      return;
+    }
+    printWin.document.write('<!DOCTYPE html><html><head><title>Plating Pass Tent Card - ' + shEsc(title) + '</title><style>@page { size: 8.5in 11in; margin: 0.5in; } body { font-family: system-ui, -apple-system, sans-serif; color: #1F2937; margin: 0; padding: 20px; } table { width: 100%; border-collapse: collapse; } th { text-align: left; padding: 8px; background: #1B4D3E; color: #FFFFFF; font-size: 12px; text-transform: uppercase; letter-spacing: 0.5px; } @media print { .sh-no-print { display: none !important; } } </style></head><body>' +
+      '<div class="sh-no-print" style="margin-bottom:16px;display:flex;justify-content:space-between;align-items:center;background:#FAF8F5;padding:12px 16px;border:1px solid #E2D9C8;border-radius:8px;">' +
+        '<div><strong>Executive Plating Pass Tent Card</strong> &middot; Station Sheet for Banquet Captain</div>' +
+        '<button onclick="window.print()" style="padding:8px 18px;background:#1B4D3E;color:#FFFFFF;border:none;border-radius:6px;font-weight:bold;cursor:pointer;">🖨️ Print Plating Pass Sheet</button>' +
+      '</div>' +
+      '<div style="border:3px double #C8A96E;padding:20px;border-radius:8px;background:#FFFFFF;">' +
+        '<div style="display:flex;justify-content:space-between;align-items:flex-start;border-bottom:2px solid #1B4D3E;padding-bottom:12px;margin-bottom:14px;">' +
+          '<div>' +
+            '<div style="font-size:11px;font-weight:700;color:#8C2D19;text-transform:uppercase;letter-spacing:1.5px;">BANQUET CATERING PASS RUN SHEET</div>' +
+            '<h1 style="margin:4px 0;font-size:22px;color:#1B4D3E;font-family:Georgia,serif;">' + shEsc(title) + '</h1>' +
+            (dateOrVenue ? '<div style="font-size:12px;color:#6B7280;">' + shEsc(dateOrVenue) + '</div>' : '') +
+          '</div>' +
+          '<div style="text-align:right;">' +
+            '<div style="font-size:26px;font-weight:800;color:#1B4D3E;">' + totalCovers + ' <span style="font-size:14px;font-weight:600;color:#6B7280;">Covers</span></div>' +
+            '<div style="font-size:11px;color:#78350F;font-weight:600;">Clockwise 12:00 Server Standard</div>' +
+          '</div>' +
+        '</div>' +
+        '<div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(100px,1fr));gap:8px;margin-bottom:16px;background:#FAF8F5;padding:12px;border-radius:6px;border:1px solid #E5E7EB;text-align:center;">' +
+          '<div><div style="font-size:10px;color:#6B7280;font-weight:700;">🥩 BEEF</div><div style="font-size:18px;font-weight:800;color:#1F2937;">' + totalBeef + '</div></div>' +
+          '<div><div style="font-size:10px;color:#6B7280;font-weight:700;">🐟 FISH</div><div style="font-size:18px;font-weight:800;color:#1F2937;">' + totalHalibut + '</div></div>' +
+          '<div><div style="font-size:10px;color:#6B7280;font-weight:700;">🍗 CHICKEN</div><div style="font-size:18px;font-weight:800;color:#1F2937;">' + totalChicken + '</div></div>' +
+          '<div><div style="font-size:10px;color:#6B7280;font-weight:700;">🌱 VEGAN</div><div style="font-size:18px;font-weight:800;color:#065F46;">' + totalVegan + '</div></div>' +
+          '<div><div style="font-size:10px;color:#6B7280;font-weight:700;">🥗 VEG</div><div style="font-size:18px;font-weight:800;color:#065F46;">' + totalVeg + '</div></div>' +
+          '<div><div style="font-size:10px;color:#6B7280;font-weight:700;">🧒 KIDS</div><div style="font-size:18px;font-weight:800;color:#1F2937;">' + totalKids + '</div></div>' +
+        '</div>' +
+        '<table>' +
+          '<thead><tr><th style="width:25%;">Table</th><th style="width:10%;text-align:center;">Covers</th><th style="width:35%;">Entrée Breakdown</th><th style="width:30%;">Dietary / Allergy Flags</th></tr></thead>' +
+          '<tbody>' + tablesRowsHtml + '</tbody>' +
+        '</table>' +
+        '<div style="margin-top:16px;padding-top:10px;border-top:1px dashed #D1D5DB;font-size:11px;color:#6B7280;display:flex;justify-content:space-between;">' +
+          '<span>SeatHarmony Verified &bull; Clockwise Seat #1 Starting Anchor</span>' +
+          '<span>Place at Executive Kitchen Pass Station</span>' +
+        '</div>' +
+      '</div>' +
+      '</body></html>');
+    printWin.document.close();
+    if (typeof shToast === 'function') shToast('✓ Opened Executive Plating Pass Tent Card Print View!');
+    if (window.shTrackTelemetry) window.shTrackTelemetry('calculate', { source: 'plating_pass_tent_card' });
+  };
+
   window.shShareCatererLink = function() {
     var vId = (window.__SH_STATE && window.__SH_STATE.vaultId) || 'SH-4819';
     var url = window.location.origin + '/print/beo/' + encodeURIComponent(vId);
