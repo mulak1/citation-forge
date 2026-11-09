@@ -262,6 +262,28 @@ function renderDeliverablesClientScript() {
 
   window.shToggleBeoFilter = function(filterKey) {
     window.__SH_BEO_FILTER = (window.__SH_BEO_FILTER === filterKey) ? null : filterKey;
+    var btn = document.getElementById('sh-beo-vegan-filter-btn');
+    if (btn) {
+      var isVeg = (window.__SH_BEO_FILTER === 'vegan');
+      btn.textContent = isVeg ? '← Show All Meals' : '🌱 Plant-Based Only';
+      btn.style.background = isVeg ? '#ECFDF5' : '#FAF8F5';
+      btn.style.borderColor = isVeg ? '#065F46' : '#10B981';
+    }
+    shRenderBeoView();
+  };
+
+  window.shToggleVeganRunSheet = function() {
+    var isNowVegan = (window.__SH_BEO_FILTER === 'vegan');
+    window.__SH_BEO_FILTER = isNowVegan ? null : 'vegan';
+    var btn = document.getElementById('sh-beo-vegan-filter-btn');
+    if (btn) {
+      btn.textContent = !isNowVegan ? '← Show All Meals' : '🌱 Plant-Based Only';
+      btn.style.background = !isNowVegan ? '#ECFDF5' : '#FAF8F5';
+      btn.style.borderColor = !isNowVegan ? '#065F46' : '#10B981';
+    }
+    if (typeof shToast === 'function') {
+      shToast(!isNowVegan ? '✓ Filtered: Plant-based courses isolated across all tables for kitchen pass' : 'Showing all courses & dietary alerts');
+    }
     shRenderBeoView();
   };
 
