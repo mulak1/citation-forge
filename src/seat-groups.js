@@ -40,13 +40,30 @@ function renderSeatGroupsClientScript() {
     window.__SH_GROUP_HIGHLIGHT = (key && window.__SH_GROUP_HIGHLIGHT === key) ? null : key;
     shRenderAll();
   };
+  window.shToggleGroupsLegend = function() {
+    var el = document.getElementById('sh-ed-legend'); if (!el) return;
+    var isOpen = el.style.display === 'flex';
+    if (isOpen) {
+      el.style.display = 'none';
+      window.__SH_GROUP_HIGHLIGHT = null;
+      shRenderAll();
+    } else {
+      el.style.display = 'flex';
+      window.shRenderLegend();
+    }
+    var btn = document.getElementById('sh-toolbar-groups-btn');
+    if (btn) btn.classList.toggle('active', !isOpen);
+  };
   window.shRenderLegend = function() {
     var el = document.getElementById('sh-ed-legend'); if (!el || !window.__SH_STATE) return;
     var counts = {}; (window.__SH_STATE.tables || []).forEach(function(t) { t.guests.forEach(function(g) { var k = window.shGroupOf(g); counts[k] = (counts[k] || 0) + 1; }); });
-    el.innerHTML = SH_GROUPS.filter(function(d) { return counts[d.key]; }).map(function(d) {
+    var pills = SH_GROUPS.filter(function(d) { return counts[d.key]; }).map(function(d) {
       var i = SH_GROUPS.indexOf(d);
-      return '<button type="button" class="sh-leg' + (window.__SH_GROUP_HIGHLIGHT === d.key ? ' on' : '') + '" onclick="window.shSetHighlight(' + i + ')" title="Show only ' + shEsc(d.label) + '"><span class="sh-gdot" style="background:' + d.color + ';"></span>' + shEsc(d.label) + ' <b>' + counts[d.key] + '</b></button>';
+      return '<button type="button" class="sh-leg' + (window.__SH_GROUP_HIGHLIGHT === d.key ? ' on' : '') + '" onclick="window.shSetHighlight(' + i + ')" title="Highlight only ' + shEsc(d.label) + '"><span class="sh-gdot" style="background:' + d.color + ';"></span>' + shEsc(d.label) + ' <b>' + counts[d.key] + '</b></button>';
     }).join('');
+    if (pills) {
+      el.innerHTML = pills + '<button type="button" class="sh-ed-ghost" style="padding:3px 8px;font-size:0.72rem;margin-left:auto;color:#78716C;" onclick="window.shToggleGroupsLegend()">✕ Close</button>';
+    }
   };
   window.shEdSetGroup = function(tIdx, sIdx, gi) {
     var g = window.__SH_STATE.tables[tIdx].guests[sIdx]; if (!g) return;
