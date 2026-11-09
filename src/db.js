@@ -312,7 +312,7 @@ function buildSeoPagesSeed() {
 
 function seedSeoPages(db = dbInstance) {
   if (!db) return;
-  db.run('DELETE FROM seo_pages;');
+  db.exec('DELETE FROM seo_pages;');
   const pages = buildSeoPagesSeed();
   const stmt = db.prepare(`
     INSERT OR REPLACE INTO seo_pages (

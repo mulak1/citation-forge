@@ -25,6 +25,16 @@ function renderSeoDetailPage(pageRow, relatedPages = []) {
   const leaders = Array.isArray(payload.leaders) ? payload.leaders : [];
   const comfortTags = ['Recommended Setup', 'Great Guest Flow', 'Spacious Aisles', 'Cozy Conversation'];
   const venueVisual = getVenueVisual(pageRow.slug, pageRow.title, pageRow.category);
+  let studioPresetParams = `/?preset=${encodeURIComponent(pageRow.slug)}#studio`;
+  if (pageRow.slug === '40x60-tent-wedding-seating-chart-120-guests') {
+    studioPresetParams = `/?preset=40x60-tent-wedding-seating-chart-120-guests&guests=120&tent=40x60#studio`;
+  } else if (pageRow.slug === 'serpentine-s-curve-wedding-table-layout-floorplan') {
+    studioPresetParams = `/?preset=serpentine-s-curve-wedding-table-layout-floorplan&layout=serpentine#studio`;
+  } else if (pageRow.slug === '60-inch-round-table-8-vs-9-vs-10-wedding-guests') {
+    studioPresetParams = `/?preset=estate-150&shape=60round#studio`;
+  } else if (pageRow.slug === 'seatharmony-vs-prismm-allseated-for-planners') {
+    studioPresetParams = `/?preset=estate-150&planner=pro#studio`;
+  }
   const venueHeroHtml = `<div style="margin:20px 0 28px;border-radius:18px;overflow:hidden;background:#FFFFFF;border:1px solid #E4DCD0;box-shadow:0 8px 28px -10px rgba(31,27,24,0.08);">` +
     `<div style="display:flex;justify-content:space-between;align-items:center;padding:12px 18px;background:#FAF7F2;border-bottom:1px solid #E4DCD0;font-size:13px;color:#574F49;flex-wrap:wrap;gap:8px;">` +
       `<span><strong style="color:#1F1B18;">Venue Setting:</strong> ${escapeHtml(venueVisual.name)}</span>` +
@@ -124,7 +134,7 @@ function renderSeoDetailPage(pageRow, relatedPages = []) {
         `<button type="button" id="sh-seo-calc-save-btn" onclick="window.shSaveSeoCalcLead()" style="cursor:pointer;background:#065F46;color:#FFFFFF;border:1px solid #047857;border-radius:8px;height:44px;min-height:44px;padding:8px 14px;font-size:0.82rem;font-weight:800;white-space:nowrap;">Save Plan &amp; Email Caterer Sheet ($0)</button>` +
       `</div>` +
       `<div style="display:flex;gap:8px;align-items:center;flex-wrap:wrap;">` +
-        `<a id="sh-calc-cta" href="/?preset=${encodeURIComponent(pageRow.slug)}#studio" class="btn btn-primary" style="padding:9px 15px;font-size:0.84rem;">Build This ${guestCount}-Guest Floorplan Free &rarr;</a>` +
+        `<a id="sh-calc-cta" href="${escapeHtml(studioPresetParams)}" class="btn btn-primary" style="padding:9px 15px;font-size:0.84rem;">Build This ${guestCount}-Guest Floorplan Free &rarr;</a>` +
         `<a id="sh-calc-buy-cta" href="/buy/complete_dossier?target=${encodeURIComponent(pageRow.slug)}&amp;allow_promotion_codes=false" class="btn btn-secondary" style="padding:9px 13px;font-size:0.84rem;border-color:#C8A96E;color:#78350F;font-weight:800;">Unlock Event Print Pack ($7 &middot; vs. $14 Etsy)</a>` +
       `</div>` +
       `<div style="display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:8px;font-size:12px;color:#78350F;background:#FFFBEB;border:1px solid #FDE68A;padding:6px 12px;border-radius:8px;margin-top:10px;">` +
@@ -156,6 +166,21 @@ function renderSeoDetailPage(pageRow, relatedPages = []) {
         ]
       },
       {
+        '@type': 'Dataset',
+        name: `${pageRow.title} Floorplan & Capacity Dataset`,
+        description: `Architectural specifications, table clearances, and guest capacity data for ${guestCount} guests in ${escapeHtml(bp.roomDims)}.`,
+        license: 'https://creativecommons.org/licenses/by/4.0/',
+        isAccessibleForFree: true,
+        variableMeasured: [
+          'Guest Capacity',
+          'Table Count',
+          'Room Dimensions',
+          'Server Aisle Clearance',
+          'Dance Floor Dimensions',
+          'Welcome Sign Format'
+        ]
+      },
+      {
         '@type': 'SoftwareApplication',
         name: `${pageRow.title} — SeatHarmony Floorplan & 24x36 Sign Calculator`,
         applicationCategory: 'EventPlanningApplication',
@@ -182,7 +207,7 @@ function renderSeoDetailPage(pageRow, relatedPages = []) {
   return [
     renderHead({ title: `${pageRow.title} | SeatHarmony Studio`, description: pageRow.meta_description, canonicalPath: `/seo/${pageRow.slug}`, ogSlug: pageRow.slug, jsonLd }),
     '<body>', renderNavbar(),
-    `<main class="container" style="padding:18px 18px 64px;"><div style="max-width:860px;margin:0 auto;"><div style="display:flex;gap:8px;align-items:center;margin-bottom:6px;flex-wrap:wrap;"><a href="/directory" style="font-size:0.78rem;font-weight:700;color:#8C2D19;text-decoration:none;">&larr; All 75 Floorplans</a><span class="badge badge-emerald" style="font-size:0.72rem;padding:2px 8px;">${escapeHtml(pageRow.category)}</span></div><h1 class="studio-zone-title" style="font-size:clamp(1.45rem,4.5vw,2.2rem);line-height:1.15;margin-bottom:6px;">${escapeHtml(pageRow.title)}</h1><p style="font-size:0.92rem;color:#44403C;line-height:1.45;margin-bottom:12px;max-width:65ch;">Size your ${guestCount}-guest room, table count, and 24&Prime;&times;36&Prime; welcome sign below, then open the interactive floorplan free.</p>${venueHeroHtml}${leadersHtml}${compHtml}${guideHtml}<div class="panel" style="padding:20px 24px;margin-bottom:28px;background:#FAF6EE;border-color:#C8A96E;display:flex;flex-wrap:wrap;justify-content:space-between;align-items:center;gap:16px;"><div style="max-width:520px;"><h2 class="serif-display" style="font-size:1.35rem;margin:0 0 4px;color:#181412;">Open This ${guestCount}-Guest Layout in the Studio</h2><p style="font-size:0.88rem;color:#574F49;line-height:1.45;margin:0;">Test table arrangements, customize guest seating, and generate print-ready PDFs free.</p></div><div style="display:flex;gap:10px;flex-wrap:wrap;"><a href="/?preset=${encodeURIComponent(pageRow.slug)}#studio" class="btn btn-primary">Open in Seating Studio &rarr;</a><a href="/directory" class="btn btn-secondary">All Venue Templates</a></div></div>${faqHtml ? `<h2 class="serif-display" style="font-size:1.6rem;margin-bottom:12px;">Common Questions About This Layout</h2><div style="display:flex;flex-direction:column;gap:10px;margin-bottom:32px;">${faqHtml}</div>` : ''}<h3 class="serif-display" style="font-size:1.4rem;margin-bottom:12px;">Related Reception &amp; Event Floorplans</h3><div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(240px,1fr));gap:12px;">${relHtml}</div></div></main>`,
+    `<main class="container" style="padding:18px 18px 64px;"><div style="max-width:860px;margin:0 auto;"><div style="display:flex;gap:8px;align-items:center;margin-bottom:6px;flex-wrap:wrap;"><a href="/directory" style="font-size:0.78rem;font-weight:700;color:#8C2D19;text-decoration:none;">&larr; All 75 Floorplans</a><span class="badge badge-emerald" style="font-size:0.72rem;padding:2px 8px;">${escapeHtml(pageRow.category)}</span></div><h1 class="studio-zone-title" style="font-size:clamp(1.45rem,4.5vw,2.2rem);line-height:1.15;margin-bottom:6px;">${escapeHtml(pageRow.title)}</h1><p style="font-size:0.92rem;color:#44403C;line-height:1.45;margin-bottom:12px;max-width:65ch;">Size your ${guestCount}-guest room, table count, and 24&Prime;&times;36&Prime; welcome sign below, then open the interactive floorplan free.</p>${venueHeroHtml}${leadersHtml}${compHtml}${guideHtml}<div class="panel" style="padding:20px 24px;margin-bottom:28px;background:#FAF6EE;border-color:#C8A96E;display:flex;flex-wrap:wrap;justify-content:space-between;align-items:center;gap:16px;"><div style="max-width:520px;"><h2 class="serif-display" style="font-size:1.35rem;margin:0 0 4px;color:#181412;">Open This ${guestCount}-Guest Layout in the Studio</h2><p style="font-size:0.88rem;color:#574F49;line-height:1.45;margin:0;">Test table arrangements, customize guest seating, and generate print-ready PDFs free.</p></div><div style="display:flex;gap:10px;flex-wrap:wrap;"><a href="${escapeHtml(studioPresetParams)}" class="btn btn-primary">Open in Seating Studio &rarr;</a><a href="/directory" class="btn btn-secondary">All Venue Templates</a></div></div>${faqHtml ? `<h2 class="serif-display" style="font-size:1.6rem;margin-bottom:12px;">Common Questions About This Layout</h2><div style="display:flex;flex-direction:column;gap:10px;margin-bottom:32px;">${faqHtml}</div>` : ''}<h3 class="serif-display" style="font-size:1.4rem;margin-bottom:12px;">Related Reception &amp; Event Floorplans</h3><div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(240px,1fr));gap:12px;">${relHtml}</div></div></main>`,
     renderFooter(), '</body></html>'
   ].join('\n');
 }
