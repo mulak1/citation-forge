@@ -527,15 +527,15 @@ function renderZone3InteractiveStudio(plan) {
                     <a id="sh-pane-beo-buy-link" href="/buy/complete_dossier?target=estate-150&amp;vault=${vId}&amp;allow_promotion_codes=false" class="btn btn-primary" style="padding:7px 14px;font-size:0.78rem;font-weight:700;">Unlock Event Pack ($7) &rarr;</a>
                   </div>
                 </div>
-                <div id="sh-beo-container" style="max-height:315px;overflow-y:auto;padding-right:4px;"></div>
-                <!-- BANQUET CAPTAIN CERTIFIED GUARANTEE STRIP (PILLAR 3 & 4 GATELOCK) -->
-                <div id="sh-beo-guarantee-strip" style="margin-top:12px;padding:12px 16px;border-radius:12px;background:#FAF8F5;border:1px solid #E2D9C8;display:flex;flex-wrap:wrap;align-items:center;justify-content:space-between;gap:10px;font-size:13px;color:#1F1B18;">
+                <div id="sh-beo-container" style="max-height:540px;overflow-y:auto;padding-right:4px;"></div>
+                <!-- BANQUET PROTOCOL NOTE -->
+                <div id="sh-beo-guarantee-strip" style="margin-top:12px;padding:12px 16px;border-radius:12px;background:#FAF8F5;border:1px solid #E5E0D8;display:flex;flex-wrap:wrap;align-items:center;justify-content:space-between;gap:10px;font-size:13px;color:#1F1B18;">
                   <div style="display:flex;align-items:center;gap:8px;flex-wrap:wrap;min-width:0;">
-                    <span style="font-weight:800;color:#1B4D3E;">&#10003; Banquet Captain Certified:</span>
-                    <span style="color:#574F49;">Clockwise numbering starting at 12:00 from head table or dance floor &bull; Exact entrée tallies &bull; Red dietary flags (Celiac, Vegan, Nut-Free) &bull; Zero wrong meals delivered</span>
+                    <span style="font-weight:700;color:#1B4D3E;">Clockwise Catering Standard:</span>
+                    <span style="color:#78716C;">Seat #1 starts at 12:00 facing head table &bull; Entr&eacute;e counts verified &bull; Dietary &amp; allergen alerts flagged for kitchen lead</span>
                   </div>
-                  <div style="font-size:12px;color:#78350F;font-weight:700;background:#FFFBEB;border:1px solid #FDE68A;padding:4px 10px;border-radius:999px;white-space:nowrap;">
-                    &#10003; 30-Day 100% Money-Back Guarantee
+                  <div style="font-size:12.5px;color:#1B4D3E;font-weight:600;background:#EBF4F0;border:1px solid #C4DFD5;padding:3px 10px;border-radius:999px;white-space:nowrap;">
+                    Banquet Captain Ready
                   </div>
                 </div>
               </div>
