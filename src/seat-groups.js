@@ -543,6 +543,24 @@ function renderSeatGroupsClientScript() {
     shRenderAll();
   };
 
+  window.shRotateGuestTables45 = function() {
+    shCloseMenus();
+    var plan = window.__SH_STATE; if (!plan || !plan.tables || !plan.tables.length) return;
+    window.shSnapshot();
+    var count = 0;
+    plan.tables.forEach(function(t, idx) {
+      if (shNormalizeShape(t.shape) === 'sweetheart') return;
+      var curAngle = Number(t.rotation || t.angle || 0);
+      var nextAngle = (curAngle + 45) % 360;
+      t.rotation = nextAngle;
+      t.angle = nextAngle;
+      shRecomputeGeometry(t);
+      count++;
+    });
+    shToast('\u2713 Rotated ' + count + ' tables by 45° (Diamond Banquet Layout)!');
+    shRenderAll();
+  };
+
   /* ---- Smooth Mouse-Wheel Zoom, Right-Click Drag Panning & Toolbar Zoom Controls ---- */
   window.__SH_ZOOM_SCALE = 1;
   window.__SH_PAN_VIEW = null;

@@ -2,7 +2,7 @@
  * SeatHarmony (#2) - 6-Zone High-Conviction Landing Page (ExactBaseline Sunlit Champagne Architecture)
  */
 const { escapeHtml, renderHead, renderNavbar, renderFooter, renderInteractiveScript } = require('./templates');
-const { renderZone4ProofStackAndPricing } = require('./feature-carousel');
+const { renderZone4ProofStackAndPricing, renderZone5FaqAndZone6Close } = require('./feature-carousel');
 const { renderSetupWizardHtml, renderBinderDockHtml } = require('./setup-wizard');
 const { renderDirectoryPage, buildVenueBlueprint, renderFloorplanSvg } = require('./directory-view');
 const { renderSeoDetailPage } = require('./seo-detail-view');
@@ -443,7 +443,7 @@ function renderZone3InteractiveStudio(plan) {
                 <div id="sh-canvas-micro-toolbar" class="sh-ed-bar" style="margin-bottom:6px;gap:6px;flex-wrap:wrap;align-items:center;">
                   <span class="sh-ed-menu-wrap"><button type="button" id="sh-toolbar-add-table-btn" class="sh-ed-ghost" style="padding:5px 12px;font-size:0.80rem;font-weight:700;background:#1B4D3E;color:#FFFFFF;border-color:#1B4D3E;" aria-haspopup="true" onclick="window.shToggleAddMenu(event)">+ Add Table &#9662;</button><div id="sh-add-menu" class="sh-ed-menu" style="display:none;"><button type="button" onclick="window.shAddTableType('round8')">Round table <small>8 seats</small></button><button type="button" onclick="window.shAddTableType('round10')">Round table <small>10 seats</small></button><button type="button" onclick="window.shAddTableType('round12')">Grand round <small>12 seats</small></button><button type="button" onclick="window.shAddTableType('banquet12')">Long banquet <small>12 seats</small></button><button type="button" onclick="window.shAddTableType('kings8')">King's table <small>8 seats</small></button><button type="button" onclick="window.shAddTableType('sweetheart2')">Sweetheart <small>2 seats</small></button></div></span>
                   <button type="button" id="sh-undo-btn" class="sh-ed-ghost" style="padding:5px 11px;font-size:0.78rem;font-weight:600;" onclick="window.shUndo(1)" title="Undo last move (Ctrl+Z / Cmd+Z)">&#8630; Undo</button>
-                  <span class="sh-ed-menu-wrap"><button type="button" id="sh-toolbar-room-btn" class="sh-ed-ghost" style="padding:5px 11px;font-size:0.78rem;font-weight:600;" aria-haspopup="true" onclick="window.shToggleRoomMenu(event)">Room Options &#9662;</button><div id="sh-room-menu" class="sh-ed-menu" style="display:none;min-width:240px;"><div class="sh-ed-menu-sec">Switch all tables (keeps guests)</div><button type="button" data-room-shape="round8" onclick="window.shSetAllTablesKind('round8')">All Round <small>8 seats</small></button><button type="button" data-room-shape="round10" onclick="window.shSetAllTablesKind('round10')">All Round <small>10 seats</small></button><button type="button" data-room-shape="banquet12" onclick="window.shSetAllTablesKind('banquet12')">All Long banquet <small>12 seats</small></button><button type="button" data-room-shape="kings8" onclick="window.shSetAllTablesKind('kings8')">All King's <small>8 seats</small></button><div class="sh-ed-menu-sec">Scale venue guest capacity</div><div class="sh-ed-cap-grid"><button type="button" data-room-cap="50" onclick="window.shScaleRoomGuests(50)">50</button><button type="button" data-room-cap="75" onclick="window.shScaleRoomGuests(75)">75</button><button type="button" data-room-cap="100" onclick="window.shScaleRoomGuests(100)">100</button><button type="button" data-room-cap="150" onclick="window.shScaleRoomGuests(150)">150</button><button type="button" data-room-cap="200" onclick="window.shScaleRoomGuests(200)">200</button><button type="button" data-room-cap="300" onclick="window.shScaleRoomGuests(300)">300</button></div><div class="sh-ed-menu-sec">Alignment &amp; cleanup</div><button type="button" data-room-align="1" onclick="window.shAlignAllTablesToGrid()">&#8862; Align all tables to grid <small>snap rows &amp; cols</small></button><button type="button" data-room-space="1" onclick="window.shAutoSpaceTablesEquidistant()">↔Space tables equally <small>symmetrical 60″ aisles</small></button><button type="button" data-room-balance="1" onclick="window.shAutoBalanceTables()">⚖Balance table sizes <small>even guest spread</small></button><button type="button" data-room-renumber="1" onclick="window.shRenumberTablesClockwise()">Renumber tables <small>clockwise server order</small></button><button type="button" data-room-prune="1" onclick="window.shPruneEmptyTables()">Clean up empty tables <small>auto-renumber</small></button><div class="sh-ed-menu-sec">Print &amp; Export</div><button type="button" onclick="window.shPrintFloorplanDiagram &amp;&amp; window.shPrintFloorplanDiagram()">${IC.print}Print Floorplan Diagram <small>landscape vector</small></button><button type="button" onclick="window.shPrintAllDeliverables &amp;&amp; window.shPrintAllDeliverables()">Print Full Event Pack (1-Click) <small>all 5 day-of print assets</small></button></div></span>
+                  <span class="sh-ed-menu-wrap"><button type="button" id="sh-toolbar-room-btn" class="sh-ed-ghost" style="padding:5px 11px;font-size:0.78rem;font-weight:600;" aria-haspopup="true" onclick="window.shToggleRoomMenu(event)">Room Options &#9662;</button><div id="sh-room-menu" class="sh-ed-menu" style="display:none;min-width:240px;"><div class="sh-ed-menu-sec">Switch all tables (keeps guests)</div><button type="button" data-room-shape="round8" onclick="window.shSetAllTablesKind('round8')">All Round <small>8 seats</small></button><button type="button" data-room-shape="round10" onclick="window.shSetAllTablesKind('round10')">All Round <small>10 seats</small></button><button type="button" data-room-shape="banquet12" onclick="window.shSetAllTablesKind('banquet12')">All Long banquet <small>12 seats</small></button><button type="button" data-room-shape="kings8" onclick="window.shSetAllTablesKind('kings8')">All King's <small>8 seats</small></button><div class="sh-ed-menu-sec">Scale venue guest capacity</div><div class="sh-ed-cap-grid"><button type="button" data-room-cap="50" onclick="window.shScaleRoomGuests(50)">50</button><button type="button" data-room-cap="75" onclick="window.shScaleRoomGuests(75)">75</button><button type="button" data-room-cap="100" onclick="window.shScaleRoomGuests(100)">100</button><button type="button" data-room-cap="150" onclick="window.shScaleRoomGuests(150)">150</button><button type="button" data-room-cap="200" onclick="window.shScaleRoomGuests(200)">200</button><button type="button" data-room-cap="300" onclick="window.shScaleRoomGuests(300)">300</button></div><div class="sh-ed-menu-sec">Alignment &amp; cleanup</div><button type="button" data-room-align="1" onclick="window.shAlignAllTablesToGrid()">&#8862; Align all tables to grid <small>snap rows &amp; cols</small></button><button type="button" data-room-space="1" onclick="window.shAutoSpaceTablesEquidistant()">↔Space tables equally <small>symmetrical 60″ aisles</small></button><button type="button" data-room-rotate="1" onclick="window.shRotateGuestTables45()">📐 45° Diamond layout <small>rotate guest tables</small></button><button type="button" data-room-balance="1" onclick="window.shAutoBalanceTables()">⚖Balance table sizes <small>even guest spread</small></button><button type="button" data-room-renumber="1" onclick="window.shRenumberTablesClockwise()">Renumber tables <small>clockwise server order</small></button><button type="button" data-room-prune="1" onclick="window.shPruneEmptyTables()">Clean up empty tables <small>auto-renumber</small></button><div class="sh-ed-menu-sec">Print &amp; Export</div><button type="button" onclick="window.shPrintFloorplanDiagram &amp;&amp; window.shPrintFloorplanDiagram()">${IC.print}Print Floorplan Diagram <small>landscape vector</small></button><button type="button" onclick="window.shPrintAllDeliverables &amp;&amp; window.shPrintAllDeliverables()">Print Full Event Pack (1-Click) <small>all 5 day-of print assets</small></button></div></span>
                   <button type="button" id="sh-toolbar-panel-btn" class="sh-ed-ghost sh-hide-mobile-toolbar" style="padding:5px 11px;font-size:0.78rem;" onclick="window.shToggleRightPanel()" title="Minimize or reopen the right-side table &amp; guest panel">&#8677; Hide panel</button>
 
                   <!-- Secondary tools hidden to keep clean calm look, available via DOM/shortcuts -->
@@ -753,125 +753,6 @@ function renderZone3InteractiveStudio(plan) {
           <button type="button" class="btn btn-primary" onclick="window.shClosePrintShopSpecsModal()" style="font-size:0.80rem;padding:6px 14px;">Got It &rarr;</button>
         </div>
       </div>
-    </div>
-  </section>`;
-}
-
-function renderZone5FaqAndZone6Close(sampleSeoPages = [], plan = {}) {
-  const vId = escapeHtml((plan && plan.vaultId) || 'SH-4819');
-  const fastRank = sampleSeoPages.filter((p) => /40x60|40x80|30x60|mixed-round/.test(p.slug));
-  const featured = [...fastRank, ...sampleSeoPages.filter((p) => !fastRank.includes(p))].slice(0, 4);
-  const seoLinks = featured.map(p => {
-    const label = escapeHtml(p.title.split(':')[0].replace(/wedding seating chart|wedding floorplan|template/gi, '').trim());
-    return `<a href="/seo/${escapeHtml(p.slug)}" style="font-size:0.78rem;color:#44403C;text-decoration:none;padding:4px 9px;border-radius:6px;background:#FFFFFF;border:1px solid #E2D9C8;font-weight:600;white-space:nowrap;">${label}</a>`;
-  }).join('');
-
-  return `
-  <!-- ZONE 5: 3-QUESTION FAQ -->
-  <section class="studio-zone-section" id="faq" style="padding:16px 0;border-top:1px solid #E5D9C5;">
-    <div class="container">
-      <div class="bs-section-header" style="margin-bottom:12px;">
-        <div class="bs-section-eyebrow">COMMON QUESTIONS</div>
-        <h2 class="bs-section-h2">Three quick answers <em>before you print.</em></h2>
-      </div>
-
-      <div class="studio-faq-stack" style="margin-top:10px;gap:8px;">
-        <details class="studio-faq-item" style="padding:10px 16px;" open>
-          <summary style="font-size:0.98rem;"><span>1. What if guests drop out 48 hours before the wedding?</span><span>&#9662;</span></summary>
-          <div style="padding-top:8px;font-size:0.90rem;color:#44403C;line-height:1.5;max-width:64ch;">
-            Delete or swap them on the floorplan in 2 clicks. Your <strong>12:00 Caterer Meal Sheet</strong>, <strong>24&Prime;&times;36&Prime; Welcome Sign</strong>, <strong>Avery 5302 Place Cards</strong>, and <strong>QR Lookup</strong> update automatically, with unlimited free re-exports for 30 days.
-          </div>
-        </details>
-        <details class="studio-faq-item" style="padding:12px 18px;">
-          <summary style="font-size:0.98rem;"><span>2. Can Mom edit family tables without touching our friends&rsquo; tables?</span><span>&#9662;</span></summary>
-          <div style="padding-top:8px;font-size:0.90rem;color:#44403C;line-height:1.5;max-width:64ch;">
-            Yes. Click <strong>&ldquo;Copy Family Link (Tables 1-3)&rdquo;</strong> in Step 4 to share a link where Tables 1-3 are editable and Tables 4-8 are safely locked.
-          </div>
-        </details>
-        <details class="studio-faq-item" style="padding:12px 18px;">
-          <summary style="font-size:0.98rem;"><span>3. Will the 24&Prime;&times;36&Prime; poster print cleanly at FedEx Office or Staples?</span><span>&#9662;</span></summary>
-          <div style="padding-top:8px;font-size:0.90rem;color:#44403C;line-height:1.5;max-width:64ch;">
-            Yes. Every poster is a Print-Ready vector PDF sized to <strong>Arch D (24&Prime;&times;36&Prime;)</strong> with <code>0.125&Prime;</code> bleed and crop marks, plus <strong>Avery 5302</strong> tent card sheets.
-          </div>
-        </details>
-      </div>
-    </div>
-  </section>
-
-  <!-- ZONE 6: PRICING & FINAL CLOSING AT BOTTOM OF LANDING PAGE -->
-  <section class="studio-zone-section" id="pricing" style="padding:16px 0;background:linear-gradient(180deg, #FBF9F6 0%, #FFFFFF 100%);border-top:1px solid #E5D9C5;">
-    <div class="container">
-      <div class="bs-section-header" style="margin-bottom:16px;">
-        <div class="bs-section-eyebrow">SAVE 6+ HOURS AT FEDEX &amp; CANVA &middot; ZERO WATERMARK</div>
-        <h2 class="bs-section-h2">Design free. Unlock print-shop &amp; caterer execution files <em>when ready.</em></h2>
-      </div>
-      <div class="pricing-grid" style="margin-top:10px;margin-bottom:12px;gap:14px;">
-        <div class="panel" style="padding:16px 14px;display:flex;flex-direction:column;justify-content:space-between;gap:8px;background:#FFFFFF;">
-          <div>
-            <span class="badge badge-cyan" style="margin-bottom:6px;font-size:0.75rem;">SAVE &amp; SEND BRIDGE ($0)</span>
-            <h4 class="serif-display" style="font-size:1.28rem;margin:2px 0;">Save &amp; Email My Seating Plan</h4>
-            <div class="tabular" style="font-size:1.85rem;font-weight:800;margin:4px 0;">$0 <span style="font-size:0.85rem;font-weight:600;color:#78716C;">free forever</span></div>
-            <ul style="list-style:none;font-size:0.86rem;color:#44403C;display:flex;flex-direction:column;gap:6px;margin-top:8px;line-height:1.4;">
-              <li>&#10003; Interactive Floorplan + Auto-Seat Conflict Solver</li>
-              <li>&#10003; Save &amp; Send Link to Partner, Mom, or Venue</li>
-              <li>&#10003; Unmask Sample Table 1 Escort Card &amp; Dietary Summary</li>
-              <li>&#10003; Free Basic Caterer Meal Sheet (.CSV) Export</li>
-            </ul>
-          </div>
-          <a id="pricing-buy-flash" href="#sh-vault-checkout-bar" onclick="var el=document.getElementById('sh-inline-vault-email');if(el){el.focus();}" class="btn btn-secondary" style="width:100%;padding:10px 14px;font-size:0.88rem;">Save &amp; Email My Plan ($0)</a>
-        </div>
-        <div class="panel" style="padding:16px 14px;border:2px solid #1B4D3E;display:flex;flex-direction:column;justify-content:space-between;gap:8px;position:relative;background:#FFFFFF;">
-          <span class="badge badge-emerald" style="position:absolute;top:-10px;right:14px;background:#1B4D3E;color:#FFF;font-size:0.70rem;padding:2px 8px;">$7 AUTO-FILLED &middot; VS. $14 ETSY</span>
-          <div>
-            <span class="badge badge-amber" style="margin-bottom:6px;font-size:0.75rem;">EVENT PRINT &amp; DAY-OF PACK</span>
-            <h4 class="serif-display" style="font-size:1.28rem;margin:2px 0;">Event Print &amp; Day-Of Pack</h4>
-            <div class="tabular" style="font-size:1.85rem;font-weight:800;margin:4px 0;color:#1C1C1C;">$7 <span style="font-size:0.85rem;font-weight:600;color:#78716C;">one-time event pass</span></div>
-            <ul style="list-style:none;font-size:0.86rem;color:#1C1C1C;display:flex;flex-direction:column;gap:6px;font-weight:600;margin-top:8px;line-height:1.4;">
-              <li>&#10003; <strong>24&Prime;&times;36&Prime; Print-Ready Poster PDF</strong> (<code>0.125&Prime;</code> Bleed)</li>
-              <li>&#10003; <strong>Folded Place Cards</strong> (Avery 5302 PDF + Meal Icons)</li>
-              <li>&#10003; <strong>Caterer Meal &amp; Allergy Sheet</strong> (Clockwise 12:00)</li>
-              <li>&#10003; <strong>Live Guest QR Mobile Lookup</strong> (Zero Easel Crowds)</li>
-            </ul>
-          </div>
-          <div style="font-size:11px;color:#78350F;font-weight:700;background:#FFFBEB;border:1px solid #FDE68A;padding:3px 8px;border-radius:6px;text-align:center;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;">
-            &#10003; Same-Day FedEx &amp; Staples Pickup &bull; 30-Day Guarantee
-          </div>
-          <a id="pricing-buy-pack" href="/buy/complete_dossier?target=estate-150&amp;vault=${vId}&amp;allow_promotion_codes=false" class="btn btn-primary" style="width:100%;padding:10px 14px;font-size:0.88rem;white-space:normal;text-align:center;line-height:1.3;">Unlock Print &amp; Day-Of Pack ($7) &rarr;</a>
-        </div>
-        <div class="panel" style="padding:16px 14px;display:flex;flex-direction:column;justify-content:space-between;gap:8px;background:#FBF9F6;border:1.5px solid #D6CBB8;">
-          <div>
-            <div style="display:flex;align-items:center;justify-content:space-between;gap:6px;margin-bottom:6px;flex-wrap:wrap;">
-              <span class="badge badge-emerald" style="font-size:0.75rem;">FOR PLANNERS &amp; VENUES</span>
-              <span style="font-size:0.68rem;font-weight:800;color:#1B4D3E;background:#EBF6F5;padding:2px 6px;border-radius:999px;">WHITE-LABEL</span>
-            </div>
-            <h4 class="serif-display" style="font-size:1.24rem;margin:2px 0;">Planners &amp; Venues Pro Pass</h4>
-            <div class="tabular" style="font-size:1.85rem;font-weight:800;margin:4px 0;color:#1C1C1C;">$29 <span style="font-size:0.85rem;font-weight:600;color:#78350F;">Pro Pass</span></div>
-            <ul style="list-style:none;font-size:0.86rem;color:#44403C;display:flex;flex-direction:column;gap:6px;margin-top:8px;line-height:1.4;">
-              <li>&#10003; <strong>Unlimited Client Weddings &amp; 300-Guest Galas</strong></li>
-              <li>&#10003; <strong>Custom Agency Logo Crest</strong> on All Files</li>
-              <li>&#10003; <strong>Unlimited Mom Sandbox Links</strong> (Lock Tables 4+)</li>
-            </ul>
-          </div>
-          <div style="font-size:11.5px;color:#1B4D3E;font-weight:700;background:#EBF4F0;border:1px solid #C4DFD5;padding:4px 8px;border-radius:6px;text-align:center;">
-            &#10003; Unlimited Events &bull; 30-Day Guarantee
-          </div>
-          <a id="pricing-buy-pro" href="/buy/pro_b2b?target=estate-150&amp;vault=${vId}&amp;allow_promotion_codes=false" class="btn btn-secondary" style="width:100%;padding:10px 14px;font-size:0.88rem;border-color:#1B4D3E;color:#1B4D3E;font-weight:800;">Get Planner Pro Pass ($29) &rarr;</a>
-        </div>
-      </div>
-      <div style="display:flex;align-items:center;justify-content:center;gap:14px;flex-wrap:wrap;margin:-4px 0 16px;font-size:12.5px;color:#574F49;">
-        <span style="font-weight:700;color:#1B4D3E;">&#10003; FedEx Office &amp; Staples 24&Prime;&times;36&Prime; Ready</span>
-        <span style="font-weight:700;color:#1B4D3E;">&#10003; Clockwise 12:00 Caterer Certified</span>
-        <span style="font-weight:700;color:#78350F;">&#10003; 30-Day 100% Money-Back Guarantee</span>
-      </div>
-
-      ${seoLinks ? `
-      <div style="margin-top:16px;padding-top:14px;border-top:1px solid #E5D9C5;">
-        <div style="display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:8px;margin-bottom:8px;">
-          <span style="font-size:0.76rem;font-weight:800;color:#1B4D3E;text-transform:uppercase;letter-spacing:0.06em;">POPULAR ARCHITECTURAL LAYOUTS:</span>
-          <a href="/directory" style="font-size:0.78rem;font-weight:700;color:#1B4D3E;text-decoration:none;">Browse all 60+ templates &rarr;</a>
-        </div>
-        <div style="display:flex;flex-wrap:wrap;justify-content:flex-start;gap:6px;">${seoLinks}</div>
-      </div>` : ''}
     </div>
   </section>`;
 }
