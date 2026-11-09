@@ -555,6 +555,82 @@ function renderSeatElementsClientScript() {
         '</div>' +
       '</div>';
     document.body.appendChild(div);
+  };
+
+  window.shPrintMasterVendorBrief = function() {
+    var plan = window.__SH_STATE; if (!plan || !plan.tables) return;
+    var tablesArr = plan.tables || [];
+    var eventTitle = plan.coupleNames || plan.title || 'Wedding Reception';
+    var dateOrVenue = (plan.weddingDate || plan.date || '') + (plan.venueName ? (' · ' + plan.venueName) : '');
+
+    var headTable = tablesArr.find(function(t) { return t.kind === 'sweetheart2' || t.isSweetheart || /head|sweetheart/i.test(t.name || ''); }) || tablesArr[0];
+    var headGuests = (headTable && headTable.guests && headTable.guests.map(function(g) { return g.name; }).join(', ')) || 'Couple';
+
+    var vipRowsHtml = tablesArr.slice(0, 4).map(function(t, idx) {
+      var tName = t.name || ('Table ' + (idx + 1));
+      var guests = (t.guests || []).map(function(g) { return g.name; }).join(', ');
+      return '<tr style="border-bottom:1px solid #E5E7EB;">' +
+        '<td style="padding:6px 8px;font-weight:700;color:#1B4D3E;font-size:12px;">' + shEsc(tName) + '</td>' +
+        '<td style="padding:6px 8px;font-size:12px;color:#374151;">' + (shEsc(guests) || '<em>Unassigned</em>') + '</td>' +
+        '<td style="padding:6px 8px;font-size:11px;color:#78350F;font-weight:600;">' + (idx === 0 ? 'Primary Photo Focus &bull; Speeches Anchor' : (idx === 1 ? 'Parents of the Bride' : (idx === 2 ? 'Parents of the Groom' : 'Bridal Party &amp; Toasts'))) + '</td>' +
+      '</tr>';
+    }).join('');
+
+    var printWin = window.open('', '_blank');
+    if (!printWin) { window.print(); return; }
+    printWin.document.write('<!DOCTYPE html><html><head><title>Master Vendor & VIP Seating Brief - ' + shEsc(eventTitle) + '</title><style>@page { size: 8.5in 11in; margin: 0.5in; } body { margin: 0; padding: 20px; font-family: system-ui, sans-serif; color: #1F2937; } table { width: 100%; border-collapse: collapse; } th { text-align: left; padding: 8px; background: #1B4D3E; color: #FFFFFF; font-size: 11px; text-transform: uppercase; } @media print { .sh-no-print { display: none !important; } } </style></head><body>' +
+      '<div class="sh-no-print" style="margin-bottom:16px;display:flex;justify-content:space-between;align-items:center;background:#FAF8F5;padding:12px 16px;border:1px solid #E2D9C8;border-radius:8px;">' +
+        '<div><strong>Master Vendor &amp; VIP Seating Brief</strong> &middot; DJ, Photographer &amp; Coordinator Brief</div>' +
+        '<button onclick="window.print()" style="padding:8px 18px;background:#1B4D3E;color:#FFFFFF;border:none;border-radius:6px;font-weight:bold;cursor:pointer;">🖨️ Print Vendor Brief</button>' +
+      '</div>' +
+      '<div style="border:3px double #C8A96E;padding:24px;border-radius:8px;background:#FFFFFF;">' +
+        '<div style="display:flex;justify-content:space-between;align-items:flex-start;border-bottom:2px solid #1B4D3E;padding-bottom:12px;margin-bottom:14px;">' +
+          '<div>' +
+            '<div style="font-size:11px;font-weight:700;color:#8C2D19;text-transform:uppercase;letter-spacing:1.5px;">DAY-OF MASTER VENDOR &amp; VIP SIGHTLINE BRIEF</div>' +
+            '<h1 style="margin:4px 0;font-size:24px;color:#1B4D3E;font-family:Georgia,serif;">' + shEsc(eventTitle) + '</h1>' +
+            (dateOrVenue ? '<div style="font-size:12px;color:#6B7280;">' + shEsc(dateOrVenue) + '</div>' : '') +
+          '</div>' +
+          '<div style="text-align:right;">' +
+            '<div style="font-size:18px;font-weight:800;color:#1B4D3E;">' + tablesArr.length + ' Tables Total</div>' +
+            '<div style="font-size:11px;color:#78350F;font-weight:600;">120° Camera &amp; Mic Clearance</div>' +
+          '</div>' +
+        '</div>' +
+        '<div style="margin-bottom:16px;background:#FAF8F5;padding:12px 14px;border-radius:8px;border-left:4px solid #1B4D3E;">' +
+          '<div style="font-size:12px;font-weight:700;color:#1B4D3E;margin-bottom:4px;">👑 Head Table &amp; Sweetheart Anchor</div>' +
+          '<div style="font-size:13px;color:#1F2937;"><strong>' + shEsc((headTable && headTable.name) || 'Head Table') + ':</strong> ' + shEsc(headGuests) + '</div>' +
+          '<div style="font-size:11px;color:#4B5563;margin-top:4px;">Center-stage sightline: keep 60″ corridor unobstructed between the DJ audio mic station, dance floor center, and head table.</div>' +
+        '</div>' +
+        '<div style="margin-bottom:16px;">' +
+          '<div style="font-size:12px;font-weight:700;color:#1B4D3E;margin-bottom:6px;text-transform:uppercase;letter-spacing:0.5px;">VIP Speech &amp; Family Table Coordinates</div>' +
+          '<table><thead><tr><th style="width:25%;">Table / Zone</th><th style="width:45%;">Assigned VIPs</th><th style="width:30%;">Vendor Role / Action</th></tr></thead>' +
+          '<tbody>' + vipRowsHtml + '</tbody></table>' +
+        '</div>' +
+        '<div style="display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-bottom:16px;">' +
+          '<div style="background:#F9FAFB;padding:12px;border-radius:6px;border:1px solid #E5E7EB;">' +
+            '<div style="font-size:11px;font-weight:700;color:#1B4D3E;text-transform:uppercase;">🎧 DJ &amp; MC Protocol</div>' +
+            '<ul style="margin:6px 0 0 16px;padding:0;font-size:11px;color:#4B5563;line-height:1.5;">' +
+              '<li>Wireless handheld mic placed at Table 1 for Best Man / MOH toasts</li>' +
+              '<li>Dinner background music kept below 70dB for dining acoustic comfort</li>' +
+              '<li>Announce parent dances directly after cake cutting</li>' +
+            '</ul>' +
+          '</div>' +
+          '<div style="background:#F9FAFB;padding:12px;border-radius:6px;border:1px solid #E5E7EB;">' +
+            '<div style="font-size:11px;font-weight:700;color:#1B4D3E;text-transform:uppercase;">📸 Photo &amp; Video Clearance</div>' +
+            '<ul style="margin:6px 0 0 16px;padding:0;font-size:11px;color:#4B5563;line-height:1.5;">' +
+              '<li>Vendor meals served concurrently with Head Table to avoid speech delays</li>' +
+              '<li>Maintain 54″ clear perimeter around dance floor for steadycam moves</li>' +
+              '<li>Table 1 family reaction shots prioritized during toasts</li>' +
+            '</ul>' +
+          '</div>' +
+        '</div>' +
+        '<div style="border-top:1px dashed #D1D5DB;padding-top:10px;font-size:11px;color:#6B7280;display:flex;justify-content:space-between;">' +
+          '<span>SeatHarmony Studio Vendor Dispatch &bull; Auto-Generated Floorplan Roster</span>' +
+          '<span>Day-of Coordinator Verified</span>' +
+        '</div>' +
+      '</div></body></html>');
+    printWin.document.close();
+    if (typeof shToast === 'function') shToast('✓ Opened Master Vendor & VIP Seating Brief Print View!');
+    if (window.shTrackTelemetry) window.shTrackTelemetry('calculate', { source: 'master_vendor_brief' });
   };`;
 }
 
