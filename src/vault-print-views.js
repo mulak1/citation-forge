@@ -221,9 +221,22 @@ function renderAveryPrintPage(vault, urls, query = {}) {
       const buyPackUrl = `/buy/complete_dossier?target=${encodeURIComponent(vault.title || vault.vaultId)}&vault=${encodeURIComponent(vault.vaultId)}${vault.ownerEmail ? `&email=${encodeURIComponent(vault.ownerEmail)}` : ''}`;
 
       const isSampleSheet = query.sample === '1' || query.sample === 'sheet';
-      const visibleAveryGuests = vault.isUnlocked ? sortedGuests : (isSampleSheet ? sortedGuests.slice(0, 4) : sortedGuests.slice(0, 1));
+      const isCalibrate = query.calibrate === '1';
+      const visibleAveryGuests = isCalibrate ? sortedGuests.slice(0, 4) : (vault.isUnlocked ? sortedGuests : (isSampleSheet ? sortedGuests.slice(0, 4) : sortedGuests.slice(0, 1)));
       const remainingCount = Math.max(0, guests.length - visibleAveryGuests.length);
-      const cardsHtml = visibleAveryGuests.map((g, gIdx) => {
+      const calibrationBanner = isCalibrate ? `
+      <div style="grid-column:1 / -1;padding:18px 20px;border:2px dashed #065F46;border-radius:12px;background:#FAFDFB;text-align:center;">
+        <div class="mono" style="font-size:0.82rem;font-weight:800;color:#065F46;letter-spacing:0.08em;margin-bottom:6px;">🎯 AVERY 5302 / 5011 PRINTER MARGIN CALIBRATION TARGET</div>
+        <p style="font-size:0.82rem;color:#374151;max-width:64ch;margin:0 auto 12px;line-height:1.45;">Print this test sheet on plain copy paper at <strong>100% Actual Size (do not select 'Fit to Page')</strong>. Hold up against your Avery cardstock toward a window/light to verify the 4 card quadrants align with your sheet perforations.</p>
+        <div style="display:inline-flex;align-items:center;justify-content:center;gap:12px;padding:8px 16px;border:1.5px solid #C8A96E;border-radius:8px;background:#FFFFFF;font-size:0.75rem;font-weight:700;color:#181412;flex-wrap:wrap;">
+          <span>Margins: 0.75″ Left / 0.50″ Top</span>
+          <span>&bull;</span>
+          <span>Card Die-Cut: 3.50″ &times; 2.00″ Folded (4.00″ Unfolded)</span>
+          <span>&bull;</span>
+          <span style="color:#065F46;">1-Inch Ruler Target: [|<span style="display:inline-block;width:96px;border-bottom:2px solid #065F46;vertical-align:middle;margin:0 4px;"></span>|] Exactly 96 CSS px</span>
+        </div>
+      </div>` : '';
+      const cardsHtml = calibrationBanner + visibleAveryGuests.map((g, gIdx) => {
         const mealInfo = mealSymbolInfo(g.meal);
         const hasAllergy = g.allergy && g.allergy !== 'None';
         const cleanAccess = String(g.accessibility || '').replace(/[^A-Za-z0-9\s()-]/g, '').trim();
@@ -302,8 +315,9 @@ function renderAveryPrintPage(vault, urls, query = {}) {
       <div class="mono" style="font-size:0.72rem;font-weight:800;color:#8C2D19;">AVERY 5302 / 5011 SMALL TENT CARDS &bull; ${guests.length} SEATED GUESTS</div>
       <div style="font-size:0.80rem;color:#44403C;">Legend: <strong>&#9670; Beef</strong> &bull; <strong>&#9679; Fish</strong> &bull; <strong>&#9650; Vegan</strong> &bull; <strong>&#9733; Kids</strong> &bull; Back fold rotated 180&deg; for servers</div>
       <div style="display:flex;gap:6px;align-items:center;flex-wrap:wrap;margin-top:6px;">
-        <a href="?sort=table" style="font-size:0.70rem;font-weight:800;padding:2px 8px;border-radius:6px;text-decoration:none;${sortBy !== 'alpha' ? 'background:#1B4D3E;color:#FFFFFF;' : 'background:#FAF6EE;color:#57534E;border:1px solid #D8C29D;'}">Sort: Table &amp; Seat</a>
-        <a href="?sort=alpha" style="font-size:0.70rem;font-weight:800;padding:2px 8px;border-radius:6px;text-decoration:none;${sortBy === 'alpha' ? 'background:#1B4D3E;color:#FFFFFF;' : 'background:#FAF6EE;color:#57534E;border:1px solid #D8C29D;'}">Sort: Alphabetical A&ndash;Z (Escort Table)</a>
+        <a href="?sort=table" style="font-size:0.70rem;font-weight:800;padding:2px 8px;border-radius:6px;text-decoration:none;${sortBy !== 'alpha' && !isCalibrate ? 'background:#1B4D3E;color:#FFFFFF;' : 'background:#FAF6EE;color:#57534E;border:1px solid #D8C29D;'}">Sort: Table &amp; Seat</a>
+        <a href="?sort=alpha" style="font-size:0.70rem;font-weight:800;padding:2px 8px;border-radius:6px;text-decoration:none;${sortBy === 'alpha' && !isCalibrate ? 'background:#1B4D3E;color:#FFFFFF;' : 'background:#FAF6EE;color:#57534E;border:1px solid #D8C29D;'}">Sort: Alphabetical A&ndash;Z (Escort Table)</a>
+        <a href="?calibrate=1" style="font-size:0.70rem;font-weight:800;padding:2px 8px;border-radius:6px;text-decoration:none;${isCalibrate ? 'background:#065F46;color:#FFFFFF;' : 'background:#FAF6EE;color:#065F46;border:1px solid #10B981;'}">🎯 Margin Calibration Test</a>
       </div>
     </div>
     <div style="display:flex;gap:6px;align-items:center;flex-wrap:wrap;">
