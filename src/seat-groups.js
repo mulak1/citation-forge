@@ -578,6 +578,41 @@ function renderSeatGroupsClientScript() {
     shRenderAll();
   };
 
+  window.shSwapHeadTablePosition = function() {
+    shCloseMenus();
+    var plan = window.__SH_STATE; if (!plan || !plan.tables || !plan.tables.length) return;
+    window.shSnapshot('Reposition Head Table');
+    var roomH = Number(plan.roomHeight) || 680;
+    var headTbl = plan.tables.find(function(t) { return shNormalizeShape(t.shape) === 'sweetheart' || t.isHeadTable || t.number === 1; }) || plan.tables[0];
+    if (!headTbl) return;
+    var curY = Number(headTbl.y || 90);
+    var topY = 90;
+    var centerY = Math.round((roomH / 2) / 20) * 20;
+    var bottomY = Math.round((roomH - 120) / 20) * 20;
+    var nextY = topY, posName = 'Top Wall (Traditional)';
+    if (Math.abs(curY - topY) < 60) {
+      nextY = centerY; posName = 'Center of Room';
+    } else if (Math.abs(curY - centerY) < 60) {
+      nextY = bottomY; posName = 'Opposite Wall (Entrance)';
+    } else {
+      nextY = topY; posName = 'Top Wall (Traditional)';
+    }
+    headTbl.x = 560; headTbl.y = nextY;
+    shRecomputeGeometry(headTbl);
+    if (posName === 'Center of Room') {
+      plan.tables.forEach(function(t) {
+        if (t === headTbl) return;
+        var dist = Math.hypot((t.x || 560) - headTbl.x, (t.y || 300) - headTbl.y);
+        if (dist < 120) {
+          t.y = (t.y < centerY) ? Math.max(90, t.y - 80) : Math.min(roomH - 90, t.y + 80);
+          shRecomputeGeometry(t);
+        }
+      });
+    }
+    shToast('\u2713 Repositioned ' + (shNormalizeShape(headTbl.shape) === 'sweetheart' ? 'Sweetheart Table' : 'Head Table') + ' to ' + posName + '!');
+    shRenderAll();
+  };
+
   /* ---- Smooth Mouse-Wheel Zoom, Right-Click Drag Panning & Toolbar Zoom Controls ---- */
   window.__SH_ZOOM_SCALE = 1;
   window.__SH_PAN_VIEW = null;
