@@ -78,13 +78,13 @@ function renderSeoDetailPage(pageRow, relatedPages = []) {
       `</div>` +
       `<div style="display:flex;flex-wrap:wrap;align-items:center;gap:8px;margin-bottom:14px;padding:8px 12px;background:#FFFFFF;border:1px solid #EAE0D0;border-radius:10px;font-size:0.75rem;">` +
         `<strong style="color:#8A6508;">Table 1 Clockwise Meal Specimen:</strong>` +
-        `<span style="color:#1F1B18;font-weight:700;">🥩 Filet Mignon (4)</span>` +
+        `<span style="color:#1F1B18;font-weight:700;">Filet Mignon (4)</span>` +
         `<span style="color:#7D746D;">&bull;</span>` +
-        `<span style="color:#1F1B18;font-weight:700;">🐟 Atlantic Salmon (4)</span>` +
+        `<span style="color:#1F1B18;font-weight:700;">Atlantic Salmon (4)</span>` +
         `<span style="color:#7D746D;">&bull;</span>` +
-        `<span style="color:#1F1B18;font-weight:700;">🌱 Wild Mushroom Risotto (1)</span>` +
+        `<span style="color:#1F1B18;font-weight:700;">Wild Mushroom Risotto (1)</span>` +
         `<span style="color:#7D746D;">&bull;</span>` +
-        `<span style="background:#FEF3C7;color:#92400E;font-weight:800;padding:2px 6px;border-radius:4px;border:1px solid #FDE68A;">🌾 Celiac Alert (Seat #1)</span>` +
+        `<span style="background:#FEF3C7;color:#92400E;font-weight:800;padding:2px 6px;border-radius:4px;border:1px solid #FDE68A;">Celiac Alert (Seat #1)</span>` +
       `</div>` +
       `<div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:12px;margin-bottom:12px;">` +
         `<div style="background:#FFFFFF;border:1.5px solid #1B4D3E;border-radius:12px;padding:12px 14px;box-shadow:0 4px 14px -4px rgba(27,77,62,0.10);">` +
@@ -94,9 +94,9 @@ function renderSeoDetailPage(pageRow, relatedPages = []) {
           `</div>` +
           `<div style="font-family:var(--font-serif, Georgia, serif);font-size:1.15rem;font-weight:700;color:#181412;line-height:1.2;">Maya Lin</div>` +
           `<div style="font-size:0.78rem;color:#1B4D3E;font-weight:700;margin:3px 0 4px;display:flex;align-items:center;gap:6px;flex-wrap:wrap;">` +
-            `<span>Clockwise Seat #1 (12:00)</span><span>&bull;</span><span>🥩 Filet Mignon</span>` +
+            `<span>Clockwise Seat #1 (12:00)</span><span>&bull;</span><span>Filet Mignon</span>` +
           `</div>` +
-          `<div style="font-size:0.70rem;background:#FEF3C7;color:#92400E;padding:2px 7px;border-radius:4px;display:inline-block;font-weight:700;border:1px solid #FDE68A;">🌾 Celiac / Strict Allergy Flagged</div>` +
+          `<div style="font-size:0.70rem;background:#FEF3C7;color:#92400E;padding:2px 7px;border-radius:4px;display:inline-block;font-weight:700;border:1px solid #FDE68A;">Celiac / Strict Allergy Flagged</div>` +
         `</div>` +
         `<div style="background:#FFFFFF;border:1px solid #E2D9C8;border-radius:12px;padding:12px 14px;box-shadow:0 4px 14px -4px rgba(0,0,0,0.04);">` +
           `<div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:4px;">` +

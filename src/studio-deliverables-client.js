@@ -425,10 +425,10 @@ function renderDeliverablesClientScript() {
       });
     });
     var lines = [
-      '🍽️ SEATHARMONY KITCHEN TALLY SUMMARY',
+      'SEATHARMONY KITCHEN TALLY SUMMARY',
       'Event: ' + title + ' (' + totalCovers + ' Total Covers)',
       '• Beef: ' + totalBeef + ' | Fish: ' + totalHalibut + ' | Chicken: ' + totalChicken + ' | Vegan/Veg: ' + (totalVegan + totalVeg) + ' | Kids: ' + totalKids,
-      '⚠️ Severe Dietary Flags (' + allergiesList.length + '):',
+      '⚠Severe Dietary Flags (' + allergiesList.length + '):',
       allergiesList.length ? ('  - ' + allergiesList.slice(0, 4).join('\\n  - ') + (allergiesList.length > 4 ? ('\\n  + ' + (allergiesList.length - 4) + ' more in full sheet') : '')) : '  - None flagged',
       'Clockwise 12:00 Seat #1 mapping: ' + window.location.href
     ];
@@ -834,7 +834,7 @@ function renderDeliverablesClientScript() {
           window.__SH_PURCHASED = true;
           window.__SH_EMAIL_UNMASKED = true;
           var retVid = params.get('vault') || (window.__SH_STATE && window.__SH_STATE.vaultId) || 'SH-4819';
-          shToast('🎉 Event Print Pack Unlocked! All 4 Day-Of Assets are Ready to Print');
+          shToast('Event Print Pack Unlocked! All 4 Day-Of Assets are Ready to Print');
           if (window.shTrackTelemetry) window.shTrackTelemetry('purchase_success', { vaultId: retVid });
           setTimeout(function() {
             if (typeof shRenderBeoView === 'function') shRenderBeoView();
@@ -845,7 +845,7 @@ function renderDeliverablesClientScript() {
               upBr.style.display = 'flex';
               upBr.style.background = '#ECFDF5';
               upBr.style.borderColor = '#10B981';
-              upBr.innerHTML = '<div style="display:flex;align-items:center;gap:10px;flex-wrap:wrap;"><span>🎉 <strong>Event Print Pack Active!</strong></span><span style="font-size:12px;color:#065F46;background:#D1FAE5;border:1px solid #A7F3D0;padding:2px 8px;border-radius:6px;">&#10003; All 4 Deliverables Unlocked</span></div><a href="/vault/' + encodeURIComponent(retVid) + '" style="background:#1B4D3E;color:#FFFFFF;border-radius:8px;padding:8px 16px;font-size:13.5px;font-weight:700;text-decoration:none;">Open Event Deliverables Vault &rarr;</a>';
+              upBr.innerHTML = '<div style="display:flex;align-items:center;gap:10px;flex-wrap:wrap;"><span><strong>Event Print Pack Active!</strong></span><span style="font-size:12px;color:#065F46;background:#D1FAE5;border:1px solid #A7F3D0;padding:2px 8px;border-radius:6px;">&#10003; All 4 Deliverables Unlocked</span></div><a href="/vault/' + encodeURIComponent(retVid) + '" style="background:#1B4D3E;color:#FFFFFF;border-radius:8px;padding:8px 16px;font-size:13.5px;font-weight:700;text-decoration:none;">Open Event Deliverables Vault &rarr;</a>';
             }
           }, 400);
         }

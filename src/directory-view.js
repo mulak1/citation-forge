@@ -620,7 +620,7 @@ function floorplanCard(p, f) {
         <span style="font-size:0.68rem;color:#78350F;background:#FFFBEB;border:1px solid #FDE68A;padding:1px 6px;border-radius:999px;font-weight:700;">Clockwise 12:00</span>
       </div>
       <div style="font-size:0.72rem;color:#574F49;display:flex;align-items:center;gap:4px;flex-wrap:wrap;">
-        <span>🥩 Filet</span><span>&bull;</span><span>🐟 Halibut</span><span>&bull;</span><span>🌱 Vegan</span><span>&bull;</span><span style="color:#B45309;font-weight:700;">🌾 Celiac Alert</span>
+        <span>Filet</span><span>&bull;</span><span>Halibut</span><span>&bull;</span><span>Vegan</span><span>&bull;</span><span style="color:#B45309;font-weight:700;">Celiac Alert</span>
       </div>
       <div style="font-size:0.70rem;color:#065F46;font-weight:700;">
         &#10003; 0 Family Conflicts &middot; Sightlines Clear
@@ -731,11 +731,11 @@ function renderDirectoryPage(seoPages = []) {
   const sizes = [['all', 'All sizes'], ['s', 'Up to 75'], ['m', '76 to 125'], ['l', '126 to 175'], ['xl', '176+']];
   const quickTypes = [
     ['all', 'All Venues'],
-    ['Ballroom & Estate', '🏛️ Ballroom & Estate'],
+    ['Ballroom & Estate', 'Ballroom & Estate'],
     ['Tent & Outdoor', '⛺ Tent & Outdoor'],
-    ['Barn & Winery', '🍇 Barn & Winery'],
-    ['Waterfront & Destination', '🌊 Waterfront & Beach'],
-    ['Intimate & Rehearsal', '🕯️ Intimate & Micro']
+    ['Barn & Winery', 'Barn & Winery'],
+    ['Waterfront & Destination', 'Waterfront & Beach'],
+    ['Intimate & Rehearsal', 'Intimate & Micro']
   ];
   const lockSvg = '<svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="display:inline-block;vertical-align:-2px;margin-right:4px;" aria-hidden="true"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>';
   return [

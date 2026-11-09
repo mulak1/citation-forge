@@ -141,7 +141,7 @@ function renderPosterPrintPage(vault, urls, query = {}) {
     <div style="display:flex;align-items:center;gap:10px;flex-wrap:wrap;">
       <span style="font-weight:800;color:#1B4D3E;">&#10003; FedEx &amp; Staples Spec:</span>
       <span>Arch D 24&Prime; &times; 36&Prime; &bull; 0.125&Prime; bleed included &bull; 300 DPI vector rendering &bull; Mount on &frac31;&#8326;&Prime; foam board (matte finish).</span>
-      <button type="button" onclick="navigator.clipboard.writeText('Print at Arch D 24x36 inches, matte finish, mounted on 3/16 inch white foam core board. Full bleed trim.');this.textContent='✓ Copied Print Shop Note!';var b=this;setTimeout(function(){b.textContent='📋 Copy Print Shop Note';},2000);" style="cursor:pointer;background:#FAF3E3;color:#8C2D19;border:1px solid #C8A96E;padding:3px 9px;border-radius:6px;font-size:0.72rem;font-weight:800;white-space:nowrap;">📋 Copy Print Shop Note</button>
+      <button type="button" onclick="navigator.clipboard.writeText('Print at Arch D 24x36 inches, matte finish, mounted on 3/16 inch white foam core board. Full bleed trim.');this.textContent='✓ Copied Print Shop Note!';var b=this;setTimeout(function(){b.textContent='Copy Print Shop Note';},2000);" style="cursor:pointer;background:#FAF3E3;color:#8C2D19;border:1px solid #C8A96E;padding:3px 9px;border-radius:6px;font-size:0.72rem;font-weight:800;white-space:nowrap;">Copy Print Shop Note</button>
     </div>
     <div style="display:flex;align-items:center;gap:12px;font-weight:700;">
       <span style="color:#0369A1;">Standard Easel Ready</span>
@@ -314,8 +314,8 @@ function renderAveryPrintPage(vault, urls, query = {}) {
     <div style="display:flex;align-items:center;gap:12px;flex-wrap:wrap;">
       <span style="font-weight:800;color:#1B4D3E;">&#10003; Card Stock Spec:</span>
       <span>Avery 5302 / 5011 Small Tent Cards (2&Prime; &times; 3&frac12;&Prime; folded, 4 cards / sheet). 65&ndash;80 lb card stock.</span>
-      <span style="background:#FFFBEB;color:#92400E;padding:2px 8px;border-radius:4px;border:1px solid #FDE68A;font-weight:700;">💡 Test Alignment: Print Page 1 on plain paper first and hold up to light over card stock.</span>
-      <button type="button" onclick="navigator.clipboard.writeText('Print on Avery 5302 or 5011 card stock. Set printer scale to 100% (Actual Size), do NOT select Fit to Page. Print Page 1 on plain paper first to verify alignment against light.');this.textContent='✓ Copied Print Guide!';var b=this;setTimeout(function(){b.textContent='📋 Copy Print Guide';},2000);" style="cursor:pointer;background:#FAF3E3;color:#8C2D19;border:1px solid #C8A96E;padding:3px 9px;border-radius:6px;font-size:0.72rem;font-weight:800;white-space:nowrap;">📋 Copy Print Guide</button>
+      <span style="background:#FFFBEB;color:#92400E;padding:2px 8px;border-radius:4px;border:1px solid #FDE68A;font-weight:700;">Test Alignment: Print Page 1 on plain paper first and hold up to light over card stock.</span>
+      <button type="button" onclick="navigator.clipboard.writeText('Print on Avery 5302 or 5011 card stock. Set printer scale to 100% (Actual Size), do NOT select Fit to Page. Print Page 1 on plain paper first to verify alignment against light.');this.textContent='✓ Copied Print Guide!';var b=this;setTimeout(function(){b.textContent='Copy Print Guide';},2000);" style="cursor:pointer;background:#FAF3E3;color:#8C2D19;border:1px solid #C8A96E;padding:3px 9px;border-radius:6px;font-size:0.72rem;font-weight:800;white-space:nowrap;">Copy Print Guide</button>
     </div>
     <div style="display:flex;align-items:center;gap:8px;font-weight:700;">
       <span style="color:#8C2D19;">Scale: 100% (Actual Size)</span>

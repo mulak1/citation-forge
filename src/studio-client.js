@@ -445,7 +445,7 @@ function renderInteractiveScript(initialPlan) {
     tbl.shape = shNormalizeShape(newShape); shRecomputeGeometry(tbl);
     var cl = window.shCalculateTableClearance ? window.shCalculateTableClearance(window.__SH_SELECTED_TABLE_IDX) : null;
     if (cl && cl.isTight) {
-      shToast('⚠️ Morphed ' + tbl.name + ' to ' + shFriendlyShape(tbl.shape) + ' · Tight ' + cl.inches + '" aisle to ' + cl.nearestName + ' (<54" standard) · Drag table to widen');
+      shToast('⚠Morphed ' + tbl.name + ' to ' + shFriendlyShape(tbl.shape) + ' · Tight ' + cl.inches + '" aisle to ' + cl.nearestName + ' (<54" standard) · Drag table to widen');
     } else if (cl) {
       shToast('✓ Morphed ' + tbl.name + ' to ' + shFriendlyShape(tbl.shape) + ' · ' + cl.inches + '" Aisle to ' + cl.nearestName + ' (54"+ Verified)');
     } else {
@@ -744,14 +744,14 @@ function renderInteractiveScript(initialPlan) {
       const isSweet = shNormalizeShape(t.shape) === 'sweetheart';
       const allergyCount = (t.guests || []).filter(function(g) { return Boolean(g && g.allergy && g.allergy !== 'None'); }).length;
       const hasChairMod = (t.guests || []).some(function(g) { return Boolean(g && g.accessibility && g.accessibility !== 'Standard Chair'); });
-      const tblTitle = isSweet ? 'Sweetheart' : ((t.locked ? '🔒 ' : '') + 'Table ' + t.number);
-      let seatsSub = t.guests.length + '/' + t.capacity + ' Seats' + (allergyCount ? ' · 🌾' + allergyCount : '') + (hasChairMod ? ' · ♿' : '');
+      const tblTitle = isSweet ? 'Sweetheart' : ((t.locked ? '' : '') + 'Table ' + t.number);
+      let seatsSub = t.guests.length + '/' + t.capacity + ' Seats' + (allergyCount ? ' · ' + allergyCount : '') + (hasChairMod ? ' · ♿' : '');
       let subFill = allergyCount ? '#B45309' : (hasChairMod ? '#0369A1' : '#78716C');
       if (window.__SH_RING_MODE === 'meal') {
         const mealTally = {};
         (t.guests || []).forEach(function(g) { if (!g) return; const ms = shMealBadge(g.meal).short; mealTally[ms] = (mealTally[ms] || 0) + 1; });
         const mealStr = Object.keys(mealTally).map(function(k) { return mealTally[k] + k[0]; }).join(' ');
-        seatsSub = (mealStr || '0 Meals') + (allergyCount ? ' · ⚠️' + allergyCount : '');
+        seatsSub = (mealStr || '0 Meals') + (allergyCount ? ' · ⚠' + allergyCount : '');
         subFill = allergyCount ? '#B45309' : '#065F46';
       }
       parts.push('<text x="' + t.x + '" y="' + (t.y - 4) + '" text-anchor="middle" fill="#1C1917" font-size="12.5" font-weight="800">' + tblTitle + '</text><text x="' + t.x + '" y="' + (t.y + 11) + '" text-anchor="middle" fill="' + subFill + '" font-size="9.8" font-weight="700">' + seatsSub + '</text></g>');

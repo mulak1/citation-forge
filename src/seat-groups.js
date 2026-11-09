@@ -233,7 +233,7 @@ function renderSeatGroupsClientScript() {
     var badgeBg = cl.passed ? '#ECFDF5' : '#FFFBEB';
     var badgeBorder = cl.passed ? '#A7F3D0' : '#FDE68A';
     var badgeTextCol = cl.passed ? '#065F46' : '#92400E';
-    var badgeTxt = (cl.passed ? '✓ ' : '⚠️ ') + cl.inches + '" Aisle';
+    var badgeTxt = (cl.passed ? '✓ ' : '⚠') + cl.inches + '" Aisle';
     var out = [];
     if (cl.isTight && cl.nearestPt) {
       out.push('<line x1="' + t.x + '" y1="' + t.y + '" x2="' + cl.nearestPt.x + '" y2="' + cl.nearestPt.y + '" stroke="#D97706" stroke-width="1.2" stroke-dasharray="3 3" opacity="0.75" pointer-events="none"/>');
@@ -255,7 +255,7 @@ function renderSeatGroupsClientScript() {
     window.shSnapshot(); t.shape = shape; shRecomputeGeometry(t);
     var cl = window.shCalculateTableClearance(tIdx);
     if (cl && cl.isTight) {
-      shToast('⚠️ Morphed ' + t.name + ' to ' + shFriendlyShape(t.shape) + ' · Tight ' + cl.inches + '" aisle to ' + cl.nearestName + ' (<54" standard) · Drag to widen');
+      shToast('⚠Morphed ' + t.name + ' to ' + shFriendlyShape(t.shape) + ' · Tight ' + cl.inches + '" aisle to ' + cl.nearestName + ' (<54" standard) · Drag to widen');
     } else if (cl) {
       shToast('✓ Morphed ' + t.name + ' to ' + shFriendlyShape(t.shape) + ' · ' + cl.inches + '" Aisle Clearance to ' + cl.nearestName + ' (54"+ Verified)');
     }
@@ -763,7 +763,7 @@ function renderSeatGroupsClientScript() {
         var nPt = cl.nearestPt;
         var mxC = Math.round((sTb.x + nPt.x) / 2), myC = Math.round((sTb.y + nPt.y) / 2);
         var strokeC = cl.passed ? '#059669' : '#D97706', bgC = cl.passed ? '#ECFDF5' : '#FFFBEB';
-        var badgeText = cl.inches + '″ Aisle (' + (cl.passed ? '✓ Clear' : '⚠️ Min 54″') + ')';
+        var badgeText = cl.inches + '″ Aisle (' + (cl.passed ? '✓ Clear' : '⚠Min 54″') + ')';
         out.push('<g class="sh-clearance-ruler" pointer-events="none">' +
           '<line x1="' + sTb.x + '" y1="' + sTb.y + '" x2="' + nPt.x + '" y2="' + nPt.y + '" stroke="' + strokeC + '" stroke-width="1.8" stroke-dasharray="4 3" opacity="0.8"/>' +
           '<circle cx="' + sTb.x + '" cy="' + sTb.y + '" r="3" fill="' + strokeC + '"/>' +

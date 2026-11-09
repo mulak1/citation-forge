@@ -81,12 +81,12 @@ function renderZone2Walkthrough(plan = {}) {
 
         <!-- Venue Selector Tabs -->
         <div style="display:flex;gap:6px;overflow-x:auto;padding:4px 2px 10px;-webkit-overflow-scrolling:touch;scrollbar-width:none;justify-content:flex-start;max-width:100%;">
-          <button type="button" class="studio-tap-chip active" id="sh-showcase-tab-0" onclick="window.shSelectShowcaseVenue(0)" style="padding:6px 12px;font-size:0.78rem;font-weight:700;white-space:nowrap;flex-shrink:0;">🌊 Yacht &amp; Beach Club</button>
-          <button type="button" class="studio-tap-chip" id="sh-showcase-tab-1" onclick="window.shSelectShowcaseVenue(1)" style="padding:6px 12px;font-size:0.78rem;font-weight:700;white-space:nowrap;flex-shrink:0;">🌿 Rosewood Estate</button>
+          <button type="button" class="studio-tap-chip active" id="sh-showcase-tab-0" onclick="window.shSelectShowcaseVenue(0)" style="padding:6px 12px;font-size:0.78rem;font-weight:700;white-space:nowrap;flex-shrink:0;">Yacht &amp; Beach Club</button>
+          <button type="button" class="studio-tap-chip" id="sh-showcase-tab-1" onclick="window.shSelectShowcaseVenue(1)" style="padding:6px 12px;font-size:0.78rem;font-weight:700;white-space:nowrap;flex-shrink:0;">Rosewood Estate</button>
           <button type="button" class="studio-tap-chip" id="sh-showcase-tab-2" onclick="window.shSelectShowcaseVenue(2)" style="padding:6px 12px;font-size:0.78rem;font-weight:700;white-space:nowrap;flex-shrink:0;">⛺ Sailcloth Tent</button>
-          <button type="button" class="studio-tap-chip" id="sh-showcase-tab-3" onclick="window.shSelectShowcaseVenue(3)" style="padding:6px 12px;font-size:0.78rem;font-weight:700;white-space:nowrap;flex-shrink:0;">🏛️ Grand Ballroom</button>
-          <button type="button" class="studio-tap-chip" id="sh-showcase-tab-4" onclick="window.shSelectShowcaseVenue(4)" style="padding:6px 12px;font-size:0.78rem;font-weight:700;white-space:nowrap;flex-shrink:0;">🍇 Tuscan Courtyard</button>
-          <button type="button" class="studio-tap-chip" id="sh-showcase-tab-5" onclick="window.shSelectShowcaseVenue(5)" style="padding:6px 12px;font-size:0.78rem;font-weight:700;white-space:nowrap;flex-shrink:0;">🪴 Botanical Orangery</button>
+          <button type="button" class="studio-tap-chip" id="sh-showcase-tab-3" onclick="window.shSelectShowcaseVenue(3)" style="padding:6px 12px;font-size:0.78rem;font-weight:700;white-space:nowrap;flex-shrink:0;">Grand Ballroom</button>
+          <button type="button" class="studio-tap-chip" id="sh-showcase-tab-4" onclick="window.shSelectShowcaseVenue(4)" style="padding:6px 12px;font-size:0.78rem;font-weight:700;white-space:nowrap;flex-shrink:0;">Tuscan Courtyard</button>
+          <button type="button" class="studio-tap-chip" id="sh-showcase-tab-5" onclick="window.shSelectShowcaseVenue(5)" style="padding:6px 12px;font-size:0.78rem;font-weight:700;white-space:nowrap;flex-shrink:0;">Botanical Orangery</button>
         </div>
 
         <!-- Split Showcase Card -->
@@ -130,7 +130,7 @@ function renderZone2Walkthrough(plan = {}) {
               <div style="display:flex;align-items:center;justify-content:space-between;gap:8px;flex-wrap:wrap;padding-top:4px;">
                 <span style="font-size:0.74rem;color:#065F46;font-weight:700;">&#10003; 0 Family Drama &bull; Clockwise 12:00 Meal Tally</span>
                 <button type="button" id="sh-showcase-load-btn" onclick="window.shLoadShowcaseIntoStudio && window.shLoadShowcaseIntoStudio()" style="display:inline-flex;align-items:center;justify-content:center;gap:6px;padding:8px 16px;border-radius:999px;background:#1B4D3E;color:#FFFFFF;font-weight:700;font-size:0.80rem;border:1px solid #1B4D3E;cursor:pointer;white-space:nowrap;box-shadow:0 2px 8px rgba(27, 77, 62,0.18);">
-                  <span>Load 🌊 Yacht &amp; Beach Club in Studio &uarr;</span>
+                  <span>Load Yacht &amp; Beach Club in Studio &uarr;</span>
                 </button>
               </div>
             </div>
@@ -144,7 +144,7 @@ function renderZone2Walkthrough(plan = {}) {
             id: '110-guest-coastal-beach-club-seating-chart',
             name: 'Coastal Yacht & Beach Club Ocean Terrace',
             tag: 'Waterfront Terrace · 110 Guests',
-            short: '🌊 Yacht & Beach Club',
+            short: 'Yacht & Beach Club',
             img: '/public/venue-coastal-beach-club.jpg',
             couple: 'Sienna & Julian’s Beach Club Reception',
             specs: '11 Banquet & Round Tables · Oceanfront Sightlines · 3-Column Sign',
@@ -155,7 +155,7 @@ function renderZone2Walkthrough(plan = {}) {
             id: 'estate-150',
             name: 'Private Country Estate & Glass Conservatory',
             tag: 'Estate Reception · 150 Guests',
-            short: '🌿 Rosewood Estate',
+            short: 'Rosewood Estate',
             img: '/public/venue-rosewood-estate.jpg',
             couple: 'Maya & Liam’s 150-Guest Estate Reception',
             specs: '18 Round Tables + Sweetheart · 54″ Server Aisles · 24″×36″ Sign',
@@ -177,7 +177,7 @@ function renderZone2Walkthrough(plan = {}) {
             id: '200-guest-hotel-ballroom-seating-chart-template',
             name: 'Grand Ballroom & Crystal Chandelier Banquet Hall',
             tag: 'Gilded Ballroom · 200 Guests',
-            short: '🏛️ Grand Ballroom',
+            short: 'Grand Ballroom',
             img: '/public/venue-grand-ballroom.jpg',
             couple: 'Sophia & Alexander’s Ballroom Gala',
             specs: '20 72″ Rounds · 60″ Wide Server Lanes · 5-Column 16pt Sign',
@@ -188,7 +188,7 @@ function renderZone2Walkthrough(plan = {}) {
             id: 'tuscan-banquet-80',
             name: 'Tuscan Villa Olive Grove & Courtyard',
             tag: 'Courtyard Banquet · 80 Guests',
-            short: '🍇 Tuscan Courtyard',
+            short: 'Tuscan Courtyard',
             img: '/public/venue-tuscan-courtyard.jpg',
             couple: 'Elena & Matteo’s Tuscan Courtyard Feast',
             specs: '6 Long Feasting Banquets · Rustic Stone Sightlines · 3-Column Sign',
@@ -199,7 +199,7 @@ function renderZone2Walkthrough(plan = {}) {
             id: '90-guest-greenhouse-conservatory-seating-chart',
             name: 'Glass Greenhouse & Botanical Orangery',
             tag: 'Glass Orangery · 90 Guests',
-            short: '🪴 Botanical Orangery',
+            short: 'Botanical Orangery',
             img: '/public/venue-botanical-conservatory.jpg',
             couple: 'Gemma & Oliver’s Orangery Reception',
             specs: '9 Intimate Rounds · Lush Palm & Glass Corridor Clearances',
@@ -258,10 +258,10 @@ function renderZone3InteractiveStudio(plan) {
       <div id="sh-studio-quick-preset-bar" style="display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:8px;margin-bottom:10px;padding:4px 0;">
         <div style="display:flex;align-items:center;gap:6px;flex-wrap:wrap;">
           <span style="font-size:12px;font-weight:700;color:#78716C;">Presets:</span>
-          <button type="button" class="studio-tap-chip preset-chip active" data-preset="estate-150" data-domain="supabase.com" onclick="window.loadPresetScenario('estate-150', this)" style="display:inline-flex;align-items:center;gap:5px;padding:4px 10px;font-size:12px;white-space:nowrap;">🌿 150-Guest Estate</button>
-          <button type="button" class="studio-tap-chip" data-instant-preset="110-guest-coastal-beach-club-seating-chart" onclick="window.loadPresetScenario('110-guest-coastal-beach-club-seating-chart', this)" style="display:inline-flex;align-items:center;gap:5px;padding:4px 10px;font-size:12px;white-space:nowrap;">🌊 110-Guest Beach Club</button>
-          <button type="button" class="studio-tap-chip" data-instant-preset="tuscan-banquet-80" onclick="window.loadPresetScenario('tuscan-banquet-80', this)" style="display:inline-flex;align-items:center;gap:5px;padding:4px 10px;font-size:12px;white-space:nowrap;">🍇 80-Guest Tuscan</button>
-          <button type="button" class="studio-tap-chip" data-instant-preset="200-guest-hotel-ballroom-seating-chart-template" onclick="window.loadPresetScenario('200-guest-hotel-ballroom-seating-chart-template', this)" style="display:inline-flex;align-items:center;gap:5px;padding:4px 10px;font-size:12px;white-space:nowrap;">🏛️ 200-Guest Ballroom</button>
+          <button type="button" class="studio-tap-chip preset-chip active" data-preset="estate-150" data-domain="supabase.com" onclick="window.loadPresetScenario('estate-150', this)" style="display:inline-flex;align-items:center;gap:5px;padding:4px 10px;font-size:12px;white-space:nowrap;">150-Guest Estate</button>
+          <button type="button" class="studio-tap-chip" data-instant-preset="110-guest-coastal-beach-club-seating-chart" onclick="window.loadPresetScenario('110-guest-coastal-beach-club-seating-chart', this)" style="display:inline-flex;align-items:center;gap:5px;padding:4px 10px;font-size:12px;white-space:nowrap;">110-Guest Beach Club</button>
+          <button type="button" class="studio-tap-chip" data-instant-preset="tuscan-banquet-80" onclick="window.loadPresetScenario('tuscan-banquet-80', this)" style="display:inline-flex;align-items:center;gap:5px;padding:4px 10px;font-size:12px;white-space:nowrap;">80-Guest Tuscan</button>
+          <button type="button" class="studio-tap-chip" data-instant-preset="200-guest-hotel-ballroom-seating-chart-template" onclick="window.loadPresetScenario('200-guest-hotel-ballroom-seating-chart-template', this)" style="display:inline-flex;align-items:center;gap:5px;padding:4px 10px;font-size:12px;white-space:nowrap;">200-Guest Ballroom</button>
           <button type="button" id="sh-conflict-solver-pill" class="studio-tap-chip" onclick="window.shRunConflictSolverDemo && window.shRunConflictSolverDemo(this)" style="padding:4px 10px;font-size:12px;font-weight:700;color:#065F46;background:#ECFDF5;border:1px solid #10B981;white-space:nowrap;">${IC.bolt}Auto-Solve Conflicts</button>
         </div>
         <button type="button" class="sh-ed-ghost" onclick="window.shOpenSetupWizard(1)" style="font-size:12px;padding:4px 10px;font-weight:600;color:#57534E;border-color:#D1D5DB;background:#FFFFFF;white-space:nowrap;">${IC.gear}Guided Wizard</button>
@@ -443,7 +443,7 @@ function renderZone3InteractiveStudio(plan) {
                 <div id="sh-canvas-micro-toolbar" class="sh-ed-bar" style="margin-bottom:6px;gap:6px;flex-wrap:wrap;align-items:center;">
                   <span class="sh-ed-menu-wrap"><button type="button" id="sh-toolbar-add-table-btn" class="sh-ed-ghost" style="padding:5px 12px;font-size:0.80rem;font-weight:700;background:#1B4D3E;color:#FFFFFF;border-color:#1B4D3E;" aria-haspopup="true" onclick="window.shToggleAddMenu(event)">+ Add Table &#9662;</button><div id="sh-add-menu" class="sh-ed-menu" style="display:none;"><button type="button" onclick="window.shAddTableType('round8')">Round table <small>8 seats</small></button><button type="button" onclick="window.shAddTableType('round10')">Round table <small>10 seats</small></button><button type="button" onclick="window.shAddTableType('round12')">Grand round <small>12 seats</small></button><button type="button" onclick="window.shAddTableType('banquet12')">Long banquet <small>12 seats</small></button><button type="button" onclick="window.shAddTableType('kings8')">King's table <small>8 seats</small></button><button type="button" onclick="window.shAddTableType('sweetheart2')">Sweetheart <small>2 seats</small></button></div></span>
                   <button type="button" id="sh-undo-btn" class="sh-ed-ghost" style="padding:5px 11px;font-size:0.78rem;font-weight:600;" onclick="window.shUndo(1)" title="Undo last move (Ctrl+Z / Cmd+Z)">&#8630; Undo</button>
-                  <span class="sh-ed-menu-wrap"><button type="button" id="sh-toolbar-room-btn" class="sh-ed-ghost" style="padding:5px 11px;font-size:0.78rem;font-weight:600;" aria-haspopup="true" onclick="window.shToggleRoomMenu(event)">Room Options &#9662;</button><div id="sh-room-menu" class="sh-ed-menu" style="display:none;min-width:240px;"><div class="sh-ed-menu-sec">Switch all tables (keeps guests)</div><button type="button" data-room-shape="round8" onclick="window.shSetAllTablesKind('round8')">All Round <small>8 seats</small></button><button type="button" data-room-shape="round10" onclick="window.shSetAllTablesKind('round10')">All Round <small>10 seats</small></button><button type="button" data-room-shape="banquet12" onclick="window.shSetAllTablesKind('banquet12')">All Long banquet <small>12 seats</small></button><button type="button" data-room-shape="kings8" onclick="window.shSetAllTablesKind('kings8')">All King's <small>8 seats</small></button><div class="sh-ed-menu-sec">Scale venue guest capacity</div><div class="sh-ed-cap-grid"><button type="button" data-room-cap="50" onclick="window.shScaleRoomGuests(50)">50</button><button type="button" data-room-cap="75" onclick="window.shScaleRoomGuests(75)">75</button><button type="button" data-room-cap="100" onclick="window.shScaleRoomGuests(100)">100</button><button type="button" data-room-cap="150" onclick="window.shScaleRoomGuests(150)">150</button><button type="button" data-room-cap="200" onclick="window.shScaleRoomGuests(200)">200</button><button type="button" data-room-cap="300" onclick="window.shScaleRoomGuests(300)">300</button></div><div class="sh-ed-menu-sec">Alignment &amp; cleanup</div><button type="button" data-room-align="1" onclick="window.shAlignAllTablesToGrid()">&#8862; Align all tables to grid <small>snap rows &amp; cols</small></button><button type="button" data-room-space="1" onclick="window.shAutoSpaceTablesEquidistant()">↔️ Space tables equally <small>symmetrical 60″ aisles</small></button><button type="button" data-room-balance="1" onclick="window.shAutoBalanceTables()">⚖️ Balance table sizes <small>even guest spread</small></button><button type="button" data-room-renumber="1" onclick="window.shRenumberTablesClockwise()">🔢 Renumber tables <small>clockwise server order</small></button><button type="button" data-room-prune="1" onclick="window.shPruneEmptyTables()">Clean up empty tables <small>auto-renumber</small></button><div class="sh-ed-menu-sec">Print &amp; Export</div><button type="button" onclick="window.shPrintFloorplanDiagram &amp;&amp; window.shPrintFloorplanDiagram()">${IC.print}Print Floorplan Diagram <small>landscape vector</small></button><button type="button" onclick="window.shPrintAllDeliverables &amp;&amp; window.shPrintAllDeliverables()">📦 Print Full Event Pack (1-Click) <small>all 5 day-of print assets</small></button></div></span>
+                  <span class="sh-ed-menu-wrap"><button type="button" id="sh-toolbar-room-btn" class="sh-ed-ghost" style="padding:5px 11px;font-size:0.78rem;font-weight:600;" aria-haspopup="true" onclick="window.shToggleRoomMenu(event)">Room Options &#9662;</button><div id="sh-room-menu" class="sh-ed-menu" style="display:none;min-width:240px;"><div class="sh-ed-menu-sec">Switch all tables (keeps guests)</div><button type="button" data-room-shape="round8" onclick="window.shSetAllTablesKind('round8')">All Round <small>8 seats</small></button><button type="button" data-room-shape="round10" onclick="window.shSetAllTablesKind('round10')">All Round <small>10 seats</small></button><button type="button" data-room-shape="banquet12" onclick="window.shSetAllTablesKind('banquet12')">All Long banquet <small>12 seats</small></button><button type="button" data-room-shape="kings8" onclick="window.shSetAllTablesKind('kings8')">All King's <small>8 seats</small></button><div class="sh-ed-menu-sec">Scale venue guest capacity</div><div class="sh-ed-cap-grid"><button type="button" data-room-cap="50" onclick="window.shScaleRoomGuests(50)">50</button><button type="button" data-room-cap="75" onclick="window.shScaleRoomGuests(75)">75</button><button type="button" data-room-cap="100" onclick="window.shScaleRoomGuests(100)">100</button><button type="button" data-room-cap="150" onclick="window.shScaleRoomGuests(150)">150</button><button type="button" data-room-cap="200" onclick="window.shScaleRoomGuests(200)">200</button><button type="button" data-room-cap="300" onclick="window.shScaleRoomGuests(300)">300</button></div><div class="sh-ed-menu-sec">Alignment &amp; cleanup</div><button type="button" data-room-align="1" onclick="window.shAlignAllTablesToGrid()">&#8862; Align all tables to grid <small>snap rows &amp; cols</small></button><button type="button" data-room-space="1" onclick="window.shAutoSpaceTablesEquidistant()">↔Space tables equally <small>symmetrical 60″ aisles</small></button><button type="button" data-room-balance="1" onclick="window.shAutoBalanceTables()">⚖Balance table sizes <small>even guest spread</small></button><button type="button" data-room-renumber="1" onclick="window.shRenumberTablesClockwise()">Renumber tables <small>clockwise server order</small></button><button type="button" data-room-prune="1" onclick="window.shPruneEmptyTables()">Clean up empty tables <small>auto-renumber</small></button><div class="sh-ed-menu-sec">Print &amp; Export</div><button type="button" onclick="window.shPrintFloorplanDiagram &amp;&amp; window.shPrintFloorplanDiagram()">${IC.print}Print Floorplan Diagram <small>landscape vector</small></button><button type="button" onclick="window.shPrintAllDeliverables &amp;&amp; window.shPrintAllDeliverables()">Print Full Event Pack (1-Click) <small>all 5 day-of print assets</small></button></div></span>
                   <button type="button" id="sh-toolbar-panel-btn" class="sh-ed-ghost sh-hide-mobile-toolbar" style="padding:5px 11px;font-size:0.78rem;" onclick="window.shToggleRightPanel()" title="Minimize or reopen the right-side table &amp; guest panel">&#8677; Hide panel</button>
 
                   <!-- Secondary tools hidden to keep clean calm look, available via DOM/shortcuts -->
@@ -475,11 +475,11 @@ function renderZone3InteractiveStudio(plan) {
                   </div>
                   <div style="display:flex;gap:6px;flex-wrap:wrap;">
                     <button type="button" id="sh-download-tbl1-sample-btn" class="btn btn-secondary" style="padding:6px 11px;font-size:0.74rem;background:#EBF4F0;border-color:#A7F3D0;color:#065F46;font-weight:700;" onclick="window.shExportTable1SampleCsv && window.shExportTable1SampleCsv()">&darr; Table 1 Free Sample (.CSV)</button>
-                    <button type="button" id="sh-copy-kitchen-tally-btn" class="btn btn-secondary" style="padding:6px 11px;font-size:0.74rem;" onclick="window.shCopyKitchenTally && window.shCopyKitchenTally()">📋 Copy Kitchen Tally</button>
-                    <button type="button" id="sh-share-caterer-link-btn" class="btn btn-secondary" style="padding:6px 11px;font-size:0.74rem;background:#FAF8F5;border-color:#C8A96E;color:#78350F;font-weight:700;" onclick="window.shShareCatererLink && window.shShareCatererLink()">🔗 Share Caterer Link</button>
+                    <button type="button" id="sh-copy-kitchen-tally-btn" class="btn btn-secondary" style="padding:6px 11px;font-size:0.74rem;" onclick="window.shCopyKitchenTally && window.shCopyKitchenTally()">Copy Kitchen Tally</button>
+                    <button type="button" id="sh-share-caterer-link-btn" class="btn btn-secondary" style="padding:6px 11px;font-size:0.74rem;background:#FAF8F5;border-color:#C8A96E;color:#78350F;font-weight:700;" onclick="window.shShareCatererLink && window.shShareCatererLink()">Share Caterer Link</button>
                     <button type="button" id="sh-beo-mode-toggle" class="btn btn-secondary" style="padding:6px 11px;font-size:0.74rem;border-color:#C8A96E;color:#78350F;font-weight:800;" onclick="window.shToggleBeoChaosMode()">${IC.bolt}Compare: 12:00 Server View vs. Unnumbered Chaos</button>
                     <button type="button" class="btn btn-secondary" style="padding:6px 11px;font-size:0.74rem;" onclick="window.shGateOrExportBeoCsv ? window.shGateOrExportBeoCsv('csv') : window.shExportBeoCsv()">&darr; Full Meal Sheet (.CSV)</button>
-                    <button type="button" class="btn btn-secondary" onclick="window.shPrintAllDeliverables && window.shPrintAllDeliverables()" style="padding:6px 11px;font-size:0.74rem;background:#EBF4F0;border-color:#1B4D3E;color:#1B4D3E;font-weight:700;" title="Open all 5 day-of assets in 1 click">📦 Print Full Event Pack (1-Click)</button>
+                    <button type="button" class="btn btn-secondary" onclick="window.shPrintAllDeliverables && window.shPrintAllDeliverables()" style="padding:6px 11px;font-size:0.74rem;background:#EBF4F0;border-color:#1B4D3E;color:#1B4D3E;font-weight:700;" title="Open all 5 day-of assets in 1 click">Print Full Event Pack (1-Click)</button>
                     <a id="sh-open-beo-studio-link" href="/print/beo/${vId}" target="_blank" class="btn btn-secondary" style="padding:6px 11px;font-size:0.74rem;">${IC.print}Signed Meal Sheet Print View &rarr;</a>
                     <a id="sh-pane-beo-buy-link" href="/buy/complete_dossier?target=estate-150&amp;vault=${vId}&amp;allow_promotion_codes=false" class="btn btn-primary" style="padding:6px 11px;font-size:0.74rem;">Unlock Event Print Pack ($7)</a>
                   </div>
@@ -516,7 +516,7 @@ function renderZone3InteractiveStudio(plan) {
                   </div>
                   <div style="display:flex;gap:6px;flex-wrap:wrap;">
                     <button type="button" class="btn btn-secondary" onclick="window.shPrintPosterProof && window.shPrintPosterProof()" style="padding:6px 9px;font-size:0.73rem;background:#FAF8F5;border-color:#C8A96E;color:#78350F;font-weight:700;">${IC.print}Print Proof (PDF)</button>
-                    <button type="button" class="btn btn-secondary" onclick="window.shPrintAllDeliverables && window.shPrintAllDeliverables()" style="padding:6px 9px;font-size:0.73rem;background:#EBF4F0;border-color:#1B4D3E;color:#1B4D3E;font-weight:700;" title="Open all 5 day-of assets in 1 click">📦 Print Full Event Pack (1-Click)</button>
+                    <button type="button" class="btn btn-secondary" onclick="window.shPrintAllDeliverables && window.shPrintAllDeliverables()" style="padding:6px 9px;font-size:0.73rem;background:#EBF4F0;border-color:#1B4D3E;color:#1B4D3E;font-weight:700;" title="Open all 5 day-of assets in 1 click">Print Full Event Pack (1-Click)</button>
                     <a id="sh-open-poster-studio-link" href="/print/poster/${vId}" target="_blank" class="btn btn-secondary" style="padding:6px 10px;font-size:0.73rem;">${IC.print}24&Prime;&times;36&Prime; Print Studio &rarr;</a>
                     <a id="sh-open-avery-studio-link" href="/print/avery-5302/${vId}?sample=1" target="_blank" class="btn btn-secondary" style="padding:6px 10px;font-size:0.73rem;">${IC.print}Avery 5302 Cards (Free Sample) &rarr;</a>
                     <a id="sh-pane-poster-buy-link" href="/buy/complete_dossier?target=estate-150&amp;vault=${vId}&amp;allow_promotion_codes=false" class="btn btn-primary" style="padding:6px 11px;font-size:0.8125rem;">&darr; Unlock 24&Prime;&times;36&Prime; Print-Ready Pack ($7 &middot; vs. $14 Blank Etsy Templates)</a>
@@ -534,7 +534,7 @@ function renderZone3InteractiveStudio(plan) {
                   <div style="display:flex;align-items:center;gap:8px;flex-wrap:wrap;min-width:0;">
                     <span style="font-weight:800;color:#1B4D3E;">&#10003; Print-Shop Ready:</span>
                     <span style="color:#574F49;">FedEx Office &amp; Staples 24&Prime;&times;36&Prime; Mounted Foam-Board Spec &bull; 0.125&Prime; Bleed &bull; Avery 5302 2&Prime;&times;3.5&Prime; Cards &bull; Same-Day Local Pickup Compatible</span>
-                    <button type="button" id="sh-open-print-specs-btn" class="studio-tap-chip" onclick="window.shOpenPrintShopSpecsModal && window.shOpenPrintShopSpecsModal()" style="padding:2px 8px;font-size:0.72rem;font-weight:700;color:#1B4D3E;background:#FFFFFF;border:1px solid #C4DFD5;border-radius:999px;cursor:pointer;">📋 1-Click Print Specs</button>
+                    <button type="button" id="sh-open-print-specs-btn" class="studio-tap-chip" onclick="window.shOpenPrintShopSpecsModal && window.shOpenPrintShopSpecsModal()" style="padding:2px 8px;font-size:0.72rem;font-weight:700;color:#1B4D3E;background:#FFFFFF;border:1px solid #C4DFD5;border-radius:999px;cursor:pointer;">1-Click Print Specs</button>
                   </div>
                   <div style="font-size:12px;color:#78350F;font-weight:700;background:#FFFBEB;border:1px solid #FDE68A;padding:4px 10px;border-radius:999px;white-space:nowrap;">
                     &#10003; 30-Day 100% Money-Back Print Guarantee

@@ -88,7 +88,7 @@ function renderFloorplanPrintPage({ vault, urls, baseUrl, req }) {
     <div style="display:flex;align-items:center;gap:10px;flex-wrap:wrap;">
       <span style="font-weight:800;color:#1B4D3E;">&#10003; Banquet Captain Layout Printout:</span>
       <span style="font-size:0.78rem;color:#57534E;">Standard Landscape Vector &bull; 60&Prime; service corridor compliant &bull; Ready for venue approval.</span>
-      <button type="button" onclick="navigator.clipboard.writeText('Setup note: 60-inch minimum server lane clearance between all tables. Stage/DJ positioned for clear sightlines.');this.textContent='✓ Copied Banquet Spec!';var b=this;setTimeout(function(){b.textContent='📋 Copy Banquet Spec';},2000);" style="cursor:pointer;background:#FAF3E3;color:#8C2D19;border:1px solid #C8A96E;padding:3px 9px;border-radius:6px;font-size:0.72rem;font-weight:800;white-space:nowrap;">📋 Copy Banquet Spec</button>
+      <button type="button" onclick="navigator.clipboard.writeText('Setup note: 60-inch minimum server lane clearance between all tables. Stage/DJ positioned for clear sightlines.');this.textContent='✓ Copied Banquet Spec!';var b=this;setTimeout(function(){b.textContent='Copy Banquet Spec';},2000);" style="cursor:pointer;background:#FAF3E3;color:#8C2D19;border:1px solid #C8A96E;padding:3px 9px;border-radius:6px;font-size:0.72rem;font-weight:800;white-space:nowrap;">Copy Banquet Spec</button>
     </div>
     <div style="display:flex;gap:8px;align-items:center;">
       <button type="button" onclick="window.print()" style="background:#1B4D3E;color:#FFFFFF;border:none;border-radius:8px;padding:7px 16px;font-weight:800;font-size:0.78rem;cursor:pointer;">${VR_PRINT_SVG}Print Floorplan Diagram (PDF)</button>
@@ -117,10 +117,10 @@ function renderFloorplanPrintPage({ vault, urls, baseUrl, req }) {
     </div>
 
     <div class="fp-legend">
-      <div><strong>👑 Sweetheart / Head Table:</strong> Reserved for Couple &amp; Wedding Party</div>
+      <div><strong>Sweetheart / Head Table:</strong> Reserved for Couple &amp; Wedding Party</div>
       <div><strong>⚪ Guest Tables:</strong> Clockwise 12:00 Seat #1 Server Ordering</div>
       <div><strong>♿ Accessibility:</strong> 60″ minimum service corridor clearance</div>
-      <div><strong>🎵 Sound &amp; Sightlines:</strong> Acoustically separated from elderly seating</div>
+      <div><strong>Sound &amp; Sightlines:</strong> Acoustically separated from elderly seating</div>
     </div>
 
     <div class="fp-signoff">

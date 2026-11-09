@@ -407,7 +407,7 @@ function renderSeatElementsClientScript() {
       out.push('<circle cx="' + cx + '" cy="' + cy + '" r="' + rTrans + '" fill="none" stroke="#F59E0B" stroke-width="1.1" stroke-dasharray="4 4" opacity="0.32"/>');
       out.push('<circle cx="' + cx + '" cy="' + cy + '" r="' + rCore + '" fill="rgba(244,63,94,0.035)" stroke="#F43F5E" stroke-width="1.3" stroke-dasharray="3 3" opacity="0.45"/>');
       var tagY = cy - rCore + 14;
-      out.push('<text x="' + cx + '" y="' + tagY + '" text-anchor="middle" font-size="9.5" font-weight="700" fill="#9F1239" opacity="0.75" letter-spacing="0.04em">🔊 85dB+ SPEAKER BUFFER (15FT)</text>');
+      out.push('<text x="' + cx + '" y="' + tagY + '" text-anchor="middle" font-size="9.5" font-weight="700" fill="#9F1239" opacity="0.75" letter-spacing="0.04em">85dB+ SPEAKER BUFFER (15FT)</text>');
       out.push('</g>');
     });
     return out.join('');

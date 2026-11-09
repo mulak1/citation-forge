@@ -1,156 +1,137 @@
 {
   "bar_stock": {
-    "project": "bar_stock",
-    "state": "PAUSED_FOR_HUMAN_TASK",
-    "status": "PAUSED_FOR_HUMAN_TASK",
-    "last_paused_reason": "User interrupt: Railway build failures + insufficient visible Gemini Banana images across pages",
-    "reason": "User interrupt: Railway build failures + insufficient visible Gemini Banana images across pages"
+    "state": "PAUSED_FOR_HUMAN_INTERRUPT",
+    "reason": "User interrupt: Purge emoji micro-chip soup & 11px rainbow button clutter across PulseForge workbench and BarStock tabs",
+    "updated_at": "2026-11-08T23:50:45.948769+00:00"
   },
   "car_floor": {
-    "project": "car_floor",
-    "state": "PAUSED_FOR_HUMAN_TASK",
-    "status": "PAUSED_FOR_HUMAN_TASK",
-    "last_paused_reason": "User interrupt: Railway build failures + insufficient visible Gemini Banana images across pages",
-    "reason": "User interrupt: Railway build failures + insufficient visible Gemini Banana images across pages"
+    "state": "PAUSED_FOR_HUMAN_INTERRUPT",
+    "reason": "User interrupt: Purge emoji micro-chip soup & 11px rainbow button clutter across PulseForge workbench and BarStock tabs",
+    "updated_at": "2026-11-08T23:50:45.948770+00:00"
   },
   "glowindex": {
-    "project": "glowindex",
-    "state": "PAUSED_FOR_HUMAN_TASK",
-    "status": "PAUSED_FOR_HUMAN_TASK",
-    "last_paused_reason": "User interrupt: Railway build failures + insufficient visible Gemini Banana images across pages",
-    "reason": "User interrupt: Railway build failures + insufficient visible Gemini Banana images across pages"
+    "state": "PAUSED_FOR_HUMAN_INTERRUPT",
+    "reason": "User interrupt: Purge emoji micro-chip soup & 11px rainbow button clutter across PulseForge workbench and BarStock tabs",
+    "updated_at": "2026-11-08T23:50:45.948749+00:00"
   },
   "seatharmony": {
-    "project": "seatharmony",
-    "state": "PAUSED_FOR_HUMAN_TASK",
-    "status": "PAUSED_FOR_HUMAN_TASK",
-    "last_paused_reason": "User interrupt: Railway build failures + insufficient visible Gemini Banana images across pages",
-    "reason": "User interrupt: Railway build failures + insufficient visible Gemini Banana images across pages"
+    "state": "PAUSED_FOR_HUMAN_INTERRUPT",
+    "reason": "User interrupt: Purge emoji micro-chip soup & 11px rainbow button clutter across PulseForge workbench and BarStock tabs",
+    "updated_at": "2026-11-08T23:50:45.948750+00:00"
   },
   "pace_forge": {
-    "project": "pace_forge",
-    "state": "PAUSED_FOR_HUMAN_TASK",
-    "status": "PAUSED_FOR_HUMAN_TASK",
-    "last_paused_reason": "User interrupt: Railway build failures + insufficient visible Gemini Banana images across pages",
-    "reason": "User interrupt: Railway build failures + insufficient visible Gemini Banana images across pages"
+    "state": "PAUSED_FOR_HUMAN_INTERRUPT",
+    "reason": "User interrupt: Purge emoji micro-chip soup & 11px rainbow button clutter across PulseForge workbench and BarStock tabs",
+    "updated_at": "2026-11-08T23:50:45.948772+00:00"
   },
   "mortgage_recast": {
-    "project": "mortgage_recast",
-    "state": "PAUSED_FOR_HUMAN_TASK",
-    "status": "PAUSED_FOR_HUMAN_TASK",
-    "last_paused_reason": "User interrupt: Railway build failures + insufficient visible Gemini Banana images across pages",
-    "reason": "User interrupt: Railway build failures + insufficient visible Gemini Banana images across pages"
+    "state": "PAUSED_FOR_HUMAN_INTERRUPT",
+    "reason": "User interrupt: Purge emoji micro-chip soup & 11px rainbow button clutter across PulseForge workbench and BarStock tabs",
+    "updated_at": "2026-11-08T23:50:45.948752+00:00"
   },
   "sponsor-radar": {
-    "project": "sponsor-radar",
-    "state": "PAUSED_FOR_HUMAN_TASK",
-    "status": "PAUSED_FOR_HUMAN_TASK",
-    "last_paused_reason": "User interrupt: Railway build failures + insufficient visible Gemini Banana images across pages",
-    "reason": "User interrupt: Railway build failures + insufficient visible Gemini Banana images across pages"
+    "state": "PAUSED_FOR_HUMAN_INTERRUPT",
+    "reason": "User interrupt: Purge emoji micro-chip soup & 11px rainbow button clutter across PulseForge workbench and BarStock tabs",
+    "updated_at": "2026-11-08T23:50:45.948753+00:00"
   },
   "derm_logic": {
-    "project": "derm_logic",
-    "state": "PAUSED_FOR_HUMAN_TASK",
-    "status": "PAUSED_FOR_HUMAN_TASK",
-    "last_paused_reason": "User interrupt: Railway build failures + insufficient visible Gemini Banana images across pages",
-    "reason": "User interrupt: Railway build failures + insufficient visible Gemini Banana images across pages"
+    "state": "PAUSED_FOR_HUMAN_INTERRUPT",
+    "reason": "User interrupt: Purge emoji micro-chip soup & 11px rainbow button clutter across PulseForge workbench and BarStock tabs",
+    "updated_at": "2026-11-08T23:50:45.948773+00:00"
   },
   "pulseforge": {
-    "project": "pulseforge",
-    "state": "PAUSED_FOR_HUMAN_TASK",
-    "status": "PAUSED_FOR_HUMAN_TASK",
-    "last_paused_reason": "User interrupt: Railway build failures + insufficient visible Gemini Banana images across pages",
-    "reason": "User interrupt: Railway build failures + insufficient visible Gemini Banana images across pages"
+    "state": "PAUSED_FOR_HUMAN_INTERRUPT",
+    "reason": "User interrupt: Purge emoji micro-chip soup & 11px rainbow button clutter across PulseForge workbench and BarStock tabs",
+    "updated_at": "2026-11-08T23:50:45.948755+00:00"
   },
   "abandon_alpha": {
-    "project": "abandon_alpha",
-    "state": "PAUSED_FOR_HUMAN_TASK",
-    "status": "PAUSED_FOR_HUMAN_TASK",
-    "last_paused_reason": "User interrupt: Railway build failures + insufficient visible Gemini Banana images across pages",
-    "reason": "User interrupt: Railway build failures + insufficient visible Gemini Banana images across pages"
+    "state": "PAUSED_FOR_HUMAN_INTERRUPT",
+    "reason": "User interrupt: Purge emoji micro-chip soup & 11px rainbow button clutter across PulseForge workbench and BarStock tabs",
+    "updated_at": "2026-11-08T23:50:45.948777+00:00"
   },
   "/users/kadermula/downloads/ideas/studio/sponsor-radar": {
-    "project": "/users/kadermula/downloads/ideas/studio/sponsor-radar",
-    "state": "PAUSED_FOR_HUMAN_TASK",
-    "status": "PAUSED_FOR_HUMAN_TASK",
-    "last_paused_reason": "User interrupt: Railway build failures + insufficient visible Gemini Banana images across pages",
-    "reason": "User interrupt: Railway build failures + insufficient visible Gemini Banana images across pages"
+    "state": "PAUSED_FOR_HUMAN_INTERRUPT",
+    "reason": "User interrupt: Purge emoji micro-chip soup & 11px rainbow button clutter across PulseForge workbench and BarStock tabs",
+    "updated_at": "2026-11-08T23:50:45.948756+00:00"
   },
   "BarStock": {
-    "project": "BarStock",
-    "state": "PAUSED_FOR_HUMAN_TASK",
-    "status": "PAUSED_FOR_HUMAN_TASK",
-    "last_paused_reason": "User interrupt: Railway build failures + insufficient visible Gemini Banana images across pages",
-    "reason": "User interrupt: Railway build failures + insufficient visible Gemini Banana images across pages"
+    "state": "PAUSED_FOR_HUMAN_INTERRUPT",
+    "reason": "User interrupt: Purge emoji micro-chip soup & 11px rainbow button clutter across PulseForge workbench and BarStock tabs",
+    "updated_at": "2026-11-08T23:50:45.948757+00:00"
   },
   "CarFloor": {
-    "project": "CarFloor",
-    "state": "PAUSED_FOR_HUMAN_TASK",
-    "status": "PAUSED_FOR_HUMAN_TASK",
-    "last_paused_reason": "User interrupt: Railway build failures + insufficient visible Gemini Banana images across pages",
-    "reason": "User interrupt: Railway build failures + insufficient visible Gemini Banana images across pages"
+    "state": "PAUSED_FOR_HUMAN_INTERRUPT",
+    "reason": "User interrupt: Purge emoji micro-chip soup & 11px rainbow button clutter across PulseForge workbench and BarStock tabs",
+    "updated_at": "2026-11-08T23:50:45.948758+00:00"
   },
   "DermLogic": {
-    "project": "DermLogic",
-    "state": "PAUSED_FOR_HUMAN_TASK",
-    "status": "PAUSED_FOR_HUMAN_TASK",
-    "last_paused_reason": "User interrupt: Railway build failures + insufficient visible Gemini Banana images across pages",
-    "reason": "User interrupt: Railway build failures + insufficient visible Gemini Banana images across pages"
+    "state": "PAUSED_FOR_HUMAN_INTERRUPT",
+    "reason": "User interrupt: Purge emoji micro-chip soup & 11px rainbow button clutter across PulseForge workbench and BarStock tabs",
+    "updated_at": "2026-11-08T23:50:45.948759+00:00"
   },
   "GlowIndex": {
-    "project": "GlowIndex",
-    "state": "PAUSED_FOR_HUMAN_TASK",
-    "status": "PAUSED_FOR_HUMAN_TASK",
-    "last_paused_reason": "User interrupt: Railway build failures + insufficient visible Gemini Banana images across pages",
-    "reason": "User interrupt: Railway build failures + insufficient visible Gemini Banana images across pages"
+    "state": "PAUSED_FOR_HUMAN_INTERRUPT",
+    "reason": "User interrupt: Purge emoji micro-chip soup & 11px rainbow button clutter across PulseForge workbench and BarStock tabs",
+    "updated_at": "2026-11-08T23:50:45.948760+00:00"
   },
   "SeatHarmony": {
-    "project": "SeatHarmony",
-    "state": "PAUSED_FOR_HUMAN_TASK",
-    "status": "PAUSED_FOR_HUMAN_TASK",
-    "last_paused_reason": "User interrupt: Railway build failures + insufficient visible Gemini Banana images across pages",
-    "reason": "User interrupt: Railway build failures + insufficient visible Gemini Banana images across pages"
+    "state": "PAUSED_FOR_HUMAN_INTERRUPT",
+    "reason": "User interrupt: Purge emoji micro-chip soup & 11px rainbow button clutter across PulseForge workbench and BarStock tabs",
+    "updated_at": "2026-11-08T23:50:45.948761+00:00"
   },
   "PaceForge": {
-    "project": "PaceForge",
-    "state": "PAUSED_FOR_HUMAN_TASK",
-    "status": "PAUSED_FOR_HUMAN_TASK",
-    "last_paused_reason": "User interrupt: Railway build failures + insufficient visible Gemini Banana images across pages",
-    "reason": "User interrupt: Railway build failures + insufficient visible Gemini Banana images across pages"
+    "state": "PAUSED_FOR_HUMAN_INTERRUPT",
+    "reason": "User interrupt: Purge emoji micro-chip soup & 11px rainbow button clutter across PulseForge workbench and BarStock tabs",
+    "updated_at": "2026-11-08T23:50:45.948761+00:00"
   },
   "RateRecast": {
-    "project": "RateRecast",
-    "state": "PAUSED_FOR_HUMAN_TASK",
-    "status": "PAUSED_FOR_HUMAN_TASK",
-    "last_paused_reason": "User interrupt: Railway build failures + insufficient visible Gemini Banana images across pages",
-    "reason": "User interrupt: Railway build failures + insufficient visible Gemini Banana images across pages"
+    "state": "PAUSED_FOR_HUMAN_INTERRUPT",
+    "reason": "User interrupt: Purge emoji micro-chip soup & 11px rainbow button clutter across PulseForge workbench and BarStock tabs",
+    "updated_at": "2026-11-08T23:50:45.948762+00:00"
   },
   "SponsorRadar": {
-    "project": "SponsorRadar",
-    "state": "PAUSED_FOR_HUMAN_TASK",
-    "status": "PAUSED_FOR_HUMAN_TASK",
-    "last_paused_reason": "User interrupt: Railway build failures + insufficient visible Gemini Banana images across pages",
-    "reason": "User interrupt: Railway build failures + insufficient visible Gemini Banana images across pages"
+    "state": "PAUSED_FOR_HUMAN_INTERRUPT",
+    "reason": "User interrupt: Purge emoji micro-chip soup & 11px rainbow button clutter across PulseForge workbench and BarStock tabs",
+    "updated_at": "2026-11-08T23:50:45.948763+00:00"
   },
   "PulseForge": {
-    "project": "PulseForge",
-    "state": "PAUSED_FOR_HUMAN_TASK",
-    "status": "PAUSED_FOR_HUMAN_TASK",
-    "last_paused_reason": "User interrupt: Railway build failures + insufficient visible Gemini Banana images across pages",
-    "reason": "User interrupt: Railway build failures + insufficient visible Gemini Banana images across pages"
+    "state": "PAUSED_FOR_HUMAN_INTERRUPT",
+    "reason": "User interrupt: Purge emoji micro-chip soup & 11px rainbow button clutter across PulseForge workbench and BarStock tabs",
+    "updated_at": "2026-11-08T23:50:45.948764+00:00"
   },
   "AbandonAlpha": {
-    "project": "AbandonAlpha",
-    "state": "PAUSED_FOR_HUMAN_TASK",
-    "status": "PAUSED_FOR_HUMAN_TASK",
-    "last_paused_reason": "User interrupt: Railway build failures + insufficient visible Gemini Banana images across pages",
-    "reason": "User interrupt: Railway build failures + insufficient visible Gemini Banana images across pages"
+    "state": "PAUSED_FOR_HUMAN_INTERRUPT",
+    "reason": "User interrupt: Purge emoji micro-chip soup & 11px rainbow button clutter across PulseForge workbench and BarStock tabs",
+    "updated_at": "2026-11-08T23:50:45.948764+00:00"
   },
   "sponsor_radar": {
-    "project": "sponsor_radar",
-    "state": "PAUSED_FOR_HUMAN_TASK",
-    "status": "PAUSED_FOR_HUMAN_TASK",
-    "last_paused_reason": "User interrupt: Railway build failures + insufficient visible Gemini Banana images across pages",
-    "reason": "User interrupt: Railway build failures + insufficient visible Gemini Banana images across pages"
+    "state": "PAUSED_FOR_HUMAN_INTERRUPT",
+    "reason": "User interrupt: Purge emoji micro-chip soup & 11px rainbow button clutter across PulseForge workbench and BarStock tabs",
+    "updated_at": "2026-11-08T23:50:45.948775+00:00"
+  },
+  "glow_index": {
+    "state": "PAUSED_FOR_HUMAN_INTERRUPT",
+    "reason": "User interrupt: Purge emoji micro-chip soup & 11px rainbow button clutter across PulseForge workbench and BarStock tabs",
+    "updated_at": "2026-11-08T23:50:45.948774+00:00"
+  },
+  "seat_harmony": {
+    "state": "PAUSED_FOR_HUMAN_INTERRUPT",
+    "reason": "User interrupt: Purge emoji micro-chip soup & 11px rainbow button clutter across PulseForge workbench and BarStock tabs",
+    "updated_at": "2026-11-08T23:50:45.948775+00:00"
+  },
+  "rate_recast": {
+    "state": "PAUSED_FOR_HUMAN_INTERRUPT",
+    "reason": "User interrupt: Purge emoji micro-chip soup & 11px rainbow button clutter across PulseForge workbench and BarStock tabs",
+    "updated_at": "2026-11-08T23:50:45.948771+00:00"
+  },
+  "pulse_forge": {
+    "state": "PAUSED_FOR_HUMAN_INTERRUPT",
+    "reason": "User interrupt: Purge emoji micro-chip soup & 11px rainbow button clutter across PulseForge workbench and BarStock tabs",
+    "updated_at": "2026-11-08T23:50:45.948776+00:00"
+  },
+  "overmind_fleet": {
+    "state": "PAUSED_FOR_HUMAN_INTERRUPT",
+    "reason": "User interrupt: Purge emoji micro-chip soup & 11px rainbow button clutter across PulseForge workbench and BarStock tabs",
+    "updated_at": "2026-11-08T23:50:45.948778+00:00"
   }
 }

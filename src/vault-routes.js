@@ -188,7 +188,7 @@ function attachVaultAndPaywallRoutes(app, publicUrl, ebStore = null) {
     <!-- Complete Day-Of Event Bundle Package Header Strip -->
     <div class="card" style="background:#FAF8F5;border:1.5px solid #D8C29D;padding:16px 20px;margin-bottom:16px;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:12px;">
       <div style="display:flex;align-items:center;gap:12px;flex-wrap:wrap;">
-        <span style="font-size:1.6rem;line-height:1;">📦</span>
+        <span style="font-size:1.6rem;line-height:1;"></span>
         <div>
           <div style="font-size:0.70rem;font-weight:800;letter-spacing:0.08em;color:#78350F;text-transform:uppercase;">COORDINATOR-READY DAY-OF EVENT PACKAGE</div>
           <div style="font-size:1.05rem;font-weight:800;color:#181412;">Complete Day-Of Production Bundle (All 4 Assets Formatted &amp; Aligned)</div>
@@ -375,7 +375,7 @@ function attachVaultAndPaywallRoutes(app, publicUrl, ebStore = null) {
       const allergySummaryHtml = allergies.length ? `
         <div class="table-sheet-card" style="margin-bottom:16px;background:#FFF1F2;border:1.5px solid #FECDD3;border-radius:14px;padding:12px 16px;break-inside:avoid;">
           <div style="display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:8px;margin-bottom:8px;">
-            <span class="mono" style="font-size:0.70rem;font-weight:800;color:#9F1239;letter-spacing:0.04em;">⚠️ KITCHEN ALLERGY TRIAGE ROSTER (${allergies.length} ALERTS)</span>
+            <span class="mono" style="font-size:0.70rem;font-weight:800;color:#9F1239;letter-spacing:0.04em;">⚠KITCHEN ALLERGY TRIAGE ROSTER (${allergies.length} ALERTS)</span>
             <span style="font-size:0.72rem;color:#9F1239;font-weight:700;">Plate separately &bull; Red flag on food pass</span>
           </div>
           <div style="display:flex;flex-wrap:wrap;gap:8px;">
@@ -610,7 +610,7 @@ function attachVaultAndPaywallRoutes(app, publicUrl, ebStore = null) {
       ${vault.isUnlocked ? '' : `<div style="margin-top:10px;padding:12px 14px;border-radius:12px;background:#FAF6EE;border:1.5px dashed #C8A96E;font-size:0.82rem;font-weight:800;color:#78350F;">${VR_LOCK_SVG}+${Math.max(0, totalSeatedCount - 1)} Additional Seated Guests (Tables 2&ndash;${tables.length} Live Phone Lookup) &mdash; Unlock $7 Event Print Pack &uarr;</div>`}
     </div>
     <div class="qr-foyer-panel" style="min-width:0;background:#FFFFFF;border:1.5px solid #D8C29D;border-radius:22px;padding:22px;color:#181412;box-shadow:0 12px 32px rgba(24,20,18,0.06);">
-      <div style="margin-bottom:12px;display:flex;align-items:center;gap:8px;flex-wrap:wrap;"><button type="button" class="no-print" onclick="window.print()" style="cursor:pointer;background:#1B4D3E;color:#FFFFFF;border:1px solid #14382D;border-radius:10px;padding:8px 14px;font-weight:800;font-size:0.78rem;display:inline-flex;align-items:center;gap:6px;">${VR_PRINT_SVG}Print 8&Prime;&times;10&Prime; Bar Easel Sign (PDF)</button><button type="button" class="no-print" onclick="navigator.clipboard.writeText('Print at 8x10 inches on heavy 80-100 lb card stock or photo paper. Matte or satin finish for tabletop bar easels.');this.textContent='✓ Copied Easel Note!';var b=this;setTimeout(function(){b.textContent='📋 Copy Easel Spec';},2000);" style="cursor:pointer;background:#FAF3E3;color:#78350F;border:1px solid #C8A96E;border-radius:10px;padding:8px 12px;font-weight:800;font-size:0.75rem;">📋 Copy Easel Spec</button></div>
+      <div style="margin-bottom:12px;display:flex;align-items:center;gap:8px;flex-wrap:wrap;"><button type="button" class="no-print" onclick="window.print()" style="cursor:pointer;background:#1B4D3E;color:#FFFFFF;border:1px solid #14382D;border-radius:10px;padding:8px 14px;font-weight:800;font-size:0.78rem;display:inline-flex;align-items:center;gap:6px;">${VR_PRINT_SVG}Print 8&Prime;&times;10&Prime; Bar Easel Sign (PDF)</button><button type="button" class="no-print" onclick="navigator.clipboard.writeText('Print at 8x10 inches on heavy 80-100 lb card stock or photo paper. Matte or satin finish for tabletop bar easels.');this.textContent='✓ Copied Easel Note!';var b=this;setTimeout(function(){b.textContent='Copy Easel Spec';},2000);" style="cursor:pointer;background:#FAF3E3;color:#78350F;border:1px solid #C8A96E;border-radius:10px;padding:8px 12px;font-weight:800;font-size:0.75rem;">Copy Easel Spec</button></div>
       <div class="mono" style="font-size:0.70rem;font-weight:800;color:#8C2D19;letter-spacing:0.08em;text-transform:uppercase;margin-bottom:6px;">COCKTAIL-HOUR FOYER QR DISPLAY</div>
       <h2 class="serif" style="font-size:1.65rem;color:#181412;line-height:1.15;margin-bottom:10px;">Guests Scan at the Bar. Zero Easel Crowds.</h2>
       <p style="font-size:0.86rem;color:#57534E;line-height:1.5;margin-bottom:16px;">Print this QR on bar signs or the corner of your 24&Prime;&times;36&Prime; welcome sign so guests find their table and clockwise seat in 3 seconds.</p>
@@ -643,12 +643,12 @@ function attachVaultAndPaywallRoutes(app, publicUrl, ebStore = null) {
     }
     function formatZone(z) {
       var s = String(z || '').toLowerCase();
-      if (s.includes('dance')) return '📍 Near Dance Floor';
-      if (s.includes('bar')) return '🍸 Near Bar';
-      if (s.includes('patio') || s.includes('terrace') || s.includes('garden')) return '🌿 Terrace / Garden';
-      if (s.includes('window')) return '🪟 Window Side';
-      if (s.includes('head') || s.includes('stage')) return '👑 Head Table Zone';
-      return '🏛️ Main Dining Room';
+      if (s.includes('dance')) return 'Near Dance Floor';
+      if (s.includes('bar')) return 'Near Bar';
+      if (s.includes('patio') || s.includes('terrace') || s.includes('garden')) return 'Terrace / Garden';
+      if (s.includes('window')) return 'Window Side';
+      if (s.includes('head') || s.includes('stage')) return 'Head Table Zone';
+      return 'Main Dining Room';
     }
     window.saveGuestSeat = function(name, tNum, tName, sNum, cLabel, meal, zone) {
       var zStr = formatZone(zone);
