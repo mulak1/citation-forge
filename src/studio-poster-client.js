@@ -43,6 +43,19 @@ var SH_POSTER_THEMES = {
     shRenderPosterView(); shAutoPersistVault();
   };
 
+  window.shCyclePosterFontSize = function() {
+    var cur = window.__SH_POSTER_FONT_SIZE || (window.__SH_STATE && window.__SH_STATE.posterFontSize) || 'standard';
+    var next = cur === 'standard' ? 'large' : (cur === 'large' ? 'compact' : 'standard');
+    window.__SH_POSTER_FONT_SIZE = next;
+    if (window.__SH_STATE) window.__SH_STATE.posterFontSize = next;
+    var btn = document.getElementById('sh-poster-font-size-btn');
+    if (btn) {
+      btn.textContent = next === 'large' ? 'Font: 22pt (Large Serif)' : (next === 'compact' ? 'Font: 18pt (Compact)' : 'Font: 20pt (Standard)');
+      btn.classList.toggle('active', next !== 'standard');
+    }
+    shRenderPosterView(); shAutoPersistVault();
+  };
+
   window.shTogglePosterMiniMap = function() {
     var cur = window.__SH_POSTER_SHOW_MAP !== false && (!window.__SH_STATE || window.__SH_STATE.posterShowMap !== false);
     var next = !cur;
@@ -158,7 +171,7 @@ var SH_POSTER_THEMES = {
         t.guests.forEach(function(g, idx) { const parsed = shFormatPosterName(g.name); all.push({ sortKey: parsed.sortKey, display: parsed.display, tableNum: t.number, seatNum: idx + 1 }); });
       });
       all.sort(function(a, b) { return a.sortKey.localeCompare(b.sortKey); });
-      bodyHtml = '<div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(185px,1fr));gap:6px 16px;text-align:left;">' + all.map(function(g) { return '<div style="display:flex;justify-content:space-between;gap:8px;font-size:0.74rem;border-bottom:1px dotted ' + borderCol + ';padding:2px 0;color:' + fg + ';"><span style="overflow:hidden;text-overflow:ellipsis;white-space:nowrap;">' + shEsc(g.display) + '</span><strong class="mono" style="font-size:0.70rem;flex-shrink:0;">Tbl ' + g.tableNum + ' (Sample)</strong></div>'; }).join('') + '</div>' + posterLockedBannerHtml;
+      bodyHtml = '<div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(185px,1fr));gap:6px 16px;text-align:left;">' + all.map(function(g) { const curFSize = (window.__SH_POSTER_FONT_SIZE === 'large' ? '0.88rem' : (window.__SH_POSTER_FONT_SIZE === 'compact' ? '0.70rem' : '0.76rem')); return '<div style="display:flex;justify-content:space-between;gap:8px;font-size:' + curFSize + ';border-bottom:1px dotted ' + borderCol + ';padding:2px 0;color:' + fg + ';"><span style="overflow:hidden;text-overflow:ellipsis;white-space:nowrap;">' + shEsc(g.display) + '</span><strong class="mono" style="font-size:0.70rem;flex-shrink:0;">Tbl ' + g.tableNum + ' (Sample)</strong></div>'; }).join('') + '</div>' + posterLockedBannerHtml;
     }
     const posterCrestHtml = logoUrl
       ? '<img src="' + shEsc(logoUrl) + '" alt="Couple Crest" style="width:100%;height:100%;object-fit:contain;background:#FFFFFF;padding:4px;" />'
@@ -224,7 +237,8 @@ var SH_POSTER_THEMES = {
     var vId = (window.__SH_STATE && window.__SH_STATE.vaultId) || 'SH-4819';
     var theme = window.__SH_POSTER_THEME || (window.__SH_STATE && window.__SH_STATE.posterTheme) || 'alabaster';
     var sort = (window.__SH_POSTER_MODE || (window.__SH_STATE && window.__SH_STATE.posterSort) || 'alphabetical');
-    var win = window.open('/print/poster/' + encodeURIComponent(vId) + '?theme=' + encodeURIComponent(theme) + '&sort=' + encodeURIComponent(sort) + '&auto_print=1', '_blank');
+    var fSize = window.__SH_POSTER_FONT_SIZE || (window.__SH_STATE && window.__SH_STATE.posterFontSize) || 'standard';
+    var win = window.open('/print/poster/' + encodeURIComponent(vId) + '?theme=' + encodeURIComponent(theme) + '&sort=' + encodeURIComponent(sort) + '&size=' + encodeURIComponent(fSize) + '&auto_print=1', '_blank');
     if (win) win.focus();
     if (window.shTrackTelemetry) window.shTrackTelemetry('view_poster_proof', { vaultId: vId, theme: theme });
   };

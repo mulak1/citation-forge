@@ -27,7 +27,9 @@ function renderPosterPrintPage(vault, urls, query = {}) {
       const monoFontRem = monogram.length > 5 ? '0.95rem' : (monogram.length > 3 ? '1.22rem' : '1.52rem'), qrImgUrl = buildRealQrUrl(urls.qr_lookup), fallbackQrUri = buildInlineQrDataUri(urls.qr_lookup);
       const buyPackUrl = `/buy/complete_dossier?target=${encodeURIComponent(vault.title || vault.vaultId)}&vault=${encodeURIComponent(vault.vaultId)}${vault.ownerEmail ? `&email=${encodeURIComponent(vault.ownerEmail)}` : ''}`;
       const posterColCount = guests.length > 185 ? 5 : (guests.length > 115 ? 4 : 3);
-      const guestNameFontSize = posterColCount === 5 ? '0.78rem' : (posterColCount === 4 ? '0.84rem' : '0.90rem');
+      const customSize = String(query.size || (vault.state && vault.state.posterFontSize) || '').toLowerCase();
+      const baseSizeRem = customSize === 'large' ? 1.05 : (customSize === 'compact' ? 0.78 : (posterColCount === 5 ? 0.82 : (posterColCount === 4 ? 0.88 : 0.94)));
+      const guestNameFontSize = baseSizeRem + 'rem';
 
       const POSTER_THEMES = {
         alabaster: { label: 'Parisian Gold', short: 'Gold', bg: '#FAF6EE', fg: '#181412', sub: '#57534E', accent: '#8C2D19', border: '#C8A96E' },
