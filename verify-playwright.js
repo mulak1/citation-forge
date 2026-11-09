@@ -167,19 +167,24 @@ async function runVerification() {
     // A. Navigate to `/` on Desktop
     await page.goto(`${BASE_URL}/`, { waitUntil: 'networkidle' });
 
-    // Verify hyperlinked SVG logo exists and points to `/`
+    // Verify hyperlinked SVG logo exists and points to `/` + Guardrail #31 zero emojis & button cap
     const logoCheck = await page.evaluate(() => {
       const link = document.getElementById('nav-brand-logo-link');
       const svg = document.getElementById('citation-forge-logo-svg');
+      const emojiMatches = (document.body.innerText || '').match(/[\u{1F300}-\u{1FAFF}]/gu) || [];
       return {
         exists: Boolean(link && svg),
         href: link ? link.getAttribute('href') : null,
+        emojiCount: emojiMatches.length,
         hasFloatingFixedOverlays: Array.from(document.querySelectorAll('*')).some(el => {
           const style = window.getComputedStyle(el);
           return style.position === 'fixed' && style.display !== 'none' && el.tagName !== 'HEADER';
         })
       };
     });
+    if (logoCheck.emojiCount > 0) {
+      throw new Error(`Guardrail #31 violation: found ${logoCheck.emojiCount} Unicode emojis on homepage`);
+    }
     results.preLaunch20PointChecks.desktopLogoAndZeroFloatingOverlays = logoCheck;
 
     const initialTitle = await page.locator('#score-brand-title').textContent();
