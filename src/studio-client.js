@@ -4,6 +4,7 @@
  */
 
 const { renderDeliverablesClientScript } = require('./studio-deliverables-client');
+const { renderVslClientScript } = require('./studio-vsl-client');
 const { renderPosterClientScript } = require('./studio-poster-client');
 const { renderSetupWizardClientScript } = require('./setup-wizard');
 const { renderSeatEditorClientScript } = require('./seat-editor');
@@ -906,6 +907,7 @@ function renderInteractiveScript(initialPlan) {
     shSyncTableSelectAndPills(); shToast('✓ Removed ' + (removed ? removed.name : 'Table')); shRenderAll();
   };
 
+  ${renderVslClientScript()}
   ${renderDeliverablesClientScript()}
   ${renderPosterClientScript()}
 
