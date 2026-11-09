@@ -347,4 +347,135 @@ function renderAveryPrintPage(vault, urls, query = {}) {
   return html;
 }
 
-module.exports = { renderPosterPrintPage, renderAveryPrintPage };
+function renderServerStationRoutePage(vault, urls, query = {}) {
+  const tables = Array.isArray(vault.state && vault.state.tables) ? vault.state.tables : [];
+  const allGuests = extractAllSeatedGuests(vault.state || {});
+  const buyPackUrl = `/buy/complete_dossier?target=${encodeURIComponent(vault.title || vault.vaultId)}&vault=${encodeURIComponent(vault.vaultId)}${vault.ownerEmail ? `&email=${encodeURIComponent(vault.ownerEmail)}` : ''}`;
+
+  // Partition tables into Server Stations (2 tables per station standard)
+  const stations = [];
+  for (let i = 0; i < tables.length; i += 2) {
+    const assignedTables = tables.slice(i, i + 2);
+    const stationNumber = Math.floor(i / 2) + 1;
+    const stationName = stationNumber === 1 ? 'Station 1: Sweetheart & VIP Lead' : `Station ${stationNumber}: Floor Service`;
+    const assignedTableNumbers = assignedTables.map(t => t.number || (tables.indexOf(t) + 1));
+    const stationGuests = allGuests.filter(g => assignedTableNumbers.includes(g.tableNumber));
+
+    const covers = stationGuests.length;
+    const beef = stationGuests.filter(g => mealSymbolInfo(g.meal).code === 'BEEF').length;
+    const fish = stationGuests.filter(g => mealSymbolInfo(g.meal).code === 'FISH').length;
+    const chicken = stationGuests.filter(g => mealSymbolInfo(g.meal).code === 'CHICKEN').length;
+    const veg = stationGuests.filter(g => ['VEGAN', 'VEG'].includes(mealSymbolInfo(g.meal).code)).length;
+    const kids = stationGuests.filter(g => mealSymbolInfo(g.meal).code === 'KIDS').length;
+    const allergies = stationGuests.filter(g => g.allergy && g.allergy !== 'None');
+
+    stations.push({
+      stationNumber,
+      stationName,
+      tables: assignedTables,
+      covers,
+      beef,
+      fish,
+      chicken,
+      veg,
+      kids,
+      allergies,
+      guests: stationGuests
+    });
+  }
+
+  const csvRows = [
+    'Station_Number,Station_Name,Table,Seat,Guest_Name,Entree,Allergy_Alert',
+    ...stations.flatMap(s => s.guests.map(g => `${s.stationNumber},"${s.stationName}","${g.tableName}",Seat #${g.seatNumber},"${g.name}","${g.meal}","${g.allergy || 'None'}"`))
+  ].join('\r\n');
+  const csvDataUri = 'data:text/csv;charset=utf-8,' + encodeURIComponent(csvRows);
+
+  const stationsHtml = stations.map(s => {
+    const tableNames = s.tables.map(t => t.name || `Table ${t.tableNumber}`).join(' &amp; ');
+    const allergyListHtml = s.allergies.length ? `
+      <div style="margin-top:10px;padding:8px 12px;background:#FFF1F2;border:1px solid #FECDD3;border-radius:8px;">
+        <div style="font-size:13px;font-weight:700;color:#9F1239;margin-bottom:4px;">Kitchen Allergy Alerts (${s.allergies.length}):</div>
+        <div style="display:flex;flex-wrap:wrap;gap:6px;">
+          ${s.allergies.map(a => `<span style="font-size:13px;color:#9F1239;background:#FFFFFF;border:1px solid #FDA4AF;padding:2px 8px;border-radius:4px;"><strong>${escapeHtml(a.tableName)} #${a.seatNumber}:</strong> ${escapeHtml(a.name)} (${escapeHtml(a.allergy)})</span>`).join('')}
+        </div>
+      </div>` : '';
+
+    return `
+    <div class="station-card" style="page-break-inside:avoid;margin-bottom:20px;background:#FFFFFF;border:1.5px solid #D8C29D;border-radius:12px;padding:16px;">
+      <div style="display:flex;justify-content:space-between;align-items:flex-start;border-bottom:1px solid #EAE0D0;padding-bottom:10px;margin-bottom:12px;flex-wrap:wrap;gap:8px;">
+        <div>
+          <span style="font-size:13px;font-weight:700;color:#1B4D3E;background:#EBF4F0;padding:3px 10px;border-radius:999px;">${escapeHtml(s.stationName)}</span>
+          <h3 style="font-family:Georgia, serif;font-size:18px;margin:6px 0 2px;color:#181412;">Assigned Tables: ${tableNames}</h3>
+          <div style="font-size:13px;color:#57534E;">Capacity: ${s.covers} Covers &bull; 1 Server Assigned</div>
+        </div>
+        <div style="display:flex;gap:6px;flex-wrap:wrap;font-size:13px;font-weight:700;">
+          <span style="background:#FAF8F5;border:1px solid #D6CBB8;padding:4px 8px;border-radius:6px;color:#181412;">Beef: ${s.beef}</span>
+          <span style="background:#FAF8F5;border:1px solid #D6CBB8;padding:4px 8px;border-radius:6px;color:#181412;">Fish: ${s.fish}</span>
+          <span style="background:#FAF8F5;border:1px solid #D6CBB8;padding:4px 8px;border-radius:6px;color:#181412;">Chicken: ${s.chicken}</span>
+          <span style="background:#FAF8F5;border:1px solid #D6CBB8;padding:4px 8px;border-radius:6px;color:#1B4D3E;">Veg: ${s.veg}</span>
+          ${s.kids ? `<span style="background:#FAF8F5;border:1px solid #D6CBB8;padding:4px 8px;border-radius:6px;color:#78350F;">Kids: ${s.kids}</span>` : ''}
+        </div>
+      </div>
+
+      <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:12px;">
+        <div style="padding:10px 12px;background:#FAF8F5;border:1px solid #EAE0D0;border-radius:8px;">
+          <div style="font-size:13px;font-weight:700;color:#181412;margin-bottom:4px;">Simultaneous Plating Protocol:</div>
+          <ol style="margin:0 0 0 18px;padding:0;font-size:13px;color:#44403C;line-height:1.5;">
+            <li>Pour water &amp; toast champagne clockwise from Seat #1 (12:00).</li>
+            <li>Synchronized first-course drop with adjacent station server.</li>
+            <li>Hot entree firing: announce allergy alert plates on table approach.</li>
+            <li>Return dirty covers through designated 60-inch caterer lane.</li>
+          </ol>
+        </div>
+
+        <div style="padding:10px 12px;background:#FAF8F5;border:1px solid #EAE0D0;border-radius:8px;">
+          <div style="font-size:13px;font-weight:700;color:#181412;margin-bottom:4px;">Server Station Seating Roster:</div>
+          <div style="max-height:160px;overflow-y:auto;font-size:13px;color:#44403C;">
+            ${s.guests.map(g => `<div style="padding:2px 0;border-bottom:1px dashed #E5E7EB;display:flex;justify-content:space-between;gap:8px;"><span>${escapeHtml(g.tableName)} #${g.seatNumber}: <strong>${escapeHtml(g.name)}</strong></span><span style="color:#1B4D3E;">${escapeHtml(g.meal)}</span></div>`).join('')}
+          </div>
+        </div>
+      </div>
+
+      ${allergyListHtml}
+    </div>`;
+  }).join('');
+
+  return `<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Banquet Server Station &amp; Plating Route Guide | ${escapeHtml(vault.title || 'SeatHarmony')}</title>
+  <style>
+    :root { --font-sans: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif; }
+    * { box-sizing: border-box; }
+    body { margin: 0; padding: 0; background: #F8F6F0; color: #181412; font-family: var(--font-sans); font-size: 14px; line-height: 1.45; }
+    @media print {
+      .no-print { display: none !important; }
+      body { background: #FFFFFF !important; }
+      .station-card { break-inside: avoid !important; border: 1px solid #000000 !important; }
+      @page { size: letter portrait; margin: 0.4in; }
+    }
+  </style>
+</head>
+<body>
+  ${renderTopPrintBar({ vault, activeRoute: 'stations', baseUrl: urls.vault_dashboard.split('/vault/')[0] })}
+  <main style="max-width:960px;margin:24px auto;padding:0 18px 48px;">
+    <div class="no-print" style="margin-bottom:20px;padding:16px 20px;background:#FFFFFF;border:1px solid #D8C29D;border-radius:12px;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:12px;">
+      <div>
+        <h1 style="font-family:Georgia, serif;font-size:22px;margin:0 0 4px;color:#181412;">Banquet Server Stations &amp; Plating Route Guide</h1>
+        <div style="font-size:13px;color:#57534E;">${stations.length} Service Stations &bull; ${allGuests.length} Total Covers &bull; Standard 2-Table Plating Ratio</div>
+      </div>
+      <div style="display:flex;gap:8px;align-items:center;flex-wrap:wrap;">
+        <button type="button" onclick="window.print()" style="cursor:pointer;background:#1B4D3E;color:#FFFFFF;border:1px solid #14382D;padding:8px 16px;border-radius:8px;font-size:13px;font-weight:700;">Print Server Guide (PDF)</button>
+        <a href="${csvDataUri}" download="server_stations_${escapeHtml(vault.vaultId)}.csv" style="text-decoration:none;background:#FFFFFF;color:#1B4D3E;border:1px solid #1B4D3E;padding:8px 14px;border-radius:8px;font-size:13px;font-weight:700;">Export Station CSV</a>
+      </div>
+    </div>
+
+    ${stationsHtml}
+  </main>
+</body>
+</html>`;
+}
+
+module.exports = { renderPosterPrintPage, renderAveryPrintPage, renderServerStationRoutePage };

@@ -13,7 +13,7 @@ const { queryOne, queryAll, runInsert } = require('./db');
 const { runGeoAudit } = require('./geo-engine');
 const { escapeHtml, renderBrandLogoSvg } = require('./templates');
 const { renderFloorplanPrintPage } = require('./vault-floorplan-view');
-const { renderPosterPrintPage, renderAveryPrintPage } = require('./vault-print-views');
+const { renderPosterPrintPage, renderAveryPrintPage, renderServerStationRoutePage } = require('./vault-print-views');
 
 const {
   normalizeVaultId,
@@ -508,6 +508,7 @@ function attachVaultAndPaywallRoutes(app, publicUrl, ebStore = null) {
       <div class="no-print" style="display:flex;gap:8px;flex-wrap:wrap;flex-shrink:0;">
         <button id="email-caterer-btn" type="button" onclick="window.openCatererEmail()" style="background:#FAF3E3;color:#78350F;border:1.5px solid #C8A96E;border-radius:10px;padding:9px 14px;font-weight:800;font-size:0.78rem;cursor:pointer;white-space:nowrap;display:inline-flex;align-items:center;gap:6px;">&#9993; Email Caterer Packet</button>
         <button id="download-csv" type="button" onclick="window.downloadBeoCsv()" style="background:#FFFFFF;color:#1B4D3E;border:1.5px solid #1B4D3E;border-radius:10px;padding:9px 14px;font-weight:800;font-size:0.78rem;cursor:pointer;white-space:nowrap;">&darr; Export .CSV</button>
+        <a href="${urls.print_stations}" style="text-decoration:none;background:#FAF8F5;color:#1B4D3E;border:1.5px solid #D8C29D;border-radius:10px;padding:9px 14px;font-weight:800;font-size:0.78rem;white-space:nowrap;display:inline-flex;align-items:center;gap:6px;">Server Stations Guide &rarr;</a>
         <button type="button" onclick="window.print()" style="background:#1B4D3E;color:#FFFFFF;border:1px solid #14382D;border-radius:10px;padding:9px 16px;font-weight:800;font-size:0.80rem;cursor:pointer;white-space:nowrap;display:inline-flex;align-items:center;gap:6px;">${VR_PRINT_SVG}Print Signed Meal Sheet PDF</button>
       </div>
     </div>
@@ -551,6 +552,15 @@ function attachVaultAndPaywallRoutes(app, publicUrl, ebStore = null) {
 </body>
 </html>`;
       return res.status(200).type('html').send(html);
+    } catch (err) { return res.status(500).send('Internal Server Error'); }
+  });
+
+  // 7b. Banquet Server Station & Simultaneous Plating Route Guide (GET /print/server-stations/:vaultId)
+  app.get('/print/server-stations/:vaultId', async (req, res) => {
+    try {
+      const vault = await resolveVaultRecord(req.params.vaultId, req.query);
+      const urls = buildVaultUrls(baseUrl, vault.vaultId);
+      return res.status(200).type('html').send(renderServerStationRoutePage(vault, urls, req.query));
     } catch (err) { return res.status(500).send('Internal Server Error'); }
   });
 
