@@ -326,6 +326,31 @@ function renderSeatEditorClientScript() {
     if (window.shFlashTable) window.shFlashTable(toIdx);
     shToast('\\u2713 Moved ' + g1.name + ' & ' + g2.name + ' together to ' + shEdTableLabel(dst)); shRenderAll();
   };
+  window.shEdAddPlusOne = function(tIdx, sIdx) {
+    var tbl = window.__SH_STATE && window.__SH_STATE.tables && window.__SH_STATE.tables[tIdx];
+    if (!tbl || !tbl.guests || !tbl.guests[sIdx]) return;
+    var g = tbl.guests[sIdx];
+    window.__SH_STATE.hasUserEdits = true;
+    window.__SH_SETUP.sample = false;
+    window.shSnapshot('Add Plus-One for ' + g.name);
+    var hhId = g.hhId || ('hh_' + Date.now());
+    g.hhId = hhId;
+    var firstName = String(g.name || 'Guest').trim().split(/\\s+/)[0] || 'Guest';
+    var plusOne = {
+      name: firstName + "'s Plus-One",
+      meal: g.meal || 'Pan-Seared Halibut',
+      allergy: '',
+      accessibility: '',
+      hhId: hhId,
+      group: g.group || 'Friends'
+    };
+    tbl.guests.push(plusOne);
+    tbl.capacity = Math.max(tbl.capacity || 8, tbl.guests.length);
+    shRecomputeGeometry(tbl);
+    window.__SH_OPEN_GUEST = { t: tIdx, s: tbl.guests.length - 1 };
+    shToast('\\u2713 Added ' + plusOne.name + ' (+1 chair at ' + shEdTableLabel(tbl) + ')');
+    shRenderAll();
+  };
   window.shEdSwapWith = function(tIdx, sIdx, val) {
     var p = String(val || '').split(':'); if (p.length !== 2) return;
     var oT = Number(p[0]), oS = Number(p[1]);
@@ -879,6 +904,8 @@ function renderSeatEditorClientScript() {
             h.push('<button type="button" class="sh-ed-chip" onclick="window.shEdMoveCouple(' + tIdx + ',' + sIdx + ',' + pIdx + ',' + oIdx + ')">Both &rarr; ' + shEsc(shEdTableLabel(ot)) + '</button>');
           });
           h.push('</div></div>');
+        } else {
+          h.push('<div style="margin:6px 0 8px;"><button type="button" class="sh-ed-ghost" style="width:100%;border-color:#10B981;color:#065F46;background:#ECFDF5;font-weight:700;padding:6px 10px;font-size:0.80rem;" onclick="window.shEdAddPlusOne(' + tIdx + ',' + sIdx + ')">+ Add Plus-One for ' + shEsc(g.name.split(' ')[0]) + ' (adds chair &amp; keeps together)</button></div>');
         }
         var swapOpts = ['<option value="">Swap seat with someone...</option>'];
         tables.forEach(function(ot, oIdx) { ot.guests.forEach(function(og2, oS) { if (oIdx === tIdx && oS === sIdx) return; swapOpts.push('<option value="' + oIdx + ':' + oS + '">' + shEsc(shEdTableLabel(ot) + ': ' + og2.name) + '</option>'); }); });
