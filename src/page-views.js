@@ -504,6 +504,7 @@ function renderZone3InteractiveStudio(plan) {
                   <div style="display:flex;gap:5px;flex-wrap:wrap;">
                     <button type="button" id="sh-view-mode-poster-btn" class="studio-tap-chip active" onclick="window.shSwitchSignSubView && window.shSwitchSignSubView('poster')" style="font-weight:700;">24"×36" Poster</button>
                     <button type="button" id="sh-view-mode-avery-btn" class="studio-tap-chip" onclick="window.shSwitchSignSubView && window.shSwitchSignSubView('avery')" style="font-weight:700;">Avery 5302 Cards</button>
+                    <button type="button" id="sh-view-mode-badge-btn" class="studio-tap-chip" onclick="window.shSwitchSignSubView && window.shSwitchSignSubView('badges')" style="font-weight:700;">Avery 5395 Badges</button>
                     <span style="border-right:1px solid #D1D5DB;height:18px;margin:auto 2px;"></span>
                     <button type="button" class="studio-tap-chip active" data-poster-sort="alphabetical" onclick="window.shSetPosterMode('alphabetical',null)">Sort A-Z</button>
                     <button type="button" class="studio-tap-chip" data-poster-sort="by_table" onclick="window.shSetPosterMode('by_table',null)">By Table</button>
@@ -531,6 +532,7 @@ function renderZone3InteractiveStudio(plan) {
                 </div>
                 <div id="sh-poster-preview" style="max-height:240px;overflow-y:auto;margin-bottom:10px;"></div>
                 <div id="sh-avery-preview" style="display:none;margin-bottom:10px;"></div>
+                <div id="sh-badge-preview" style="display:none;margin-bottom:10px;"></div>
                 <!-- LOCAL PRINT-SHOP PRODUCTION PROOF & SATISFACTION GUARANTEE -->
                 <div id="sh-poster-printshop-guarantee" style="margin-top:12px;padding:12px 16px;border-radius:12px;background:#FAF8F5;border:1px solid #E2D9C8;display:flex;flex-wrap:wrap;align-items:center;justify-content:space-between;gap:10px;font-size:13px;color:#1F1B18;">
                   <div style="display:flex;align-items:center;gap:8px;flex-wrap:wrap;min-width:0;">

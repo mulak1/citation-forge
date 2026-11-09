@@ -203,22 +203,69 @@ var SH_POSTER_THEMES = {
     shSyncVaultIdLinks((window.__SH_STATE && window.__SH_STATE.vaultId) || 'SH-4819');
   }
 
+  window.shRenderBadgePreview = function() {
+    var badgeEl = document.getElementById('sh-badge-preview');
+    if (!badgeEl || !window.__SH_STATE) return;
+    var tablesArr = window.__SH_STATE.tables || [];
+    var sampleBadges = [];
+    tablesArr.forEach(function(t) {
+      (t.guests || []).forEach(function(g, idx) {
+        sampleBadges.push({ g: g, tNum: t.number, sNum: idx + 1 });
+      });
+    });
+    var visibleBadges = sampleBadges.slice(0, 4);
+    var badgeCardsHtml = visibleBadges.map(function(b) {
+      var mb = shMealBadge(b.g.meal);
+      var al = b.g.allergy ? String(b.g.allergy).replace(/[^A-Za-z0-9\\s()-]/g, '').trim() : '';
+      return '<div style="background:#FFFFFF;border:1.5px solid #065F46;border-radius:10px;padding:12px;box-shadow:0 4px 10px rgba(6,95,70,0.06);display:flex;flex-direction:column;justify-content:space-between;min-height:115px;">' +
+        '<div style="display:flex;justify-content:space-between;align-items:center;border-bottom:1px solid #E5E7EB;padding-bottom:5px;margin-bottom:6px;">' +
+          '<span style="font-size:0.65rem;font-weight:800;color:#065F46;letter-spacing:0.06em;text-transform:uppercase;">NAME BADGE &middot; AVERY 5395</span>' +
+          '<span style="font-size:0.65rem;font-weight:700;padding:1px 6px;border-radius:4px;background:' + mb.bg + ';color:' + mb.color + ';">' + mb.code + ' ' + mb.short + '</span>' +
+        '</div>' +
+        '<div>' +
+          '<div class="serif-display" style="font-size:1.15rem;font-weight:700;color:#181412;line-height:1.2;">' + shEsc(b.g.name) + '</div>' +
+          '<div style="font-size:0.75rem;color:#4B5563;font-weight:600;margin-top:2px;">Table ' + b.tNum + ' &middot; Seat #' + b.sNum + '</div>' +
+        '</div>' +
+        (al ? '<div style="font-size:0.68rem;font-weight:800;color:#9F1239;background:#FFF1F2;border:1px solid #FECDD3;padding:2px 6px;border-radius:4px;margin-top:6px;align-self:flex-start;">Dietary Alert: ' + shEsc(al) + '</div>' : '<div style="font-size:0.65rem;color:#9CA3AF;margin-top:4px;">No dietary restrictions</div>') +
+      '</div>';
+    }).join('');
+
+    badgeEl.innerHTML = '<div style="padding:14px;border-radius:12px;background:linear-gradient(135deg,#ECFDF5 0%,#E6F4EA 100%);border:1.5px solid #065F46;">' +
+      '<div style="display:flex;flex-wrap:wrap;align-items:center;justify-content:space-between;gap:10px;margin-bottom:12px;">' +
+        '<div>' +
+          '<div style="display:flex;align-items:center;gap:6px;flex-wrap:wrap;">' +
+            '<span style="font-size:0.78rem;font-weight:800;color:#065F46;">Clip-On Name Badges (Avery 5395 &middot; ' + sampleBadges.length + ' Guests)</span>' +
+            '<span style="font-size:0.68rem;font-weight:700;color:#065F46;background:#FFFFFF;border:1px solid #065F46;border-radius:999px;padding:1px 8px;">8 Badges / Letter Sheet (2⅓″ &times; 3⅜″)</span>' +
+          '</div>' +
+          '<div style="font-size:0.78rem;color:#374151;margin-top:2px;">Clip badges with table assignments, server meal codes, and dietary alerts.</div>' +
+        '</div>' +
+        '<div style="display:flex;gap:6px;flex-wrap:wrap;">' +
+          '<button type="button" class="btn btn-secondary" onclick="window.print()" style="padding:6px 12px;font-size:0.73rem;background:#FFFFFF;border-color:#065F46;color:#065F46;font-weight:800;">Print Sample Badges (PDF)</button>' +
+        '</div>' +
+      '</div>' +
+      '<div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(210px,1fr));gap:10px;">' + badgeCardsHtml + '</div>' +
+    '</div>';
+  };
+
   window.shSwitchSignSubView = function(mode) {
     window.__SH_SIGN_SUBVIEW = mode;
     var pBtn = document.getElementById('sh-view-mode-poster-btn');
     var aBtn = document.getElementById('sh-view-mode-avery-btn');
+    var bBtn = document.getElementById('sh-view-mode-badge-btn');
     var posterEl = document.getElementById('sh-poster-preview');
     var averyEl = document.getElementById('sh-avery-preview');
-    if (mode === 'avery') {
-      if (pBtn) pBtn.classList.remove('active');
-      if (aBtn) aBtn.classList.add('active');
-      if (posterEl) posterEl.style.display = 'none';
-      if (averyEl) { averyEl.style.display = 'block'; averyEl.scrollIntoView({ behavior: 'smooth', block: 'nearest' }); }
-    } else {
-      if (pBtn) pBtn.classList.add('active');
-      if (aBtn) aBtn.classList.remove('active');
-      if (posterEl) { posterEl.style.display = 'block'; posterEl.scrollIntoView({ behavior: 'smooth', block: 'nearest' }); }
-      if (averyEl) averyEl.style.display = 'none';
+    var badgeEl = document.getElementById('sh-badge-preview');
+    if (pBtn) pBtn.classList.toggle('active', mode === 'poster');
+    if (aBtn) aBtn.classList.toggle('active', mode === 'avery');
+    if (bBtn) bBtn.classList.toggle('active', mode === 'badges');
+    if (posterEl) posterEl.style.display = mode === 'poster' ? 'block' : 'none';
+    if (averyEl) averyEl.style.display = mode === 'avery' ? 'block' : 'none';
+    if (badgeEl) {
+      badgeEl.style.display = mode === 'badges' ? 'block' : 'none';
+      if (mode === 'badges') {
+        window.shRenderBadgePreview();
+        badgeEl.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+      }
     }
   };
 
