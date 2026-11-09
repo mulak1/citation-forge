@@ -490,6 +490,71 @@ function renderSeatElementsClientScript() {
       shToast(changed > 0 ? ('\\u2713 Capitalized ' + changed + ' guest names (fixed all-caps & lowercase)!') : '\\u2713 All guest names already properly capitalized!');
     }
     if (typeof shRenderAll === 'function') shRenderAll();
+  };
+
+  window.shPrintTablePlacard = function(tIdx) {
+    var plan = window.__SH_STATE; if (!plan || !plan.tables) return;
+    var t = plan.tables[tIdx]; if (!t) return;
+    var tName = t.name || ('Table ' + (tIdx + 1));
+    var eventTitle = plan.coupleNames || plan.title || 'Wedding Reception';
+    var dateOrVenue = (plan.weddingDate || plan.date || '') + (plan.venueName ? (' · ' + plan.venueName) : '');
+    var guests = t.guests || [];
+    var guestsHtml = guests.map(function(g, idx) {
+      var note = '';
+      if (g.meal) note += ' <span style="font-size:10px;padding:1px 5px;background:#F5EFE6;border-radius:4px;color:#78350F;">' + (g.meal === 'vegetarian' ? '🌱 Veg' : (g.meal === 'vegan' ? '🌱 Vegan' : (g.meal === 'fish' ? '🐟 Fish' : (g.meal === 'beef' ? '🥩 Beef' : g.meal)))) + '</span>';
+      if (g.allergy) note += ' <span style="font-size:10px;padding:1px 5px;background:#FEE2E2;border-radius:4px;color:#991B1B;">⚠️ ' + g.allergy + '</span>';
+      return '<li style="padding:4px 0;border-bottom:1px dashed #E5E7EB;display:flex;justify-content:space-between;align-items:center;font-size:13px;color:#1F2937;"><span><strong>' + (idx + 1) + '.</strong> ' + g.name + '</span><span>' + note + '</span></li>';
+    }).join('');
+
+    var modalId = 'sh-placard-modal';
+    var exist = document.getElementById(modalId);
+    if (exist) exist.remove();
+
+    var div = document.createElement('div');
+    div.id = modalId;
+    div.style.cssText = 'position:fixed;inset:0;background:rgba(0,0,0,0.65);z-index:99999;display:flex;align-items:center;justify-content:center;padding:16px;overflow-y:auto;';
+    div.innerHTML = '<style>' +
+      '@media print {' +
+        'body * { visibility: hidden !important; }' +
+        '#sh-placard-print-area, #sh-placard-print-area * { visibility: visible !important; }' +
+        '#sh-placard-print-area { position: fixed !important; left: 0 !important; top: 0 !important; width: 4in !important; height: 6in !important; margin: 0 !important; padding: 24px !important; box-shadow: none !important; border: 2px solid #1B4D3E !important; }' +
+        '@page { size: 4in 6in; margin: 0; }' +
+      '}' +
+      '</style>' +
+      '<div style="background:#FFFFFF;border-radius:12px;max-width:480px;width:100%;box-shadow:0 20px 40px rgba(0,0,0,0.25);overflow:hidden;position:relative;">' +
+        '<div style="background:#1B4D3E;color:#FFFFFF;padding:12px 18px;display:flex;justify-content:space-between;align-items:center;">' +
+          '<div style="font-size:14px;font-weight:700;">🪧 4" × 6" Table QR Placard &amp; Menu Stand</div>' +
+          '<button type="button" onclick="document.getElementById(\\'' + modalId + '\\').remove()" style="background:transparent;border:none;color:#FFFFFF;font-size:18px;cursor:pointer;line-height:1;">&times;</button>' +
+        '</div>' +
+        '<div style="padding:16px;background:#FAF8F5;display:flex;justify-content:center;">' +
+          '<div id="sh-placard-print-area" style="width:340px;height:510px;background:#FFFFFF;border:3px double #C8A96E;box-shadow:0 4px 14px rgba(0,0,0,0.08);padding:24px 20px;display:flex;flex-direction:column;justify-content:space-between;box-sizing:border-box;font-family:Georgia,serif;text-align:center;">' +
+            '<div>' +
+              '<div style="font-size:11px;letter-spacing:2px;text-transform:uppercase;color:#8C2D19;font-weight:700;margin-bottom:4px;">' + (eventTitle) + '</div>' +
+              (dateOrVenue ? '<div style="font-size:10px;color:#6B7280;margin-bottom:12px;">' + dateOrVenue + '</div>' : '<div style="margin-bottom:8px;"></div>') +
+              '<div style="font-size:24px;font-weight:700;color:#1B4D3E;letter-spacing:0.5px;padding-bottom:8px;border-bottom:1px solid #E5E7EB;">' + (tName) + '</div>' +
+              '<div style="font-size:10px;color:#78350F;font-family:sans-serif;font-weight:600;margin-top:6px;letter-spacing:0.5px;">' + guests.length + ' RESERVED SEATS · CLOCKWISE 12:00</div>' +
+            '</div>' +
+            '<ul style="list-style:none;padding:0;margin:12px 0;text-align:left;overflow-y:auto;max-height:220px;font-family:system-ui,-apple-system,sans-serif;">' +
+              (guestsHtml || '<li style="font-size:12px;color:#9CA3AF;text-align:center;padding:12px 0;">No guests assigned yet</li>') +
+            '</ul>' +
+            '<div style="border-top:1px solid #E5E7EB;padding-top:10px;display:flex;align-items:center;justify-content:space-between;text-align:left;">' +
+              '<div style="font-family:system-ui,sans-serif;">' +
+                '<div style="font-size:10px;font-weight:700;color:#1B4D3E;">SEATHARMONY DIGITAL GUESTBOOK</div>' +
+                '<div style="font-size:9px;color:#6B7280;">Scan to view table menu &amp; share photos</div>' +
+              '</div>' +
+              '<div style="width:42px;height:42px;border:1px solid #D1D5DB;border-radius:4px;display:flex;align-items:center;justify-content:center;background:#F9FAFB;font-size:18px;">📱</div>' +
+            '</div>' +
+          '</div>' +
+        '</div>' +
+        '<div style="padding:12px 18px;background:#FFFFFF;border-top:1px solid #E5E7EB;display:flex;justify-content:space-between;align-items:center;gap:10px;">' +
+          '<span style="font-size:12px;color:#6B7280;">Standard 4" × 6" Acrylic Stand / Card Frame</span>' +
+          '<div style="display:flex;gap:8px;">' +
+            '<button type="button" class="btn btn-outline" style="padding:6px 12px;font-size:13px;" onclick="document.getElementById(\\'' + modalId + '\\').remove()">Close</button>' +
+            '<button type="button" class="btn btn-emerald" style="padding:6px 14px;font-size:13px;font-weight:700;" onclick="window.print()">🖨️ Print 4"×6" Placard</button>' +
+          '</div>' +
+        '</div>' +
+      '</div>';
+    document.body.appendChild(div);
   };`;
 }
 

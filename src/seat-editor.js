@@ -927,6 +927,7 @@ function renderSeatEditorClientScript() {
     h.push('</div>');
     h.push('<div style="display:flex;gap:6px;margin-top:10px;flex-wrap:wrap;">');
     h.push('<button type="button" class="sh-ed-ghost" style="flex:1;padding:7px 10px;font-size:0.78rem;font-weight:700;background:#FAF8F5;border-color:#C8A96E;color:#78350F;white-space:nowrap;" onclick="window.shEdDuplicateTable(' + tIdx + ')">⎘ Duplicate Table</button>');
+    h.push('<button type="button" class="sh-ed-ghost" style="flex:1;padding:7px 10px;font-size:0.78rem;font-weight:700;background:#FFFFFF;border-color:#1B4D3E;color:#1B4D3E;white-space:nowrap;" onclick="window.shPrintTablePlacard(' + tIdx + ')">🪧 4"×6" Placard</button>');
     if (!isSweet && tables.length > 2) h.push('<button type="button" class="sh-ed-remove" style="flex:1;padding:7px 10px;font-size:0.78rem;margin:0;white-space:nowrap;" onclick="window.shEdRemoveTable(' + tIdx + ')">Remove table' + (t.guests.length ? ' (re-seat ' + t.guests.length + ')' : '') + '</button>');
     h.push('</div>');
     if (window.shEdKeepApartHtml) h.push(window.shEdKeepApartHtml());
