@@ -103,8 +103,8 @@ const VERTICAL_CONFIGS = {
       { key: 'gemini', label: '24"×36" Poster & QR', rowText: 'Event Print Pack ($7): Auto-generates your 24"×36" welcome sign PDF, Avery 5302 place cards, and cocktail-hour guest QR.' }
     ],
     affiliates: [
-      { title: 'FedEx Office 24"×36" Foam Board Printing', badge: 'Same-Day Pickup', cpa: 'Upload 24"×36" Poster PDF', url: 'https://www.office.fedex.com/' },
-      { title: 'Staples Same-Day Mounted Wedding Signs', badge: 'Print Partner', cpa: 'Order 24"×36" Sign', url: 'https://www.staples.com/' },
+      { title: 'FedEx Office 24"×36" Foam Board Printing', badge: 'Print Spec', cpa: 'Upload 24"×36" Poster PDF', url: 'https://www.office.fedex.com/' },
+      { title: 'Staples Mounted Wedding Signs (24"×36")', badge: 'Print Spec', cpa: 'Upload 24"×36" Poster PDF', url: 'https://www.staples.com/' },
       { title: 'Avery 5302 Tent Place Cards (2"×3.5")', badge: 'Escort Card Spec', cpa: 'View Cardstock Spec', url: 'https://www.avery.com/' }
     ],
     githubRepo: {

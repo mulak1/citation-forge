@@ -585,7 +585,7 @@ function renderZone3InteractiveStudio(plan) {
                 <div id="sh-poster-printshop-guarantee" style="margin-top:12px;padding:12px 16px;border-radius:12px;background:#FAF8F5;border:1px solid #E2D9C8;display:flex;flex-wrap:wrap;align-items:center;justify-content:space-between;gap:10px;font-size:13px;color:#1F1B18;">
                   <div style="display:flex;align-items:center;gap:8px;flex-wrap:wrap;min-width:0;">
                     <span style="font-weight:800;color:#1B4D3E;">&#10003; Print-Shop Ready:</span>
-                    <span style="color:#574F49;">FedEx Office &amp; Staples 24&Prime;&times;36&Prime; Mounted Foam-Board Spec &bull; 0.125&Prime; Bleed &bull; Avery 5302 2&Prime;&times;3.5&Prime; Cards &bull; Same-Day Local Pickup Compatible</span>
+                    <span style="color:#574F49;">Standard 24&Prime;&times;36&Prime; Arch D Spec &bull; 0.125&Prime; Bleed &bull; Avery 5302 2&Prime;&times;3.5&Prime; Cards &bull; Compatible with Any Print Shop</span>
                     <button type="button" id="sh-open-print-specs-btn" class="studio-tap-chip" onclick="window.shOpenPrintShopSpecsModal && window.shOpenPrintShopSpecsModal()" style="padding:2px 8px;font-size:0.72rem;font-weight:700;color:#1B4D3E;background:#FFFFFF;border:1px solid #C4DFD5;border-radius:999px;cursor:pointer;">1-Click Print Specs</button>
                   </div>
                   <div style="font-size:12px;color:#78350F;font-weight:700;background:#FFFBEB;border:1px solid #FDE68A;padding:4px 10px;border-radius:999px;white-space:nowrap;">
@@ -778,7 +778,7 @@ function renderZone3InteractiveStudio(plan) {
             <div>&bull; <strong>Trim Size:</strong> 24&Prime; &times; 36&Prime; (Arch D)</div>
             <div>&bull; <strong>Bleed Size:</strong> 24.25&Prime; &times; 36.25&Prime; (0.125&Prime; border safety)</div>
             <div>&bull; <strong>Substrate:</strong> 3/16&Prime; Rigid Foam-Core Board (Matte Finish)</div>
-            <div>&bull; <strong>Turnaround:</strong> Same-day local pickup at 1,800+ FedEx &amp; Staples stores</div>
+            <div>&bull; <strong>Compatibility:</strong> Ready to upload to FedEx Office, Staples, or any print shop</div>
           </div>
           <div style="padding:12px;border-radius:10px;background:#FAF8F5;border:1px solid #E5DEC9;">
             <strong style="color:#181412;display:block;margin-bottom:4px;">2. Folded Place Cards</strong>
@@ -885,7 +885,7 @@ function renderStudioPage(initialAudit) {
            </div>
            <div style="background:#FFFFFF;border:1px solid #E4DCD0;border-radius:14px;overflow:hidden;box-shadow:0 2px 10px rgba(31,27,24,0.04);">
              <img src="/public/ugc-welcome-sign-easel.jpg" alt="24x36 Arch D Reception Welcome Sign on Brass Easel" style="width:100%;height:165px;object-fit:cover;display:block;" loading="lazy" />
-             <div style="padding:12px 14px;"><strong style="font-size:0.9rem;color:#181412;display:block;">24&Prime;&times;36&Prime; Arch D Welcome Poster</strong><span style="font-size:0.78rem;color:#57534E;">300-DPI FedEx &amp; Staples same-day pickup PDF</span></div>
+             <div style="padding:12px 14px;"><strong style="font-size:0.9rem;color:#181412;display:block;">24&Prime;&times;36&Prime; Arch D Welcome Poster</strong><span style="font-size:0.78rem;color:#57534E;">300-DPI vector PDF with 0.125&Prime; bleed for foam-board printing</span></div>
            </div>
            <div style="background:#FFFFFF;border:1px solid #E4DCD0;border-radius:14px;overflow:hidden;box-shadow:0 2px 10px rgba(31,27,24,0.04);">
              <img src="/public/ugc-escort-cards-wax.jpg" alt="Avery 5302 Meal-Coded Tent Place Cards" style="width:100%;height:165px;object-fit:cover;display:block;" loading="lazy" />

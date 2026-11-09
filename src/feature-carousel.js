@@ -307,7 +307,7 @@ function renderZone5FaqAndZone6Close(sampleSeoPages = [], plan = {}) {
             </ul>
           </div>
           <div style="font-size:11px;color:#78350F;font-weight:700;background:#FFFBEB;border:1px solid #FDE68A;padding:3px 8px;border-radius:6px;text-align:center;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;">
-            &#10003; Same-Day FedEx &amp; Staples Pickup &bull; 30-Day Guarantee
+            &#10003; Print-Shop Ready (0.125&Prime; Bleed) &bull; 30-Day Guarantee
           </div>
           <a id="pricing-buy-pack" href="/buy/complete_dossier?target=estate-150&amp;vault=${vId}&amp;allow_promotion_codes=false" class="btn btn-primary" style="width:100%;padding:10px 14px;font-size:0.88rem;white-space:normal;text-align:center;line-height:1.3;">Unlock Print &amp; Day-Of Pack ($7) &rarr;</a>
         </div>
