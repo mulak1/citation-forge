@@ -330,6 +330,7 @@ function attachVaultAndPaywallRoutes(app, publicUrl, ebStore = null) {
 
   app.get('/print/floorplan/:vaultId', async (req, res) => {
     try {
+      res.setHeader('X-Robots-Tag', 'noindex');
       const vault = await resolveVaultRecord(req.params.vaultId, req.query), urls = buildVaultUrls(baseUrl, vault.vaultId);
       return res.status(200).type('html').send(renderFloorplanPrintPage({ vault, urls, baseUrl, req }));
     } catch (err) { return res.status(500).send('Internal Server Error'); }
@@ -337,6 +338,7 @@ function attachVaultAndPaywallRoutes(app, publicUrl, ebStore = null) {
 
   app.get('/print/poster/:vaultId', async (req, res) => {
     try {
+      res.setHeader('X-Robots-Tag', 'noindex');
       const vault = await resolveVaultRecord(req.params.vaultId, req.query);
       const urls = buildVaultUrls(baseUrl, vault.vaultId);
       const html = renderPosterPrintPage(vault, urls, req.query);
@@ -349,6 +351,7 @@ function attachVaultAndPaywallRoutes(app, publicUrl, ebStore = null) {
   // 6. Avery 5302 Folded Tent Place Cards Print Sheet (GET /print/avery-5302/:vaultId)
   app.get('/print/avery-5302/:vaultId', async (req, res) => {
     try {
+      res.setHeader('X-Robots-Tag', 'noindex');
       const vault = await resolveVaultRecord(req.params.vaultId, req.query);
       const urls = buildVaultUrls(baseUrl, vault.vaultId);
       const html = renderAveryPrintPage(vault, urls, req.query);
@@ -361,6 +364,7 @@ function attachVaultAndPaywallRoutes(app, publicUrl, ebStore = null) {
   // 7. Signed Clockwise 12:00 Caterer Meal Sheet Packet (GET /print/beo/:vaultId)
   app.get('/print/beo/:vaultId', async (req, res) => {
     try {
+      res.setHeader('X-Robots-Tag', 'noindex');
       const vault = await resolveVaultRecord(req.params.vaultId, req.query), urls = buildVaultUrls(baseUrl, vault.vaultId);
       const guests = extractAllSeatedGuests(vault.state), tables = Array.isArray(vault.state.tables) ? vault.state.tables : [];
       const allergies = guests.filter(g => g.allergy && g.allergy !== 'None'), chairMods = guests.filter(g => g.accessibility && g.accessibility !== 'Standard Chair');
@@ -558,6 +562,7 @@ function attachVaultAndPaywallRoutes(app, publicUrl, ebStore = null) {
   // 7b. Banquet Server Station & Simultaneous Plating Route Guide (GET /print/server-stations/:vaultId)
   app.get('/print/server-stations/:vaultId', async (req, res) => {
     try {
+      res.setHeader('X-Robots-Tag', 'noindex');
       const vault = await resolveVaultRecord(req.params.vaultId, req.query);
       const urls = buildVaultUrls(baseUrl, vault.vaultId);
       return res.status(200).type('html').send(renderServerStationRoutePage(vault, urls, req.query));
@@ -567,6 +572,7 @@ function attachVaultAndPaywallRoutes(app, publicUrl, ebStore = null) {
   // 7c. Cocktail-to-Reception Room Turnover Brief (GET /print/turnover-brief/:vaultId)
   app.get('/print/turnover-brief/:vaultId', async (req, res) => {
     try {
+      res.setHeader('X-Robots-Tag', 'noindex');
       const vault = await resolveVaultRecord(req.params.vaultId, req.query);
       const urls = buildVaultUrls(baseUrl, vault.vaultId);
       return res.status(200).type('html').send(renderTurnoverBriefPage(vault, urls, req.query));
@@ -575,6 +581,7 @@ function attachVaultAndPaywallRoutes(app, publicUrl, ebStore = null) {
 
   app.get('/qr/:vaultId', async (req, res) => {
     try {
+      res.setHeader('X-Robots-Tag', 'noindex');
       const vault = await resolveVaultRecord(req.params.vaultId, req.query), urls = buildVaultUrls(baseUrl, vault.vaultId);
       const guests = extractAllSeatedGuests(vault.state).sort((a, b) => a.name.localeCompare(b.name)), tables = Array.isArray(vault.state.tables) ? vault.state.tables : [];
       const monogram = computeMonogram(vault.title), qrImgUrl = buildRealQrUrl(urls.qr_lookup), fallbackQrUri = buildInlineQrDataUri(urls.qr_lookup);

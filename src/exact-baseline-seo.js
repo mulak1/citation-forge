@@ -334,7 +334,7 @@ function attachUniversalSeoAndAiRoutes(app, cfg, store, classifyTrafficRequest, 
       img: `${hostUrl}/api/og?slug=${encodeURIComponent(e.slug)}`,
       title: e.title
     }));
-    const all = [...staticUrls, ...seoUrls];
+    const all = Array.from(new Map([...staticUrls, ...seoUrls].map((u) => [u.loc, u])).values());
     const body = all.map((u) => {
       const imgBlock = u.img
         ? `\n    <image:image>\n      <image:loc>${escXml(u.img)}</image:loc>\n      <image:title>${escXml(u.title || cfg.brandName)}</image:title>\n    </image:image>`
@@ -877,6 +877,7 @@ function enhanceHtmlForSearchAndAiBots(html, cfg, reqPath) {
       {
         '@type': 'BreadcrumbList',
         '@id': `${canonicalUrl}#breadcrumb`,
+        name: `${pageTitle} Breadcrumbs`,
         itemListElement: [
           { '@type': 'ListItem', position: 1, name: cfg.brandName, item: `${hostUrl}/` },
           { '@type': 'ListItem', position: 2, name: 'Benchmark Directory', item: `${hostUrl}/directory` },
@@ -889,6 +890,7 @@ function enhanceHtmlForSearchAndAiBots(html, cfg, reqPath) {
         name: `${pageTitle}: Verified 2026 Dataset`,
         description: pageDesc,
         url: canonicalUrl,
+        isAccessibleForFree: true,
         creator: { '@id': `${hostUrl}/#organization` },
         license: 'https://creativecommons.org/licenses/by/4.0/',
         variableMeasured: cfg.kpis.map((k) => k.label),

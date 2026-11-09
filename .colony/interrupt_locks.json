@@ -1,137 +1,24 @@
 {
+  "global": {
+    "status": "COHORT_GATED_REPLACEMENT_ONLY",
+    "rule": "ZERO_ADDITIVE_BOXES_REPLACEMENT_ONLY_COHORT_GATED",
+    "updated_at_utc": "2026-11-09T00:24:48.578037+00:00"
+  },
   "bar_stock": {
-    "state": "PAUSED_FOR_HUMAN_INTERRUPT",
-    "reason": "User interrupt: Purge emoji micro-chip soup & 11px rainbow button clutter across PulseForge workbench and BarStock tabs",
-    "updated_at": "2026-11-08T23:50:45.948769+00:00"
-  },
-  "car_floor": {
-    "state": "PAUSED_FOR_HUMAN_INTERRUPT",
-    "reason": "User interrupt: Purge emoji micro-chip soup & 11px rainbow button clutter across PulseForge workbench and BarStock tabs",
-    "updated_at": "2026-11-08T23:50:45.948770+00:00"
-  },
-  "glowindex": {
-    "state": "PAUSED_FOR_HUMAN_INTERRUPT",
-    "reason": "User interrupt: Purge emoji micro-chip soup & 11px rainbow button clutter across PulseForge workbench and BarStock tabs",
-    "updated_at": "2026-11-08T23:50:45.948749+00:00"
+    "status": "PAUSED_BY_USER",
+    "paused_at_utc": "2026-11-09T00:24:48.578037+00:00",
+    "reason": "User directive: Pause BarStock so it stops appending 11px boxes"
   },
   "seatharmony": {
-    "state": "PAUSED_FOR_HUMAN_INTERRUPT",
-    "reason": "User interrupt: Purge emoji micro-chip soup & 11px rainbow button clutter across PulseForge workbench and BarStock tabs",
-    "updated_at": "2026-11-08T23:50:45.948750+00:00"
+    "project_id": "seatharmony",
+    "state": "PAUSED_FOR_HUMAN_TASK",
+    "active_human_task": "OVERMIND_P0_VISUAL_COGNITIVE_LOAD_CLEANUP_PAUSE"
   },
-  "pace_forge": {
-    "state": "PAUSED_FOR_HUMAN_INTERRUPT",
-    "reason": "User interrupt: Purge emoji micro-chip soup & 11px rainbow button clutter across PulseForge workbench and BarStock tabs",
-    "updated_at": "2026-11-08T23:50:45.948772+00:00"
-  },
-  "mortgage_recast": {
-    "state": "PAUSED_FOR_HUMAN_INTERRUPT",
-    "reason": "User interrupt: Purge emoji micro-chip soup & 11px rainbow button clutter across PulseForge workbench and BarStock tabs",
-    "updated_at": "2026-11-08T23:50:45.948752+00:00"
-  },
-  "sponsor-radar": {
-    "state": "PAUSED_FOR_HUMAN_INTERRUPT",
-    "reason": "User interrupt: Purge emoji micro-chip soup & 11px rainbow button clutter across PulseForge workbench and BarStock tabs",
-    "updated_at": "2026-11-08T23:50:45.948753+00:00"
-  },
-  "derm_logic": {
-    "state": "PAUSED_FOR_HUMAN_INTERRUPT",
-    "reason": "User interrupt: Purge emoji micro-chip soup & 11px rainbow button clutter across PulseForge workbench and BarStock tabs",
-    "updated_at": "2026-11-08T23:50:45.948773+00:00"
-  },
-  "pulseforge": {
-    "state": "PAUSED_FOR_HUMAN_INTERRUPT",
-    "reason": "User interrupt: Purge emoji micro-chip soup & 11px rainbow button clutter across PulseForge workbench and BarStock tabs",
-    "updated_at": "2026-11-08T23:50:45.948755+00:00"
-  },
-  "abandon_alpha": {
-    "state": "PAUSED_FOR_HUMAN_INTERRUPT",
-    "reason": "User interrupt: Purge emoji micro-chip soup & 11px rainbow button clutter across PulseForge workbench and BarStock tabs",
-    "updated_at": "2026-11-08T23:50:45.948777+00:00"
-  },
-  "/users/kadermula/downloads/ideas/studio/sponsor-radar": {
-    "state": "PAUSED_FOR_HUMAN_INTERRUPT",
-    "reason": "User interrupt: Purge emoji micro-chip soup & 11px rainbow button clutter across PulseForge workbench and BarStock tabs",
-    "updated_at": "2026-11-08T23:50:45.948756+00:00"
-  },
-  "BarStock": {
-    "state": "PAUSED_FOR_HUMAN_INTERRUPT",
-    "reason": "User interrupt: Purge emoji micro-chip soup & 11px rainbow button clutter across PulseForge workbench and BarStock tabs",
-    "updated_at": "2026-11-08T23:50:45.948757+00:00"
-  },
-  "CarFloor": {
-    "state": "PAUSED_FOR_HUMAN_INTERRUPT",
-    "reason": "User interrupt: Purge emoji micro-chip soup & 11px rainbow button clutter across PulseForge workbench and BarStock tabs",
-    "updated_at": "2026-11-08T23:50:45.948758+00:00"
-  },
-  "DermLogic": {
-    "state": "PAUSED_FOR_HUMAN_INTERRUPT",
-    "reason": "User interrupt: Purge emoji micro-chip soup & 11px rainbow button clutter across PulseForge workbench and BarStock tabs",
-    "updated_at": "2026-11-08T23:50:45.948759+00:00"
-  },
-  "GlowIndex": {
-    "state": "PAUSED_FOR_HUMAN_INTERRUPT",
-    "reason": "User interrupt: Purge emoji micro-chip soup & 11px rainbow button clutter across PulseForge workbench and BarStock tabs",
-    "updated_at": "2026-11-08T23:50:45.948760+00:00"
-  },
-  "SeatHarmony": {
-    "state": "PAUSED_FOR_HUMAN_INTERRUPT",
-    "reason": "User interrupt: Purge emoji micro-chip soup & 11px rainbow button clutter across PulseForge workbench and BarStock tabs",
-    "updated_at": "2026-11-08T23:50:45.948761+00:00"
-  },
-  "PaceForge": {
-    "state": "PAUSED_FOR_HUMAN_INTERRUPT",
-    "reason": "User interrupt: Purge emoji micro-chip soup & 11px rainbow button clutter across PulseForge workbench and BarStock tabs",
-    "updated_at": "2026-11-08T23:50:45.948761+00:00"
-  },
-  "RateRecast": {
-    "state": "PAUSED_FOR_HUMAN_INTERRUPT",
-    "reason": "User interrupt: Purge emoji micro-chip soup & 11px rainbow button clutter across PulseForge workbench and BarStock tabs",
-    "updated_at": "2026-11-08T23:50:45.948762+00:00"
-  },
-  "SponsorRadar": {
-    "state": "PAUSED_FOR_HUMAN_INTERRUPT",
-    "reason": "User interrupt: Purge emoji micro-chip soup & 11px rainbow button clutter across PulseForge workbench and BarStock tabs",
-    "updated_at": "2026-11-08T23:50:45.948763+00:00"
-  },
-  "PulseForge": {
-    "state": "PAUSED_FOR_HUMAN_INTERRUPT",
-    "reason": "User interrupt: Purge emoji micro-chip soup & 11px rainbow button clutter across PulseForge workbench and BarStock tabs",
-    "updated_at": "2026-11-08T23:50:45.948764+00:00"
-  },
-  "AbandonAlpha": {
-    "state": "PAUSED_FOR_HUMAN_INTERRUPT",
-    "reason": "User interrupt: Purge emoji micro-chip soup & 11px rainbow button clutter across PulseForge workbench and BarStock tabs",
-    "updated_at": "2026-11-08T23:50:45.948764+00:00"
-  },
-  "sponsor_radar": {
-    "state": "PAUSED_FOR_HUMAN_INTERRUPT",
-    "reason": "User interrupt: Purge emoji micro-chip soup & 11px rainbow button clutter across PulseForge workbench and BarStock tabs",
-    "updated_at": "2026-11-08T23:50:45.948775+00:00"
-  },
-  "glow_index": {
-    "state": "PAUSED_FOR_HUMAN_INTERRUPT",
-    "reason": "User interrupt: Purge emoji micro-chip soup & 11px rainbow button clutter across PulseForge workbench and BarStock tabs",
-    "updated_at": "2026-11-08T23:50:45.948774+00:00"
-  },
-  "seat_harmony": {
-    "state": "PAUSED_FOR_HUMAN_INTERRUPT",
-    "reason": "User interrupt: Purge emoji micro-chip soup & 11px rainbow button clutter across PulseForge workbench and BarStock tabs",
-    "updated_at": "2026-11-08T23:50:45.948775+00:00"
-  },
-  "rate_recast": {
-    "state": "PAUSED_FOR_HUMAN_INTERRUPT",
-    "reason": "User interrupt: Purge emoji micro-chip soup & 11px rainbow button clutter across PulseForge workbench and BarStock tabs",
-    "updated_at": "2026-11-08T23:50:45.948771+00:00"
-  },
-  "pulse_forge": {
-    "state": "PAUSED_FOR_HUMAN_INTERRUPT",
-    "reason": "User interrupt: Purge emoji micro-chip soup & 11px rainbow button clutter across PulseForge workbench and BarStock tabs",
-    "updated_at": "2026-11-08T23:50:45.948776+00:00"
-  },
-  "overmind_fleet": {
-    "state": "PAUSED_FOR_HUMAN_INTERRUPT",
-    "reason": "User interrupt: Purge emoji micro-chip soup & 11px rainbow button clutter across PulseForge workbench and BarStock tabs",
-    "updated_at": "2026-11-08T23:50:45.948778+00:00"
+  "citation-forge": {
+    "project": "citation-forge",
+    "state": "ACTIVE_LOOP",
+    "resumed_at": 1794198249.904704,
+    "last_paused_reason": "",
+    "reason": "Guardrail #31 verified across all 10 sites on Desktop + Mobile"
   }
 }

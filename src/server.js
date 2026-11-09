@@ -239,10 +239,12 @@ app.get('/seo/:slug', (req, res) => {
 
 // 5. Legal Routes (`GET /privacy`, `GET /terms`)
 app.get('/privacy', (req, res) => {
+  res.setHeader('X-Robots-Tag', 'noindex, follow');
   res.status(200).type('html').send(renderLegalPage('privacy'));
 });
 
 app.get('/terms', (req, res) => {
+  res.setHeader('X-Robots-Tag', 'noindex, follow');
   res.status(200).type('html').send(renderLegalPage('terms'));
 });
 
@@ -306,7 +308,7 @@ app.get(`/${INDEXNOW_KEY}.txt`, (req, res) => {
 
 app.get('/sitemap.xml', (req, res) => {
   const baseUrl = resolvePublicOrigin(req);
-  const staticPaths = ['/', '/lp', '/directory', '/privacy', '/terms', '/llms.txt', '/llms-full.txt'];
+  const staticPaths = ['/', '/lp', '/directory', '/llms.txt', '/llms-full.txt'];
   const seoSlugs = queryAll('SELECT slug, updated_at FROM seo_pages ORDER BY id ASC');
 
   const urlNodes = [
@@ -346,6 +348,7 @@ app.all('/api/seo/indexnow', async (req, res) => {
 
 // 9. Dynamic SVG OpenGraph Image Generator (`GET /api/og`)
 app.get('/api/og', (req, res) => {
+  res.setHeader('X-Robots-Tag', 'noindex');
   const slug = String(req.query.slug || 'home').trim();
   const pageRow = queryOne('SELECT title, category, csov_score FROM seo_pages WHERE slug = ?', [slug]);
   const svg = renderOgImageSvg({
