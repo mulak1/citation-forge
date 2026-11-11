@@ -237,7 +237,41 @@ app.get('/seo/:slug', (req, res) => {
   res.status(200).type('html').send(renderSeoDetailPage(pageRow, relatedPages));
 });
 
-// 5. Legal Routes (`GET /privacy`, `GET /terms`)
+// 5. Legal Routes (`GET /privacy`, `GET /terms`) & Self-Serve Privacy/Erasure API
+const PRIVACY_OPTOUT_FILE = path.join(__dirname, '..', 'data', 'privacy_optouts.json');
+app.post('/api/privacy-optout', (req, res) => {
+  const fs = require('fs');
+  const email = String((req.body && req.body.email) || '').trim().toLowerCase().slice(0, 180);
+  const entity = String((req.body && (req.body.entity || req.body.url_or_entity)) || '').trim().slice(0, 260);
+  const reason = String((req.body && req.body.reason) || 'opt_out_or_deletion').trim().slice(0, 500);
+  if (!email || !email.includes('@')) return res.status(400).json({ ok: false, error: 'Valid email required' });
+  let deletedRows = 0;
+  try {
+    const { db } = require('./db');
+    if (db && typeof db.prepare === 'function') {
+      const r1 = db.prepare('DELETE FROM eb_leads WHERE lower(email) = ?').run(email);
+      deletedRows += (r1 && r1.changes) || 0;
+    }
+  } catch (_) {}
+  let list = [];
+  try { if (fs.existsSync(PRIVACY_OPTOUT_FILE)) list = JSON.parse(fs.readFileSync(PRIVACY_OPTOUT_FILE, 'utf8')); } catch (_) {}
+  const masked = email[0] + '***@' + email.split('@')[1];
+  const record = { id: 'optout_' + Date.now(), email_masked: masked, entity, reason, deleted_db_rows: deletedRows, status: 'processed_and_purged', created_at: new Date().toISOString() };
+  list.unshift(record);
+  try {
+    fs.mkdirSync(path.dirname(PRIVACY_OPTOUT_FILE), { recursive: true });
+    fs.writeFileSync(PRIVACY_OPTOUT_FILE, JSON.stringify(list.slice(0, 500), null, 2));
+  } catch (_) {}
+  res.json({ ok: true, request: record });
+});
+
+app.get('/api/privacy-optouts', (req, res) => {
+  const fs = require('fs');
+  let list = [];
+  try { if (fs.existsSync(PRIVACY_OPTOUT_FILE)) list = JSON.parse(fs.readFileSync(PRIVACY_OPTOUT_FILE, 'utf8')); } catch (_) {}
+  res.json({ ok: true, count: list.length, requests: list.slice(0, 50) });
+});
+
 app.get('/privacy', (req, res) => {
   res.setHeader('X-Robots-Tag', 'noindex, follow');
   res.status(200).type('html').send(renderLegalPage('privacy'));

@@ -395,7 +395,7 @@ function attachAutonomousGrowthEngine(app, cfg, store, renderHtmlFn, classifyFn)
       title: `${cfg.brandName} MCP Server`,
       version: '3.0.0',
       homepage: `https://${cfg.domain}`,
-      repository: `https://github.com/mulak1/${cfg.moduleId.replace(/_/g, '-')}`,
+      repository: `https://${cfg.domain}/openapi.json`,
       transport: { type: 'http-json-rpc', endpoint: `https://${cfg.domain}/api/mcp/rpc` },
       tools: [
         { name: `audit_${cfg.moduleId}`, description: `Run deterministic ${g.categoryTag} audit and return canonical report URL + KPIs`, inputSchema: { type: 'object', properties: { query: { type: 'string' } }, required: ['query'] } },
