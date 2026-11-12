@@ -19,10 +19,10 @@ const { attachVaultAndPaywallRoutes, resolveVaultRecord } = require('./vault-rou
 
 const PORT = Number(process.env.PORT || 4101);
 const HOST = process.env.HOST || '0.0.0.0';
-const PUBLIC_URL = (process.env.PUBLIC_URL || process.env.BASE_URL || 'https://www.seatharmony.io').replace(/\/$/, '');
+const PUBLIC_URL = (process.env.PUBLIC_URL || process.env.BASE_URL || 'https://seatharmony.io').replace(/\/$/, '');
 function resolvePublicOrigin(req) {
   const h = String((req && (req.headers['x-forwarded-host'] || req.headers.host)) || '').split(',')[0].trim().toLowerCase();
-  return h.includes('seatharmony.io') ? 'https://www.seatharmony.io' : PUBLIC_URL;
+  return h.includes('seatharmony.io') ? (h.startsWith('www.') ? 'https://www.seatharmony.io' : 'https://seatharmony.io') : PUBLIC_URL;
 }
 
 const app = express();
@@ -30,11 +30,11 @@ app.use('/public', express.static(path.join(__dirname, '..', 'public')));
 app.use(express.json({ limit: '1mb' }));
 app.use(express.urlencoded({ extended: true }));
 
-// Security headers, HTTPS enforcement & legacy citationforge.io / apex seatharmony.io -> www.seatharmony.io 301 redirect
+// Security headers, HTTPS enforcement & legacy citationforge.io -> seatharmony.io 301 redirect
 app.use((req, res, next) => {
   const host = String(req.headers['x-forwarded-host'] || req.headers.host || '').split(',')[0].trim().toLowerCase();
-  if ((host === 'seatharmony.io' || host === 'citationforge.io' || host === 'www.citationforge.io') && !req.path.startsWith('/api/')) {
-    return res.redirect(301, `https://www.seatharmony.io${req.originalUrl}`);
+  if ((host === 'citationforge.io' || host === 'www.citationforge.io') && !req.path.startsWith('/api/')) {
+    return res.redirect(301, `https://seatharmony.io${req.originalUrl}`);
   }
   if (req.headers['x-forwarded-proto'] === 'http') {
     return res.redirect(301, `${resolvePublicOrigin(req)}${req.originalUrl}`);
@@ -364,7 +364,7 @@ app.get('/sitemap.xml', (req, res) => {
 
 app.all('/api/seo/indexnow', async (req, res) => {
   try {
-    const host = 'www.seatharmony.io';
+    const host = req.headers.host && req.headers.host.includes('seatharmony.io') ? req.headers.host : 'seatharmony.io';
     const baseUrl = `https://${host}`;
     const seoSlugs = queryAll('SELECT slug FROM seo_pages ORDER BY id ASC');
     const urlList = [

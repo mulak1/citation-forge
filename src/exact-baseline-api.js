@@ -25,7 +25,7 @@ const VERTICAL_CONFIGS = {
   citation_forge: {
     moduleId: 'citation_forge',
     brandName: 'SeatHarmony',
-    domain: 'www.seatharmony.io',
+    domain: 'seatharmony.io',
     accentColor: '#1B4D3E',
     theme: {
       canvasBg: '#FAF7F2', cardBg: '#FFFFFF', subtleBg: '#F5EFE6', dockBg: 'rgba(250, 247, 242, 0.98)',
